@@ -174,17 +174,15 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                plugin.Gui = gui;
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>
@@ -209,47 +207,45 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
         public void ContextMenuStrip_WithContext_AddCustomItems()
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
             {
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var failureMechanism = new HeightStructuresFailureMechanism();
-                var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                // Assert
+                Assert.AreEqual(12, menu.Items.Count);
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeView).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
+                                                              "Alles &valideren",
+                                                              "Er zijn geen berekeningen om te valideren.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                              "Alles be&rekenen",
+                                                              "Er zijn geen berekeningen om uit te voeren.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon,
+                                                              false);
 
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                {
-                    // Assert
-                    Assert.AreEqual(12, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                                  "Alles &valideren",
-                                                                  "Er zijn geen berekeningen om te valideren.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndex,
-                                                                  "&Wis alle uitvoer...",
-                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
-                                                                  "Wis alle &illustratiepunten...",
-                                                                  "Er zijn geen berekeningen met illustratiepunten om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
-                                                                  false);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndex,
+                                                              "&Wis alle uitvoer...",
+                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
+                                                              "Wis alle &illustratiepunten...",
+                                                              "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                              false);
             }
         }
 
@@ -265,23 +261,21 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit faalmechanisme uit.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                              "Alles be&rekenen",
+                                                              "Voer alle berekeningen binnen dit faalmechanisme uit.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
             }
         }
 
@@ -297,23 +291,21 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                                  "Alles &valideren",
-                                                                  "Valideer alle berekeningen binnen dit faalmechanisme.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
+                                                              "Alles &valideren",
+                                                              "Valideer alle berekeningen binnen dit faalmechanisme.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon);
             }
         }
 
@@ -392,48 +384,46 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
                                  return new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
                              });
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+
+            plugin.Gui = gui;
+
+            DialogBoxHandler = (name, wnd) =>
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+                // Expect an activity dialog which is automatically closed
+            };
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>
                 {
-                    // Expect an activity dialog which is automatically closed
-                };
+                    List<string> messageList = messages.ToList();
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                {
-                    // Call
-                    TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>
-                    {
-                        List<string> messageList = messages.ToList();
+                    // Assert
+                    Assert.AreEqual(14, messageList.Count);
+                    Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", messageList[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
+                    StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", messageList[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[5]);
+                    Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", messageList[6]);
 
-                        // Assert
-                        Assert.AreEqual(14, messageList.Count);
-                        Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", messageList[0]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
-                        StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", messageList[4]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[5]);
-                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", messageList[6]);
-
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", messageList[7]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[8]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[9]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[10]);
-                        StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", messageList[11]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[12]);
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", messageList[13]);
-                    });
-                }
+                    Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", messageList[7]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messageList[8]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messageList[9]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[10]);
+                    StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie", messageList[11]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[12]);
+                    Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", messageList[13]);
+                });
             }
 
             calculatorFactory.Received(nrOfCalculators).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
@@ -497,32 +487,30 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
 
             var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // Call
+                void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
 
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
-                    // Call
-                    void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+                    string[] messageList = messages.ToArray();
 
-                    // Assert
-                    TestHelper.AssertLogMessages(Call, messages =>
-                    {
-                        string[] messageList = messages.ToArray();
-
-                        Assert.AreEqual(4, messageList.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[1]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[2]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[3]);
-                    });
-                }
+                    Assert.AreEqual(4, messageList.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messageList[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messageList[1]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messageList[2]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messageList[3]);
+                });
             }
         }
 
@@ -558,22 +546,20 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // Call
+                ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
 
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsTrue(toolStripItem.Enabled);
-                }
+                // Assert
+                Assert.IsTrue(toolStripItem.Enabled);
             }
         }
 
@@ -603,22 +589,20 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // Call
+                ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
 
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsFalse(toolStripItem.Enabled);
-                }
+                // Assert
+                Assert.IsFalse(toolStripItem.Enabled);
             }
         }
 
@@ -666,25 +650,23 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
                 helper.ClickCancel();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // When
+                contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
-                plugin.Gui = gui;
+                // Then
+                Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
-
-                    // Then
-                    Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
-
-                    Assert.IsTrue(calculationWithOutput.HasOutput);
-                    Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
-                }
+                Assert.IsTrue(calculationWithOutput.HasOutput);
+                Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
             }
         }
 
@@ -735,25 +717,23 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
                 helper.ClickOk();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // When
+                contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
-                plugin.Gui = gui;
+                // Then
+                Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
-
-                    // Then
-                    Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
-
-                    Assert.IsTrue(calculationWithOutput.HasOutput);
-                    Assert.IsFalse(calculationWithIllustrationPoints.Output.HasGeneralResult);
-                }
+                Assert.IsTrue(calculationWithOutput.HasOutput);
+                Assert.IsFalse(calculationWithIllustrationPoints.Output.HasGeneralResult);
             }
 
             affectedCalculationObserver.Received(1).UpdateObserver();

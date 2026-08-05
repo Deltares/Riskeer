@@ -101,33 +101,31 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
+
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
-
-                using (var plugin = new WaveImpactAsphaltCoverPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-
-                    // Call
-                    info.ContextMenuStrip(null, null, treeViewControl);
-                }
-
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddOpenItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
+                // Call
+                info.ContextMenuStrip(null, null, treeViewCommands);
             }
+
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         private static TreeNodeInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)

@@ -175,43 +175,41 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_ReturnContextMenuStrip()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+
+            var emptyCollection = new ForeshoreProfileCollection();
+            var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
+
+            var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
+            contextMenuBuilder.AddImportItem().Returns(contextMenuBuilder);
+            contextMenuBuilder.AddUpdateItem().Returns(contextMenuBuilder);
+            contextMenuBuilder.AddSeparator().Returns(contextMenuBuilder);
+            contextMenuBuilder.AddCollapseAllItem().Returns(contextMenuBuilder);
+            contextMenuBuilder.AddExpandAllItem().Returns(contextMenuBuilder);
+            contextMenuBuilder.AddPropertiesItem().Returns(contextMenuBuilder);
+
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(contextMenuBuilder);
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
+
+            // Assert
+            plugin.Dispose();
+            Received.InOrder(() =>
             {
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
-
-                var emptyCollection = new ForeshoreProfileCollection();
-                var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
-
-                var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
-                contextMenuBuilder.AddImportItem().Returns(contextMenuBuilder);
-                contextMenuBuilder.AddUpdateItem().Returns(contextMenuBuilder);
-                contextMenuBuilder.AddSeparator().Returns(contextMenuBuilder);
-                contextMenuBuilder.AddCollapseAllItem().Returns(contextMenuBuilder);
-                contextMenuBuilder.AddExpandAllItem().Returns(contextMenuBuilder);
-                contextMenuBuilder.AddPropertiesItem().Returns(contextMenuBuilder);
-
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeViewControl).Returns(contextMenuBuilder);
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-
-                // Assert
-                plugin.Dispose();
-                Received.InOrder(() =>
-                {
-                    contextMenuBuilder.AddImportItem();
-                    contextMenuBuilder.AddUpdateItem();
-                    contextMenuBuilder.AddSeparator();
-                    contextMenuBuilder.AddCollapseAllItem();
-                    contextMenuBuilder.AddExpandAllItem();
-                    contextMenuBuilder.AddSeparator();
-                    contextMenuBuilder.AddPropertiesItem();
-                    contextMenuBuilder.Build();
-                });
-            }
+                contextMenuBuilder.AddImportItem();
+                contextMenuBuilder.AddUpdateItem();
+                contextMenuBuilder.AddSeparator();
+                contextMenuBuilder.AddCollapseAllItem();
+                contextMenuBuilder.AddExpandAllItem();
+                contextMenuBuilder.AddSeparator();
+                contextMenuBuilder.AddPropertiesItem();
+                contextMenuBuilder.Build();
+            });
         }
     }
 }

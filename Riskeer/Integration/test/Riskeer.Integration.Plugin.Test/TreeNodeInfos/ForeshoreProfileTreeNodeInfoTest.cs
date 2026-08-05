@@ -110,17 +110,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             IGui gui = StubFactory.CreateGuiStub();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
+            using (var p = new RiskeerPlugin())
             {
-                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
-                using (var p = new RiskeerPlugin())
-                {
-                    p.Gui = gui;
-                    TreeNodeInfo i = p.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ForeshoreProfile));
+                p.Gui = gui;
+                TreeNodeInfo i = p.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ForeshoreProfile));
 
-                    // Call
-                    i.ContextMenuStrip(null, null, treeViewControl);
-                }
+                // Call
+                i.ContextMenuStrip(null, null, treeViewCommands);
             }
 
             // Assert

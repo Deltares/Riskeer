@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using NUnit.Framework;
+using NSubstitute;
 
 namespace Core.Common.Controls.TreeView.Test
 {
@@ -331,11 +332,11 @@ namespace Core.Common.Controls.TreeView.Test
             TreeNodeInfo treeNodeInfo = genericTreeNodeInfo;
 
             // Assert
-            using (var treeViewControl = new TreeViewControl())
-            using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(0, 1, treeViewControl))
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(0, 1, treeViewCommands))
             {
                 Assert.AreEqual(1, contextMenuStrip.Items.Count);
-                treeNodeInfo.OnDrop(0, 1, 2, 3, treeViewControl);
+                treeNodeInfo.OnDrop(0, 1, 2, 3, treeViewCommands);
                 Assert.AreEqual(1, onDropCounter);
             }
 

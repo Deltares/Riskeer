@@ -102,16 +102,14 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(null, treeViewControl).Returns(menuBuilder);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(null, treeViewCommands).Returns(menuBuilder);
 
-                plugin.Gui = gui;
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(null, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(null, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>

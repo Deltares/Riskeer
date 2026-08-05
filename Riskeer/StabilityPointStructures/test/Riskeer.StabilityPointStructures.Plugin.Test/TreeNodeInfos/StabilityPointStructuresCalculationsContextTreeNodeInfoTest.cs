@@ -201,18 +201,18 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
             {
                 var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.Get(context, treeViewCommands).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
 
             // Assert
@@ -238,8 +238,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithContext_AddCustomItems()
         {
             // Setup
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeView = new TreeViewControl())
             {
                 var assessmentSection = Substitute.For<IAssessmentSection>();
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -247,7 +247,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = Substitute.For<IGui>();
-                gui.Get(context, treeView).Returns(menuBuilder);
+                gui.Get(context, treeViewCommands).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
@@ -255,7 +255,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
                 {
                     // Assert
                     Assert.AreEqual(12, menu.Items.Count);
@@ -297,18 +297,18 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
             {
                 var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
@@ -391,13 +391,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
             {
                 IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
                 var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.Get(context, treeViewCommands).Returns(menuBuilder);
                 gui.MainWindow.Returns(mainWindow);
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
@@ -421,7 +421,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     // Expect an activity dialog which is automatically closed
                 };
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // Call
@@ -515,18 +515,18 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
+                gui.Get(context, treeViewCommands).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
                 TreeNodeInfo info = GetInfo(plugin);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
                 {
                     // Call
                     void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
@@ -578,18 +578,18 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
             {
                 var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
                 TreeNodeInfo info = GetInfo(plugin);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
                 {
                     // Call
                     ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
@@ -626,18 +626,18 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
             {
                 var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
 
                 TreeNodeInfo info = GetInfo(plugin);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
                 {
                     // Call
                     ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
@@ -692,17 +692,17 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 helper.ClickCancel();
             };
 
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
             {
                 var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
                 TreeNodeInfo info = GetInfo(plugin);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
                 {
                     // When
                     contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
@@ -763,17 +763,17 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 helper.ClickOk();
             };
 
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
             {
                 var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
                 plugin.Gui = gui;
                 TreeNodeInfo info = GetInfo(plugin);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
                 {
                     // When
                     contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();

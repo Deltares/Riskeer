@@ -377,100 +377,98 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var viewCommandsHandler = Substitute.For<IViewCommands>();
             viewCommandsHandler.CanOpenViewFor(nodeData).Returns(true);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
+                                                     viewCommandsHandler,
+                                                     nodeData,
+                                                     treeViewCommands);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands);
+
+            // Assert
+            Assert.AreEqual(24, menu.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexRootGroup,
+                                                          "&Importeren...",
+                                                          "Importeer de gegevens vanuit een bestand.",
+                                                          CoreGuiResources.ImportIcon);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportCalculationGroupIndexRootGroup,
+                                                          "&Exporteren...",
+                                                          "Exporteer de gegevens naar een bestand.",
+                                                          CoreGuiResources.ExportIcon);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
+                                                          "&Map toevoegen",
+                                                          "Voeg een nieuwe map toe aan deze map met berekeningen.",
+                                                          RiskeerCommonFormsResources.AddFolderIcon);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddSemiProbabilisticCalculationIndexRootGroup,
+                                                          "Semi-probabilistische berekening &toevoegen",
+                                                          "Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen.",
+                                                          RiskeerCommonFormsResources.SemiProbabilisticCalculationIcon);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddProbabilisticCalculationIndexRootGroup,
+                                                          "&Probabilistische berekening toevoegen",
+                                                          "Voeg een nieuwe probabilistische berekening toe aan deze map met berekeningen.",
+                                                          RiskeerCommonFormsResources.ProbabilisticCalculationIcon);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
+                                                          "&Bijwerken intrede- en uittredepunten...",
+                                                          "Er zijn geen berekeningen om bij te werken.",
+                                                          RiskeerCommonFormsResources.UpdateItemIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                          "Alles &valideren",
+                                                          "Valideer alle berekeningen binnen deze map met berekeningen.",
+                                                          RiskeerCommonFormsResources.ValidateAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                          "Alles be&rekenen",
+                                                          "Voer alle berekeningen binnen deze map met berekeningen uit.",
+                                                          RiskeerCommonFormsResources.CalculateAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
+                                                          "&Wis alle uitvoer...",
+                                                          "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
+                                                          RiskeerCommonFormsResources.ClearIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexRootGroup,
+                                                          "Wis alle &illustratiepunten...",
+                                                          "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                          RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
+                                                          "Alles i&nklappen",
+                                                          "Klap dit element en alle onderliggende elementen in.",
+                                                          CoreGuiResources.CollapseAllIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
+                                                          "Alles ui&tklappen",
+                                                          "Klap dit element en alle onderliggende elementen uit.",
+                                                          CoreGuiResources.ExpandAllIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
+                                                          "Ei&genschappen",
+                                                          "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                          CoreGuiResources.PropertiesHS,
+                                                          false);
+            CollectionAssert.AllItemsAreInstancesOfType(new[]
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommandsHandler,
-                                                         nodeData,
-                                                         treeViewControl);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                // Call
-                ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
-
-                // Assert
-                Assert.AreEqual(24, menu.Items.Count);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexRootGroup,
-                                                              "&Importeren...",
-                                                              "Importeer de gegevens vanuit een bestand.",
-                                                              CoreGuiResources.ImportIcon);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportCalculationGroupIndexRootGroup,
-                                                              "&Exporteren...",
-                                                              "Exporteer de gegevens naar een bestand.",
-                                                              CoreGuiResources.ExportIcon);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-                                                              "&Map toevoegen",
-                                                              "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.AddFolderIcon);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddSemiProbabilisticCalculationIndexRootGroup,
-                                                              "Semi-probabilistische berekening &toevoegen",
-                                                              "Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.SemiProbabilisticCalculationIcon);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddProbabilisticCalculationIndexRootGroup,
-                                                              "&Probabilistische berekening toevoegen",
-                                                              "Voeg een nieuwe probabilistische berekening toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.ProbabilisticCalculationIcon);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                              "&Bijwerken intrede- en uittredepunten...",
-                                                              "Er zijn geen berekeningen om bij te werken.",
-                                                              RiskeerCommonFormsResources.UpdateItemIcon,
-                                                              false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                              "Alles &valideren",
-                                                              "Valideer alle berekeningen binnen deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.ValidateAllIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                              "Alles be&rekenen",
-                                                              "Voer alle berekeningen binnen deze map met berekeningen uit.",
-                                                              RiskeerCommonFormsResources.CalculateAllIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
-                                                              "&Wis alle uitvoer...",
-                                                              "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.ClearIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndexRootGroup,
-                                                              "Wis alle &illustratiepunten...",
-                                                              "Er zijn geen berekeningen met illustratiepunten om te wissen.",
-                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
-                                                              false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
-                                                              "Alles i&nklappen",
-                                                              "Klap dit element en alle onderliggende elementen in.",
-                                                              CoreGuiResources.CollapseAllIcon,
-                                                              false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
-                                                              "Alles ui&tklappen",
-                                                              "Klap dit element en alle onderliggende elementen uit.",
-                                                              CoreGuiResources.ExpandAllIcon,
-                                                              false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
-                                                              "Ei&genschappen",
-                                                              "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                              CoreGuiResources.PropertiesHS,
-                                                              false);
-                CollectionAssert.AllItemsAreInstancesOfType(new[]
-                {
-                    menu.Items[1],
-                    menu.Items[6],
-                    menu.Items[10],
-                    menu.Items[12],
-                    menu.Items[15],
-                    menu.Items[19],
-                    menu.Items[22]
-                }, typeof(ToolStripSeparator));
-            }
+                menu.Items[1],
+                menu.Items[6],
+                menu.Items[10],
+                menu.Items[12],
+                menu.Items[15],
+                menu.Items[19],
+                menu.Items[22]
+            }, typeof(ToolStripSeparator));
         }
 
         [Test]
@@ -494,25 +492,23 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              pipingFailureMechanism,
                                                              assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-                                                                  "Genereer &scenario\'s...",
-                                                                  "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
-                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon,
-                                                                  false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                              "Genereer &scenario\'s...",
+                                                              "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
+                                                              RiskeerCommonFormsResources.GenerateScenariosIcon,
+                                                              false);
             }
         }
 
@@ -537,24 +533,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-                                                                  "Genereer &scenario\'s...",
-                                                                  "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
-                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon,
-                                                                  false);
-                }
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                              "Genereer &scenario\'s...",
+                                                              "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
+                                                              RiskeerCommonFormsResources.GenerateScenariosIcon,
+                                                              false);
             }
         }
 
@@ -582,23 +576,21 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-                                                                  "Genereer &scenario\'s...",
-                                                                  "Genereer scenario\'s op basis van geselecteerde profielschematisaties.",
-                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon);
-                }
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                              "Genereer &scenario\'s...",
+                                                              "Genereer scenario\'s op basis van geselecteerde profielschematisaties.",
+                                                              RiskeerCommonFormsResources.GenerateScenariosIcon);
             }
         }
 
@@ -625,27 +617,25 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, pipingFailureMechanism, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
+                                                              "Alles be&rekenen",
+                                                              "Voer alle berekeningen binnen deze map met berekeningen uit.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, pipingFailureMechanism, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
-                                                                  "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen deze map met berekeningen uit.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
-                                                                  "Alles &valideren",
-                                                                  "Valideer alle berekeningen binnen deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
+                                                              "Alles &valideren",
+                                                              "Valideer alle berekeningen binnen deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon);
             }
         }
 
@@ -665,24 +655,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              pipingFailureMechanism,
                                                              assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken intrede- en uittredepunten...",
-                                                                  "Er zijn geen berekeningen om bij te werken.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
+                                                              "&Bijwerken intrede- en uittredepunten...",
+                                                              "Er zijn geen berekeningen om bij te werken.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
             }
         }
 
@@ -707,24 +695,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              pipingFailureMechanism,
                                                              assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken intrede- en uittredepunten...",
-                                                                  "Er zijn geen berekeningen om bij te werken.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
+                                                              "&Bijwerken intrede- en uittredepunten...",
+                                                              "Er zijn geen berekeningen om bij te werken.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
             }
         }
 
@@ -758,24 +744,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              pipingFailureMechanism,
                                                              assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken intrede- en uittredepunten...",
-                                                                  "Er zijn geen berekeningen om bij te werken.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
+                                                              "&Bijwerken intrede- en uittredepunten...",
+                                                              "Er zijn geen berekeningen om bij te werken.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
             }
         }
 
@@ -809,25 +793,23 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              pipingFailureMechanism,
                                                              assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            ChangeSurfaceLine(calculation.InputParameters.SurfaceLine);
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                ChangeSurfaceLine(calculation.InputParameters.SurfaceLine);
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
-                                                                  "&Bijwerken intrede- en uittredepunten...",
-                                                                  "Alle berekeningen met een profielschematisatie bijwerken.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
+                                                              "&Bijwerken intrede- en uittredepunten...",
+                                                              "Alle berekeningen met een profielschematisatie bijwerken.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon);
             }
         }
 
@@ -842,24 +824,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              new PipingFailureMechanism(),
                                                              Substitute.For<IAssessmentSection>());
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuClearIllustrationPointsIndexRootGroup,
-                                                                  "Wis alle &illustratiepunten...",
-                                                                  "Er zijn geen berekeningen met illustratiepunten om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
-                                                                  false);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              contextMenuClearIllustrationPointsIndexRootGroup,
+                                                              "Wis alle &illustratiepunten...",
+                                                              "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                              false);
             }
         }
 
@@ -890,23 +870,21 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              new TestPipingFailureMechanism(),
                                                              Substitute.For<IAssessmentSection>());
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuClearIllustrationPointsIndexRootGroup,
-                                                                  "Wis alle &illustratiepunten...",
-                                                                  "Wis alle berekende illustratiepunten binnen deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              contextMenuClearIllustrationPointsIndexRootGroup,
+                                                              "Wis alle &illustratiepunten...",
+                                                              "Wis alle berekende illustratiepunten binnen deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon);
             }
         }
 
@@ -936,24 +914,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
                                                              new PipingFailureMechanism(),
                                                              Substitute.For<IAssessmentSection>());
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuClearIllustrationPointsIndexRootGroup,
-                                                                  "Wis alle &illustratiepunten...",
-                                                                  "Er zijn geen berekeningen met illustratiepunten om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
-                                                                  false);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              contextMenuClearIllustrationPointsIndexRootGroup,
+                                                              "Wis alle &illustratiepunten...",
+                                                              "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                              false);
             }
         }
 
@@ -980,41 +956,39 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            var observer = Substitute.For<IObserver>();
+            plugin.Gui = gui;
+
+            var calculationItem = new CalculationGroup
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                Name = "Nieuwe map"
+            };
+            group.Children.Add(calculationItem);
 
-                var observer = Substitute.For<IObserver>();
-                plugin.Gui = gui;
+            nodeData.Attach(observer);
 
-                var calculationItem = new CalculationGroup
-                {
-                    Name = "Nieuwe map"
-                };
-                group.Children.Add(calculationItem);
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // Precondition
+                Assert.AreEqual(1, group.Children.Count);
 
-                nodeData.Attach(observer);
+                // Call
+                contextMenu.Items[contextMenuAddCalculationGroupIndexNestedGroup].PerformClick();
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Precondition
-                    Assert.AreEqual(1, group.Children.Count);
-
-                    // Call
-                    contextMenu.Items[contextMenuAddCalculationGroupIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    Assert.AreEqual(2, group.Children.Count);
-                    ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
-                    Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
-                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                }
-
-                observer.Received(1).UpdateObserver();
+                // Assert
+                Assert.AreEqual(2, group.Children.Count);
+                ICalculationBase newlyAddedItem = group.Children.Last();
+                Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
+                Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
+                                "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
+
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1040,40 +1014,38 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            var observer = Substitute.For<IObserver>();
+            plugin.Gui = gui;
+
+            var semiProbabilisticCalculationScenario = new SemiProbabilisticPipingCalculationScenario
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                Name = "Nieuwe berekening"
+            };
+            group.Children.Add(semiProbabilisticCalculationScenario);
 
-                var observer = Substitute.For<IObserver>();
-                plugin.Gui = gui;
+            nodeData.Attach(observer);
 
-                var semiProbabilisticCalculationScenario = new SemiProbabilisticPipingCalculationScenario
-                {
-                    Name = "Nieuwe berekening"
-                };
-                group.Children.Add(semiProbabilisticCalculationScenario);
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // Precondition
+                Assert.AreEqual(1, group.Children.Count);
 
-                nodeData.Attach(observer);
+                // Call
+                contextMenu.Items[contextMenuAddSemiProbabilisticCalculationIndexNestedGroup].PerformClick();
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Precondition
-                    Assert.AreEqual(1, group.Children.Count);
-
-                    // Call
-                    contextMenu.Items[contextMenuAddSemiProbabilisticCalculationIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    Assert.AreEqual(2, group.Children.Count);
-                    ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<SemiProbabilisticPipingCalculationScenario>(newlyAddedItem);
-                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
-                }
-
-                observer.Received(1).UpdateObserver();
+                // Assert
+                Assert.AreEqual(2, group.Children.Count);
+                ICalculationBase newlyAddedItem = group.Children.Last();
+                Assert.IsInstanceOf<SemiProbabilisticPipingCalculationScenario>(newlyAddedItem);
+                Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
             }
+
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1098,33 +1070,31 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                    assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            var probabilisticCalculationScenario = new ProbabilisticPipingCalculationScenario
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                Name = "Nieuwe berekening"
+            };
+            group.Children.Add(probabilisticCalculationScenario);
 
-                var probabilisticCalculationScenario = new ProbabilisticPipingCalculationScenario
-                {
-                    Name = "Nieuwe berekening"
-                };
-                group.Children.Add(probabilisticCalculationScenario);
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // Precondition
+                Assert.AreEqual(1, group.Children.Count);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Precondition
-                    Assert.AreEqual(1, group.Children.Count);
+                // Call
+                contextMenu.Items[contextMenuAddSemiProbabilisticCalculationIndexNestedGroup].PerformClick();
 
-                    // Call
-                    contextMenu.Items[contextMenuAddSemiProbabilisticCalculationIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    Assert.AreEqual(2, group.Children.Count);
-                    ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<SemiProbabilisticPipingCalculationScenario>(newlyAddedItem);
-                    Assert.AreEqual("Nieuwe berekening", newlyAddedItem.Name);
-                }
+                // Assert
+                Assert.AreEqual(2, group.Children.Count);
+                ICalculationBase newlyAddedItem = group.Children.Last();
+                Assert.IsInstanceOf<SemiProbabilisticPipingCalculationScenario>(newlyAddedItem);
+                Assert.AreEqual("Nieuwe berekening", newlyAddedItem.Name);
             }
         }
 
@@ -1151,40 +1121,38 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            var observer = Substitute.For<IObserver>();
+            plugin.Gui = gui;
+
+            var probabilisticCalculationScenario = new ProbabilisticPipingCalculationScenario
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                Name = "Nieuwe berekening"
+            };
+            group.Children.Add(probabilisticCalculationScenario);
 
-                var observer = Substitute.For<IObserver>();
-                plugin.Gui = gui;
+            nodeData.Attach(observer);
 
-                var probabilisticCalculationScenario = new ProbabilisticPipingCalculationScenario
-                {
-                    Name = "Nieuwe berekening"
-                };
-                group.Children.Add(probabilisticCalculationScenario);
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // Precondition
+                Assert.AreEqual(1, group.Children.Count);
 
-                nodeData.Attach(observer);
+                // Call
+                contextMenu.Items[contextMenuAddProbabilisticCalculationIndexNestedGroup].PerformClick();
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Precondition
-                    Assert.AreEqual(1, group.Children.Count);
-
-                    // Call
-                    contextMenu.Items[contextMenuAddProbabilisticCalculationIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    Assert.AreEqual(2, group.Children.Count);
-                    ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<ProbabilisticPipingCalculationScenario>(newlyAddedItem);
-                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
-                }
-
-                observer.Received(1).UpdateObserver();
+                // Assert
+                Assert.AreEqual(2, group.Children.Count);
+                ICalculationBase newlyAddedItem = group.Children.Last();
+                Assert.IsInstanceOf<ProbabilisticPipingCalculationScenario>(newlyAddedItem);
+                Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
             }
+
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1210,40 +1178,38 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            var observer = Substitute.For<IObserver>();
+            plugin.Gui = gui;
+
+            var semiProbabilisticCalculationScenario = new SemiProbabilisticPipingCalculationScenario
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                Name = "Nieuwe berekening"
+            };
+            group.Children.Add(semiProbabilisticCalculationScenario);
 
-                var observer = Substitute.For<IObserver>();
-                plugin.Gui = gui;
+            nodeData.Attach(observer);
 
-                var semiProbabilisticCalculationScenario = new SemiProbabilisticPipingCalculationScenario
-                {
-                    Name = "Nieuwe berekening"
-                };
-                group.Children.Add(semiProbabilisticCalculationScenario);
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // Precondition
+                Assert.AreEqual(1, group.Children.Count);
 
-                nodeData.Attach(observer);
+                // Call
+                contextMenu.Items[contextMenuAddProbabilisticCalculationIndexNestedGroup].PerformClick();
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Precondition
-                    Assert.AreEqual(1, group.Children.Count);
-
-                    // Call
-                    contextMenu.Items[contextMenuAddProbabilisticCalculationIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    Assert.AreEqual(2, group.Children.Count);
-                    ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<ProbabilisticPipingCalculationScenario>(newlyAddedItem);
-                    Assert.AreEqual("Nieuwe berekening", newlyAddedItem.Name);
-                }
-
-                observer.Received(1).UpdateObserver();
+                // Assert
+                Assert.AreEqual(2, group.Children.Count);
+                ICalculationBase newlyAddedItem = group.Children.Last();
+                Assert.IsInstanceOf<ProbabilisticPipingCalculationScenario>(newlyAddedItem);
+                Assert.AreEqual("Nieuwe berekening", newlyAddedItem.Name);
             }
+
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1313,33 +1279,31 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                // Call
+                void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
-                    // Call
-                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessages(Call, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(14, msgs.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[2]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[5]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[13]);
-                    });
-                }
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(14, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[5]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[13]);
+                });
             }
         }
 
@@ -1347,40 +1311,38 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void GivenCalculationGroupWithCalculationOfUnsupportedType_WhenValidatingAllFromContextMenu_ThenThrowsNotSupportedException()
         {
             // Given
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = new PipingFailureMechanism();
+            var calculationGroup = new CalculationGroup
             {
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var failureMechanism = new PipingFailureMechanism();
-                var calculationGroup = new CalculationGroup
+                Children =
                 {
-                    Children =
-                    {
-                        new TestPipingCalculationScenario()
-                    }
-                };
-
-                var nodeData = new PipingCalculationGroupContext(calculationGroup,
-                                                                 null,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    void Call() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick();
-
-                    // Then
-                    Assert.Throws<NotSupportedException>(Call);
+                    new TestPipingCalculationScenario()
                 }
+            };
+
+            var nodeData = new PipingCalculationGroupContext(calculationGroup,
+                                                             null,
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                             failureMechanism,
+                                                             assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // When
+                void Call() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick();
+
+                // Then
+                Assert.Throws<NotSupportedException>(Call);
             }
         }
 
@@ -1456,65 +1418,63 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator());
+            plugin.Gui = gui;
+
+            DialogBoxHandler = (name, wnd) =>
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+                // Expect an activity dialog which is automatically closed
+            };
 
-                var gui = Substitute.For<IGui>();
-                gui.MainWindow.Returns(mainWindow);
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+            using (new PipingSubCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // Call
+                void Call() => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
 
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator());
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
-                    // Expect an activity dialog which is automatically closed
-                };
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(28, msgs.Length);
 
-                using (new PipingSubCalculatorFactoryConfig())
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Call
-                    void Call() => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
+                    Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                    Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[5]);
 
-                    // Assert
-                    TestHelper.AssertLogMessages(Call, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(28, msgs.Length);
+                    Assert.AreEqual("Uitvoeren van berekening 'C' is gestart.", msgs[6]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[9]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[12]);
+                    Assert.AreEqual("Uitvoeren van berekening 'C' is gelukt.", msgs[13]);
 
-                        Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
-                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[5]);
+                    Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[14]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[15]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[16]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[17]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[18]);
+                    Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[19]);
 
-                        Assert.AreEqual("Uitvoeren van berekening 'C' is gestart.", msgs[6]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[9]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[12]);
-                        Assert.AreEqual("Uitvoeren van berekening 'C' is gelukt.", msgs[13]);
-
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[14]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[15]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[16]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[17]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[18]);
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[19]);
-
-                        Assert.AreEqual("Uitvoeren van berekening 'D' is gestart.", msgs[20]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[21]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[22]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[23]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[26]);
-                        Assert.AreEqual("Uitvoeren van berekening 'D' is gelukt.", msgs[27]);
-                    });
-                }
+                    Assert.AreEqual("Uitvoeren van berekening 'D' is gestart.", msgs[20]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[21]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[22]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[23]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[26]);
+                    Assert.AreEqual("Uitvoeren van berekening 'D' is gelukt.", msgs[27]);
+                });
             }
         }
 
@@ -1522,41 +1482,39 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void GivenCalculationGroupWithCalculationOfUnsupportedType_WhenCalculatingAllFromContextMenu_ThenThrowsNotSupportedException()
         {
             // Given
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = new PipingFailureMechanism();
+            var calculationGroup = new CalculationGroup
             {
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var failureMechanism = new PipingFailureMechanism();
-                var calculationGroup = new CalculationGroup
+                Children =
                 {
-                    Children =
-                    {
-                        new TestPipingCalculationScenario()
-                    }
-                };
-
-                var nodeData = new PipingCalculationGroupContext(calculationGroup,
-                                                                 null,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-                var mainWindow = Substitute.For<IMainWindow>();
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    void Call() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick();
-
-                    // Then
-                    Assert.Throws<NotSupportedException>(Call);
+                    new TestPipingCalculationScenario()
                 }
+            };
+
+            var nodeData = new PipingCalculationGroupContext(calculationGroup,
+                                                             null,
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                             failureMechanism,
+                                                             assessmentSection);
+
+            var mainWindow = Substitute.For<IMainWindow>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // When
+                void Call() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick();
+
+                // Then
+                Assert.Throws<NotSupportedException>(Call);
             }
         }
 
@@ -1604,43 +1562,41 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            string messageBoxTitle = null, messageBoxText = null;
+            DialogBoxHandler = (name, wnd) =>
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                var messageBox = new MessageBoxTester(wnd);
 
-                string messageBoxTitle = null, messageBoxText = null;
-                DialogBoxHandler = (name, wnd) =>
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
+
+                if (confirm)
                 {
-                    var messageBox = new MessageBoxTester(wnd);
-
-                    messageBoxText = messageBox.Text;
-                    messageBoxTitle = messageBox.Title;
-
-                    if (confirm)
-                    {
-                        messageBox.ClickOk();
-                    }
-                    else
-                    {
-                        messageBox.ClickCancel();
-                    }
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuClearOutputIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    Assert.AreNotEqual(confirm, calculation1.HasOutput);
-                    Assert.AreNotEqual(confirm, calculation2.HasOutput);
-
-                    Assert.AreEqual("Bevestigen", messageBoxTitle);
-                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+                    messageBox.ClickOk();
                 }
+                else
+                {
+                    messageBox.ClickCancel();
+                }
+            };
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // Call
+                contextMenu.Items[contextMenuClearOutputIndexNestedGroup].PerformClick();
+
+                // Assert
+                Assert.AreNotEqual(confirm, calculation1.HasOutput);
+                Assert.AreNotEqual(confirm, calculation2.HasOutput);
+
+                Assert.AreEqual("Bevestigen", messageBoxTitle);
+                Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
             }
 
             if (confirm)
@@ -1705,46 +1661,44 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            string messageBoxTitle = null, messageBoxText = null;
+            DialogBoxHandler = (name, wnd) =>
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                var messageBox = new MessageBoxTester(wnd);
 
-                string messageBoxTitle = null, messageBoxText = null;
-                DialogBoxHandler = (name, wnd) =>
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
+
+                if (confirm)
                 {
-                    var messageBox = new MessageBoxTester(wnd);
-
-                    messageBoxText = messageBox.Text;
-                    messageBoxTitle = messageBox.Title;
-
-                    if (confirm)
-                    {
-                        messageBox.ClickOk();
-                    }
-                    else
-                    {
-                        messageBox.ClickCancel();
-                    }
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuClearIllustrationPointsIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    Assert.AreNotEqual(confirm, calculation1.Output.ProfileSpecificOutput.HasGeneralResult);
-                    Assert.AreNotEqual(confirm, calculation1.Output.SectionSpecificOutput.HasGeneralResult);
-
-                    Assert.AreNotEqual(confirm, calculation2.Output.ProfileSpecificOutput.HasGeneralResult);
-                    Assert.AreNotEqual(confirm, calculation2.Output.SectionSpecificOutput.HasGeneralResult);
-
-                    Assert.AreEqual("Bevestigen", messageBoxTitle);
-                    Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+                    messageBox.ClickOk();
                 }
+                else
+                {
+                    messageBox.ClickCancel();
+                }
+            };
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // Call
+                contextMenu.Items[contextMenuClearIllustrationPointsIndexNestedGroup].PerformClick();
+
+                // Assert
+                Assert.AreNotEqual(confirm, calculation1.Output.ProfileSpecificOutput.HasGeneralResult);
+                Assert.AreNotEqual(confirm, calculation1.Output.SectionSpecificOutput.HasGeneralResult);
+
+                Assert.AreNotEqual(confirm, calculation2.Output.ProfileSpecificOutput.HasGeneralResult);
+                Assert.AreNotEqual(confirm, calculation2.Output.SectionSpecificOutput.HasGeneralResult);
+
+                Assert.AreEqual("Bevestigen", messageBoxTitle);
+                Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
             }
 
             if (confirm)
@@ -1763,57 +1717,55 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnGenerateCalculationsItemWithSurfaceLinesAndSoilModels_ShowSurfaceLineSelectionView()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var group = new CalculationGroup();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+
+            var surfaceLines = new[]
             {
-                var group = new CalculationGroup();
+                new PipingSurfaceLine("surfaceLine1"),
+                new PipingSurfaceLine("surfaceLine2")
+            };
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             null,
+                                                             surfaceLines,
+                                                             new[]
+                                                             {
+                                                                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
+                                                             },
+                                                             pipingFailureMechanism,
+                                                             assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var mainWindow = Substitute.For<IMainWindow>();
 
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = Substitute.For<IAssessmentSection>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            plugin.Gui = gui;
 
-                var surfaceLines = new[]
-                {
-                    new PipingSurfaceLine("surfaceLine1"),
-                    new PipingSurfaceLine("surfaceLine2")
-                };
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 null,
-                                                                 surfaceLines,
-                                                                 new[]
-                                                                 {
-                                                                     PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-                                                                 },
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = Substitute.For<IMainWindow>();
+            PipingSurfaceLineSelectionDialog selectionDialog = null;
+            DataGridViewControl grid = null;
+            var rowCount = 0;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                rowCount = grid.Rows.Count;
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                plugin.Gui = gui;
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Call
+                contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
-                PipingSurfaceLineSelectionDialog selectionDialog = null;
-                DataGridViewControl grid = null;
-                var rowCount = 0;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-                    rowCount = grid.Rows.Count;
-                    new ButtonTester("CustomCancelButton", selectionDialog).Click();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
-
-                    // Assert
-                    Assert.NotNull(selectionDialog);
-                    Assert.NotNull(grid);
-                    Assert.AreEqual(2, rowCount);
-                }
+                // Assert
+                Assert.NotNull(selectionDialog);
+                Assert.NotNull(grid);
+                Assert.AreEqual(2, rowCount);
             }
         }
 
@@ -1825,126 +1777,124 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             bool generateSemiProbabilistic, bool generateProbabilistic)
         {
             // Given
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var failureMechanism = new PipingFailureMechanism();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+
+            var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
-                var failureMechanism = new PipingFailureMechanism();
-                var assessmentSection = Substitute.For<IAssessmentSection>();
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
 
-                var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
-                {
-                    ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
-                };
+            surfaceLine1.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
 
-                surfaceLine1.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 5.0, 0.0),
-                    new Point3D(0.0, 0.0, 1.0),
-                    new Point3D(0.0, -5.0, 0.0)
-                });
+            var surfaceLine2 = new PipingSurfaceLine("Surface line 2")
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
+            };
 
-                var surfaceLine2 = new PipingSurfaceLine("Surface line 2")
-                {
-                    ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
-                };
+            surfaceLine2.SetGeometry(new[]
+            {
+                new Point3D(5.0, 5.0, 0.0),
+                new Point3D(5.0, 0.0, 1.0),
+                new Point3D(5.0, -5.0, 0.0)
+            });
 
-                surfaceLine2.SetGeometry(new[]
+            PipingSurfaceLine[] surfaceLines =
+            {
+                surfaceLine1,
+                surfaceLine2
+            };
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
                 {
-                    new Point3D(5.0, 5.0, 0.0),
-                    new Point3D(5.0, 0.0, 1.0),
-                    new Point3D(5.0, -5.0, 0.0)
-                });
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                }),
+                new FailureMechanismSection("Section 2", new[]
+                {
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                })
+            });
 
-                PipingSurfaceLine[] surfaceLines =
+            var nodeData = new PipingCalculationGroupContext(
+                failureMechanism.CalculationsGroup,
+                null,
+                surfaceLines,
+                new[]
                 {
-                    surfaceLine1,
-                    surfaceLine2
-                };
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    new FailureMechanismSection("Section 1", new[]
+                    new PipingStochasticSoilModel("name", new[]
                     {
                         new Point2D(0.0, 0.0),
                         new Point2D(5.0, 0.0)
-                    }),
-                    new FailureMechanismSection("Section 2", new[]
+                    }, new[]
                     {
-                        new Point2D(5.0, 0.0),
-                        new Point2D(10.0, 0.0)
+                        new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("A")),
+                        new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("B"))
                     })
-                });
+                },
+                failureMechanism,
+                assessmentSection);
 
-                var nodeData = new PipingCalculationGroupContext(
-                    failureMechanism.CalculationsGroup,
-                    null,
-                    surfaceLines,
-                    new[]
-                    {
-                        new PipingStochasticSoilModel("name", new[]
-                        {
-                            new Point2D(0.0, 0.0),
-                            new Point2D(5.0, 0.0)
-                        }, new[]
-                        {
-                            new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("A")),
-                            new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("B"))
-                        })
-                    },
-                    failureMechanism,
-                    assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var mainWindow = Substitute.For<IMainWindow>();
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            plugin.Gui = gui;
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                plugin.Gui = gui;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
 
-                DialogBoxHandler = (name, wnd) =>
+                var semiProbabilisticCheckBox = (CheckBox) new CheckBoxTester("SemiProbabilisticCheckBox", selectionDialog).TheObject;
+                var probabilisticCheckBox = (CheckBox) new CheckBoxTester("ProbabilisticCheckBox", selectionDialog).TheObject;
+
+                semiProbabilisticCheckBox.Checked = generateSemiProbabilistic;
+                probabilisticCheckBox.Checked = generateProbabilistic;
+
+                grid.Rows[0].Cells[0].Value = true;
+
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // When
+                contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
+
+                // Then
+                CalculationGroup addedGroup = failureMechanism.CalculationsGroup.Children.OfType<CalculationGroup>().Single();
+                Assert.AreEqual("Surface line 1", addedGroup.Name);
+
+                if (generateSemiProbabilistic)
                 {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                    SemiProbabilisticPipingCalculationScenario[] semiProbabilisticPipingCalculationScenarios =
+                        addedGroup.Children.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray();
 
-                    var semiProbabilisticCheckBox = (CheckBox) new CheckBoxTester("SemiProbabilisticCheckBox", selectionDialog).TheObject;
-                    var probabilisticCheckBox = (CheckBox) new CheckBoxTester("ProbabilisticCheckBox", selectionDialog).TheObject;
+                    Assert.AreEqual(2, semiProbabilisticPipingCalculationScenarios.Length);
+                    Assert.AreEqual("Surface line 1 A", semiProbabilisticPipingCalculationScenarios[0].Name);
+                    Assert.AreEqual("Surface line 1 B", semiProbabilisticPipingCalculationScenarios[1].Name);
+                }
 
-                    semiProbabilisticCheckBox.Checked = generateSemiProbabilistic;
-                    probabilisticCheckBox.Checked = generateProbabilistic;
-
-                    grid.Rows[0].Cells[0].Value = true;
-
-                    new ButtonTester("DoForSelectedButton", selectionDialog).Click();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                if (generateProbabilistic)
                 {
-                    // When
-                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
+                    ProbabilisticPipingCalculationScenario[] probabilisticPipingCalculationScenarios =
+                        addedGroup.Children.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
 
-                    // Then
-                    CalculationGroup addedGroup = failureMechanism.CalculationsGroup.Children.OfType<CalculationGroup>().Single();
-                    Assert.AreEqual("Surface line 1", addedGroup.Name);
-
-                    if (generateSemiProbabilistic)
-                    {
-                        SemiProbabilisticPipingCalculationScenario[] semiProbabilisticPipingCalculationScenarios =
-                            addedGroup.Children.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray();
-
-                        Assert.AreEqual(2, semiProbabilisticPipingCalculationScenarios.Length);
-                        Assert.AreEqual("Surface line 1 A", semiProbabilisticPipingCalculationScenarios[0].Name);
-                        Assert.AreEqual("Surface line 1 B", semiProbabilisticPipingCalculationScenarios[1].Name);
-                    }
-
-                    if (generateProbabilistic)
-                    {
-                        ProbabilisticPipingCalculationScenario[] probabilisticPipingCalculationScenarios =
-                            addedGroup.Children.OfType<ProbabilisticPipingCalculationScenario>().ToArray();
-
-                        Assert.AreEqual(2, probabilisticPipingCalculationScenarios.Length);
-                        Assert.AreEqual("Surface line 1 A", probabilisticPipingCalculationScenarios[0].Name);
-                        Assert.AreEqual("Surface line 1 B", probabilisticPipingCalculationScenarios[1].Name);
-                    }
+                    Assert.AreEqual(2, probabilisticPipingCalculationScenarios.Length);
+                    Assert.AreEqual("Surface line 1 A", probabilisticPipingCalculationScenarios[0].Name);
+                    Assert.AreEqual("Surface line 1 B", probabilisticPipingCalculationScenarios[1].Name);
                 }
             }
         }
@@ -1953,100 +1903,98 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenNoCalculationScenariosGenerated()
         {
             // Given
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var group = new CalculationGroup();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+
+            var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
-                var group = new CalculationGroup();
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
 
-                var failureMechanism = new PipingFailureMechanism();
-                var assessmentSection = Substitute.For<IAssessmentSection>();
+            surfaceLine1.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
 
-                var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
+            var surfaceLine2 = new PipingSurfaceLine("Surface line 2")
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
+            };
+
+            surfaceLine2.SetGeometry(new[]
+            {
+                new Point3D(5.0, 5.0, 0.0),
+                new Point3D(5.0, 0.0, 1.0),
+                new Point3D(5.0, -5.0, 0.0)
+            });
+
+            PipingSurfaceLine[] surfaceLines =
+            {
+                surfaceLine1,
+                surfaceLine2
+            };
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
                 {
-                    ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
-                };
-
-                surfaceLine1.SetGeometry(new[]
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                }),
+                new FailureMechanismSection("Section 2", new[]
                 {
-                    new Point3D(0.0, 5.0, 0.0),
-                    new Point3D(0.0, 0.0, 1.0),
-                    new Point3D(0.0, -5.0, 0.0)
-                });
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                })
+            });
 
-                var surfaceLine2 = new PipingSurfaceLine("Surface line 2")
-                {
-                    ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
-                };
-
-                surfaceLine2.SetGeometry(new[]
-                {
-                    new Point3D(5.0, 5.0, 0.0),
-                    new Point3D(5.0, 0.0, 1.0),
-                    new Point3D(5.0, -5.0, 0.0)
-                });
-
-                PipingSurfaceLine[] surfaceLines =
-                {
-                    surfaceLine1,
-                    surfaceLine2
-                };
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    new FailureMechanismSection("Section 1", new[]
-                    {
-                        new Point2D(0.0, 0.0),
-                        new Point2D(5.0, 0.0)
-                    }),
-                    new FailureMechanismSection("Section 2", new[]
-                    {
-                        new Point2D(5.0, 0.0),
-                        new Point2D(10.0, 0.0)
-                    })
-                });
-
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 null,
-                                                                 surfaceLines,
-                                                                 new[]
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             null,
+                                                             surfaceLines,
+                                                             new[]
+                                                             {
+                                                                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name", new[]
                                                                  {
-                                                                     PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name", new[]
-                                                                     {
-                                                                         new Point2D(0.0, 0.0),
-                                                                         new Point2D(5.0, 0.0)
-                                                                     })
-                                                                 },
-                                                                 failureMechanism,
-                                                                 assessmentSection);
+                                                                     new Point2D(0.0, 0.0),
+                                                                     new Point2D(5.0, 0.0)
+                                                                 })
+                                                             },
+                                                             failureMechanism,
+                                                             assessmentSection);
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = Substitute.For<IMainWindow>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var mainWindow = Substitute.For<IMainWindow>();
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                plugin.Gui = gui;
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            plugin.Gui = gui;
 
-                // Precondition
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+
+                grid.Rows[0].Cells[0].Value = true;
+
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // When
+                contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
+
+                // Then
                 CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-
-                    grid.Rows[0].Cells[0].Value = true;
-
-                    new ButtonTester("CustomCancelButton", selectionDialog).Click();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
-
-                    // Then
-                    CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-                }
             }
         }
 
@@ -2138,305 +2086,299 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateEntryAndExitPointsClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var calculation1Observer = Substitute.For<IObserver>();
+            var calculation1InputObserver = Substitute.For<IObserver>();
+            var calculation2Observer = Substitute.For<IObserver>();
+            var calculation2InputObserver = Substitute.For<IObserver>();
+
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
+            surfaceLine.SetGeometry(new[]
             {
-                var calculation1Observer = Substitute.For<IObserver>();
-                var calculation1InputObserver = Substitute.For<IObserver>();
-                var calculation2Observer = Substitute.For<IObserver>();
-                var calculation2InputObserver = Substitute.For<IObserver>();
+                new Point3D(1, 2, 3),
+                new Point3D(4, 5, 6)
+            });
 
-                var surfaceLine = new PipingSurfaceLine(string.Empty);
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(1, 2, 3),
-                    new Point3D(4, 5, 6)
-                });
+            var calculation1 = new TestPipingCalculationScenario(new TestPipingInput
+            {
+                SurfaceLine = surfaceLine,
+                EntryPointL = (RoundedDouble) 0,
+                ExitPointL = (RoundedDouble) 1
+            });
 
-                var calculation1 = new TestPipingCalculationScenario(new TestPipingInput
-                {
-                    SurfaceLine = surfaceLine,
-                    EntryPointL = (RoundedDouble) 0,
-                    ExitPointL = (RoundedDouble) 1
-                });
+            calculation1.Attach(calculation1Observer);
+            calculation1.InputParameters.Attach(calculation1InputObserver);
 
-                calculation1.Attach(calculation1Observer);
-                calculation1.InputParameters.Attach(calculation1InputObserver);
+            var calculation2 = new TestPipingCalculationScenario(new TestPipingInput
+            {
+                SurfaceLine = surfaceLine,
+                EntryPointL = (RoundedDouble) 0,
+                ExitPointL = (RoundedDouble) 1
+            });
 
-                var calculation2 = new TestPipingCalculationScenario(new TestPipingInput
-                {
-                    SurfaceLine = surfaceLine,
-                    EntryPointL = (RoundedDouble) 0,
-                    ExitPointL = (RoundedDouble) 1
-                });
+            calculation2.Attach(calculation2Observer);
+            calculation2.InputParameters.Attach(calculation2InputObserver);
 
-                calculation2.Attach(calculation2Observer);
-                calculation2.InputParameters.Attach(calculation2InputObserver);
+            var childGroup = new CalculationGroup();
+            childGroup.Children.Add(calculation1);
 
-                var childGroup = new CalculationGroup();
-                childGroup.Children.Add(calculation1);
+            var emptyChildGroup = new CalculationGroup();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
 
-                var emptyChildGroup = new CalculationGroup();
-                var group = new CalculationGroup();
-                var parentGroup = new CalculationGroup();
+            group.Children.Add(childGroup);
+            group.Children.Add(emptyChildGroup);
+            group.Children.Add(calculation2);
 
-                group.Children.Add(childGroup);
-                group.Children.Add(emptyChildGroup);
-                group.Children.Add(calculation2);
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism);
 
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism);
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             parentGroup,
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                             pipingFailureMechanism,
+                                                             assessmentSection);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   null,
+                                                                   Enumerable.Empty<PipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                   pipingFailureMechanism,
+                                                                   assessmentSection);
 
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 parentGroup,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
-                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       null,
-                                                                       Enumerable.Empty<PipingSurfaceLine>(),
-                                                                       Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                       pipingFailureMechanism,
-                                                                       assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            plugin.Gui = gui;
 
-                var mainWindow = Substitute.For<IMainWindow>();
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                plugin.Gui = gui;
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // When
+                ChangeSurfaceLine(surfaceLine);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // When
-                    ChangeSurfaceLine(surfaceLine);
+                contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
-                    contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
-                    Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
-                }
-
-                calculation1InputObserver.Received(1).UpdateObserver();
-                calculation2InputObserver.Received(1).UpdateObserver();
+                // Then
+                Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
+                Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
             }
+
+            calculation1InputObserver.Received(1).UpdateObserver();
+            calculation2InputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointsClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var calculation1Observer = Substitute.For<IObserver>();
+            var calculation1InputObserver = Substitute.For<IObserver>();
+            var calculation2Observer = Substitute.For<IObserver>();
+            var calculation2InputObserver = Substitute.For<IObserver>();
+
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
+            surfaceLine.SetGeometry(new[]
             {
-                var calculation1Observer = Substitute.For<IObserver>();
-                var calculation1InputObserver = Substitute.For<IObserver>();
-                var calculation2Observer = Substitute.For<IObserver>();
-                var calculation2InputObserver = Substitute.For<IObserver>();
+                new Point3D(1, 2, 3),
+                new Point3D(4, 5, 6)
+            });
 
-                var surfaceLine = new PipingSurfaceLine(string.Empty);
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(1, 2, 3),
-                    new Point3D(4, 5, 6)
-                });
+            var calculation1 = new TestPipingCalculationScenario(new TestPipingInput
+            {
+                SurfaceLine = surfaceLine,
+                EntryPointL = (RoundedDouble) 0,
+                ExitPointL = (RoundedDouble) 1
+            }, true);
 
-                var calculation1 = new TestPipingCalculationScenario(new TestPipingInput
-                {
-                    SurfaceLine = surfaceLine,
-                    EntryPointL = (RoundedDouble) 0,
-                    ExitPointL = (RoundedDouble) 1
-                }, true);
+            calculation1.Attach(calculation1Observer);
+            calculation1.InputParameters.Attach(calculation1InputObserver);
 
-                calculation1.Attach(calculation1Observer);
-                calculation1.InputParameters.Attach(calculation1InputObserver);
+            var calculation2 = new TestPipingCalculationScenario(new TestPipingInput
+            {
+                SurfaceLine = surfaceLine,
+                EntryPointL = (RoundedDouble) 0,
+                ExitPointL = (RoundedDouble) 1
+            }, true);
 
-                var calculation2 = new TestPipingCalculationScenario(new TestPipingInput
-                {
-                    SurfaceLine = surfaceLine,
-                    EntryPointL = (RoundedDouble) 0,
-                    ExitPointL = (RoundedDouble) 1
-                }, true);
+            calculation2.Attach(calculation2Observer);
+            calculation2.InputParameters.Attach(calculation2InputObserver);
 
-                calculation2.Attach(calculation2Observer);
-                calculation2.InputParameters.Attach(calculation2InputObserver);
+            var childGroup = new CalculationGroup();
+            childGroup.Children.Add(calculation1);
 
-                var childGroup = new CalculationGroup();
-                childGroup.Children.Add(calculation1);
+            var emptyChildGroup = new CalculationGroup();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
 
-                var emptyChildGroup = new CalculationGroup();
-                var group = new CalculationGroup();
-                var parentGroup = new CalculationGroup();
+            group.Children.Add(childGroup);
+            group.Children.Add(emptyChildGroup);
+            group.Children.Add(calculation2);
 
-                group.Children.Add(childGroup);
-                group.Children.Add(emptyChildGroup);
-                group.Children.Add(calculation2);
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism);
 
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism);
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             parentGroup,
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                             pipingFailureMechanism,
+                                                             assessmentSection);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   null,
+                                                                   Enumerable.Empty<PipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                   pipingFailureMechanism,
+                                                                   assessmentSection);
 
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 parentGroup,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
-                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       null,
-                                                                       Enumerable.Empty<PipingSurfaceLine>(),
-                                                                       Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                       pipingFailureMechanism,
-                                                                       assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            plugin.Gui = gui;
 
-                var mainWindow = Substitute.For<IMainWindow>();
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                plugin.Gui = gui;
+            string textBoxMessage = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                textBoxMessage = helper.Text;
+                helper.ClickCancel();
+            };
 
-                string textBoxMessage = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var helper = new MessageBoxTester(wnd);
-                    textBoxMessage = helper.Text;
-                    helper.ClickCancel();
-                };
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // When
+                ChangeSurfaceLine(surfaceLine);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // When
-                    ChangeSurfaceLine(surfaceLine);
+                contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
-                    contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
+                // Then
+                Assert.IsTrue(calculation1.HasOutput);
+                Assert.IsFalse(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
+                Assert.IsTrue(calculation2.HasOutput);
+                Assert.IsFalse(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
 
-                    // Then
-                    Assert.IsTrue(calculation1.HasOutput);
-                    Assert.IsFalse(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
-                    Assert.IsTrue(calculation2.HasOutput);
-                    Assert.IsFalse(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
-
-                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-                }
-
-                calculation1Observer.DidNotReceive().UpdateObserver();
-                calculation1InputObserver.DidNotReceive().UpdateObserver();
-                calculation2Observer.DidNotReceive().UpdateObserver();
-                calculation2InputObserver.DidNotReceive().UpdateObserver();
+                string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
+                                         $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedMessage, textBoxMessage);
             }
+
+            calculation1Observer.DidNotReceive().UpdateObserver();
+            calculation1InputObserver.DidNotReceive().UpdateObserver();
+            calculation2Observer.DidNotReceive().UpdateObserver();
+            calculation2InputObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointsClickedAndContinued_ThenInquiryAndCalculationUpdatedAndObserversNotified()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var calculation1Observer = Substitute.For<IObserver>();
+            var calculation1InputObserver = Substitute.For<IObserver>();
+            var calculation2Observer = Substitute.For<IObserver>();
+            var calculation2InputObserver = Substitute.For<IObserver>();
+
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
+            surfaceLine.SetGeometry(new[]
             {
-                var calculation1Observer = Substitute.For<IObserver>();
-                var calculation1InputObserver = Substitute.For<IObserver>();
-                var calculation2Observer = Substitute.For<IObserver>();
-                var calculation2InputObserver = Substitute.For<IObserver>();
+                new Point3D(1, 2, 3),
+                new Point3D(4, 5, 6)
+            });
 
-                var surfaceLine = new PipingSurfaceLine(string.Empty);
-                surfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(1, 2, 3),
-                    new Point3D(4, 5, 6)
-                });
+            var calculation1 = new TestPipingCalculationScenario(new TestPipingInput
+            {
+                SurfaceLine = surfaceLine,
+                EntryPointL = (RoundedDouble) 0,
+                ExitPointL = (RoundedDouble) 1
+            }, true);
 
-                var calculation1 = new TestPipingCalculationScenario(new TestPipingInput
-                {
-                    SurfaceLine = surfaceLine,
-                    EntryPointL = (RoundedDouble) 0,
-                    ExitPointL = (RoundedDouble) 1
-                }, true);
+            calculation1.Attach(calculation1Observer);
+            calculation1.InputParameters.Attach(calculation1InputObserver);
 
-                calculation1.Attach(calculation1Observer);
-                calculation1.InputParameters.Attach(calculation1InputObserver);
+            var calculation2 = new TestPipingCalculationScenario(new TestPipingInput
+            {
+                SurfaceLine = surfaceLine,
+                EntryPointL = (RoundedDouble) 0,
+                ExitPointL = (RoundedDouble) 1
+            }, true);
 
-                var calculation2 = new TestPipingCalculationScenario(new TestPipingInput
-                {
-                    SurfaceLine = surfaceLine,
-                    EntryPointL = (RoundedDouble) 0,
-                    ExitPointL = (RoundedDouble) 1
-                }, true);
+            calculation2.Attach(calculation2Observer);
+            calculation2.InputParameters.Attach(calculation2InputObserver);
 
-                calculation2.Attach(calculation2Observer);
-                calculation2.InputParameters.Attach(calculation2InputObserver);
+            var childGroup = new CalculationGroup();
+            childGroup.Children.Add(calculation1);
 
-                var childGroup = new CalculationGroup();
-                childGroup.Children.Add(calculation1);
+            var emptyChildGroup = new CalculationGroup();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
 
-                var emptyChildGroup = new CalculationGroup();
-                var group = new CalculationGroup();
-                var parentGroup = new CalculationGroup();
+            group.Children.Add(childGroup);
+            group.Children.Add(emptyChildGroup);
+            group.Children.Add(calculation2);
 
-                group.Children.Add(childGroup);
-                group.Children.Add(emptyChildGroup);
-                group.Children.Add(calculation2);
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism);
 
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism);
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             parentGroup,
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                             pipingFailureMechanism,
+                                                             assessmentSection);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   null,
+                                                                   Enumerable.Empty<PipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                   pipingFailureMechanism,
+                                                                   assessmentSection);
 
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 parentGroup,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
-                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       null,
-                                                                       Enumerable.Empty<PipingSurfaceLine>(),
-                                                                       Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                       pipingFailureMechanism,
-                                                                       assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            plugin.Gui = gui;
 
-                var mainWindow = Substitute.For<IMainWindow>();
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                plugin.Gui = gui;
+            string textBoxMessage = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                textBoxMessage = helper.Text;
+                helper.ClickOk();
+            };
 
-                string textBoxMessage = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var helper = new MessageBoxTester(wnd);
-                    textBoxMessage = helper.Text;
-                    helper.ClickOk();
-                };
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // When
+                ChangeSurfaceLine(surfaceLine);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // When
-                    ChangeSurfaceLine(surfaceLine);
+                contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
 
-                    contextMenu.Items[contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup].PerformClick();
+                // Then
+                Assert.IsFalse(calculation1.HasOutput);
+                Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
+                Assert.IsFalse(calculation2.HasOutput);
+                Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
 
-                    // Then
-                    Assert.IsFalse(calculation1.HasOutput);
-                    Assert.IsTrue(calculation1.InputParameters.IsEntryAndExitPointInputSynchronized);
-                    Assert.IsFalse(calculation2.HasOutput);
-                    Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
-
-                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-                }
-
-                calculation1Observer.Received(1).UpdateObserver();
-                calculation1InputObserver.Received(1).UpdateObserver();
-                calculation2Observer.Received(1).UpdateObserver();
-                calculation2InputObserver.Received(1).UpdateObserver();
+                string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van alle bij te werken berekeningen " +
+                                         $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedMessage, textBoxMessage);
             }
+
+            calculation1Observer.Received(1).UpdateObserver();
+            calculation1InputObserver.Received(1).UpdateObserver();
+            calculation2Observer.Received(1).UpdateObserver();
+            calculation2InputObserver.Received(1).UpdateObserver();
         }
 
         public override void Setup()

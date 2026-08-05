@@ -122,38 +122,36 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_ReturnsExpectedItem()
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var failureMechanisms = new ObservableList<SpecificFailureMechanism>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new SpecificFailureMechanismsContext(failureMechanisms, assessmentSection);
+
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddDeleteChildrenItem().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(context, assessmentSection, treeViewCommands);
+
+            // Assert
+            Received.InOrder(() =>
             {
-                var failureMechanisms = new ObservableList<SpecificFailureMechanism>();
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new SpecificFailureMechanismsContext(failureMechanisms, assessmentSection);
-
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddDeleteChildrenItem().Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeView).Returns(menuBuilder);
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, assessmentSection, treeView);
-
-                // Assert
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddDeleteChildrenItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCollapseAllItem();
-                    menuBuilder.AddExpandAllItem();
-                    menuBuilder.Build();
-                });
-            }
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddDeleteChildrenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -165,22 +163,20 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var context = new SpecificFailureMechanismsContext(failureMechanisms, assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            using (var treeView = new TreeViewControl())
-            {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeView).Returns(menuBuilder);
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                {
-                    // Assert
-                    Assert.AreEqual(6, menu.Items.Count);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCreateFailureMechanismIndex,
-                                                                  "Faalmechanisme &toevoegen",
-                                                                  "Voeg een nieuw faalmechanisme toe aan deze map.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
-                }
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
+            {
+                // Assert
+                Assert.AreEqual(6, menu.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCreateFailureMechanismIndex,
+                                                              "Faalmechanisme &toevoegen",
+                                                              "Voeg een nieuw faalmechanisme toe aan deze map.",
+                                                              RiskeerCommonFormsResources.FailureMechanismIcon);
             }
         }
 
@@ -197,23 +193,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             context.Attach(observer);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeView).Returns(menuBuilder);
-                plugin.Gui = gui;
+                // Call
+                menu.Items[contextMenuCreateFailureMechanismIndex].PerformClick();
 
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                {
-                    // Call
-                    menu.Items[contextMenuCreateFailureMechanismIndex].PerformClick();
-
-                    // Assert
-                    Assert.AreEqual(1, failureMechanisms.Count);
-                    IFailureMechanism addedItem = failureMechanisms.Single();
-                    Assert.IsInstanceOf<SpecificFailureMechanism>(addedItem);
-                    Assert.AreEqual("Nieuw faalmechanisme", addedItem.Name);
-                }
+                // Assert
+                Assert.AreEqual(1, failureMechanisms.Count);
+                IFailureMechanism addedItem = failureMechanisms.Single();
+                Assert.IsInstanceOf<SpecificFailureMechanism>(addedItem);
+                Assert.AreEqual("Nieuw faalmechanisme", addedItem.Name);
             }
 
             observer.Received(1).UpdateObserver();
@@ -238,23 +232,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             context.Attach(observer);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeView).Returns(menuBuilder);
-                plugin.Gui = gui;
+                // When
+                menu.Items[contextMenuCreateFailureMechanismIndex].PerformClick();
 
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                {
-                    // When
-                    menu.Items[contextMenuCreateFailureMechanismIndex].PerformClick();
-
-                    // Then
-                    Assert.AreEqual(2, failureMechanisms.Count);
-                    IFailureMechanism addedItem = failureMechanisms.Last();
-                    Assert.IsInstanceOf<SpecificFailureMechanism>(addedItem);
-                    Assert.AreEqual("Nieuw faalmechanisme (1)", addedItem.Name);
-                }
+                // Then
+                Assert.AreEqual(2, failureMechanisms.Count);
+                IFailureMechanism addedItem = failureMechanisms.Last();
+                Assert.IsInstanceOf<SpecificFailureMechanism>(addedItem);
+                Assert.AreEqual("Nieuw faalmechanisme (1)", addedItem.Name);
             }
 
             observer.Received(1).UpdateObserver();

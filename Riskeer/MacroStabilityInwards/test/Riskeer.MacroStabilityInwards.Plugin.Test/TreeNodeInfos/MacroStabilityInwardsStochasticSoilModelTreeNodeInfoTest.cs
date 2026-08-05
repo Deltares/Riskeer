@@ -150,15 +150,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(model, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(model, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(model, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(model, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>
