@@ -44,12 +44,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
     [TestFixture]
     public class ForeshoreProfilesImporterTest
     {
-        [SetUp]
-        public void SetUp() {}
-
-        [TearDown]
-        public void TearDown() {}
-
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {

@@ -48,9 +48,6 @@ namespace Core.Gui.Test.Forms.Map
             contextMenuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
         }
 
-        [TearDown]
-        public void TearDown() {}
-
         [Test]
         public void Constructor_ContextMenuBuilderProviderAndWindowNotNull_CreatesUserControlAndTreeViewControl()
         {

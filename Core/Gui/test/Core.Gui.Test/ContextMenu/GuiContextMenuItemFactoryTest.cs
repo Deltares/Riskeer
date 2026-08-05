@@ -37,9 +37,6 @@ namespace Core.Gui.Test.ContextMenu
     [TestFixture]
     public class ContextMenuItemFactoryTest
     {
-        [SetUp]
-        public void SetUp() {}
-
         [Test]
         public void Constructor_WithoutApplicationFeatureCommandHandler_ThrowsArgumentNullException()
         {

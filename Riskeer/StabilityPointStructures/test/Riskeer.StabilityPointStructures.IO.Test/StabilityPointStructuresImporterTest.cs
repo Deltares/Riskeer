@@ -48,12 +48,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
-        [SetUp]
-        public void Setup() {}
-
-        [TearDown]
-        public void TearDown() {}
-
         [Test]
         public void Constructor_Always_ExpectedValues()
         {

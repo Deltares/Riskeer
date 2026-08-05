@@ -50,9 +50,6 @@ namespace Riskeer.DuneErosion.Service.Test
         private static readonly string validHrdFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHrdFileVersion = "Dutch coast South19-11-2015 12:0013";
 
-        [SetUp]
-        public void SetUp() {}
-
         [Test]
         public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
         {

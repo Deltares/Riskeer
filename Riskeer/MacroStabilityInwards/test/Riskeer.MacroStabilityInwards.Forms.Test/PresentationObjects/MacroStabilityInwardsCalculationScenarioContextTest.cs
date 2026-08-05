@@ -115,12 +115,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             private static readonly MacroStabilityInwardsFailureMechanism failureMechanism = new MacroStabilityInwardsFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
-            [SetUp]
-            public void SetUp() {}
-
-            [TearDown]
-            public void TearDown() {}
-
             protected override MacroStabilityInwardsCalculationScenarioContext CreateObject()
             {
                 return new MacroStabilityInwardsCalculationScenarioContext(calculation,

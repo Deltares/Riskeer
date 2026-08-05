@@ -45,12 +45,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;
 
-        [SetUp]
-        public void Setup() {}
-
-        [TearDown]
-        public void TearDown() {}
-
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {

@@ -42,9 +42,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int coordinatesPropertyIndex = 0;
         private const int roughnessesPropertyIndex = 1;
 
-        [SetUp]
-        public void SetUp() {}
-
         [Test]
         public void Constructor_ExpectedValues()
         {

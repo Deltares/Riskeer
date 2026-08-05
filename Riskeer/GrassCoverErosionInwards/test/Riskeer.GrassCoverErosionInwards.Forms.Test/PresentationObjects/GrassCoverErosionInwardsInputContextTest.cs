@@ -31,9 +31,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextTest
     {
-        [SetUp]
-        public void SetUp() {}
-
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {

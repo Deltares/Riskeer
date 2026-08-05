@@ -33,12 +33,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
     [TestFixture]
     public class CriticalProfilePropertiesTest
     {
-        [SetUp]
-        public void SetUp() {}
-
-        [TearDown]
-        public void TearDown() {}
-
         [Test]
         public void Constructor_WithReaderValuesValid_SetProperties()
         {

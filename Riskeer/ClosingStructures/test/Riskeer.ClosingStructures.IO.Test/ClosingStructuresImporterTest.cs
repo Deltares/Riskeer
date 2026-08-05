@@ -44,9 +44,6 @@ namespace Riskeer.ClosingStructures.IO.Test
         private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "Structures");
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.ClosingStructures.IO);
 
-        [TearDown]
-        public void TearDown() {}
-
         [Test]
         public void Constructor_WithoutUpdateStrategy_ThrowsArgumentNullException()
         {
