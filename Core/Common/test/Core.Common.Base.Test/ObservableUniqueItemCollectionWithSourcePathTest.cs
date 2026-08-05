@@ -522,8 +522,8 @@ namespace Core.Common.Base.Test
             observableCollection.Attach(observer4);
             observableCollection.Attach(observer6);
 
-            observer2.When(x => x.UpdateObserver()).Do(_ => observableCollection.Detach(observer3));
-            observer4.When(x => x.UpdateObserver()).Do(_ => observableCollection.Attach(observer5));
+            observer2.When(o => o.UpdateObserver()).Do(_ => observableCollection.Detach(observer3));
+            observer4.When(o => o.UpdateObserver()).Do(_ => observableCollection.Attach(observer5));
 
             // Call
             observableCollection.NotifyObservers();
