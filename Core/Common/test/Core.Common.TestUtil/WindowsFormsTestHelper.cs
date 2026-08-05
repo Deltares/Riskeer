@@ -214,15 +214,6 @@ namespace Core.Common.TestUtil
                 formShown = null;
             }
 
-            // if not on build server - wait until control is closed
-            if (!GuiTestHelper.IsBuildServer && modal)
-            {
-                while (control.Visible)
-                {
-                    Application.DoEvents();
-                }
-            }
-
             if (GuiTestHelper.Exception != null)
             {
                 GuiTestHelper.RethrowUnhandledException();
