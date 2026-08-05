@@ -85,12 +85,6 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
 
             private static CalculationGroup parent;
 
-            [SetUp]
-            public void SetUp() {}
-
-            [TearDown]
-            public void TearDown() {}
-
             public PipingCalculationGroupContextEqualsTest(bool hasParent)
             {
                 parent = hasParent ? new CalculationGroup() : null;

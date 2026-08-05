@@ -52,9 +52,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             transformer = Substitute.For<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
         }
 
-        [TearDown]
-        public void TearDown() {}
-
         [Test]
         public void Constructor_ImportTargetNull_ThrowsArgumentNullException()
         {

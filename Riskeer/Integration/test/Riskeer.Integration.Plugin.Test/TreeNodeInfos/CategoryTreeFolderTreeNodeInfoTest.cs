@@ -37,9 +37,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class CategoryTreeFolderTreeNodeInfoTest
     {
-        [SetUp]
-        public void SetUp() {}
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {

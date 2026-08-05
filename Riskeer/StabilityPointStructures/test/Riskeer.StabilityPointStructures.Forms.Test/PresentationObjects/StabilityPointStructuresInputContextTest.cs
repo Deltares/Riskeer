@@ -32,9 +32,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
     [TestFixture]
     public class StabilityPointStructuresInputContextTest
     {
-        [SetUp]
-        public void SetUp() {}
-
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {

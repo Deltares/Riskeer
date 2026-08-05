@@ -80,12 +80,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             private static readonly GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
-            [SetUp]
-            public void SetUp() {}
-
-            [TearDown]
-            public void TearDown() {}
-
             protected override GrassCoverErosionInwardsCalculationScenarioContext CreateObject()
             {
                 return new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);

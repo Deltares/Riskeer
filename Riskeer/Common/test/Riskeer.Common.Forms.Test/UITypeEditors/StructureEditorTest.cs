@@ -35,9 +35,6 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
     [TestFixture]
     public class StructureEditorTest
     {
-        [SetUp]
-        public void SetUp() {}
-
         [Test]
         public void DefaultConstructor_ReturnsNewInstance()
         {

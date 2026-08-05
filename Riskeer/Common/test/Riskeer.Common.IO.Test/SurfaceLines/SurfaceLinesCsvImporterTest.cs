@@ -57,9 +57,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             transformer = Substitute.For<ISurfaceLineTransformer<IMechanismSurfaceLine>>();
         }
 
-        [TearDown]
-        public void TearDown() {}
-
         [Test]
         public void Constructor_ImportTargetNull_ThrowsArgumentNullException()
         {
