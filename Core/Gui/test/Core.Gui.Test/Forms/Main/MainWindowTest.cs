@@ -183,6 +183,7 @@ namespace Core.Gui.Test.Forms.Main
             gui.FixedSettings.Returns(new GuiCoreSettings());
             gui.Plugins.Returns(Enumerable.Empty<PluginBase>().ToList());
             gui.ViewHost.Returns(viewHost);
+
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
@@ -208,6 +209,7 @@ namespace Core.Gui.Test.Forms.Main
             gui.FixedSettings.Returns(new GuiCoreSettings());
             gui.Plugins.Returns(Enumerable.Empty<PluginBase>().ToList());
             gui.ViewHost.Returns(viewHost);
+
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);

@@ -404,6 +404,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
@@ -429,6 +430,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
@@ -457,6 +459,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,
@@ -485,6 +488,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
                                                                  new GeneralMacroStabilityInwardsInput(),
                                                                  assessmentSection,

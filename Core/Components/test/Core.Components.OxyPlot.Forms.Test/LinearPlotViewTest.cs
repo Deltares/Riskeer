@@ -312,7 +312,6 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void GivenEmptyMultipleAreaSeriesAddedToView_WhenViewOpenedAndUpdated_ThenXYAxisNotChanged()
         {
             // Given
-
             var series = new MultipleAreaSeries();
             using (var form = new Form())
             using (var view = new LinearPlotView())

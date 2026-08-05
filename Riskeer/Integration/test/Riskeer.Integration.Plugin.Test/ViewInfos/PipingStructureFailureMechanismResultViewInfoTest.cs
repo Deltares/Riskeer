@@ -97,6 +97,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             assessmentSection.GetFailureMechanisms().Returns(Array.Empty<IFailureMechanism>());
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
             var failureMechanism = new PipingStructureFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -121,6 +122,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             });
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
             var failureMechanism = new PipingStructureFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -143,6 +145,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -164,6 +167,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
             failureMechanismContext.WrappedData.Returns(failureMechanism);
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))

@@ -111,6 +111,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
             var random = new Random(39);
             var result = new AssessmentSectionAssemblyResult(random.NextDouble(),
                                                              random.NextEnumValue<AssessmentSectionAssemblyGroup>());
+
             using (var resultControl = new AssessmentSectionAssemblyResultControl())
             {
                 // Call

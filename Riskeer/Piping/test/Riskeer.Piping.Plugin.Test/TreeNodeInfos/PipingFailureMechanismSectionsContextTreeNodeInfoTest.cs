@@ -108,23 +108,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
-
+            var mainWindow = Substitute.For<IMainWindow>();
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
-
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            
+            gui.MainWindow.Returns(mainWindow);
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-            var assessmentSection = Substitute.For<IAssessmentSection>();
-            var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
-
-            var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            
             using (var plugin = new PipingPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -150,11 +149,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithAddImportItem_CorrectImportInfosPassed()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
-
+            var mainWindow = Substitute.For<IMainWindow>();
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            
+            gui.MainWindow.Returns(mainWindow);
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddImportItem(
@@ -168,11 +171,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                        .Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-            var assessmentSection = Substitute.For<IAssessmentSection>();
-            var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
-
-            var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            
             using (var plugin = new PipingPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);

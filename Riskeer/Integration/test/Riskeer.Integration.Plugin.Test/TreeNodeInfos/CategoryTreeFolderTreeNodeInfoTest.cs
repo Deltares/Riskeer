@@ -179,6 +179,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IGui gui = StubFactory.CreateGuiStub();
             gui.Get(null, treeViewCommands).Returns(menuBuilder);
+
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);

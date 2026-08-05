@@ -83,7 +83,6 @@ namespace Core.Gui.Test
         {
             // Setup
             var window = Substitute.For<IWin32Window>();
-
             var exception = new Exception("Test", new Exception("Test inner"));
             using (var dialog = new ExceptionDialog(window, null, exception))
             {
