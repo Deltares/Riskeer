@@ -80,6 +80,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             const string testName = "ttt";
             var pipingSurfaceLine = new PipingSurfaceLine(testName);
+
             // Call
             string text = info.Text(pipingSurfaceLine);
 

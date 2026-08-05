@@ -68,6 +68,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             // Setup
             var calculator = Substitute.For<ICalculator>();
             var validator = Substitute.For<IValidator>();
+
             // Call
             var kernel = new WaternetKernelWrapper(calculator, validator, "Waternet");
 

@@ -49,6 +49,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Setup
             var reader = Substitute.For<IRowBasedDatabaseReader>();
+
             // Call
             Action test = () => new LayerProperties(reader, null);
 
@@ -158,6 +159,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopMean).Returns(popMean);
             reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopCoefficientOfVariation).Returns(popCoefficientOfVariation);
             reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopShift).Returns(popShift);
+
             // Call
             var properties = new LayerProperties(reader, "");
 
@@ -227,6 +229,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.ReadOrDefault<string>(Arg.Is<string>(s => s != columnName))
                   .Returns("");
             reader.Path.Returns(path);
+
             // Call
             Action test = () => new LayerProperties(reader, profileName);
 

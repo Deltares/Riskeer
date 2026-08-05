@@ -250,6 +250,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             var distribution = Substitute.For<IDistribution>();
+
             // Call
             bool result = distribution.TrySetMean(null, "A", "B");
 
@@ -319,6 +320,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             var distribution = Substitute.For<IDistribution>();
+
             // Call
             bool result = distribution.TrySetStandardDeviation(null, "A", "B");
 
@@ -482,6 +484,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
+
             // Call
             bool result = distribution.TrySetMean(null, "A", "B");
 
@@ -551,6 +554,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
+
             // Call
             bool result = distribution.TrySetVariationCoefficient(null, "A", "B");
 

@@ -39,6 +39,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             var changeHandler = new PipingFailureMechanismCalculationChangeHandler(new PipingFailureMechanism(), string.Empty, inquiryHelper);
 

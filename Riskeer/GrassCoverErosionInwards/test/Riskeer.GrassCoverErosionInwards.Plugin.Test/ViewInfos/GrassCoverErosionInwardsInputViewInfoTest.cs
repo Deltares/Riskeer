@@ -80,6 +80,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                    calculation,
                                                                    new GrassCoverErosionInwardsFailureMechanism(),
                                                                    assessmentSection);
+
             // Call
             object viewData = info.GetViewData(context);
 

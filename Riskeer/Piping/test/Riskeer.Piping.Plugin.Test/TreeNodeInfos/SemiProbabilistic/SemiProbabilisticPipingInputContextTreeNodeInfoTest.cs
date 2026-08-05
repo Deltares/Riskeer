@@ -90,6 +90,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),
                 Substitute.For<IAssessmentSection>());
+
             // Call
             string text = info.Text(pipingInputContext);
 
@@ -108,6 +109,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),
                 Substitute.For<IAssessmentSection>());
+
             // Call
             Image image = info.Image(pipingInputContext);
 

@@ -54,6 +54,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         {
             // Setup
             var log = Substitute.For<ILog>();
+
             // Call
             Action test = () => ((WaveReductionConfiguration) null).ValidateWaveReduction(null, null, log);
 
@@ -68,6 +69,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Setup
             const string calculationName = "calculation";
             var log = Substitute.For<ILog>();
+
             // Call
             bool valid = ((WaveReductionConfiguration) null).ValidateWaveReduction(null, calculationName, log);
 
@@ -81,6 +83,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Setup
             const string calculationName = "calculation";
             var log = Substitute.For<ILog>();
+
             // Call
             bool valid = new WaveReductionConfiguration().ValidateWaveReduction(null, calculationName, log);
 
@@ -129,6 +132,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Setup
             const string calculationName = "calculation";
             var log = Substitute.For<ILog>();
+
             // Call
             bool valid = ((WaveReductionConfiguration) null).ValidateWaveReduction(
                 new TestForeshoreProfile("voorland", Enumerable.Empty<Point2D>()),

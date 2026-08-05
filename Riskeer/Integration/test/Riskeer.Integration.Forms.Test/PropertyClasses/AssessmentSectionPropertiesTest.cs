@@ -68,6 +68,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             var properties = new AssessmentSectionProperties(assessmentSection);
 

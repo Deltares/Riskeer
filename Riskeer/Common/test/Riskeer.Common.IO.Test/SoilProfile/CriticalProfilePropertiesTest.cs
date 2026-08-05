@@ -45,6 +45,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(profileName);
             reader.Read<long>(SoilProfileTableDefinitions.LayerCount).Returns(layerCount);
             reader.Read<long>(SoilProfileTableDefinitions.SoilProfileId).Returns(soilProfileId);
+
             // Call
             var properties = new CriticalProfileProperties(reader);
 
@@ -68,6 +69,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.Read<long>(SoilProfileTableDefinitions.LayerCount).Returns(layerCount);
             reader.Read<long>(SoilProfileTableDefinitions.SoilProfileId).Returns(_ => throw invalidCastException);
             reader.Path.Returns(path);
+
             // Call
             Action test = () => new CriticalProfileProperties(reader);
 
@@ -90,6 +92,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(_ => throw invalidCastException);
             reader.Path.Returns(path);
+
             // Call
             Action test = () => new CriticalProfileProperties(reader);
 
@@ -113,6 +116,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(profileName);
             reader.Read<long>(SoilProfileTableDefinitions.LayerCount).Returns(_ => throw invalidCastException);
             reader.Path.Returns(path);
+
             // Call
             Action test = () => new CriticalProfileProperties(reader);
 

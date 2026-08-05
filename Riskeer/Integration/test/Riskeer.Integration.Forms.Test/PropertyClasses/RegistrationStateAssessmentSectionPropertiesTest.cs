@@ -75,6 +75,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var assessmentSectionCompositionChangeHandler = Substitute.For<IAssessmentSectionCompositionChangeHandler>();
+
             // Call
             var properties = new RegistrationStateAssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
 

@@ -42,6 +42,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             Action call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
                 inquiryHelper, null);
@@ -56,6 +57,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());

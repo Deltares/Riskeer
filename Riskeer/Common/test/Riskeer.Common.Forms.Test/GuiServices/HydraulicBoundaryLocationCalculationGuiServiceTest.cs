@@ -64,6 +64,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             var viewParent = Substitute.For<IViewParent>();
+
             // Call
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 

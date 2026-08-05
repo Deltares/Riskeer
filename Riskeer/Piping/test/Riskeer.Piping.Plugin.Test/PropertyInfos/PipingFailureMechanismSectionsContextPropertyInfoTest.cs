@@ -65,6 +65,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanismSectionsContext = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(),
                                                                                             assessmentSection);
+
             // Call
             IObjectProperties objectProperties = info.CreateInstance(failureMechanismSectionsContext);
 

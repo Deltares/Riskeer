@@ -48,6 +48,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         {
             // Setup
             var calculations = Substitute.For<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>();
+
             // Call
             Action call = () => ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(calculations, null);
 

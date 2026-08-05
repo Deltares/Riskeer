@@ -110,6 +110,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+
                 // Call
                 Image icon = info.Image(output);
 

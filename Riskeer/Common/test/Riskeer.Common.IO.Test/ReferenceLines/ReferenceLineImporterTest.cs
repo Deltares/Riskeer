@@ -43,6 +43,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
+
             // Call
             Action call = () => new ReferenceLineImporter(null, handler, "");
 
@@ -67,6 +68,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         {
             // Setup
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
+
             // Call
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, "");
 

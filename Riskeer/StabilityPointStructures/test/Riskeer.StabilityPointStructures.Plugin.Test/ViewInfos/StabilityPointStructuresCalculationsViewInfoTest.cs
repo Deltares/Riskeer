@@ -96,6 +96,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
                                                                                               null,
                                                                                               new StabilityPointStructuresFailureMechanism(),
                                                                                               assessmentSection);
+
             // Call
             string name = info.GetViewName(null, calculationGroupContext);
 

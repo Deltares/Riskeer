@@ -61,6 +61,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             // Call
             Action call = () => new DikeProfilesImporter(null, new ReferenceLine(), "", new TestDikeProfileUpdateStrategy(), messageProvider);
 
@@ -74,6 +75,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             // Call
             Action call = () => new DikeProfilesImporter(new DikeProfileCollection(), null, "", new TestDikeProfileUpdateStrategy(), messageProvider);
 
@@ -87,6 +89,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             // Call
             Action call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), null, new TestDikeProfileUpdateStrategy(), messageProvider);
 
@@ -100,6 +103,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             // Call
             Action call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), string.Empty, null, messageProvider);
 

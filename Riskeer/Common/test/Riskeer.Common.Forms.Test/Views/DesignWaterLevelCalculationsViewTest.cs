@@ -104,6 +104,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
+
             // Call
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSection,
@@ -121,6 +122,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
+
             // Call
             ShowDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                  assessmentSection,

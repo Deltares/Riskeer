@@ -37,6 +37,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         {
             // Setup
             var distribution = Substitute.For<IDistribution>();
+
             // Call
             var designVariable = new SimpleDesignVariable(distribution);
             // Assert

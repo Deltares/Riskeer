@@ -82,6 +82,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         {
             // Setup
             var handler = Substitute.For<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+
             // Call
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               new HydraulicBoundaryData(), validHlcdFilePath);

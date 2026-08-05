@@ -59,6 +59,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var viewCommands = Substitute.For<IViewCommands>();
+
             // Call
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 

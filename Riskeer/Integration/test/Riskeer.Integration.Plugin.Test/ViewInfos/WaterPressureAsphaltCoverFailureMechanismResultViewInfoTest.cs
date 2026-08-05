@@ -206,6 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
             var context = new WaterPressureAsphaltCoverFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
+
             // Call
             IView view = info.CreateInstance(context);
 

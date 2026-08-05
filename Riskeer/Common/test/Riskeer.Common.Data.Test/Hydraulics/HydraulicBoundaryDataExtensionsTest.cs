@@ -136,6 +136,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             };
             var observer = Substitute.For<IObserver>();
             hydraulicBoundaryData.Attach(observer);
+
             // Call
             hydraulicBoundaryData.SetNewFolderPath(newFolderPath);
 

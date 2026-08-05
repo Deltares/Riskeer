@@ -86,6 +86,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 new GrassCoverErosionInwardsCalculation(),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 Substitute.For<IAssessmentSection>());
+
             // Call
             string text = info.Text(grassCoverErosionInwardsInputContext);
 
@@ -102,6 +103,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 new GrassCoverErosionInwardsCalculation(),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 Substitute.For<IAssessmentSection>());
+
             // Call
             Image image = info.Image(grassCoverErosionInwardsInputContext);
 

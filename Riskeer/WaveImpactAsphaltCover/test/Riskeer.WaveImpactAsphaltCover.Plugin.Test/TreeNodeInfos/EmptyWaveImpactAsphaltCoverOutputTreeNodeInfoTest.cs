@@ -110,6 +110,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+
                 // Call
                 Image icon = info.Image(output);
 

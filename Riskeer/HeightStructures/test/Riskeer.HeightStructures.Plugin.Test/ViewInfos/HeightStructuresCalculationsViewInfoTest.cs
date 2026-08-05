@@ -96,6 +96,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
                                                                                       null,
                                                                                       new HeightStructuresFailureMechanism(),
                                                                                       assessmentSection);
+
             // Call
             string name = info.GetViewName(null, calculationGroupContext);
 
