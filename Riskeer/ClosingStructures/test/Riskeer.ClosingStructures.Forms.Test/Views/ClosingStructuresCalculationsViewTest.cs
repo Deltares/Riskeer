@@ -426,13 +426,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             if (useCalculationWithOutput)
             {
                 Assert.IsNull(calculationScenario.Output);
-                calculationObserver.Received().UpdateObserver();
-                inputObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
+                inputObserver.Received(1).UpdateObserver();
             }
             else
             {
                 calculationObserver.DidNotReceive().UpdateObserver();
-                inputObserver.Received().UpdateObserver();
+                inputObserver.Received(1).UpdateObserver();
             }
         }
 
@@ -555,7 +555,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             button.Click();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

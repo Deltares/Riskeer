@@ -73,7 +73,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             }
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             }
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             }
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             }
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
     }
 }

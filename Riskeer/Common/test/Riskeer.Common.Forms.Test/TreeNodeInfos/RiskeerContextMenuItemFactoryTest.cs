@@ -226,10 +226,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
-            calculationWithOutputMock1.Received().ClearOutput();
-            calculationWithOutputMock1.Received().NotifyObservers();
-            calculationWithOutputMock2.Received().ClearOutput();
-            calculationWithOutputMock2.Received().NotifyObservers();
+            calculationWithOutputMock1.Received(1).ClearOutput();
+            calculationWithOutputMock1.Received(1).NotifyObservers();
+            calculationWithOutputMock2.Received(1).ClearOutput();
+            calculationWithOutputMock2.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -351,10 +351,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert            
-            calculationWithOutputMock1.Received().ClearOutput();
-            calculationWithOutputMock1.Received().NotifyObservers();
-            calculationWithOutputMock2.Received().ClearOutput();
-            calculationWithOutputMock2.Received().NotifyObservers();
+            calculationWithOutputMock1.Received(1).ClearOutput();
+            calculationWithOutputMock1.Received(1).NotifyObservers();
+            calculationWithOutputMock2.Received(1).ClearOutput();
+            calculationWithOutputMock2.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -439,8 +439,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, actionCounter);
 
-            failureMechanism.Received().InAssembly = !inAssembly;
-            failureMechanism.Received().NotifyObservers();
+            failureMechanism.Received(1).InAssembly = !inAssembly;
+            failureMechanism.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -504,8 +504,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
-            calculationWithOutput.Received().ClearOutput();
-            calculationWithOutput.Received().NotifyObservers();
+            calculationWithOutput.Received(1).ClearOutput();
+            calculationWithOutput.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -1594,8 +1594,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            observable.Received().NotifyObservers();
-            handler.Received().ClearIllustrationPoints();
+            observable.Received(1).NotifyObservers();
+            handler.Received(1).ClearIllustrationPoints();
         }
 
         #endregion
@@ -1672,8 +1672,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            handler.Received().ClearIllustrationPoints();
-            observable.Received().NotifyObservers();
+            handler.Received(1).ClearIllustrationPoints();
+            observable.Received(1).NotifyObservers();
         }
 
         #endregion
@@ -1752,7 +1752,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Then
             observable.NotifyObservers();
-            handler.Received().ClearIllustrationPoints();
+            handler.Received(1).ClearIllustrationPoints();
         }
 
         #endregion
@@ -1824,8 +1824,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            handler.Received().ClearIllustrationPoints();
-            handler.Received().DoPostUpdateActions();
+            handler.Received(1).ClearIllustrationPoints();
+            handler.Received(1).DoPostUpdateActions();
         }
 
         [Test]
@@ -1842,7 +1842,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            handler.Received().ClearIllustrationPoints();
+            handler.Received(1).ClearIllustrationPoints();
             handler.DidNotReceive().DoPostUpdateActions();
         }
 

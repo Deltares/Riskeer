@@ -408,7 +408,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -449,7 +449,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             Assert.IsFalse(double.IsNaN(calculation.Output.OvertoppingOutput.Reliability));
             Assert.IsNull(calculation.Output.DikeHeightOutput);
             Assert.IsNull(calculation.Output.OvertoppingRateOutput);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         #endregion
@@ -819,7 +819,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             Assert.IsNull(calculation.Output.DikeHeightOutput);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -864,7 +864,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             Assert.IsNotNull(dikeHeightOutput);
             Assert.IsFalse(double.IsNaN(dikeHeightOutput.DikeHeight));
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         #endregion
@@ -1232,7 +1232,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             Assert.IsNull(calculation.Output.OvertoppingRateOutput);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1276,7 +1276,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             OvertoppingRateOutput overtoppingRateOutput = calculation.Output.OvertoppingRateOutput;
             Assert.IsNotNull(overtoppingRateOutput);
             Assert.IsFalse(double.IsNaN(overtoppingRateOutput.OvertoppingRate));
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         #endregion

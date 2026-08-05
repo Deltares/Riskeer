@@ -120,7 +120,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -168,7 +168,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -216,7 +216,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -267,7 +267,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -315,7 +315,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -371,7 +371,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -477,7 +477,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 Assert.AreEqual("Naam", mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -532,7 +532,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -585,7 +585,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -653,7 +653,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -721,7 +721,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private static IEnumerable<TestCaseData> GetCalculationFuncs()

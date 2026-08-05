@@ -64,12 +64,12 @@ namespace Riskeer.Common.Service.Test
             SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput(calculation);
 
             // Assert
-            calculationInput.Received().SynchronizeForeshoreProfileInput();
-            calculationInput.Received().NotifyObservers();
+            calculationInput.Received(1).SynchronizeForeshoreProfileInput();
+            calculationInput.Received(1).NotifyObservers();
             if (hasOutput)
             {
-                calculation.Received().ClearOutput();
-                calculation.Received().NotifyObservers();
+                calculation.Received(1).ClearOutput();
+                calculation.Received(1).NotifyObservers();
             }
         }
 

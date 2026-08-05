@@ -642,7 +642,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculationInputObserver.Received().UpdateObserver();
+            calculationInputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -866,7 +866,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            affectedCalculationObserver.Received().UpdateObserver();
+            affectedCalculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1130,7 +1130,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1179,7 +1179,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1386,7 +1386,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            inputObserver.Received().UpdateObserver();
+            inputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1510,8 +1510,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            inputObserver.Received().UpdateObserver();
-            calculationObserver.Received().UpdateObserver();
+            inputObserver.Received(1).UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1735,7 +1735,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1770,7 +1770,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         public override void Setup()

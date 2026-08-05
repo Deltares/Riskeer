@@ -185,7 +185,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newValue, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
             Assert.IsTrue(customHandler.Called);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
     }
 }

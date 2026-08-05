@@ -257,7 +257,7 @@ namespace Core.Gui.Test.Forms.Chart
                 Assert.AreSame(context1.WrappedData, chartDataCollection.Collection.ElementAt(reversedIndex));
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -433,7 +433,6 @@ namespace Core.Gui.Test.Forms.Chart
             contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var chartControl = Substitute.For<IChartControl>();
             chartControl.Data.Returns(new ChartDataCollection("name"));
-            chartControl.ZoomToVisibleSeries(chartDataCollection);
             chartLegendView.ChartControl = chartControl;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(chartDataCollection, null, null))
@@ -442,7 +441,7 @@ namespace Core.Gui.Test.Forms.Chart
                 contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
-                chartControl.Received().ZoomToVisibleSeries(chartDataCollection);
+                chartControl.Received(1).ZoomToVisibleSeries(chartDataCollection);
             }
         }
 

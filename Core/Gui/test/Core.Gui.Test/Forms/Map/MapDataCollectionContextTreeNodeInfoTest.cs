@@ -235,7 +235,7 @@ namespace Core.Gui.Test.Forms.Map
             // Assert
             Assert.AreEqual(!initialVisibleState, context.WrappedData.IsVisible);
             Assert.AreEqual(!initialVisibleState, featureBasedMapData.IsVisible);
-            collectionObserver.Received().UpdateObserver();
+            collectionObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -265,7 +265,7 @@ namespace Core.Gui.Test.Forms.Map
             Assert.IsTrue(context.WrappedData.IsVisible);
             Assert.IsTrue(featureBasedMapData1.IsVisible);
             Assert.IsTrue(featureBasedMapData2.IsVisible);
-            observer2.Received().UpdateObserver();
+            observer2.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -328,8 +328,8 @@ namespace Core.Gui.Test.Forms.Map
             info.OnNodeChecked(nestedCollectionContext, null);
 
             // Assert
-            collectionObserver.Received().UpdateObserver();
-            parentCollectionObserver.Received().UpdateObserver();
+            collectionObserver.Received(1).UpdateObserver();
+            parentCollectionObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -446,7 +446,7 @@ namespace Core.Gui.Test.Forms.Map
                 Assert.AreSame(context.WrappedData, parentMapDataCollection.Collection.ElementAt(reversedIndex));
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -666,7 +666,6 @@ namespace Core.Gui.Test.Forms.Map
             contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var mapControl = Substitute.For<IMapControl>();
             mapControl.Data.Returns(mapData);
-            mapControl.ZoomToVisibleLayers(mapData);
             mapLegendView.MapControl = mapControl;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
@@ -675,7 +674,7 @@ namespace Core.Gui.Test.Forms.Map
                 contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
-                mapControl.Received().ZoomToVisibleLayers(mapData);
+                mapControl.Received(1).ZoomToVisibleLayers(mapData);
             }
         }
 

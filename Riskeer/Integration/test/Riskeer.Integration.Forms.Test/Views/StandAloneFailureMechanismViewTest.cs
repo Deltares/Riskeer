@@ -241,7 +241,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // Assert
                 MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-                observers[referenceLineIndex].Received().UpdateObserver();
+                observers[referenceLineIndex].Received(1).UpdateObserver();
             }
         }
 
@@ -281,7 +281,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // Assert
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-                observers[referenceLineIndex].Received().UpdateObserver();
+                observers[referenceLineIndex].Received(1).UpdateObserver();
             }
         }
 
@@ -317,9 +317,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
-                observers[sectionsObserverIndex].Received().UpdateObserver();
-                observers[sectionsStartPointObserverIndex].Received().UpdateObserver();
-                observers[sectionsEndPointObserverIndex].Received().UpdateObserver();
+                observers[sectionsObserverIndex].Received(1).UpdateObserver();
+                observers[sectionsStartPointObserverIndex].Received(1).UpdateObserver();
+                observers[sectionsEndPointObserverIndex].Received(1).UpdateObserver();
             }
         }
 

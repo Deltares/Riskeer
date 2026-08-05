@@ -155,7 +155,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.IsNotNull(calculation.Output);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

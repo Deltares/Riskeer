@@ -300,7 +300,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
-            guiService.Received().CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>());
+            guiService.Received(1).CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>());
         }
 
         [Test]
@@ -368,7 +368,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(targetProbability, targetProbabilityValue);
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
-            guiService.Received().CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>());
+            guiService.Received(1).CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>());
         }
 
         private DataGridView GetCalculationsDataGridView()

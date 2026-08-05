@@ -188,7 +188,7 @@ namespace Core.Gui.Test.Forms.Map
 
             // Assert
             Assert.AreEqual(!initialVisibleState, context.WrappedData.IsVisible);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -214,8 +214,8 @@ namespace Core.Gui.Test.Forms.Map
             info.OnNodeChecked(featureBasedMapDataContext, null);
 
             // Assert
-            collectionObserver.Received().UpdateObserver();
-            parentCollectionObserver.Received().UpdateObserver();
+            collectionObserver.Received(1).UpdateObserver();
+            parentCollectionObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -436,7 +436,6 @@ namespace Core.Gui.Test.Forms.Map
             contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var mapControl = Substitute.For<IMapControl>();
             mapControl.Data.Returns(new MapDataCollection("name"));
-            mapControl.ZoomToVisibleLayers(mapData);
             mapLegendView.MapControl = mapControl;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
@@ -445,7 +444,7 @@ namespace Core.Gui.Test.Forms.Map
                 contextMenu.Items[mapDataContextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
-                mapControl.Received().ZoomToVisibleLayers(mapData);
+                mapControl.Received(1).ZoomToVisibleLayers(mapData);
             }
         }
 

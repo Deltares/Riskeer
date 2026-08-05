@@ -90,7 +90,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             locationCalculationsEnumerationToObserve.NotifyObservers();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -112,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             observable.NotifyObservers();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -130,7 +130,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             locationCalculationsEnumerationToObserve.NotifyObservers();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -153,7 +153,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             observable.NotifyObservers();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

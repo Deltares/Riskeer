@@ -269,7 +269,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -308,7 +308,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -340,8 +340,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
-            observers[dikeProfilesObserverIndex].Received().UpdateObserver();
-            observers[foreshoreProfileObserverIndex].Received().UpdateObserver();
+            observers[dikeProfilesObserverIndex].Received(1).UpdateObserver();
+            observers[foreshoreProfileObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -372,8 +372,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
-            observers[dikeProfilesObserverIndex].Received().UpdateObserver();
-            observers[foreshoreProfileObserverIndex].Received().UpdateObserver();
+            observers[dikeProfilesObserverIndex].Received(1).UpdateObserver();
+            observers[foreshoreProfileObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -412,8 +412,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
-            observers[dikeProfilesObserverIndex].Received().UpdateObserver();
-            observers[foreshoreProfileObserverIndex].Received().UpdateObserver();
+            observers[dikeProfilesObserverIndex].Received(1).UpdateObserver();
+            observers[foreshoreProfileObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -452,7 +452,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -484,7 +484,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -516,7 +516,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             // Then 
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]

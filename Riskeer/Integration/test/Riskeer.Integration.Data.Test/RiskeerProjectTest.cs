@@ -119,7 +119,7 @@ namespace Riskeer.Integration.Data.Test
             project.NotifyObservers();
 
             // Assert
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -136,7 +136,7 @@ namespace Riskeer.Integration.Data.Test
             project.NotifyObservers();
 
             // Assert
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private static AssessmentSection CreateAssessmentSection()

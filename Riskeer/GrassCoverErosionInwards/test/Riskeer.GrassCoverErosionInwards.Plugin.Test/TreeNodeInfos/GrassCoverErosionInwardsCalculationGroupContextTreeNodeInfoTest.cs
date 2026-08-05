@@ -688,8 +688,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculation1InputObserver.Received().UpdateObserver();
-            calculation2InputObserver.Received().UpdateObserver();
+            calculation1InputObserver.Received(1).UpdateObserver();
+            calculation2InputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -863,10 +863,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculation1InputObserver.Received().UpdateObserver();
-            calculation2InputObserver.Received().UpdateObserver();
-            calculation1Observer.Received().UpdateObserver();
-            calculation2Observer.Received().UpdateObserver();
+            calculation1InputObserver.Received(1).UpdateObserver();
+            calculation2InputObserver.Received(1).UpdateObserver();
+            calculation1Observer.Received(1).UpdateObserver();
+            calculation2Observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1231,7 +1231,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            affectedCalculationObserver.Received().UpdateObserver();
+            affectedCalculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1491,7 +1491,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }
@@ -1543,7 +1543,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     var calculation = (GrassCoverErosionInwardsCalculation) newlyAddedItem;
                     Assert.AreEqual(failureMechanismContribution.NormativeProbability, calculation.InputParameters.DikeHeightTargetProbability);
                     Assert.AreEqual(failureMechanismContribution.NormativeProbability, calculation.InputParameters.OvertoppingRateTargetProbability);
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }
@@ -1771,7 +1771,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1805,7 +1805,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         public override void Setup()

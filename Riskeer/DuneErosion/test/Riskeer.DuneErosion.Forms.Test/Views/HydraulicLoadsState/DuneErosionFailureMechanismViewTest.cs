@@ -234,7 +234,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -272,7 +272,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]

@@ -149,7 +149,7 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             Assert.AreEqual(shouldMigrate, needsMigrate);
-            versionedFile.Received().GetVersion();
+            versionedFile.Received(1).GetVersion();
         }
 
         [Test]
@@ -228,7 +228,7 @@ namespace Migration.Core.Storage.Test
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual("Het doelprojectpad moet anders zijn dan het bronprojectpad.", exception.Message);
-            _ = versionedFile.Received().Location;
+            _ = versionedFile.Received(1).Location;
         }
 
         [Test]
@@ -253,8 +253,8 @@ namespace Migration.Core.Storage.Test
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual($"Het migreren van een projectbestand met versie '{incorrectVersion}' naar versie '{toVersion}' is niet ondersteund.", exception.Message);
-            _ = versionedFile.Received().Location;
-            versionedFile.Received().GetVersion();
+            _ = versionedFile.Received(1).Location;
+            versionedFile.Received(1).GetVersion();
         }
 
         [Test]
@@ -290,8 +290,8 @@ namespace Migration.Core.Storage.Test
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual($"Het migreren van een projectbestand met versie '{fromVersion}' naar versie '{incorrectVersion}' is niet ondersteund.", exception.Message);
-            _ = versionedFile.Received().Location;
-            versionedFile.Received().GetVersion();
+            _ = versionedFile.Received(1).Location;
+            versionedFile.Received(1).GetVersion();
         }
 
         [Test]
@@ -328,8 +328,7 @@ namespace Migration.Core.Storage.Test
             Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
             using (new FileDisposeHelper(toLocation)) {}
 
-            _ = versionedFile.Received().Location;
-            versionedFile.Received().GetVersion();
+            versionedFile.Received(1).GetVersion();
         }
 
         [Test]
@@ -366,9 +365,7 @@ namespace Migration.Core.Storage.Test
             // Assert
             Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
             File.Delete(toLocation);
-
-            _ = versionedFile.Received().Location;
-            versionedFile.Received().GetVersion();
+            versionedFile.Received(1).GetVersion();
         }
 
         [Test]
@@ -411,8 +408,7 @@ namespace Migration.Core.Storage.Test
                                       exception.Message);
             }
 
-            _ = versionedFile.Received().Location;
-            versionedFile.Received().GetVersion();
+            versionedFile.Received(1).GetVersion();
         }
 
         private class SimpleVersionComparer : IComparer

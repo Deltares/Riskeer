@@ -160,7 +160,7 @@ namespace Riskeer.HeightStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -251,7 +251,7 @@ namespace Riskeer.HeightStructures.IO.Test
                 // Don't care about the other message.
             });
             Assert.IsTrue(importResult);
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -308,7 +308,7 @@ namespace Riskeer.HeightStructures.IO.Test
                 // Don't care about the other message.
             });
             Assert.IsTrue(importResult);
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -351,7 +351,7 @@ namespace Riskeer.HeightStructures.IO.Test
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 13);
             Assert.IsTrue(importResult);
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -392,7 +392,7 @@ namespace Riskeer.HeightStructures.IO.Test
 
             // Assert
             Assert.IsTrue(importResult);
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -548,7 +548,7 @@ namespace Riskeer.HeightStructures.IO.Test
                 "Huidige actie was niet meer te annuleren en is daarom voortgezet.", LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage);
             Assert.IsTrue(importResult);
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), validFilePath);
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), validFilePath);
         }
 
         [Test]
@@ -583,9 +583,9 @@ namespace Riskeer.HeightStructures.IO.Test
 
             // Assert
             // Assertions performed in TearDown
-            observableA.Received().NotifyObservers();
-            observableB.Received().NotifyObservers();
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
+            observableA.Received(1).NotifyObservers();
+            observableB.Received(1).NotifyObservers();
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         private static ReferenceLine CreateReferenceLine()

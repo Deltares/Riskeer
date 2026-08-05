@@ -129,10 +129,10 @@ namespace Riskeer.Common.Data.Test.Calculation
             rootGroup.ClearCalculationOutput();
 
             // Assert
-            calculation1.Received().ClearOutput();
-            calculation2.Received().ClearOutput();
-            calculation1.Received().NotifyObservers();
-            calculation2.Received().NotifyObservers();
+            calculation1.Received(1).ClearOutput();
+            calculation2.Received(1).ClearOutput();
+            calculation1.Received(1).NotifyObservers();
+            calculation2.Received(1).NotifyObservers();
         }
 
         [Test]

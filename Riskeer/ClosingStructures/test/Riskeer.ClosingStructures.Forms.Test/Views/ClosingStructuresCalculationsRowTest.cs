@@ -568,7 +568,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         /// <summary>
@@ -628,8 +628,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             if (expectUpdates)
             {
                 Assert.IsNull(calculation.Output);
-                inputObserver.Received().UpdateObserver();
-                calculationObserver.Received().UpdateObserver();
+                inputObserver.Received(1).UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
             }
             else
             {

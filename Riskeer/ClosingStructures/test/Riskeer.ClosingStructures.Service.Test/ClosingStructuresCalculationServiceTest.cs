@@ -386,7 +386,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.IsFalse(calculator.IsCanceled);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -463,7 +463,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.IsFalse(calculator.IsCanceled);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -536,7 +536,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.IsFalse(calculator.IsCanceled);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -612,7 +612,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.IsFalse(calculator.IsCanceled);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -683,7 +683,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.IsFalse(calculator.IsCanceled);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -757,7 +757,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.IsFalse(calculator.IsCanceled);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -800,7 +800,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             }
 
             // Assert
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(
                 Arg.Any<HydraRingCalculationSettings>());
         }
 
@@ -865,7 +865,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.IsNotNull(calculation.Output);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -924,7 +924,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.IsNull(calculation.Output);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -982,7 +982,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.IsNull(calculation.Output);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -1044,7 +1044,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()

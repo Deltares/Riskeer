@@ -265,7 +265,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
             observers[foreshoreProfileObserverIndex].DidNotReceive().UpdateObserver();
             observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
@@ -307,7 +307,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
             observers[foreshoreProfileObserverIndex].DidNotReceive().UpdateObserver();
             observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
@@ -352,7 +352,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
             // Then
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
             observers[referenceLineIndex].DidNotReceive().UpdateObserver();
-            observers[foreshoreProfileObserverIndex].Received().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].Received(1).UpdateObserver();
             observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
@@ -396,7 +396,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
             // Then
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
             observers[referenceLineIndex].DidNotReceive().UpdateObserver();
-            observers[foreshoreProfileObserverIndex].Received().UpdateObserver();
+            observers[foreshoreProfileObserverIndex].Received(1).UpdateObserver();
             observers[calculationObserverIndex].DidNotReceive().UpdateObserver();
         }
 
@@ -444,7 +444,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), calculationMapData);
             observers[referenceLineIndex].DidNotReceive().UpdateObserver();
             observers[foreshoreProfileObserverIndex].DidNotReceive().UpdateObserver();
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -483,7 +483,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), calculationMapData);
             observers[referenceLineIndex].DidNotReceive().UpdateObserver();
             observers[foreshoreProfileObserverIndex].DidNotReceive().UpdateObserver();
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -522,7 +522,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), calculationMapData);
             observers[referenceLineIndex].DidNotReceive().UpdateObserver();
             observers[foreshoreProfileObserverIndex].DidNotReceive().UpdateObserver();
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]

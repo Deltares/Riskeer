@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, calculationScenario.IsRelevant);
-            calculationScenario.Received().NotifyObservers();
+            calculationScenario.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue / 100, calculationScenario.Contribution, calculationScenario.Contribution.GetAccuracy());
-            calculationScenario.Received().NotifyObservers();
+            calculationScenario.Received(1).NotifyObservers();
         }
 
         private class TestScenarioRow<TCalculationScenario> : ScenarioRow<TCalculationScenario>

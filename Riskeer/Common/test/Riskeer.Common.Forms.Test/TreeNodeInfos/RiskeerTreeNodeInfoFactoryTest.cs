@@ -177,7 +177,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(newName, group.Name);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -377,8 +377,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                "Dragging node at the end of the target TestCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
             }
 
-            originalOwnerObserver.Received().UpdateObserver();
-            newOwnerObserver.Received().UpdateObserver();
+            originalOwnerObserver.Received(1).UpdateObserver();
+            newOwnerObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -429,7 +429,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                 "No renaming should occur when dragging within the same TestCalculationGroup.");
             }
 
-            originalOwnerObserver.Received().UpdateObserver();
+            originalOwnerObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -652,7 +652,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(newName, calculation.Name);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

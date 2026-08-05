@@ -198,7 +198,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, calculations.Count);
             CollectionAssert.DoesNotContain(calculations, calculationForFirstTargetProbability);
-            calculationObserver.Received().UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]

@@ -111,7 +111,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             const string expectedMessage = "HLCD bestand importeren afgebroken. Geen gegevens gewijzigd.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
-            handler.Received().InquireConfirmation();
+            handler.Received(1).InquireConfirmation();
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             var expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': het HLCD bestand moet zich in dezelfde map bevinden als de toegevoegde HRD bestanden.";
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
-            handler.Received().InquireConfirmation();
+            handler.Received(1).InquireConfirmation();
         }
 
         [Test]
@@ -257,8 +257,8 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{hlcdFilePath}'.", 1);
             Assert.IsTrue(importResult);
-            handler.Received().InquireConfirmation();
-            handler.Received().Update(
+            handler.Received(1).InquireConfirmation();
+            handler.Received(1).Update(
                 Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
                 Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
                                                                          x.Count == 1 &&
@@ -296,8 +296,8 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
-            handler.Received().InquireConfirmation();
-            handler.Received().Update(
+            handler.Received(1).InquireConfirmation();
+            handler.Received(1).Update(
                 Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
                 Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
                                                                          x.Count == 1 &&
@@ -333,7 +333,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             var expectedMessage = $"Fout bij het lezen van bestand '{invalidHrdFilePath}': het bestand bestaat niet.";
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
-            handler.Received().InquireConfirmation();
+            handler.Received(1).InquireConfirmation();
         }
 
         [Test]
@@ -363,10 +363,10 @@ namespace Riskeer.Integration.IO.Test.Importers
             importer.DoPostImport();
 
             // Assert
-            observable1.Received().NotifyObservers();
-            observable2.Received().NotifyObservers();
-            handler.Received().InquireConfirmation();
-            handler.Received().Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
+            observable1.Received(1).NotifyObservers();
+            observable2.Received(1).NotifyObservers();
+            handler.Received(1).InquireConfirmation();
+            handler.Received(1).Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
                                       Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x => x != null),
                                       Arg.Is<string>(x => x != null));
         }

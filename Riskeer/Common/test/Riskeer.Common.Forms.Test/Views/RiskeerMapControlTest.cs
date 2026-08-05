@@ -212,7 +212,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(0.3, riskeerMapControl.MapControl.BackgroundMapData.Transparency.Value);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -246,7 +246,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsNull(newWmtsMapData.PreferredFormat);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -278,7 +278,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(WellKnownTileSource.BingRoads, newWellKnownMapData.TileSource);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [OneTimeSetUp]

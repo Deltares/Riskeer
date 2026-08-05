@@ -126,7 +126,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -173,7 +173,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -214,8 +214,8 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            observer.Received().UpdateObserver();
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            observer.Received(1).UpdateObserver();
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -267,8 +267,8 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
-            observer.Received().UpdateObserver();
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            observer.Received(1).UpdateObserver();
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -336,7 +336,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
             }
 
             // Assert
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(
                 Arg.Any<HydraRingCalculationSettings>());
         }
     }

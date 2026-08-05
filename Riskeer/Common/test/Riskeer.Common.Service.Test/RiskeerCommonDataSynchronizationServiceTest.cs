@@ -311,7 +311,7 @@ namespace Riskeer.Common.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            calculation.Received().ClearOutput();
+            calculation.Received(1).ClearOutput();
             CollectionAssert.AreEqual(new[]
             {
                 calculation

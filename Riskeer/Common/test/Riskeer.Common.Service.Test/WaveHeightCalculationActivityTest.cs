@@ -176,7 +176,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
             }
 
-            calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
+            calculatorFactory.Received(1).CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
             Assert.AreEqual(ActivityState.Executed, activity.State);
         }
 
@@ -221,7 +221,7 @@ namespace Riskeer.Common.Service.Test
                 });
             }
 
-            calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
+            calculatorFactory.Received(1).CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
             Assert.AreEqual(ActivityState.Executed, activity.State);
         }
 
@@ -326,7 +326,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreSame(output, hydraulicBoundaryLocationCalculation.Output);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
                 Assert.AreEqual(ActivityState.Failed, activity.State);
-                calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(1).CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -373,7 +373,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
             }
 
-            calculatorFactory.Received().CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -399,7 +399,7 @@ namespace Riskeer.Common.Service.Test
             activity.Finish();
 
             // Assert
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private static string GetActivityDescription(string locationName, string calculationIdentifier)

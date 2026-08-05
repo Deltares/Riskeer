@@ -299,7 +299,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
-            guiService.Received().CalculateWaveHeights(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>());
+            guiService.Received(1).CalculateWaveHeights(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>());
         }
 
         [Test]

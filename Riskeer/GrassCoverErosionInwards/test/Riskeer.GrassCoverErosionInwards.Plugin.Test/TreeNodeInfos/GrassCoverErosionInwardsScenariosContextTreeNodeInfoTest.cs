@@ -125,7 +125,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(context, null, treeViewControl);
 
                 // Assert
-                menuBuilder.Received().Build();
+                menuBuilder.Received(1).Build();
             }
         }
     }

@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.Views
             dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
 
             // Assert
-            calculationObserver.Received().UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         #endregion

@@ -215,9 +215,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
             MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
 
-            observers[sectionsObserverIndex].Received().UpdateObserver();
-            observers[sectionsStartPointObserverIndex].Received().UpdateObserver();
-            observers[sectionsEndPointObserverIndex].Received().UpdateObserver();
+            observers[sectionsObserverIndex].Received(1).UpdateObserver();
+            observers[sectionsStartPointObserverIndex].Received(1).UpdateObserver();
+            observers[sectionsEndPointObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]

@@ -69,7 +69,7 @@ namespace Core.Common.Base.Test
             observable.NotifyObservers();
 
             // Assert
-            observer.Received().UpdateObserver(); // Expect to be called once
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace Core.Common.Base.Test
             observable.NotifyObservers();
 
             // Assert
-            observer.DidNotReceive().UpdateObserver(); // Expect no calls on 'observer'
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -115,12 +115,12 @@ namespace Core.Common.Base.Test
             testObservable.NotifyObservers();
 
             // Assert
-            observer1.Received().UpdateObserver();
-            observer2.Received().UpdateObserver();
+            observer1.Received(1).UpdateObserver();
+            observer2.Received(1).UpdateObserver();
             observer3.DidNotReceive().UpdateObserver(); // A detached observer should no longer be updated
-            observer4.Received().UpdateObserver();
+            observer4.Received(1).UpdateObserver();
             observer5.DidNotReceive().UpdateObserver(); // An attached observer should not be updated too
-            observer6.Received().UpdateObserver();
+            observer6.Received(1).UpdateObserver();
         }
 
         private class TestObservable : Observable {}

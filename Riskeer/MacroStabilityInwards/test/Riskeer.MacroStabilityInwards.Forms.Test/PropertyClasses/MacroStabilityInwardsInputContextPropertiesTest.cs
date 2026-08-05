@@ -822,7 +822,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreSame(stochasticSoilProfile2, inputParameters.StochasticSoilProfile);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -1259,7 +1259,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                      .OrderBy(hbl => hbl.Distance)
                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -1414,7 +1414,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(handler.Called);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         private static MacroStabilityInwardsStochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)

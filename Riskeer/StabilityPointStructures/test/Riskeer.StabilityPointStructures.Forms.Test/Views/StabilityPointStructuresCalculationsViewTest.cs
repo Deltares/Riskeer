@@ -581,7 +581,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             button.Click();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

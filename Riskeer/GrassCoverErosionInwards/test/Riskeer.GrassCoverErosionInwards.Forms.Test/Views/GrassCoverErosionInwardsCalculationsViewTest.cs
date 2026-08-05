@@ -452,10 +452,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             if (useCalculationWithOutput)
             {
-                calculationObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
             }
 
-            inputObserver.Received().UpdateObserver();
+            inputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -590,7 +590,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             button.Click();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

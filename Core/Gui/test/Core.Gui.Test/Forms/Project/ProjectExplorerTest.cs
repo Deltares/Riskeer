@@ -141,7 +141,7 @@ namespace Core.Gui.Test.Forms.Project
             }
 
             // Assert
-            viewCommands.Received().RemoveAllViewsForItem(project);
+            viewCommands.Received(1).RemoveAllViewsForItem(project);
         }
 
         [Test]
@@ -236,7 +236,7 @@ namespace Core.Gui.Test.Forms.Project
             }
 
             // Assert
-            viewCommands.Received().OpenViewForSelection();
+            viewCommands.Received(1).OpenViewForSelection();
         }
 
         [Test]

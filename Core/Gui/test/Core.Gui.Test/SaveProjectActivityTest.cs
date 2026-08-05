@@ -167,7 +167,7 @@ namespace Core.Gui.Test
             string prefix = saveExistingProject ? "bestaand " : "";
             TestHelper.AssertLogMessageIsGenerated(call, $"Opslaan van {prefix}project is gestart.", 1);
             Assert.AreEqual(ActivityState.Executed, activity.State);
-            storeProject.Received().SaveProjectAs(filePath);
+            storeProject.Received(1).SaveProjectAs(filePath);
             storeProject.DidNotReceive().StageProject(project);
         }
 
@@ -301,7 +301,7 @@ namespace Core.Gui.Test
                 $"Stap 1 van {totalSteps} | Project opslaan"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
-            storeProject.Received().SaveProjectAs(filePath);
+            storeProject.Received(1).SaveProjectAs(filePath);
             storeProject.DidNotReceive().StageProject(project);
         }
 

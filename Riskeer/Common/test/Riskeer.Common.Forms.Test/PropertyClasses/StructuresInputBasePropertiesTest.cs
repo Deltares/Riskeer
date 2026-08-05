@@ -903,7 +903,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             setProperty(properties);
 
             // Assert
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         private static void AssertPropertiesInState(object properties, bool expectedReadOnly)

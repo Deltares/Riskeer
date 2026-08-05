@@ -103,7 +103,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             handler.DoPostUpdateActions();
 
             // Assert
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private class TestClearIllustrationPointsOfCalculationChangeHandler : ClearIllustrationPointsOfCalculationChangeHandlerBase<TestCalculation>

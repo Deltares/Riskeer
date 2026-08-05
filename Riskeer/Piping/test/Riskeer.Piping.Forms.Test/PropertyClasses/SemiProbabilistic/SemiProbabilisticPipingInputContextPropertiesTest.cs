@@ -1669,7 +1669,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                      .OrderBy(hbl => hbl.Distance)
                                      .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
             CollectionAssert.AreEqual(expectedList, availableHydraulicBoundaryLocations);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -1858,7 +1858,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             // Assert
             Assert.IsTrue(handler.Called);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         private static PipingStochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)

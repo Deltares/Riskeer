@@ -156,7 +156,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Assert
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -196,7 +196,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Assert
             MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
             Assert.IsTrue(referenceLineMapData.IsVisible);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)

@@ -164,7 +164,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newParameterAValue, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
     }
 }

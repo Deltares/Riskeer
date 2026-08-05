@@ -111,7 +111,7 @@ namespace Migration.Scripts.Data.Test
                 Assert.IsNotNull(upgradedFile);
             }
 
-            _ = versionedFile.Received().Location;
+            _ = versionedFile.Received(1).Location;
         }
     }
 }

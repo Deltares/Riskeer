@@ -97,7 +97,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Then
             Assert.AreEqual(newValue, sectionConfiguration.A, sectionConfiguration.A.GetAccuracy());
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

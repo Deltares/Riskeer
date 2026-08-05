@@ -394,7 +394,7 @@ namespace Riskeer.DuneErosion.Service.Test
             activity.Finish();
 
             // Assert
-            calculationObserver.Received().UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()

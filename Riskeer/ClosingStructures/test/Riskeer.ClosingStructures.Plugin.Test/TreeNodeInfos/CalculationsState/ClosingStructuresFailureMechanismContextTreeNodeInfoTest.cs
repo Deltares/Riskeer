@@ -740,7 +740,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
                 }
             }
 
-            affectedCalculationObserver.Received().UpdateObserver();
+            affectedCalculationObserver.Received(1).UpdateObserver();
         }
 
         public override void Setup()

@@ -576,7 +576,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
 
-                calculationObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
             }
         }
 

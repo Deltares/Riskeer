@@ -159,7 +159,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(newName, failureMechanism.Name);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanisms);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

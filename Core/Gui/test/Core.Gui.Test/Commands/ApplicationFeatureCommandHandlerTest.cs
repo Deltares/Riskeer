@@ -44,7 +44,7 @@ namespace Core.Gui.Test.Commands
             commandHandler.ShowPropertiesForSelection();
 
             // Assert
-            mainWindow.Received().InitPropertiesWindowOrBringToFront();
+            mainWindow.Received(1).InitPropertiesWindowOrBringToFront();
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsTrue(result);
-            propertyResolver.Received().GetObjectProperties(target);
+            propertyResolver.Received(1).GetObjectProperties(target);
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsFalse(result);
-            propertyResolver.Received().GetObjectProperties(target);
+            propertyResolver.Received(1).GetObjectProperties(target);
         }
     }
 }

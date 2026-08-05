@@ -403,7 +403,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
-            handler.Received().AddHydraulicBoundaryDatabase(Arg.Is<ReadHydraulicBoundaryDatabase>(x => x != null),
+            handler.Received(1).AddHydraulicBoundaryDatabase(Arg.Is<ReadHydraulicBoundaryDatabase>(x => x != null),
                                                             Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
                                                             Arg.Is<IEnumerable<long>>(x => x != null),
                                                             Arg.Is<string>(x => x == filePath));
@@ -529,9 +529,9 @@ namespace Riskeer.Integration.IO.Test.Importers
             importer.DoPostImport();
 
             // Assert
-            hydraulicBoundaryDatabaseObserver.Received().UpdateObserver();
-            observable1.Received().NotifyObservers();
-            observable2.Received().NotifyObservers();
+            hydraulicBoundaryDatabaseObserver.Received(1).UpdateObserver();
+            observable1.Received(1).NotifyObservers();
+            observable2.Received(1).NotifyObservers();
         }
 
         [Test]

@@ -102,7 +102,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -134,7 +134,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -166,7 +166,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -201,7 +201,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -266,7 +266,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -303,7 +303,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 Assert.AreEqual("Naam", mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -344,7 +344,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -382,7 +382,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -432,7 +432,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                 mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private static void AssertDuneLocationsMapData(DuneErosionFailureMechanism failureMechanism,

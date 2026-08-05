@@ -216,10 +216,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 Assert.IsNull(calculation.Output);
 
-                inputObserver.Received().UpdateObserver();
+                inputObserver.Received(1).UpdateObserver();
                 if (hasOutput)
                 {
-                    calculationObserver.Received().UpdateObserver();
+                    calculationObserver.Received(1).UpdateObserver();
                 }
             }
             else
@@ -253,7 +253,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
     }
 }

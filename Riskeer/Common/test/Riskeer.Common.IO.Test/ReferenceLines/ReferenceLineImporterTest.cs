@@ -314,10 +314,10 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             importer.DoPostImport();
 
             // Assert
-            referenceLineObserver.Received().UpdateObserver();
-            observable1.Received().NotifyObservers();
-            observable2.Received().NotifyObservers();
-            handler.Received().DoPostUpdateActions();
+            referenceLineObserver.Received(1).UpdateObserver();
+            observable1.Received(1).NotifyObservers();
+            observable2.Received(1).NotifyObservers();
+            handler.Received(1).DoPostUpdateActions();
         }
 
         [Test]
@@ -381,10 +381,10 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             importer.DoPostImport();
 
             // Assert
-            referenceLineObserver.Received().UpdateObserver();
-            observable1.Received().NotifyObservers();
-            observable2.Received().NotifyObservers();
-            handler.Received().DoPostUpdateActions();
+            referenceLineObserver.Received(1).UpdateObserver();
+            observable1.Received(1).NotifyObservers();
+            observable2.Received(1).NotifyObservers();
+            handler.Received(1).DoPostUpdateActions();
         }
     }
 }

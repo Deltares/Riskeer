@@ -74,7 +74,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             context.NotifyObservers();
 
             // Assert
-            observer.Received().UpdateObserver(); // Expect call UpdateObserver on 'observer'
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -94,7 +94,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             context.NotifyObservers();
 
             // Assert
-            observer.DidNotReceive().UpdateObserver(); // Expect no UpdateObserver calls on 'observer'
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             context.NotifyObservers();
 
             // Assert
-            observer.Received().UpdateObserver(); // Expect call UpdateObserver on 'observer'
+            observer.Received(1).UpdateObserver(); // Expect call UpdateObserver on 'observer'
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
             sourceObject.NotifyObservers();
 
             // Then
-            observer.Received().UpdateObserver(); // Expect call UpdateObserver on 'observer'
+            observer.Received(1).UpdateObserver(); // Expect call UpdateObserver on 'observer'
         }
 
         private class SimpleObservableWrappedObjectContext : ObservableWrappedObjectContextBase<IObservable>

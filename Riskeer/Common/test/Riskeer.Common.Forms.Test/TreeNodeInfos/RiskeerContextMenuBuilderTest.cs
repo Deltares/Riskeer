@@ -406,7 +406,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddRenameItem();
 
             // Assert
-            contextMenuBuilder.Received().AddRenameItem();
+            contextMenuBuilder.Received(1).AddRenameItem();
         }
 
         [Test]
@@ -420,7 +420,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddDeleteItem();
 
             // Assert
-            contextMenuBuilder.Received().AddDeleteItem();
+            contextMenuBuilder.Received(1).AddDeleteItem();
         }
 
         [Test]
@@ -434,7 +434,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddExpandAllItem();
 
             // Assert
-            contextMenuBuilder.Received().AddExpandAllItem();
+            contextMenuBuilder.Received(1).AddExpandAllItem();
         }
 
         [Test]
@@ -448,7 +448,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddCollapseAllItem();
 
             // Assert
-            menuBuilder.Received().AddCollapseAllItem();
+            menuBuilder.Received(1).AddCollapseAllItem();
         }
 
         [Test]
@@ -462,7 +462,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddOpenItem();
 
             // Assert
-            contextMenuBuilder.Received().AddOpenItem();
+            contextMenuBuilder.Received(1).AddOpenItem();
         }
 
         [Test]
@@ -476,7 +476,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddExportItem();
 
             // Assert
-            contextMenuBuilder.Received().AddExportItem();
+            contextMenuBuilder.Received(1).AddExportItem();
         }
 
         [Test]
@@ -490,7 +490,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddImportItem();
 
             // Assert
-            contextMenuBuilder.Received().AddImportItem();
+            contextMenuBuilder.Received(1).AddImportItem();
         }
 
         [Test]
@@ -505,7 +505,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddImportItem(importInfos);
 
             // Assert
-            contextMenuBuilder.Received().AddImportItem(importInfos);
+            contextMenuBuilder.Received(1).AddImportItem(importInfos);
         }
 
         [Test]
@@ -522,7 +522,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddImportItem(text, toolTip, image);
 
             // Assert
-            contextMenuBuilder.Received().AddImportItem(text, toolTip, image);
+            contextMenuBuilder.Received(1).AddImportItem(text, toolTip, image);
         }
 
         [Test]
@@ -540,7 +540,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddImportItem(text, toolTip, image, importInfos);
 
             // Assert
-            contextMenuBuilder.Received().AddImportItem(text, toolTip, image, importInfos);
+            contextMenuBuilder.Received(1).AddImportItem(text, toolTip, image, importInfos);
         }
 
         [Test]
@@ -554,7 +554,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddPropertiesItem();
 
             // Assert
-            contextMenuBuilder.Received().AddPropertiesItem();
+            contextMenuBuilder.Received(1).AddPropertiesItem();
         }
 
         [Test]
@@ -568,7 +568,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddSeparator();
 
             // Assert
-            contextMenuBuilder.Received().AddSeparator();
+            contextMenuBuilder.Received(1).AddSeparator();
         }
 
         [Test]
@@ -583,7 +583,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddCustomItem(contextMenuItem);
 
             // Assert
-            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item.Name == contextMenuItem.Name));
+            contextMenuBuilder.Received(1).AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item.Name == contextMenuItem.Name));
         }
 
         [Test]
@@ -597,7 +597,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.Build();
 
             // Assert
-            contextMenuBuilder.Received().Build();
+            contextMenuBuilder.Received(1).Build();
         }
 
         #region AddUpdateForeshoreProfileOfCalculationItem
@@ -810,7 +810,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddClearIllustrationPointsOfCalculationsItem(() => isEnabled, changeHandler);
 
             // Assert
-            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
+            contextMenuBuilder.Received(1).AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
         }
 
         #endregion
@@ -842,7 +842,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddClearIllustrationPointsOfCalculationsInGroupItem(() => isEnabled, changeHandler);
 
             // Assert
-            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
+            contextMenuBuilder.Received(1).AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
         }
 
         #endregion
@@ -874,7 +874,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => isEnabled, changeHandler);
 
             // Assert
-            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
+            contextMenuBuilder.Received(1).AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
         }
 
         #endregion
@@ -906,7 +906,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddClearIllustrationPointsOfCalculationItem(() => isEnabled, changeHandler);
 
             // Assert
-            contextMenuBuilder.Received().AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
+            contextMenuBuilder.Received(1).AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null));
         }
 
         #endregion

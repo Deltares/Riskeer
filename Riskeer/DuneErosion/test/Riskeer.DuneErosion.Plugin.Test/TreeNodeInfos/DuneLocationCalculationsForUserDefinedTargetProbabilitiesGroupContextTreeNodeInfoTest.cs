@@ -419,7 +419,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculationsObserver.Received().UpdateObserver();
+            calculationsObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -771,7 +771,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     calculationsForTargetProbability3,
                     calculationsForTargetProbability2
                 }, calculationsForTargetProbabilities);
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 

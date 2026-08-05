@@ -518,7 +518,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 Assert.IsTrue(waveConditionsCosineCalculator.IsCanceled);
             }
 
-            calculatorFactory.Received()
+            calculatorFactory.Received(1)
                              .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 

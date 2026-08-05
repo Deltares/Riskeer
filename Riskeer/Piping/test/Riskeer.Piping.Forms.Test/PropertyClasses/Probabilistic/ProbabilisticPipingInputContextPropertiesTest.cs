@@ -971,7 +971,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             }
 
             // Assert
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -996,7 +996,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             }
 
             // Assert
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

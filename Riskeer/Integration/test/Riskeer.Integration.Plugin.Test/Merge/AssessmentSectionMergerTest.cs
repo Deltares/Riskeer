@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             TestHelper.AssertLogMessagesCount(Call, 0);
-            assessmentSectionProvider.Received().GetAssessmentSection(Arg.Any<string>());
+            assessmentSectionProvider.Received(1).GetAssessmentSection(Arg.Any<string>());
         }
 
         [Test]
@@ -226,7 +226,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Er is geen traject gevonden dat samengevoegd kan worden.", LogLevelConstant.Error), 1);
-            comparer.Received().Compare(Arg.Any<AssessmentSection>(), Arg.Any<AssessmentSection>());
+            comparer.Received(1).Compare(Arg.Any<AssessmentSection>(), Arg.Any<AssessmentSection>());
         }
 
         [Test]
@@ -251,7 +251,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
-            mergeDataProvider.Received().GetMergeData(Arg.Any<AssessmentSection>());
+            mergeDataProvider.Received(1).GetMergeData(Arg.Any<AssessmentSection>());
         }
 
         [Test]
@@ -272,7 +272,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mergeDataProvider.GetMergeData(Arg.Any<AssessmentSection>()).Returns(mergeData);
             var hydraulicBoundaryDataUpdateHandler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
             var mergeHandler = Substitute.For<IAssessmentSectionMergeHandler>();
-            mergeHandler.PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
@@ -284,7 +283,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 new Tuple<string, LogLevelConstant>("Samenvoegen van trajectinformatie is gestart.", LogLevelConstant.Info),
                 new Tuple<string, LogLevelConstant>("Samenvoegen van trajectinformatie is gelukt.", LogLevelConstant.Info)
             });
-            mergeHandler.Received().PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
+            mergeHandler.Received(1).PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
         }
 
         [Test]
@@ -314,7 +313,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Then
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
             {
-                mergeHandler.Received().PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
+                mergeHandler.Received(1).PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
 
                 Assert.AreEqual(3, messages.Count());
 

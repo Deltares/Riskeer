@@ -610,7 +610,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             testProfilesImporter.Import();
 
             // Assert
-            messageProvider.Received().GetAddDataToModelProgressText();
+            messageProvider.Received(1).GetAddDataToModelProgressText();
         }
 
         private static ReferenceLine CreateMatchingReferenceLine()

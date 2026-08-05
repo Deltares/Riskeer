@@ -274,7 +274,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
 
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -314,7 +314,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -355,7 +355,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-            observers[foreshoreProfilesObserverIndex].Received().UpdateObserver();
+            observers[foreshoreProfilesObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -397,7 +397,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-            observers[foreshoreProfilesObserverIndex].Received().UpdateObserver();
+            observers[foreshoreProfilesObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -431,7 +431,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
             // Then
             MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
                                                       structuresData);
-            observers[structuresObserverIndex].Received().UpdateObserver();
+            observers[structuresObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -467,7 +467,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
             // Then
             MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
                                                       structuresData);
-            observers[structuresObserverIndex].Received().UpdateObserver();
+            observers[structuresObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -514,7 +514,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(), calculationMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -551,7 +551,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(), calculationMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]

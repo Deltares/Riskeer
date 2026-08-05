@@ -84,7 +84,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(setIllustrationPoints, row.IncludeIllustrationPoints);
             Assert.AreEqual(setIllustrationPoints, hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

@@ -416,7 +416,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsViewChartDataAssert.AssertSurfaceLineChartData(surfaceLine2, surfaceLineChartData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -470,7 +470,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 }
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -739,7 +739,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
                     // Then
                     Assert.AreEqual(2, soilLayerDataTable.Rows.Count);
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }

@@ -216,7 +216,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -257,7 +257,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -393,7 +393,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 movedFailureMechanism,
                 unmovedFailureMechanism
             }, failureMechanisms);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

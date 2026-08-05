@@ -1013,7 +1013,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
 
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -1072,7 +1072,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
                 }
 
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -1183,7 +1183,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
                 }
 
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -1242,7 +1242,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe berekening", newlyAddedItem.Name);
                 }
 
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -1645,8 +1645,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             if (confirm)
             {
-                calculation1Observer.Received().UpdateObserver();
-                calculation2Observer.Received().UpdateObserver();
+                calculation1Observer.Received(1).UpdateObserver();
+                calculation2Observer.Received(1).UpdateObserver();
             }
             else
             {
@@ -1749,8 +1749,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             if (confirm)
             {
-                calculation1Observer.Received().UpdateObserver();
-                calculation2Observer.Received().UpdateObserver();
+                calculation1Observer.Received(1).UpdateObserver();
+                calculation2Observer.Received(1).UpdateObserver();
             }
             else
             {
@@ -2083,7 +2083,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -2131,7 +2131,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -2220,8 +2220,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation2.InputParameters.IsEntryAndExitPointInputSynchronized);
                 }
 
-                calculation1InputObserver.Received().UpdateObserver();
-                calculation2InputObserver.Received().UpdateObserver();
+                calculation1InputObserver.Received(1).UpdateObserver();
+                calculation2InputObserver.Received(1).UpdateObserver();
             }
         }
 
@@ -2432,10 +2432,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(expectedMessage, textBoxMessage);
                 }
 
-                calculation1Observer.Received().UpdateObserver();
-                calculation1InputObserver.Received().UpdateObserver();
-                calculation2Observer.Received().UpdateObserver();
-                calculation2InputObserver.Received().UpdateObserver();
+                calculation1Observer.Received(1).UpdateObserver();
+                calculation1InputObserver.Received(1).UpdateObserver();
+                calculation2Observer.Received(1).UpdateObserver();
+                calculation2InputObserver.Received(1).UpdateObserver();
             }
         }
 

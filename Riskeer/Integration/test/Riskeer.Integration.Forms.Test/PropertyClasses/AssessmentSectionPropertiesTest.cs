@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newName, assessmentSection.Name);
-            assessmentSection.Received().NotifyObservers();
+            assessmentSection.Received(1).NotifyObservers();
         }
     }
 }

@@ -293,7 +293,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(name, calculation.Name);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -740,7 +740,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculationInputObserver.Received().UpdateObserver();
+            calculationInputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -820,8 +820,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             if (continuation)
             {
-                calculationObserver.Received().UpdateObserver();
-                calculationInputObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
+                calculationInputObserver.Received(1).UpdateObserver();
             }
         }
 
@@ -1028,7 +1028,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     calculatorFactory.Received(nrOfCalculators)
                                      .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
                     Assert.AreEqual(3, calculation.Output.Items.Count());
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }
@@ -1192,7 +1192,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsNull(calculation.Output);
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }

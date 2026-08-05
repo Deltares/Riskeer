@@ -753,8 +753,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculation1InputObserver.Received().UpdateObserver();
-            calculation2InputObserver.Received().UpdateObserver();
+            calculation1InputObserver.Received(1).UpdateObserver();
+            calculation2InputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -930,10 +930,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculation1Observer.Received().UpdateObserver();
-            calculation1InputObserver.Received().UpdateObserver();
-            calculation2Observer.Received().UpdateObserver();
-            calculation2InputObserver.Received().UpdateObserver();
+            calculation1Observer.Received(1).UpdateObserver();
+            calculation1InputObserver.Received(1).UpdateObserver();
+            calculation2Observer.Received(1).UpdateObserver();
+            calculation2InputObserver.Received(1).UpdateObserver();
         }
 
         [Test]

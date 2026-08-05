@@ -112,7 +112,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
 
                 // Assert
-                menuBuilder.Received().Build();
+                menuBuilder.Received(1).Build();
             }
         }
     }

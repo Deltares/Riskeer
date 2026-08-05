@@ -81,7 +81,7 @@ namespace Core.Common.Base.Test.Service
             fileImportActivity.Run();
 
             // Assert
-            fileImporter.Received().Import();
+            fileImporter.Received(1).Import();
         }
 
         [Test]
@@ -154,7 +154,7 @@ namespace Core.Common.Base.Test.Service
             fileImportActivity.Cancel();
 
             // Assert
-            fileImporter.Received().Cancel();
+            fileImporter.Received(1).Cancel();
         }
 
         [Test]
@@ -192,7 +192,7 @@ namespace Core.Common.Base.Test.Service
             fileImportActivity.Finish();
 
             // Assert
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

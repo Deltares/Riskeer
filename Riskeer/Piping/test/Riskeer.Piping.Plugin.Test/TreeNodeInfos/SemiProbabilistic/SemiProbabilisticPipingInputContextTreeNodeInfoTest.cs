@@ -138,7 +138,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             }
 
             // Assert
-            menuBuilder.Received().Build();
+            menuBuilder.Received(1).Build();
         }
     }
 }

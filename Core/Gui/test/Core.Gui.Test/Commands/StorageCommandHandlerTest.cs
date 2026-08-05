@@ -264,8 +264,8 @@ namespace Core.Gui.Test.Commands
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create("Opslaan van bestaand project is gelukt.", LogLevelConstant.Info));
                 Assert.IsTrue(result);
 
-                projectStorage.Received().StageProject(project);
-                projectStorage.Received().SaveProjectAs(someValidFilePath);
+                projectStorage.Received(1).StageProject(project);
+                projectStorage.Received(1).SaveProjectAs(someValidFilePath);
             }
         }
 
@@ -462,7 +462,7 @@ namespace Core.Gui.Test.Commands
             Assert.IsFalse(result);
             Received.InOrder(() =>
             {
-                projectMigrator.Received().ShouldMigrate(pathToSomeValidFile);
+                projectMigrator.Received(1).ShouldMigrate(pathToSomeValidFile);
                 projectMigrator.DetermineMigrationLocation(pathToSomeValidFile);
             });
         }
@@ -501,7 +501,7 @@ namespace Core.Gui.Test.Commands
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(errorMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(result);
-            projectOwner.Received().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
+            projectOwner.Received(1).SetProject(Arg.Any<IProject>(), Arg.Any<string>());
         }
 
         [Test]
@@ -542,7 +542,7 @@ namespace Core.Gui.Test.Commands
                 projectMigrator.ShouldMigrate(pathToSomeValidFile);
                 projectMigrator.DetermineMigrationLocation(pathToSomeValidFile);
             });
-            projectOwner.Received().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
+            projectOwner.Received(1).SetProject(Arg.Any<IProject>(), Arg.Any<string>());
         }
 
         [Test]
@@ -590,7 +590,7 @@ namespace Core.Gui.Test.Commands
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(errorMessage, LogLevelConstant.Error), 3);
             Assert.IsFalse(result);
-            projectOwner.Received().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
+            projectOwner.Received(1).SetProject(Arg.Any<IProject>(), Arg.Any<string>());
             Received.InOrder(() =>
             {
                 projectMigrator.ShouldMigrate(pathToSomeValidFile);
@@ -651,7 +651,7 @@ namespace Core.Gui.Test.Commands
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 3);
             Assert.IsFalse(result);
-            projectOwner.Received().SetProject(null, null);
+            projectOwner.Received(1).SetProject(null, null);
         }
 
         [Test]
@@ -699,7 +699,7 @@ namespace Core.Gui.Test.Commands
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
             Assert.IsFalse(result);
-            projectOwner.Received().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
+            projectOwner.Received(1).SetProject(Arg.Any<IProject>(), Arg.Any<string>());
         }
 
         [Test]
@@ -948,10 +948,8 @@ namespace Core.Gui.Test.Commands
             project.Name = projectName;
 
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.StageProject(project);
             projectStorage.HasStagedProject.Returns(true);
             projectStorage.HasStagedProjectChanges(Arg.Any<string>()).Returns(true);
-            projectStorage.UnstageProject();
 
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
@@ -978,10 +976,10 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsFalse(changesHandled);
-            projectStorage.Received().StageProject(project);
-            projectStorage.Received().HasStagedProjectChanges(Arg.Any<string>());
-            projectStorage.Received().UnstageProject();
-            inquiryHelper.Received().InquirePerformOptionalStep("Project afsluiten",
+            projectStorage.Received(1).StageProject(project);
+            projectStorage.Received(1).HasStagedProjectChanges(Arg.Any<string>());
+            projectStorage.Received(1).UnstageProject();
+            inquiryHelper.Received(1).InquirePerformOptionalStep("Project afsluiten",
                                                                 $"Sla wijzigingen in het project op: {projectName}?");
         }
 
@@ -995,7 +993,6 @@ namespace Core.Gui.Test.Commands
             project.Name = projectName;
 
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.StageProject(project);
             projectStorage.HasStagedProject.Returns(true);
             projectStorage.HasStagedProjectChanges(Arg.Any<string>()).Returns(true);
 
@@ -1024,10 +1021,10 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsTrue(changesHandled);
-            projectStorage.Received().StageProject(project);
-            projectStorage.Received().HasStagedProjectChanges(Arg.Any<string>());
-            projectStorage.Received().UnstageProject();
-            inquiryHelper.Received().InquirePerformOptionalStep("Project afsluiten",
+            projectStorage.Received(1).StageProject(project);
+            projectStorage.Received(1).HasStagedProjectChanges(Arg.Any<string>());
+            projectStorage.Received(1).UnstageProject();
+            inquiryHelper.Received(1).InquirePerformOptionalStep("Project afsluiten",
                                                                 $"Sla wijzigingen in het project op: {projectName}?");
         }
 
@@ -1044,13 +1041,8 @@ namespace Core.Gui.Test.Commands
                 project.Name = projectName;
 
                 var projectStorage = Substitute.For<IStoreProject>();
-                projectStorage.StageProject(project);
-
-                projectStorage.UnstageProject();
-                projectStorage.StageProject(project);
                 projectStorage.HasStagedProject.Returns(true);
                 projectStorage.HasStagedProjectChanges(Arg.Any<string>()).Returns(true);
-
                 projectStorage.SaveProjectAs(someValidFilePath);
 
                 var projectMigrator = Substitute.For<IMigrateProject>();
@@ -1086,9 +1078,9 @@ namespace Core.Gui.Test.Commands
 
                 // Assert
                 Assert.IsTrue(changesHandled);
-                projectStorage.Received().StageProject(project);
-                projectStorage.Received().HasStagedProjectChanges(Arg.Any<string>());
-                projectStorage.Received().UnstageProject();
+                projectStorage.Received(1).StageProject(project);
+                projectStorage.Received(1).HasStagedProjectChanges(Arg.Any<string>());
+                projectStorage.Received(1).UnstageProject();
             }
         }
 
@@ -1110,7 +1102,6 @@ namespace Core.Gui.Test.Commands
             project.Name = projectName;
 
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.StageProject(project);
             projectStorage.HasStagedProject.Returns(true);
             projectStorage.HasStagedProjectChanges(someValidFilePath).Returns(true);
             projectStorage.SaveProjectFileFilter.Returns(fileFilter);
@@ -1122,7 +1113,6 @@ namespace Core.Gui.Test.Commands
             var projectOwner = Substitute.For<IProjectOwner>();
             projectOwner.Project.Returns(project);
             projectOwner.ProjectFilePath.Returns(someValidFilePath);
-            projectOwner.SetProject(project, someValidFilePath);
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             inquiryHelper.InquirePerformOptionalStep("Project afsluiten",
@@ -1147,14 +1137,14 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsTrue(changesHandled);
-            projectStorage.Received().StageProject(project);
-            projectStorage.Received().HasStagedProjectChanges(someValidFilePath);
-            projectStorage.Received().UnstageProject();
-            projectOwner.Received().SetProject(project, someValidFilePath);
+            projectStorage.Received(1).StageProject(project);
+            projectStorage.Received(1).HasStagedProjectChanges(someValidFilePath);
+            projectStorage.Received(1).UnstageProject();
+            projectOwner.Received(1).SetProject(project, someValidFilePath);
 
-            inquiryHelper.Received().InquirePerformOptionalStep("Project afsluiten",
+            inquiryHelper.Received(1).InquirePerformOptionalStep("Project afsluiten",
                                                                 $"Sla wijzigingen in het project op: {projectName}?");
-            inquiryHelper.Received().GetTargetFileLocation(fileFilter, projectName);
+            inquiryHelper.Received(1).GetTargetFileLocation(fileFilter, projectName);
         }
 
         private static IEnumerable<TestCaseData> GetExceptions()

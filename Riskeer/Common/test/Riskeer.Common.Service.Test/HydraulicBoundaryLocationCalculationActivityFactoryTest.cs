@@ -221,7 +221,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
             }
 
-            calculatorFactory.Received()
+            calculatorFactory.Received(1)
                              .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
         }
 
@@ -255,7 +255,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), designWaterLevelCalculationInput.Beta);
             }
 
-            calculatorFactory.Received()
+            calculatorFactory.Received(1)
                              .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
         }
 

@@ -222,7 +222,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             categoryThemeProperties.Width = random.Next(1, 48);
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

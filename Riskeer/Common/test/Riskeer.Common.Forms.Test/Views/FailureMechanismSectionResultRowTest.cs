@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsTrue(row.Updated);
             Assert.IsTrue(rowUpdated);
             Assert.IsTrue(rowUpdateDone);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<FailureMechanismSectionResult>

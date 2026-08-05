@@ -446,14 +446,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.IsNull(calculation.Output);
             if (useCalculationWithOutput)
             {
-                calculationObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
             }
             else
             {
                 calculationObserver.DidNotReceive().UpdateObserver();
             }
 
-            calculationInputObserver.Received().UpdateObserver();
+            calculationInputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -571,7 +571,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             button.Click();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

@@ -589,12 +589,12 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            viewHost.Received().AddDocumentView(
+            viewHost.Received(1).AddDocumentView(
                 Arg.Is<TestView>(c => c.Data == data1),
                 Arg.Any<string>(),
                 Arg.Any<string>(),
                 Arg.Any<FontFamily>());
-            viewHost.Received().AddDocumentView(
+            viewHost.Received(1).AddDocumentView(
                 Arg.Is<TestView>(c => c.Data == data2),
                 Arg.Any<string>(),
                 Arg.Any<string>(),
@@ -636,7 +636,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            viewHost.Received().BringToFront(Arg.Is<TestView>(c => c == viewList.First()));
+            viewHost.Received(1).BringToFront(Arg.Is<TestView>(c => c == viewList.First()));
         }
 
         [Test]
@@ -923,8 +923,8 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            viewHost.Received().AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
-            viewHost.Received().Remove(Arg.Any<TestView>());
+            viewHost.Received(2).AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
+            viewHost.Received(1).Remove(Arg.Any<TestView>());
         }
 
         [Test]

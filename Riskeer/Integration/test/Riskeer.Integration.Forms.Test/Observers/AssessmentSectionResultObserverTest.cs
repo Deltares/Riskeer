@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -111,7 +111,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.ReferenceLine.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -130,7 +130,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.SpecificFailureMechanisms.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 specificFailureMechanism.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 specificFailureMechanism.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -252,7 +252,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 newFailureMechanism.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -306,7 +306,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 newFailureMechanism.SectionConfigurations.First().NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -360,7 +360,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 newFailureMechanism.SectionConfigurations.First().NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -381,7 +381,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 calculation.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -400,7 +400,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.DuneErosion.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -421,7 +421,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 calculation.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -440,7 +440,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.GrassCoverErosionOutwards.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -461,7 +461,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 calculation.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -483,7 +483,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 calculation.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -508,7 +508,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.MacroStabilityInwards.SectionConfigurations.First().NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -530,7 +530,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 calculationScenario.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -555,7 +555,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.Piping.SectionConfigurations.First().NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -576,7 +576,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 calculation.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -595,7 +595,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.StabilityStoneCover.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -614,7 +614,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.WaveImpactAsphaltCover.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -633,7 +633,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.GrassCoverSlipOffInwards.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -652,7 +652,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.GrassCoverSlipOffOutwards.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -671,7 +671,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.Microstability.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -690,7 +690,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.PipingStructure.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -709,7 +709,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 assessmentSection.WaterPressureAsphaltCover.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 

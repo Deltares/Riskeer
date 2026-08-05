@@ -66,7 +66,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().NotifyObservers();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
     }
 }
