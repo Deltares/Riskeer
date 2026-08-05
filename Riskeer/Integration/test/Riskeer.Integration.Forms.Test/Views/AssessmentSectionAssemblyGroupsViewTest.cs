@@ -110,7 +110,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual(newOutput.Length, groupsTable.Rows.Count);
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 

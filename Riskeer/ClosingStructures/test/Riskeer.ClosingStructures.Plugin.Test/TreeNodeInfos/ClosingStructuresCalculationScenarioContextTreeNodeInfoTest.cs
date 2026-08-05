@@ -416,7 +416,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            inputObserver.Received().UpdateObserver();
+            inputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -539,8 +539,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            inputObserver.Received().UpdateObserver();
-            calculationObserver.Received().UpdateObserver();
+            inputObserver.Received(1).UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -751,7 +751,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculationInputObserver.Received().UpdateObserver();
+            calculationInputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -936,8 +936,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     });
 
                     Assert.IsNotNull(calculation.Output);
-                    observer.Received().UpdateObserver();
-                    calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                    observer.Received(1).UpdateObserver();
+                    calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(
                         Arg.Any<HydraRingCalculationSettings>());
                 }
             }
@@ -1164,7 +1164,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculationObserver.Received().UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1200,7 +1200,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         public override void Setup()

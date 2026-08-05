@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             const string name = "cool new name!";
             properties.Name = name;
             Assert.AreEqual(name, calculationGroup.Name);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

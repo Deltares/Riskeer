@@ -170,7 +170,7 @@ namespace Core.Components.Gis.IO.Test.Importers
             importer.DoPostImport();
 
             // Assert
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
     }
 }

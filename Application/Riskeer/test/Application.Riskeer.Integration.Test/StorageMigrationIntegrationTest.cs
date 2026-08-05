@@ -110,8 +110,8 @@ namespace Application.Riskeer.Integration.Test
                 Assert.IsInstanceOf<RiskeerProject>(gui.Project);
             }
 
-            inquiryHelper.Received().InquireContinuation(Arg.Any<string>());
-            inquiryHelper.Received().GetTargetFileLocation(Arg.Any<string>(), Arg.Any<string>());
+            inquiryHelper.Received(1).InquireContinuation(Arg.Any<string>());
+            inquiryHelper.Received(1).GetTargetFileLocation(Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Test]
@@ -136,7 +136,7 @@ namespace Application.Riskeer.Integration.Test
                 Assert.IsNull(gui.Project);
             }
 
-            inquiryHelper.Received().InquireContinuation(Arg.Any<string>());
+            inquiryHelper.Received(1).InquireContinuation(Arg.Any<string>());
         }
 
         [OneTimeSetUp]

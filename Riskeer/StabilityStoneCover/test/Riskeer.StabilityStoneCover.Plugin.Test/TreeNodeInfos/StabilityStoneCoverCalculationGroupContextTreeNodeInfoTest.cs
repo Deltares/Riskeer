@@ -550,7 +550,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                   false);
                 }
 
-                exportCommandHandler.Received().CanExportFrom(nodeData);
+                exportCommandHandler.Received(1).CanExportFrom(nodeData);
             }
         }
 
@@ -657,8 +657,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                   false);
                 }
 
-                importCommandHandler.Received().GetSupportedImportInfos(nodeData);
-                exportCommandHandler.Received().CanExportFrom(nodeData);
+                importCommandHandler.Received(1).GetSupportedImportInfos(nodeData);
+                exportCommandHandler.Received(1).CanExportFrom(nodeData);
             }
         }
 
@@ -1040,8 +1040,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     {
                         Assert.IsNull(calculationA.Output);
                         Assert.IsNull(calculationB.Output);
-                        observerA.Received().UpdateObserver();
-                        observerB.Received().UpdateObserver();
+                        observerA.Received(1).UpdateObserver();
+                        observerB.Received(1).UpdateObserver();
                     }
                 }
             }
@@ -1097,7 +1097,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }
@@ -1154,7 +1154,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                     Assert.AreEqual(GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType), newCalculationItem.InputParameters.WaterLevelType);
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }
@@ -1255,7 +1255,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 StabilityStoneCoverWaveConditionsInput secondCalculationInputParameters = secondCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInputParameters.HydraulicBoundaryLocation);
                 Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInputParameters.WaterLevelType);
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -1351,7 +1351,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, group);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1442,7 +1442,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     // Then
                     Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);
                     Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(failureMechanism.CalculationsGroup.Children[0]);
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }
@@ -1543,7 +1543,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculationInputObserver.Received().UpdateObserver();
+            calculationInputObserver.Received(1).UpdateObserver();
         }
 
         public override void Setup()

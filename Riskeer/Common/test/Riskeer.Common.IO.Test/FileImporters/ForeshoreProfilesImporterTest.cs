@@ -612,8 +612,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
             foreshoreProfilesImporter.DoPostImport();
 
             // Assert
-            observableA.Received().NotifyObservers();
-            observableB.Received().NotifyObservers();
+            observableA.Received(1).NotifyObservers();
+            observableB.Received(1).NotifyObservers();
         }
 
         private static ReferenceLine CreateMatchingReferenceLine()

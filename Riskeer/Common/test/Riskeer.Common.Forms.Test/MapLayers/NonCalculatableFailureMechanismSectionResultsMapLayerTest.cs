@@ -114,7 +114,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
 
                 // Then
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -159,7 +159,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
     }
 }

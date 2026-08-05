@@ -221,7 +221,7 @@ namespace Riskeer.Common.Service.Test
                 });
             }
 
-            calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             Assert.AreEqual(ActivityState.Executed, activity.State);
         }
 
@@ -263,7 +263,7 @@ namespace Riskeer.Common.Service.Test
             Assert.IsNotNull(calculationOutput);
             Assert.AreEqual(expectedDesignWaterLevel, calculationOutput.Result, calculationOutput.Result.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, calculationOutput.CalculationConvergence);
-            calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -324,7 +324,7 @@ namespace Riskeer.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(messages[6]);
                 });
 
-                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
 
                 Assert.AreSame(output, hydraulicBoundaryLocationCalculation.Output);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
@@ -374,7 +374,7 @@ namespace Riskeer.Common.Service.Test
                     Assert.AreEqual($"Waterstand berekening voor locatie 'locationName' ({calculationIdentifier}) is niet geconvergeerd.", msgs[4]);
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
-                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -401,7 +401,7 @@ namespace Riskeer.Common.Service.Test
             activity.Finish();
 
             // Assert
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private static string GetActivityDescription(string locationName, string calculationIdentifier)

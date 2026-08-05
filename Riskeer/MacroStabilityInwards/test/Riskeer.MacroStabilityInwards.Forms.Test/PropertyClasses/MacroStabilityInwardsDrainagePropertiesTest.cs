@@ -299,7 +299,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(handler.Called);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
     }
 }

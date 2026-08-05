@@ -203,7 +203,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(readIllustrationPoints, actualOutput.HasGeneralResult);
             }
 
-            calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -254,7 +254,7 @@ namespace Riskeer.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
 
-                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
                 Assert.IsFalse(calculator.IsCanceled);
                 HydraulicBoundaryLocationCalculationOutput actualOutput = hydraulicBoundaryLocationCalculation.Output;
                 Assert.IsNotNull(actualOutput);
@@ -310,7 +310,7 @@ namespace Riskeer.Common.Service.Test
                 });
                 Assert.IsNotNull(hydraulicBoundaryLocationCalculation.Output);
                 Assert.IsFalse(hydraulicBoundaryLocationCalculation.Output.HasGeneralResult);
-                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -366,7 +366,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.IsFalse(hydraulicBoundaryLocationCalculation.Output.HasGeneralResult);
             }
 
-            calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -448,7 +448,7 @@ namespace Riskeer.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsFalse(hydraulicBoundaryLocationCalculation.Output.HasGeneralResult);
-                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -488,7 +488,7 @@ namespace Riskeer.Common.Service.Test
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
-                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -517,7 +517,7 @@ namespace Riskeer.Common.Service.Test
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
-                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 

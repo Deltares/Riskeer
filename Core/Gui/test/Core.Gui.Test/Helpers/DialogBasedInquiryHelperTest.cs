@@ -309,7 +309,7 @@ namespace Core.Gui.Test.Helpers
 
             Assert.AreEqual(description, title);
             Assert.AreEqual(query, actualQuery);
-            _ = dialogParent.Received().Handle;
+            _ = dialogParent.Received(1).Handle;
         }
 
         public override void Setup()

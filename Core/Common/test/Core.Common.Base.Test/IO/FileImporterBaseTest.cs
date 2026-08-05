@@ -82,7 +82,7 @@ namespace Core.Common.Base.Test.IO
             simpleImporter.DoPostImport();
 
             // Assert
-            observableInstance.Received().NotifyObservers();
+            observableInstance.Received(1).NotifyObservers();
         }
 
         [Test]

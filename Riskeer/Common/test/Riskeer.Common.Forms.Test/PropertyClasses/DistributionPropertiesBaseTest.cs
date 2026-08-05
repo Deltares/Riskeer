@@ -203,7 +203,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newMeanValue, properties.Mean);
-            observerable.Received().NotifyObservers();
+            observerable.Received(1).NotifyObservers();
         }
 
         [Test]
@@ -250,7 +250,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newStandardDeviationValue, properties.StandardDeviation);
-            observerable.Received().NotifyObservers();
+            observerable.Received(1).NotifyObservers();
         }
 
         private static void AssertPropertiesInState(SimpleDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)

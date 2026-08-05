@@ -325,8 +325,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
 
-                backgroundDataObserver.Received().UpdateObserver();
-                tileFactory.Received().GetWmtsTileSources(Arg.Any<string>());
+                backgroundDataObserver.Received(1).UpdateObserver();
+                tileFactory.Received(1).GetWmtsTileSources(Arg.Any<string>());
             }
         }
 
@@ -442,7 +442,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
 
-                backgroundDataObserver.Received().UpdateObserver();
+                backgroundDataObserver.Received(1).UpdateObserver();
             }
         }
 
@@ -504,7 +504,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
 
-                backgroundDataObserver.Received().UpdateObserver();
+                backgroundDataObserver.Received(1).UpdateObserver();
             }
         }
 

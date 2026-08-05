@@ -152,9 +152,9 @@ namespace Riskeer.Integration.Test
                                   Environment.NewLine + "Wilt u doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
             failureMechanismObserver.Received(assessmentSection.GetFailureMechanisms().Count()).UpdateObserver();
-            referenceLineObserver.Received().UpdateObserver();
-            surfaceLinesObserver.Received().UpdateObserver();
-            stochasticSoilModelsObserver.Received().UpdateObserver();
+            referenceLineObserver.Received(1).UpdateObserver();
+            surfaceLinesObserver.Received(1).UpdateObserver();
+            stochasticSoilModelsObserver.Received(1).UpdateObserver();
         }
     }
 }

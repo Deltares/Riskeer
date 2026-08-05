@@ -65,7 +65,7 @@ namespace Riskeer.Common.Forms.Test.Observers
                 calculation.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -87,7 +87,7 @@ namespace Riskeer.Common.Forms.Test.Observers
                 calculation.InputParameters.NotifyObservers();
 
                 // Then
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 

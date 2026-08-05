@@ -79,7 +79,7 @@ namespace Core.Common.Controls.Test
             toggleButton.PerformClick();
 
             // Then
-            command.Received().Execute(null);
+            command.Received(1).Execute(null);
         }
 
         [Test]

@@ -132,7 +132,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             failureMechanism.DikeProfiles.NotifyObservers();
 
             // Result
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
     }
 }

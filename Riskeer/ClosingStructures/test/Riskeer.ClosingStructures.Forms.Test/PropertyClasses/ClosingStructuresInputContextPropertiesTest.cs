@@ -999,7 +999,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.IsFalse(calculation.HasOutput);
 
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         private static IEnumerable<TestCaseData> GetGeneralPropertyIndices()

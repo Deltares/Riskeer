@@ -231,8 +231,8 @@ namespace Core.Gui.Test
 
             // Assert
             CollectionAssert.IsEmpty(gui.Plugins);
-            plugin.Received().Deactivate();
-            plugin.Received().Dispose();
+            plugin.Received(1).Deactivate();
+            plugin.Received(1).Dispose();
         }
 
         [Test]
@@ -702,8 +702,8 @@ namespace Core.Gui.Test
 
             // Assert
             // Expect calls on plugin
-            plugin.Received().Dispose();
-            plugin.Received().Deactivate();
+            plugin.Received(1).Dispose();
+            plugin.Received(1).Deactivate();
         }
 
         [Test]
@@ -817,10 +817,10 @@ namespace Core.Gui.Test
                 CollectionAssert.AreEquivalent(expectedDataDefinitions, dataInstancesWithViewDefinitions);
             }
 
-            plugin1.Received().Dispose();
-            plugin1.Received().Deactivate();
-            plugin2.Received().Dispose();
-            plugin2.Received().Deactivate();
+            plugin1.Received(1).Dispose();
+            plugin1.Received(1).Deactivate();
+            plugin2.Received(1).Dispose();
+            plugin2.Received(1).Deactivate();
         }
 
         [Test]
@@ -869,10 +869,10 @@ namespace Core.Gui.Test
                 CollectionAssert.AreEquivalent(expectedDataDefinitions, dataInstancesWithViewDefinitions);
             }
 
-            plugin1.Received().Dispose();
-            plugin1.Received().Deactivate();
-            plugin2.Received().Dispose();
-            plugin2.Received().Deactivate();
+            plugin1.Received(1).Dispose();
+            plugin1.Received(1).Deactivate();
+            plugin2.Received(1).Dispose();
+            plugin2.Received(1).Deactivate();
         }
 
         [Test]
@@ -935,12 +935,12 @@ namespace Core.Gui.Test
                 CollectionAssert.AreEquivalent(expected, result);
             }
 
-            pluginA.Received().Dispose();
-            pluginA.Received().Deactivate();
-            pluginB.Received().Dispose();
-            pluginB.Received().Deactivate();
-            pluginC.Received().Dispose();
-            pluginC.Received().Deactivate();
+            pluginA.Received(1).Dispose();
+            pluginA.Received(1).Deactivate();
+            pluginB.Received(1).Dispose();
+            pluginB.Received(1).Deactivate();
+            pluginC.Received(1).Dispose();
+            pluginC.Received(1).Deactivate();
         }
 
         [Test]

@@ -102,7 +102,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, calculation.Name);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -159,7 +159,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         /// <summary>
@@ -227,7 +227,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             if (expectUpdates)
             {
-                inputObserver.Received().UpdateObserver();
+                inputObserver.Received(1).UpdateObserver();
             }
             else
             {

@@ -346,7 +346,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private class TestHydraulicBoundaryLocationCalculationBaseProperties : HydraulicBoundaryLocationCalculationBaseProperties

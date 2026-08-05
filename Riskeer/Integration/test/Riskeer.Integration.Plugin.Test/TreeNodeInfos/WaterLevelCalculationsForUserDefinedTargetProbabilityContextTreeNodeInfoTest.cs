@@ -599,7 +599,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
 
-                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -704,7 +704,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
 
-                calculatorFactory.Received().CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -780,7 +780,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 if (continuation)
                 {
-                    calculationObserver.Received().UpdateObserver();
+                    calculationObserver.Received(1).UpdateObserver();
                 }
             }
         }

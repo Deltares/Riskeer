@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase,
                                              hydraulicBoundaryDatabase.Locations, readHydraulicBoundaryDatabase.TrackId);
             AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
-            duneLocationsUpdateHandler.Received().AddLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations => locations != null));
+            duneLocationsUpdateHandler.Received(1).AddLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations => locations != null));
         }
 
         [Test]
@@ -354,7 +354,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(1, hydraulicBoundaryData.HydraulicBoundaryDatabases.Count);
             Assert.AreSame(hydraulicBoundaryDatabase, hydraulicBoundaryData.HydraulicBoundaryDatabases.First());
             AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
-            duneLocationsUpdateHandler.Received().AddLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations => locations != null));
+            duneLocationsUpdateHandler.Received(1).AddLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations => locations != null));
         }
 
         [Test]
@@ -475,7 +475,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 CollectionAssert.IsEmpty(element.HydraulicBoundaryLocationCalculations);
             }
 
-            duneLocationsUpdateHandler.Received().RemoveLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations =>
+            duneLocationsUpdateHandler.Received(1).RemoveLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations =>
                                                                                                                      locations != null &&
                                                                                                                      locations.Contains(location1) &&
                                                                                                                      locations.Contains(location2)
@@ -568,7 +568,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             handler.DoPostUpdateActions();
 
             // Assert
-            duneLocationsUpdateHandler.Received().DoPostUpdateActions();
+            duneLocationsUpdateHandler.Received(1).DoPostUpdateActions();
         }
 
         private static AssessmentSection CreateAssessmentSection()

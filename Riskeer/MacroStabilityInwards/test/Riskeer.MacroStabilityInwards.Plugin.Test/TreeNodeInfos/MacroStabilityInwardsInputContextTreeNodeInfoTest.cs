@@ -115,10 +115,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            menuBuilder.Received().AddOpenItem();
-            menuBuilder.Received().AddSeparator();
-            menuBuilder.Received().AddPropertiesItem();
-            menuBuilder.Received().Build();
+            menuBuilder.Received(1).AddOpenItem();
+            menuBuilder.Received(1).AddSeparator();
+            menuBuilder.Received(1).AddPropertiesItem();
+            menuBuilder.Received(1).Build();
         }
     }
 }

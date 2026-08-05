@@ -188,7 +188,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.HydraulicLoa
             Assert.AreEqual(value, failureMechanism.GeneralInput.C,
                             failureMechanism.GeneralInput.C.GetAccuracy());
             Assert.IsTrue(handler.Called);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
     }
 }

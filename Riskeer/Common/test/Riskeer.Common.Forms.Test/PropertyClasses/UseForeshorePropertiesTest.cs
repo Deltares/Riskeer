@@ -185,7 +185,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(handler.Called);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         private class TestUseForeshore : CloneableObservable, ICalculationInput, IUseForeshore

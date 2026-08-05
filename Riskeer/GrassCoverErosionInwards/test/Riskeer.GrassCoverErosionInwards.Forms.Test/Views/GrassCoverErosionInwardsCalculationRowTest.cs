@@ -425,7 +425,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         /// <summary>
@@ -481,12 +481,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             if (expectUpdates)
             {
-                inputObserver.Received().UpdateObserver();
+                inputObserver.Received(1).UpdateObserver();
             }
 
             if (expectUpdates && hasOutput)
             {
-                calculationObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
             }
 
             assertions(calculation);

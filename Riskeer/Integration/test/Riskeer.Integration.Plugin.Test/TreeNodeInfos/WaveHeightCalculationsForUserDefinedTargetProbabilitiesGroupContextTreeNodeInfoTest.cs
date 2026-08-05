@@ -335,7 +335,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculationsObserver.Received().UpdateObserver();
+            calculationsObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -663,7 +663,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
 
-                calculationObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
             }
         }
 
@@ -860,7 +860,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     calculationsForTargetProbability3,
                     calculationsForTargetProbability2
                 }, calculationsForTargetProbabilities);
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 

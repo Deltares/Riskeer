@@ -1504,7 +1504,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             }
 
             // Assert
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
                 Arg.Is<HydraRingCalculationSettings>(settings => settings != null));
         }
 

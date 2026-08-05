@@ -149,7 +149,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             activity.Finish();
 
             // Assert
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
     }
 }

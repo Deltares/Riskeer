@@ -144,7 +144,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.AreEqual(Path.Combine(newFolderPath, hlcdFileName), hydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath);
             Assert.AreEqual(Path.Combine(newFolderPath, hrdFileName1), hydraulicBoundaryDatabase1.FilePath);
             Assert.AreEqual(Path.Combine(newFolderPath, hrdFileName2), hydraulicBoundaryDatabase2.FilePath);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

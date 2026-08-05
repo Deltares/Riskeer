@@ -279,7 +279,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -317,7 +317,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -349,7 +349,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
-            observers[surfaceLinesIndex].Received().UpdateObserver();
+            observers[surfaceLinesIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -379,7 +379,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
             // Then
             var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
-            observers[surfaceLinesIndex].Received().UpdateObserver();
+            observers[surfaceLinesIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -408,7 +408,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, stochasticSoilModelMapData);
-            observers[stochasticSoilModelsIndex].Received().UpdateObserver();
+            observers[stochasticSoilModelsIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -453,7 +453,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(), calculationMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -495,7 +495,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(), calculationMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -529,7 +529,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(), calculationMapData);
-            observers[calculationObserverIndex].Received().UpdateObserver();
+            observers[calculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]

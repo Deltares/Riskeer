@@ -290,7 +290,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                                 actualInput.Variables.Single(v => v.VariableId == 105).Value);
             }
 
-            calculatorFactory.Received().CreateStructuresCalculator<StructuresClosureCalculationInput>(
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(
                 Arg.Any<HydraRingCalculationSettings>());
         }
     }

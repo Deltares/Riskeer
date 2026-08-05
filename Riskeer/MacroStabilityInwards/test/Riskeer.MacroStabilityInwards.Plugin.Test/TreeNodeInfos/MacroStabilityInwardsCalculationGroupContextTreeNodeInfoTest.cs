@@ -645,7 +645,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
 
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -704,7 +704,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
 
-                observer.Received().UpdateObserver();
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -966,8 +966,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 if (confirm)
                 {
-                    calculation1Observer.Received().UpdateObserver();
-                    calculation2Observer.Received().UpdateObserver();
+                    calculation1Observer.Received(1).UpdateObserver();
+                    calculation2Observer.Received(1).UpdateObserver();
                 }
                 else
                 {
@@ -1068,7 +1068,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         public override void Setup()

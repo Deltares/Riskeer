@@ -234,7 +234,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 CollectionAssert.DoesNotContain(calculations, calculationForFirstTargetProbability);
             }
 
-            calculationObserver.Received().UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -565,7 +565,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
 
-                calculatorFactory.Received()
+                calculatorFactory.Received(1)
                                  .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
@@ -745,7 +745,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             if (continuation)
             {
-                calculationObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
             }
         }
 
