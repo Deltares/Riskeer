@@ -116,12 +116,6 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
             private static readonly PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
-            [SetUp]
-            public void SetUp() {}
-
-            [TearDown]
-            public void TearDown() {}
-
             protected override ProbabilisticPipingCalculationScenarioContext CreateObject()
             {
                 return new ProbabilisticPipingCalculationScenarioContext(calculation,

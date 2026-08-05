@@ -80,12 +80,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             private static readonly TestCalculatableFailureMechanism failureMechanism = new TestCalculatableFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
-            [SetUp]
-            public void SetUp() {}
-
-            [TearDown]
-            public void TearDown() {}
-
             protected override TestStructuresCalculationScenarioContext CreateObject()
             {
                 return new TestStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);

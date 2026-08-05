@@ -32,9 +32,6 @@ namespace Riskeer.Common.Service.Test.ValidationRules
     [TestFixture]
     public class UseBreakWaterRuleTest
     {
-        [SetUp]
-        public void SetUp() {}
-
         [Test]
         [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Caisson)]

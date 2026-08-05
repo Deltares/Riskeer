@@ -71,12 +71,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 
             private static CalculationGroup parent;
 
-            [SetUp]
-            public void SetUp() {}
-
-            [TearDown]
-            public void TearDown() {}
-
             public GrassCoverErosionInwardsCalculationGroupContextEqualsTest(bool hasParent)
             {
                 parent = hasParent ? new CalculationGroup() : null;

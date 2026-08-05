@@ -41,12 +41,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
     [TestFixture]
     public class DikeProfilesImporterTest
     {
-        [SetUp]
-        public void Setup() {}
-
-        [TearDown]
-        public void TearDown() {}
-
         [Test]
         public void Constructor_WithValidParameters_ReturnsNewInstance()
         {

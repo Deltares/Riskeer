@@ -36,9 +36,6 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
     [TestFixture]
     public class ForeshoreProfileEditorTest
     {
-        [SetUp]
-        public void SetUp() {}
-
         [Test]
         public void DefaultConstructor_ReturnsNewInstance()
         {
