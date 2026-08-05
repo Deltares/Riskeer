@@ -102,7 +102,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             const string name = "cool name";
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
@@ -306,7 +305,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -336,7 +334,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -522,9 +519,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -890,9 +885,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {

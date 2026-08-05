@@ -175,7 +175,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Registratio
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
@@ -215,7 +214,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Registratio
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {

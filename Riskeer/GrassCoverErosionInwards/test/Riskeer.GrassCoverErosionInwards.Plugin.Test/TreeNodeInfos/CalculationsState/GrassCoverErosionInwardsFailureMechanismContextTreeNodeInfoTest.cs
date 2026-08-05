@@ -250,9 +250,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -279,9 +277,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 

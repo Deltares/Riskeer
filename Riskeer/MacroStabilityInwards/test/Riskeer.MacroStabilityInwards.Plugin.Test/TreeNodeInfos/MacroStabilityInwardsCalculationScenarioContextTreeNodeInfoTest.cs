@@ -529,7 +529,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculationContext = new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                          new CalculationGroup(),
                                                                                          Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),

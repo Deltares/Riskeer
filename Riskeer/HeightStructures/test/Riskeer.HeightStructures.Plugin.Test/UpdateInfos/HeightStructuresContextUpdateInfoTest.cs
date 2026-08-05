@@ -82,7 +82,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var structures = new StructureCollection<HeightStructure>();
 
@@ -100,7 +99,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var structures = new StructureCollection<HeightStructure>();
             structures.AddRange(Enumerable.Empty<HeightStructure>(), "some path");
@@ -129,7 +127,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             const string expectedFilePath = "some/path";
             var structures = new StructureCollection<HeightStructure>();
             structures.AddRange(Enumerable.Empty<HeightStructure>(), expectedFilePath);

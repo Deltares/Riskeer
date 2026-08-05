@@ -399,7 +399,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -425,7 +424,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -454,7 +452,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -483,7 +480,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {

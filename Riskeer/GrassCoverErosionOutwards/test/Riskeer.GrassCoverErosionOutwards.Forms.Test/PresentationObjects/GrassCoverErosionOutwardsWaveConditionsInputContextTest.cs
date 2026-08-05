@@ -63,7 +63,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call

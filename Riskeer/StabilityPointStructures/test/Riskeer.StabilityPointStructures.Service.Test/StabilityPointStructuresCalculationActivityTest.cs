@@ -38,7 +38,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
@@ -57,7 +56,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call

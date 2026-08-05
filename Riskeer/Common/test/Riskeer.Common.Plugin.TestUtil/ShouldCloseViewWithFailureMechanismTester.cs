@@ -60,7 +60,6 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             // Setup
             IFailureMechanism failureMechanism = GetFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureAssessmentSection(assessmentSection, failureMechanism);
 
@@ -138,7 +137,6 @@ namespace Riskeer.Common.Plugin.TestUtil
             // Setup
             var otherFailureMechanism = Substitute.For<IFailureMechanism>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             IFailureMechanism failureMechanism = GetFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(otherFailureMechanism, assessmentSection);
 
@@ -157,7 +155,6 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             IFailureMechanism failureMechanism = GetFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 

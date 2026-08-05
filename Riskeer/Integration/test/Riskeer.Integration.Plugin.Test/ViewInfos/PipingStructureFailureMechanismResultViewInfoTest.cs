@@ -138,7 +138,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[]
             {

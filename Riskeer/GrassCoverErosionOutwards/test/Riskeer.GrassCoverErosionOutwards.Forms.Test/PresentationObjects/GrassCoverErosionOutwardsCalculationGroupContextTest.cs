@@ -41,7 +41,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 

@@ -1423,7 +1423,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
@@ -1461,7 +1460,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
@@ -1497,7 +1495,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
@@ -1538,7 +1535,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
@@ -1580,7 +1576,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
@@ -1618,7 +1613,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
@@ -1654,7 +1648,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
@@ -1698,7 +1691,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var treeViewCommands = Substitute.For<ITreeViewCommands>();

@@ -50,7 +50,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             }, "path");
             var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var inputContext = new GrassCoverErosionInwardsInputContext(grassCoverErosionInwardsInput,
                                                                         grassCoverErosionInwardsCalculation,
@@ -92,7 +91,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.UITypeEditors
                 DikeProfile = dikeProfile
             };
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var inputContext = new GrassCoverErosionInwardsInputContext(grassCoverErosionInwardsInput,
                                                                         grassCoverErosionInwardsCalculation,

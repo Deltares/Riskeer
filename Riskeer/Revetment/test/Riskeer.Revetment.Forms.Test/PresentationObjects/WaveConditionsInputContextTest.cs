@@ -44,7 +44,6 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
         {
             // Setup
             var waveConditionsInput = new WaveConditionsInput();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call

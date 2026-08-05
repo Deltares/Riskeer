@@ -184,7 +184,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddImportItem().Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);

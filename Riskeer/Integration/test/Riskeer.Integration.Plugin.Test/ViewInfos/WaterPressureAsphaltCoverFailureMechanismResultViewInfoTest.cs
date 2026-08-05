@@ -161,7 +161,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
             failureMechanismContext.WrappedData.Returns(failureMechanism);
@@ -202,7 +201,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
             var context = new WaterPressureAsphaltCoverFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);

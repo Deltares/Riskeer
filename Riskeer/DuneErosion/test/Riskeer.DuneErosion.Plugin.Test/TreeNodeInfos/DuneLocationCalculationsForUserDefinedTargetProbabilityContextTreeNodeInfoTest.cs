@@ -281,7 +281,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                              new DuneErosionFailureMechanism(),
                                                                                              assessmentSection);

@@ -92,7 +92,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             string sourcePath = TestHelper.GetScratchPadPath();
@@ -116,7 +115,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -175,7 +173,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             string sourcePath = TestHelper.GetScratchPadPath();

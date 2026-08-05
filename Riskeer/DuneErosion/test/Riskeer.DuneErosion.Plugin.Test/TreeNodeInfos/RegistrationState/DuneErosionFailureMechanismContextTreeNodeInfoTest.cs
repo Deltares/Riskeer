@@ -184,7 +184,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
@@ -230,7 +229,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new DuneErosionFailureMechanism
             {

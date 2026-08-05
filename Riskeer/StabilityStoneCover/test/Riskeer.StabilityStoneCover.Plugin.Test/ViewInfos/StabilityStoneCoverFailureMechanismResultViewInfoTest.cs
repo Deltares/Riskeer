@@ -68,7 +68,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
@@ -115,7 +114,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var otherFailureMechanism = Substitute.For<IFailureMechanism>();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -163,7 +161,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
@@ -182,7 +179,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
@@ -201,7 +197,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -222,7 +217,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), assessmentSection);
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -243,7 +237,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);

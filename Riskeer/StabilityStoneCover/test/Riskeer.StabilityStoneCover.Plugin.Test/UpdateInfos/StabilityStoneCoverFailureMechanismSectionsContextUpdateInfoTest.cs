@@ -92,7 +92,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             string sourcePath = TestHelper.GetScratchPadPath();
@@ -116,7 +115,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -175,7 +173,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             string sourcePath = TestHelper.GetScratchPadPath();

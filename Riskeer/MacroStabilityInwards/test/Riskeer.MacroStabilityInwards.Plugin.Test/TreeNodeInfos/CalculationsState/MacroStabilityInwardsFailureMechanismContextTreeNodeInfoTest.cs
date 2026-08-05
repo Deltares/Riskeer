@@ -173,7 +173,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -241,7 +240,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -357,7 +355,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 

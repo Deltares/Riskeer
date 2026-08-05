@@ -164,7 +164,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             failureMechanism.InAssemblyOutputComments.Returns(new Comment());
             failureMechanism.NotInAssemblyComments.Returns(new Comment());
             failureMechanism.CalculationsInputComments.Returns(new Comment());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -196,7 +195,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             failureMechanism.InAssemblyOutputComments.Returns(new Comment());
             failureMechanism.NotInAssemblyComments.Returns(new Comment());
             failureMechanism.CalculationsInputComments.Returns(new Comment());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
             assessmentSection.GetFailureMechanisms().Returns(new[]
@@ -267,7 +265,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             failureMechanism.InAssemblyInputComments.Returns(comment);
             failureMechanism.InAssemblyOutputComments.Returns(new Comment());
             failureMechanism.NotInAssemblyComments.Returns(new Comment());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -298,7 +295,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             failureMechanism.InAssemblyInputComments.Returns(new Comment());
             failureMechanism.InAssemblyOutputComments.Returns(comment);
             failureMechanism.NotInAssemblyComments.Returns(new Comment());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -329,7 +325,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             failureMechanism.InAssemblyInputComments.Returns(new Comment());
             failureMechanism.InAssemblyOutputComments.Returns(new Comment());
             failureMechanism.NotInAssemblyComments.Returns(comment);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -361,7 +356,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             failureMechanism.InAssemblyOutputComments.Returns(new Comment());
             failureMechanism.NotInAssemblyComments.Returns(new Comment());
             failureMechanism.CalculationsInputComments.Returns(comment);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -439,7 +433,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new SpecificFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(Enumerable.Empty<IFailureMechanism>());
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>

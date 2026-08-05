@@ -38,7 +38,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var parent = new CalculationGroup();
@@ -59,7 +58,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
         {
             // Setup  
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var parent = new CalculationGroup();

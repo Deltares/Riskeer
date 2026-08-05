@@ -83,7 +83,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
@@ -101,7 +100,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
@@ -121,7 +119,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var calculationGroup = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
@@ -149,7 +146,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var calculationGroup = new CalculationGroup();
 

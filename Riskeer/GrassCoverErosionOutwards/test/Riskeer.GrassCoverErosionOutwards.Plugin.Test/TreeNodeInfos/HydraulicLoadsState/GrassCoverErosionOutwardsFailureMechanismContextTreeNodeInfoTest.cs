@@ -108,7 +108,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -134,7 +133,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -223,9 +221,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 

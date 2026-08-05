@@ -87,7 +87,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.RegistrationS
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
             // Call
@@ -151,7 +150,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.RegistrationS
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 InAssembly = false
@@ -173,7 +171,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.RegistrationS
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
@@ -213,7 +210,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.RegistrationS
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {

@@ -92,7 +92,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             string sourcePath = TestHelper.GetScratchPadPath();
@@ -116,7 +115,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -175,7 +173,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             string sourcePath = TestHelper.GetScratchPadPath();

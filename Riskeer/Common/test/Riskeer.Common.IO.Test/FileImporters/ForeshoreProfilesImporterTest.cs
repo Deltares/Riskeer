@@ -141,7 +141,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(referenceLine);
             var messageProvider = Substitute.For<IImporterMessageProvider>();
@@ -229,7 +228,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(referenceLine);
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);

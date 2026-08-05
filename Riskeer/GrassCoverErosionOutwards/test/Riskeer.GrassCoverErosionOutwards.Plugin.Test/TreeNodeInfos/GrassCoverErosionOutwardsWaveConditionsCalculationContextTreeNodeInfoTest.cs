@@ -102,7 +102,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             const string name = "cool name";
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -186,7 +185,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -216,7 +214,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {

@@ -40,7 +40,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var parent = new CalculationGroup();
@@ -62,7 +61,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 

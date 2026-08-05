@@ -140,7 +140,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[]
             {
@@ -163,7 +162,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
             failureMechanismContext.WrappedData.Returns(failureMechanism);
@@ -184,7 +182,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
             failureMechanismContext.WrappedData.Returns(new GrassCoverSlipOffInwardsFailureMechanism());
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();

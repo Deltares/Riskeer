@@ -63,7 +63,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos.HydraulicLoads
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 

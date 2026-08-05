@@ -995,7 +995,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             var calculation = new ProbabilisticPipingCalculationScenario();
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var pipingCalculationScenarioContext = new ProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                                      new CalculationGroup(),
                                                                                                      Enumerable.Empty<PipingSurfaceLine>(),

@@ -37,7 +37,6 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
@@ -56,7 +55,6 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call

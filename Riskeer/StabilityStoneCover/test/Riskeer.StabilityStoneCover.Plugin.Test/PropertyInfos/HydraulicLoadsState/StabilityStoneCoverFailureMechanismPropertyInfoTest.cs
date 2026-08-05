@@ -54,7 +54,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos.HydraulicLoadsSt
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 

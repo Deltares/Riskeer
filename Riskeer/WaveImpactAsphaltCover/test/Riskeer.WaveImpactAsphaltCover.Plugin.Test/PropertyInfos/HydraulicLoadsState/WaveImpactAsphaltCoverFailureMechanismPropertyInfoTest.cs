@@ -54,7 +54,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos.HydraulicLoad
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 

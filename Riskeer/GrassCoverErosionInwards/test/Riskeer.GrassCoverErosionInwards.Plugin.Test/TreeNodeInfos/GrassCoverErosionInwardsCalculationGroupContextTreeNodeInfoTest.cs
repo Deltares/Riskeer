@@ -428,7 +428,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                null,
@@ -859,9 +858,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                null,
                                                                                failureMechanism,
@@ -898,9 +895,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                null,
                                                                                failureMechanism,
@@ -963,7 +958,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             }, dikeProfileCollectionPath);
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                null,
                                                                                failureMechanism,
@@ -1576,7 +1570,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Given
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             DikeProfile dikeProfile1 = DikeProfileTestFactory.CreateDikeProfile("Dike profile 1", "id1");
             DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile("Dike profile 2", "id2");
 

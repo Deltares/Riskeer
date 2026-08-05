@@ -103,7 +103,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
                                                                                         new CalculationGroup(),
                                                                                         new GrassCoverErosionOutwardsFailureMechanism(),

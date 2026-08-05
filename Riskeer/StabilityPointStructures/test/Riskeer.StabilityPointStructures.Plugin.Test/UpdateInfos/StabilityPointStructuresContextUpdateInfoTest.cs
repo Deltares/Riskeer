@@ -82,7 +82,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var structures = new StructureCollection<StabilityPointStructure>();
 
@@ -100,7 +99,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.StabilityPointStructures.AddRange(Enumerable.Empty<StabilityPointStructure>(), "some path");
 
@@ -130,7 +128,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             const string expectedFilePath = "some/path";
             var structures = new StructureCollection<StabilityPointStructure>();
             structures.AddRange(Enumerable.Empty<StabilityPointStructure>(), expectedFilePath);

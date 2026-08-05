@@ -114,7 +114,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildrenOfData(bool hasOutput)
         {
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {

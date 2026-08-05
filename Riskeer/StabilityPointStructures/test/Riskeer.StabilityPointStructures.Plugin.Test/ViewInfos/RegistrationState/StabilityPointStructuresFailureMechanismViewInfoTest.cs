@@ -63,7 +63,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -81,7 +80,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 InAssembly = inAssembly

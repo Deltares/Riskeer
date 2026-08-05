@@ -102,7 +102,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new WaveImpactAsphaltCoverCalculationGroupContext(new CalculationGroup(),
                                                                             null,
                                                                             new WaveImpactAsphaltCoverFailureMechanism(),
@@ -122,7 +121,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculationGroup = new CalculationGroup();
 
             if (hasNestedGroup)

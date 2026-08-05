@@ -40,7 +40,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var parent = new CalculationGroup();
@@ -62,7 +61,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 

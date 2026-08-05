@@ -102,7 +102,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new StabilityStoneCoverCalculationGroupContext(new CalculationGroup(),
                                                                          null,
                                                                          new StabilityStoneCoverFailureMechanism(),
@@ -122,7 +121,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculationGroup = new CalculationGroup();
 
             if (hasNestedGroup)

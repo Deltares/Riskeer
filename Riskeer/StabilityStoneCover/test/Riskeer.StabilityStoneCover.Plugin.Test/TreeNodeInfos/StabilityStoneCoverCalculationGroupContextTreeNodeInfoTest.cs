@@ -119,7 +119,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                          null,
@@ -138,7 +137,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                          null,
@@ -157,7 +155,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var groupContext = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                               null,
@@ -176,7 +173,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var childGroup = new CalculationGroup();
             var calculationItem = new StabilityStoneCoverWaveConditionsCalculation();
 
@@ -659,7 +655,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(group);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
                                                                           failureMechanism.CalculationsGroup,
@@ -700,9 +695,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
             failureMechanism.CalculationsGroup.Children.Add(group);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
                                                                           failureMechanism.CalculationsGroup,
                                                                           failureMechanism,
@@ -1027,7 +1020,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Setup
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var group = new CalculationGroup();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(group);
@@ -1234,7 +1226,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var group = new CalculationGroup();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
@@ -1291,9 +1282,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var observer = Substitute.For<IObserver>();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var group = new CalculationGroup();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 

@@ -188,7 +188,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var failureMechanisms = new ObservableList<SpecificFailureMechanism>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new SpecificFailureMechanismsContext(failureMechanisms, assessmentSection);
             context.Attach(observer);
 
@@ -227,7 +226,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new SpecificFailureMechanismsContext(failureMechanisms, assessmentSection);
             context.Attach(observer);
 

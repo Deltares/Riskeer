@@ -102,7 +102,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new GrassCoverErosionOutwardsCalculationGroupContext(new CalculationGroup(),
                                                                                null,
                                                                                new GrassCoverErosionOutwardsFailureMechanism(),
@@ -122,7 +121,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculationGroup = new CalculationGroup();
 
             if (hasNestedGroup)

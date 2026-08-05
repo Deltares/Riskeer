@@ -74,7 +74,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
                                                               failureMechanism,
@@ -98,7 +97,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
                                                               failureMechanism,
@@ -121,7 +119,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.StabilityPointStructures.AddRange(new[]
             {
@@ -151,7 +148,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             StabilityPointStructure structure1 = new TestStabilityPointStructure("id structure1");
             StabilityPointStructure structure2 = new TestStabilityPointStructure("id structure2");
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -183,7 +179,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Precondition

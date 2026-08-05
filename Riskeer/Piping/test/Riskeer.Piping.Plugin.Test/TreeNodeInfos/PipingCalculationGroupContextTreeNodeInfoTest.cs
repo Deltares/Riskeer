@@ -481,7 +481,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new PipingCalculationGroupContext(group,
                                                              null,
                                                              Enumerable.Empty<PipingSurfaceLine>(),
@@ -520,7 +519,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new PipingCalculationGroupContext(group,
                                                              null,
                                                              new[]
@@ -560,7 +558,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new PipingCalculationGroupContext(group,
                                                              null,
                                                              new[]
@@ -644,7 +641,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var group = new CalculationGroup();
 
@@ -1529,7 +1525,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation1 = new TestPipingCalculationScenario(true);
             calculation1.Attach(calculation1Observer);
 
@@ -1622,7 +1617,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation1 = new ProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
@@ -1722,7 +1716,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var surfaceLines = new[]
             {
                 new PipingSurfaceLine("surfaceLine1"),
@@ -1780,7 +1773,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
@@ -1908,7 +1900,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
@@ -2052,7 +2043,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             };
 
             group.Children.Add(calculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             CalculationGroup parentGroup = pipingFailureMechanism.CalculationsGroup;
             parentGroup.Children.Add(group);

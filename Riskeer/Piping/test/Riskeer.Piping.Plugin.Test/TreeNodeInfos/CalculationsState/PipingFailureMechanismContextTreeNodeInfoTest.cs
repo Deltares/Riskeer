@@ -182,7 +182,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation2);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -244,7 +243,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
             var failureMechanism = new TestPipingFailureMechanism();
             var pipingCalculation = new TestPipingCalculationScenario(true);
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -343,7 +341,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -375,7 +372,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -410,7 +406,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -445,7 +440,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
