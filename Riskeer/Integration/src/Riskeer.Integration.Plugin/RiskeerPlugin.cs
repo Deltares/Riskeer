@@ -1344,7 +1344,7 @@ namespace Riskeer.Integration.Plugin
                    && waterLevelCalculationsForTargetProbabilitiesGroupContext.WrappedData.Contains(waterLevelCalculationsForTargetProbabilityContext.WrappedData);
         }
 
-        private static void WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewControl treeViewControl)
+        private static void WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewCommands treeViewControl)
         {
             var waterLevelCalculationsForTargetProbabilitiesGroupContext = (WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext) newParentData;
             var waterLevelCalculationsForTargetProbabilityContext = (WaterLevelCalculationsForUserDefinedTargetProbabilityContext) droppedData;
@@ -1365,7 +1365,7 @@ namespace Riskeer.Integration.Plugin
                    && waveHeightCalculationsForTargetProbabilitiesGroupContext.WrappedData.Contains(waveHeightCalculationsForTargetProbabilityContext.WrappedData);
         }
 
-        private static void WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewControl treeViewControl)
+        private static void WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewCommands treeViewControl)
         {
             var waveHeightCalculationsForTargetProbabilitiesGroupContext = (WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext) newParentData;
             var waveHeightCalculationsForTargetProbabilityContext = (WaveHeightCalculationsForUserDefinedTargetProbabilityContext) droppedData;
@@ -1565,7 +1565,7 @@ namespace Riskeer.Integration.Plugin
 
         #region FailureMechanismSectionsContext TreeNodeInfo
 
-        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1581,7 +1581,7 @@ namespace Riskeer.Integration.Plugin
 
         #region ReferenceLineContext TreeNodeInfo
 
-        private ContextMenuStrip ReferenceLineContextMenuStrip(ReferenceLineContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip ReferenceLineContextMenuStrip(ReferenceLineContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
@@ -1595,7 +1595,7 @@ namespace Riskeer.Integration.Plugin
 
         #region NormContext TreeNodeInfo
 
-        private ContextMenuStrip NormContextMenuStrip(NormContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip NormContextMenuStrip(NormContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddPropertiesItem()
@@ -1606,7 +1606,7 @@ namespace Riskeer.Integration.Plugin
 
         #region BackgroundData treeNodeInfo
 
-        private ContextMenuStrip BackgroundDataMenuStrip(BackgroundData nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip BackgroundDataMenuStrip(BackgroundData nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             var assessmentSectionStateRootContext = (AssessmentSectionStateRootContext) parentData;
 
@@ -1652,7 +1652,7 @@ namespace Riskeer.Integration.Plugin
 
         private static TreeNodeInfo<TContext> CreateStateRootTreeNodeInfo<TContext>(
             Func<TContext, object[]> childNodeObjectsFunc,
-            Func<TContext, object, ITreeViewControl, ContextMenuStrip> contextMenuStripFunc)
+            Func<TContext, object, ITreeViewCommands, ContextMenuStrip> contextMenuStripFunc)
             where TContext : StateRootContext
         {
             return new TreeNodeInfo<TContext>
@@ -1691,7 +1691,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip AssessmentSectionStateRootContextMenuStrip(AssessmentSectionStateRootContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip AssessmentSectionStateRootContextMenuStrip(AssessmentSectionStateRootContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             AssessmentSection assessmentSection = nodeData.WrappedData;
 
@@ -1743,7 +1743,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         private ContextMenuStrip HydraulicLoadsStateRootContextMenuStrip(HydraulicLoadsStateRootContext nodeData,
-                                                                         object parentData, ITreeViewControl treeViewControl)
+                                                                         object parentData, ITreeViewCommands treeViewControl)
         {
             var calculateAllItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
@@ -1790,7 +1790,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         private ContextMenuStrip CalculationsStateRootContextMenuStrip(CalculationsStateRootContext nodeData,
-                                                                       object parentData, ITreeViewControl treeViewControl)
+                                                                       object parentData, ITreeViewCommands treeViewControl)
         {
             var calculateAllItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
@@ -1852,7 +1852,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         private ContextMenuStrip RegistrationStateRootContextMenuStrip(RegistrationStateRootContext nodeData,
-                                                                       object parentData, ITreeViewControl treeViewControl)
+                                                                       object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1894,7 +1894,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         private ContextMenuStrip GenericFailureMechanismsContextMenuStrip(GenericFailureMechanismsContext nodeData,
-                                                                          object parentData, ITreeViewControl treeViewControl)
+                                                                          object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddCollapseAllItem()
@@ -1916,7 +1916,7 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip SpecificFailureMechanismsContextMenuStrip(SpecificFailureMechanismsContext nodeData,
                                                                            object parentData,
-                                                                           ITreeViewControl treeViewControl)
+                                                                           ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -1958,7 +1958,7 @@ namespace Riskeer.Integration.Plugin
                    && failureMechanismsContext.WrappedData.Contains(failureMechanismContext.WrappedData);
         }
 
-        private static void SpecificFailureMechanismsContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewControl treeViewControl)
+        private static void SpecificFailureMechanismsContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewCommands treeViewControl)
         {
             var failureMechanismsContext = (SpecificFailureMechanismsContext) newParentData;
             var failureMechanismContext = (SpecificFailureMechanismContext) droppedData;
@@ -2047,7 +2047,7 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip SpecificFailureMechanismEnabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
                                                                                  object parentData,
-                                                                                 ITreeViewControl treeViewControl)
+                                                                                 ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2068,7 +2068,7 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip SpecificFailureMechanismDisabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
                                                                                   object parentData,
-                                                                                  ITreeViewControl treeViewControl)
+                                                                                  ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2102,7 +2102,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2124,7 +2124,7 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData,
                                                                                     object parentData,
-                                                                                    ITreeViewControl treeViewControl)
+                                                                                    ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2354,7 +2354,7 @@ namespace Riskeer.Integration.Plugin
             }
         }
 
-        private ContextMenuStrip CategoryTreeFolderContextMenu(CategoryTreeFolder nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip CategoryTreeFolderContextMenu(CategoryTreeFolder nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddCollapseAllItem()
@@ -2380,7 +2380,7 @@ namespace Riskeer.Integration.Plugin
             return new object[0];
         }
 
-        private ContextMenuStrip HydraulicBoundaryDataContextMenuStrip(HydraulicBoundaryDataContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip HydraulicBoundaryDataContextMenuStrip(HydraulicBoundaryDataContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             IContextMenuBuilder builder = Gui.Get(nodeData, treeViewControl);
 
@@ -2417,7 +2417,7 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip HydraulicLocationConfigurationDatabaseContextMenuStrip(HydraulicLocationConfigurationDatabaseContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip HydraulicLocationConfigurationDatabaseContextMenuStrip(HydraulicLocationConfigurationDatabaseContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem(RiskeerFormsResources.HydraulicBoundaryData_Connect_To_Different_Hlcd,
@@ -2438,7 +2438,7 @@ namespace Riskeer.Integration.Plugin
                            .ToArray();
         }
 
-        private ContextMenuStrip HydraulicBoundaryDatabasesContextMenuStrip(HydraulicBoundaryDatabasesContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip HydraulicBoundaryDatabasesContextMenuStrip(HydraulicBoundaryDatabasesContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2453,7 +2453,7 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddDeleteItem()
@@ -2473,7 +2473,7 @@ namespace Riskeer.Integration.Plugin
             changedObjects.ForEachElementDo(o => o.NotifyObservers());
         }
 
-        private ContextMenuStrip WaterLevelCalculationsForNormTargetProbabilitiesGroupContextMenuStrip(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip WaterLevelCalculationsForNormTargetProbabilitiesGroupContextMenuStrip(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
@@ -2519,7 +2519,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip WaterLevelCalculationsForNormTargetProbabilityContextMenuStrip(WaterLevelCalculationsForNormTargetProbabilityContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip WaterLevelCalculationsForNormTargetProbabilityContextMenuStrip(WaterLevelCalculationsForNormTargetProbabilityContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             var waterLevelCalculationItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
@@ -2557,7 +2557,7 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip(WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip(WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
@@ -2610,7 +2610,7 @@ namespace Riskeer.Integration.Plugin
                           .ToArray();
         }
 
-        private ContextMenuStrip WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip(WaterLevelCalculationsForUserDefinedTargetProbabilityContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip(WaterLevelCalculationsForUserDefinedTargetProbabilityContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             string displayNameForWaterLevelCalculations = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(nodeData.WrappedData.HydraulicBoundaryLocationCalculations,
                                                                                                                                                        nodeData.AssessmentSection);
@@ -2623,7 +2623,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.WaterLevel_Calculate_All_ToolTip);
         }
 
-        private ContextMenuStrip HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip(HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext nodeData, ITreeViewControl treeViewControl,
+        private ContextMenuStrip HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip(HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext nodeData, ITreeViewCommands treeViewControl,
                                                                                                                       Action<HydraulicBoundaryLocationCalculationsForTargetProbability, IAssessmentSection> calculationAction,
                                                                                                                       string nodeDataDisplayName,
                                                                                                                       string calculationItemToolTip)
@@ -2680,7 +2680,7 @@ namespace Riskeer.Integration.Plugin
             parent.NotifyObservers();
         }
 
-        private ContextMenuStrip WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip(WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip(WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
@@ -2734,7 +2734,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         private ContextMenuStrip WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip(
-            WaveHeightCalculationsForUserDefinedTargetProbabilityContext nodeData, object parentData, ITreeViewControl treeViewControl)
+            WaveHeightCalculationsForUserDefinedTargetProbabilityContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             string displayNameForWaveHeightCalculations = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(nodeData.WrappedData,
                                                                                                                                              nodeData.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,

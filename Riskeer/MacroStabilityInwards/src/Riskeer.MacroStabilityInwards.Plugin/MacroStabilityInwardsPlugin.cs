@@ -586,7 +586,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region MacroStabilityInwardsFailureMechanismSectionsContext TreeNodeInfo
 
-        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(MacroStabilityInwardsFailureMechanismSectionsContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(MacroStabilityInwardsFailureMechanismSectionsContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -605,7 +605,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region MacroStabilityInwardsSurfaceLinesContext TreeNodeInfo
 
-        private ContextMenuStrip MacroStabilityInwardsSurfaceLinesContextContextMenuStrip(MacroStabilityInwardsSurfaceLinesContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip MacroStabilityInwardsSurfaceLinesContextContextMenuStrip(MacroStabilityInwardsSurfaceLinesContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
@@ -622,7 +622,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region MacroStabilityInwardsStochasticSoilModelCollectionContext TreeNodeInfo
 
-        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(MacroStabilityInwardsStochasticSoilModelCollectionContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(MacroStabilityInwardsStochasticSoilModelCollectionContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
@@ -665,7 +665,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   ITreeViewControl treeViewControl)
+                                                                                   ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -747,7 +747,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          ITreeViewControl treeViewControl)
+                                                                                          ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -764,7 +764,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           ITreeViewControl treeViewControl)
+                                                                                           ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -821,7 +821,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(MacroStabilityInwardsCalculationGroupContext nodeData,
                                                                          object parentData,
-                                                                         ITreeViewControl treeViewControl)
+                                                                         ITreeViewCommands treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
@@ -982,7 +982,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(MacroStabilityInwardsCalculationScenarioContext nodeData, object parentData, ITreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationContextContextMenuStrip(MacroStabilityInwardsCalculationScenarioContext nodeData, object parentData, ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 

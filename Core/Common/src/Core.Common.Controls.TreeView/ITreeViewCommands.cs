@@ -6,14 +6,14 @@
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
@@ -21,7 +21,7 @@
 
 namespace Core.Common.Controls.TreeView
 {
-    public interface ITreeViewControl
+    public interface ITreeViewCommands
     {
         /// <summary>
         /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
@@ -81,8 +81,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
         /// <returns>Whether or not the tree node can be collapsed/expanded or <c>false</c> when no corresponding tree node is found.</returns>
         bool CanExpandOrCollapseForData(object dataObject);
-
-     
+        
         /// <summary>
         /// This method tries to expand all nodes of the tree node corresponding to the <paramref name="dataObject"/>
         /// (child nodes are taken into account recursively).

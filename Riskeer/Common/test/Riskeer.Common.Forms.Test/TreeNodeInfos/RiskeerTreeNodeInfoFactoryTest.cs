@@ -50,7 +50,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             Func<TestCalculationGroupContext, object[]> childNodeObjects = context => new object[0];
-            Func<TestCalculationGroupContext, object, ITreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
+            Func<TestCalculationGroupContext, object, ITreeViewCommands, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
             Action<TestCalculationGroupContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call
@@ -435,7 +435,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             CalculationItemType draggedItemType)
         {
             // Setup
-            var treeViewControl = Substitute.For<ITreeViewControl>();
+            var treeViewControl = Substitute.For<ITreeViewCommands>();
             var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
 
             ICalculationBase draggedItem;
@@ -555,7 +555,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
-            Func<TestCalculationContext, object, ITreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
+            Func<TestCalculationContext, object, ITreeViewCommands, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
             Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call

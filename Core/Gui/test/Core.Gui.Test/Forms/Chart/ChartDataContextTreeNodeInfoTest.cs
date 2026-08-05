@@ -523,7 +523,7 @@ namespace Core.Gui.Test.Forms.Chart
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var lineData = new ChartLineData("A")
             {
                 IsVisible = true,
@@ -549,7 +549,7 @@ namespace Core.Gui.Test.Forms.Chart
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var lineData = new ChartLineData("A")
             {
                 IsVisible = false
@@ -572,7 +572,7 @@ namespace Core.Gui.Test.Forms.Chart
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var lineData = new ChartLineData("A")
             {
                 IsVisible = true
@@ -604,7 +604,7 @@ namespace Core.Gui.Test.Forms.Chart
             };
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var chartControl = Substitute.For<IChartControl>();
             chartControl.Data.Returns(new ChartDataCollection("name"));
             chartControl.ZoomToVisibleSeries(lineData);
@@ -634,7 +634,7 @@ namespace Core.Gui.Test.Forms.Chart
             };
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(lineData), null, null))
             {
                 // Call

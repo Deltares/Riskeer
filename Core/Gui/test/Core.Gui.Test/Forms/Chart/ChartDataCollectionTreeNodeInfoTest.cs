@@ -310,7 +310,7 @@ namespace Core.Gui.Test.Forms.Chart
                 menuBuilder.AddSeparator().Returns(menuBuilder);
                 menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-                contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>())
+                contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>())
                                           .Returns(menuBuilder);
                 // Call
                 info.ContextMenuStrip(chartDataCollection, null, treeViewControl);
@@ -331,7 +331,7 @@ namespace Core.Gui.Test.Forms.Chart
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var pointData = new ChartPointData("test data")
             {
                 IsVisible = false
@@ -356,7 +356,7 @@ namespace Core.Gui.Test.Forms.Chart
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var lineData = new ChartLineData("test line")
             {
                 IsVisible = false,
@@ -390,7 +390,7 @@ namespace Core.Gui.Test.Forms.Chart
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var chartPointData = new ChartPointData("test")
             {
                 IsVisible = true,
@@ -429,7 +429,7 @@ namespace Core.Gui.Test.Forms.Chart
             chartDataCollection.Add(lineData);
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var chartControl = Substitute.For<IChartControl>();
             chartControl.Data.Returns(new ChartDataCollection("name"));
             chartControl.ZoomToVisibleSeries(chartDataCollection);
@@ -450,7 +450,7 @@ namespace Core.Gui.Test.Forms.Chart
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var lineData = new ChartLineData("test line");
             var chartDataCollection = new ChartDataCollection("test data");
             chartDataCollection.Add(lineData);
