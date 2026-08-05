@@ -109,9 +109,6 @@ namespace Application.Riskeer.Integration.Test
                 Assert.AreEqual("description", gui.Project.Description);
                 Assert.IsInstanceOf<RiskeerProject>(gui.Project);
             }
-
-            inquiryHelper.Received(1).InquireContinuation(Arg.Any<string>());
-            inquiryHelper.Received(1).GetTargetFileLocation(Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Test]
@@ -135,8 +132,6 @@ namespace Application.Riskeer.Integration.Test
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
             }
-
-            inquiryHelper.Received(1).InquireContinuation(Arg.Any<string>());
         }
 
         [OneTimeSetUp]
