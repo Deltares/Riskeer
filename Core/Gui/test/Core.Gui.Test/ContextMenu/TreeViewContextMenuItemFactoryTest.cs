@@ -83,7 +83,7 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var nodeData = new object();
-            var treeViewControl = Substitute.For<ITreeViewControl>();
+            var treeViewControl = Substitute.For<ITreeViewCommands>();
             treeViewControl.CanRemoveNodeForData(nodeData).Returns(canDelete);
 
             var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControl);
@@ -115,7 +115,7 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var nodeData = new object();
-            var treeViewControl = Substitute.For<ITreeViewControl>();
+            var treeViewControl = Substitute.For<ITreeViewCommands>();
             treeViewControl.CanRemoveChildNodesOfData(nodeData).Returns(canDelete);
 
             var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControl);
@@ -150,7 +150,7 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var dataObject = new object();
-            var treeViewControl = Substitute.For<ITreeViewControl>();
+            var treeViewControl = Substitute.For<ITreeViewCommands>();
             treeViewControl.CanRenameNodeForData(dataObject).Returns(canRename);
 
             var factory = new TreeViewContextMenuItemFactory(dataObject, treeViewControl);

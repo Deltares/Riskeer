@@ -207,7 +207,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             exportHandler.CanExportFrom(nodeData).Returns(true);
             var updateHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommandsHandler = Substitute.For<IViewCommands>();
-            var treeViewControl = Substitute.For<ITreeViewControl>();
+            var treeViewControl = Substitute.For<ITreeViewCommands>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importHandler,
