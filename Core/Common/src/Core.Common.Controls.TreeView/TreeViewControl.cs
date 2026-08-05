@@ -214,12 +214,6 @@ namespace Core.Common.Controls.TreeView
             return treeNode?.FullPath;
         }
 
-        /// <summary>
-        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
-        /// can be renamed.
-        /// </summary>
-        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
-        /// <returns>Whether or not the tree node can be renamed or <c>false</c> when no corresponding tree node is found.</returns>
         public bool CanRenameNodeForData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
@@ -227,15 +221,6 @@ namespace Core.Common.Controls.TreeView
             return treeNode != null && CanRename(treeNode);
         }
 
-        /// <summary>
-        /// This method tries to start a rename action for the tree node corresponding to the
-        /// <paramref name="dataObject"/>.
-        /// </summary>
-        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
-        /// <remarks>
-        /// When a tree node is found that cannot be renamed, a popup is shown for notifying the end user.
-        /// The renaming logic will be skipped when no corresponding tree node is found.
-        /// </remarks>
         public void TryRenameNodeForData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
@@ -246,12 +231,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        /// <summary>
-        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
-        /// can be removed.
-        /// </summary>
-        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
-        /// <returns>Whether or not the tree node can be removed or <c>false</c> when no corresponding tree node is found.</returns>
         public bool CanRemoveNodeForData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
@@ -259,12 +238,6 @@ namespace Core.Common.Controls.TreeView
             return treeNode != null && CanRemove(treeNode);
         }
 
-        /// <summary>
-        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
-        /// has children which can be removed.
-        /// </summary>
-        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
-        /// <returns><c>true</c> if the tree node has a child node which can be removed or <c>false</c> otherwise.</returns>
         public bool CanRemoveChildNodesOfData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
@@ -272,15 +245,6 @@ namespace Core.Common.Controls.TreeView
             return treeNode != null && CanRemoveChildNodes(treeNode);
         }
 
-        /// <summary>
-        /// This method tries to remove the tree node corresponding to the <paramref name="dataObject"/>.
-        /// </summary>
-        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
-        /// <remarks>
-        /// When a tree node is found that can be removed, a popup is shown for confirmation by the end user.
-        /// When a tree node is found that cannot be removed, a popup is shown for notifying the end user.
-        /// The removing logic will be skipped when no corresponding tree node is found.
-        /// </remarks>
         public void TryRemoveNodeForData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
@@ -301,12 +265,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        /// <summary>
-        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
-        /// can be collapsed/expanded.
-        /// </summary>
-        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
-        /// <returns>Whether or not the tree node can be collapsed/expanded or <c>false</c> when no corresponding tree node is found.</returns>
         public bool CanExpandOrCollapseForData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
@@ -314,13 +272,6 @@ namespace Core.Common.Controls.TreeView
             return treeNode != null && treeNode.Nodes.Count > 0;
         }
 
-        /// <summary>
-        /// This method tries to collapse all nodes of the tree node corresponding to the <paramref name="dataObject"/>
-        /// (child nodes are taken into account recursively).
-        /// </summary>
-        /// <remarks>
-        /// The collapsing logic will be skipped when no corresponding tree node is found.
-        /// </remarks>
         public void TryCollapseAllNodesForData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
@@ -331,13 +282,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        /// <summary>
-        /// This method tries to expand all nodes of the tree node corresponding to the <paramref name="dataObject"/>
-        /// (child nodes are taken into account recursively).
-        /// </summary>
-        /// <remarks>
-        /// The expanding logic will be skipped when no corresponding tree node is found.
-        /// </remarks>
         public void TryExpandAllNodesForData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);

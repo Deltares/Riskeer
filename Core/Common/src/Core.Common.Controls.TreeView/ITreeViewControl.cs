@@ -21,36 +21,84 @@
 
 namespace Core.Common.Controls.TreeView
 {
-    /// <summary>
-    /// Interface for <see cref="TreeViewControl"/> operations required by context-menu factories.
-    /// </summary>
     public interface ITreeViewControl
     {
-        /// <summary>Returns whether the tree node for <paramref name="dataObject"/> can be renamed.</summary>
+        /// <summary>
+        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
+        /// can be renamed.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <returns>Whether or not the tree node can be renamed or <c>false</c> when no corresponding tree node is found.</returns>
         bool CanRenameNodeForData(object dataObject);
 
-        /// <summary>Tries to start a rename action for the tree node for <paramref name="dataObject"/>.</summary>
+        /// <summary>
+        /// This method tries to start a rename action for the tree node corresponding to the
+        /// <paramref name="dataObject"/>.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <remarks>
+        /// When a tree node is found that cannot be renamed, a popup is shown for notifying the end user.
+        /// The renaming logic will be skipped when no corresponding tree node is found.
+        /// </remarks>
         void TryRenameNodeForData(object dataObject);
 
-        /// <summary>Returns whether the tree node for <paramref name="dataObject"/> can be removed.</summary>
+        /// <summary>
+        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
+        /// can be removed.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <returns>Whether or not the tree node can be removed or <c>false</c> when no corresponding tree node is found.</returns>
         bool CanRemoveNodeForData(object dataObject);
 
-        /// <summary>Tries to remove the tree node for <paramref name="dataObject"/>.</summary>
+        /// <summary>
+        /// This method tries to remove the tree node corresponding to the <paramref name="dataObject"/>.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <remarks>
+        /// When a tree node is found that can be removed, a popup is shown for confirmation by the end user.
+        /// When a tree node is found that cannot be removed, a popup is shown for notifying the end user.
+        /// The removing logic will be skipped when no corresponding tree node is found.
+        /// </remarks>
         void TryRemoveNodeForData(object dataObject);
 
-        /// <summary>Returns whether the tree node for <paramref name="dataObject"/> has removable children.</summary>
+        /// <summary>
+        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
+        /// has children which can be removed.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <returns><c>true</c> if the tree node has a child node which can be removed or <c>false</c> otherwise.</returns>
         bool CanRemoveChildNodesOfData(object dataObject);
 
-        /// <summary>Tries to remove all child nodes of the tree node for <paramref name="dataObject"/>.</summary>
+        /// <summary>
+        /// This method tries to remove all child nodes of the tree node for  <paramref name="dataObject"/>
+        /// </summary>
         void TryRemoveChildNodesOfData(object dataObject);
 
-        /// <summary>Returns whether the tree node for <paramref name="dataObject"/> can be expanded or collapsed.</summary>
+        /// <summary>
+        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
+        /// can be collapsed/expanded.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <returns>Whether or not the tree node can be collapsed/expanded or <c>false</c> when no corresponding tree node is found.</returns>
         bool CanExpandOrCollapseForData(object dataObject);
 
-        /// <summary>Tries to expand all nodes for the tree node for <paramref name="dataObject"/>.</summary>
+     
+        /// <summary>
+        /// This method tries to expand all nodes of the tree node corresponding to the <paramref name="dataObject"/>
+        /// (child nodes are taken into account recursively).
+        /// </summary>
+        /// <remarks>
+        /// The expanding logic will be skipped when no corresponding tree node is found.
+        /// </remarks>
         void TryExpandAllNodesForData(object dataObject);
 
-        /// <summary>Tries to collapse all nodes for the tree node for <paramref name="dataObject"/>.</summary>
+        /// <summary>
+        /// This method tries to collapse all nodes of the tree node corresponding to the <paramref name="dataObject"/>
+        /// (child nodes are taken into account recursively).
+        /// </summary>
+        /// <remarks>
+        /// The collapsing logic will be skipped when no corresponding tree node is found.
+        /// </remarks>
         void TryCollapseAllNodesForData(object dataObject);
     }
 }
