@@ -70,7 +70,7 @@ namespace Core.Gui.Test
                 editor.EditValue(null, null, data);
 
                 // Assert
-                commands.Received(1).OpenView(data); // Expect 'OpenView' to be called.
+                commands.Received(1).OpenView(data);
             }
             finally
             {

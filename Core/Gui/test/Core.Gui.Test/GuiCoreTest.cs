@@ -701,7 +701,6 @@ namespace Core.Gui.Test
             }
 
             // Assert
-            // Expect calls on plugin
             plugin.Received(1).Dispose();
             plugin.Received(1).Deactivate();
         }
@@ -718,8 +717,8 @@ namespace Core.Gui.Test
             plugin.GetTreeNodeInfos().Returns(Enumerable.Empty<TreeNodeInfo>());
             plugin.When(x => x.Activate()).Do(_ => throw new Exception("ERROR!"));
             plugin.When(x => x.Deactivate()).Do(_ => throw new Exception("MORE ERROR!"));
-            plugin.Dispose();
             var projectFactory = Substitute.For<IProjectFactory>();
+
             // Setup
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -733,7 +732,8 @@ namespace Core.Gui.Test
                 Tuple<string, LogLevelConstant> expectedMessageAndLogLevel = Tuple.Create(expectedMessage, LogLevelConstant.Error);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedMessageAndLogLevel);
             }
-            // Expect Dispose call on plugin
+            
+            plugin.Received(1).Dispose();
         }
 
         [Test]
