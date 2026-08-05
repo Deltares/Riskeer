@@ -714,7 +714,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsFalse(removalAllowed);
-            // Expect no calls on arguments
+            Assert.That(data.ReceivedCalls().Count(), Is.EqualTo(0));
+            Assert.That(failureMechanism.ReceivedCalls().Count(), Is.EqualTo(0));
         }
 
         [Test]

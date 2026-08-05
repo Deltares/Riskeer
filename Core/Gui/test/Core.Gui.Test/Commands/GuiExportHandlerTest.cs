@@ -129,7 +129,7 @@ namespace Core.Gui.Test.Commands
             exportHandler.ExportFrom(1234);
 
             // Assert
-            // Expect no calls on exporter mock
+            exporter.DidNotReceive().Export();
         }
 
         [Test]

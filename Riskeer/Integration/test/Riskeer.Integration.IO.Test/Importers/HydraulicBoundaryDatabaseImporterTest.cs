@@ -559,7 +559,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             importer.DoPostImport();
 
             // Assert
-            // Expect no NotifyObserver calls
+            observer.DidNotReceive().UpdateObserver();
         }
 
         private static HydraulicBoundaryData CreateLinkedHydraulicBoundaryData()
