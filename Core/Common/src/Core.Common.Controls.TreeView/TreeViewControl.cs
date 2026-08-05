@@ -75,7 +75,7 @@ namespace Core.Common.Controls.TreeView
     /// <see cref="Data"/>, only contains uniquely identifiable data objects. Additionally, only one
     /// <see cref="TreeNodeInfo"/> object can be registered per <see cref="TreeNodeInfo.TagType"/>.
     /// </remarks>
-    public partial class TreeViewControl : UserControl, ITreeViewControl
+    public partial class TreeViewControl : UserControl, ITreeViewCommands
     {
         private const int maximumTextLength = 259;
         private const string stateImageLocationString = "StateImage";
@@ -237,14 +237,7 @@ namespace Core.Common.Controls.TreeView
 
             return treeNode != null && CanRemove(treeNode);
         }
-
-        public bool CanRemoveChildNodesOfData(object dataObject)
-        {
-            TreeNode treeNode = GetNodeByTag(dataObject);
-
-            return treeNode != null && CanRemoveChildNodes(treeNode);
-        }
-
+        
         public void TryRemoveNodeForData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
@@ -253,6 +246,13 @@ namespace Core.Common.Controls.TreeView
             {
                 TryRemoveNode(treeNode);
             }
+        }
+
+        public bool CanRemoveChildNodesOfData(object dataObject)
+        {
+            TreeNode treeNode = GetNodeByTag(dataObject);
+
+            return treeNode != null && CanRemoveChildNodes(treeNode);
         }
 
         public void TryRemoveChildNodesOfData(object dataObject)
@@ -272,16 +272,6 @@ namespace Core.Common.Controls.TreeView
             return treeNode != null && treeNode.Nodes.Count > 0;
         }
 
-        public void TryCollapseAllNodesForData(object dataObject)
-        {
-            TreeNode treeNode = GetNodeByTag(dataObject);
-
-            if (treeNode != null)
-            {
-                CollapseAll(treeNode);
-            }
-        }
-
         public void TryExpandAllNodesForData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
@@ -292,6 +282,16 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
+        public void TryCollapseAllNodesForData(object dataObject)
+        {
+            TreeNode treeNode = GetNodeByTag(dataObject);
+
+            if (treeNode != null)
+            {
+                CollapseAll(treeNode);
+            }
+        }
+        
         protected override void Dispose(bool disposing)
         {
             updateTimer.Stop();

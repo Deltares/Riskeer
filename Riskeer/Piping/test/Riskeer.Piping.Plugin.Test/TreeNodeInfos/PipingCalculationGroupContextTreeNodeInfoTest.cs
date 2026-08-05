@@ -240,7 +240,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             exportHandler.CanExportFrom(nodeData).Returns(true);
             var updateHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommandsHandler = Substitute.For<IViewCommands>();
-            var treeViewControl = Substitute.For<ITreeViewControl>();
+            var treeViewControl = Substitute.For<ITreeViewCommands>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importHandler,
@@ -251,7 +251,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                      treeViewControl);
 
             var gui = Substitute.For<IGui>();
-            gui.Get(nodeData, Arg.Any<ITreeViewControl>()).Returns(menuBuilder);
+            gui.Get(nodeData, Arg.Any<ITreeViewCommands>()).Returns(menuBuilder);
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             treeViewControl.CanRemoveNodeForData(nodeData).Returns(true);

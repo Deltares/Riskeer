@@ -351,7 +351,7 @@ namespace Core.Gui.Test.Forms.Map
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var mapData = new TestFeatureBasedMapData
             {
                 IsVisible = true,
@@ -377,7 +377,7 @@ namespace Core.Gui.Test.Forms.Map
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var mapData = new TestFeatureBasedMapData
             {
                 IsVisible = false
@@ -400,7 +400,7 @@ namespace Core.Gui.Test.Forms.Map
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var mapData = new TestFeatureBasedMapData
             {
                 IsVisible = true
@@ -432,7 +432,7 @@ namespace Core.Gui.Test.Forms.Map
             };
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             var mapControl = Substitute.For<IMapControl>();
             mapControl.Data.Returns(new MapDataCollection("name"));
             mapControl.ZoomToVisibleLayers(mapData);
@@ -462,7 +462,7 @@ namespace Core.Gui.Test.Forms.Map
             };
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewControl>()).Returns(builder);
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Call

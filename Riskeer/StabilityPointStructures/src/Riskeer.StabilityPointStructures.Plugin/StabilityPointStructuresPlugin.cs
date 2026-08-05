@@ -391,7 +391,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   ITreeViewControl treeViewControl)
+                                                                                   ITreeViewCommands treeViewControl)
         {
             IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations = context.WrappedData
                                                                                                     .Calculations
@@ -478,7 +478,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          ITreeViewControl treeViewControl)
+                                                                                          ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -495,7 +495,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           ITreeViewControl treeViewControl)
+                                                                                           ITreeViewCommands treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -548,7 +548,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(StabilityPointStructuresCalculationGroupContext context,
                                                                          object parentData,
-                                                                         ITreeViewControl treeViewControl)
+                                                                         ITreeViewCommands treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
@@ -747,7 +747,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private ContextMenuStrip CalculationContextContextMenuStrip(StabilityPointStructuresCalculationScenarioContext context,
                                                                     object parentData,
-                                                                    ITreeViewControl treeViewControl)
+                                                                    ITreeViewCommands treeViewControl)
         {
             StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
             var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(GetInquiryHelper(), calculation);

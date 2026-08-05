@@ -365,7 +365,7 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            var treeViewControl = Substitute.For<ITreeViewControl>();
+            var treeViewControl = Substitute.For<ITreeViewCommands>();
             treeViewControl.CanRemoveChildNodesOfData(dataObject).Returns(hasChildren);
             var builder = new ContextMenuBuilder(applicationFeatureCommands,
                                                  importCommandHandler,
@@ -404,7 +404,7 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            var treeViewControl = Substitute.For<ITreeViewControl>();
+            var treeViewControl = Substitute.For<ITreeViewCommands>();
 
             treeViewControl.CanExpandOrCollapseForData(dataObject).Returns(hasChildren);
             var builder = new ContextMenuBuilder(applicationFeatureCommands,
@@ -442,7 +442,7 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            var treeViewControl = Substitute.For<ITreeViewControl>();
+            var treeViewControl = Substitute.For<ITreeViewCommands>();
 
             treeViewControl.CanExpandOrCollapseForData(dataObject).Returns(hasChildren);
             var builder = new ContextMenuBuilder(applicationFeatureCommands,
