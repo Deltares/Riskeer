@@ -121,7 +121,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                             null,
@@ -140,7 +139,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                             null,
@@ -159,7 +157,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
@@ -179,7 +176,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var childGroup = new CalculationGroup();
             var calculationItem = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 
@@ -1257,7 +1253,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
             {
                 HydraulicBoundaryDatabases =
@@ -1312,9 +1307,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var observer = Substitute.For<IObserver>();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 

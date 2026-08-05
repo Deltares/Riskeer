@@ -109,7 +109,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             var calculationGroup = new CalculationGroup();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -130,7 +129,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {

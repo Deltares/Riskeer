@@ -72,7 +72,6 @@ namespace Riskeer.Common.Data.TestUtil
                                                                      bool usePreprocessorClosure = false)
         {
             IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.Id.Returns("21");
             assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(0.1, 1.0 / 30000));

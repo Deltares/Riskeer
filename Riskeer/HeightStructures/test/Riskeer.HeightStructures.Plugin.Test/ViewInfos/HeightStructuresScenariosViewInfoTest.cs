@@ -91,7 +91,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var unrelatedFailureMechanism = new HeightStructuresFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -116,7 +115,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var relatedFailureMechanism = new HeightStructuresFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -187,7 +185,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
@@ -206,7 +203,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 

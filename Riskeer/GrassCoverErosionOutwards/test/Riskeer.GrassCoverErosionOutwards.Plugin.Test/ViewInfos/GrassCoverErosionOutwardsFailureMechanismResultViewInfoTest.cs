@@ -68,7 +68,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
@@ -164,7 +163,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             using (var view = new NonAdoptableFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
@@ -183,7 +181,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
@@ -203,7 +200,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -224,7 +220,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new GrassCoverErosionOutwardsFailureMechanismContext(
                 new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
@@ -246,7 +241,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);

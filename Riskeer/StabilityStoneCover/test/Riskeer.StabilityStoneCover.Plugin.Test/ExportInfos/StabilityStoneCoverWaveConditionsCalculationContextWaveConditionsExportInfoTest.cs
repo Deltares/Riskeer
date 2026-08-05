@@ -83,7 +83,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
                                                                                   new CalculationGroup(),
                                                                                   new StabilityStoneCoverFailureMechanism(),
@@ -101,7 +100,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
                                                                                   new CalculationGroup(),
                                                                                   new StabilityStoneCoverFailureMechanism(),
@@ -119,7 +117,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(
                 new StabilityStoneCoverWaveConditionsCalculation
                 {

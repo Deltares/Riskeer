@@ -496,9 +496,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        null,
                                                                        failureMechanism,
@@ -538,9 +536,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        null,
                                                                        failureMechanism,
@@ -1196,7 +1192,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        null,

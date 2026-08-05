@@ -117,7 +117,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsFailureMechanismSectionsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
@@ -170,7 +169,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsFailureMechanismSectionsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 

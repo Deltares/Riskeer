@@ -69,7 +69,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
@@ -102,7 +101,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultCalculation(new TestHydraulicBoundaryLocation());
 
             // Call

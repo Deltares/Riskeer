@@ -38,7 +38,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
@@ -57,7 +56,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var heightStructures = new StructureCollection<HeightStructure>();
 
             // Call

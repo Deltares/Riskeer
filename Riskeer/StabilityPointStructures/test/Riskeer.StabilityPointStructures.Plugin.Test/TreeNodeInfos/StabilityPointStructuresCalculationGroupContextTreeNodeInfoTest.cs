@@ -120,7 +120,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    null,
                                                                                    failureMechanism,
@@ -138,7 +137,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
@@ -351,9 +349,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                null,
                                                                                failureMechanism,
@@ -525,7 +521,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                null,

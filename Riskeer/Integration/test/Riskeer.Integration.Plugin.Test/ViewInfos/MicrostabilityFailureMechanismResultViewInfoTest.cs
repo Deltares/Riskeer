@@ -139,7 +139,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[]
             {
@@ -162,7 +161,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
             failureMechanismContext.WrappedData.Returns(failureMechanism);

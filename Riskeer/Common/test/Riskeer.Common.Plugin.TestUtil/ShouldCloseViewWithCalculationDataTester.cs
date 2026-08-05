@@ -139,7 +139,6 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -161,7 +160,6 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {

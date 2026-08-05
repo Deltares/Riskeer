@@ -64,7 +64,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new TestStabilityPointStructuresCalculationScenario();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSection);

@@ -355,7 +355,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -381,7 +380,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -410,7 +408,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
@@ -439,7 +436,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {

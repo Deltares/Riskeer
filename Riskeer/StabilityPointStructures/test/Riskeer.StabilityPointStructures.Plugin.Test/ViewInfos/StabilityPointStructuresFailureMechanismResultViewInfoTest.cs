@@ -69,7 +69,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var context = new StabilityPointStructuresFailureMechanismSectionResultContext(
@@ -118,7 +117,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var otherFailureMechanism = Substitute.For<IFailureMechanism>();
             assessmentSection.GetFailureMechanisms().Returns(new[]
@@ -143,7 +141,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[]
             {
@@ -167,7 +164,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
@@ -187,7 +183,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
@@ -207,7 +202,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -228,7 +222,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 

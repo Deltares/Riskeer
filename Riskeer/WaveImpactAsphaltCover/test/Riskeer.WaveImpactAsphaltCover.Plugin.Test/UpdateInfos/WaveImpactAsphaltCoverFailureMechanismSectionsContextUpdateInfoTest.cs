@@ -92,7 +92,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             string sourcePath = TestHelper.GetScratchPadPath();
@@ -116,7 +115,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -175,7 +173,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             string sourcePath = TestHelper.GetScratchPadPath();

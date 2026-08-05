@@ -177,7 +177,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
@@ -220,7 +219,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new PipingFailureMechanism
             {

@@ -495,9 +495,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>());
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         null,
                                                                         failureMechanism,
@@ -1156,7 +1154,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new ClosingStructuresFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         null,
@@ -1542,7 +1539,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Given
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             ClosingStructure structure1 = new TestClosingStructure("Structure 1");
             ClosingStructure structure2 = new TestClosingStructure("Structure 2");
 

@@ -87,7 +87,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             // Call
@@ -156,7 +155,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 InAssembly = false
@@ -178,7 +176,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
@@ -221,7 +218,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {

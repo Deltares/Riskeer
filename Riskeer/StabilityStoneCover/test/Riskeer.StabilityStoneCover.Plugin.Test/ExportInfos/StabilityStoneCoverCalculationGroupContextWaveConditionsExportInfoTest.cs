@@ -83,7 +83,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
@@ -101,7 +100,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
@@ -119,7 +117,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
@@ -138,7 +135,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation
@@ -162,7 +158,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 

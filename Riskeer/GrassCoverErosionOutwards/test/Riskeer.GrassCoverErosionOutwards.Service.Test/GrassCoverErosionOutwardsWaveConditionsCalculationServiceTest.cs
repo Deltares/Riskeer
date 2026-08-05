@@ -66,7 +66,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
@@ -84,7 +83,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
 
             // Call
@@ -119,7 +117,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =

@@ -176,7 +176,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
@@ -219,7 +218,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new HeightStructuresFailureMechanism
             {

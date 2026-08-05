@@ -176,7 +176,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
@@ -218,7 +217,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new ClosingStructuresFailureMechanism
             {

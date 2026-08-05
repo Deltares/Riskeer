@@ -82,7 +82,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresInputContext = new HeightStructuresInputContext(
                 heightStructuresCalculation.InputParameters,
@@ -102,7 +101,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresInputContext = new HeightStructuresInputContext(
                 heightStructuresCalculation.InputParameters,

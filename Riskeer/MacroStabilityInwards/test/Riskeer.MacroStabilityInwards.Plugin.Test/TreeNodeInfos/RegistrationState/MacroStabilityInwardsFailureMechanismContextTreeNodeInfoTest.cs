@@ -176,7 +176,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.RegistrationSt
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
@@ -216,7 +215,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.RegistrationSt
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {

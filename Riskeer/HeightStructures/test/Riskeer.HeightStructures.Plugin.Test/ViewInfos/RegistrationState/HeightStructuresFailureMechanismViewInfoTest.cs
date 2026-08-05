@@ -63,7 +63,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -81,7 +80,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new HeightStructuresFailureMechanism
             {
                 InAssembly = inAssembly

@@ -887,7 +887,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             var calculation = new SemiProbabilisticPipingCalculationScenario();
             var pipingFailureMechanism = new PipingFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(calculation,
                                                                                                          new CalculationGroup(),
                                                                                                          Enumerable.Empty<PipingSurfaceLine>(),
