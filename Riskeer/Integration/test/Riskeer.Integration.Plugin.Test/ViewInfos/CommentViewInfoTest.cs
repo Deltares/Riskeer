@@ -110,6 +110,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(Enumerable.Empty<IFailureMechanism>());
             assessmentSection.Comments.Returns(new Comment());
+    
             using (var view = new CommentView
             {
                 Data = assessmentSection.Comments
@@ -135,6 +136,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var viewDataAssessmentSection = Substitute.For<IAssessmentSection>();
             viewDataAssessmentSection.GetFailureMechanisms().Returns(Enumerable.Empty<IFailureMechanism>());
             viewDataAssessmentSection.Comments.Returns(new Comment());
+   
             using (var view = new CommentView
             {
                 Data = viewDataAssessmentSection.Comments
@@ -170,6 +172,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 failureMechanism
             });
             assessmentSection.Comments.Returns(new Comment());
+     
             using (var view = new CommentView
             {
                 Data = calculation.Comments
@@ -202,6 +205,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 failureMechanism
             });
             assessmentSection.Comments.Returns(new Comment());
+         
             using (var view = new CommentView
             {
                 Data = viewDataComment
@@ -241,6 +245,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 deletedFailureMechanism
             });
             deletedAssessmentSection.Comments.Returns(new Comment());
+        
             using (var view = new CommentView
             {
                 Data = viewDataCalculation.Comments
@@ -271,6 +276,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 failureMechanism
             });
             assessmentSection.Comments.Returns(new Comment());
+            
             using (var view = new CommentView
             {
                 Data = comment
@@ -301,6 +307,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 failureMechanism
             });
             assessmentSection.Comments.Returns(new Comment());
+            
             using (var view = new CommentView
             {
                 Data = comment
@@ -331,6 +338,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 failureMechanism
             });
             assessmentSection.Comments.Returns(new Comment());
+            
             using (var view = new CommentView
             {
                 Data = comment
@@ -362,6 +370,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 failureMechanism
             });
             assessmentSection.Comments.Returns(new Comment());
+
             using (var view = new CommentView
             {
                 Data = comment
@@ -380,13 +389,13 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataComment = new Comment();
-
             var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             failureMechanism.Calculations.Returns(Enumerable.Empty<ICalculation>());
             failureMechanism.InAssemblyInputComments.Returns(new Comment());
             failureMechanism.InAssemblyOutputComments.Returns(new Comment());
             failureMechanism.NotInAssemblyComments.Returns(new Comment());
             failureMechanism.CalculationsInputComments.Returns(new Comment());
+
             using (var view = new CommentView
             {
                 Data = viewDataComment
