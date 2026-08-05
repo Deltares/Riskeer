@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.PresentationObjects;
 using NSubstitute;
 using NUnit.Framework;
@@ -38,22 +36,8 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            IEnumerable<FailureMechanismSection> sectionsSequence = new[]
-            {
-                new FailureMechanismSection("A", new[]
-                {
-                    new Point2D(1, 2),
-                    new Point2D(3, 4)
-                }),
-                new FailureMechanismSection("B", new[]
-                {
-                    new Point2D(3, 4),
-                    new Point2D(5, 6)
-                })
-            };
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
-            failureMechanism.Sections.Returns(sectionsSequence);
 
             // Call
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
