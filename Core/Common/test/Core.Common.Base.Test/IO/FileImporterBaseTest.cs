@@ -82,7 +82,7 @@ namespace Core.Common.Base.Test.IO
             simpleImporter.DoPostImport();
 
             // Assert
-            observableInstance.Received().NotifyObservers(); // Assert NotifyObservers is called
+            observableInstance.Received().NotifyObservers();
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace Core.Common.Base.Test.IO
             simpleImporter.DoPostImport();
 
             // Assert
-            observableTarget.DidNotReceive().NotifyObservers(); // Assert no NotifyObservers were called
+            observableTarget.DidNotReceive().NotifyObservers();
         }
 
         [Test]
