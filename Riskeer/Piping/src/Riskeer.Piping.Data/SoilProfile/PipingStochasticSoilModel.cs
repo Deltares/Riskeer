@@ -132,8 +132,7 @@ namespace Riskeer.Piping.Data.SoilProfile
 
             foreach (PipingStochasticSoilProfile fromProfile in fromModel.StochasticSoilProfiles)
             {
-                PipingStochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => IsSame(sp, fromProfile)
-                );
+                PipingStochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => IsSame(sp, fromProfile));
                 if (sameProfile != null)
                 {
                     if (!sameProfile.Equals(fromProfile))
@@ -168,8 +167,7 @@ namespace Riskeer.Piping.Data.SoilProfile
 
         private static bool IsSame(PipingSoilProfile pipingSoilProfile, PipingSoilProfile otherPipingSoilProfile)
         {
-            return pipingSoilProfile.Name.Equals(otherPipingSoilProfile.Name)
-                   && pipingSoilProfile.SoilProfileSourceType.Equals(otherPipingSoilProfile.SoilProfileSourceType);
+            return pipingSoilProfile.Name.Equals(otherPipingSoilProfile.Name) && pipingSoilProfile.SoilProfileSourceType.Equals(otherPipingSoilProfile.SoilProfileSourceType);
         }
 
         private static bool IsSame(PipingStochasticSoilProfile stochasticSoilProfile, PipingStochasticSoilProfile otherStochasticSoilProfile)

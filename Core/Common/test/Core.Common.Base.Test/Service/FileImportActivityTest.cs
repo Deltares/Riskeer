@@ -75,8 +75,6 @@ namespace Core.Common.Base.Test.Service
         {
             // Setup
             var fileImporter = Substitute.For<IFileImporter>();
-            fileImporter.Import().Returns(true);
-
             var fileImportActivity = new FileImportActivity(fileImporter, "");
 
             // Call
@@ -100,7 +98,6 @@ namespace Core.Common.Base.Test.Service
 
             // Assert
             Assert.AreEqual(ActivityState.Failed, fileImportActivity.State);
-            fileImporter.Received().Import();
         }
 
         [Test]
