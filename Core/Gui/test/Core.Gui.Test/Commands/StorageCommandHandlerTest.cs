@@ -35,7 +35,6 @@ using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Arg = NSubstitute.Arg;
 
 namespace Core.Gui.Test.Commands
 {
