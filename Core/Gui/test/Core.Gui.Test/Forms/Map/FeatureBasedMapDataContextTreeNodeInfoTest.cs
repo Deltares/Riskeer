@@ -331,6 +331,7 @@ namespace Core.Gui.Test.Forms.Map
             builder.AddPropertiesItem().Returns(builder);
 
             contextMenuBuilderProvider.Get(context, null).Returns(builder);
+
             // Call
             info.ContextMenuStrip(context, null, null);
 

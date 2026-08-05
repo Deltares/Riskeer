@@ -72,6 +72,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Setup
             var documentViewController = Substitute.For<IDocumentViewController>();
+
             // Call
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 

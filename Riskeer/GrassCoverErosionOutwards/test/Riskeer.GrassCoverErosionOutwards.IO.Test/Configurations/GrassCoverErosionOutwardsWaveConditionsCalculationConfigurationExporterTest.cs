@@ -129,6 +129,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                                                                     Path.Combine(
                                                                         nameof(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter),
                                                                         "fullValidConfiguration.xml"));
+
             // Call & Assert
             WriteAndValidate(new[]
             {

@@ -80,6 +80,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var duneLocationsUpdateHandler = Substitute.For<IDuneLocationsUpdateHandler>();
+
             // Call
             var handler = new HydraulicBoundaryDataUpdateHandler(CreateAssessmentSection(), duneLocationsUpdateHandler);
 

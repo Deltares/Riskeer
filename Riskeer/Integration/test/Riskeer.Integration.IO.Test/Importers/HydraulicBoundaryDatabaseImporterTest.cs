@@ -67,6 +67,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         {
             // Setup
             var updateHandler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
+
             // Call
             var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryData(), updateHandler, "");
 

@@ -37,6 +37,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
+
             // Call
             Action test = () => PropertyChangeHelper.ChangePropertyAndNotify(null, handler);
 
@@ -63,6 +64,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             SetObservablePropertyValueDelegate setAction = () => {};
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             handler.SetPropertyValueAfterConfirmation(setAction).Returns(Enumerable.Empty<IObservable>());
+
             // Call
             PropertyChangeHelper.ChangePropertyAndNotify(setAction, handler);
             // Assert
@@ -85,6 +87,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             handler.SetPropertyValueAfterConfirmation(setAction).Returns(affectedObjects);
+
             // Call
             PropertyChangeHelper.ChangePropertyAndNotify(setAction, handler);
 

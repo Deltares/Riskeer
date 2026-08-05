@@ -64,6 +64,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                           assessmentSection, 0.1);

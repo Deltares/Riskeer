@@ -90,6 +90,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation,
                                                                                     assessmentSection);
@@ -188,6 +189,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 Output = new TestHydraulicBoundaryLocationCalculationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
             };
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation,
                                                                                     assessmentSection);
@@ -338,6 +340,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                     }
                 }
             });
+
             // Call
             var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation,
                                                                                     assessmentSection);

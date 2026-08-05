@@ -81,6 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             const string testName = "ttt";
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(testName);
+
             // Call
             string text = info.Text(surfaceLine);
 

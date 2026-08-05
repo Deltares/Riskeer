@@ -159,6 +159,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+
                 // Call
                 object[] objects = info.ChildNodeObjects(assessmentSectionContext).ToArray();
 

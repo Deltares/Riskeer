@@ -59,6 +59,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
+
             // Call
             Action test = () => new ClosingStructuresInputContextProperties(null, handler);
 

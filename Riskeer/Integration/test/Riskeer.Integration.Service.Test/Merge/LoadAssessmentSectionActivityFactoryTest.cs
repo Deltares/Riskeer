@@ -82,6 +82,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             var expectedAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var service = Substitute.For<ILoadAssessmentSectionService>();
             service.LoadAssessmentSection(filePath).Returns(expectedAssessmentSection);
+
             // Call
             Activity activity = LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionActivity(owner, service, filePath);
 

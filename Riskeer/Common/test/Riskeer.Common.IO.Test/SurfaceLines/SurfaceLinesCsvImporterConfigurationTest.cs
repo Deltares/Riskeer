@@ -36,6 +36,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             var strategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
             var transformer = Substitute.For<ISurfaceLineTransformer<IMechanismSurfaceLine>>();
+
             // Call
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, strategy);
 

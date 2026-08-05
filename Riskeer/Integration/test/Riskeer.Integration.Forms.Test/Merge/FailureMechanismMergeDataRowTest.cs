@@ -78,6 +78,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                                                                               random.Next(1, 10));
             var failureMechanism = Substitute.For<IFailureMechanism>();
             failureMechanism.Sections.Returns(sections);
+
             // Call
             var row = new FailureMechanismMergeDataRow(failureMechanism);
 

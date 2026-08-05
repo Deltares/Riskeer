@@ -102,6 +102,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+
             // Call
             var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup(),
                                                                                                    new CalculationGroup(),

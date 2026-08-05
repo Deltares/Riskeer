@@ -113,6 +113,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     }
                 }
             });
+
             // Call
             var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
 
@@ -228,6 +229,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     }
                 }
             });
+
             // Call
             var properties = new DuneLocationCalculationProperties(duneLocationCalculation, assessmentSection);
 

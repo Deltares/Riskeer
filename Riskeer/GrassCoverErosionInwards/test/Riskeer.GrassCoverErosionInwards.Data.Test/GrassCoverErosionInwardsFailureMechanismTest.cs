@@ -78,6 +78,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                     }
                 }
             };
+
             // Call
             List<ICalculation> calculations = failureMechanism.Calculations.ToList();
 

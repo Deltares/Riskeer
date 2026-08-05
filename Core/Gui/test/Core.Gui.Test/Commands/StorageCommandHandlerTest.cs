@@ -377,6 +377,7 @@ namespace Core.Gui.Test.Commands
                 projectOwner,
                 inquiryHelper,
                 mainWindowController);
+
             // Call
             bool result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 

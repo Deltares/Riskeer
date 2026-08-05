@@ -40,6 +40,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var input = Substitute.For<ICalculationInput>();
             var calculation = Substitute.For<ICalculation>();
             var failureMechanism = Substitute.For<IFailureMechanism>();
+
             // Call
             var context = new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(input, calculation, failureMechanism, assessmentSection);
 
@@ -58,6 +59,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var input = Substitute.For<ICalculationInput>();
             var failureMechanism = Substitute.For<IFailureMechanism>();
+
             // Call
             Action call = () => new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(input, null, failureMechanism, assessmentSection);
 

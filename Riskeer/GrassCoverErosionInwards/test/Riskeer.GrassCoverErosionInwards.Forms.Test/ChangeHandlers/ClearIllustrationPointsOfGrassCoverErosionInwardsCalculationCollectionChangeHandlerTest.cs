@@ -58,6 +58,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             var handler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<GrassCoverErosionInwardsCalculation>());

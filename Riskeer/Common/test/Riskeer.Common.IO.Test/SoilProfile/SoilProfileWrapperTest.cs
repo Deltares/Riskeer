@@ -53,6 +53,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
             var soilProfile = Substitute.For<ISoilProfile>();
+
             // Call
             var wrapper = new SoilProfileWrapper<ISoilProfile>(soilProfile, failureMechanismType);
 

@@ -49,6 +49,7 @@ namespace Riskeer.ClosingStructures.IO.Test
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             // Call
             Action test = () => new ClosingStructuresImporter(
                 new StructureCollection<ClosingStructure>(),
@@ -68,6 +69,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
+
             // Call
             var importer = new ClosingStructuresImporter(
                 new StructureCollection<ClosingStructure>(),

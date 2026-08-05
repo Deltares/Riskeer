@@ -66,6 +66,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
+
             // Call
             Action call = () => new ForeshoreProfilesImporter(null, new ReferenceLine(), "", strategy, messageProvider);
 
@@ -80,6 +81,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
+
             // Call
             Action call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), null, "", strategy, messageProvider);
 
@@ -94,6 +96,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
+
             // Call
             Action call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), null, strategy, messageProvider);
 
@@ -119,6 +122,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
+
             // Call
             Action call = () => new ForeshoreProfilesImporter(new ForeshoreProfileCollection(), new ReferenceLine(), "path", strategy, null);
 

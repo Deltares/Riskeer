@@ -135,6 +135,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             ICalculation[] expectedAffectedCalculations = failureMechanism.Calculations
                                                                           .Where(c => c.HasOutput)
                                                                           .ToArray();
+
             // Call
             IEnumerable<IObservable> affectedItems =
                 WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(failureMechanism);

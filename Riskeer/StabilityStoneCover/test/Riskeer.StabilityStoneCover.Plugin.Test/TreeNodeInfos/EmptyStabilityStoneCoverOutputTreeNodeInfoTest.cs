@@ -110,6 +110,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             using (var plugin = new StabilityStoneCoverPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+
                 // Call
                 Image icon = info.Image(output);
 

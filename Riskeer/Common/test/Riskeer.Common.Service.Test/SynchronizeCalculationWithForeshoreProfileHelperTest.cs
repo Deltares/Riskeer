@@ -38,6 +38,7 @@ namespace Riskeer.Common.Service.Test
 
             var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
             calculation.InputParameters.Returns(calculationInput);
+
             // Call
             SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput(calculation);
 

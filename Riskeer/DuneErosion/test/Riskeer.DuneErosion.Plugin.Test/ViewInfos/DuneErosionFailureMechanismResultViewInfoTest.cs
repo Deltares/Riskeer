@@ -72,6 +72,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var context = new DuneErosionFailureMechanismSectionResultContext(failureMechanism.SectionResults,
                                                                               failureMechanism,
                                                                               assessmentSection);
+
             // Call
             object viewData = info.GetViewData(context);
 

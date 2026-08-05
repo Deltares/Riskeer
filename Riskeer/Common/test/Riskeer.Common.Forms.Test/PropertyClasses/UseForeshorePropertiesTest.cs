@@ -44,6 +44,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
+
             // Call
             Action test = () => new UseForeshoreProperties(null, handler);
 
@@ -57,6 +58,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var testUseForeshore = new TestUseForeshore();
+
             // Call
             Action test = () => new UseForeshoreProperties(testUseForeshore, null);
 

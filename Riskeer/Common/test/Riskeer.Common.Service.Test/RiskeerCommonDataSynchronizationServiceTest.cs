@@ -54,6 +54,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             var input = Substitute.For<ICalculationInputWithHydraulicBoundaryLocation>();
+
             // Call
             IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(input);
 
@@ -303,6 +304,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             var calculation = Substitute.For<ICalculation>();
             calculation.HasOutput.Returns(true);
+
             // Call
             IEnumerable<IObservable> changedObjects = RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 
@@ -322,6 +324,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             var calculation = Substitute.For<ICalculation>();
             calculation.HasOutput.Returns(false);
+
             // Call
             IEnumerable<IObservable> changedObjects = RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 

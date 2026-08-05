@@ -49,6 +49,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var failureMechanism = Substitute.For<IFailureMechanism>();
+
             // Call
             var view = new TestCloseForFailureMechanismView(failureMechanism);
 

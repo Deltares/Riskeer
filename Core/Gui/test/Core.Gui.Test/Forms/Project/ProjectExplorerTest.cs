@@ -70,6 +70,7 @@ namespace Core.Gui.Test.Forms.Project
         {
             // Setup
             var viewCommands = Substitute.For<IViewCommands>();
+
             // Call
             using (var explorer = new ProjectExplorer(viewCommands, Enumerable.Empty<TreeNodeInfo>()))
             {

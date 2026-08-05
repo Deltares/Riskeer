@@ -37,6 +37,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var transformer = Substitute.For<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
             var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
             var strategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
+
             // Call
             var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, strategy);
 
@@ -52,6 +53,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
             var strategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
+
             // Call
             Action test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(null, filter, strategy);
 
@@ -80,6 +82,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             var transformer = Substitute.For<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
             var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
+
             // Call
             Action test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, null);
 

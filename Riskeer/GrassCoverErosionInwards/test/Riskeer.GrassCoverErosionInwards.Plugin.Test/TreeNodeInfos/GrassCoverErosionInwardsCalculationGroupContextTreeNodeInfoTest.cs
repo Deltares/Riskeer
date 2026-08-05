@@ -200,6 +200,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
                 // Call
                 info.ContextMenuStrip(groupContext, null, treeViewControl);
             }
@@ -251,6 +252,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
@@ -325,6 +327,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
                 gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
                 // Call
                 info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
 
@@ -378,6 +381,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
@@ -893,6 +897,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -933,6 +938,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -962,6 +968,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -998,6 +1005,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
                 gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
                 gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {

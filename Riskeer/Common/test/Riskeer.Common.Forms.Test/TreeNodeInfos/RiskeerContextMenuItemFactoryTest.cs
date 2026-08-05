@@ -287,6 +287,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculationWithOutput
             });
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
 
@@ -308,6 +309,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculationWithoutOutput
             });
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
 
@@ -448,6 +450,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationWithOutput = Substitute.For<ICalculation>();
 
             calculationWithOutput.HasOutput.Returns(true);
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutput);
 
@@ -465,6 +468,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationWithOutput = Substitute.For<ICalculation>();
 
             calculationWithOutput.HasOutput.Returns(false);
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutput);
 
@@ -582,6 +586,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var calculationItem = Substitute.For<ICalculationBase>();
             var calculationItemContext = Substitute.For<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
             calculationItemContext.Parent.Returns(new CalculationGroup());
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext);
 
@@ -645,6 +650,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             calculation.InputParameters.Returns(input);
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculation,
@@ -672,6 +678,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             calculation.InputParameters.Returns(input);
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculation,
@@ -767,6 +774,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             calculation.InputParameters.Returns(input);
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                 new[]
@@ -1522,6 +1530,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             bool isEnabled = new Random(21).NextBoolean();
             var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => isEnabled,
                                                                                                                                 handler);
@@ -1537,6 +1546,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => isEnabled,
                                                                                                                                 handler);
@@ -1598,6 +1608,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             bool isEnabled = new Random(21).NextBoolean();
             var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInGroupItem(() => isEnabled,
                                                                                                                                        handler);
@@ -1613,6 +1624,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInGroupItem(() => isEnabled,
                                                                                                                                        handler);
@@ -1674,6 +1686,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             bool isEnabled = new Random(21).NextBoolean();
             var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                 () => isEnabled, handler);
@@ -1690,6 +1703,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var handler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                 () => isEnabled, handler);
@@ -1751,6 +1765,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             bool isEnabled = new Random(21).NextBoolean();
             var handler = Substitute.For<IClearIllustrationPointsOfCalculationChangeHandler>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => isEnabled,
                                                                                                                                handler);
@@ -1766,6 +1781,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var handler = Substitute.For<IClearIllustrationPointsOfCalculationChangeHandler>();
+
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => isEnabled,
                                                                                                                                handler);

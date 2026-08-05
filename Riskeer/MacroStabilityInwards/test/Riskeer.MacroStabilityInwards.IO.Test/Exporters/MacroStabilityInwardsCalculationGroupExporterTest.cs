@@ -54,6 +54,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         {
             // Setup
             var persistenceFactory = Substitute.For<IPersistenceFactory>();
+
             // Call
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(),
                                                                              persistenceFactory, "ValidFolderPath", "extension",

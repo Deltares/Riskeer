@@ -865,6 +865,7 @@ namespace Core.Gui.Test.ContextMenu
                                                                    updateCommandHandler,
                                                                    viewCommands,
                                                                    nodeData);
+
             // Call
             ToolStripItem item = contextMenuFactory.CreatePropertiesItem();
 

@@ -91,6 +91,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var structuresCalculation = Substitute.For<IStructuresCalculation>();
+
             // Call
             Color color = info.ForeColor(new StructuresOutputContext(structuresCalculation));
 
@@ -104,6 +105,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var structuresCalculation = Substitute.For<IStructuresCalculation>();
             structuresCalculation.HasOutput.Returns(true);
+
             // Call
             Color color = info.ForeColor(new StructuresOutputContext(structuresCalculation));
 
