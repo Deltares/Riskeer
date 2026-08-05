@@ -414,12 +414,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         {
             // Setup
             var handler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
-            handler.AddHydraulicBoundaryDatabase(Arg.Any<ReadHydraulicBoundaryDatabase>(),
-                                                 Arg.Any<ReadHydraulicLocationConfigurationDatabase>(),
-                                                 Arg.Any<IEnumerable<long>>(),
-                                                 Arg.Any<string>()).Returns(Enumerable.Empty<IObservable>());
             var progressChangeNotifications = new List<ProgressNotification>();
-
             var importer = new HydraulicBoundaryDatabaseImporter(CreateLinkedHydraulicBoundaryData(), handler, validHrdFilePath);
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
@@ -473,11 +468,6 @@ namespace Riskeer.Integration.IO.Test.Importers
         {
             // Setup
             var handler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
-            handler.AddHydraulicBoundaryDatabase(Arg.Any<ReadHydraulicBoundaryDatabase>(),
-                                                 Arg.Any<ReadHydraulicLocationConfigurationDatabase>(),
-                                                 Arg.Any<IEnumerable<long>>(),
-                                                 Arg.Any<string>())
-                   .Returns(Enumerable.Empty<IObservable>());
             var importer = new HydraulicBoundaryDatabaseImporter(CreateLinkedHydraulicBoundaryData(), handler, validHrdFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {

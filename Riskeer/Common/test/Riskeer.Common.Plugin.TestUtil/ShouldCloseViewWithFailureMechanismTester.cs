@@ -41,7 +41,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(Enumerable.Empty<IFailureMechanism>());
+
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
 
             IFailureMechanism failureMechanism = GetFailureMechanism();
@@ -193,7 +193,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             if (failureMechanism is SpecificFailureMechanism specificFailureMechanism)
             {
-                assessmentSection.GetFailureMechanisms().Returns(Enumerable.Empty<IFailureMechanism>());
+
                 assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>
                 {
                     specificFailureMechanism

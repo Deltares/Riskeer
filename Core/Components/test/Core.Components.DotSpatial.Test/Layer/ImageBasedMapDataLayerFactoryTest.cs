@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -174,9 +174,6 @@ namespace Core.Components.DotSpatial.Test.Layer
         private static IEnumerable<TestCaseData> GetProblematicTileSourceFactoryTestCaseData(string prefix)
         {
             var factoryWithoutRequiredTileSource = Substitute.For<ITileSourceFactory>();
-            factoryWithoutRequiredTileSource.GetWmtsTileSources(Arg.Any<string>())
-                                            .Returns(Enumerable.Empty<IHttpTileSource>());
-
             var factoryThrowingCannotFindTileSourceException = Substitute.For<ITileSourceFactory>();
             factoryThrowingCannotFindTileSourceException.GetWmtsTileSources(Arg.Any<string>())
                                                         .Returns(_ => throw new CannotFindTileSourceException());

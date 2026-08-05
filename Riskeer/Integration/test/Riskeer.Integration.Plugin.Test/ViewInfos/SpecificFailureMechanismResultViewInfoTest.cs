@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(Array.Empty<IFailureMechanism>());
+
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
             var failureMechanism = new SpecificFailureMechanism();
 
@@ -114,7 +114,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var otherFailureMechanism = new SpecificFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(Array.Empty<IFailureMechanism>());
+
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>
             {
                 otherFailureMechanism
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new SpecificFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(Array.Empty<IFailureMechanism>());
+
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>
             {
                 failureMechanism

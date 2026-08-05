@@ -97,7 +97,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            assessmentSection.GetFailureMechanisms().Returns(Array.Empty<IFailureMechanism>());
             using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
