@@ -108,8 +108,8 @@ namespace Core.Common.Base.Test
             testObservable.Attach(observer4);
             testObservable.Attach(observer6);
 
-            observer2.When(x => x.UpdateObserver()).Do(_ => testObservable.Detach(observer3));
-            observer4.When(x => x.UpdateObserver()).Do(_ => testObservable.Attach(observer5));
+            observer2.When(o => o.UpdateObserver()).Do(_ => testObservable.Detach(observer3));
+            observer4.When(o => o.UpdateObserver()).Do(_ => testObservable.Attach(observer5));
 
             // Call
             testObservable.NotifyObservers();
