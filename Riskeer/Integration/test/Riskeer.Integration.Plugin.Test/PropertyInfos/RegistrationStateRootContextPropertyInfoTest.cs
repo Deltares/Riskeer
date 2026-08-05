@@ -60,6 +60,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var viewCommands = Substitute.For<IViewCommands>();
             IGui gui = StubFactory.CreateGuiStub();
             gui.ViewCommands.Returns(viewCommands);
+
             using (var plugin = new RiskeerPlugin())
             {
                 plugin.Gui = gui;
