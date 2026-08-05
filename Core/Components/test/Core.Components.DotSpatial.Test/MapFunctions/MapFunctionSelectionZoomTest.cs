@@ -80,7 +80,6 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             var expectedRectangle = new Rectangle(x, y, mx - x, my - y);
 
             var map = Substitute.For<IMap>();
-            map.PixelToProj(Arg.Any<Point>()).Returns((Coordinate) null);
 
             var mapFunction = new MapFunctionSelectionZoom(map);
             mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), map));

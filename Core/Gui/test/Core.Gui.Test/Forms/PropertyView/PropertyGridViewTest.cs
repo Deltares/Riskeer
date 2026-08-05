@@ -99,8 +99,6 @@ namespace Core.Gui.Test.Forms.PropertyView
             var dataObject = new object();
 
             var propertyResolver = Substitute.For<IPropertyResolver>();
-            propertyResolver.GetObjectProperties(dataObject).Returns((object) null);
-            propertyResolver.GetObjectProperties(null).Returns((object) null);
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
@@ -127,7 +125,6 @@ namespace Core.Gui.Test.Forms.PropertyView
             var dataObject = new object();
 
             var propertyResolver = Substitute.For<IPropertyResolver>();
-            propertyResolver.GetObjectProperties(dataObject).Returns((object) null);
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
@@ -157,7 +154,6 @@ namespace Core.Gui.Test.Forms.PropertyView
             var newDataObject = new object();
             var propertyResolver = Substitute.For<IPropertyResolver>();
             propertyResolver.GetObjectProperties(dataObject).Returns(new DynamicPropertyBag(dataObjectProperties));
-            propertyResolver.GetObjectProperties(newDataObject).Returns((object) null);
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
@@ -182,7 +178,6 @@ namespace Core.Gui.Test.Forms.PropertyView
             var newDataObject = new object();
             var propertyResolver = Substitute.For<IPropertyResolver>();
             propertyResolver.GetObjectProperties(observableDataObject).Returns(new DynamicPropertyBag(dataObjectProperties));
-            propertyResolver.GetObjectProperties(newDataObject).Returns((object) null);
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {

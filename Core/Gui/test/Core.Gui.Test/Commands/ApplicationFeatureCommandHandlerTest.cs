@@ -74,7 +74,6 @@ namespace Core.Gui.Test.Commands
             var target = new object();
 
             var propertyResolver = Substitute.For<IPropertyResolver>();
-            propertyResolver.GetObjectProperties(target).Returns((IObjectProperties) null);
             var mainWindow = Substitute.For<IMainWindow>();
 
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);

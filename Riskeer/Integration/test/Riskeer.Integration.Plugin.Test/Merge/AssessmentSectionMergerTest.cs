@@ -241,7 +241,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var comparer = Substitute.For<IAssessmentSectionMergeComparer>();
             comparer.Compare(Arg.Any<AssessmentSection>(), Arg.Any<AssessmentSection>()).Returns(true);
             var mergeDataProvider = Substitute.For<IAssessmentSectionMergeDataProvider>();
-            mergeDataProvider.GetMergeData(Arg.Any<AssessmentSection>()).Returns((AssessmentSectionMergeData) null);
             var mergeHandler = Substitute.For<IAssessmentSectionMergeHandler>();
             var hydraulicBoundaryDataUpdateHandler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);

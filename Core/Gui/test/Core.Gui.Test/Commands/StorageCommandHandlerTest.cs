@@ -663,7 +663,6 @@ namespace Core.Gui.Test.Commands
             var project = Substitute.For<IProject>();
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(pathToSomeInvalidFile).Returns((IProject) null);
-
             var projectMigrator = Substitute.For<IMigrateProject>();
 
             var projectFactory = Substitute.For<IProjectFactory>();
@@ -820,7 +819,6 @@ namespace Core.Gui.Test.Commands
             var projectFactory = Substitute.For<IProjectFactory>();
 
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns((IProject) null);
             projectStorage.HasStagedProjectChanges(Arg.Any<string>()).Returns(false);
             projectStorage.OpenProjectFileFilter.Returns(string.Empty);
 
@@ -892,7 +890,6 @@ namespace Core.Gui.Test.Commands
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns((IProject) null);
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
             var storageCommandHandler = new StorageCommandHandler(

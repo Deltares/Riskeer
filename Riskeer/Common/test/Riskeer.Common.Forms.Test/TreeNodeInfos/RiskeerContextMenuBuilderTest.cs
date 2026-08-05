@@ -607,7 +607,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             }
             else
             {
-                input.ForeshoreProfile.Returns((TestForeshoreProfile) null);
             }
 
             calculation.InputParameters.Returns(input);
@@ -678,7 +677,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             }
             else
             {
-                input.ForeshoreProfile.Returns((TestForeshoreProfile) null);
             }
 
             calculation.InputParameters.Returns(input);
