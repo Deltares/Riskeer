@@ -195,21 +195,19 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSectionContext = new AssessmentSectionStateRootContext(assessmentSection);
+
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(assessmentSectionContext, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new RiskeerPlugin())
             {
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                var assessmentSectionContext = new AssessmentSectionStateRootContext(assessmentSection);
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
 
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(assessmentSectionContext, treeViewControl).Returns(menuBuilder);
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-
-                    // Call
-                    info.ContextMenuStrip(assessmentSectionContext, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(assessmentSectionContext, null, treeViewCommands);
             }
 
             // Assert
@@ -233,28 +231,26 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithContext_AddCustomItems()
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSectionContext = new AssessmentSectionStateRootContext(assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(assessmentSectionContext, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new RiskeerPlugin())
             {
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                var assessmentSectionContext = new AssessmentSectionStateRootContext(assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(assessmentSectionContext, treeView).Returns(menuBuilder);
-                using (var plugin = new RiskeerPlugin())
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(assessmentSectionContext, null, treeViewCommands))
                 {
-                    plugin.Gui = gui;
+                    // Assert
+                    Assert.AreEqual(10, menu.Items.Count);
 
-                    // Call
-                    using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(assessmentSectionContext, null, treeView))
-                    {
-                        // Assert
-                        Assert.AreEqual(10, menu.Items.Count);
-
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportAssessmentSectionIndex,
-                                                                      "&Importeren...",
-                                                                      "Importeer de gegevens vanuit een bestand.",
-                                                                      CoreGuiResources.ImportIcon);
-                    }
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportAssessmentSectionIndex,
+                                                                  "&Importeren...",
+                                                                  "Importeer de gegevens vanuit een bestand.",
+                                                                  CoreGuiResources.ImportIcon);
                 }
             }
         }

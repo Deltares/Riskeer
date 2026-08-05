@@ -182,41 +182,39 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
         public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
+
+            Received.InOrder(() =>
             {
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddOpenItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCollapseAllItem();
-                    menuBuilder.AddExpandAllItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
-            }
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -231,22 +229,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
             var nodeData = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit faalmechanisme uit.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                              "Alles be&rekenen",
+                                                              "Voer alle berekeningen binnen dit faalmechanisme uit.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
             }
         }
 
@@ -293,63 +289,61 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
 
             var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            var waveConditionsCalculator = new TestWaveConditionsCosineCalculator
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+                Converged = false
+            };
 
-                var gui = Substitute.For<IGui>();
-                gui.MainWindow.Returns(mainWindow);
-                gui.Get(context, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
+            HydraulicBoundaryCalculationSettings expectedCalculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation);
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(callInfo =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     expectedCalculationSettings,
+                                     callInfo.Arg<HydraRingCalculationSettings>());
+                                 return waveConditionsCalculator;
+                             });
 
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                var waveConditionsCalculator = new TestWaveConditionsCosineCalculator
+            plugin.Gui = gui;
+            plugin.Activate();
+
+            using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewCommands))
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // When
+                void Call() => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                // Then
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
-                    Converged = false
-                };
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(28, msgs.Length);
 
-                HydraulicBoundaryCalculationSettings expectedCalculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                    assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation);
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                                 .Returns(callInfo =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings,
-                                         callInfo.Arg<HydraRingCalculationSettings>());
-                                     return waveConditionsCalculator;
-                                 });
+                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs.ElementAt(0));
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs.ElementAt(1));
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs.ElementAt(2));
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.ElementAt(3));
 
-                plugin.Gui = gui;
-                plugin.Activate();
+                    RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result;
+                    IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(assessmentLevel);
+                    Assert.AreEqual(3, waterLevels.Count());
+                    AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfoploop", 4);
+                    AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfklap", 15);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.ElementAt(26));
+                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gelukt.", msgs.ElementAt(27));
+                });
 
-                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                {
-                    // When
-                    void Call() => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Call, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(28, msgs.Length);
-
-                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs.ElementAt(0));
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs.ElementAt(1));
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs.ElementAt(2));
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.ElementAt(3));
-
-                        RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result;
-                        IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(assessmentLevel);
-                        Assert.AreEqual(3, waterLevels.Count());
-                        AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfoploop", 4);
-                        AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfklap", 15);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.ElementAt(26));
-                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gelukt.", msgs.ElementAt(27));
-                    });
-
-                    calculatorFactory.Received(6).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                }
+                calculatorFactory.Received(6).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 

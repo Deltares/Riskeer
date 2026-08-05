@@ -173,68 +173,66 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
         public void GivenMultiplePipingCalculationsWithOutput_WhenClearingOutputFromContextMenu_ThenPipingOutputCleared(bool confirm)
         {
             // Given
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var pipingCalculation1 = new TestPipingCalculationScenario(true);
+            var pipingCalculation2 = new TestPipingCalculationScenario(true);
+
+            var observer = Substitute.For<IObserver>();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation2);
+
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation2);
+            failureMechanism.CalculationsGroup.Children.ElementAt(0).Attach(observer);
+            failureMechanism.CalculationsGroup.Children.ElementAt(1).Attach(observer);
+
+            string messageBoxTitle = null, messageBoxText = null;
+            DialogBoxHandler = (name, wnd) =>
             {
-                var pipingCalculation1 = new TestPipingCalculationScenario(true);
-                var pipingCalculation2 = new TestPipingCalculationScenario(true);
+                var messageBox = new MessageBoxTester(wnd);
 
-                var observer = Substitute.For<IObserver>();
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
 
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation2);
-
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation2);
-                failureMechanism.CalculationsGroup.Children.ElementAt(0).Attach(observer);
-                failureMechanism.CalculationsGroup.Children.ElementAt(1).Attach(observer);
-
-                string messageBoxTitle = null, messageBoxText = null;
-                DialogBoxHandler = (name, wnd) =>
+                if (confirm)
                 {
-                    var messageBox = new MessageBoxTester(wnd);
-
-                    messageBoxText = messageBox.Text;
-                    messageBoxTitle = messageBox.Title;
-
-                    if (confirm)
-                    {
-                        messageBox.ClickOk();
-                    }
-                    else
-                    {
-                        messageBox.ClickCancel();
-                    }
-                };
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, null, treeViewControl))
+                    messageBox.ClickOk();
+                }
+                else
                 {
-                    // When
-                    contextMenuStrip.Items[contextMenuClearIndex].PerformClick();
+                    messageBox.ClickCancel();
+                }
+            };
 
-                    // Then
-                    foreach (ICalculation calc in failureMechanism.CalculationsGroup.Children.OfType<ICalculation>())
-                    {
-                        Assert.AreNotEqual(confirm, calc.HasOutput);
-                    }
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // When
+                contextMenuStrip.Items[contextMenuClearIndex].PerformClick();
 
-                    Assert.AreEqual("Bevestigen", messageBoxTitle);
-                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+                // Then
+                foreach (ICalculation calc in failureMechanism.CalculationsGroup.Children.OfType<ICalculation>())
+                {
+                    Assert.AreNotEqual(confirm, calc.HasOutput);
+                }
 
-                    if (confirm)
-                    {
-                        observer.Received(2).UpdateObserver();
-                    }
+                Assert.AreEqual("Bevestigen", messageBoxTitle);
+                Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+
+                if (confirm)
+                {
+                    observer.Received(2).UpdateObserver();
                 }
             }
         }
@@ -256,85 +254,83 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommandsHandler = Substitute.For<IViewCommands>();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommandsHandler,
+                                                     context,
+                                                     treeViewCommands);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importCommandHandler,
-                                                         exportCommandHandler,
-                                                         updateCommandHandler,
-                                                         viewCommandsHandler,
-                                                         context,
-                                                         treeViewControl);
+                // Assert
+                Assert.AreEqual(12, menu.Items.Count);
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              0,
+                                                              "&Openen",
+                                                              "Open de gegevens in een nieuw documentvenster.",
+                                                              CoreGuiResources.OpenIcon,
+                                                              false);
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              2,
+                                                              "Alles &valideren",
+                                                              "Valideer alle berekeningen binnen dit faalmechanisme.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              3,
+                                                              "Alles be&rekenen",
+                                                              "Voer alle berekeningen binnen dit faalmechanisme uit.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              5,
+                                                              "&Wis alle uitvoer...",
+                                                              "Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.",
+                                                              RiskeerCommonFormsResources.ClearIcon);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              6,
+                                                              "Wis alle &illustratiepunten...",
+                                                              "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                              false);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              8,
+                                                              "Alles i&nklappen",
+                                                              "Klap dit element en alle onderliggende elementen in.",
+                                                              CoreGuiResources.CollapseAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              9,
+                                                              "Alles ui&tklappen",
+                                                              "Klap dit element en alle onderliggende elementen uit.",
+                                                              CoreGuiResources.ExpandAllIcon,
+                                                              false);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              11,
+                                                              "Ei&genschappen",
+                                                              "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                              CoreGuiResources.PropertiesHS,
+                                                              false);
+
+                CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
-                    // Assert
-                    Assert.AreEqual(12, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  0,
-                                                                  "&Openen",
-                                                                  "Open de gegevens in een nieuw documentvenster.",
-                                                                  CoreGuiResources.OpenIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  2,
-                                                                  "Alles &valideren",
-                                                                  "Valideer alle berekeningen binnen dit faalmechanisme.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  3,
-                                                                  "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit faalmechanisme uit.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  5,
-                                                                  "&Wis alle uitvoer...",
-                                                                  "Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.",
-                                                                  RiskeerCommonFormsResources.ClearIcon);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  6,
-                                                                  "Wis alle &illustratiepunten...",
-                                                                  "Er zijn geen berekeningen met illustratiepunten om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  8,
-                                                                  "Alles i&nklappen",
-                                                                  "Klap dit element en alle onderliggende elementen in.",
-                                                                  CoreGuiResources.CollapseAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  9,
-                                                                  "Alles ui&tklappen",
-                                                                  "Klap dit element en alle onderliggende elementen uit.",
-                                                                  CoreGuiResources.ExpandAllIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  11,
-                                                                  "Ei&genschappen",
-                                                                  "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                                  CoreGuiResources.PropertiesHS,
-                                                                  false);
-
-                    CollectionAssert.AllItemsAreInstancesOfType(new[]
-                    {
-                        menu.Items[1],
-                        menu.Items[4],
-                        menu.Items[7],
-                        menu.Items[10]
-                    }, typeof(ToolStripSeparator));
-                }
+                    menu.Items[1],
+                    menu.Items[4],
+                    menu.Items[7],
+                    menu.Items[10]
+                }, typeof(ToolStripSeparator));
             }
         }
 
@@ -342,33 +338,31 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
         public void ContextMenuStrip_FailureMechanismHasNoCalculationsWithOutput_ContextMenuItemsClearOutputAndClearIllustrationPointsDisabledAndToolTipSet()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
+
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                // Assert
+                ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+                Assert.IsFalse(clearOutputItem.Enabled);
+                Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
 
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
-
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-                    Assert.IsFalse(clearOutputItem.Enabled);
-                    Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
-
-                    ToolStripItem clearIllustrationPointsItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-                    Assert.IsFalse(clearOutputItem.Enabled);
-                    Assert.AreEqual("Er zijn geen berekeningen met illustratiepunten om te wissen.", clearIllustrationPointsItem.ToolTipText);
-                }
+                ToolStripItem clearIllustrationPointsItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+                Assert.IsFalse(clearOutputItem.Enabled);
+                Assert.AreEqual("Er zijn geen berekeningen met illustratiepunten om te wissen.", clearIllustrationPointsItem.ToolTipText);
             }
         }
 
@@ -376,33 +370,31 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
         public void ContextMenuStrip_FailureMechanismHasCalculationsWithOutput_ContextMenuItemClearAllOutputEnabledAndToolTipSet()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var pipingCalculation = new TestPipingCalculationScenario(true);
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var pipingCalculation = new TestPipingCalculationScenario(true);
-
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-                    Assert.IsTrue(clearOutputItem.Enabled);
-                    Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.", clearOutputItem.ToolTipText);
-                }
+                // Assert
+                ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+                Assert.IsTrue(clearOutputItem.Enabled);
+                Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.", clearOutputItem.ToolTipText);
             }
         }
 
@@ -410,36 +402,34 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
         public void ContextMenuStrip_FailureMechanismHasCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsOutputEnabledAndToolTipSet()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var pipingCalculation = new ProbabilisticPipingCalculationScenario
             {
-                var pipingCalculation = new ProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
-                };
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+            };
 
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-                    Assert.IsTrue(clearOutputItem.Enabled);
-                    Assert.AreEqual("Wis alle berekende illustratiepunten binnen dit faalmechanisme.", clearOutputItem.ToolTipText);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // Assert
+                ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+                Assert.IsTrue(clearOutputItem.Enabled);
+                Assert.AreEqual("Wis alle berekende illustratiepunten binnen dit faalmechanisme.", clearOutputItem.ToolTipText);
             }
         }
 
@@ -447,36 +437,34 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
         public void ContextMenuStrip_FailureMechanismHasCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabledAndToolTipSet()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var pipingCalculation = new ProbabilisticPipingCalculationScenario
             {
-                var pipingCalculation = new ProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
-                };
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+            };
 
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-                    Assert.IsFalse(clearOutputItem.Enabled);
-                    Assert.AreEqual("Er zijn geen berekeningen met illustratiepunten om te wissen.", clearOutputItem.ToolTipText);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // Assert
+                ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+                Assert.IsFalse(clearOutputItem.Enabled);
+                Assert.AreEqual("Er zijn geen berekeningen met illustratiepunten om te wissen.", clearOutputItem.ToolTipText);
             }
         }
 
@@ -484,43 +472,41 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new TestPipingFailureMechanism
             {
-                var assessmentSection = new AssessmentSectionStub();
-                var failureMechanism = new TestPipingFailureMechanism
+                CalculationsGroup =
                 {
-                    CalculationsGroup =
+                    Children =
                     {
-                        Children =
-                        {
-                            new TestPipingCalculationScenario()
-                        }
+                        new TestPipingCalculationScenario()
                     }
-                };
-
-                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit faalmechanisme uit.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
-                                                                  "Alles &valideren",
-                                                                  "Valideer alle berekeningen binnen dit faalmechanisme.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon);
                 }
+            };
+
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
+                                                              "Alles be&rekenen",
+                                                              "Voer alle berekeningen binnen dit faalmechanisme uit.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
+
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
+                                                              "Alles &valideren",
+                                                              "Valideer alle berekeningen binnen dit faalmechanisme.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon);
             }
         }
 
@@ -528,62 +514,161 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
         public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
+            // Assert
+            Received.InOrder(() =>
             {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
-
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-                // Assert
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddOpenItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCollapseAllItem();
-                    menuBuilder.AddExpandAllItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
-            }
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = new AssessmentSectionStub();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
             {
-                var assessmentSection = new AssessmentSectionStub();
+                FilePath = validHrdFilePath,
+                Version = validHrdFileVersion,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            });
 
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
 
-                TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+            var validSemiProbabilisticCalculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation);
+            var invalidSemiProbabilisticCalculation =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<SemiProbabilisticPipingCalculationScenario>();
+            var validProbabilisticCalculation =
+                ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation);
+            var invalidProbabilisticCalculation =
+                ProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<ProbabilisticPipingCalculationScenario>();
 
-                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+            failureMechanism.CalculationsGroup.Children.Add(validSemiProbabilisticCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(invalidProbabilisticCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(validProbabilisticCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(invalidSemiProbabilisticCalculation);
 
-                assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // Call
+                void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(14, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[5]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[13]);
+                });
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismWithCalculationOfUnsupportedType_WhenValidatingAllFromContextMenu_ThenThrowsNotSupportedException()
+        {
+            // Given
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new TestPipingFailureMechanism();
+
+            failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
+
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // When
+                void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+
+                // Then
+                Assert.Throws<NotSupportedException>(Call);
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
+        {
+            // Setup
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+
+            assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
+            assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
+                new HydraulicBoundaryDatabase
                 {
                     FilePath = validHrdFilePath,
                     Version = validHrdFileVersion,
@@ -593,201 +678,94 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
                     }
                 });
 
-                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
-                {
-                    hydraulicBoundaryLocation
-                }, true);
-
-                var validSemiProbabilisticCalculation =
-                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
-                        hydraulicBoundaryLocation);
-                var invalidSemiProbabilisticCalculation =
-                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<SemiProbabilisticPipingCalculationScenario>();
-                var validProbabilisticCalculation =
-                    ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
-                        hydraulicBoundaryLocation);
-                var invalidProbabilisticCalculation =
-                    ProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<ProbabilisticPipingCalculationScenario>();
-
-                failureMechanism.CalculationsGroup.Children.Add(validSemiProbabilisticCalculation);
-                failureMechanism.CalculationsGroup.Children.Add(invalidProbabilisticCalculation);
-                failureMechanism.CalculationsGroup.Children.Add(validProbabilisticCalculation);
-                failureMechanism.CalculationsGroup.Children.Add(invalidSemiProbabilisticCalculation);
-
-                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessages(Call, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(14, msgs.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[2]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[5]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[13]);
-                    });
-                }
-            }
-        }
-
-        [Test]
-        public void GivenFailureMechanismWithCalculationOfUnsupportedType_WhenValidatingAllFromContextMenu_ThenThrowsNotSupportedException()
-        {
-            // Given
-            using (var treeViewControl = new TreeViewControl())
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
-                var assessmentSection = new AssessmentSectionStub();
-                var failureMechanism = new TestPipingFailureMechanism();
+                hydraulicBoundaryLocation
+            }, true);
 
-                failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
+            var calculationA =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation);
+            var calculationB =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation);
+            var calculationC =
+                ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation);
+            var calculationD =
+                ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation);
 
-                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            calculationA.Name = "A";
+            calculationB.Name = "B";
+            calculationC.Name = "C";
+            calculationD.Name = "D";
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationC);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+            failureMechanism.CalculationsGroup.Children.Add(calculationD);
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                    // Then
-                    Assert.Throws<NotSupportedException>(Call);
-                }
-            }
-        }
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-        [Test]
-        public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator());
+            plugin.Gui = gui;
+
+            DialogBoxHandler = (name, wnd) =>
             {
-                var assessmentSection = new AssessmentSectionStub();
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-                TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
+                // Expect an activity dialog which is automatically closed
+            };
 
-                assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
-                assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(
-                    new HydraulicBoundaryDatabase
-                    {
-                        FilePath = validHrdFilePath,
-                        Version = validHrdFileVersion,
-                        Locations =
-                        {
-                            hydraulicBoundaryLocation
-                        }
-                    });
+            using (new PipingSubCalculatorFactoryConfig())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // Call
+                void Call() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
 
-                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
-                    hydraulicBoundaryLocation
-                }, true);
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(28, msgs.Length);
 
-                var calculationA =
-                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
-                        hydraulicBoundaryLocation);
-                var calculationB =
-                    SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
-                        hydraulicBoundaryLocation);
-                var calculationC =
-                    ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
-                        hydraulicBoundaryLocation);
-                var calculationD =
-                    ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
-                        hydraulicBoundaryLocation);
+                    Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                    Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[5]);
 
-                calculationA.Name = "A";
-                calculationB.Name = "B";
-                calculationC.Name = "C";
-                calculationD.Name = "D";
+                    Assert.AreEqual("Uitvoeren van berekening 'C' is gestart.", msgs[6]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[9]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[12]);
+                    Assert.AreEqual("Uitvoeren van berekening 'C' is gelukt.", msgs[13]);
 
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
-                failureMechanism.CalculationsGroup.Children.Add(calculationC);
-                failureMechanism.CalculationsGroup.Children.Add(calculationB);
-                failureMechanism.CalculationsGroup.Children.Add(calculationD);
+                    Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[14]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[15]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[16]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[17]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[18]);
+                    Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[19]);
 
-                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
-
-                var gui = Substitute.For<IGui>();
-                gui.MainWindow.Returns(mainWindow);
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator());
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    // Expect an activity dialog which is automatically closed
-                };
-
-                using (new PipingSubCalculatorFactoryConfig())
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    void Call() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessages(Call, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(28, msgs.Length);
-
-                        Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
-                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[5]);
-
-                        Assert.AreEqual("Uitvoeren van berekening 'C' is gestart.", msgs[6]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[9]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[12]);
-                        Assert.AreEqual("Uitvoeren van berekening 'C' is gelukt.", msgs[13]);
-
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[14]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[15]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[16]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[17]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[18]);
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[19]);
-
-                        Assert.AreEqual("Uitvoeren van berekening 'D' is gestart.", msgs[20]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[21]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[22]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[23]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[26]);
-                        Assert.AreEqual("Uitvoeren van berekening 'D' is gelukt.", msgs[27]);
-                    });
-                }
+                    Assert.AreEqual("Uitvoeren van berekening 'D' is gestart.", msgs[20]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[21]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[22]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[23]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[26]);
+                    Assert.AreEqual("Uitvoeren van berekening 'D' is gelukt.", msgs[27]);
+                });
             }
         }
 
@@ -795,31 +773,29 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
         public void GivenFailureMechanismWithCalculationOfUnsupportedType_WhenCalculatingAllFromContextMenu_ThenThrowsNotSupportedException()
         {
             // Given
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new TestPipingFailureMechanism();
+
+            failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
+
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var mainWindow = Substitute.For<IMainWindow>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var assessmentSection = new AssessmentSectionStub();
-                var failureMechanism = new TestPipingFailureMechanism();
+                // When
+                void Call() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
 
-                failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
-
-                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var mainWindow = Substitute.For<IMainWindow>();
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    void Call() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
-
-                    // Then
-                    Assert.Throws<NotSupportedException>(Call);
-                }
+                // Then
+                Assert.Throws<NotSupportedException>(Call);
             }
         }
 

@@ -109,15 +109,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddOpenItem().Returns(menuBuilder);
 
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (plugin)
-            using (var treeViewControl = new TreeViewControl())
             {
                 IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
+                gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(null, null, treeViewControl);
+                info.ContextMenuStrip(null, null, treeViewCommands);
             }
 
             // Assert

@@ -118,17 +118,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             var gui = Substitute.For<IGui>();
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(null, null, treeViewControl);
+            // Call
+            info.ContextMenuStrip(null, null, treeViewCommands);
 
-                // Assert
-                menuBuilder.Received(1).Build();
-            }
+            // Assert
+            menuBuilder.Received(1).Build();
         }
     }
 }

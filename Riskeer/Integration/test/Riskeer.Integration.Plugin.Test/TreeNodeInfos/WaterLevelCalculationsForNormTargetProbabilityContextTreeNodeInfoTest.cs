@@ -195,20 +195,18 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
-                    plugin.Gui = gui;
+                plugin.Gui = gui;
 
-                    // Call
-                    info.ContextMenuStrip(nodeData, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(nodeData, null, treeViewCommands);
             }
 
             // Assert
@@ -242,34 +240,32 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                using (var plugin = new RiskeerPlugin())
+                TreeNodeInfo info = GetInfo(plugin);
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
                 {
-                    TreeNodeInfo info = GetInfo(plugin);
+                    // Assert
+                    Assert.AreEqual(9, menu.Items.Count);
 
-                    plugin.Gui = gui;
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRunWaterLevelCalculationsIndex,
+                                                                  "Alles be&rekenen",
+                                                                  "Alle waterstanden berekenen.",
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
 
-                    // Call
-                    using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                    {
-                        // Assert
-                        Assert.AreEqual(9, menu.Items.Count);
-
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRunWaterLevelCalculationsIndex,
-                                                                      "Alles be&rekenen",
-                                                                      "Alle waterstanden berekenen.",
-                                                                      RiskeerCommonFormsResources.CalculateAllIcon);
-
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
-                                                                      "Wis alle &illustratiepunten...",
-                                                                      "Er zijn geen berekeningen met illustratiepunten om te wissen.",
-                                                                      RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
-                                                                      false);
-                    }
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
+                                                                  "Wis alle &illustratiepunten...",
+                                                                  "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                                  false);
                 }
             }
         }
@@ -289,27 +285,25 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                using (var plugin = new RiskeerPlugin())
+                TreeNodeInfo info = GetInfo(plugin);
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
                 {
-                    TreeNodeInfo info = GetInfo(plugin);
+                    // Assert
+                    const string expectedItemText = "Alles be&rekenen";
+                    const string expectedItemTooltip = "Alle waterstanden berekenen.";
 
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    {
-                        // Assert
-                        const string expectedItemText = "Alles be&rekenen";
-                        const string expectedItemTooltip = "Alle waterstanden berekenen.";
-
-                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunWaterLevelCalculationsIndex,
-                                                                      expectedItemText, expectedItemTooltip, RiskeerCommonFormsResources.CalculateAllIcon);
-                    }
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunWaterLevelCalculationsIndex,
+                                                                  expectedItemText, expectedItemTooltip, RiskeerCommonFormsResources.CalculateAllIcon);
                 }
             }
             // Expect no calls on arguments
@@ -344,28 +338,26 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                using (var plugin = new RiskeerPlugin())
+                TreeNodeInfo info = GetInfo(plugin);
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
                 {
-                    TreeNodeInfo info = GetInfo(plugin);
+                    // Assert
+                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
 
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    {
-                        // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-
-                        Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
-                        Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
-                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ClearIllustrationPointsIcon, contextMenuItem.Image);
-                        Assert.IsTrue(contextMenuItem.Enabled);
-                    }
+                    Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
+                    Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
+                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ClearIllustrationPointsIcon, contextMenuItem.Image);
+                    Assert.IsTrue(contextMenuItem.Enabled);
                 }
             }
             // Expect no calls on arguments
@@ -396,24 +388,22 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                using (var plugin = new RiskeerPlugin())
+                TreeNodeInfo info = GetInfo(plugin);
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
                 {
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    {
-                        // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-                        Assert.IsFalse(contextMenuItem.Enabled);
-                    }
+                    // Assert
+                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+                    Assert.IsFalse(contextMenuItem.Enabled);
                 }
             }
             // Expect no calls on arguments
@@ -462,56 +452,54 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                     assessmentSection,
                                                                                     GetNormFunc);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.MainWindow.Returns(mainWindow);
+            gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
+            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
+
+            var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory
+                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(callInfo =>
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                            assessmentSection.HydraulicBoundaryData,
+                            hydraulicBoundaryLocation),
+                        callInfo.Arg<HydraRingCalculationSettings>());
+                    return designWaterLevelCalculator;
+                });
+            DialogBoxHandler = (name, wnd) =>
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+                // Expect an activity dialog which is automatically closed
+            };
 
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.MainWindow.Returns(mainWindow);
-                gui.Get(context, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
-                gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+                plugin.Activate();
 
-                var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory
-                    .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                    .Returns(callInfo =>
-                    {
-                        HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                            HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                assessmentSection.HydraulicBoundaryData,
-                                hydraulicBoundaryLocation),
-                            callInfo.Arg<HydraRingCalculationSettings>());
-                        return designWaterLevelCalculator;
-                    });
-                DialogBoxHandler = (name, wnd) =>
+                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewCommands))
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
-                    // Expect an activity dialog which is automatically closed
-                };
+                    // Call
+                    contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
 
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-                    plugin.Activate();
+                    // Assert
+                    AssessmentLevelCalculationInput waterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
-                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                    {
-                        // Call
-                        contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
-
-                        // Assert
-                        AssessmentLevelCalculationInput waterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
-
-                        Assert.AreEqual(hydraulicBoundaryLocation.Id, waterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(GetNormFunc()), waterLevelCalculationInput.Beta);
-                    }
+                    Assert.AreEqual(hydraulicBoundaryLocation.Id, waterLevelCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(GetNormFunc()), waterLevelCalculationInput.Beta);
                 }
-
-                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
+
+            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -559,57 +547,55 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                     assessmentSection,
                                                                                     GetNormFunc);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.MainWindow.Returns(mainWindow);
+            gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
+            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
+
+            var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory
+                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(callInfo =>
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                            assessmentSection.HydraulicBoundaryData,
+                            hydraulicBoundaryLocation),
+                        callInfo.Arg<HydraRingCalculationSettings>());
+                    return designWaterLevelCalculator;
+                });
+
+            DialogBoxHandler = (name, wnd) =>
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+                // Expect an activity dialog which is automatically closed
+            };
 
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.MainWindow.Returns(mainWindow);
-                gui.Get(context, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
-                gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+                plugin.Activate();
 
-                var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory
-                    .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                    .Returns(callInfo =>
-                    {
-                        HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                            HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                assessmentSection.HydraulicBoundaryData,
-                                hydraulicBoundaryLocation),
-                            callInfo.Arg<HydraRingCalculationSettings>());
-                        return designWaterLevelCalculator;
-                    });
-
-                DialogBoxHandler = (name, wnd) =>
+                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewCommands))
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
-                    // Expect an activity dialog which is automatically closed
-                };
+                    // Call
+                    contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
 
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-                    plugin.Activate();
+                    // Assert
+                    AssessmentLevelCalculationInput waterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
-                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                    {
-                        // Call
-                        contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
-
-                        // Assert
-                        AssessmentLevelCalculationInput waterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
-
-                        Assert.AreEqual(hydraulicBoundaryLocation.Id, waterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(GetNormFunc()), waterLevelCalculationInput.Beta);
-                    }
+                    Assert.AreEqual(hydraulicBoundaryLocation.Id, waterLevelCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(GetNormFunc()), waterLevelCalculationInput.Beta);
                 }
-
-                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
+
+            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -662,64 +648,62 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                     assessmentSection,
                                                                                     () => 0.01);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.MainWindow.Returns(mainWindow);
+            gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
+            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
+
+            var calculator = new TestDesignWaterLevelCalculator
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+                Converged = false
+            };
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
+            ;
 
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.MainWindow.Returns(mainWindow);
-                gui.Get(context, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
-                gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
 
-                var calculator = new TestDesignWaterLevelCalculator
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+                plugin.Activate();
+
+                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewCommands))
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
-                    Converged = false
-                };
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
-                ;
+                    // When
+                    void Call() => contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
 
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    // Expect an activity dialog which is automatically closed
-                };
-
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-                    plugin.Activate();
-
-                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                    // Then
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
-                        // When
-                        void Call() => contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
+                        string[] msgs = messages.ToArray();
+                        Assert.AreEqual(8, msgs.Length);
+                        Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (1/100) is gestart.", msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                        Assert.AreEqual($"Waterstand berekening voor locatie '{locationName}' (1/100) is niet geconvergeerd.", msgs[4]);
+                        StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
+                        Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (1/100) is gelukt.", msgs[7]);
+                    });
 
-                        // Then
-                        TestHelper.AssertLogMessages(Call, messages =>
-                        {
-                            string[] msgs = messages.ToArray();
-                            Assert.AreEqual(8, msgs.Length);
-                            Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (1/100) is gestart.", msgs[0]);
-                            CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                            CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-                            CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                            Assert.AreEqual($"Waterstand berekening voor locatie '{locationName}' (1/100) is niet geconvergeerd.", msgs[4]);
-                            StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
-                            CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                            Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (1/100) is gelukt.", msgs[7]);
-                        });
-
-                        HydraulicBoundaryLocationCalculationOutput output = calculations.First().Output;
-                        Assert.AreEqual(calculator.DesignWaterLevel, output.Result, output.Result.GetAccuracy());
-                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
-                    }
+                    HydraulicBoundaryLocationCalculationOutput output = calculations.First().Output;
+                    Assert.AreEqual(calculator.DesignWaterLevel, output.Result, output.Result.GetAccuracy());
+                    Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
                 }
-
-                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
+
+            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -761,25 +745,23 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                using (var plugin = new RiskeerPlugin())
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
                 {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
+                    // When
+                    contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    {
-                        // When
-                        contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
-
-                        // Then
-                        Assert.IsTrue(calculation.HasOutput);
-                        Assert.AreEqual(!continuation, calculation.Output.HasGeneralResult);
-                    }
+                    // Then
+                    Assert.IsTrue(calculation.HasOutput);
+                    Assert.AreEqual(!continuation, calculation.Output.HasGeneralResult);
                 }
             }
 
@@ -826,25 +808,23 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 helper.ClickCancel();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                using (var plugin = new RiskeerPlugin())
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
                 {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
+                    // When
+                    contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    {
-                        // When
-                        contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
-
-                        // Then
-                        var expectedMessage = $"Weet u zeker dat u alle berekende illustratiepunten bij '{expectedText}' wilt wissen?";
-                        Assert.AreEqual(expectedMessage, messageBoxText);
-                    }
+                    // Then
+                    var expectedMessage = $"Weet u zeker dat u alle berekende illustratiepunten bij '{expectedText}' wilt wissen?";
+                    Assert.AreEqual(expectedMessage, messageBoxText);
                 }
             }
         }

@@ -161,16 +161,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(nodeData, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(nodeData, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>
@@ -208,52 +206,50 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                // Assert
+                Assert.AreEqual(18, menu.Items.Count);
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Assert
-                    Assert.AreEqual(18, menu.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
+                                                              "D&upliceren",
+                                                              "Dupliceer dit element.",
+                                                              RiskeerCommonFormsResources.CopyHS);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
-                                                                  "D&upliceren",
-                                                                  "Dupliceer dit element.",
-                                                                  RiskeerCommonFormsResources.CopyHS);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateDikeProfileIndex,
+                                                              "&Bijwerken dijkprofiel...",
+                                                              "Er moet een dijkprofiel geselecteerd zijn.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateDikeProfileIndex,
-                                                                  "&Bijwerken dijkprofiel...",
-                                                                  "Er moet een dijkprofiel geselecteerd zijn.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
+                                                              "&Valideren",
+                                                              "Valideer de invoer voor deze berekening.",
+                                                              RiskeerCommonFormsResources.ValidateIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
-                                                                  "&Valideren",
-                                                                  "Valideer de invoer voor deze berekening.",
-                                                                  RiskeerCommonFormsResources.ValidateIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
+                                                              "Be&rekenen",
+                                                              "Voer deze berekening uit.",
+                                                              RiskeerCommonFormsResources.CalculateIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
-                                                                  "Be&rekenen",
-                                                                  "Voer deze berekening uit.",
-                                                                  RiskeerCommonFormsResources.CalculateIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
+                                                              "&Wis uitvoer...",
+                                                              "Deze berekening heeft geen uitvoer om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIcon,
+                                                              false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
-                                                                  "&Wis uitvoer...",
-                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
-                                                                  "Wis illustratiepunten...",
-                                                                  "Deze berekening heeft geen illustratiepunten om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
-                                                                  false);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
+                                                              "Wis illustratiepunten...",
+                                                              "Deze berekening heeft geen illustratiepunten om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                              false);
             }
         }
 
@@ -269,24 +265,22 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  contextMenuUpdateDikeProfileIndex,
-                                                                  "&Bijwerken dijkprofiel...",
-                                                                  "Er moet een dijkprofiel geselecteerd zijn.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
-                }
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              contextMenuUpdateDikeProfileIndex,
+                                                              "&Bijwerken dijkprofiel...",
+                                                              "Er moet een dijkprofiel geselecteerd zijn.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
             }
         }
 
@@ -308,24 +302,22 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  contextMenuUpdateDikeProfileIndex,
-                                                                  "&Bijwerken dijkprofiel...",
-                                                                  "Er zijn geen wijzigingen om bij te werken.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
-                }
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              contextMenuUpdateDikeProfileIndex,
+                                                              "&Bijwerken dijkprofiel...",
+                                                              "Er zijn geen wijzigingen om bij te werken.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
             }
         }
 
@@ -348,25 +340,23 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            ChangeDikeProfile(dikeProfile);
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
-
-                ChangeDikeProfile(dikeProfile);
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  contextMenuUpdateDikeProfileIndex,
-                                                                  "&Bijwerken dijkprofiel...",
-                                                                  "Berekening bijwerken met het dijkprofiel.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              contextMenuUpdateDikeProfileIndex,
+                                                              "&Bijwerken dijkprofiel...",
+                                                              "Berekening bijwerken met het dijkprofiel.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon);
             }
         }
 
@@ -393,24 +383,22 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var calculationObserver = Substitute.For<IObserver>();
             calculation.Attach(calculationObserver);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(mainWindow);
+            plugin.Gui = gui;
+
+            ChangeDikeProfile(dikeProfile);
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var mainWindow = Substitute.For<IMainWindow>();
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(mainWindow);
-                plugin.Gui = gui;
+                // When
+                menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
 
-                ChangeDikeProfile(dikeProfile);
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.InputParameters.IsDikeProfileInputSynchronized);
-                }
+                // Then
+                Assert.IsTrue(calculation.InputParameters.IsDikeProfileInputSynchronized);
             }
 
             inputObserver.Received(1).UpdateObserver();
@@ -449,29 +437,27 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 helper.ClickCancel();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(mainWindow);
+            plugin.Gui = gui;
+
+            ChangeDikeProfile(dikeProfile);
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var mainWindow = Substitute.For<IMainWindow>();
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(mainWindow);
-                plugin.Gui = gui;
+                // When
+                menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
 
-                ChangeDikeProfile(dikeProfile);
+                // Then
+                Assert.IsTrue(calculation.HasOutput);
+                Assert.IsFalse(calculation.InputParameters.IsDikeProfileInputSynchronized);
 
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
-                    Assert.IsFalse(calculation.InputParameters.IsDikeProfileInputSynchronized);
-
-                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-                }
+                string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
+                                         $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedMessage, textBoxMessage);
             }
 
             inputObserver.DidNotReceive().UpdateObserver();
@@ -511,29 +497,27 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 helper.ClickOk();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(mainWindow);
+            plugin.Gui = gui;
+
+            ChangeDikeProfile(dikeProfile);
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var mainWindow = Substitute.For<IMainWindow>();
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(mainWindow);
-                plugin.Gui = gui;
+                // When
+                menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
 
-                ChangeDikeProfile(dikeProfile);
+                // Then
+                Assert.IsFalse(calculation.HasOutput);
+                Assert.IsTrue(calculation.InputParameters.IsDikeProfileInputSynchronized);
 
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateDikeProfileIndex].PerformClick();
-
-                    // Then
-                    Assert.IsFalse(calculation.HasOutput);
-                    Assert.IsTrue(calculation.InputParameters.IsDikeProfileInputSynchronized);
-
-                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-                }
+                string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
+                                         $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedMessage, textBoxMessage);
             }
 
             calculationObserver.Received(1).UpdateObserver();
@@ -550,22 +534,20 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                                  "Be&rekenen",
-                                                                  "Voer deze berekening uit.",
-                                                                  RiskeerCommonFormsResources.CalculateIcon);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                              "Be&rekenen",
+                                                              "Voer deze berekening uit.",
+                                                              RiskeerCommonFormsResources.CalculateIcon);
             }
         }
 
@@ -579,22 +561,20 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                  "&Valideren",
-                                                                  "Valideer de invoer voor deze berekening.",
-                                                                  RiskeerCommonFormsResources.ValidateIcon);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
+                                                              "&Valideren",
+                                                              "Valideer de invoer voor deze berekening.",
+                                                              RiskeerCommonFormsResources.ValidateIcon);
             }
         }
 
@@ -646,58 +626,56 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(calculationContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(mainWindow);
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory
+                .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .Returns(callInfo =>
+                {
+                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
+
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                            hydraulicBoundaryData,
+                            hydraulicBoundaryLocation),
+                        settings);
+
+                    return new TestOvertoppingCalculator();
+                });
+            plugin.Gui = gui;
+
+            calculation.Attach(observer);
+
+            DialogBoxHandler = (name, wnd) =>
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(calculationContext, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(mainWindow);
+                // Expect an activity dialog which is automatically closed
+            };
 
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory
-                    .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
-                    .Returns(callInfo =>
-                    {
-                        var settings = callInfo.Arg<HydraRingCalculationSettings>();
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewCommands))
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // When
+                void Action() => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
-                        HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                            HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                hydraulicBoundaryData,
-                                hydraulicBoundaryLocation),
-                            settings);
-
-                        return new TestOvertoppingCalculator();
-                    });
-                plugin.Gui = gui;
-
-                calculation.Attach(observer);
-
-                DialogBoxHandler = (name, wnd) =>
+                // Then
+                TestHelper.AssertLogMessages(Action, messages =>
                 {
-                    // Expect an activity dialog which is automatically closed
-                };
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+                    Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                    StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[5]);
+                    Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
+                });
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                {
-                    // When
-                    void Action() => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Action, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(7, msgs.Length);
-                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                        StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[5]);
-                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
-                    });
-
-                    Assert.IsNotNull(calculation.Output);
-                }
+                Assert.IsNotNull(calculation.Output);
             }
 
             observer.Received(1).UpdateObserver();
@@ -748,28 +726,26 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(calculationContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            calculation.Attach(observer);
+
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(calculationContext, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                // When
+                void Action() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
 
-                calculation.Attach(observer);
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
+                // Then
+                TestHelper.AssertLogMessages(Action, messages =>
                 {
-                    // When
-                    void Action() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Action, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
-                    });
-                }
+                    string[] msgs = messages.ToArray();
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                });
             }
         }
 
@@ -786,21 +762,19 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                // Call
+                ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
 
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsTrue(contextMenuItem.Enabled);
-                }
+                // Assert
+                Assert.IsTrue(contextMenuItem.Enabled);
             }
         }
 
@@ -819,21 +793,19 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                // Call
+                ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
 
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
+                // Assert
+                Assert.IsFalse(contextMenuItem.Enabled);
             }
         }
 
@@ -864,26 +836,24 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 helper.ClickCancel();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                // When
+                menu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+                // Then
+                Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
 
-                    // Then
-                    Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
-
-                    GrassCoverErosionInwardsOutput output = calculation.Output;
-                    Assert.IsTrue(output.OvertoppingOutput.HasGeneralResult);
-                    Assert.IsTrue(output.DikeHeightOutput.HasGeneralResult);
-                    Assert.IsTrue(output.OvertoppingRateOutput.HasGeneralResult);
-                }
+                GrassCoverErosionInwardsOutput output = calculation.Output;
+                Assert.IsTrue(output.OvertoppingOutput.HasGeneralResult);
+                Assert.IsTrue(output.DikeHeightOutput.HasGeneralResult);
+                Assert.IsTrue(output.OvertoppingRateOutput.HasGeneralResult);
             }
         }
 
@@ -914,26 +884,24 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 helper.ClickOk();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                plugin.Gui = gui;
+                // When
+                menu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+                // Then
+                Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
 
-                    // Then
-                    Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
-
-                    GrassCoverErosionInwardsOutput output = calculation.Output;
-                    Assert.IsFalse(output.OvertoppingOutput.HasGeneralResult);
-                    Assert.IsFalse(output.DikeHeightOutput.HasGeneralResult);
-                    Assert.IsFalse(output.OvertoppingRateOutput.HasGeneralResult);
-                }
+                GrassCoverErosionInwardsOutput output = calculation.Output;
+                Assert.IsFalse(output.OvertoppingOutput.HasGeneralResult);
+                Assert.IsFalse(output.DikeHeightOutput.HasGeneralResult);
+                Assert.IsFalse(output.OvertoppingRateOutput.HasGeneralResult);
             }
 
             calculationObserver.Received(1).UpdateObserver();

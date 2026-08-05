@@ -207,20 +207,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var context = new MacroStabilityInwardsStochasticSoilModelCollectionContext(
-                    new MacroStabilityInwardsStochasticSoilModelCollection(),
-                    new MacroStabilityInwardsFailureMechanism(),
-                    assessmentSection);
-                var gui = Substitute.For<IGui>();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var context = new MacroStabilityInwardsStochasticSoilModelCollectionContext(
+                new MacroStabilityInwardsStochasticSoilModelCollection(),
+                new MacroStabilityInwardsFailureMechanism(),
+                assessmentSection);
+            var gui = Substitute.For<IGui>();
 
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>

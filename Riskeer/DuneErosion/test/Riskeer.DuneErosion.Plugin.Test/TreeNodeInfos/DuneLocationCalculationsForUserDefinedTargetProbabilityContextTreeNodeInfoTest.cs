@@ -205,44 +205,42 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
+                                                                                             new DuneErosionFailureMechanism(),
+                                                                                             assessmentSection);
+
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddExportItem().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddDeleteItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
+
+            // Assert
+            Received.InOrder(() =>
             {
-                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
-                var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
-                                                                                                 new DuneErosionFailureMechanism(),
-                                                                                                 assessmentSection);
-
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddExportItem().Returns(menuBuilder);
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddDeleteItem().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-
-                // Assert
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddOpenItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddExportItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddDeleteItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
-            }
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddExportItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddDeleteItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -258,25 +256,23 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 new DuneErosionFailureMechanism(),
                 assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
-                plugin.Gui = gui;
+                // Assert
+                Assert.AreEqual(9, menu.Items.Count);
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Assert
-                    Assert.AreEqual(9, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Alle hydraulische belastingen berekenen.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                              "Alles be&rekenen",
+                                                              "Alle hydraulische belastingen berekenen.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
             }
         }
 
@@ -290,23 +286,21 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                                              new DuneErosionFailureMechanism(),
                                                                                              assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new CustomItemsOnlyContextMenuBuilder();
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(builder);
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(builder);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+            plugin.Gui = gui;
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Alle hydraulische belastingen berekenen.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
-                }
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                              "Alles be&rekenen",
+                                                              "Alle hydraulische belastingen berekenen.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
             }
         }
 
@@ -317,116 +311,114 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             const string locationName1 = "1";
             const string locationName2 = "2";
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+
+            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01)
             {
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
-
-                var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01)
+                DuneLocationCalculations =
                 {
-                    DuneLocationCalculations =
+                    new DuneLocationCalculation(new DuneLocation(locationName1, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
                     {
-                        new DuneLocationCalculation(new DuneLocation(locationName1, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
-                        {
-                            CoastalAreaId = 0,
-                            Offset = 0
-                        })),
-                        new DuneLocationCalculation(new DuneLocation(locationName2, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
-                        {
-                            CoastalAreaId = 0,
-                            Offset = 0
-                        }))
-                    }
-                };
+                        CoastalAreaId = 0,
+                        Offset = 0
+                    })),
+                    new DuneLocationCalculation(new DuneLocation(locationName2, hydraulicBoundaryLocation, new DuneLocation.ConstructionProperties
+                    {
+                        CoastalAreaId = 0,
+                        Offset = 0
+                    }))
+                }
+            };
 
-                var failureMechanism = new DuneErosionFailureMechanism();
-                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(duneLocationCalculationsForTargetProbability);
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(duneLocationCalculationsForTargetProbability);
 
-                var hydraulicBoundaryData = new HydraulicBoundaryData
+            var hydraulicBoundaryData = new HydraulicBoundaryData
+            {
+                HydraulicLocationConfigurationDatabase =
                 {
-                    HydraulicLocationConfigurationDatabase =
+                    FilePath = validHlcdFilePath
+                },
+                HydraulicBoundaryDatabases =
+                {
+                    new HydraulicBoundaryDatabase
                     {
-                        FilePath = validHlcdFilePath
-                    },
-                    HydraulicBoundaryDatabases =
-                    {
-                        new HydraulicBoundaryDatabase
+                        FilePath = validHrdFilePath,
+                        Version = validHrdFileVersion,
+                        Locations =
                         {
-                            FilePath = validHrdFilePath,
-                            Version = validHrdFileVersion,
-                            Locations =
-                            {
-                                hydraulicBoundaryLocation
-                            }
+                            hydraulicBoundaryLocation
                         }
                     }
-                };
-
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
-                assessmentSection.Id.Returns("13-1");
-                assessmentSection.GetFailureMechanisms().Returns(new[]
-                {
-                    failureMechanism
-                });
-                assessmentSection.FailureMechanismContribution
-                                 .Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-
-                var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(duneLocationCalculationsForTargetProbability,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
-
-                var builder = new CustomItemsOnlyContextMenuBuilder();
-
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(builder);
-                gui.MainWindow.Returns(mainWindow);
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
-                var calculationObserver = Substitute.For<IObserver>();
-                var calculationsObserver = Substitute.For<IObserver>();
-
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
-                                 .Returns(new TestDunesBoundaryConditionsCalculator());
-                duneLocationCalculationsForTargetProbability.DuneLocationCalculations.Attach(calculationsObserver);
-                duneLocationCalculationsForTargetProbability.DuneLocationCalculations.ForEachElementDo(location => location.Attach(calculationObserver));
-
-                plugin.Gui = gui;
-                plugin.Activate();
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                {
-                    // Call
-                    TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>
-                    {
-                        List<string> messageList = messages.ToList();
-
-                        // Assert
-                        Assert.AreEqual(16, messageList.Count);
-                        Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName1}' (1/100) is gestart.", messageList[0]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
-                        Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{locationName1}' (1/100) is niet geconvergeerd.", messageList[4]);
-                        StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", messageList[5]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[6]);
-                        Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName1}' (1/100) is gelukt.", messageList[7]);
-
-                        Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName2}' (1/100) is gestart.", messageList[8]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[9]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[10]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[11]);
-                        Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{locationName2}' (1/100) is niet geconvergeerd.", messageList[12]);
-                        StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", messageList[13]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[14]);
-                        Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName2}' (1/100) is gelukt.", messageList[15]);
-                    });
                 }
+            };
 
-                calculationObserver.Received(2).UpdateObserver();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
+            assessmentSection.Id.Returns("13-1");
+            assessmentSection.GetFailureMechanisms().Returns(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.FailureMechanismContribution
+                             .Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(duneLocationCalculationsForTargetProbability,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(builder);
+            gui.MainWindow.Returns(mainWindow);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+            var calculationObserver = Substitute.For<IObserver>();
+            var calculationsObserver = Substitute.For<IObserver>();
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestDunesBoundaryConditionsCalculator());
+            duneLocationCalculationsForTargetProbability.DuneLocationCalculations.Attach(calculationsObserver);
+            duneLocationCalculationsForTargetProbability.DuneLocationCalculations.ForEachElementDo(location => location.Attach(calculationObserver));
+
+            plugin.Gui = gui;
+            plugin.Activate();
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>
+                {
+                    List<string> messageList = messages.ToList();
+
+                    // Assert
+                    Assert.AreEqual(16, messageList.Count);
+                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName1}' (1/100) is gestart.", messageList[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
+                    Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{locationName1}' (1/100) is niet geconvergeerd.", messageList[4]);
+                    StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", messageList[5]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[6]);
+                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName1}' (1/100) is gelukt.", messageList[7]);
+
+                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName2}' (1/100) is gestart.", messageList[8]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messageList[9]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messageList[10]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[11]);
+                    Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{locationName2}' (1/100) is niet geconvergeerd.", messageList[12]);
+                    StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", messageList[13]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[14]);
+                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName2}' (1/100) is gelukt.", messageList[15]);
+                });
             }
+
+            calculationObserver.Received(2).UpdateObserver();
         }
 
         [Test]
@@ -487,46 +479,44 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                                              failureMechanism,
                                                                                              assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(mainWindow);
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(mainWindow);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
-                var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
-                calculatorFactory
-                    .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
-                    .Returns(callInfo =>
-                    {
-                        HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                            HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                       hydraulicBoundaryLocation),
-                            callInfo.Arg<HydraRingCalculationSettings>());
-                        return dunesBoundaryConditionsCalculator;
-                    });
-
-                plugin.Gui = gui;
-                plugin.Activate();
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            calculatorFactory
+                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .Returns(callInfo =>
                 {
-                    // Call
-                    contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                   hydraulicBoundaryLocation),
+                        callInfo.Arg<HydraRingCalculationSettings>());
+                    return dunesBoundaryConditionsCalculator;
+                });
 
-                    // Assert
-                    DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+            plugin.Gui = gui;
+            plugin.Activate();
 
-                    Assert.AreEqual(duneLocationCalculationsForTargetProbability.DuneLocationCalculations[0].DuneLocation.Id,
-                                    dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(duneLocationCalculationsForTargetProbability.TargetProbability),
-                                    dunesBoundaryConditionsCalculationInput.Beta);
-                }
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                // Assert
+                DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+
+                Assert.AreEqual(duneLocationCalculationsForTargetProbability.DuneLocationCalculations[0].DuneLocation.Id,
+                                dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(duneLocationCalculationsForTargetProbability.TargetProbability),
+                                dunesBoundaryConditionsCalculationInput.Beta);
             }
         }
 

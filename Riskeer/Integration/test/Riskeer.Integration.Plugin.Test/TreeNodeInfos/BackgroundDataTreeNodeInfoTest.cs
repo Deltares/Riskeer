@@ -209,18 +209,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
 
-                    // Call
-                    info.ContextMenuStrip(null, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(null, null, treeViewCommands);
             }
 
             // Assert
@@ -239,25 +237,23 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
             var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(backgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(backgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
 
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewControl))
-                    {
-                        // Assert
-                        const string expectedItemText = "&Selecteren...";
-                        const string expectedItemTooltip = "Selecteer een achtergrondkaart.";
-                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, selectContextMenuIndex,
-                                                                      expectedItemText, expectedItemTooltip,
-                                                                      RiskeerCommonFormsResources.MapsIcon);
-                    }
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewCommands))
+                {
+                    // Assert
+                    const string expectedItemText = "&Selecteren...";
+                    const string expectedItemTooltip = "Selecteer een achtergrondkaart.";
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, selectContextMenuIndex,
+                                                                  expectedItemText, expectedItemTooltip,
+                                                                  RiskeerCommonFormsResources.MapsIcon);
                 }
             }
         }
@@ -285,16 +281,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "twoValidWmtsConnectionInfos")
             }))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
-            using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
             {
+                var treeViewCommands = Substitute.For<ITreeViewCommands>();
                 var viewCommands = Substitute.For<IViewCommands>();
                 var mainWindow = Substitute.For<IMainWindow>();
 
                 IGui gui = StubFactory.CreateGuiStub();
                 gui.MainWindow.Returns(mainWindow);
                 gui.ViewCommands.Returns(viewCommands);
-                gui.Get(backgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.Get(backgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
@@ -316,7 +312,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewCommands))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -343,16 +339,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "EmptyWmtsConnectionInfo")
             }))
-            using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
             {
+                var treeViewCommands = Substitute.For<ITreeViewCommands>();
                 var viewCommands = Substitute.For<IViewCommands>();
                 var mainWindow = Substitute.For<IMainWindow>();
 
                 IGui gui = StubFactory.CreateGuiStub();
                 gui.MainWindow.Returns(mainWindow);
                 gui.ViewCommands.Returns(viewCommands);
-                gui.Get(backgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.Get(backgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
                 assessmentSection.Attach(assessmentSectionObserver);
@@ -370,7 +366,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewCommands))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -403,16 +399,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
             }))
             using (new UseCustomTileSourceFactoryConfig(newMapData))
-            using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
             {
+                var treeViewCommands = Substitute.For<ITreeViewCommands>();
                 var viewCommands = Substitute.For<IViewCommands>();
                 var mainWindow = Substitute.For<IMainWindow>();
 
                 IGui gui = StubFactory.CreateGuiStub();
                 gui.MainWindow.Returns(mainWindow);
                 gui.ViewCommands.Returns(viewCommands);
-                gui.Get(newBackgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.Get(newBackgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
                 SetBackgroundData(assessmentSection, mapData);
 
@@ -433,7 +429,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSectionStateRootContext, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSectionStateRootContext, treeViewCommands))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -465,16 +461,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "EmptyWmtsConnectionInfo")
             }))
-            using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
             {
+                var treeViewCommands = Substitute.For<ITreeViewCommands>();
                 var viewCommands = Substitute.For<IViewCommands>();
                 var mainWindow = Substitute.For<IMainWindow>();
 
                 IGui gui = StubFactory.CreateGuiStub();
                 gui.MainWindow.Returns(mainWindow);
                 gui.ViewCommands.Returns(viewCommands);
-                gui.Get(newBackgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.Get(newBackgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
                 SetBackgroundData(assessmentSection, mapData);
 
@@ -495,7 +491,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSectionStateRootContext, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSectionStateRootContext, treeViewCommands))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -526,16 +522,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "noConfig")
             }))
             using (new UseCustomTileSourceFactoryConfig(newMapData))
-            using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RiskeerPlugin())
             {
+                var treeViewCommands = Substitute.For<ITreeViewCommands>();
                 var viewCommands = Substitute.For<IViewCommands>();
                 var mainWindow = Substitute.For<IMainWindow>();
 
                 IGui gui = StubFactory.CreateGuiStub();
                 gui.MainWindow.Returns(mainWindow);
                 gui.ViewCommands.Returns(viewCommands);
-                gui.Get(newBackgroundData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                gui.Get(newBackgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
                 assessmentSection.Attach(assessmentSectionObserver);
@@ -553,7 +549,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSectionStateRootContext, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSectionStateRootContext, treeViewCommands))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();

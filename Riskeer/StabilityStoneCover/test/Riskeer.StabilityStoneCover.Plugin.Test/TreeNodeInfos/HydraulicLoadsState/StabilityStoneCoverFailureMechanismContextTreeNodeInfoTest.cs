@@ -182,71 +182,67 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsSt
         public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
+
+            Received.InOrder(() =>
             {
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddOpenItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCollapseAllItem();
-                    menuBuilder.AddExpandAllItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
-            }
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
         public void ContextMenuStrip_WithContext_AddCustomItems()
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
             {
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                // Assert
+                Assert.AreEqual(8, menu.Items.Count);
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeView).Returns(menuBuilder);
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                {
-                    // Assert
-                    Assert.AreEqual(8, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                              "Alles be&rekenen",
+                                                              "Er zijn geen berekeningen om uit te voeren.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon,
+                                                              false);
             }
         }
 
@@ -269,41 +265,39 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsSt
 
             var nodeData = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(mainWindow);
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(callInfo =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
+                                     callInfo.Arg<HydraRingCalculationSettings>());
+                                 return new TestWaveConditionsCosineCalculator();
+                             });
+
+            plugin.Gui = gui;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+                // When
+                contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(mainWindow);
-
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                                 .Returns(callInfo =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                             assessmentSection.HydraulicBoundaryData,
-                                             hydraulicBoundaryLocation),
-                                         callInfo.Arg<HydraRingCalculationSettings>());
-                                     return new TestWaveConditionsCosineCalculator();
-                                 });
-
-                plugin.Gui = gui;
-
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
-
-                    // Then
-                    Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());
-                    Assert.AreEqual(3, calculationA.Output.ColumnsOutput.Count());
-                    Assert.AreEqual(3, calculationB.Output.BlocksOutput.Count());
-                    Assert.AreEqual(3, calculationB.Output.ColumnsOutput.Count());
-                    calculatorFactory.Received(12).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                }
+                // Then
+                Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());
+                Assert.AreEqual(3, calculationA.Output.ColumnsOutput.Count());
+                Assert.AreEqual(3, calculationB.Output.BlocksOutput.Count());
+                Assert.AreEqual(3, calculationB.Output.ColumnsOutput.Count());
+                calculatorFactory.Received(12).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 

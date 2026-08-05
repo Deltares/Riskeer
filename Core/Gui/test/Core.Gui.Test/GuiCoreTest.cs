@@ -950,11 +950,11 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
-                void Call() => gui.Get(new object(), treeView);
+                void Call() => gui.Get(new object(), treeViewCommands);
 
                 // Assert
                 string message = Assert.Throws<InvalidOperationException>(Call).Message;
@@ -969,13 +969,13 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
 
                 // Call
-                IContextMenuBuilder builder = gui.Get(new object(), treeView);
+                IContextMenuBuilder builder = gui.Get(new object(), treeViewCommands);
 
                 // Assert
                 ContextMenuStrip contextMenu = builder.AddRenameItem()

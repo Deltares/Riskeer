@@ -124,18 +124,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new PipingPlugin())
             {
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                using (var plugin = new PipingPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
-                    plugin.Gui = gui;
+                plugin.Gui = gui;
 
-                    // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
 
             Received.InOrder(() =>
@@ -175,18 +173,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new PipingPlugin())
             {
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                using (var plugin = new PipingPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
-                    plugin.Gui = gui;
+                plugin.Gui = gui;
 
-                    // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
 
             // Assert

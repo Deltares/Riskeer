@@ -164,14 +164,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                // Call
-                info.ContextMenuStrip(nodeData, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(nodeData, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>
@@ -210,57 +208,55 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                // Assert
+                Assert.AreEqual(19, menu.Items.Count);
 
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
+                                                              "D&upliceren",
+                                                              "Dupliceer dit element.",
+                                                              RiskeerCommonFormsResources.CopyHS);
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Assert
-                    Assert.AreEqual(19, menu.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
+                                                              "&Bijwerken voorlandprofiel...",
+                                                              "Er moet een voorlandprofiel geselecteerd zijn.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
-                                                                  "D&upliceren",
-                                                                  "Dupliceer dit element.",
-                                                                  RiskeerCommonFormsResources.CopyHS);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureIndex,
+                                                              "Bijwerken &kunstwerk...",
+                                                              "Er moet een kunstwerk geselecteerd zijn.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
-                                                                  "&Bijwerken voorlandprofiel...",
-                                                                  "Er moet een voorlandprofiel geselecteerd zijn.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
+                                                              "&Valideren",
+                                                              "Valideer de invoer voor deze berekening.",
+                                                              RiskeerCommonFormsResources.ValidateIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureIndex,
-                                                                  "Bijwerken &kunstwerk...",
-                                                                  "Er moet een kunstwerk geselecteerd zijn.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
+                                                              "Be&rekenen",
+                                                              "Voer deze berekening uit.",
+                                                              RiskeerCommonFormsResources.CalculateIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
-                                                                  "&Valideren",
-                                                                  "Valideer de invoer voor deze berekening.",
-                                                                  RiskeerCommonFormsResources.ValidateIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
+                                                              "&Wis uitvoer...",
+                                                              "Deze berekening heeft geen uitvoer om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIcon,
+                                                              false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
-                                                                  "Be&rekenen",
-                                                                  "Voer deze berekening uit.",
-                                                                  RiskeerCommonFormsResources.CalculateIcon);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
-                                                                  "&Wis uitvoer...",
-                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
-                                                                  "Wis illustratiepunten...",
-                                                                  "Deze berekening heeft geen illustratiepunten om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
-                                                                  false);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
+                                                              "Wis illustratiepunten...",
+                                                              "Deze berekening heeft geen illustratiepunten om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                              false);
             }
         }
 
@@ -276,23 +272,21 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  contextMenuUpdateStructureIndex,
-                                                                  "Bijwerken &kunstwerk...",
-                                                                  "Er moet een kunstwerk geselecteerd zijn.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              contextMenuUpdateStructureIndex,
+                                                              "Bijwerken &kunstwerk...",
+                                                              "Er moet een kunstwerk geselecteerd zijn.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
             }
         }
 
@@ -314,23 +308,21 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  contextMenuUpdateStructureIndex,
-                                                                  "Bijwerken &kunstwerk...",
-                                                                  "Er zijn geen wijzigingen om bij te werken.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              contextMenuUpdateStructureIndex,
+                                                              "Bijwerken &kunstwerk...",
+                                                              "Er zijn geen wijzigingen om bij te werken.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
             }
         }
 
@@ -354,22 +346,20 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             ChangeStructure(calculation.InputParameters.Structure);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  contextMenuUpdateStructureIndex,
-                                                                  "Bijwerken &kunstwerk...",
-                                                                  "Berekening bijwerken met het kunstwerk.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              contextMenuUpdateStructureIndex,
+                                                              "Bijwerken &kunstwerk...",
+                                                              "Berekening bijwerken met het kunstwerk.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon);
             }
         }
 
@@ -397,23 +387,21 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var calculationObserver = Substitute.For<IObserver>();
             calculation.Attach(calculationObserver);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var mainWindow = Substitute.For<IMainWindow>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(mainWindow);
+
+            ChangeStructure(structure);
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var mainWindow = Substitute.For<IMainWindow>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                // When
+                menu.Items[contextMenuUpdateStructureIndex].PerformClick();
 
-                gui.MainWindow.Returns(mainWindow);
-
-                ChangeStructure(structure);
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateStructureIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
-                }
+                // Then
+                Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
             }
 
             inputObserver.Received(1).UpdateObserver();
@@ -453,28 +441,26 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 helper.ClickCancel();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var mainWindow = Substitute.For<IMainWindow>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(mainWindow);
+
+            ChangeStructure(structure);
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var mainWindow = Substitute.For<IMainWindow>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                // When
+                menu.Items[contextMenuUpdateStructureIndex].PerformClick();
 
-                gui.MainWindow.Returns(mainWindow);
+                // Then
+                Assert.IsTrue(calculation.HasOutput);
+                Assert.IsFalse(calculation.InputParameters.IsStructureInputSynchronized);
 
-                ChangeStructure(structure);
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateStructureIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.HasOutput);
-                    Assert.IsFalse(calculation.InputParameters.IsStructureInputSynchronized);
-
-                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-                }
+                string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
+                                         $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedMessage, textBoxMessage);
             }
 
             calculationObserver.DidNotReceive().UpdateObserver();
@@ -515,28 +501,26 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 helper.ClickOk();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var mainWindow = Substitute.For<IMainWindow>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(mainWindow);
+
+            ChangeStructure(structure);
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                var mainWindow = Substitute.For<IMainWindow>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                // When
+                menu.Items[contextMenuUpdateStructureIndex].PerformClick();
 
-                gui.MainWindow.Returns(mainWindow);
+                // Then
+                Assert.IsFalse(calculation.HasOutput);
+                Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
 
-                ChangeStructure(structure);
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuUpdateStructureIndex].PerformClick();
-
-                    // Then
-                    Assert.IsFalse(calculation.HasOutput);
-                    Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
-
-                    string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
-                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                    Assert.AreEqual(expectedMessage, textBoxMessage);
-                }
+                string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
+                                         $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedMessage, textBoxMessage);
             }
 
             inputObserver.Received(1).UpdateObserver();
@@ -553,26 +537,24 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                              "Be&rekenen",
+                                                              "Voer deze berekening uit.",
+                                                              RiskeerCommonFormsResources.CalculateIcon);
 
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                                  "Be&rekenen",
-                                                                  "Voer deze berekening uit.",
-                                                                  RiskeerCommonFormsResources.CalculateIcon);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                  "&Valideren",
-                                                                  "Valideer de invoer voor deze berekening.",
-                                                                  RiskeerCommonFormsResources.ValidateIcon);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
+                                                              "&Valideren",
+                                                              "Valideer de invoer voor deze berekening.",
+                                                              RiskeerCommonFormsResources.ValidateIcon);
             }
         }
 
@@ -590,26 +572,24 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                            failureMechanism,
                                                                            assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(
-                        menu,
-                        contextMenuUpdateForeshoreProfileIndex,
-                        "&Bijwerken voorlandprofiel...",
-                        "Er moet een voorlandprofiel geselecteerd zijn.",
-                        RiskeerCommonFormsResources.UpdateItemIcon,
-                        false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(
+                    menu,
+                    contextMenuUpdateForeshoreProfileIndex,
+                    "&Bijwerken voorlandprofiel...",
+                    "Er moet een voorlandprofiel geselecteerd zijn.",
+                    RiskeerCommonFormsResources.UpdateItemIcon,
+                    false);
             }
         }
 
@@ -633,26 +613,24 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                            failureMechanism,
                                                                            assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(
-                        menu,
-                        contextMenuUpdateForeshoreProfileIndex,
-                        "&Bijwerken voorlandprofiel...",
-                        "Er zijn geen wijzigingen om bij te werken.",
-                        RiskeerCommonFormsResources.UpdateItemIcon,
-                        false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(
+                    menu,
+                    contextMenuUpdateForeshoreProfileIndex,
+                    "&Bijwerken voorlandprofiel...",
+                    "Er zijn geen wijzigingen om bij te werken.",
+                    RiskeerCommonFormsResources.UpdateItemIcon,
+                    false);
             }
         }
 
@@ -679,25 +657,23 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                            failureMechanism,
                                                                            assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(
-                        menu,
-                        contextMenuUpdateForeshoreProfileIndex,
-                        "&Bijwerken voorlandprofiel...",
-                        "Berekening bijwerken met het voorlandprofiel.",
-                        RiskeerCommonFormsResources.UpdateItemIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(
+                    menu,
+                    contextMenuUpdateForeshoreProfileIndex,
+                    "&Bijwerken voorlandprofiel...",
+                    "Berekening bijwerken met het voorlandprofiel.",
+                    RiskeerCommonFormsResources.UpdateItemIcon);
             }
         }
 
@@ -728,27 +704,25 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
+
+            // Precondition
+            Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
+
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                // When
+                contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
 
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
-
-                // Precondition
-                Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
-                }
+                // Then
+                Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
             }
 
             calculationInputObserver.Received(1).UpdateObserver();
@@ -800,28 +774,26 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
+
+            // Precondition
+            Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
+
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                // When
+                contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
 
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
-
-                // Precondition
-                Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
-
-                    // Then
-                    Assert.AreEqual(continuation, calculation.InputParameters.IsForeshoreProfileInputSynchronized);
-                    Assert.AreEqual(!continuation, calculation.HasOutput);
-                }
+                // Then
+                Assert.AreEqual(continuation, calculation.InputParameters.IsForeshoreProfileInputSynchronized);
+                Assert.AreEqual(!continuation, calculation.HasOutput);
             }
 
             string expectedMessageBoxText = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
@@ -890,56 +862,54 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var calculationContext = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(calculationContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(mainWindow);
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresClosureCalculationInput>());
+            calculatorFactory.When(x => x.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                                       Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
             {
-                gui.Get(calculationContext, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation),
+                    (HydraRingCalculationSettings) invocation[0]);
+            });
 
-                gui.MainWindow.Returns(mainWindow);
+            calculation.Attach(observer);
 
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                    Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-                calculatorFactory.When(x => x.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                           Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewCommands))
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // When
+                void Action() => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
+
+                // Then
+                TestHelper.AssertLogMessages(Action, messages =>
                 {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                   hydraulicBoundaryLocation),
-                        (HydraRingCalculationSettings) invocation[0]);
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+                    Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                    StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[5]);
+                    Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
                 });
 
-                calculation.Attach(observer);
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    // Expect an activity dialog which is automatically closed
-                };
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                {
-                    // When
-                    void Action() => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Action, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(7, msgs.Length);
-                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                        StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", msgs[4]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[5]);
-                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
-                    });
-
-                    Assert.IsNotNull(calculation.Output);
-                    observer.Received(1).UpdateObserver();
-                    calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                        Arg.Any<HydraRingCalculationSettings>());
-                }
+                Assert.IsNotNull(calculation.Output);
+                observer.Received(1).UpdateObserver();
+                calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                    Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -987,26 +957,24 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculationContext = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(calculationContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewCommands))
             {
-                gui.Get(calculationContext, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
+                // When
+                void Action() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
 
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
+                // Then
+                TestHelper.AssertLogMessages(Action, messages =>
                 {
-                    // When
-                    void Action() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(Action, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(2, msgs.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
-                    });
-                }
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(2, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                });
             }
         }
 
@@ -1025,20 +993,18 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                // Call
+                ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
 
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsTrue(contextMenuItem.Enabled);
-                }
+                // Assert
+                Assert.IsTrue(contextMenuItem.Enabled);
             }
         }
 
@@ -1057,20 +1023,18 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                // Call
+                ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
 
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
+                // Assert
+                Assert.IsFalse(contextMenuItem.Enabled);
             }
         }
 
@@ -1101,21 +1065,19 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 helper.ClickCancel();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                // When
+                menu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
-
-                    // Then
-                    Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
-                    Assert.IsTrue(calculation.Output.HasGeneralResult);
-                }
+                // Then
+                Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
+                Assert.IsTrue(calculation.Output.HasGeneralResult);
             }
         }
 
@@ -1147,21 +1109,19 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 helper.ClickOk();
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+                // When
+                menu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // When
-                    menu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
-
-                    // Then
-                    Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
-                    Assert.IsFalse(calculation.Output.HasGeneralResult);
-                }
+                // Then
+                Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
+                Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
 
             calculationObserver.Received(1).UpdateObserver();

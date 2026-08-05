@@ -230,15 +230,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                // Call
-                info.ContextMenuStrip(groupContext, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(groupContext, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>
@@ -281,52 +279,50 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewCommands))
             {
-                gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // Assert
+                Assert.AreEqual(20, menu.Items.Count);
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
-                {
-                    // Assert
-                    Assert.AreEqual(20, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
-                                                                  "Genereer &berekeningen...",
-                                                                  "Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.",
-                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-                                                                  "&Map toevoegen",
-                                                                  "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.AddFolderIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-                                                                  "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
-                                                                  "&Bijwerken voorlandprofielen...",
-                                                                  "Er zijn geen berekeningen om bij te werken.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                                  "Alles &valideren",
-                                                                  "Er zijn geen berekeningen om te valideren.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                                  "Alles be&rekenen",
-                                                                  "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
-                                                                  "&Wis alle uitvoer...",
-                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
+                                                              "Genereer &berekeningen...",
+                                                              "Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.",
+                                                              RiskeerCommonFormsResources.GenerateScenariosIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
+                                                              "&Map toevoegen",
+                                                              "Voeg een nieuwe map toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.AddFolderIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
+                                                              "Berekening &toevoegen",
+                                                              "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
+                                                              "&Bijwerken voorlandprofielen...",
+                                                              "Er zijn geen berekeningen om bij te werken.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                              "Alles &valideren",
+                                                              "Er zijn geen berekeningen om te valideren.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                              "Alles be&rekenen",
+                                                              "Er zijn geen berekeningen om uit te voeren.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
+                                                              "&Wis alle uitvoer...",
+                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIcon,
+                                                              false);
             }
         }
 
@@ -358,14 +354,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                // Call
-                info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(groupContext, parentGroupContext, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>
@@ -413,50 +407,48 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                     assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewCommands))
             {
-                gui.Get(groupContext, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // Assert
+                Assert.AreEqual(21, menu.Items.Count);
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
-                {
-                    // Assert
-                    Assert.AreEqual(21, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
-                                                                  "D&upliceren",
-                                                                  "Dupliceer dit element.",
-                                                                  RiskeerCommonFormsResources.CopyHS);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
-                                                                  "&Map toevoegen",
-                                                                  "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.AddFolderIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
-                                                                  "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
-                                                                  "&Bijwerken voorlandprofielen...",
-                                                                  "Er zijn geen berekeningen om bij te werken.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
-                                                                  "Alles &valideren",
-                                                                  "Er zijn geen berekeningen om te valideren.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
-                                                                  "Alles be&rekenen",
-                                                                  "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexNestedGroup,
-                                                                  "&Wis alle uitvoer...",
-                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
+                                                              "D&upliceren",
+                                                              "Dupliceer dit element.",
+                                                              RiskeerCommonFormsResources.CopyHS);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
+                                                              "&Map toevoegen",
+                                                              "Voeg een nieuwe map toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.AddFolderIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
+                                                              "Berekening &toevoegen",
+                                                              "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
+                                                              "&Bijwerken voorlandprofielen...",
+                                                              "Er zijn geen berekeningen om bij te werken.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
+                                                              "Alles &valideren",
+                                                              "Er zijn geen berekeningen om te valideren.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
+                                                              "Alles be&rekenen",
+                                                              "Er zijn geen berekeningen om uit te voeren.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexNestedGroup,
+                                                              "&Wis alle uitvoer...",
+                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIcon,
+                                                              false);
             }
         }
 
@@ -483,75 +475,73 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             exportCommandHandler.CanExportFrom(nodeData).Returns(true);
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommandsHandler = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommandsHandler,
+                                                     nodeData,
+                                                     treeViewCommands);
+
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importCommandHandler,
-                                                         exportCommandHandler,
-                                                         updateCommandHandler,
-                                                         viewCommandsHandler,
-                                                         nodeData,
-                                                         treeViewControl);
-
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
-                                                                  "Genereer &berekeningen...",
-                                                                  "Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.",
-                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon, false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-                                                                  "&Map toevoegen",
-                                                                  "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.AddFolderIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-                                                                  "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                                  "Ma&p leegmaken...",
-                                                                  "Er zijn geen onderliggende elementen om te verwijderen.",
-                                                                  CoreGuiResources.DeleteChildrenIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                                  "Alles &valideren",
-                                                                  "Er zijn geen berekeningen om te valideren.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                                  "Alles be&rekenen",
-                                                                  "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
-                                                                  "&Wis alle uitvoer...",
-                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
-                                                                  "Alles ui&tklappen",
-                                                                  "Klap dit element en alle onderliggende elementen uit.",
-                                                                  CoreGuiResources.ExpandAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
-                                                                  "Alles i&nklappen",
-                                                                  "Klap dit element en alle onderliggende elementen in.",
-                                                                  CoreGuiResources.CollapseAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
-                                                                  "Ei&genschappen",
-                                                                  "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                                  CoreGuiResources.PropertiesHS,
-                                                                  false);
-                }
-
-                exportCommandHandler.Received(1).CanExportFrom(nodeData);
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
+                                                              "Genereer &berekeningen...",
+                                                              "Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.",
+                                                              RiskeerCommonFormsResources.GenerateScenariosIcon, false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
+                                                              "&Map toevoegen",
+                                                              "Voeg een nieuwe map toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.AddFolderIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
+                                                              "Berekening &toevoegen",
+                                                              "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
+                                                              "Ma&p leegmaken...",
+                                                              "Er zijn geen onderliggende elementen om te verwijderen.",
+                                                              CoreGuiResources.DeleteChildrenIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                              "Alles &valideren",
+                                                              "Er zijn geen berekeningen om te valideren.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                              "Alles be&rekenen",
+                                                              "Er zijn geen berekeningen om uit te voeren.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
+                                                              "&Wis alle uitvoer...",
+                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
+                                                              "Alles ui&tklappen",
+                                                              "Klap dit element en alle onderliggende elementen uit.",
+                                                              CoreGuiResources.ExpandAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
+                                                              "Alles i&nklappen",
+                                                              "Klap dit element en alle onderliggende elementen in.",
+                                                              CoreGuiResources.CollapseAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
+                                                              "Ei&genschappen",
+                                                              "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                              CoreGuiResources.PropertiesHS,
+                                                              false);
             }
+
+            exportCommandHandler.Received(1).CanExportFrom(nodeData);
         }
 
         [Test]
@@ -590,115 +580,111 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             exportCommandHandler.CanExportFrom(nodeData).Returns(true);
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommandsHandler = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommandsHandler,
+                                                     nodeData,
+                                                     treeViewCommands);
+
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importCommandHandler,
-                                                         exportCommandHandler,
-                                                         updateCommandHandler,
-                                                         viewCommandsHandler,
-                                                         nodeData,
-                                                         treeViewControl);
-
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
-                                                                  "Genereer &berekeningen...",
-                                                                  "Genereer belastingenberekeningen.",
-                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-                                                                  "&Map toevoegen",
-                                                                  "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.AddFolderIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-                                                                  "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                                  "Ma&p leegmaken...",
-                                                                  "Er zijn geen onderliggende elementen om te verwijderen.",
-                                                                  CoreGuiResources.DeleteChildrenIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                                  "Alles &valideren",
-                                                                  "Er zijn geen berekeningen om te valideren.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                                  "Alles be&rekenen",
-                                                                  "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
-                                                                  "&Wis alle uitvoer...",
-                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
-                                                                  "Alles ui&tklappen",
-                                                                  "Klap dit element en alle onderliggende elementen uit.",
-                                                                  CoreGuiResources.ExpandAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
-                                                                  "Alles i&nklappen",
-                                                                  "Klap dit element en alle onderliggende elementen in.",
-                                                                  CoreGuiResources.CollapseAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
-                                                                  "Ei&genschappen",
-                                                                  "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                                  CoreGuiResources.PropertiesHS,
-                                                                  false);
-                }
-
-                importCommandHandler.Received(1).GetSupportedImportInfos(nodeData);
-                exportCommandHandler.Received(1).CanExportFrom(nodeData);
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
+                                                              "Genereer &berekeningen...",
+                                                              "Genereer belastingenberekeningen.",
+                                                              RiskeerCommonFormsResources.GenerateScenariosIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
+                                                              "&Map toevoegen",
+                                                              "Voeg een nieuwe map toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.AddFolderIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
+                                                              "Berekening &toevoegen",
+                                                              "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
+                                                              "Ma&p leegmaken...",
+                                                              "Er zijn geen onderliggende elementen om te verwijderen.",
+                                                              CoreGuiResources.DeleteChildrenIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                              "Alles &valideren",
+                                                              "Er zijn geen berekeningen om te valideren.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                              "Alles be&rekenen",
+                                                              "Er zijn geen berekeningen om uit te voeren.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
+                                                              "&Wis alle uitvoer...",
+                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
+                                                              "Alles ui&tklappen",
+                                                              "Klap dit element en alle onderliggende elementen uit.",
+                                                              CoreGuiResources.ExpandAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
+                                                              "Alles i&nklappen",
+                                                              "Klap dit element en alle onderliggende elementen in.",
+                                                              CoreGuiResources.CollapseAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
+                                                              "Ei&genschappen",
+                                                              "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                              CoreGuiResources.PropertiesHS,
+                                                              false);
             }
+
+            importCommandHandler.Received(1).GetSupportedImportInfos(nodeData);
+            exportCommandHandler.Received(1).CanExportFrom(nodeData);
         }
 
         [Test]
         public void ContextMenuStrip_NestedCalculationGroupWithoutCalculations_CalculateAllAndValidateAllDisabled()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var group = new CalculationGroup();
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(group);
+
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
+            var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
-                var group = new CalculationGroup();
-
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(group);
-
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                              failureMechanism.CalculationsGroup,
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-                var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                    null,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
-                    Assert.IsFalse(validateItem.Enabled);
-                    Assert.IsFalse(calculateItem.Enabled);
-                    Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", calculateItem.ToolTipText);
-                    Assert.AreEqual("Er zijn geen berekeningen om te valideren.", validateItem.ToolTipText);
-                }
+                // Assert
+                ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
+                Assert.IsFalse(validateItem.Enabled);
+                Assert.IsFalse(calculateItem.Enabled);
+                Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", calculateItem.ToolTipText);
+                Assert.AreEqual("Er zijn geen berekeningen om te valideren.", validateItem.ToolTipText);
             }
         }
 
@@ -708,41 +694,39 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled(bool usePreprocessorClosure)
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var group = new CalculationGroup();
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(group);
+
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+
+            var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
+            var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
-                var group = new CalculationGroup();
-
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
-                failureMechanism.CalculationsGroup.Children.Add(group);
-
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-
-                var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                              failureMechanism.CalculationsGroup,
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-                var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                    null,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
-                    Assert.IsTrue(validateItem.Enabled);
-                    Assert.IsTrue(calculateItem.Enabled);
-                    Assert.AreEqual("Voer alle berekeningen binnen deze map met berekeningen uit.", calculateItem.ToolTipText);
-                    Assert.AreEqual("Valideer alle berekeningen binnen deze map met berekeningen.", validateItem.ToolTipText);
-                }
+                // Assert
+                ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
+                Assert.IsTrue(validateItem.Enabled);
+                Assert.IsTrue(calculateItem.Enabled);
+                Assert.AreEqual("Voer alle berekeningen binnen deze map met berekeningen uit.", calculateItem.ToolTipText);
+                Assert.AreEqual("Valideer alle berekeningen binnen deze map met berekeningen.", validateItem.ToolTipText);
             }
         }
 
@@ -773,27 +757,25 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // Call
+                void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                // Assert
+                TestHelper.AssertLogMessages(Call, m =>
                 {
-                    // Call
-                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessages(Call, m =>
-                    {
-                        string[] messages = m.ToArray();
-                        Assert.AreEqual(4, messages.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[2]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[3]);
-                    });
-                }
+                    string[] messages = m.ToArray();
+                    Assert.AreEqual(4, messages.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messages[2]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messages[3]);
+                });
             }
         }
 
@@ -831,51 +813,49 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 // Expect an activity dialog which is automatically closed
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(callInfo =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
+                                     (HydraRingCalculationSettings) callInfo[0]);
+                                 return new TestWaveConditionsCosineCalculator();
+                             });
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+                // Call
+                void Call() => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
 
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                                 .Returns(callInfo =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                             assessmentSection.HydraulicBoundaryData,
-                                             hydraulicBoundaryLocation),
-                                         (HydraRingCalculationSettings) callInfo[0]);
-                                     return new TestWaveConditionsCosineCalculator();
-                                 });
-
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                // Assert
+                TestHelper.AssertLogMessages(Call, m =>
                 {
-                    // Call
-                    void Call() => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
+                    string[] messages = m.ToArray();
+                    Assert.AreEqual(56, messages.Length);
+                    Assert.AreEqual("Golfcondities berekenen voor 'A' is gestart.", messages[0]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[26]);
+                    Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[27]);
 
-                    // Assert
-                    TestHelper.AssertLogMessages(Call, m =>
-                    {
-                        string[] messages = m.ToArray();
-                        Assert.AreEqual(56, messages.Length);
-                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gestart.", messages[0]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[26]);
-                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[27]);
-
-                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gestart.", messages[28]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[31]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[54]);
-                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gelukt.", messages[55]);
-                    });
-                    Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());
-                    Assert.AreEqual(3, calculationA.Output.ColumnsOutput.Count());
-                    Assert.AreEqual(3, calculationB.Output.BlocksOutput.Count());
-                    Assert.AreEqual(3, calculationB.Output.ColumnsOutput.Count());
-                }
+                    Assert.AreEqual("Golfcondities berekenen voor 'B' is gestart.", messages[28]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[31]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[54]);
+                    Assert.AreEqual("Golfcondities berekenen voor 'B' is gelukt.", messages[55]);
+                });
+                Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());
+                Assert.AreEqual(3, calculationA.Output.ColumnsOutput.Count());
+                Assert.AreEqual(3, calculationB.Output.BlocksOutput.Count());
+                Assert.AreEqual(3, calculationB.Output.ColumnsOutput.Count());
             }
         }
 
@@ -902,24 +882,22 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var mainWindow = Substitute.For<IMainWindow>();
+
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
-                var mainWindow = Substitute.For<IMainWindow>();
+                // Call
+                ToolStripItem clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
 
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
-
-                    // Assert
-                    Assert.IsFalse(clearAllOutputItem.Enabled);
-                }
+                // Assert
+                Assert.IsFalse(clearAllOutputItem.Enabled);
             }
         }
 
@@ -952,21 +930,19 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var mainWindow = Substitute.For<IMainWindow>();
+
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
-                var mainWindow = Substitute.For<IMainWindow>();
+                // Call
+                ToolStripItem clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
 
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem clearAllOutputItem = contextMenu.Items[contextMenuClearOutputIndexNestedGroup];
-
-                    // Assert
-                    Assert.IsFalse(clearAllOutputItem.Enabled);
-                }
+                // Assert
+                Assert.IsFalse(clearAllOutputItem.Enabled);
             }
         }
 
@@ -1020,29 +996,27 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var mainWindow = Substitute.For<IMainWindow>();
+
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
-                var mainWindow = Substitute.For<IMainWindow>();
+                // Call
+                contextMenu.Items[contextMenuClearOutputIndexNestedGroup].PerformClick();
 
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                // Assert
+                if (confirm)
                 {
-                    // Call
-                    contextMenu.Items[contextMenuClearOutputIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    if (confirm)
-                    {
-                        Assert.IsNull(calculationA.Output);
-                        Assert.IsNull(calculationB.Output);
-                        observerA.Received(1).UpdateObserver();
-                        observerB.Received(1).UpdateObserver();
-                    }
+                    Assert.IsNull(calculationA.Output);
+                    Assert.IsNull(calculationB.Output);
+                    observerA.Received(1).UpdateObserver();
+                    observerB.Received(1).UpdateObserver();
                 }
             }
         }
@@ -1051,54 +1025,52 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+
+            var group = new CalculationGroup();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(group);
+
+            var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
+            var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            var observer = Substitute.For<IObserver>();
+
+            var calculationItem = new CalculationGroup
             {
-                var assessmentSection = Substitute.For<IAssessmentSection>();
+                Name = "Nieuwe map"
+            };
+            group.Children.Add(calculationItem);
 
-                var group = new CalculationGroup();
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(group);
+            nodeData.Attach(observer);
 
-                var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                              failureMechanism.CalculationsGroup,
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-                var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                    null,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
+            {
+                // Precondition
+                Assert.AreEqual(1, group.Children.Count);
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                // Call
+                contextMenu.Items[contextMenuAddCalculationGroupIndexNestedGroup].PerformClick();
 
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                var observer = Substitute.For<IObserver>();
-
-                var calculationItem = new CalculationGroup
-                {
-                    Name = "Nieuwe map"
-                };
-                group.Children.Add(calculationItem);
-
-                nodeData.Attach(observer);
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Precondition
-                    Assert.AreEqual(1, group.Children.Count);
-
-                    // Call
-                    contextMenu.Items[contextMenuAddCalculationGroupIndexNestedGroup].PerformClick();
-
-                    // Assert
-                    Assert.AreEqual(2, group.Children.Count);
-                    ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
-                    Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
-                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                    observer.Received(1).UpdateObserver();
-                }
+                // Assert
+                Assert.AreEqual(2, group.Children.Count);
+                ICalculationBase newlyAddedItem = group.Children.Last();
+                Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
+                Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
+                                "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -1129,33 +1101,31 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
             var observer = Substitute.For<IObserver>();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            group.Children.Add(calculationItem);
+            nodeData.Attach(observer);
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // Precondition
+                Assert.AreEqual(1, group.Children.Count);
 
-                group.Children.Add(calculationItem);
-                nodeData.Attach(observer);
+                // Call
+                contextMenu.Items[contextMenuAddCalculationIndexRootGroup].PerformClick();
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Precondition
-                    Assert.AreEqual(1, group.Children.Count);
-
-                    // Call
-                    contextMenu.Items[contextMenuAddCalculationIndexRootGroup].PerformClick();
-
-                    // Assert
-                    Assert.AreEqual(2, group.Children.Count);
-                    ICalculationBase newlyAddedItem = group.Children.Last();
-                    var newCalculationItem = newlyAddedItem as StabilityStoneCoverWaveConditionsCalculation;
-                    Assert.IsNotNull(newCalculationItem);
-                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
-                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                    Assert.AreEqual(GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType), newCalculationItem.InputParameters.WaterLevelType);
-                    observer.Received(1).UpdateObserver();
-                }
+                // Assert
+                Assert.AreEqual(2, group.Children.Count);
+                ICalculationBase newlyAddedItem = group.Children.Last();
+                var newCalculationItem = newlyAddedItem as StabilityStoneCoverWaveConditionsCalculation;
+                Assert.IsNotNull(newCalculationItem);
+                Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
+                                "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                Assert.AreEqual(GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType), newCalculationItem.InputParameters.WaterLevelType);
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -1166,110 +1136,29 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var random = new Random(21);
             var normativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var existingGroup = new CalculationGroup();
+            var existingCalculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var group = new CalculationGroup
             {
-                var existingGroup = new CalculationGroup();
-                var existingCalculation = new StabilityStoneCoverWaveConditionsCalculation();
-                var group = new CalculationGroup
+                Children =
                 {
-                    Children =
-                    {
-                        existingGroup,
-                        existingCalculation
-                    }
-                };
+                    existingGroup,
+                    existingCalculation
+                }
+            };
 
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
-                var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
 
-                var assessmentSection = new AssessmentSectionStub
-                {
-                    FailureMechanismContribution =
-                    {
-                        NormativeProbabilityType = normativeProbabilityType
-                    },
-                    HydraulicBoundaryData =
-                    {
-                        HydraulicBoundaryDatabases =
-                        {
-                            new HydraulicBoundaryDatabase
-                            {
-                                Locations =
-                                {
-                                    hydraulicBoundaryLocation1,
-                                    hydraulicBoundaryLocation2
-                                }
-                            }
-                        }
-                    }
-                };
-
-                var observer = Substitute.For<IObserver>();
-                var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                              null,
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = Substitute.For<IMainWindow>();
-                var viewCommands = Substitute.For<IViewCommands>();
-
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-                gui.ViewCommands.Returns(viewCommands);
-
-                nodeData.Attach(observer);
-
-                HydraulicBoundaryLocationSelectionDialog dialog = null;
-                DataGridViewControl grid = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
-                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
-                    grid.Rows[0].Cells[0].Value = true;
-                    grid.Rows[1].Cells[0].Value = true;
-                    new ButtonTester("DoForSelectedButton", dialog).Click();
-                };
-
-                // When
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
-
-                // Then
-                Assert.AreEqual(4, group.Children.Count);
-                Assert.AreSame(existingGroup, group.Children[0]);
-                Assert.AreSame(existingCalculation, group.Children[1]);
-                Assert.NotNull(dialog);
-                Assert.NotNull(grid);
-
-                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType);
-                var firstCalculation = group.Children[2] as StabilityStoneCoverWaveConditionsCalculation;
-                Assert.IsNotNull(firstCalculation);
-                StabilityStoneCoverWaveConditionsInput firstCalculationInputParameters = firstCalculation.InputParameters;
-                Assert.AreSame(hydraulicBoundaryLocation1, firstCalculationInputParameters.HydraulicBoundaryLocation);
-                Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInputParameters.WaterLevelType);
-
-                var secondCalculation = group.Children[3] as StabilityStoneCoverWaveConditionsCalculation;
-                Assert.IsNotNull(secondCalculation);
-                StabilityStoneCoverWaveConditionsInput secondCalculationInputParameters = secondCalculation.InputParameters;
-                Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInputParameters.HydraulicBoundaryLocation);
-                Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInputParameters.WaterLevelType);
-                observer.Received(1).UpdateObserver();
-            }
-        }
-
-        [Test]
-        public void GivenDialogGenerateCalculationButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationGroupNotUpdated()
-        {
-            // Given
-            using (var treeViewControl = new TreeViewControl())
+            var assessmentSection = new AssessmentSectionStub
             {
-                var group = new CalculationGroup();
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
+                FailureMechanismContribution =
+                {
+                    NormativeProbabilityType = normativeProbabilityType
+                },
+                HydraulicBoundaryData =
                 {
                     HydraulicBoundaryDatabases =
                     {
@@ -1277,47 +1166,124 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                         {
                             Locations =
                             {
-                                new TestHydraulicBoundaryLocation()
+                                hydraulicBoundaryLocation1,
+                                hydraulicBoundaryLocation2
                             }
                         }
                     }
-                });
+                }
+            };
 
-                var observer = Substitute.For<IObserver>();
-                var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                              null,
-                                                                              failureMechanism,
-                                                                              assessmentSection);
+            var observer = Substitute.For<IObserver>();
+            var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
+                                                                          null,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = Substitute.For<IMainWindow>();
-                var viewCommands = Substitute.For<IViewCommands>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var viewCommands = Substitute.For<IViewCommands>();
 
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(mainWindow);
-                gui.ViewCommands.Returns(viewCommands);
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+            gui.ViewCommands.Returns(viewCommands);
 
-                nodeData.Attach(observer);
+            nodeData.Attach(observer);
 
-                HydraulicBoundaryLocationSelectionDialog dialog = null;
-                DataGridViewControl grid = null;
-                DialogBoxHandler = (name, wnd) =>
+            HydraulicBoundaryLocationSelectionDialog dialog = null;
+            DataGridViewControl grid = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+                grid.Rows[0].Cells[0].Value = true;
+                grid.Rows[1].Cells[0].Value = true;
+                new ButtonTester("DoForSelectedButton", dialog).Click();
+            };
+
+            // When
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+                contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+
+            // Then
+            Assert.AreEqual(4, group.Children.Count);
+            Assert.AreSame(existingGroup, group.Children[0]);
+            Assert.AreSame(existingCalculation, group.Children[1]);
+            Assert.NotNull(dialog);
+            Assert.NotNull(grid);
+
+            WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType);
+            var firstCalculation = group.Children[2] as StabilityStoneCoverWaveConditionsCalculation;
+            Assert.IsNotNull(firstCalculation);
+            StabilityStoneCoverWaveConditionsInput firstCalculationInputParameters = firstCalculation.InputParameters;
+            Assert.AreSame(hydraulicBoundaryLocation1, firstCalculationInputParameters.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInputParameters.WaterLevelType);
+
+            var secondCalculation = group.Children[3] as StabilityStoneCoverWaveConditionsCalculation;
+            Assert.IsNotNull(secondCalculation);
+            StabilityStoneCoverWaveConditionsInput secondCalculationInputParameters = secondCalculation.InputParameters;
+            Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInputParameters.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInputParameters.WaterLevelType);
+            observer.Received(1).UpdateObserver();
+        }
+
+        [Test]
+        public void GivenDialogGenerateCalculationButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationGroupNotUpdated()
+        {
+            // Given
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var group = new CalculationGroup();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData
+            {
+                HydraulicBoundaryDatabases =
                 {
-                    dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
-                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
-                    grid.Rows[0].Cells[0].Value = true;
-                    new ButtonTester("CustomCancelButton", dialog).Click();
-                };
+                    new HydraulicBoundaryDatabase
+                    {
+                        Locations =
+                        {
+                            new TestHydraulicBoundaryLocation()
+                        }
+                    }
+                }
+            });
 
-                // When
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+            var observer = Substitute.For<IObserver>();
+            var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
+                                                                          null,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
 
-                // Then
-                Assert.AreEqual(0, group.Children.Count);
-                Assert.NotNull(dialog);
-                Assert.NotNull(grid);
-            }
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var mainWindow = Substitute.For<IMainWindow>();
+            var viewCommands = Substitute.For<IViewCommands>();
+
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(mainWindow);
+            gui.ViewCommands.Returns(viewCommands);
+
+            nodeData.Attach(observer);
+
+            HydraulicBoundaryLocationSelectionDialog dialog = null;
+            DataGridViewControl grid = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+                grid.Rows[0].Cells[0].Value = true;
+                new ButtonTester("CustomCancelButton", dialog).Click();
+            };
+
+            // When
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+                contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+
+            // Then
+            Assert.AreEqual(0, group.Children.Count);
+            Assert.NotNull(dialog);
+            Assert.NotNull(grid);
         }
 
         [Test]
@@ -1366,36 +1332,34 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                          failureMechanism,
                                                                          assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            importHandler.GetSupportedImportInfos(context).Returns(Array.Empty<ImportInfo>());
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewCommands);
+
+            gui.ViewCommands.Returns(viewCommands);
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            // When
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
-                var importHandler = Substitute.For<IImportCommandHandler>();
-                importHandler.GetSupportedImportInfos(context).Returns(Array.Empty<ImportInfo>());
-                var exportHandler = Substitute.For<IExportCommandHandler>();
-                var updateHandler = Substitute.For<IUpdateCommandHandler>();
-                var viewCommands = Substitute.For<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                gui.ViewCommands.Returns(viewCommands);
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                // When
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuAddCalculationIndexRootGroup,
-                                                                  "Berekening &toevoegen",
-                                                                  "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
-                }
+                // Then
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              contextMenuAddCalculationIndexRootGroup,
+                                                              "Berekening &toevoegen",
+                                                              "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
             }
         }
 
@@ -1413,37 +1377,35 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                          failureMechanism,
                                                                          new AssessmentSectionStub());
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            importHandler.GetSupportedImportInfos(context).Returns(Array.Empty<ImportInfo>());
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewCommands);
+
+            gui.ViewCommands.Returns(viewCommands);
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
-                var importHandler = Substitute.For<IImportCommandHandler>();
-                importHandler.GetSupportedImportInfos(context).Returns(Array.Empty<ImportInfo>());
-                var exportHandler = Substitute.For<IExportCommandHandler>();
-                var updateHandler = Substitute.For<IUpdateCommandHandler>();
-                var viewCommands = Substitute.For<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
+                // When
+                ToolStripItem validateMenuItem = contextMenu.Items[contextMenuAddCalculationIndexRootGroup];
+                validateMenuItem.PerformClick();
 
-                gui.ViewCommands.Returns(viewCommands);
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    ToolStripItem validateMenuItem = contextMenu.Items[contextMenuAddCalculationIndexRootGroup];
-                    validateMenuItem.PerformClick();
-
-                    // Then
-                    Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);
-                    Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(failureMechanism.CalculationsGroup.Children[0]);
-                    observer.Received(1).UpdateObserver();
-                }
+                // Then
+                Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);
+                Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(failureMechanism.CalculationsGroup.Children[0]);
+                observer.Received(1).UpdateObserver();
             }
         }
 
@@ -1473,23 +1435,21 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 failureMechanism,
                 assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            calculation.InputParameters.UseBreakWater = true;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                calculation.InputParameters.UseBreakWater = true;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  contextMenuUpdateForeshoreProfileIndexRootGroup,
-                                                                  "&Bijwerken voorlandprofielen...",
-                                                                  "Alle berekeningen met een voorlandprofiel bijwerken.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              contextMenuUpdateForeshoreProfileIndexRootGroup,
+                                                              "&Bijwerken voorlandprofielen...",
+                                                              "Alle berekeningen met een voorlandprofiel bijwerken.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon);
             }
         }
 
@@ -1526,21 +1486,19 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            calculation.InputParameters.UseBreakWater = false;
+
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // When
+                contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndexRootGroup].PerformClick();
 
-                calculation.InputParameters.UseBreakWater = false;
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndexRootGroup].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
-                }
+                // Then
+                Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
             }
 
             calculationInputObserver.Received(1).UpdateObserver();

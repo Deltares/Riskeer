@@ -436,15 +436,13 @@ namespace Core.Gui.Test.Forms.Map
 
             parentMapDataCollection.Attach(observer);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                info.OnDrop(context, parentContext, parentContext, position, treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            info.OnDrop(context, parentContext, parentContext, position, treeViewCommands);
 
-                // Assert
-                int reversedIndex = 2 - position;
-                Assert.AreSame(context.WrappedData, parentMapDataCollection.Collection.ElementAt(reversedIndex));
-            }
+            // Assert
+            int reversedIndex = 2 - position;
+            Assert.AreSame(context.WrappedData, parentMapDataCollection.Collection.ElementAt(reversedIndex));
 
             observer.Received(1).UpdateObserver();
         }
@@ -474,14 +472,12 @@ namespace Core.Gui.Test.Forms.Map
 
             parentMapDataCollection.Attach(observer);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                Action test = () => info.OnDrop(context, parentContext, parentContext, position, treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            Action test = () => info.OnDrop(context, parentContext, parentContext, position, treeViewCommands);
 
-                // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(test);
-            }
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(test);
         }
 
         [Test]
@@ -532,27 +528,25 @@ namespace Core.Gui.Test.Forms.Map
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 mapDataCollection,
+                                                 treeViewCommands);
+
+            contextMenuBuilderProvider.Get(context, treeViewCommands).Returns(builder);
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     mapDataCollection,
-                                                     treeViewControl);
-
-                contextMenuBuilderProvider.Get(context, treeViewControl).Returns(builder);
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuAddMapLayerIndex,
-                                                                  "&Voeg kaartlaag toe...",
-                                                                  "Importeer een nieuwe kaartlaag en voeg deze toe.",
-                                                                  Resources.MapPlusIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuAddMapLayerIndex,
+                                                              "&Voeg kaartlaag toe...",
+                                                              "Importeer een nieuwe kaartlaag en voeg deze toe.",
+                                                              Resources.MapPlusIcon);
             }
         }
 
@@ -572,20 +566,18 @@ namespace Core.Gui.Test.Forms.Map
             var mapDataCollection = new MapDataCollection("test data");
             mapDataCollection.Add(featureBasedMapData);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new CustomItemsOnlyContextMenuBuilder();
-                contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
-                                                                  "&Zoom naar alles",
-                                                                  "Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze map met kaartlagen precies in het beeld passen.",
-                                                                  Resources.ZoomToAllIcon);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                              "&Zoom naar alles",
+                                                              "Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze map met kaartlagen precies in het beeld passen.",
+                                                              Resources.ZoomToAllIcon);
             }
         }
 
@@ -600,21 +592,19 @@ namespace Core.Gui.Test.Forms.Map
             var mapDataCollection = new MapDataCollection("test data");
             mapDataCollection.Add(featureBasedMapData);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new CustomItemsOnlyContextMenuBuilder();
-                contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
-                                                                  "&Zoom naar alles",
-                                                                  "Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze map met kaartlagen zichtbaar zijn.",
-                                                                  Resources.ZoomToAllIcon,
-                                                                  false);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                              "&Zoom naar alles",
+                                                              "Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze map met kaartlagen zichtbaar zijn.",
+                                                              Resources.ZoomToAllIcon,
+                                                              false);
             }
         }
 
@@ -629,21 +619,19 @@ namespace Core.Gui.Test.Forms.Map
             var mapDataCollection = new MapDataCollection("test data");
             mapDataCollection.Add(featureBasedMapData);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new CustomItemsOnlyContextMenuBuilder();
-                contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new CustomItemsOnlyContextMenuBuilder();
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
-                                                                  "&Zoom naar alles",
-                                                                  "Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze map met kaartlagen elementen bevatten.",
-                                                                  Resources.ZoomToAllIcon,
-                                                                  false);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                                                              "&Zoom naar alles",
+                                                              "Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze map met kaartlagen elementen bevatten.",
+                                                              Resources.ZoomToAllIcon,
+                                                              false);
             }
         }
 

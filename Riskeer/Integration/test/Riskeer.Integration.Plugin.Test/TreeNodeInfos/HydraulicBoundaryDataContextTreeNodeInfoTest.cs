@@ -139,20 +139,18 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
-                    plugin.Gui = gui;
+                plugin.Gui = gui;
 
-                    // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
 
             // Assert
@@ -193,35 +191,33 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 context,
+                                                 treeViewCommands);
+
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(builder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            using (var plugin = new RiskeerPlugin())
             {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     context,
-                                                     treeViewControl);
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
 
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeViewControl).Returns(builder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                using (var plugin = new RiskeerPlugin())
+                // Call
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
                 {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
+                    Assert.AreEqual(6, contextMenuStrip.Items.Count);
 
-                    // Call
-                    using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
-                    {
-                        Assert.AreEqual(6, contextMenuStrip.Items.Count);
-
-                        TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
-                                                                      contextMenuImportHydraulicLocationConfigurationDatabaseIndex,
-                                                                      "&Selecteer HLCD bestand...",
-                                                                      "Selecteer een HLCD bestand.",
-                                                                      RiskeerCommonFormsResources.DatabaseIcon);
-                    }
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
+                                                                  contextMenuImportHydraulicLocationConfigurationDatabaseIndex,
+                                                                  "&Selecteer HLCD bestand...",
+                                                                  "Selecteer een HLCD bestand.",
+                                                                  RiskeerCommonFormsResources.DatabaseIcon);
                 }
             }
         }
@@ -237,27 +233,25 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var context = new HydraulicBoundaryDataContext(assessmentSection.HydraulicBoundaryData, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-                using (var plugin = new RiskeerPlugin())
+                TreeNodeInfo info = GetInfo(plugin);
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, null, treeViewCommands))
                 {
-                    TreeNodeInfo info = GetInfo(plugin);
+                    Assert.AreEqual(6, contextMenuStrip.Items.Count);
 
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, null, treeViewControl))
-                    {
-                        Assert.AreEqual(6, contextMenuStrip.Items.Count);
-
-                        TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuSelectDifferentFolderIndex,
-                                                                      "&Selecteer andere bestandsmap...",
-                                                                      "Selecteer een andere bestandsmap.",
-                                                                      RiskeerCommonFormsResources.GeneralFolderIcon);
-                    }
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuSelectDifferentFolderIndex,
+                                                                  "&Selecteer andere bestandsmap...",
+                                                                  "Selecteer een andere bestandsmap.",
+                                                                  RiskeerCommonFormsResources.GeneralFolderIcon);
                 }
             }
         }

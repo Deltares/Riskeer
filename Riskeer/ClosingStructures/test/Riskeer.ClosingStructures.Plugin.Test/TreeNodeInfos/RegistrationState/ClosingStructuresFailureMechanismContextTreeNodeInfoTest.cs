@@ -177,42 +177,40 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
+
+            // Assert
+            Received.InOrder(() =>
             {
-                var failureMechanism = new ClosingStructuresFailureMechanism();
-                var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-
-                // Assert
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddOpenItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCollapseAllItem();
-                    menuBuilder.AddExpandAllItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
-            }
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -221,42 +219,40 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                var failureMechanism = new ClosingStructuresFailureMechanism
-                {
-                    InAssembly = false
-                };
-                var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+                InAssembly = false
+            };
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
 
-                plugin.Gui = gui;
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
 
-                // Assert
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCollapseAllItem();
-                    menuBuilder.AddExpandAllItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
-            }
+            // Assert
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [TestFixture]

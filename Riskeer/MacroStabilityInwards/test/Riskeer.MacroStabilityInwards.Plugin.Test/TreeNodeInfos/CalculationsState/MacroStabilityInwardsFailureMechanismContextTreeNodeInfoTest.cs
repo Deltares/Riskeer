@@ -158,78 +158,76 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
         public void GivenMultipleCalculationsWithOutput_WhenClearingOutputFromContextMenu_ThenOutputCleared(bool confirm)
         {
             // Given
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var calculation1 = new MacroStabilityInwardsCalculationScenario
             {
-                var calculation1 = new MacroStabilityInwardsCalculationScenario
-                {
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
-                };
-                var calculation2 = new MacroStabilityInwardsCalculationScenario
-                {
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
-                };
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
+            var calculation2 = new MacroStabilityInwardsCalculationScenario
+            {
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
 
-                var observer = Substitute.For<IObserver>();
+            var observer = Substitute.For<IObserver>();
 
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(calculation1);
-                failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
 
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
 
-                failureMechanism.CalculationsGroup.Children.Add(calculation1);
-                failureMechanism.CalculationsGroup.Children.Add(calculation2);
-                failureMechanism.CalculationsGroup.Children.ElementAt(0).Attach(observer);
-                failureMechanism.CalculationsGroup.Children.ElementAt(1).Attach(observer);
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            failureMechanism.CalculationsGroup.Children.ElementAt(0).Attach(observer);
+            failureMechanism.CalculationsGroup.Children.ElementAt(1).Attach(observer);
 
-                string messageBoxTitle = null, messageBoxText = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var messageBox = new MessageBoxTester(wnd);
+            string messageBoxTitle = null, messageBoxText = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
 
-                    messageBoxText = messageBox.Text;
-                    messageBoxTitle = messageBox.Title;
-
-                    if (confirm)
-                    {
-                        messageBox.ClickOk();
-                    }
-                    else
-                    {
-                        messageBox.ClickCancel();
-                    }
-                };
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    contextMenuStrip.Items[contextMenuClearIndex].PerformClick();
-
-                    // Then
-                    foreach (ICalculation calc in failureMechanism.CalculationsGroup.Children.OfType<ICalculation>())
-                    {
-                        Assert.AreNotEqual(confirm, calc.HasOutput);
-                    }
-
-                    Assert.AreEqual("Bevestigen", messageBoxTitle);
-                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
-                }
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
 
                 if (confirm)
                 {
-                    observer.Received(2).UpdateObserver();
+                    messageBox.ClickOk();
                 }
                 else
                 {
-                    observer.DidNotReceive().UpdateObserver();
+                    messageBox.ClickCancel();
                 }
+            };
+
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // When
+                contextMenuStrip.Items[contextMenuClearIndex].PerformClick();
+
+                // Then
+                foreach (ICalculation calc in failureMechanism.CalculationsGroup.Children.OfType<ICalculation>())
+                {
+                    Assert.AreNotEqual(confirm, calc.HasOutput);
+                }
+
+                Assert.AreEqual("Bevestigen", messageBoxTitle);
+                Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+            }
+
+            if (confirm)
+            {
+                observer.Received(2).UpdateObserver();
+            }
+            else
+            {
+                observer.DidNotReceive().UpdateObserver();
             }
         }
 
@@ -253,74 +251,72 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommandsHandler = Substitute.For<IViewCommands>();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommandsHandler,
+                                                     context,
+                                                     treeViewCommands);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importCommandHandler,
-                                                         exportCommandHandler,
-                                                         updateCommandHandler,
-                                                         viewCommandsHandler,
-                                                         context,
-                                                         treeViewControl);
+                // Assert
+                Assert.AreEqual(11, menu.Items.Count);
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              0,
+                                                              "&Openen",
+                                                              "Open de gegevens in een nieuw documentvenster.",
+                                                              CoreGuiResources.OpenIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              2,
+                                                              "Alles &valideren",
+                                                              "Valideer alle berekeningen binnen dit faalmechanisme.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              3,
+                                                              "Alles be&rekenen",
+                                                              "Voer alle berekeningen binnen dit faalmechanisme uit.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              5,
+                                                              "&Wis alle uitvoer...",
+                                                              "Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.",
+                                                              RiskeerCommonFormsResources.ClearIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              7,
+                                                              "Alles i&nklappen",
+                                                              "Klap dit element en alle onderliggende elementen in.",
+                                                              CoreGuiResources.CollapseAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              8,
+                                                              "Alles ui&tklappen",
+                                                              "Klap dit element en alle onderliggende elementen uit.",
+                                                              CoreGuiResources.ExpandAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                              10,
+                                                              "Ei&genschappen",
+                                                              "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                              CoreGuiResources.PropertiesHS,
+                                                              false);
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
+                CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
-                    // Assert
-                    Assert.AreEqual(11, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  0,
-                                                                  "&Openen",
-                                                                  "Open de gegevens in een nieuw documentvenster.",
-                                                                  CoreGuiResources.OpenIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  2,
-                                                                  "Alles &valideren",
-                                                                  "Valideer alle berekeningen binnen dit faalmechanisme.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  3,
-                                                                  "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit faalmechanisme uit.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  5,
-                                                                  "&Wis alle uitvoer...",
-                                                                  "Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.",
-                                                                  RiskeerCommonFormsResources.ClearIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  7,
-                                                                  "Alles i&nklappen",
-                                                                  "Klap dit element en alle onderliggende elementen in.",
-                                                                  CoreGuiResources.CollapseAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  8,
-                                                                  "Alles ui&tklappen",
-                                                                  "Klap dit element en alle onderliggende elementen uit.",
-                                                                  CoreGuiResources.ExpandAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  10,
-                                                                  "Ei&genschappen",
-                                                                  "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                                  CoreGuiResources.PropertiesHS,
-                                                                  false);
-
-                    CollectionAssert.AllItemsAreInstancesOfType(new[]
-                    {
-                        menu.Items[1],
-                        menu.Items[4],
-                        menu.Items[6],
-                        menu.Items[9]
-                    }, typeof(ToolStripSeparator));
-                }
+                    menu.Items[1],
+                    menu.Items[4],
+                    menu.Items[6],
+                    menu.Items[9]
+                }, typeof(ToolStripSeparator));
             }
         }
 
@@ -328,26 +324,24 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
         public void ContextMenuStrip_MacroStabilityInwardsFailureMechanismNoOutput_ContextMenuItemClearAllOutputDisabled()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var data = new MacroStabilityInwardsFailureMechanism();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new MacroStabilityInwardsFailureMechanismContext(data, assessmentSection);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var data = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new MacroStabilityInwardsFailureMechanismContext(data, assessmentSection);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-                    Assert.IsFalse(clearOutputItem.Enabled);
-                    Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
-                }
+                // Assert
+                ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+                Assert.IsFalse(clearOutputItem.Enabled);
+                Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
             }
         }
 
@@ -355,35 +349,33 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
         public void ContextMenuStrip_MacroStabilityInwardsFailureMechanismWithOutput_ContextMenuItemClearAllOutputEnabled()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
-                var calculation = new MacroStabilityInwardsCalculationScenario
-                {
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
-                };
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
 
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(calculation);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
 
-                failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-                    Assert.IsTrue(clearOutputItem.Enabled);
-                    Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.", clearOutputItem.ToolTipText);
-                }
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // Assert
+                ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+                Assert.IsTrue(clearOutputItem.Enabled);
+                Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.", clearOutputItem.ToolTipText);
             }
         }
 
@@ -391,49 +383,47 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
-                var assessmentSection = new AssessmentSectionStub();
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+                hydraulicBoundaryLocation
+            }, true);
 
-                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism
+            {
+                CalculationsGroup =
                 {
-                    hydraulicBoundaryLocation
-                }, true);
-
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism
-                {
-                    CalculationsGroup =
+                    Children =
                     {
-                        Children =
-                        {
-                            MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
-                        }
+                        MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     }
-                };
-
-                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit faalmechanisme uit.",
-                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
-                                                                  "Alles &valideren",
-                                                                  "Valideer alle berekeningen binnen dit faalmechanisme.",
-                                                                  RiskeerCommonFormsResources.ValidateAllIcon);
                 }
+            };
+
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
+                                                              "Alles be&rekenen",
+                                                              "Voer alle berekeningen binnen dit faalmechanisme uit.",
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
+
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
+                                                              "Alles &valideren",
+                                                              "Valideer alle berekeningen binnen dit faalmechanisme.",
+                                                              RiskeerCommonFormsResources.ValidateAllIcon);
             }
         }
 
@@ -441,95 +431,91 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
         public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
+
+            // Assert
+            Received.InOrder(() =>
             {
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-
-                // Assert
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddOpenItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCollapseAllItem();
-                    menuBuilder.AddExpandAllItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
-            }
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
-                var assessmentSection = new AssessmentSectionStub();
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+                hydraulicBoundaryLocation
+            }, true);
 
-                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            MacroStabilityInwardsCalculationScenario validCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            validCalculation.Name = "A";
+            MacroStabilityInwardsCalculationScenario invalidCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
+            invalidCalculation.Name = "B";
+
+            failureMechanism.CalculationsGroup.Children.Add(validCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
+
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
-                    hydraulicBoundaryLocation
-                }, true);
-
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                MacroStabilityInwardsCalculationScenario validCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
-                validCalculation.Name = "A";
-                MacroStabilityInwardsCalculationScenario invalidCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
-                invalidCalculation.Name = "B";
-
-                failureMechanism.CalculationsGroup.Children.Add(validCalculation);
-                failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
-
-                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                using (new MacroStabilityInwardsCalculatorFactoryConfig())
-                {
-                    // Call
-                    void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessages(Call, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(9, msgs.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                        Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
-                        Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[2]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[4]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
-                    });
-                }
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(9, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[4]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
+                });
             }
         }
 
@@ -537,71 +523,69 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsSt
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = new AssessmentSectionStub();
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+                hydraulicBoundaryLocation
+            }, true);
 
-                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
+            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            calculationA.Name = "A";
+            MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            calculationB.Name = "B";
+
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // Call
+                void Call() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
-                    hydraulicBoundaryLocation
-                }, true);
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(16, msgs.Length);
+                    Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[2]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[3]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[5]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
+                    Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[7]);
 
-                MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
-                calculationA.Name = "A";
-                MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
-                calculationB.Name = "B";
-
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
-                failureMechanism.CalculationsGroup.Children.Add(calculationB);
-
-                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
-
-                var gui = Substitute.For<IGui>();
-                gui.MainWindow.Returns(mainWindow);
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    // Expect an activity dialog which is automatically closed
-                };
-
-                using (new MacroStabilityInwardsCalculatorFactoryConfig())
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    void Call() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
-
-                    // Assert
-                    TestHelper.AssertLogMessages(Call, messages =>
-                    {
-                        string[] msgs = messages.ToArray();
-                        Assert.AreEqual(16, msgs.Length);
-                        Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                        Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[2]);
-                        Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[3]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[5]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[7]);
-
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[8]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[9]);
-                        Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[10]);
-                        Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[11]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[12]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[13]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[14]);
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[15]);
-                    });
-                }
+                    Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[8]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[9]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[10]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[11]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[12]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[13]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[14]);
+                    Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[15]);
+                });
             }
         }
 

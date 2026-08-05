@@ -39,16 +39,14 @@ namespace Core.Gui.Test.ContextMenu
         public void Constructor_WithoutDataObject_ThrowsArgumentNullException()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                Action test = () => new TreeViewContextMenuItemFactory(null, treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            Action test = () => new TreeViewContextMenuItemFactory(null, treeViewCommands);
 
-                // Assert
-                string message = Assert.Throws<ArgumentNullException>(test).Message;
-                StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de data bekend is.", message);
-                StringAssert.EndsWith("(Parameter 'dataObject')", message);
-            }
+            // Assert
+            string message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de data bekend is.", message);
+            StringAssert.EndsWith("(Parameter 'dataObject')", message);
         }
 
         [Test]
@@ -67,14 +65,12 @@ namespace Core.Gui.Test.ContextMenu
         public void Constructor_WithAllInput_DoesNotThrow()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                Action test = () => new TreeViewContextMenuItemFactory(new object(), treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            Action test = () => new TreeViewContextMenuItemFactory(new object(), treeViewCommands);
 
-                // Assert
-                Assert.DoesNotThrow(test);
-            }
+            // Assert
+            Assert.DoesNotThrow(test);
         }
 
         [Test]

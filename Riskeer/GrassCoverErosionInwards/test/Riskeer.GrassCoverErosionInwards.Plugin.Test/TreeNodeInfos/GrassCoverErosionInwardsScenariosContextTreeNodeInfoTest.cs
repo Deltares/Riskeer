@@ -111,22 +111,20 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var context = new GrassCoverErosionInwardsScenariosContext(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism());
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var context = new GrassCoverErosionInwardsScenariosContext(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism());
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
 
-                // Assert
-                menuBuilder.Received(1).Build();
-            }
+            // Assert
+            menuBuilder.Received(1).Build();
         }
     }
 }

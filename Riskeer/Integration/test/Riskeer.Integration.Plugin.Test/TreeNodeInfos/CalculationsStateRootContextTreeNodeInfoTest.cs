@@ -218,18 +218,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
 
-                    // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
 
             // Assert
@@ -254,30 +252,28 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithSpecificAssessmentSectionConfiguration_CalculateAllMenuItemStateAsExpected(AssessmentSection assessmentSection, bool expectedEnabledState)
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var context = new CalculationsStateRootContext(assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new RiskeerPlugin())
             {
-                var context = new CalculationsStateRootContext(assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeView).Returns(menuBuilder);
-                using (var plugin = new RiskeerPlugin())
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(context, null, treeViewCommands))
                 {
-                    plugin.Gui = gui;
+                    // Assert
+                    Assert.AreEqual(10, menu.Items.Count);
 
-                    // Call
-                    using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(context, null, treeView))
-                    {
-                        // Assert
-                        Assert.AreEqual(10, menu.Items.Count);
-
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                      "Alles be&rekenen",
-                                                                      expectedEnabledState
-                                                                          ? "Voer alle berekeningen binnen dit traject uit."
-                                                                          : "Er zijn geen berekeningen om uit te voeren.",
-                                                                      RiskeerCommonFormsResources.CalculateAllIcon,
-                                                                      expectedEnabledState);
-                    }
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                                  "Alles be&rekenen",
+                                                                  expectedEnabledState
+                                                                      ? "Voer alle berekeningen binnen dit traject uit."
+                                                                      : "Er zijn geen berekeningen om uit te voeren.",
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
+                                                                  expectedEnabledState);
                 }
             }
         }

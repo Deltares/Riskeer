@@ -427,17 +427,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-                plugin.Gui = gui;
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
 
             Received.InOrder(() =>
             {
@@ -476,47 +474,45 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // Assert
+                Assert.AreEqual(17, menu.Items.Count);
 
-                plugin.Gui = gui;
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
+                                                              "D&upliceren",
+                                                              "Dupliceer dit element.",
+                                                              RiskeerCommonFormsResources.CopyHS);
 
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
-                {
-                    // Assert
-                    Assert.AreEqual(17, menu.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
+                                                              "&Bijwerken voorlandprofiel...",
+                                                              "Er moet een voorlandprofiel geselecteerd zijn.",
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
+                                                              false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
-                                                                  "D&upliceren",
-                                                                  "Dupliceer dit element.",
-                                                                  RiskeerCommonFormsResources.CopyHS);
+                TestHelper.AssertContextMenuStripContainsItem(menu, validateMenuItemIndex,
+                                                              "&Valideren",
+                                                              "Valideer de invoer voor deze berekening.",
+                                                              RiskeerCommonFormsResources.ValidateIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
-                                                                  "&Bijwerken voorlandprofiel...",
-                                                                  "Er moet een voorlandprofiel geselecteerd zijn.",
-                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
-                                                                  false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, calculateMenuItemIndex,
+                                                              "Be&rekenen",
+                                                              "Voer deze berekening uit.",
+                                                              RiskeerCommonFormsResources.CalculateIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, validateMenuItemIndex,
-                                                                  "&Valideren",
-                                                                  "Valideer de invoer voor deze berekening.",
-                                                                  RiskeerCommonFormsResources.ValidateIcon);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, calculateMenuItemIndex,
-                                                                  "Be&rekenen",
-                                                                  "Voer deze berekening uit.",
-                                                                  RiskeerCommonFormsResources.CalculateIcon);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, clearOutputMenuItemIndex,
-                                                                  "&Wis uitvoer...",
-                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(menu, clearOutputMenuItemIndex,
+                                                              "&Wis uitvoer...",
+                                                              "Deze berekening heeft geen uitvoer om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIcon,
+                                                              false);
             }
         }
 
@@ -537,36 +533,34 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewCommands);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
-                var importHandler = Substitute.For<IImportCommandHandler>();
-                var exportHandler = Substitute.For<IExportCommandHandler>();
-                var updateHandler = Substitute.For<IUpdateCommandHandler>();
-                var viewCommands = Substitute.For<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  validateMenuItemIndex,
-                                                                  "&Valideren",
-                                                                  "Valideer de invoer voor deze berekening.",
-                                                                  RiskeerCommonFormsResources.ValidateIcon);
-                }
+                // Then
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              validateMenuItemIndex,
+                                                              "&Valideren",
+                                                              "Valideer de invoer voor deze berekening.",
+                                                              RiskeerCommonFormsResources.ValidateIcon);
             }
         }
 
@@ -584,26 +578,24 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                          failureMechanism,
                                                                                          assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(
-                        menu,
-                        contextMenuUpdateForeshoreProfileIndex,
-                        "&Bijwerken voorlandprofiel...",
-                        "Er moet een voorlandprofiel geselecteerd zijn.",
-                        RiskeerCommonFormsResources.UpdateItemIcon,
-                        false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(
+                    menu,
+                    contextMenuUpdateForeshoreProfileIndex,
+                    "&Bijwerken voorlandprofiel...",
+                    "Er moet een voorlandprofiel geselecteerd zijn.",
+                    RiskeerCommonFormsResources.UpdateItemIcon,
+                    false);
             }
         }
 
@@ -627,26 +619,24 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                          failureMechanism,
                                                                                          assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(
-                        menu,
-                        contextMenuUpdateForeshoreProfileIndex,
-                        "&Bijwerken voorlandprofiel...",
-                        "Er zijn geen wijzigingen om bij te werken.",
-                        RiskeerCommonFormsResources.UpdateItemIcon,
-                        false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(
+                    menu,
+                    contextMenuUpdateForeshoreProfileIndex,
+                    "&Bijwerken voorlandprofiel...",
+                    "Er zijn geen wijzigingen om bij te werken.",
+                    RiskeerCommonFormsResources.UpdateItemIcon,
+                    false);
             }
         }
 
@@ -673,25 +663,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                          failureMechanism,
                                                                                          assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            // Call
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(
-                        menu,
-                        contextMenuUpdateForeshoreProfileIndex,
-                        "&Bijwerken voorlandprofiel...",
-                        "Berekening bijwerken met het voorlandprofiel.",
-                        RiskeerCommonFormsResources.UpdateItemIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(
+                    menu,
+                    contextMenuUpdateForeshoreProfileIndex,
+                    "&Bijwerken voorlandprofiel...",
+                    "Berekening bijwerken met het voorlandprofiel.",
+                    RiskeerCommonFormsResources.UpdateItemIcon);
             }
         }
 
@@ -722,27 +710,25 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
+
+            // Precondition
+            Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
+
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // When
+                contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
 
-                plugin.Gui = gui;
-
-                TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
-
-                // Precondition
-                Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
-                }
+                // Then
+                Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
             }
 
             calculationInputObserver.Received(1).UpdateObserver();
@@ -794,28 +780,26 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
+
+            // Precondition
+            Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
+
+            using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(new CustomItemsOnlyContextMenuBuilder());
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+                // When
+                contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
 
-                plugin.Gui = gui;
-
-                TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
-
-                // Precondition
-                Assert.IsFalse(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndex].PerformClick();
-
-                    // Then
-                    Assert.AreEqual(continuation, calculation.InputParameters.IsForeshoreProfileInputSynchronized);
-                    Assert.AreEqual(!continuation, calculation.HasOutput);
-                }
+                // Then
+                Assert.AreEqual(continuation, calculation.InputParameters.IsForeshoreProfileInputSynchronized);
+                Assert.AreEqual(!continuation, calculation.HasOutput);
             }
 
             string expectedMessageBoxText = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
@@ -862,49 +846,47 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewCommands);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
-                var importHandler = Substitute.For<IImportCommandHandler>();
-                var exportHandler = Substitute.For<IExportCommandHandler>();
-                var updateHandler = Substitute.For<IUpdateCommandHandler>();
-                var viewCommands = Substitute.For<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
+                // When
+                ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
+                void Call() => validateMenuItem.PerformClick();
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                // Then
+                TestHelper.AssertLogMessages(Call, logMessages =>
                 {
-                    // When
-                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    void Call() => validateMenuItem.PerformClick();
+                    string[] messages = logMessages.ToArray();
+                    int expectedMessageCount = validCalculation ? 2 : 3;
+                    Assert.AreEqual(expectedMessageCount, messages.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
 
-                    // Then
-                    TestHelper.AssertLogMessages(Call, logMessages =>
+                    if (!validCalculation)
                     {
-                        string[] messages = logMessages.ToArray();
-                        int expectedMessageCount = validCalculation ? 2 : 3;
-                        Assert.AreEqual(expectedMessageCount, messages.Length);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                        Assert.AreEqual("Er is geen hydraulische belastingenlocatie geselecteerd.", messages[1]);
+                    }
 
-                        if (!validCalculation)
-                        {
-                            Assert.AreEqual("Er is geen hydraulische belastingenlocatie geselecteerd.", messages[1]);
-                        }
-
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messages.Last());
-                    });
-                }
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messages.Last());
+                });
             }
         }
 
@@ -927,36 +909,34 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewCommands);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
-                var importHandler = Substitute.For<IImportCommandHandler>();
-                var exportHandler = Substitute.For<IExportCommandHandler>();
-                var updateHandler = Substitute.For<IUpdateCommandHandler>();
-                var viewCommands = Substitute.For<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  calculateMenuItemIndex,
-                                                                  "Be&rekenen",
-                                                                  "Voer deze berekening uit.",
-                                                                  RiskeerCommonFormsResources.CalculateIcon);
-                }
+                // Then
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              calculateMenuItemIndex,
+                                                              "Be&rekenen",
+                                                              "Voer deze berekening uit.",
+                                                              RiskeerCommonFormsResources.CalculateIcon);
             }
         }
 
@@ -990,57 +970,55 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 // Expect an activity dialog which is automatically closed
             };
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewCommands);
+
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
+
+            var gui = Substitute.For<IGui>();
+            gui.MainWindow.Returns(mainWindow);
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(callInfo =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
+                                     (HydraRingCalculationSettings) callInfo[0]);
+                                 return new TestWaveConditionsCosineCalculator();
+                             });
+
+            plugin.Gui = gui;
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
-                var importHandler = Substitute.For<IImportCommandHandler>();
-                var exportHandler = Substitute.For<IExportCommandHandler>();
-                var updateHandler = Substitute.For<IUpdateCommandHandler>();
-                var viewCommands = Substitute.For<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
+                // When
+                ToolStripItem calculateMenuItem = contextMenu.Items[calculateMenuItemIndex];
+                void Call() => calculateMenuItem.PerformClick();
 
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
-
-                var gui = Substitute.For<IGui>();
-                gui.MainWindow.Returns(mainWindow);
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-
-                var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                                 .Returns(callInfo =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                             assessmentSection.HydraulicBoundaryData,
-                                             hydraulicBoundaryLocation),
-                                         (HydraRingCalculationSettings) callInfo[0]);
-                                     return new TestWaveConditionsCosineCalculator();
-                                 });
-
-                plugin.Gui = gui;
-
-                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                // Then
+                TestHelper.AssertLogMessages(Call, logMessages =>
                 {
-                    // When
-                    ToolStripItem calculateMenuItem = contextMenu.Items[calculateMenuItemIndex];
-                    void Call() => calculateMenuItem.PerformClick();
+                    string[] messages = logMessages.ToArray();
+                    Assert.AreEqual(28, messages.Length);
+                });
 
-                    // Then
-                    TestHelper.AssertLogMessages(Call, logMessages =>
-                    {
-                        string[] messages = logMessages.ToArray();
-                        Assert.AreEqual(28, messages.Length);
-                    });
-
-                    Assert.AreEqual(3, calculation.Output.WaveRunUpOutput.Count());
-                }
+                Assert.AreEqual(3, calculation.Output.WaveRunUpOutput.Count());
             }
         }
 
@@ -1062,37 +1040,35 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewCommands);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
-                var importHandler = Substitute.For<IImportCommandHandler>();
-                var exportHandler = Substitute.For<IExportCommandHandler>();
-                var updateHandler = Substitute.For<IUpdateCommandHandler>();
-                var viewCommands = Substitute.For<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  clearOutputMenuItemIndex,
-                                                                  "&Wis uitvoer...",
-                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RiskeerCommonFormsResources.ClearIcon,
-                                                                  false);
-                }
+                // Then
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              clearOutputMenuItemIndex,
+                                                              "&Wis uitvoer...",
+                                                              "Deze berekening heeft geen uitvoer om te wissen.",
+                                                              RiskeerCommonFormsResources.ClearIcon,
+                                                              false);
             }
         }
 
@@ -1114,36 +1090,34 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewCommands);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
-                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
-                var importHandler = Substitute.For<IImportCommandHandler>();
-                var exportHandler = Substitute.For<IExportCommandHandler>();
-                var updateHandler = Substitute.For<IUpdateCommandHandler>();
-                var viewCommands = Substitute.For<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  clearOutputMenuItemIndex,
-                                                                  "&Wis uitvoer...",
-                                                                  "Wis de uitvoer van deze berekening.",
-                                                                  RiskeerCommonFormsResources.ClearIcon);
-                }
+                // Then
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                              clearOutputMenuItemIndex,
+                                                              "&Wis uitvoer...",
+                                                              "Wis de uitvoer van deze berekening.",
+                                                              RiskeerCommonFormsResources.ClearIcon);
             }
         }
 
@@ -1168,43 +1142,41 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
+            var importHandler = Substitute.For<IImportCommandHandler>();
+            var exportHandler = Substitute.For<IExportCommandHandler>();
+            var updateHandler = Substitute.For<IUpdateCommandHandler>();
+            var viewCommands = Substitute.For<IViewCommands>();
+            var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                     importHandler,
+                                                     exportHandler,
+                                                     updateHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewCommands);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
+            plugin.Gui = gui;
+
+            DialogBoxHandler = (name, wnd) =>
             {
-                var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
-                var importHandler = Substitute.For<IImportCommandHandler>();
-                var exportHandler = Substitute.For<IExportCommandHandler>();
-                var updateHandler = Substitute.For<IUpdateCommandHandler>();
-                var viewCommands = Substitute.For<IViewCommands>();
-                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                         importHandler,
-                                                         exportHandler,
-                                                         updateHandler,
-                                                         viewCommands,
-                                                         context,
-                                                         treeViewControl);
+                var messageBox = new MessageBoxTester(wnd);
+                messageBox.ClickOk();
+            };
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
+            {
+                // When
+                ToolStripItem validateMenuItem = contextMenu.Items[clearOutputMenuItemIndex];
+                validateMenuItem.PerformClick();
 
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var messageBox = new MessageBoxTester(wnd);
-                    messageBox.ClickOk();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    ToolStripItem validateMenuItem = contextMenu.Items[clearOutputMenuItemIndex];
-                    validateMenuItem.PerformClick();
-
-                    // Then
-                    Assert.IsNull(calculation.Output);
-                    observer.Received(1).UpdateObserver();
-                }
+                // Then
+                Assert.IsNull(calculation.Output);
+                observer.Received(1).UpdateObserver();
             }
         }
 

@@ -195,31 +195,29 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
+
+            plugin.Gui = gui;
+
+            // Act
+            info.ContextMenuStrip(null, null, treeViewCommands);
+
+            // Assert
+            Received.InOrder(() =>
             {
-                var gui = Substitute.For<IGui>();
-                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
+                gui.Get(Arg.Any<object>(), treeViewCommands);
 
-                plugin.Gui = gui;
-
-                // Act
-                info.ContextMenuStrip(null, null, treeViewControl);
-
-                // Assert
-                Received.InOrder(() =>
-                {
-                    gui.Get(Arg.Any<object>(), treeViewControl);
-
-                    menuBuilder.AddImportItem();
-                    menuBuilder.AddUpdateItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCollapseAllItem();
-                    menuBuilder.AddExpandAllItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
-            }
+                menuBuilder.AddImportItem();
+                menuBuilder.AddUpdateItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
     }
 }

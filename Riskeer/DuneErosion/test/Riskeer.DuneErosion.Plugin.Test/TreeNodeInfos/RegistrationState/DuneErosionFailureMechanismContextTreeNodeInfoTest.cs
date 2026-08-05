@@ -185,46 +185,44 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddOpenItem().Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+            using (var plugin = new DuneErosionPlugin())
             {
-                var failureMechanism = new DuneErosionFailureMechanism();
-                var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+                TreeNodeInfo info = GetInfo(plugin);
 
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddOpenItem().Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+                plugin.Gui = gui;
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
-                using (var plugin = new DuneErosionPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    plugin.Gui = gui;
-
-                    // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
-                }
-
-                // Assert
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddOpenItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCollapseAllItem();
-                    menuBuilder.AddExpandAllItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
+                // Call
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
+
+            // Assert
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
@@ -233,46 +231,44 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var failureMechanism = new DuneErosionFailureMechanism
             {
-                var failureMechanism = new DuneErosionFailureMechanism
-                {
-                    InAssembly = false
-                };
-                var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+                InAssembly = false
+            };
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
-                menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
+            menuBuilder.AddExpandAllItem().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
-                using (var plugin = new DuneErosionPlugin())
-                {
-                    plugin.Gui = gui;
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+            using (var plugin = new DuneErosionPlugin())
+            {
+                plugin.Gui = gui;
 
-                    TreeNodeInfo info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
-                    // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
-                }
-
-                // Assert
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddCollapseAllItem();
-                    menuBuilder.AddExpandAllItem();
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
+                // Call
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
+
+            // Assert
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddCollapseAllItem();
+                menuBuilder.AddExpandAllItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [TestFixture]

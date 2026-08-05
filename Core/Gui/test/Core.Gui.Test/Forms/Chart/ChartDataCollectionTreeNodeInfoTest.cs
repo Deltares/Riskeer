@@ -247,15 +247,13 @@ namespace Core.Gui.Test.Forms.Chart
 
             chartDataCollection.Attach(observer);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewCommands);
 
-                // Assert
-                int reversedIndex = 2 - position;
-                Assert.AreSame(context1.WrappedData, chartDataCollection.Collection.ElementAt(reversedIndex));
-            }
+            // Assert
+            int reversedIndex = 2 - position;
+            Assert.AreSame(context1.WrappedData, chartDataCollection.Collection.ElementAt(reversedIndex));
 
             observer.Received(1).UpdateObserver();
         }
@@ -287,14 +285,12 @@ namespace Core.Gui.Test.Forms.Chart
 
             chartDataCollection.Attach(observer);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                void Call() => info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            void Call() => info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewCommands);
 
-                // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(Call);
-            }
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(Call);
         }
 
         [Test]
@@ -303,28 +299,26 @@ namespace Core.Gui.Test.Forms.Chart
             // Setup
             var chartDataCollection = new ChartDataCollection("test data");
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
+            menuBuilder.AddSeparator().Returns(menuBuilder);
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>())
+                                      .Returns(menuBuilder);
+
+            // Call
+            info.ContextMenuStrip(chartDataCollection, null, treeViewCommands);
+
+            // Assert
+            Received.InOrder(() =>
             {
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-                menuBuilder.AddSeparator().Returns(menuBuilder);
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-                contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>())
-                                          .Returns(menuBuilder);
-
-                // Call
-                info.ContextMenuStrip(chartDataCollection, null, treeViewControl);
-
-                // Assert
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
-                    menuBuilder.AddSeparator();
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
-            }
+                menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         [Test]
