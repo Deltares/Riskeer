@@ -38,7 +38,6 @@ namespace Riskeer.HeightStructures.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
@@ -57,7 +56,6 @@ namespace Riskeer.HeightStructures.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call

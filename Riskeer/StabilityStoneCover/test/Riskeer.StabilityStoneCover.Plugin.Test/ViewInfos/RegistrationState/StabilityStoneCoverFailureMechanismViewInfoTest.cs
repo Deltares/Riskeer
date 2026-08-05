@@ -63,7 +63,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -81,7 +80,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.RegistrationState
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
                 InAssembly = inAssembly

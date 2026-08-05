@@ -92,7 +92,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new HeightStructuresCalculationGroupContext(new CalculationGroup(),
                                                                       null,
                                                                       new HeightStructuresFailureMechanism(),
@@ -110,7 +109,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new HeightStructuresCalculationGroupContext(new CalculationGroup(),
                                                                       null,
                                                                       new HeightStructuresFailureMechanism(),
@@ -130,7 +128,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculationGroup = new CalculationGroup();
 
             if (hasNestedGroup)

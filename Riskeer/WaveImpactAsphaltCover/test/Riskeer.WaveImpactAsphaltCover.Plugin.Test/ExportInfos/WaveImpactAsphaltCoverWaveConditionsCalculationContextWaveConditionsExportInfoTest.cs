@@ -83,7 +83,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
                                                                                      new CalculationGroup(),
                                                                                      new WaveImpactAsphaltCoverFailureMechanism(),
@@ -101,7 +100,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
                                                                                      new CalculationGroup(),
                                                                                      new WaveImpactAsphaltCoverFailureMechanism(),
@@ -119,7 +117,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(
                 new WaveImpactAsphaltCoverWaveConditionsCalculation
                 {

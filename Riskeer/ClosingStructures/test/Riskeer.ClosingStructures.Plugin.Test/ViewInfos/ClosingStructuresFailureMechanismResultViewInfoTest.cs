@@ -142,7 +142,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[]
             {

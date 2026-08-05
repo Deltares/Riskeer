@@ -332,7 +332,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             ConfigureHydraulicBoundaryData(assessmentSection);
             StabilityPointStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);

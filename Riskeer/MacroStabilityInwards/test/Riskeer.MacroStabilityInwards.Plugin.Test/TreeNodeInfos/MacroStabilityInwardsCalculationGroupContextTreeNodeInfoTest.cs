@@ -422,7 +422,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                             null,
                                                                             Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -459,7 +458,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                             null,
                                                                             new[]
@@ -498,7 +496,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                             null,
                                                                             new[]
@@ -966,7 +963,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var surfaceLines = new[]
             {
                 new MacroStabilityInwardsSurfaceLine("surfaceLine1"),

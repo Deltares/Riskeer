@@ -66,7 +66,6 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
@@ -99,7 +98,6 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
@@ -115,7 +113,6 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation(new TestHydraulicBoundaryLocation());
             calculation.InputParameters.CalculationType = (StabilityStoneCoverWaveConditionsCalculationType) 99;
 

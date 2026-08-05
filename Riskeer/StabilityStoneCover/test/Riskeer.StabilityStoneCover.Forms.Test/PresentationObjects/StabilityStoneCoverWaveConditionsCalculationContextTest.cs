@@ -40,7 +40,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var parent = new CalculationGroup();
@@ -62,7 +61,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 

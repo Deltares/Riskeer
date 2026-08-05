@@ -184,7 +184,6 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var mainWindow = Substitute.For<IMainWindow>();
             IGui gui = StubFactory.CreateGuiStub();
             gui.MainWindow.Returns(mainWindow);
@@ -221,7 +220,6 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var mainWindow = Substitute.For<IMainWindow>();
             IGui gui = StubFactory.CreateGuiStub();
             gui.MainWindow.Returns(mainWindow);

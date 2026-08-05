@@ -64,7 +64,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var collection = new StructureCollection<HeightStructure>();

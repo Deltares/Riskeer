@@ -87,7 +87,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.RegistrationStat
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             // Call
@@ -150,7 +149,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.RegistrationStat
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
                 InAssembly = false
@@ -172,7 +170,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.RegistrationStat
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
@@ -212,7 +209,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.RegistrationStat
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {

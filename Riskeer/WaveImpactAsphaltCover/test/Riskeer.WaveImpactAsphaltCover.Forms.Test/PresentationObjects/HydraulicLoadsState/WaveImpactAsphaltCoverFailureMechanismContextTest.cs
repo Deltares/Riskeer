@@ -36,7 +36,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects.Hydrauli
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call

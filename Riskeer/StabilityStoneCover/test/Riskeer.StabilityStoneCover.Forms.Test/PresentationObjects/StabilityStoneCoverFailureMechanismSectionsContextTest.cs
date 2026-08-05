@@ -36,7 +36,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call

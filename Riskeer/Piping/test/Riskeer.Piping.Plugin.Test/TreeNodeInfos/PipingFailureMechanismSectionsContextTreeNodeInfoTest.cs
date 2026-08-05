@@ -120,7 +120,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
 
@@ -169,7 +168,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                        .Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
 

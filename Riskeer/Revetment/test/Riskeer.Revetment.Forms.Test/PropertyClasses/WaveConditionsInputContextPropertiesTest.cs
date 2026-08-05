@@ -439,7 +439,6 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Returns(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>

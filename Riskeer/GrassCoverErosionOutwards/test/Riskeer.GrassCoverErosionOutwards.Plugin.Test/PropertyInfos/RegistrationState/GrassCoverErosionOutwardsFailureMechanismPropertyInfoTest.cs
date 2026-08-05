@@ -54,7 +54,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos.Registrati
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 

@@ -38,7 +38,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
@@ -56,7 +55,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var structures = new StructureCollection<StabilityPointStructure>();
 
             // Call

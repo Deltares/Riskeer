@@ -49,7 +49,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 calculation.InputParameters,
@@ -105,7 +104,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(21);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var observable = Substitute.For<IObservable>();
 

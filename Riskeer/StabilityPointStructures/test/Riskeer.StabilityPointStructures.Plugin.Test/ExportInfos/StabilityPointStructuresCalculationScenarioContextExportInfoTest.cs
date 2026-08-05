@@ -92,7 +92,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new StabilityPointStructuresCalculationScenarioContext(new TestStabilityPointStructuresCalculationScenario(),
                                                                                  new CalculationGroup(),
                                                                                  new StabilityPointStructuresFailureMechanism(),
@@ -110,7 +109,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             var context = new StabilityPointStructuresCalculationScenarioContext(new TestStabilityPointStructuresCalculationScenario(),
                                                                                  new CalculationGroup(),
                                                                                  new StabilityPointStructuresFailureMechanism(),
