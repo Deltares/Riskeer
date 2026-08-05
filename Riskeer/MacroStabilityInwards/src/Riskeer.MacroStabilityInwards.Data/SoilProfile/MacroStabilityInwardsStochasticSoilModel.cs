@@ -133,8 +133,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 
             foreach (MacroStabilityInwardsStochasticSoilProfile fromProfile in fromModel.StochasticSoilProfiles)
             {
-                MacroStabilityInwardsStochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => IsSame(sp, fromProfile)
-                );
+                MacroStabilityInwardsStochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(sp => IsSame(sp, fromProfile));
                 if (sameProfile != null)
                 {
                     if (!sameProfile.Equals(fromProfile))
