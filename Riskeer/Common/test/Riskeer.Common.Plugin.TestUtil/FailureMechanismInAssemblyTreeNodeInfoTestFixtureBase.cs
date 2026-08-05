@@ -62,28 +62,26 @@ namespace Riskeer.Common.Plugin.TestUtil
             var viewCommands = Substitute.For<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.ViewCommands.Returns(viewCommands);
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+
+            using (var plugin = new TPlugin
             {
-                var gui = Substitute.For<IGui>();
-                gui.ViewCommands.Returns(viewCommands);
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
-
-                using (var plugin = new TPlugin
+                Gui = gui
+            })
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
                 {
-                    Gui = gui
-                })
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                    {
-                        // Call
-                        contextMenu.Items[contextMenuIndexWhenInAssemblyTrue].PerformClick();
+                    // Call
+                    contextMenu.Items[contextMenuIndexWhenInAssemblyTrue].PerformClick();
 
-                        // Assert
-                        Assert.IsFalse(failureMechanism.InAssembly);
-                        viewCommands.Received(1).RemoveAllViewsForItem(context);
-                    }
+                    // Assert
+                    Assert.IsFalse(failureMechanism.InAssembly);
+                    viewCommands.Received(1).RemoveAllViewsForItem(context);
                 }
             }
         }
@@ -102,28 +100,26 @@ namespace Riskeer.Common.Plugin.TestUtil
             var viewCommands = Substitute.For<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var gui = Substitute.For<IGui>();
+            gui.ViewCommands.Returns(viewCommands);
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+
+            using (var plugin = new TPlugin
             {
-                var gui = Substitute.For<IGui>();
-                gui.ViewCommands.Returns(viewCommands);
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
-
-                using (var plugin = new TPlugin
+                Gui = gui
+            })
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
                 {
-                    Gui = gui
-                })
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                    {
-                        // Call
-                        contextMenu.Items[contextMenuIndexWhenInAssemblyFalse].PerformClick();
+                    // Call
+                    contextMenu.Items[contextMenuIndexWhenInAssemblyFalse].PerformClick();
 
-                        // Assert
-                        Assert.IsTrue(failureMechanism.InAssembly);
-                        viewCommands.Received(1).RemoveAllViewsForItem(context);
-                    }
+                    // Assert
+                    Assert.IsTrue(failureMechanism.InAssembly);
+                    viewCommands.Received(1).RemoveAllViewsForItem(context);
                 }
             }
         }
@@ -132,33 +128,31 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ContextMenuStrip_FailureMechanismInAssemblyTrue_AddCustomItems()
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = new TFailureMechanism();
+            TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+
+            using (var plugin = new TPlugin
             {
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var failureMechanism = new TFailureMechanism();
-                TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                Gui = gui
+            })
+            {
+                TreeNodeInfo info = GetInfo(plugin);
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeView).Returns(menuBuilder);
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
-
-                using (var plugin = new TPlugin
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
                 {
-                    Gui = gui
-                })
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    // Call
-                    using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                    {
-                        // Assert
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenInAssemblyTrue,
-                                                                      "In &assemblage",
-                                                                      "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
-                                                                      RiskeerCommonFormsResources.Checkbox_ticked);
-                    }
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenInAssemblyTrue,
+                                                                  "In &assemblage",
+                                                                  "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
+                                                                  RiskeerCommonFormsResources.Checkbox_ticked);
                 }
             }
         }
@@ -167,37 +161,35 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ContextMenuStrip_FailureMechanismInAssemblyFalse_AddCustomItems()
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = Substitute.For<IAssessmentSection>();
+            var failureMechanism = new TFailureMechanism
             {
-                var assessmentSection = Substitute.For<IAssessmentSection>();
-                var failureMechanism = new TFailureMechanism
+                InAssembly = false
+            };
+
+            TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            gui.ViewHost.Returns(Substitute.For<IViewHost>());
+
+            using (var plugin = new TPlugin
+            {
+                Gui = gui
+            })
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
                 {
-                    InAssembly = false
-                };
-
-                TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeView).Returns(menuBuilder);
-                gui.ViewHost.Returns(Substitute.For<IViewHost>());
-
-                using (var plugin = new TPlugin
-                {
-                    Gui = gui
-                })
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    // Call
-                    using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                    {
-                        // Assert
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenInAssemblyFalse,
-                                                                      "In &assemblage",
-                                                                      "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
-                                                                      RiskeerCommonFormsResources.Checkbox_empty);
-                    }
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenInAssemblyFalse,
+                                                                  "In &assemblage",
+                                                                  "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
+                                                                  RiskeerCommonFormsResources.Checkbox_empty);
                 }
             }
         }

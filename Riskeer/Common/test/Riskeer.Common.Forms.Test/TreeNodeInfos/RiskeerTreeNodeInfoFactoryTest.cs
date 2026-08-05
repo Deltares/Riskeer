@@ -365,17 +365,15 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
             CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                treeNodeInfo.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            treeNodeInfo.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewCommands);
 
-                // Assert
-                CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
-                CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
-                Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
-                               "Dragging node at the end of the target TestCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
-            }
+            // Assert
+            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
+            Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
+                           "Dragging node at the end of the target TestCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
 
             originalOwnerObserver.Received(1).UpdateObserver();
             newOwnerObserver.Received(1).UpdateObserver();
@@ -414,20 +412,18 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                treeNodeInfo.OnDrop(draggedItemContext, originalOwnerGroupContext, originalOwnerGroupContext, newIndex, treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            treeNodeInfo.OnDrop(draggedItemContext, originalOwnerGroupContext, originalOwnerGroupContext, newIndex, treeViewCommands);
 
-                // Assert
-                CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
-                Assert.AreNotSame(draggedItem, originalOwnerGroup.Children[1],
-                                  "Should have removed 'draggedItem' from its original location in the collection.");
-                Assert.AreSame(draggedItem, originalOwnerGroup.Children[newIndex],
-                               "Dragging node to specific location within owning TestCalculationGroup should put the dragged data at that index.");
-                Assert.AreEqual(name, draggedItem.Name,
-                                "No renaming should occur when dragging within the same TestCalculationGroup.");
-            }
+            // Assert
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+            Assert.AreNotSame(draggedItem, originalOwnerGroup.Children[1],
+                              "Should have removed 'draggedItem' from its original location in the collection.");
+            Assert.AreSame(draggedItem, originalOwnerGroup.Children[newIndex],
+                           "Dragging node to specific location within owning TestCalculationGroup should put the dragged data at that index.");
+            Assert.AreEqual(name, draggedItem.Name,
+                            "No renaming should occur when dragging within the same TestCalculationGroup.");
 
             originalOwnerObserver.Received(1).UpdateObserver();
         }
@@ -905,7 +901,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismInAssembly_ReturnResultFromConstructorMethod()
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var contextMenuStripInAssembly = new ContextMenuStrip())
             using (var contextMenuStripNotInAssembly = new ContextMenuStrip())
             {
@@ -924,7 +920,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                         {
                             Assert.AreEqual(context, mechanismContext);
                             Assert.AreEqual(assessmentSection, parent);
-                            Assert.AreEqual(treeView, treeViewControl);
+                            Assert.AreEqual(treeViewCommands, treeViewControl);
 
                             return contextMenuStripInAssembly;
                         },
@@ -932,13 +928,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                         {
                             Assert.AreEqual(context, mechanismContext);
                             Assert.AreEqual(assessmentSection, parent);
-                            Assert.AreEqual(treeView, treeViewControl);
+                            Assert.AreEqual(treeViewCommands, treeViewControl);
 
                             return contextMenuStripNotInAssembly;
                         });
 
                 // Call
-                using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView))
+                using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeViewCommands))
                 {
                     // Assert
                     Assert.AreSame(contextMenuStripInAssembly, contextMenuStrip);
@@ -950,7 +946,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismNotInAssembly_ReturnResultFromConstructorMethod()
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var contextMenuStripInAssembly = new ContextMenuStrip())
             using (var contextMenuStripNotInAssembly = new ContextMenuStrip())
             {
@@ -969,7 +965,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                         {
                             Assert.AreEqual(context, mechanismContext);
                             Assert.AreEqual(assessmentSection, parent);
-                            Assert.AreEqual(treeView, treeViewControl);
+                            Assert.AreEqual(treeViewCommands, treeViewControl);
 
                             return contextMenuStripInAssembly;
                         },
@@ -977,13 +973,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                         {
                             Assert.AreEqual(context, mechanismContext);
                             Assert.AreEqual(assessmentSection, parent);
-                            Assert.AreEqual(treeView, treeViewControl);
+                            Assert.AreEqual(treeViewCommands, treeViewControl);
 
                             return contextMenuStripNotInAssembly;
                         });
 
                 // Call
-                using (ContextMenuStrip result = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView))
+                using (ContextMenuStrip result = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeViewCommands))
                 {
                     // Assert
                     Assert.AreSame(contextMenuStripNotInAssembly, result);
@@ -1101,7 +1097,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_ReturnResultFromConstructorMethod()
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var contextMenuStripRelevant = new ContextMenuStrip())
             {
                 var failureMechanism = Substitute.For<IFailureMechanism>();
@@ -1116,13 +1112,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                         {
                             Assert.AreEqual(context, mechanismContext);
                             Assert.AreEqual(assessmentSection, parent);
-                            Assert.AreEqual(treeView, treeViewControl);
+                            Assert.AreEqual(treeViewCommands, treeViewControl);
 
                             return contextMenuStripRelevant;
                         });
 
                 // Call
-                using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView))
+                using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeViewCommands))
                 {
                     // Assert
                     Assert.AreSame(contextMenuStripRelevant, contextMenuStrip);

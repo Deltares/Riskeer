@@ -106,18 +106,16 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                HeightStructure nodeData = new TestHeightStructure();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            HeightStructure nodeData = new TestHeightStructure();
 
-                var gui = Substitute.For<IGui>();
-                gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+            var gui = Substitute.For<IGui>();
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
-                plugin.Gui = gui;
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(nodeData, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(nodeData, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>

@@ -121,18 +121,16 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsFailureMechanismSectionsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new MacroStabilityInwardsPlugin())
             {
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                using (var plugin = new MacroStabilityInwardsPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
-                    plugin.Gui = gui;
+                plugin.Gui = gui;
 
-                    // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
 
             // Assert
@@ -176,18 +174,16 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new MacroStabilityInwardsFailureMechanismSectionsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new MacroStabilityInwardsPlugin())
             {
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                using (var plugin = new MacroStabilityInwardsPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
-                    plugin.Gui = gui;
+                plugin.Gui = gui;
 
-                    // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
 
             // Assert

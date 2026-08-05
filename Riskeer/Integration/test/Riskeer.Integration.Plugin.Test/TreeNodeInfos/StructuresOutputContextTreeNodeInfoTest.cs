@@ -132,15 +132,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(null, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(null, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(null, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(null, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>

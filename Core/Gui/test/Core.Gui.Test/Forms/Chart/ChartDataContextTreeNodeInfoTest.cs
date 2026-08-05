@@ -440,16 +440,14 @@ namespace Core.Gui.Test.Forms.Chart
 
             chartDataCollection.Attach(observer);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                info.OnDrop(context1, collectionContext, collectionContext, position, treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            info.OnDrop(context1, collectionContext, collectionContext, position, treeViewCommands);
 
-                // Assert
-                int reversedIndex = 2 - position;
-                var wrappedCollectionData = (ChartDataCollection) collectionContext.WrappedData;
-                Assert.AreSame(context1.WrappedData, wrappedCollectionData.Collection.ElementAt(reversedIndex));
-            }
+            // Assert
+            int reversedIndex = 2 - position;
+            var wrappedCollectionData = (ChartDataCollection) collectionContext.WrappedData;
+            Assert.AreSame(context1.WrappedData, wrappedCollectionData.Collection.ElementAt(reversedIndex));
 
             observer.Received(1).UpdateObserver();
         }
@@ -484,14 +482,12 @@ namespace Core.Gui.Test.Forms.Chart
 
             chartDataCollection.Attach(observer);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                void Call() => info.OnDrop(context, collectionContext, collectionContext, position, treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            void Call() => info.OnDrop(context, collectionContext, collectionContext, position, treeViewCommands);
 
-                // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(Call);
-            }
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(Call);
         }
 
         [Test]

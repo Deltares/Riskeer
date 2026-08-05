@@ -193,20 +193,18 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var context = new PipingStochasticSoilModelCollectionContext(
-                    new PipingStochasticSoilModelCollection(),
-                    new PipingFailureMechanism(),
-                    assessmentSection);
-                var gui = Substitute.For<IGui>();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var context = new PipingStochasticSoilModelCollectionContext(
+                new PipingStochasticSoilModelCollection(),
+                new PipingFailureMechanism(),
+                assessmentSection);
+            var gui = Substitute.For<IGui>();
 
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                plugin.Gui = gui;
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-            }
+            // Call
+            info.ContextMenuStrip(context, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>

@@ -44,21 +44,19 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                void Call() => new ContextMenuBuilder(null,
-                                                      importCommandHandler,
-                                                      exportCommandHandler,
-                                                      updateCommandHandler,
-                                                      viewCommands,
-                                                      new object(),
-                                                      treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            void Call() => new ContextMenuBuilder(null,
+                                                  importCommandHandler,
+                                                  exportCommandHandler,
+                                                  updateCommandHandler,
+                                                  viewCommands,
+                                                  new object(),
+                                                  treeViewCommands);
 
-                // Assert
-                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
-            }
+            // Assert
+            var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+            Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
         }
 
         [Test]
@@ -69,21 +67,19 @@ namespace Core.Gui.Test.ContextMenu
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
-                                                      null,
-                                                      exportCommandHandler,
-                                                      updateCommandHandler,
-                                                      viewCommands,
-                                                      new object(),
-                                                      treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                  null,
+                                                  exportCommandHandler,
+                                                  updateCommandHandler,
+                                                  viewCommands,
+                                                  new object(),
+                                                  treeViewCommands);
 
-                // Assert
-                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
-            }
+            // Assert
+            var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+            Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
         }
 
         [Test]
@@ -94,21 +90,19 @@ namespace Core.Gui.Test.ContextMenu
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
-                                                      importCommandHandler,
-                                                      null,
-                                                      updateCommandHandler,
-                                                      viewCommands,
-                                                      new object(),
-                                                      treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                  importCommandHandler,
+                                                  null,
+                                                  updateCommandHandler,
+                                                  viewCommands,
+                                                  new object(),
+                                                  treeViewCommands);
 
-                // Assert
-                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
-            }
+            // Assert
+            var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+            Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
         }
 
         [Test]
@@ -119,21 +113,19 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
-                                                      importCommandHandler,
-                                                      exportCommandHandler,
-                                                      null,
-                                                      viewCommands,
-                                                      new object(),
-                                                      treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                  importCommandHandler,
+                                                  exportCommandHandler,
+                                                  null,
+                                                  viewCommands,
+                                                  new object(),
+                                                  treeViewCommands);
 
-                // Assert
-                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
-            }
+            // Assert
+            var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+            Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
         }
 
         [Test]
@@ -144,21 +136,19 @@ namespace Core.Gui.Test.ContextMenu
             var importCommandHandler = Substitute.For<IImportCommandHandler>();
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
-                                                      importCommandHandler,
-                                                      exportCommandHandler,
-                                                      updateCommandHandler,
-                                                      null,
-                                                      new object(),
-                                                      treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                  importCommandHandler,
+                                                  exportCommandHandler,
+                                                  updateCommandHandler,
+                                                  null,
+                                                  new object(),
+                                                  treeViewCommands);
 
-                // Assert
-                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
-            }
+            // Assert
+            var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+            Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
         }
 
         [Test]
@@ -170,21 +160,19 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
-                                                      importCommandHandler,
-                                                      exportCommandHandler,
-                                                      updateCommandHandler,
-                                                      viewCommands,
-                                                      null,
-                                                      treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                  importCommandHandler,
+                                                  exportCommandHandler,
+                                                  updateCommandHandler,
+                                                  viewCommands,
+                                                  null,
+                                                  treeViewCommands);
 
-                // Assert
-                var exception = Assert.Throws<ContextMenuBuilderException>(Call);
-                Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
-            }
+            // Assert
+            var exception = Assert.Throws<ContextMenuBuilderException>(Call);
+            Assert.AreEqual("Kan geen instanties maken van de benodigde objecten.", exception.Message);
         }
 
         [Test]
@@ -220,20 +208,18 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                // Call
-                void Call() => new ContextMenuBuilder(applicationFeatureCommands,
-                                                      importCommandHandler,
-                                                      exportCommandHandler,
-                                                      updateCommandHandler,
-                                                      viewCommands,
-                                                      new object(),
-                                                      treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            // Call
+            void Call() => new ContextMenuBuilder(applicationFeatureCommands,
+                                                  importCommandHandler,
+                                                  exportCommandHandler,
+                                                  updateCommandHandler,
+                                                  viewCommands,
+                                                  new object(),
+                                                  treeViewCommands);
 
-                // Assert
-                Assert.DoesNotThrow(Call);
-            }
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -245,23 +231,21 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     new object(),
-                                                     treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 new object(),
+                                                 treeViewCommands);
 
-                // Call
-                ContextMenuStrip result = builder.Build();
+            // Call
+            ContextMenuStrip result = builder.Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                CollectionAssert.IsEmpty(result.Items);
-            }
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            CollectionAssert.IsEmpty(result.Items);
         }
 
         [Test]
@@ -482,30 +466,28 @@ namespace Core.Gui.Test.ContextMenu
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             viewCommands.CanOpenViewFor(nodeData).Returns(hasViewForNodeData);
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     nodeData,
-                                                     treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 nodeData,
+                                                 treeViewCommands);
 
-                // Call
-                ContextMenuStrip result = builder.AddOpenItem().Build();
+            // Call
+            ContextMenuStrip result = builder.AddOpenItem().Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result,
-                                                              0,
-                                                              "&Openen",
-                                                              "Open de gegevens in een nieuw documentvenster.",
-                                                              Resources.OpenIcon,
-                                                              hasViewForNodeData);
-            }
+            TestHelper.AssertContextMenuStripContainsItem(result,
+                                                          0,
+                                                          "&Openen",
+                                                          "Open de gegevens in een nieuw documentvenster.",
+                                                          Resources.OpenIcon,
+                                                          hasViewForNodeData);
         }
 
         [Test]
@@ -522,30 +504,28 @@ namespace Core.Gui.Test.ContextMenu
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             exportCommandHandler.CanExportFrom(nodeData).Returns(hasExportersForNodeData);
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     nodeData,
-                                                     treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 nodeData,
+                                                 treeViewCommands);
 
-                // Call
-                ContextMenuStrip result = builder.AddExportItem().Build();
+            // Call
+            ContextMenuStrip result = builder.AddExportItem().Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result,
-                                                              0,
-                                                              "&Exporteren...",
-                                                              "Exporteer de gegevens naar een bestand.",
-                                                              Resources.ExportIcon,
-                                                              hasExportersForNodeData);
-            }
+            TestHelper.AssertContextMenuStripContainsItem(result,
+                                                          0,
+                                                          "&Exporteren...",
+                                                          "Exporteer de gegevens naar een bestand.",
+                                                          Resources.ExportIcon,
+                                                          hasExportersForNodeData);
         }
 
         [Test]
@@ -567,30 +547,28 @@ namespace Core.Gui.Test.ContextMenu
                                                                                    new ImportInfo()
                                                                                }
                                                                                : new ImportInfo[0]);
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     nodeData,
-                                                     treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 nodeData,
+                                                 treeViewCommands);
 
-                // Call
-                ContextMenuStrip result = builder.AddImportItem().Build();
+            // Call
+            ContextMenuStrip result = builder.AddImportItem().Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result,
-                                                              0,
-                                                              "&Importeren...",
-                                                              "Importeer de gegevens vanuit een bestand.",
-                                                              Resources.ImportIcon,
-                                                              hasImportersForNodeData);
-            }
+            TestHelper.AssertContextMenuStripContainsItem(result,
+                                                          0,
+                                                          "&Importeren...",
+                                                          "Importeer de gegevens vanuit een bestand.",
+                                                          Resources.ImportIcon,
+                                                          hasImportersForNodeData);
         }
 
         [Test]
@@ -613,30 +591,28 @@ namespace Core.Gui.Test.ContextMenu
                                            }
                                            : new ImportInfo[0];
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     nodeData,
-                                                     treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 nodeData,
+                                                 treeViewCommands);
 
-                // Call
-                ContextMenuStrip result = builder.AddImportItem(importInfos).Build();
+            // Call
+            ContextMenuStrip result = builder.AddImportItem(importInfos).Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result,
-                                                              0,
-                                                              "&Importeren...",
-                                                              "Importeer de gegevens vanuit een bestand.",
-                                                              Resources.ImportIcon,
-                                                              hasImportersForNodeData);
-            }
+            TestHelper.AssertContextMenuStripContainsItem(result,
+                                                          0,
+                                                          "&Importeren...",
+                                                          "Importeer de gegevens vanuit een bestand.",
+                                                          Resources.ImportIcon,
+                                                          hasImportersForNodeData);
         }
 
         [Test]
@@ -662,25 +638,23 @@ namespace Core.Gui.Test.ContextMenu
                                                                                    new ImportInfo()
                                                                                }
                                                                                : new ImportInfo[0]);
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     nodeData,
-                                                     treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 nodeData,
+                                                 treeViewCommands);
 
-                // Call
-                ContextMenuStrip result = builder.AddImportItem(text, toolTip, image).Build();
+            // Call
+            ContextMenuStrip result = builder.AddImportItem(text, toolTip, image).Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, text, toolTip, image, hasImportersForNodeData);
-            }
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, text, toolTip, image, hasImportersForNodeData);
         }
 
         [Test]
@@ -707,25 +681,23 @@ namespace Core.Gui.Test.ContextMenu
                                            }
                                            : new ImportInfo[0];
 
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     nodeData,
-                                                     treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 nodeData,
+                                                 treeViewCommands);
 
-                // Call
-                ContextMenuStrip result = builder.AddImportItem(text, toolTip, image, importInfos).Build();
+            // Call
+            ContextMenuStrip result = builder.AddImportItem(text, toolTip, image, importInfos).Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result, 0, text, toolTip, image, hasImportersForNodeData);
-            }
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, text, toolTip, image, hasImportersForNodeData);
         }
 
         [Test]
@@ -742,30 +714,28 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             updateCommandHandler.CanUpdateOn(nodeData).Returns(hasUpdatesForNodeData);
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     nodeData,
-                                                     treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 nodeData,
+                                                 treeViewCommands);
 
-                // Call
-                ContextMenuStrip result = builder.AddUpdateItem().Build();
+            // Call
+            ContextMenuStrip result = builder.AddUpdateItem().Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result,
-                                                              0,
-                                                              "&Bijwerken...",
-                                                              "Werk de geïmporteerde gegevens bij met nieuwe gegevens vanuit een bestand.",
-                                                              Resources.RefreshIcon,
-                                                              hasUpdatesForNodeData);
-            }
+            TestHelper.AssertContextMenuStripContainsItem(result,
+                                                          0,
+                                                          "&Bijwerken...",
+                                                          "Werk de geïmporteerde gegevens bij met nieuwe gegevens vanuit een bestand.",
+                                                          Resources.RefreshIcon,
+                                                          hasUpdatesForNodeData);
         }
 
         [Test]
@@ -782,30 +752,28 @@ namespace Core.Gui.Test.ContextMenu
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             applicationFeatureCommands.CanShowPropertiesFor(nodeData).Returns(hasPropertiesForNodeData);
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     nodeData,
-                                                     treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 nodeData,
+                                                 treeViewCommands);
 
-                // Call
-                ContextMenuStrip result = builder.AddPropertiesItem().Build();
+            // Call
+            ContextMenuStrip result = builder.AddPropertiesItem().Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(result,
-                                                              0,
-                                                              "Ei&genschappen",
-                                                              "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                              Resources.PropertiesHS,
-                                                              hasPropertiesForNodeData);
-            }
+            TestHelper.AssertContextMenuStripContainsItem(result,
+                                                          0,
+                                                          "Ei&genschappen",
+                                                          "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                          Resources.PropertiesHS,
+                                                          hasPropertiesForNodeData);
         }
 
         [Test]
@@ -817,25 +785,23 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler, exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     new object(),
-                                                     treeViewControl);
-                var item = new StrictContextMenuItem(null, null, null, null);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler, exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 new object(),
+                                                 treeViewCommands);
+            var item = new StrictContextMenuItem(null, null, null, null);
 
-                // Call
-                ContextMenuStrip result = builder.AddCustomItem(item).Build();
+            // Call
+            ContextMenuStrip result = builder.AddCustomItem(item).Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
 
-                Assert.AreSame(item, result.Items[0]);
-            }
+            Assert.AreSame(item, result.Items[0]);
         }
 
         [Test]
@@ -847,23 +813,21 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     new object(),
-                                                     treeViewControl);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 new object(),
+                                                 treeViewCommands);
 
-                // Call
-                ContextMenuStrip result = builder.AddSeparator().Build();
+            // Call
+            ContextMenuStrip result = builder.AddSeparator().Build();
 
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                CollectionAssert.IsEmpty(result.Items);
-            }
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            CollectionAssert.IsEmpty(result.Items);
         }
 
         [Test]
@@ -877,32 +841,30 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 new object(),
+                                                 treeViewCommands);
+
+            var someItem = new StrictContextMenuItem(null, null, null, null);
+
+            // Call
+            for (var i = 0; i < count; i++)
             {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     new object(),
-                                                     treeViewControl);
-
-                var someItem = new StrictContextMenuItem(null, null, null, null);
-
-                // Call
-                for (var i = 0; i < count; i++)
-                {
-                    builder.AddSeparator();
-                }
-
-                ContextMenuStrip result = builder.AddCustomItem(someItem).Build();
-
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
-
-                Assert.IsInstanceOf<ToolStripMenuItem>(result.Items[0]);
+                builder.AddSeparator();
             }
+
+            ContextMenuStrip result = builder.AddCustomItem(someItem).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            Assert.IsInstanceOf<ToolStripMenuItem>(result.Items[0]);
         }
 
         [Test]
@@ -916,36 +878,34 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 new object(),
+                                                 treeViewCommands);
+
+            var someItem = new StrictContextMenuItem(null, null, null, null);
+            var someOtherItem = new StrictContextMenuItem(null, null, null, null);
+
+            builder.AddCustomItem(someItem);
+
+            // Call
+            for (var i = 0; i < count; i++)
             {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     new object(),
-                                                     treeViewControl);
-
-                var someItem = new StrictContextMenuItem(null, null, null, null);
-                var someOtherItem = new StrictContextMenuItem(null, null, null, null);
-
-                builder.AddCustomItem(someItem);
-
-                // Call
-                for (var i = 0; i < count; i++)
-                {
-                    builder.AddSeparator();
-                }
-
-                ContextMenuStrip result = builder.AddCustomItem(someOtherItem).Build();
-
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(3, result.Items.Count);
-
-                Assert.IsInstanceOf<ToolStripSeparator>(result.Items[1]);
-                Assert.IsInstanceOf<ToolStripMenuItem>(result.Items[2]);
+                builder.AddSeparator();
             }
+
+            ContextMenuStrip result = builder.AddCustomItem(someOtherItem).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(3, result.Items.Count);
+
+            Assert.IsInstanceOf<ToolStripSeparator>(result.Items[1]);
+            Assert.IsInstanceOf<ToolStripMenuItem>(result.Items[2]);
         }
 
         [Test]
@@ -959,30 +919,28 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                 importCommandHandler,
+                                                 exportCommandHandler,
+                                                 updateCommandHandler,
+                                                 viewCommands,
+                                                 new object(),
+                                                 treeViewCommands);
+
+            builder.AddCustomItem(new StrictContextMenuItem(null, null, null, null));
+
+            // Call
+            for (var i = 0; i < count; i++)
             {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     new object(),
-                                                     treeViewControl);
-
-                builder.AddCustomItem(new StrictContextMenuItem(null, null, null, null));
-
-                // Call
-                for (var i = 0; i < count; i++)
-                {
-                    builder.AddSeparator();
-                }
-
-                ContextMenuStrip result = builder.Build();
-
-                // Assert
-                Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.AreEqual(1, result.Items.Count);
+                builder.AddSeparator();
             }
+
+            ContextMenuStrip result = builder.Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
         }
     }
 }

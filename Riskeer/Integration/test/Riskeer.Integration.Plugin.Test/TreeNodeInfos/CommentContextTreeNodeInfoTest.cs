@@ -107,20 +107,20 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             using (var plugin = new RiskeerPlugin())
-            using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();
                 menuBuilder.AddOpenItem().Returns(menuBuilder);
 
                 IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(Arg.Any<object>(), treeViewControl).Returns(menuBuilder);
+                gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
 
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(null, null, treeViewControl);
+                info.ContextMenuStrip(null, null, treeViewCommands);
 
                 // Assert
                 menuBuilder.Received(1).Build();

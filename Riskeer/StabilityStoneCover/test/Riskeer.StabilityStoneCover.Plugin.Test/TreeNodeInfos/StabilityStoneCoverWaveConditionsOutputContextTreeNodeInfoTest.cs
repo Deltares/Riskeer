@@ -103,32 +103,30 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
+            var context = new StabilityStoneCoverWaveConditionsOutputContext(output, new StabilityStoneCoverWaveConditionsInput());
+
+            var menuBuilder = Substitute.For<IContextMenuBuilder>();
+            menuBuilder.AddPropertiesItem().Returns(menuBuilder);
+
+            var gui = Substitute.For<IGui>();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+
+            using (var plugin = new StabilityStoneCoverPlugin())
             {
-                StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
-                var context = new StabilityStoneCoverWaveConditionsOutputContext(output, new StabilityStoneCoverWaveConditionsInput());
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
 
-                var menuBuilder = Substitute.For<IContextMenuBuilder>();
-                menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-
-                var gui = Substitute.For<IGui>();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-
-                using (var plugin = new StabilityStoneCoverPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-
-                    // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
-                }
-
-                Received.InOrder(() =>
-                {
-                    menuBuilder.AddPropertiesItem();
-                    menuBuilder.Build();
-                });
+                // Call
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
+
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
 
         private TreeNodeInfo GetInfo(StabilityStoneCoverPlugin plugin)

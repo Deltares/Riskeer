@@ -216,18 +216,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
-            using (var treeViewControl = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new RiskeerPlugin())
             {
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeViewControl).Returns(menuBuilder);
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
+                TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
 
-                    // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(context, null, treeViewCommands);
             }
 
             // Assert
@@ -251,29 +249,27 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
-            using (var treeView = new TreeViewControl())
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new HydraulicLoadsStateRootContext(assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            IGui gui = StubFactory.CreateGuiStub();
+            gui.Get(context, treeViewCommands).Returns(menuBuilder);
+            using (var plugin = new RiskeerPlugin())
             {
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                var context = new HydraulicLoadsStateRootContext(assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                IGui gui = StubFactory.CreateGuiStub();
-                gui.Get(context, treeView).Returns(menuBuilder);
-                using (var plugin = new RiskeerPlugin())
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(context, null, treeViewCommands))
                 {
-                    plugin.Gui = gui;
+                    // Assert
+                    Assert.AreEqual(10, menu.Items.Count);
 
-                    // Call
-                    using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(context, null, treeView))
-                    {
-                        // Assert
-                        Assert.AreEqual(10, menu.Items.Count);
-
-                        TestHelper.AssertContextMenuStripContainsItem(
-                            menu, contextMenuCalculateAllIndex,
-                            "Alles be&rekenen",
-                            "Alle hydraulische belastingen berekenen.",
-                            RiskeerCommonFormsResources.CalculateAllIcon);
-                    }
+                    TestHelper.AssertContextMenuStripContainsItem(
+                        menu, contextMenuCalculateAllIndex,
+                        "Alles be&rekenen",
+                        "Alle hydraulische belastingen berekenen.",
+                        RiskeerCommonFormsResources.CalculateAllIcon);
                 }
             }
         }
