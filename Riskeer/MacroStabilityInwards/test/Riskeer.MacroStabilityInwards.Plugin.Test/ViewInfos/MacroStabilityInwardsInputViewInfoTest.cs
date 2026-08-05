@@ -26,7 +26,6 @@ using NSubstitute;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
@@ -402,7 +401,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution) null);
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
@@ -429,7 +427,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution) null);
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
@@ -459,7 +456,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution) null);
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
@@ -489,7 +485,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.FailureMechanismContribution.Returns((FailureMechanismContribution) null);
             assessmentSection.GetFailureMechanisms().Returns(new[]
             {
                 failureMechanism
