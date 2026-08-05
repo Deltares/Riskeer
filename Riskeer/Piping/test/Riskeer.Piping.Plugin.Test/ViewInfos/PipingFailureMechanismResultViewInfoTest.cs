@@ -94,7 +94,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(Array.Empty<IFailureMechanism>());
+
             var failureMechanism = new PipingFailureMechanism();
 
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))

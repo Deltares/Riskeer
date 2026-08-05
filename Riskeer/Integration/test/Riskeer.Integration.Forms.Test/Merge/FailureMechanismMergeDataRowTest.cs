@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             bool inAssembly = random.NextBoolean();
             var failureMechanism = Substitute.For<IFailureMechanism>();
             failureMechanism.Name.Returns(failureMechanismName);
-            failureMechanism.Sections.Returns(Enumerable.Empty<FailureMechanismSection>());
+
             failureMechanism.InAssembly = inAssembly;
 
             // Call

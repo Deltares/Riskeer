@@ -95,7 +95,7 @@ namespace Core.Components.BruTile.Test.Configurations
             const string url = "url";
             const string id = "id";
             var factory = Substitute.For<ITileSourceFactory>();
-            factory.GetWmtsTileSources(url).Returns(Enumerable.Empty<ITileSource>());
+
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))

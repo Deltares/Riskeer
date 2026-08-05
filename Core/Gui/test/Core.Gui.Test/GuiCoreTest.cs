@@ -685,10 +685,10 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var plugin = Substitute.For<PluginBase>();
-            plugin.GetStateInfos().Returns(Enumerable.Empty<StateInfo>());
-            plugin.GetViewInfos().Returns(Enumerable.Empty<ViewInfo>());
-            plugin.GetPropertyInfos().Returns(Enumerable.Empty<PropertyInfo>());
-            plugin.GetTreeNodeInfos().Returns(Enumerable.Empty<TreeNodeInfo>());
+
+
+
+
             plugin.When(x => x.Activate()).Do(_ => throw new Exception("ERROR!"));
             var projectFactory = Substitute.For<IProjectFactory>();
             // Setup
@@ -711,10 +711,10 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var plugin = Substitute.For<PluginBase>();
-            plugin.GetStateInfos().Returns(Enumerable.Empty<StateInfo>());
-            plugin.GetViewInfos().Returns(Enumerable.Empty<ViewInfo>());
-            plugin.GetPropertyInfos().Returns(Enumerable.Empty<PropertyInfo>());
-            plugin.GetTreeNodeInfos().Returns(Enumerable.Empty<TreeNodeInfo>());
+
+
+
+
             plugin.When(x => x.Activate()).Do(_ => throw new Exception("ERROR!"));
             plugin.When(x => x.Deactivate()).Do(_ => throw new Exception("MORE ERROR!"));
             var projectFactory = Substitute.For<IProjectFactory>();

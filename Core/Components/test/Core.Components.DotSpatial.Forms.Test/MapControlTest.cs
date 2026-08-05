@@ -1605,7 +1605,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         private static IEnumerable<TestCaseData> GetProblematicTileSourceFactoryTestCaseData(string prefix)
         {
             var factoryWithoutRequiredTileSource = Substitute.For<ITileSourceFactory>();
-            factoryWithoutRequiredTileSource.GetWmtsTileSources(Arg.Any<string>()).Returns(Enumerable.Empty<ITileSource>());
+
 
             var factoryThrowingCannotFindTileSourceException = Substitute.For<ITileSourceFactory>();
             factoryThrowingCannotFindTileSourceException.GetWmtsTileSources(Arg.Any<string>())

@@ -124,7 +124,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var otherAssessmentSection = Substitute.For<IAssessmentSection>();
             otherAssessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
-            otherAssessmentSection.GetFailureMechanisms().Returns(Enumerable.Empty<IFailureMechanism>());
+
             var failureMechanism = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);

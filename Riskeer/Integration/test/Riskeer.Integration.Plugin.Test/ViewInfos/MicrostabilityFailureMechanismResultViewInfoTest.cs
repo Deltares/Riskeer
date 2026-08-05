@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(Array.Empty<IFailureMechanism>());
+
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
             var failureMechanism = new MicrostabilityFailureMechanism();
 

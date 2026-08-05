@@ -113,8 +113,6 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         {
             // Setup
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
-            handler.Update(Arg.Is<ReferenceLine>(x => x != null), Arg.Is<ReferenceLine>(x => x != null))
-                   .Returns(Enumerable.Empty<IObservable>());
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
@@ -226,9 +224,6 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
-            handler.Update(Arg.Any<ReferenceLine>(),
-                           Arg.Any<ReferenceLine>())
-                   .Returns(Enumerable.Empty<IObservable>());
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
             importer.SetProgressChanged((description, step, steps) =>
             {
