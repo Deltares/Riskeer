@@ -267,6 +267,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             switch (methodToTest)
             {
                 case DragDropTestMethod.CanDrop:
+
                     // Call
                     bool canDrop = treeNodeInfo.CanDrop(draggedItemContext, targetGroupContext);
 
@@ -274,6 +275,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     Assert.IsTrue(canDrop);
                     break;
                 case DragDropTestMethod.CanInsert:
+
                     // Call
                     bool canInsert = treeNodeInfo.CanInsert(draggedItemContext, targetGroupContext);
 
@@ -310,6 +312,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             switch (methodToTest)
             {
                 case DragDropTestMethod.CanDrop:
+
                     // Call
                     bool canDrop = treeNodeInfo.CanDrop(draggedItemContext, targetGroupContext);
 
@@ -317,6 +320,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     Assert.IsFalse(canDrop);
                     break;
                 case DragDropTestMethod.CanInsert:
+
                     // Call
                     bool canInsert = treeNodeInfo.CanInsert(draggedItemContext, targetGroupContext);
 

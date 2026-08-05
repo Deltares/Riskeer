@@ -89,6 +89,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         {
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
+
             // Call
             Action test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
@@ -119,6 +120,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         {
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
+
             // Call
             Action test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
@@ -193,6 +195,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         {
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
+
             // Call
             Action test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
@@ -271,6 +274,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         {
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
+
             // Call
             Action test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
@@ -287,6 +291,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         {
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
+
             // Call
             ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
@@ -345,6 +350,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         {
             // Setup
             var xmlWriter = Substitute.For<XmlWriter>();
+
             // Call
             Action test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,

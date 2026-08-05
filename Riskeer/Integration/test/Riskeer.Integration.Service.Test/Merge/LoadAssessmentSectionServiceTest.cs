@@ -50,6 +50,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         {
             // Setup
             var storeProject = Substitute.For<IStoreProject>();
+
             // Call
             var service = new LoadAssessmentSectionService(storeProject);
 

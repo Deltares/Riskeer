@@ -84,6 +84,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             var inquiryHandler = Substitute.For<IInquiryHelper>();
             var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
+
             // Call
             var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
 

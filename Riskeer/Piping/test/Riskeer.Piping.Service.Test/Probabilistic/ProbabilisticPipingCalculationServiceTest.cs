@@ -231,6 +231,7 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             PipingFailureMechanism failureMechanism = CreateFailureMechanismWithSections();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, validHrdFilePath);
+
             // Call
             var isValid = false;
 

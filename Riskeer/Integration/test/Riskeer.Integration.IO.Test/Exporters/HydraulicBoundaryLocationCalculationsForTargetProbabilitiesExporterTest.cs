@@ -107,6 +107,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
                 Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(), assessmentSection,

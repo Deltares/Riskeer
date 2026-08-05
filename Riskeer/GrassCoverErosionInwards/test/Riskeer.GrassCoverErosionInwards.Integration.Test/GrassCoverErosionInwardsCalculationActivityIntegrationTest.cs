@@ -300,6 +300,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                              assessmentSection.GrassCoverErosionInwards,
                                                                                                                              assessmentSection);
+
                 // Call
                 Action call = () => activity.Run();
 
@@ -592,6 +593,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                              assessmentSection.GrassCoverErosionInwards,
                                                                                                                              assessmentSection);
+
                 // Call
                 Action call = () => activity.Run();
 
@@ -644,6 +646,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                              assessmentSection.GrassCoverErosionInwards,
                                                                                                                              assessmentSection);
+
                 // Call
                 Action call = () => activity.Run();
 
@@ -697,6 +700,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                              assessmentSection.GrassCoverErosionInwards,
                                                                                                                              assessmentSection);
+
                 // Call
                 Action call = () => activity.Run();
 
@@ -1001,6 +1005,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                              assessmentSection.GrassCoverErosionInwards,
                                                                                                                              assessmentSection);
+
                 // Call
                 Action call = () => activity.Run();
 
@@ -1052,6 +1057,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                              assessmentSection.GrassCoverErosionInwards,
                                                                                                                              assessmentSection);
+
                 // Call
                 Action call = () => activity.Run();
 
@@ -1104,6 +1110,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                              assessmentSection.GrassCoverErosionInwards,
                                                                                                                              assessmentSection);
+
                 // Call
                 Action call = () => activity.Run();
 

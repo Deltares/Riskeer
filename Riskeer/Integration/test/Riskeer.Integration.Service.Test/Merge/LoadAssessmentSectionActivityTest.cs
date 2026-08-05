@@ -39,6 +39,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         {
             // Setup
             var service = Substitute.For<ILoadAssessmentSectionService>();
+
             // Call
             Action call = () => new LoadAssessmentSectionActivity(null, service, string.Empty);
 
@@ -63,6 +64,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         {
             // Setup
             var service = Substitute.For<ILoadAssessmentSectionService>();
+
             // Call
             Action call = () => new LoadAssessmentSectionActivity(new AssessmentSectionOwner(),
                                                                         service,

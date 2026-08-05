@@ -45,6 +45,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var viewParent = Substitute.For<IViewParent>();
             var projectStorage = Substitute.For<IStoreProject>();
+
             // Call
             var provider = new AssessmentSectionProvider(viewParent, projectStorage);
 

@@ -241,6 +241,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+
                 // Call
                 const string newName = "New Name";
                 info.OnNodeRenamed(context, newName);
@@ -259,6 +260,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+
                 // Call
                 bool canRemove = info.CanRemove(null, null);
 

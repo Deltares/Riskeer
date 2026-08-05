@@ -96,6 +96,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
@@ -113,6 +114,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),

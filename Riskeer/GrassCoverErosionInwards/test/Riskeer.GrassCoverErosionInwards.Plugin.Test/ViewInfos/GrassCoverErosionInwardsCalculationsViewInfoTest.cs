@@ -97,6 +97,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                               null,
                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                                               assessmentSection);
+
             // Call
             string name = info.GetViewName(null, calculationGroupContext);
 
@@ -187,6 +188,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             using (var view = new GrassCoverErosionInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection))
             {
                 view.Data = failureMechanism.CalculationsGroup;
+
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 

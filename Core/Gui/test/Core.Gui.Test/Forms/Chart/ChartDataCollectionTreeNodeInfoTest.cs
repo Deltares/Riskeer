@@ -312,6 +312,7 @@ namespace Core.Gui.Test.Forms.Chart
 
                 contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>())
                                           .Returns(menuBuilder);
+
                 // Call
                 info.ContextMenuStrip(chartDataCollection, null, treeViewControl);
 

@@ -53,6 +53,7 @@ namespace Riskeer.Common.Service.Test
                 pointOne,
                 pointTwo
             }));
+
             // Call
             IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshore);
 
@@ -70,6 +71,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             var foreshore = Substitute.For<IUseForeshore>();
             foreshore.UseForeshore = false;
+
             // Call
             IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshore);
 
@@ -90,6 +92,7 @@ namespace Riskeer.Common.Service.Test
             breakWater.UseBreakWater = true;
             var expectedBreakWater = new BreakWater(breakWaterType, breakWaterHeight);
             breakWater.BreakWater.Returns(expectedBreakWater);
+
             // Call
             HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWater);
 
@@ -107,6 +110,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             var breakWater = Substitute.For<IUseBreakWater>();
             breakWater.UseBreakWater = false;
+
             // Call
             HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWater);
 
@@ -123,6 +127,7 @@ namespace Riskeer.Common.Service.Test
             breakWater.UseBreakWater = true;
             var expectedBreakWater = new BreakWater((BreakWaterType) 99, random.NextDouble());
             breakWater.BreakWater.Returns(expectedBreakWater);
+
             // Call
             Action test = () => HydraRingInputParser.ParseBreakWater(breakWater);
 

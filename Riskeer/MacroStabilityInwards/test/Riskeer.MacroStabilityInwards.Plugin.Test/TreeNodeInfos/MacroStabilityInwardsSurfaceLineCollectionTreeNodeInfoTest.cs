@@ -144,6 +144,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var surfaceLinesContext = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+
             // Call
             Color foreColor = info.ForeColor(surfaceLinesContext);
 
@@ -169,6 +170,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var surfaceLinesContext = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+
             // Call
             object[] objects = info.ChildNodeObjects(surfaceLinesContext);
 

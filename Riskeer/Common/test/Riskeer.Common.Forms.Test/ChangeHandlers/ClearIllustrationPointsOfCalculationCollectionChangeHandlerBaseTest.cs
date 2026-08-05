@@ -48,6 +48,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             var handler = new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(inquiryHelper);
 

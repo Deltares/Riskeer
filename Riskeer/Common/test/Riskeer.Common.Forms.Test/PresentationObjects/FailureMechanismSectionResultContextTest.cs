@@ -40,6 +40,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var sectionResults = Substitute.For<IObservableEnumerable<FailureMechanismSectionResult>>();
+
             // Call
             var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(sectionResults, failureMechanism, assessmentSection);
 

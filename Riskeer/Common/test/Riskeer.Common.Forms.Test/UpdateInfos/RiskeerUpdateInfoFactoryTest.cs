@@ -58,6 +58,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -80,6 +81,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -96,6 +98,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -114,6 +117,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -133,6 +137,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -149,6 +154,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
@@ -177,6 +183,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
@@ -200,6 +207,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
@@ -217,6 +225,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
@@ -235,6 +244,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
@@ -254,6 +264,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));
@@ -271,6 +282,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, FailureMechanismSectionResult>(c => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy));

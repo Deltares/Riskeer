@@ -71,6 +71,7 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
             var descriptorContext = Substitute.For<ITypeDescriptorContext>();
             serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
             descriptorContext.Instance.Returns(propertyBag);
+
             // Call
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
@@ -95,6 +96,7 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
             var descriptorContext = Substitute.For<ITypeDescriptorContext>();
             serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
             descriptorContext.Instance.Returns(propertyBag);
+
             // Call
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 

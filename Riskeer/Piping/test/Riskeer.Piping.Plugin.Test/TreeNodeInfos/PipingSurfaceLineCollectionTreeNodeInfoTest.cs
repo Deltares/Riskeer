@@ -144,6 +144,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingSurfaceLineContext = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+
             // Call
             Color foreColor = info.ForeColor(pipingSurfaceLineContext);
 
@@ -169,6 +170,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingSurfaceLineContext = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+
             // Call
             object[] objects = info.ChildNodeObjects(pipingSurfaceLineContext);
 

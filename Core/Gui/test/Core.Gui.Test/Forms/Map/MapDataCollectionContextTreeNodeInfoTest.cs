@@ -499,6 +499,7 @@ namespace Core.Gui.Test.Forms.Map
             builder.AddPropertiesItem().Returns(builder);
 
             contextMenuBuilderProvider.Get(context, null).Returns(builder);
+
             // Call
             info.ContextMenuStrip(context, null, null);
 
@@ -542,6 +543,7 @@ namespace Core.Gui.Test.Forms.Map
                                                      treeViewControl);
 
                 contextMenuBuilderProvider.Get(context, treeViewControl).Returns(builder);
+
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
@@ -574,6 +576,7 @@ namespace Core.Gui.Test.Forms.Map
             {
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
+
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewControl))
                 {
@@ -601,6 +604,7 @@ namespace Core.Gui.Test.Forms.Map
             {
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
+
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewControl))
                 {
@@ -629,6 +633,7 @@ namespace Core.Gui.Test.Forms.Map
             {
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
+
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapDataCollection), null, treeViewControl))
                 {

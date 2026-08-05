@@ -121,6 +121,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                                                                     Path.Combine(
                                                                         nameof(WaveConditionsCalculationConfigurationExporter<CalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>>),
                                                                         "targetProbabilityConfiguration.xml"));
+
             // Call & Assert
             WriteAndValidate(new[]
             {

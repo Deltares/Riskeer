@@ -64,6 +64,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
+
             // Call
             Action test = () => new DesignWaterLevelCalculationService().Calculate(null,
                                                                                          CreateCalculationSettings(),
@@ -80,6 +81,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
+
             // Call
             Action call = () => new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
                                                                                          null,

@@ -65,6 +65,7 @@ namespace Riskeer.DuneErosion.Service.Test
         {
             // Setup
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
+
             // Call
             Action test = () => new DuneLocationCalculationService().Calculate(null,
                                                                                      1,
@@ -95,6 +96,7 @@ namespace Riskeer.DuneErosion.Service.Test
         {
             // Setup
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
+
             // Call
             Action call = () => new DuneLocationCalculationService().Calculate(new DuneLocationCalculation(new TestDuneLocation()),
                                                                                      1,

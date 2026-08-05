@@ -87,6 +87,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var viewCommands = Substitute.For<IViewCommands>();
+
             // Call
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
 

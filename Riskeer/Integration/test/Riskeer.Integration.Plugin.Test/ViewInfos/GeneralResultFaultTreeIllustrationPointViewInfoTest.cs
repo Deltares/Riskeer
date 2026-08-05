@@ -86,6 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var structuresCalculation = Substitute.For<IStructuresCalculation>();
+
             // Call
             object viewData = info.GetViewData(new StructuresOutputContext(structuresCalculation));
 
@@ -98,6 +99,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var structuresCalculation = Substitute.For<IStructuresCalculation>();
+
             // Call
             IView view = info.CreateInstance(new StructuresOutputContext(structuresCalculation));
 

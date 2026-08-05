@@ -505,6 +505,7 @@ namespace Core.Gui.Test.Forms.Chart
             builder.AddPropertiesItem().Returns(builder);
 
             contextMenuBuilderProvider.Get(chartData, null).Returns(builder);
+
             // Call
             info.ContextMenuStrip(GetContext(chartData), null, null);
 

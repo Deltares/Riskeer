@@ -62,6 +62,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             var handler = new WaterLevelHydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), assessmentSection);

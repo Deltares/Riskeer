@@ -50,6 +50,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             // Call
             var importer = new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider);
 
@@ -62,6 +63,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             // Call
             Action call = () => new TestProfilesImporter(null, testReferenceLine, testFilePath, messageProvider);
 
@@ -75,6 +77,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             // Call
             Action call = () => new TestProfilesImporter(testImportTarget, null, testFilePath, messageProvider);
 
@@ -88,6 +91,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             // Call
             Action call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, null, messageProvider);
 
@@ -112,6 +116,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             // Call
             Action call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath, messageProvider, null);
 

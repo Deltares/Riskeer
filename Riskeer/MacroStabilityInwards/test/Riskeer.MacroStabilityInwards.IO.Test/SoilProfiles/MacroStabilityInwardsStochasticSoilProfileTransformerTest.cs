@@ -39,6 +39,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         {
             // Setup
             var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
+
             // Call
             Action call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(null, soilProfile);
 

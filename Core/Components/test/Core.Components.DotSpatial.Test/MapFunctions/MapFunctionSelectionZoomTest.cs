@@ -41,6 +41,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
         {
             // Setup
             var map = Substitute.For<IMap>();
+
             // Call
             var mapFunction = new MapFunctionSelectionZoom(map);
 
@@ -193,6 +194,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
                 new GeoMouseArgs(
                     new MouseEventArgs(MouseButtons.None, 0, endX, endY, 0),
                     map));
+
             // Call
             mapFunction.Draw(new MapDrawArgs(graphics, clipRectangle, mapFrame));
 
@@ -234,6 +236,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
                 new GeoMouseArgs(
                     new MouseEventArgs(MouseButtons.None, 0, endX, endY, 0),
                     map));
+
             // Call
             mapFunction.Draw(new MapDrawArgs(graphics, clipRectangle, mapFrame));
 

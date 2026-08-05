@@ -35,6 +35,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var structuresCalculation = Substitute.For<IStructuresCalculation>();
+
             // Call
             var structuresOutputContext = new StructuresOutputContext(structuresCalculation);
 

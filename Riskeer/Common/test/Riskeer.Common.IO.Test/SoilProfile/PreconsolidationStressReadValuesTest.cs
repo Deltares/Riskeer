@@ -49,6 +49,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Setup
             var reader = Substitute.For<IRowBasedDatabaseReader>();
+
             // Call
             Action call = () => new PreconsolidationStressReadValues(reader, null);
 
@@ -75,6 +76,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressMean).Returns(preconsolidationStressMean);
             reader.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation).Returns(preconsolidationStressCoefficientOfVariation);
             reader.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressShift).Returns(preconsolidationStressShift);
+
             // Call
             var properties = new PreconsolidationStressReadValues(reader, string.Empty);
 
@@ -117,6 +119,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.ReadOrDefault<string>(Arg.Is<string>(s => s != columnName))
                   .Returns("");
             reader.Path.Returns(path);
+
             // Call
             Action test = () => new PreconsolidationStressReadValues(reader, profileName);
 

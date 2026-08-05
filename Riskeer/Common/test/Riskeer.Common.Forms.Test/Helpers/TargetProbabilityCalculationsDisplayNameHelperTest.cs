@@ -90,6 +90,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability2)
                 });
+
             // Call
             string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(hydraulicBoundaryLocationCalculations,
                                                                                                                        assessmentSection);
@@ -117,6 +118,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability2)
                 });
+
             // Call
             string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(hydraulicBoundaryLocationCalculations,
                                                                                                                        assessmentSection);
@@ -148,6 +150,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
                     calculationsForTargetProbability
                 });
+
             // Call
             string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
                                                                                                                        assessmentSection);

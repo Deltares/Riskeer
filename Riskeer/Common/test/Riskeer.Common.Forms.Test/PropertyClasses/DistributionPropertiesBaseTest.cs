@@ -41,6 +41,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var distribution = Substitute.For<IDistribution>();
+
             // Call
             var properties = new SimpleDistributionProperties(distribution);
 
@@ -56,6 +57,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var distribution = Substitute.For<IDistribution>();
+
             // Call
             var properties = new SimpleDistributionProperties(DistributionReadOnlyProperties.All, distribution, null);
 
@@ -88,6 +90,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var distribution = Substitute.For<IDistribution>();
+
             // Call
             Action call = () => new SimpleDistributionProperties(flags, distribution, null);
 
@@ -107,6 +110,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var distribution = Substitute.For<IDistribution>();
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
+
             // Call
             var properties = new SimpleDistributionProperties(readOnlyProperties, distribution, handler);
 
@@ -146,6 +150,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             distribution.StandardDeviation = new RoundedDouble(2, 2.2);
 
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
+
             // Call
             var properties = new SimpleDistributionProperties(DistributionReadOnlyProperties.None, distribution, handler);
 

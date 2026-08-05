@@ -96,6 +96,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
                                                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -113,6 +114,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
                                                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),

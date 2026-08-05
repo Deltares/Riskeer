@@ -100,6 +100,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var targetProbabilityChangeHandler = Substitute.For<IObservablePropertyChangeHandler>();
+
             // Call
             var properties = new WaveHeightCalculationsForUserDefinedTargetProbabilityProperties(
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), assessmentSection, targetProbabilityChangeHandler);

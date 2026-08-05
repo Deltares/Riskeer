@@ -72,6 +72,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var failureMechanism = Substitute.For<IFailureMechanism<TestFailureMechanismSectionResult>>();
             var sectionResultUpdateStrategy = Substitute.For<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
+
             // Call
             var importer = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 

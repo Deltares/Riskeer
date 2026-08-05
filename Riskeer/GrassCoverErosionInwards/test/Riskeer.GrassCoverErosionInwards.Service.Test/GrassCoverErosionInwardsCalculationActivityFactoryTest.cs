@@ -54,6 +54,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action test = () => GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(null,
                                                                                                                    new GrassCoverErosionInwardsFailureMechanism(),
@@ -69,6 +70,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action test = () => GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(
                 new GrassCoverErosionInwardsCalculation(), null, assessmentSection);
@@ -117,6 +119,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action test = () => GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(null,
                                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
@@ -132,6 +135,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action test = () => GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
                                                                                                                      null,
@@ -194,6 +198,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action test = () => GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
 

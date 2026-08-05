@@ -190,6 +190,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             const string authorityCode = "EPSG:28992";
             var extent = new Extent(10000, 123456, 987654321, 321654);
             IConfiguration configuration = CreateStubConfiguration(authorityCode, extent);
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -212,6 +213,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             IConfiguration configuration = CreateUninitializedStubConfiguration();
+
             // Call
             using (new BruTileLayer(configuration))
             {
@@ -228,6 +230,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             const string authorityNumber = "28991";
             IConfiguration configuration = CreateStubConfiguration(authorityNumber);
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -242,6 +245,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             string esriProjectionString = AuthorityCodeHandler.Instance["EPSG:2000"].ToEsriString();
             IConfiguration configuration = CreateStubConfiguration(esriProjectionString);
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -257,6 +261,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             string proj4String = AuthorityCodeHandler.Instance["EPSG:2222"].ToProj4String();
             IConfiguration configuration = CreateStubConfiguration(proj4String);
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -273,6 +278,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             IConfiguration configuration = CreateStubConfiguration(authorityCode);
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -288,6 +294,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             const string urnCode = "urn:ogc:def:crs:EPSG:6.18.3:3857";
             IConfiguration configuration = CreateStubConfiguration(urnCode);
+ 
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -303,6 +310,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             const string proj4String = "+proj=sterea +lat_0=52.15616055555555 +lon_0=corruption +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs ";
             IConfiguration configuration = CreateStubConfiguration(proj4String);
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -320,6 +328,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             IConfiguration configuration = CreateStubConfiguration(invalidSrs);
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -449,6 +458,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             IConfiguration configuration = CreateStubConfiguration();
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -469,6 +479,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             IConfiguration configuration = CreateStubConfiguration();
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {
@@ -492,6 +503,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             IConfiguration configuration = CreateStubConfiguration();
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {

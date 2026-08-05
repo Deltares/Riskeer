@@ -88,6 +88,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
                                                                     Path.Combine(
                                                                         nameof(WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter),
                                                                         "fullValidConfiguration.xml"));
+
             // Call & Assert
             WriteAndValidate(new[]
             {

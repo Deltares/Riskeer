@@ -54,6 +54,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+
             // Call
             var importer = new FailureMechanismSectionReplaceStrategy(failureMechanism);
 

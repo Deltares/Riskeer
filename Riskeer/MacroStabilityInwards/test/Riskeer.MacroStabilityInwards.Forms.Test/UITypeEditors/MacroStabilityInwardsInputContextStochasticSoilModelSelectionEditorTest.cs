@@ -82,6 +82,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
             provider.GetService(Arg.Any<Type>()).Returns(service);
             // service.DropDownControl(Arg.Any<Control>());
             context.Instance.Returns(propertyBag);
+
             // Call
             object result = editor.EditValue(context, provider, someValue);
 
@@ -147,6 +148,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
             provider.GetService(Arg.Any<Type>()).Returns(service);
             // service.DropDownControl(Arg.Any<Control>());
             context.Instance.Returns(propertyBag);
+
             // Call
             object result = editor.EditValue(context, provider, someValue);
 

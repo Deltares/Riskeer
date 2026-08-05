@@ -41,6 +41,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             IEnumerable<TestCalculation> calculations = Enumerable.Repeat(new TestCalculation(), random.Next(0, 10));
             var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             failureMechanism.Calculations.Returns(calculations);
+
             // Call
             var row = new CalculatableFailureMechanismMergeDataRow(failureMechanism);
 

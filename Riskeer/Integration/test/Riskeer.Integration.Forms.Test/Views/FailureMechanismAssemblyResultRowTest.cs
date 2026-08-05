@@ -72,6 +72,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var failureMechanism = Substitute.For<IFailureMechanism>();
             failureMechanism.Name.Returns(failureMechanismName);
             failureMechanism.Code.Returns(failureMechanismCode);
+
             // Call
             var row = new FailureMechanismAssemblyResultRow(failureMechanism, errorMessage);
 

@@ -96,6 +96,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var failureMechanism = Substitute.For<IFailureMechanism>();
+
             // Call
             using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {

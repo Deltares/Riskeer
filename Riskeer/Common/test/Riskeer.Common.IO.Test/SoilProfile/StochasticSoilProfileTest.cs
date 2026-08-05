@@ -50,6 +50,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var random = new Random(21);
             double probability = random.NextDouble();
             var soilProfile = Substitute.For<ISoilProfile>();
+
             // Call
             var profile = new StochasticSoilProfile(probability, soilProfile);
 

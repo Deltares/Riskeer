@@ -55,6 +55,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(null,
                                                                                                             new ClosingStructuresFailureMechanism(),
@@ -70,6 +71,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<ClosingStructuresInput>(),
                                                                                                             null,
@@ -119,6 +121,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(null,
                                                                                                               new ClosingStructuresFailureMechanism(),
@@ -134,6 +137,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
                                                                                                               null,
@@ -196,6 +200,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
 

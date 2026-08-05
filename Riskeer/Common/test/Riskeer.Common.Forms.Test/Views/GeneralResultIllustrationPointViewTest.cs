@@ -92,6 +92,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var calculation = Substitute.For<ICalculation>();
+
             // Call
             var view = new TestGeneralResultIllustrationPointView(calculation, GetGeneralResultWithoutTopLevelIllustrationPoints);
 
@@ -118,6 +119,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var calculation = Substitute.For<ICalculation>();
+
             // Call
             var view = new TestGeneralResultIllustrationPointView(calculation, () => null);
             ShowTestView(view);
@@ -148,6 +150,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var calculation = Substitute.For<ICalculation>();
+
             // Call
             var view = new TestGeneralResultIllustrationPointView(calculation, GetGeneralResultWithoutTopLevelIllustrationPoints);
             ShowTestView(view);
@@ -161,6 +164,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var calculation = Substitute.For<ICalculation>();
+
             // Call
             GeneralResult<TestTopLevelIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
             var view = new TestGeneralResultIllustrationPointView(calculation, () => generalResult);

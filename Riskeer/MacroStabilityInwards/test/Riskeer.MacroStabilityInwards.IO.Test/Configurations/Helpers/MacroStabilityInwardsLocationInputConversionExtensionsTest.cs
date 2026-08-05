@@ -64,6 +64,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder = phreaticLineOffsetBelowDikeTopAtPolder;
             inputDaily.PhreaticLineOffsetBelowShoulderBaseInside = phreaticLineOffsetBelowShoulderBaseInside;
             inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder = phreaticLineOffsetBelowDikeToeAtPolder;
+
             // Call
             MacroStabilityInwardsLocationInputConfiguration configuration = inputDaily.ToMacroStabilityInwardsLocationInputConfiguration();
 
@@ -118,6 +119,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder = phreaticLineOffsetBelowDikeTopAtPolder;
             inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside = phreaticLineOffsetBelowShoulderBaseInside;
             inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = phreaticLineOffsetBelowDikeToeAtPolder;
+
             // Call
             MacroStabilityInwardsLocationInputExtremeConfiguration configuration = inputExtreme.ToMacroStabilityInwardsLocationInputExtremeConfiguration();
             

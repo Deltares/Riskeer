@@ -77,6 +77,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
+
             // Call
             Action test = () => new MacroStabilityInwardsInputContextProperties(null,
                                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,

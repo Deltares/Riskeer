@@ -68,6 +68,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Setup
             var calculator = Substitute.For<ICalculator>();
             var validator = Substitute.For<IValidator>();
+
             // Call
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 

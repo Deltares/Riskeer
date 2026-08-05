@@ -49,6 +49,7 @@ namespace Riskeer.Common.Util.Test
         {
             // Setup
             var calculation = Substitute.For<ICalculation>();
+
             // Call
             Action test = () => new CalculationWithLocation(calculation, null);
 

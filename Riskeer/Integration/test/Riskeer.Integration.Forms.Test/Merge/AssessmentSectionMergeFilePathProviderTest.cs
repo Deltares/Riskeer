@@ -46,6 +46,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             var provider = new AssessmentSectionMergeFilePathProvider(inquiryHelper);
 

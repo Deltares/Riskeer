@@ -61,6 +61,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             var properties = new TestWaveHeightCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection);
 

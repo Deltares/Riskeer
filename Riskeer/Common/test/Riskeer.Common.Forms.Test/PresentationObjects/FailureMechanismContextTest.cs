@@ -38,6 +38,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = Substitute.For<IFailureMechanism>();
+
             // Call
             var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 

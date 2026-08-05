@@ -58,6 +58,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo = PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(inquiryHelper);
 
@@ -79,6 +80,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             ImportInfo<PipingFailureMechanismSectionsContext> importInfo = PipingImportInfoFactory.CreateFailureMechanismSectionsImportInfo(inquiryHelper);
 

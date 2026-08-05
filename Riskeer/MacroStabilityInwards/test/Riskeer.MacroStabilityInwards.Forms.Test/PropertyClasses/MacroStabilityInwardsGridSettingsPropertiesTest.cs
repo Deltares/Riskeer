@@ -70,6 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
+
             // Call
             Action call = () => new MacroStabilityInwardsGridSettingsProperties(null, changeHandler);
 

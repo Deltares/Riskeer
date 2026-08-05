@@ -60,6 +60,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var calculation = Substitute.For<ICalculation>();
+
             // Call
             using (var view = new GeneralResultSubMechanismIllustrationPointView(calculation, () => null))
             {
@@ -99,6 +100,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var calculation = Substitute.For<ICalculation>();
+
             // Call
             var view = new GeneralResultSubMechanismIllustrationPointView(calculation, () => null);
             ShowTestView(view);

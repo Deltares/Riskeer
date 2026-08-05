@@ -37,6 +37,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
             distribution.Mean = new RoundedDouble();
+
             // Call
             var designVariable = new VariationCoefficientDeterministicDesignVariable<IVariationCoefficientDistribution>(distribution);
 

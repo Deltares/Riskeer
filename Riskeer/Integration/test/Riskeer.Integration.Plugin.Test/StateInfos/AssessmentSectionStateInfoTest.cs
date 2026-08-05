@@ -79,6 +79,7 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
         {
             // Setup
             var project = Substitute.For<IProject>();
+
             // Call
             object rootData = info.GetRootData(project);
 

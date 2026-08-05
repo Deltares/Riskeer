@@ -54,6 +54,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 

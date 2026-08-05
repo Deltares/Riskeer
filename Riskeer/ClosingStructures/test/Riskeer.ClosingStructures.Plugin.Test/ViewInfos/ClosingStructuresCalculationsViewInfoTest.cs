@@ -96,6 +96,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
                                                                                        null,
                                                                                        new ClosingStructuresFailureMechanism(),
                                                                                        assessmentSection);
+
             // Call
             string name = info.GetViewName(null, calculationGroupContext);
 

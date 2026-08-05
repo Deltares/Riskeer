@@ -134,6 +134,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
+
             // Call
             Action test = () => new UseBreakWaterProperties(null, handler);
 

@@ -38,6 +38,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             Action call = () => new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper, null, Enumerable.Empty<IObservable>);
@@ -52,6 +53,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             Action call = () => new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper, string.Empty, null);

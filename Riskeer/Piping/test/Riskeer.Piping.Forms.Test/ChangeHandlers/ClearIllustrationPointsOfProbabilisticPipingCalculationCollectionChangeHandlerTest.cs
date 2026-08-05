@@ -56,6 +56,7 @@ namespace Riskeer.Piping.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             var handler = new ClearIllustrationPointsOfProbabilisticPipingCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<ProbabilisticPipingCalculationScenario>());

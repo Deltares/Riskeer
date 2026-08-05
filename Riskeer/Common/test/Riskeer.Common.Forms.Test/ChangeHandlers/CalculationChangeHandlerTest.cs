@@ -39,6 +39,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHandler = Substitute.For<IInquiryHelper>();
+
             // Call
             Action test = () => new CalculationChangeHandler(null, string.Empty, inquiryHandler);
 
@@ -65,6 +66,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHandler = Substitute.For<IInquiryHelper>();
+
             // Call
             Action test = () => new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
                                                                    null,
@@ -80,6 +82,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHandler = Substitute.For<IInquiryHelper>();
+
             // Call
             var handler = new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
                                                        string.Empty,

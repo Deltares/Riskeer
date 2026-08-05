@@ -70,6 +70,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanism,
                                                       assessmentSection);
+
             // Call
             Action call = () => new SimpleStructuresInputProperties(inputContext, null, handler);
 

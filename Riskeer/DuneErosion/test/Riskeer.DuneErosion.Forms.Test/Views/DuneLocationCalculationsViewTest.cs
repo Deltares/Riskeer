@@ -320,6 +320,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
+
             // Call
             ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection, hydraulicBoundaryLocation);
 

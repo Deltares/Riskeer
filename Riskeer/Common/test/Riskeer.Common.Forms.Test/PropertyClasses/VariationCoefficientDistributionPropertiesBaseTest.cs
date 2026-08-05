@@ -41,6 +41,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
+
             // Call
             var properties = new SimpleDistributionProperties(distribution);
 
@@ -55,6 +56,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
+
             // Call
             var properties = new SimpleDistributionProperties(VariationCoefficientDistributionReadOnlyProperties.All, distribution, null);
 
@@ -87,6 +89,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
+
             // Call
             Action call = () => new SimpleDistributionProperties(flags, distribution, null);
 
@@ -106,6 +109,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
+
             // Call
             var properties = new SimpleDistributionProperties(readOnlyProperties, distribution, handler);
 

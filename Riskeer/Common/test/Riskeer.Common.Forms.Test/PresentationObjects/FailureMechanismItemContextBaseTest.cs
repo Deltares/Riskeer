@@ -40,6 +40,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var observable = Substitute.For<IObservable>();
             var failureMechanism = Substitute.For<IFailureMechanism>();
+
             // Call
             var context = new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, failureMechanism, assessmentSection);
 
@@ -56,6 +57,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var observable = Substitute.For<IObservable>();
+
             // Call
             Action call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, null, assessmentSection);
 
@@ -70,6 +72,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var observable = Substitute.For<IObservable>();
             var failureMechanism = Substitute.For<IFailureMechanism>();
+
             // Call
             Action call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, failureMechanism, null);
 

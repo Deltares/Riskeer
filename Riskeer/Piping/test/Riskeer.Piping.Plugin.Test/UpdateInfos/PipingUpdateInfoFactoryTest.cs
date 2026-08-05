@@ -59,6 +59,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
+
             // Call
             UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
 
@@ -80,6 +81,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
 
@@ -95,6 +97,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
 
@@ -112,6 +115,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
 
@@ -127,6 +131,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
 
@@ -145,6 +150,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
+
             // Call
             UpdateInfo<PipingFailureMechanismSectionsContext> updateInfo = PipingUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo(inquiryHelper);
 

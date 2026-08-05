@@ -57,6 +57,7 @@ namespace Riskeer.Common.IO.Test.Configurations
         {
             // Setup
             var configuration = Substitute.For<StructuresCalculationConfiguration>("name");
+
             // Call
             Action test = () => new SimpleStructuresCalculationStochastAssigner(
                 configuration,

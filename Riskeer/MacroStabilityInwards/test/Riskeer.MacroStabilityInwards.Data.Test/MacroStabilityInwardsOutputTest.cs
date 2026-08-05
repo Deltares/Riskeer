@@ -56,6 +56,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                                      MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                                      new MacroStabilityInwardsSlice[0], 0, 0);
+
             // Call
             Action call = () => new MacroStabilityInwardsOutput(slidingCurve, null,
                                                                       new MacroStabilityInwardsOutput.ConstructionProperties());

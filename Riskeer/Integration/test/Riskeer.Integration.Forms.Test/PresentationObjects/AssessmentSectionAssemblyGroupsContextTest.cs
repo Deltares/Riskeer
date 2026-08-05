@@ -35,6 +35,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             // Call
             var context = new AssessmentSectionAssemblyGroupsContext(assessmentSection);
 

@@ -201,6 +201,7 @@ namespace Core.Components.Stack.Test.Data
         {
             // Setup
             var data = new StackChartData();
+
             // Call
             Action test = () => data.AddRow("Row", new[]
             {

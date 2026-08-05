@@ -378,6 +378,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
+
             // Call
             ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
 
@@ -415,6 +416,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
+
             // Call
             ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
 
