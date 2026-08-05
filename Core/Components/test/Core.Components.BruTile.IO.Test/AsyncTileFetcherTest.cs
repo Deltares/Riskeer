@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -291,6 +291,14 @@ namespace Core.Components.BruTile.IO.Test
                 {
                     TileDataToReturn = data
                 };
+                var callCount = 0;
+                var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+                ((ILocalTileSource) tileProvider).GetTileAsync(info).Returns(_ =>
+                {
+                    allRequestsDoneEvent.WaitOne();
+                    callCount++;
+                    return Task.FromResult(data);
+                });
 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
                 using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200))
@@ -321,6 +329,7 @@ namespace Core.Components.BruTile.IO.Test
                     if (fetcherIsDoneEvent.WaitOne(allowedTileFetchTime))
                     {
                         Assert.AreEqual(1, tileSource.GetTileCallCount);
+                        Assert.AreEqual(1, callCount);
 
                         Assert.AreEqual(1, tileReceivedCounter);
                         Assert.AreSame(data, receivedArguments.Tile);
@@ -415,10 +424,12 @@ namespace Core.Components.BruTile.IO.Test
 
             using (var blockingEvent = new ManualResetEvent(false))
             {
-                var blockingTileSource = new TileSourceStub(blockingEvent)
+                var blockingTileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+                ((ILocalTileSource) blockingTileProvider).GetTileAsync(info).Returns(_ =>
                 {
-                    TileDataToReturn = data
-                };
+                    blockingEvent.WaitOne();
+                    return Task.FromResult(data);
+                });
 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
                 using (var fetcher = new AsyncTileFetcher(blockingTileSource, 100, 200))
@@ -539,36 +550,5 @@ namespace Core.Components.BruTile.IO.Test
             Assert.DoesNotThrow(call);
         }
 
-        /// <summary>
-        /// A stub implementation of <see cref="IHttpTileSource"/> that can wait to return
-        /// on its methods until a signal is given from another thread.
-        /// </summary>
-        /// <remarks>Mocking this behavior in Rhinomocks leads to deadlocks.</remarks>
-        private class TileSourceStub : IHttpTileSource
-        {
-            private readonly EventWaitHandle getTileShouldReturnEvent;
-
-            public TileSourceStub(EventWaitHandle getTileShouldReturnEvent)
-            {
-                this.getTileShouldReturnEvent = getTileShouldReturnEvent;
-            }
-
-            public byte[] TileDataToReturn { get; set; }
-
-            public int GetTileCallCount { get; private set; }
-
-            public ITileSchema Schema => null;
-
-            public string Name => string.Empty;
-
-            public Attribution Attribution => default(Attribution);
-
-            public Task<byte[]> GetTileAsync(HttpClient httpClient, TileInfo tileInfo, CancellationToken? cancellation = null)
-            {
-                getTileShouldReturnEvent.WaitOne();
-                GetTileCallCount++;
-                return Task.FromResult(TileDataToReturn);
-            }
-        }
     }
 }
