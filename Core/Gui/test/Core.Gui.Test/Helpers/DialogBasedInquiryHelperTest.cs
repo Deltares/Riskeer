@@ -63,8 +63,6 @@ namespace Core.Gui.Test.Helpers
         public void GetSourceFileLocation_Always_ShowsOpenFileDialog()
         {
             // Setup
-            dialogParent.Handle.Returns(default(IntPtr));
-
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
             string windowName = null;
@@ -87,8 +85,6 @@ namespace Core.Gui.Test.Helpers
         public void GetSourceFileLocation_CancelClicked_ResultFileSelectedIsFalse()
         {
             // Setup
-            dialogParent.Handle.Returns(default(IntPtr));
-
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
             DialogBoxHandler = (name, wnd) =>
@@ -109,8 +105,6 @@ namespace Core.Gui.Test.Helpers
         public void GetSourceFileLocation_ExistingFileSelected_ResultFileSelectedIsTrueFileNameSet()
         {
             // Setup
-            dialogParent.Handle.Returns(default(IntPtr));
-
             var helper = new DialogBasedInquiryHelper(dialogParent);
             string expectedFilePath = Path.GetFullPath(Path.GetRandomFileName());
 
@@ -135,8 +129,6 @@ namespace Core.Gui.Test.Helpers
         public void GetTargetFileLocation_Always_ShowsOpenFileDialog()
         {
             // Setup
-            dialogParent.Handle.Returns(default(IntPtr));
-
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
             string windowName = null;
@@ -159,8 +151,6 @@ namespace Core.Gui.Test.Helpers
         public void GetTargetFileLocation_CancelClicked_ResultFileSelectedIsFalse()
         {
             // Setup
-            dialogParent.Handle.Returns(default(IntPtr));
-
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
             DialogBoxHandler = (name, wnd) =>
@@ -181,8 +171,6 @@ namespace Core.Gui.Test.Helpers
         public void GetTargetFileLocation_FileSelected_ResultFileSelectedIsTrueFileNameSet()
         {
             // Setup
-            dialogParent.Handle.Returns(default(IntPtr));
-
             var helper = new DialogBasedInquiryHelper(dialogParent);
             string expectedFilePath = Path.GetFullPath(Path.GetRandomFileName());
 
@@ -204,8 +192,6 @@ namespace Core.Gui.Test.Helpers
         public void GetTargetFolderLocation_Always_ShowsFolderBrowserDialog()
         {
             // Setup
-            dialogParent.Handle.Returns(default(IntPtr));
-
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
             string windowName = null;
@@ -230,8 +216,6 @@ namespace Core.Gui.Test.Helpers
         public void InquireContinuation_OkOrCancelClicked_ReturnExpectedResult(bool confirm)
         {
             // Setup
-            dialogParent.Handle.Returns(default(IntPtr));
-
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
             const string expectedQuery = "Are you sure you want to do this?";
@@ -271,8 +255,6 @@ namespace Core.Gui.Test.Helpers
                                                                                     OptionalStepResult expectedResult)
         {
             // Setup
-            dialogParent.Handle.Returns(default(IntPtr));
-
             var helper = new DialogBasedInquiryHelper(dialogParent);
 
             string actualQuery = null;

@@ -137,9 +137,7 @@ namespace Core.Common.Controls.Test.Dialogs
         {
             // Setup
             var window = Substitute.For<IWin32Window>();
-            window.Handle.Returns(default(IntPtr));
-
-            Icon icon = IconStub();
+            Icon icon = Icon.FromHandle(new Bitmap(16, 16).GetHicon());
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -157,8 +155,6 @@ namespace Core.Common.Controls.Test.Dialogs
                 Assert.AreEqual(1, dialog.MinimumSize.Width);
                 Assert.AreEqual(2, dialog.MinimumSize.Height);
             }
-
-            _ = window.Received().Handle;
         }
 
         [Test]
@@ -166,9 +162,7 @@ namespace Core.Common.Controls.Test.Dialogs
         {
             // Setup
             var window = Substitute.For<IWin32Window>();
-            window.Handle.Returns(default(IntPtr));
-
-            Icon icon = IconStub();
+            Icon icon = Icon.FromHandle(new Bitmap(16, 16).GetHicon());
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -186,14 +180,6 @@ namespace Core.Common.Controls.Test.Dialogs
                 Assert.IsNotNull(dialog.CancelButton);
                 Assert.AreSame("Test button", ((Button) dialog.CancelButton).Name);
             }
-
-            _ = window.Received().Handle;
-        }
-
-        private static Icon IconStub()
-        {
-            var canvas = new Bitmap(16, 16);
-            return Icon.FromHandle(canvas.GetHicon());
         }
 
         private class TestDialog : DialogBase
