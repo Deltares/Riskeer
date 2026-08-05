@@ -91,7 +91,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
 
             // Assert
             Assert.IsTrue(map.IsBusy);
-            map.Received().Invalidate(
+            map.Received(1).Invalidate(
                 Arg.Is<Rectangle>(m => m.Equals(expectedRectangle)));
         }
 
@@ -165,8 +165,8 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
 
             // Assert
             Assert.IsFalse(map.IsBusy);
-            map.Received().Invalidate();
-            mapFrame.Received().ResetExtents();
+            map.Received(1).Invalidate();
+            mapFrame.Received(1).ResetExtents();
         }
 
         [Test]

@@ -165,7 +165,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
 
-            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -294,7 +294,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             });
             Assert.IsTrue(importResult);
 
-            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -352,7 +352,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             });
             Assert.IsTrue(importResult);
 
-            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -393,7 +393,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             // Assert
             Assert.IsTrue(importResult);
 
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -472,9 +472,9 @@ namespace Riskeer.ClosingStructures.IO.Test
             // Assert
             // Assertions performed in TearDown
 
-            observableA.Received().NotifyObservers();
-            observableB.Received().NotifyObservers();
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
+            observableA.Received(1).NotifyObservers();
+            observableB.Received(1).NotifyObservers();
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         private static ReferenceLine CreateReferenceLine()

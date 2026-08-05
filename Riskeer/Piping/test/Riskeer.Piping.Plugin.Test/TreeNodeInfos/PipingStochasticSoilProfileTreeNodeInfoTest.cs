@@ -122,8 +122,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Assert
             Received.InOrder(() =>
             {
-                menuBuilder.Received().AddPropertiesItem();
-                menuBuilder.Received().Build();
+                menuBuilder.Received(1).AddPropertiesItem();
+                menuBuilder.Received(1).Build();
             });
         }
     }

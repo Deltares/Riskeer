@@ -672,7 +672,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     // Then
                     Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
 
-                    inputObserver.Received().UpdateObserver();
+                    inputObserver.Received(1).UpdateObserver();
                 }
             }
         }
@@ -789,8 +789,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    inputObserver.Received().UpdateObserver();
-                    calculationObserver.Received().UpdateObserver();
+                    inputObserver.Received(1).UpdateObserver();
+                    calculationObserver.Received(1).UpdateObserver();
                 }
             }
         }
@@ -833,7 +833,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -887,7 +887,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                     });
 
                     Assert.IsNull(calculation.Output);
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }
@@ -1014,7 +1014,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[7]);
                     });
                     Assert.IsNotNull(calculation.Output);
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }
@@ -1077,7 +1077,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
                     if (confirm)
                     {
-                        observer.Received().UpdateObserver();
+                        observer.Received(1).UpdateObserver();
                     }
                     else
                     {

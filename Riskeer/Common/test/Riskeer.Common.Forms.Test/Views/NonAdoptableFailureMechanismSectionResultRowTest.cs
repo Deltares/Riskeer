@@ -355,7 +355,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(newValue, assertPropertyFunc(result));
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private static void ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(

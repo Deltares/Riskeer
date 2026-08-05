@@ -650,9 +650,9 @@ namespace Riskeer.Common.IO.Test.FileImporters
             importer.DoPostImport();
 
             // Assert
-            updateSectionsWithImportedDataObserver.Received().UpdateObserver();
-            doPostUpdateActionsObserver.Received().UpdateObserver();
-            updateStrategy.Received().DoPostUpdateActions();
+            updateSectionsWithImportedDataObserver.Received(1).UpdateObserver();
+            doPostUpdateActionsObserver.Received(1).UpdateObserver();
+            updateStrategy.Received(1).DoPostUpdateActions();
         }
 
         private class TestObservable : Observable {}

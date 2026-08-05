@@ -298,7 +298,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(name, calculation.Name);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -390,7 +390,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, calculation);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -747,7 +747,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculationInputObserver.Received().UpdateObserver();
+            calculationInputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -827,8 +827,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             if (continuation)
             {
-                calculationObserver.Received().UpdateObserver();
-                calculationInputObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
+                calculationInputObserver.Received(1).UpdateObserver();
             }
         }
 
@@ -1194,7 +1194,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.IsNull(calculation.Output);
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }

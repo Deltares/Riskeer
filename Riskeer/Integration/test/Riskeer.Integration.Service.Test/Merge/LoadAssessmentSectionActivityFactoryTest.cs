@@ -91,7 +91,7 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             activity.Run();
             Assert.AreSame(expectedAssessmentSection, owner.AssessmentSection);
-            service.Received().LoadAssessmentSection(filePath);
+            service.Received(1).LoadAssessmentSection(filePath);
         }
     }
 }

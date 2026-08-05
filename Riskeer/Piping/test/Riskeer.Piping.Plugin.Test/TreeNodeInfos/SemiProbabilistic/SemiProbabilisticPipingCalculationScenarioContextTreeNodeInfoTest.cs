@@ -566,7 +566,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                     // Then
                     Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
 
-                    inputObserver.Received().UpdateObserver();
+                    inputObserver.Received(1).UpdateObserver();
                 }
             }
         }
@@ -683,8 +683,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                                              $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                     Assert.AreEqual(expectedMessage, textBoxMessage);
 
-                    inputObserver.Received().UpdateObserver();
-                    calculationObserver.Received().UpdateObserver();
+                    inputObserver.Received(1).UpdateObserver();
+                    calculationObserver.Received(1).UpdateObserver();
                 }
             }
         }
@@ -727,7 +727,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -785,7 +785,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is mislukt.", msgs[8]);
                     });
                     Assert.IsNull(calculation.Output);
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }
@@ -900,7 +900,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                         Assert.AreEqual($"Uitvoeren van berekening '{calculationScenario.Name}' is gelukt.", msgs[5]);
                     });
                     Assert.IsNotNull(calculationScenario.Output);
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
             }
         }
@@ -962,7 +962,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
 
                 if (confirm)
                 {
-                    observer.Received().UpdateObserver();
+                    observer.Received(1).UpdateObserver();
                 }
                 else
                 {

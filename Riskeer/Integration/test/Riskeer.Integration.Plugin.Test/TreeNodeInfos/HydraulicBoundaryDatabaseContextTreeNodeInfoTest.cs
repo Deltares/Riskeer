@@ -243,7 +243,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 CollectionAssert.DoesNotContain(hydraulicBoundaryData.HydraulicBoundaryDatabases, hydraulicBoundaryDatabase2);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)

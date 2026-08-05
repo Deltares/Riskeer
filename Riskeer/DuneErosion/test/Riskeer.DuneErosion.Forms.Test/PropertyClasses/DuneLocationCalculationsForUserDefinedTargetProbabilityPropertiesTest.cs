@@ -178,7 +178,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             properties.TargetProbability = 0.01;
 
             // Assert
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         [Test]

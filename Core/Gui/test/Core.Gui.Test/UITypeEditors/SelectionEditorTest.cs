@@ -78,7 +78,7 @@ namespace Core.Gui.Test.UITypeEditors
             // Assert
             Assert.AreSame(someValue, result);
 
-            provider.Received().GetService(Arg.Any<Type>());
+            provider.Received(1).GetService(Arg.Any<Type>());
         }
 
         [Test]
@@ -99,8 +99,8 @@ namespace Core.Gui.Test.UITypeEditors
             // Assert
             Assert.AreSame(someValue, result);
 
-            provider.Received().GetService(Arg.Any<Type>());
-            service.Received().DropDownControl(Arg.Any<Control>());
+            provider.Received(1).GetService(Arg.Any<Type>());
+            service.Received(1).DropDownControl(Arg.Any<Control>());
         }
 
         [Test]
@@ -120,9 +120,9 @@ namespace Core.Gui.Test.UITypeEditors
             // Assert
             Assert.IsNull(result);
 
-            provider.Received().GetService(Arg.Any<Type>());
-            service.Received().DropDownControl(Arg.Any<Control>());
-            service.Received().CloseDropDown();
+            provider.Received(1).GetService(Arg.Any<Type>());
+            service.Received(1).DropDownControl(Arg.Any<Control>());
+            service.Received(1).CloseDropDown();
         }
 
         private class TestSelectionEditor : SelectionEditor<IObjectProperties, object>

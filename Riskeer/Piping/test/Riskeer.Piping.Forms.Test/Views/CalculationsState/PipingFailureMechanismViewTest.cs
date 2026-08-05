@@ -338,7 +338,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -371,7 +371,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             // Then
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
 
-            observers[surfaceLinesIndex].Received().UpdateObserver();
+            observers[surfaceLinesIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -402,7 +402,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
 
-            observers[surfaceLinesIndex].Received().UpdateObserver();
+            observers[surfaceLinesIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -437,9 +437,9 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
 
-            observers[sectionsObserverIndex].Received().UpdateObserver();
-            observers[sectionsStartPointObserverIndex].Received().UpdateObserver();
-            observers[sectionsEndPointObserverIndex].Received().UpdateObserver();
+            observers[sectionsObserverIndex].Received(1).UpdateObserver();
+            observers[sectionsStartPointObserverIndex].Received(1).UpdateObserver();
+            observers[sectionsEndPointObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -471,7 +471,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             // Then
             AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, stochasticSoilModelMapData);
 
-            observers[stochasticSoilModelsIndex].Received().UpdateObserver();
+            observers[stochasticSoilModelsIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -525,8 +525,8 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(), semiProbabilisticCalculationMapData);
             AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>(), probabilisticCalculationMapData);
 
-            observers[semiProbabilisticCalculationObserverIndex].Received().UpdateObserver();
-            observers[probabilisticCalculationObserverIndex].Received().UpdateObserver();
+            observers[semiProbabilisticCalculationObserverIndex].Received(1).UpdateObserver();
+            observers[probabilisticCalculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -571,7 +571,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             // Then
             AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(), calculationMapData);
-            observers[semiProbabilisticCalculationObserverIndex].Received().UpdateObserver();
+            observers[semiProbabilisticCalculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -616,7 +616,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             // Then
             AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<ProbabilisticPipingCalculationScenario>(), calculationMapData);
-            observers[probabilisticCalculationObserverIndex].Received().UpdateObserver();
+            observers[probabilisticCalculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -661,7 +661,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             // Then
             AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(), calculationMapData);
-            observers[semiProbabilisticCalculationObserverIndex].Received().UpdateObserver();
+            observers[semiProbabilisticCalculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -706,7 +706,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             // Then
             AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<ProbabilisticPipingCalculationScenario>(), calculationMapData);
-            observers[probabilisticCalculationObserverIndex].Received().UpdateObserver();
+            observers[probabilisticCalculationObserverIndex].Received(1).UpdateObserver();
         }
 
         [Test]

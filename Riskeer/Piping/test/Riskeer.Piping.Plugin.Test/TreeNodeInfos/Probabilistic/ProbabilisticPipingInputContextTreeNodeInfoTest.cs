@@ -138,9 +138,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             }
 
             // Assert
-            menuBuilder.Received().AddOpenItem();
-            menuBuilder.Received().AddSeparator();
-            menuBuilder.Received().AddPropertiesItem();
+            menuBuilder.Received(1).AddOpenItem();
+            menuBuilder.Received(1).AddSeparator();
+            menuBuilder.Received(1).AddPropertiesItem();
         }
     }
 }

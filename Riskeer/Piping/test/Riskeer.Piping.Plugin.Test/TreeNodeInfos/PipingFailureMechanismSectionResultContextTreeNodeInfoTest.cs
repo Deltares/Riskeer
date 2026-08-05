@@ -113,7 +113,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            menuBuilder.Received().Build();
+            menuBuilder.Received(1).Build();
         }
     }
 }

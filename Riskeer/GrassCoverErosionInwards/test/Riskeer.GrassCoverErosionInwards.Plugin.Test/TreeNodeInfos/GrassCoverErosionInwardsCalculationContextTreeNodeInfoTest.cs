@@ -413,7 +413,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            inputObserver.Received().UpdateObserver();
+            inputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -536,8 +536,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculationObserver.Received().UpdateObserver();
-            inputObserver.Received().UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
+            inputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -700,7 +700,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -936,7 +936,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculationObserver.Received().UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -971,7 +971,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         public override void Setup()

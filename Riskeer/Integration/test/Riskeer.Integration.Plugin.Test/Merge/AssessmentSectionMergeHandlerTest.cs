@@ -569,7 +569,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
 
             // Assert
-            documentViewController.Received().CloseAllViews();
+            documentViewController.Received(1).CloseAllViews();
         }
 
         #region HydraulicBoundaryData
@@ -612,7 +612,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                  hydraulicBoundaryDataUpdateHandler);
 
             // Then
-            hydraulicBoundaryDataUpdateHandler.Received().AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase);
+            hydraulicBoundaryDataUpdateHandler.Received(1).AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase);
         }
 
         private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation[] locations, double targetProbability = 0.1)

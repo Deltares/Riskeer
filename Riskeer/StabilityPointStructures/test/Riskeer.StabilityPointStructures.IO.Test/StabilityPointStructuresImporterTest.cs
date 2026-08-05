@@ -174,7 +174,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -254,7 +254,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 9);
             Assert.IsTrue(importResult);
-            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -318,7 +318,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
-            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -382,7 +382,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
-            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -424,7 +424,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             // Assert
             Assert.IsTrue(importResult);
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -502,9 +502,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             // Assert
             // Assertions performed in TearDown
-            observableA.Received().NotifyObservers();
-            observableB.Received().NotifyObservers();
-            strategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
+            observableA.Received(1).NotifyObservers();
+            observableB.Received(1).NotifyObservers();
+            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         private static ReferenceLine CreateReferenceLine()

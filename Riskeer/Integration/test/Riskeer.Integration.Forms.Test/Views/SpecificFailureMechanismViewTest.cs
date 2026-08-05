@@ -189,7 +189,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Then
             Assert.AreEqual(newFailureMechanismName, mapData.Name);
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -227,7 +227,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            observers[referenceLineIndex].Received().UpdateObserver();
+            observers[referenceLineIndex].Received(1).UpdateObserver();
         }
 
         [Test]
@@ -261,9 +261,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
-            observers[sectionsCollectionIndex + sectionsIndex].Received().UpdateObserver();
-            observers[sectionsCollectionIndex + sectionsStartPointIndex].Received().UpdateObserver();
-            observers[sectionsCollectionIndex + sectionsEndPointIndex].Received().UpdateObserver();
+            observers[sectionsCollectionIndex + sectionsIndex].Received(1).UpdateObserver();
+            observers[sectionsCollectionIndex + sectionsStartPointIndex].Received(1).UpdateObserver();
+            observers[sectionsCollectionIndex + sectionsEndPointIndex].Received(1).UpdateObserver();
         }
 
         [Test]

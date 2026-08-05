@@ -251,7 +251,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             handler.DoPostUpdateActions();
 
             // Assert
-            viewCommands.Received().RemoveAllViewsForItem(failureMechanism);
+            viewCommands.Received(1).RemoveAllViewsForItem(failureMechanism);
         }
 
         [Test]

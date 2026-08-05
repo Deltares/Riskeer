@@ -97,7 +97,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -119,7 +119,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.First().NotifyObservers();
 
             // Then
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
     }
 }

@@ -316,7 +316,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
 
             // Assert
-            calculationObserver.Received().UpdateObserver();
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]

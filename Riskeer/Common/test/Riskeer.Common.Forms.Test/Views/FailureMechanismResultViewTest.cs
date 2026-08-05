@@ -864,7 +864,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1034,7 +1034,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual("Er moet een waarde worden ingevuld voor de faalkans.", errorMessage);
             }
 
-            observer.Received().UpdateObserver();
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]

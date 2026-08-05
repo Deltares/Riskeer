@@ -53,7 +53,7 @@ namespace Core.Gui.Test.Commands
             commandHandler.OpenViewForSelection();
 
             // Assert
-            documentViewController.Received().OpenViewForData(selectedObject);
+            documentViewController.Received(1).OpenViewForData(selectedObject);
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsFalse(hasViewDefinitionsForData);
-            documentViewController.Received().GetViewInfosFor(viewObject);
+            documentViewController.Received(1).GetViewInfosFor(viewObject);
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsTrue(hasViewDefinitionsForData);
-            documentViewController.Received().GetViewInfosFor(viewObject);
+            documentViewController.Received(1).GetViewInfosFor(viewObject);
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace Core.Gui.Test.Commands
             commandHandler.OpenView(viewObject);
 
             // Assert
-            documentViewController.Received().OpenViewForData(viewObject);
+            documentViewController.Received(1).OpenViewForData(viewObject);
         }
 
         [Test]
@@ -208,9 +208,9 @@ namespace Core.Gui.Test.Commands
             viewCommandHandler.RemoveAllViewsForItem(data);
 
             // Assert
-            documentViewsResolver.Received().CloseAllViewsFor(data);
-            documentViewsResolver.Received().CloseAllViewsFor(childData);
-            pluginsHost.Received().GetAllDataWithViewDefinitionsRecursively(data);
+            documentViewsResolver.Received(1).CloseAllViewsFor(data);
+            documentViewsResolver.Received(1).CloseAllViewsFor(childData);
+            pluginsHost.Received(1).GetAllDataWithViewDefinitionsRecursively(data);
         }
     }
 }

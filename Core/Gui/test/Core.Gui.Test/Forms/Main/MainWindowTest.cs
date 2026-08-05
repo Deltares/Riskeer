@@ -383,7 +383,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
             }
 
-            propertyResolver.Received().GetObjectProperties(selectedObject);
+            propertyResolver.Received(1).GetObjectProperties(selectedObject);
         }
 
         [Test]
@@ -418,7 +418,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreSame(selectedObject, mainWindow.PropertyGrid.Data);
             }
 
-            propertyResolver.Received().GetObjectProperties(selectedObject);
+            propertyResolver.Received(1).GetObjectProperties(selectedObject);
         }
 
         [Test]
@@ -494,7 +494,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.IsNull(viewHost.ActiveDocumentView);
             }
 
-            propertyResolver.Received().GetObjectProperties(selectedObject);
+            propertyResolver.Received(1).GetObjectProperties(selectedObject);
         }
 
         [Test]
@@ -899,7 +899,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
             }
 
-            projectFactory.Received().CreateNewProject();
+            projectFactory.Received(1).CreateNewProject();
         }
 
         [Test]
@@ -1018,8 +1018,8 @@ namespace Core.Gui.Test.Forms.Main
                     Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
                 }
 
-                projectStore.Received().SaveProjectAs(someValidFilePath);
-                projectStore.Received().StageProject(project);
+                projectStore.Received(1).SaveProjectAs(someValidFilePath);
+                projectStore.Received(1).StageProject(project);
             }
         }
 
@@ -1139,8 +1139,8 @@ namespace Core.Gui.Test.Forms.Main
                     Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
                 }
 
-                projectStore.Received().SaveProjectAs(someValidFilePath);
-                projectStore.Received().StageProject(project);
+                projectStore.Received(1).SaveProjectAs(someValidFilePath);
+                projectStore.Received(1).StageProject(project);
             }
         }
 
@@ -1194,7 +1194,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
             }
 
-            projectStore.Received().LoadProject(filePath);
+            projectStore.Received(1).LoadProject(filePath);
         }
 
         [Test]

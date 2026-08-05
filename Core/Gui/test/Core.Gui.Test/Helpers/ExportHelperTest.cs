@@ -71,7 +71,7 @@ namespace Core.Gui.Test.Helpers
 
             // Assert
             Assert.AreEqual(expectedFilePath, filePath);
-            inquiryHelper.Received().GetTargetFileLocation(fileFilterGenerator.Filter, null);
+            inquiryHelper.Received(1).GetTargetFileLocation(fileFilterGenerator.Filter, null);
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Core.Gui.Test.Helpers
 
             // Assert
             Assert.AreEqual(expectedFilePath, filePath);
-            inquiryHelper.Received().GetTargetFileLocation(fileFilterGenerator.Filter, suggestedFileName);
+            inquiryHelper.Received(1).GetTargetFileLocation(fileFilterGenerator.Filter, suggestedFileName);
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace Core.Gui.Test.Helpers
 
             // Assert
             Assert.AreEqual(expectedFilePath, filePath);
-            inquiryHelper.Received().GetTargetFolderLocation();
+            inquiryHelper.Received(1).GetTargetFolderLocation();
         }
     }
 }

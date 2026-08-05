@@ -739,7 +739,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
                     Assert.IsFalse(output.OvertoppingRateOutput.HasGeneralResult);
                 }
 
-                affectedCalculationObserver.Received().UpdateObserver();
+                affectedCalculationObserver.Received(1).UpdateObserver();
             }
         }
 

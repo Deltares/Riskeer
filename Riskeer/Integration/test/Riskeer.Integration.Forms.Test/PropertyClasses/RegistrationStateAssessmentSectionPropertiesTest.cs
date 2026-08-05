@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.Composition = newComposition;
 
             // Then
-            observable.Received().NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
     }
 }

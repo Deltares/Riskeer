@@ -244,7 +244,7 @@ namespace Riskeer.Migration.Test
 
             // Assert
             Assert.AreEqual(expectedReturnPath, targetFilePath);
-            inquiryHelper.Received().GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName);
+            inquiryHelper.Received(1).GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName);
         }
 
         [Test]
@@ -277,7 +277,7 @@ namespace Riskeer.Migration.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedLogMessage, 1);
 
             Assert.IsNull(targetFilePath);
-            inquiryHelper.Received().GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName);
+            inquiryHelper.Received(1).GetTargetFileLocation(expectedFileFilter.Filter, expectedSuggestedFileName);
         }
 
         [Test]

@@ -98,7 +98,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            messageWindow.Received().AddMessage(level, dataTime, message);
+            messageWindow.Received(1).AddMessage(level, dataTime, message);
         }
 
         [Test]
@@ -129,7 +129,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            messageWindow.Received().AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
+            messageWindow.Received(1).AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
                                                 Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 5)),
                                                 Arg.Is<string>(actualText => actualText == expectedText));
         }
@@ -160,7 +160,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            messageWindow.Received().AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
+            messageWindow.Received(1).AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
                                                 Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
                                                 Arg.Is<string>(actualText => actualText == messageText));
         }
@@ -190,7 +190,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            messageWindow.Received().AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
+            messageWindow.Received(1).AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
                                                 Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
                                                 Arg.Is<string>(actualText => actualText == messageText));
         }
@@ -220,7 +220,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.DoAppend(logEvent);
 
             // Assert
-            messageWindow.Received().AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
+            messageWindow.Received(1).AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
                                                 Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
                                                 Arg.Is<string>(actualText => actualText == expectedText));
         }
@@ -297,7 +297,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.Enabled = true;
 
             // Assert
-            messageWindow.Received().AddMessage(level, dataTime, message);
+            messageWindow.Received(1).AddMessage(level, dataTime, message);
         }
 
         [Test]
@@ -334,7 +334,7 @@ namespace Core.Gui.Test.Forms.Log
             appender.MessageWindow = messageWindow;
 
             // Assert
-            messageWindow.Received().AddMessage(level, dataTime, message);
+            messageWindow.Received(1).AddMessage(level, dataTime, message);
         }
     }
 }

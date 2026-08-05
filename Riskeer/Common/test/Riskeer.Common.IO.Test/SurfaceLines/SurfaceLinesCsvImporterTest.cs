@@ -1483,8 +1483,8 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             importer.DoPostImport();
 
             // Asserts done in the TearDown method
-            observableA.Received().NotifyObservers();
-            observableB.Received().NotifyObservers();
+            observableA.Received(1).NotifyObservers();
+            observableB.Received(1).NotifyObservers();
         }
 
         private static void AssertUnsuccessfulImport(bool importResult,
