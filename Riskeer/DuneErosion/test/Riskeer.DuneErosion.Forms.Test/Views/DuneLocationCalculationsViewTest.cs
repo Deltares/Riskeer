@@ -683,7 +683,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             assessmentSection.Id.Returns("1");
             assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
-            var calculationsObserver = Substitute.For<IObserver>();
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
@@ -695,8 +694,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             object originalDataSource = dataGridView.DataSource;
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
-
-            calculations.Attach(calculationsObserver);
 
             ButtonTester buttonTester = GetCalculateForSelectedButton();
 
@@ -783,8 +780,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 
-            var calculationsObserver = Substitute.For<IObserver>();
-
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(new TestDunesBoundaryConditionsCalculator());
@@ -794,8 +789,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
-
-            calculations.Attach(calculationsObserver);
 
             ButtonTester buttonTester = GetCalculateForSelectedButton();
 
