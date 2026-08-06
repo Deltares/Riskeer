@@ -663,7 +663,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
-            ;
 
             DialogBoxHandler = (name, wnd) =>
             {

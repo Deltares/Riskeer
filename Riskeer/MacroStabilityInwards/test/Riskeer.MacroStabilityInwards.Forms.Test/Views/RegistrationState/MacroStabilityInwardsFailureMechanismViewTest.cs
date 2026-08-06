@@ -239,7 +239,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.RegistrationState
             var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
             var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
-            ;
+            
             // When
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
