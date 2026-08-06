@@ -44,6 +44,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
         private const int colorPropertyIndex = 1;
         private const int lineWidthPropertyIndex = 2;
         private const int lineStylePropertyIndex = 3;
+        private const int numberOfChangedProperties = 3;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -151,7 +152,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             Assert.AreEqual(color, actualStyle.Color);
             Assert.AreEqual(dashStyle, actualStyle.DashStyle);
 
-            observer.Received(3).UpdateObserver();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
     }
 }

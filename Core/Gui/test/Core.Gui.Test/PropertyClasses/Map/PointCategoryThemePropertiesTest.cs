@@ -46,7 +46,8 @@ namespace Core.Gui.Test.PropertyClasses.Map
         private const int strokeThicknessPropertyIndex = 3;
         private const int sizePropertyIndex = 4;
         private const int symbolPropertyIndex = 5;
-
+        private const int numberOfChangedProperties = 5;
+        
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -177,7 +178,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             Assert.AreEqual(size, actualStyle.Size);
             Assert.AreEqual(symbol, actualStyle.Symbol);
 
-            observer.Received(5).UpdateObserver();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
     }
 }
