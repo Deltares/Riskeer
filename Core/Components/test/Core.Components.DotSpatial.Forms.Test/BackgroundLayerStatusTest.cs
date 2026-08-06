@@ -51,6 +51,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Test]
         public void HasSameConfiguration_MapDataNull_ThrowArgumentNullException()
         {
+            // Setup
             using (var layerStatus = new SimpleBackgroundLayerStatus())
             {
                 // Call
