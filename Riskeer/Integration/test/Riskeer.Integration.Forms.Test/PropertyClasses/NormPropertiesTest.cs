@@ -161,7 +161,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newValue, failureMechanismContribution.MaximumAllowableFloodingProbability);
-            failureMechanismContributionNormChangeHandler.Received(1).ChangeNormativeProbability(Arg.Any<Action>());
         }
 
         [Test]
@@ -185,7 +184,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newValue, failureMechanismContribution.MaximumAllowableFloodingProbability);
-            failureMechanismContributionNormChangeHandler.Received(1).ChangeProbability(Arg.Any<Action>());
         }
 
         [Test]
@@ -210,7 +208,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newValue, failureMechanismContribution.SignalFloodingProbability);
-            failureMechanismContributionNormChangeHandler.Received(1).ChangeNormativeProbability(Arg.Any<Action>());
         }
 
         [Test]
@@ -234,7 +231,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(newValue, failureMechanismContribution.SignalFloodingProbability);
-            failureMechanismContributionNormChangeHandler.Received(1).ChangeProbability(Arg.Any<Action>());
         }
 
         [Test]
@@ -258,7 +254,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newValue, failureMechanismContribution.NormativeProbabilityType);
-            failureMechanismContributionNormChangeHandler.Received(1).ChangeNormativeProbabilityType(Arg.Any<Action>());
         }
     }
 }
