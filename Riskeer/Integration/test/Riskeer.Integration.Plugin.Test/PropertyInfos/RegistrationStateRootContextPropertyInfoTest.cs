@@ -21,10 +21,8 @@
 
 using System.Linq;
 using Core.Gui;
-using Core.Gui.Commands;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
-using NSubstitute;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Plugin.TestUtil;
@@ -57,9 +55,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var viewCommands = Substitute.For<IViewCommands>();
             IGui gui = StubFactory.CreateGuiStub();
-            gui.ViewCommands.Returns(viewCommands);
 
             using (var plugin = new RiskeerPlugin())
             {

@@ -55,9 +55,7 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
             var editor = new StructureEditor<TestStructure>();
             var someValue = new object();
             var serviceProvider = Substitute.For<IServiceProvider>();
-            var service = Substitute.For<IWindowsFormsEditorService>();
             var descriptorContext = Substitute.For<ITypeDescriptorContext>();
-            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
             descriptorContext.Instance.Returns(propertyBag);
 
             // Call

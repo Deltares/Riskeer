@@ -650,9 +650,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             ChangeDikeProfile(dikeProfile);
@@ -729,9 +727,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             ChangeDikeProfile(dikeProfile);
@@ -815,9 +811,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             ChangeDikeProfile(dikeProfile);
@@ -1542,9 +1536,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var mainWindow = Substitute.For<IMainWindow>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(mainWindow);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin.Gui = gui;
 
@@ -1598,10 +1590,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var mainWindow = Substitute.For<IMainWindow>();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(mainWindow);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin.Gui = gui;
 
@@ -1660,10 +1650,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var mainWindow = Substitute.For<IMainWindow>();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(mainWindow);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin.Gui = gui;
 

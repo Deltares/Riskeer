@@ -129,9 +129,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -154,9 +152,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

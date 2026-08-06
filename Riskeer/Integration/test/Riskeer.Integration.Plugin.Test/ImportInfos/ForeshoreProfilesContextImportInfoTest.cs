@@ -26,7 +26,6 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui;
-using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Extensions.Forms;
@@ -184,9 +183,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var mainWindow = Substitute.For<IMainWindow>();
             IGui gui = StubFactory.CreateGuiStub();
-            gui.MainWindow.Returns(mainWindow);
 
             var calculationWithoutOutput = Substitute.For<ICalculation>();
             calculationWithoutOutput.HasOutput.Returns(false);
@@ -220,9 +217,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var mainWindow = Substitute.For<IMainWindow>();
             IGui gui = StubFactory.CreateGuiStub();
-            gui.MainWindow.Returns(mainWindow);
 
             var calculationWithoutOutput = Substitute.For<ICalculation>();
             calculationWithoutOutput.HasOutput.Returns(true);

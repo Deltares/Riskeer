@@ -67,8 +67,6 @@ namespace Core.Gui.Test.UITypeEditors
             // Setup
             var editor = new SelectionEditor<IObjectProperties, object>();
             var provider = Substitute.For<IServiceProvider>();
-            var service = Substitute.For<IWindowsFormsEditorService>();
-            provider.GetService(Arg.Any<Type>()).Returns(service);
 
             var someValue = new object();
 
