@@ -146,7 +146,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHandler = Substitute.For<IInquiryHelper>();
-            inquiryHandler.InquireContinuation(Arg.Any<string>()).Returns(expectedResult);
+            inquiryHandler.InquireContinuation(message).Returns(expectedResult);
             var handler = new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
                                                        message,
                                                        inquiryHandler);
