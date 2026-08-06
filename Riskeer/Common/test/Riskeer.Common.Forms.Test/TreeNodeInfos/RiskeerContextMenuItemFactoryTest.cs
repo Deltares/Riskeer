@@ -1527,6 +1527,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => isEnabled,
                                                                                                                                 handler);
+
             // Assert
             Assert.AreEqual("Wis alle &illustratiepunten...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
@@ -1605,6 +1606,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInGroupItem(() => isEnabled,
                                                                                                                                        handler);
+
             // Assert
             Assert.AreEqual("Wis alle &illustratiepunten...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
@@ -1762,6 +1764,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => isEnabled,
                                                                                                                                handler);
+
             // Assert
             Assert.AreEqual("Wis illustratiepunten...", toolStripItem.Text);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);

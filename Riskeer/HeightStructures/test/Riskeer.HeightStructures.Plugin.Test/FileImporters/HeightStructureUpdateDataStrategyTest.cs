@@ -416,6 +416,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
                 readAffectedStructure,
                 readUnaffectedStructure
             }, sourceFilePath);
+
             // Assert
             Assert.IsTrue(affectedCalculation.HasOutput);
             HeightStructure inputParametersAffectedStructure = affectedCalculation.InputParameters.Structure;
@@ -541,6 +542,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             {
                 readUnaffectedStructure
             }, sourceFilePath);
+
             // Assert
             Assert.IsFalse(affectedCalculation.HasOutput);
             Assert.IsNull(affectedCalculation.InputParameters.Structure);
@@ -600,6 +602,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             {
                 structureToUpdateFrom
             }, sourceFilePath);
+
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]
             {

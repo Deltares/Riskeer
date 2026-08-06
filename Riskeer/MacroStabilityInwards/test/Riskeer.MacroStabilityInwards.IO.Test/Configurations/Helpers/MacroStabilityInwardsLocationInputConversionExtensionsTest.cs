@@ -122,7 +122,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
 
             // Call
             MacroStabilityInwardsLocationInputExtremeConfiguration configuration = inputExtreme.ToMacroStabilityInwardsLocationInputExtremeConfiguration();
-            
+
             // Assert
             Assert.AreEqual(useDefaultOffsets, configuration.UseDefaultOffsets);
             NullableDoubleAssert.AreEqual(penetrationLength,

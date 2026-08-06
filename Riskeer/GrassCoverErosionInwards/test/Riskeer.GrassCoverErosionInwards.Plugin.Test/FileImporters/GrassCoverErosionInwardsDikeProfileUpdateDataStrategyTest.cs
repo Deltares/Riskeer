@@ -402,6 +402,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
                 importedAffectedProfile,
                 importedUnaffectedProfile
             }, sourceFilePath);
+
             // Assert
             Assert.IsTrue(unaffectedCalculation.HasOutput);
             DikeProfile inputParametersUnaffectedDikeProfile = unaffectedCalculation.InputParameters.DikeProfile;
@@ -467,6 +468,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             {
                 importedUnaffectedProfile
             }, sourceFilePath);
+
             // Assert
             Assert.IsTrue(unaffectedCalculation.HasOutput);
             DikeProfile inputParametersUnaffectedDikeProfile = unaffectedCalculation.InputParameters.DikeProfile;
@@ -516,6 +518,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             {
                 profileToUpdateFrom
             }, sourceFilePath);
+
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]
             {

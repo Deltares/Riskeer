@@ -39,6 +39,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
 
             // Call
             var designVariable = new SimpleDesignVariable(distribution);
+
             // Assert
             Assert.AreSame(distribution, designVariable.Distribution);
             Assert.AreEqual(0, distribution.ReceivedCalls().Count());

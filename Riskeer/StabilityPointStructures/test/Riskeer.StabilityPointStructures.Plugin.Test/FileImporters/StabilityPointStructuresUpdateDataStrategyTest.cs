@@ -388,6 +388,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                 readAffectedStructure,
                 readUnaffectedStructure
             }, sourceFilePath);
+
             // Assert
             Assert.IsTrue(affectedCalculation.HasOutput);
             StabilityPointStructure inputParametersAffectedStructure = affectedCalculation.InputParameters.Structure;
@@ -514,6 +515,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             {
                 readUnaffectedStructure
             }, sourceFilePath);
+
             // Assert
             Assert.IsFalse(affectedCalculation.HasOutput);
             Assert.IsNull(affectedCalculation.InputParameters.Structure);
@@ -573,6 +575,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             {
                 structureToUpdateFrom
             }, sourceFilePath);
+
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]
             {

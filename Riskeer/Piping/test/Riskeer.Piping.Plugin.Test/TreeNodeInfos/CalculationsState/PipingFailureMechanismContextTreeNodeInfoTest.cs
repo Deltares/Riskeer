@@ -528,6 +528,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
 
             // Call
             info.ContextMenuStrip(context, null, treeViewCommands);
+
             // Assert
             Received.InOrder(() =>
             {

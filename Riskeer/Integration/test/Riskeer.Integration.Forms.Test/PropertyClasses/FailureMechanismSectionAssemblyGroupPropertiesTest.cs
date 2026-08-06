@@ -78,6 +78,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Call
             var properties = new FailureMechanismSectionAssemblyGroupProperties(assemblyCategory);
+
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);

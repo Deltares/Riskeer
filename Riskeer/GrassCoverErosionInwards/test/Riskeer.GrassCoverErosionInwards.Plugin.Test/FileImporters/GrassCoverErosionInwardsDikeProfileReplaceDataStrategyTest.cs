@@ -106,6 +106,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             // Call 
             IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(),
                                                                                                    newSourcePath);
+
             // Assert
             Assert.AreEqual(newSourcePath, targetCollection.SourcePath);
             CollectionAssert.AreEqual(new IObservable[]

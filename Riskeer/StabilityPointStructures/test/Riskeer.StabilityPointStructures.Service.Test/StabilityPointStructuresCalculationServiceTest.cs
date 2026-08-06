@@ -441,6 +441,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Call
             Action call = () => StabilityPointStructuresCalculationService.Validate(calculation,
                                                                                           assessmentSection);
+
             // Assert
             const string expectedMessage = "The value of argument 'input' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
@@ -471,6 +472,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Call
             Action call = () => StabilityPointStructuresCalculationService.Validate(calculation,
                                                                                           assessmentSection);
+
             // Assert
             const string expectedMessage = "The value of argument 'input' (100) is invalid for Enum type 'LoadSchematizationType'.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
@@ -1618,6 +1620,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                         exceptionThrown = true;
                     }
                 };
+
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
@@ -1675,6 +1678,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                         exceptionThrown = true;
                     }
                 };
+
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
@@ -1734,6 +1738,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                         exceptionMessage = e.Message;
                     }
                 };
+
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
