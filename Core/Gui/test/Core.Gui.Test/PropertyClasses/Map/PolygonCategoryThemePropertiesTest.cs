@@ -43,6 +43,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
         private const int fillColorPropertyIndex = 1;
         private const int strokeColorPropertyIndex = 2;
         private const int strokeThicknessPropertyIndex = 3;
+        private const int numberOfChangedProperties = 3;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -150,7 +151,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             Assert.AreEqual(strokeColor, actualStyle.StrokeColor);
             Assert.AreEqual(strokeThickness, actualStyle.StrokeThickness);
 
-            observer.Received(3).UpdateObserver();
+            observer.Received(numberOfChangedProperties).UpdateObserver();
         }
     }
 }
