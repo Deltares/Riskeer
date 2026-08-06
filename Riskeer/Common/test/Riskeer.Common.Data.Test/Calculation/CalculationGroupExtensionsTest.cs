@@ -130,9 +130,13 @@ namespace Riskeer.Common.Data.Test.Calculation
 
             // Assert
             calculation1.Received(1).ClearOutput();
-            calculation2.Received(1).ClearOutput();
             calculation1.Received(1).NotifyObservers();
+            calculation2.Received(1).ClearOutput();
             calculation2.Received(1).NotifyObservers();
+            calculation3.DidNotReceive().ClearOutput();
+            calculation3.DidNotReceive().NotifyObservers();
+            calculation4.DidNotReceive().ClearOutput();
+            calculation4.DidNotReceive().NotifyObservers();
         }
 
         [Test]
