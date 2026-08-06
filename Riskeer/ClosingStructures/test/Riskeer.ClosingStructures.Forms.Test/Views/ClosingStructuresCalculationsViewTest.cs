@@ -370,6 +370,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
+            calculationObserver.DidNotReceive().UpdateObserver();
+            inputObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
