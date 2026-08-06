@@ -487,7 +487,8 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("Het uittredepunt moet landwaarts van het intredepunt liggen.", dataGridView.Rows[0].ErrorText);
-            // No observer notified
+            calculationInputObserver.DidNotReceive().UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -521,7 +522,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).";
             Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
-            // No observer notified
+            pipingCalculationObserver.DidNotReceive().UpdateObserver();
+            pipingCalculationInputObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -847,7 +849,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-            // No observer notified
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]

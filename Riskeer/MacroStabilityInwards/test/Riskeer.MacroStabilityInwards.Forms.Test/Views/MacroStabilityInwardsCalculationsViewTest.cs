@@ -623,7 +623,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
-            // No observer notified
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [TestCase(true)]

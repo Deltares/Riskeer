@@ -350,7 +350,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
-            // No observer notified
+            calculationObserver.DidNotReceive().UpdateObserver();
+            inputObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -378,7 +379,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.", dataGridView.Rows[0].ErrorText);
-            // No observer notified
+            calculationObserver.DidNotReceive().UpdateObserver();
+            inputObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -643,7 +645,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
-            // No observer notified
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]

@@ -607,7 +607,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
-            // No observer notified
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
