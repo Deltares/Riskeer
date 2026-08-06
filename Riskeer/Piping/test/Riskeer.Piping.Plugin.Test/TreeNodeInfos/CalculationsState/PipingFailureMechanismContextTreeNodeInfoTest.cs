@@ -775,12 +775,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
 
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            var mainWindow = Substitute.For<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))

@@ -24,7 +24,6 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui;
-using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Framework;
@@ -46,9 +45,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         public void Name_Always_ReturnExpectedName()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -67,9 +64,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         public void Category_Always_ReturnExpectedCategory()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -88,9 +83,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         public void Image_Always_ReturnExpectedIcon()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -143,9 +136,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -164,9 +155,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         public void CreateFileImporter_WithValidData_ReturnsFileImporter()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

@@ -978,11 +978,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                             failureMechanism,
                                                                             assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var mainWindow = Substitute.For<IMainWindow>();
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(mainWindow);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin.Gui = gui;
 

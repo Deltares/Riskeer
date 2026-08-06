@@ -23,7 +23,6 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Framework;
@@ -45,9 +44,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
         [SetUp]
         public void SetUp()
         {
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
 
             plugin = new GrassCoverErosionInwardsPlugin
             {

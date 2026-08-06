@@ -27,7 +27,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Framework;
@@ -111,11 +110,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
             var gui = Substitute.For<IGui>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             
-            gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
@@ -152,11 +149,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var context = new PipingFailureMechanismSectionsContext(new PipingFailureMechanism(), assessmentSection);
             var gui = Substitute.For<IGui>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             
-            gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);

@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.TreeView;
-using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using NSubstitute;
@@ -223,9 +222,7 @@ namespace Core.Gui.Test.Plugin
         public void GetInquiryHelper_WithGui_ReturnsDialogBasedInquiryHelper()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
 
             var plugin = new SimplePlugin
             {
@@ -243,9 +240,7 @@ namespace Core.Gui.Test.Plugin
         public void GivenPluginWithGui_WhenGetInquiryHelperCalled_ThenAlwaysSameInquiryHelperReturned()
         {
             // Given
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
 
             var plugin = new SimplePlugin
             {

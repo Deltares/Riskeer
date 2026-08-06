@@ -704,9 +704,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                                assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
 
             ChangeStructure(structure);
 
@@ -789,9 +787,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
 
             ChangeStructure(structure);
 
@@ -874,9 +870,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
 
             ChangeStructure(structure);
 

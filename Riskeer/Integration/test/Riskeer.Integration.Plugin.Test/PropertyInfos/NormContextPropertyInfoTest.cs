@@ -21,7 +21,6 @@
 
 using System.Linq;
 using Core.Gui;
-using Core.Gui.Commands;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NSubstitute;
@@ -58,9 +57,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var viewCommands = Substitute.For<IViewCommands>();
             IGui gui = StubFactory.CreateGuiStub();
-            gui.ViewCommands.Returns(viewCommands);
             using (var plugin = new RiskeerPlugin())
             {
                 plugin.Gui = gui;

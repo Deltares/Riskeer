@@ -645,9 +645,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var calculation = Substitute.For<ICalculation<ICalculationInputWithForeshoreProfile>>();
-            var input = Substitute.For<ICalculationInputWithForeshoreProfile>();
 
-            calculation.InputParameters.Returns(input);
             var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             // Call
@@ -764,9 +762,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 input.ForeshoreProfile.Returns(new TestForeshoreProfile());
                 input.IsForeshoreProfileInputSynchronized.Returns(isSynchronized);
-            }
-            else
-            {
             }
 
             calculation.InputParameters.Returns(input);

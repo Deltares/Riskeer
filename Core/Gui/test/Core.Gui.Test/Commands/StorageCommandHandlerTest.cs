@@ -47,17 +47,13 @@ namespace Core.Gui.Test.Commands
             // Setup
             const string savedProjectPath = @"C:\savedProject.rtd";
 
-            var oldProject = Substitute.For<IProject>();
-            var newProject = Substitute.For<IProject>();
 
             var projectStorage = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns(oldProject);
             projectOwner.ProjectFilePath.Returns(savedProjectPath);
 
             var projectFactory = Substitute.For<IProjectFactory>();
-            projectFactory.CreateNewProject().Returns(newProject);
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
@@ -363,11 +359,8 @@ namespace Core.Gui.Test.Commands
 
             var project = Substitute.For<IProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
-            projectFactory.CreateNewProject().Returns(project);
 
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns(project);
-            projectOwner.Project.Returns(project);
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
             var storageCommandHandler = new StorageCommandHandler(
@@ -401,10 +394,8 @@ namespace Core.Gui.Test.Commands
 
             var project = Substitute.For<IProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
-            projectFactory.CreateNewProject().Returns(project);
 
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns(project);
             projectOwner.SetProject(Arg.Any<IProject>(), Arg.Any<string>());
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
@@ -438,11 +429,9 @@ namespace Core.Gui.Test.Commands
             projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(MigrationRequired.Yes);
             projectMigrator.DetermineMigrationLocation(pathToSomeValidFile).Returns("");
 
-            var project = Substitute.For<IProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
 
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns(project);
             projectOwner.SetProject(Arg.Any<IProject>(), Arg.Any<string>());
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
@@ -479,10 +468,8 @@ namespace Core.Gui.Test.Commands
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(_ => throw exception);
 
-            var project = Substitute.For<IProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns(project);
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
@@ -609,7 +596,6 @@ namespace Core.Gui.Test.Commands
             const string pathToSomeInvalidFile = "<path to some invalid file>";
             const string goodErrorMessageText = "<some informative error message>";
 
-            var project = Substitute.For<IProject>();
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(pathToSomeInvalidFile)
                           .Returns(_ => throw new StorageException(goodErrorMessageText, new Exception("H@X!")));
@@ -619,7 +605,6 @@ namespace Core.Gui.Test.Commands
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns(project);
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
@@ -660,14 +645,12 @@ namespace Core.Gui.Test.Commands
             // Setup
             const string pathToSomeInvalidFile = "<path to some invalid file>";
 
-            var project = Substitute.For<IProject>();
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(pathToSomeInvalidFile).Returns((IProject) null);
             var projectMigrator = Substitute.For<IMigrateProject>();
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns(project);
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
@@ -911,12 +894,10 @@ namespace Core.Gui.Test.Commands
         public void HandleUnsavedChanges_ProjectSetNoChange_ReturnsTrue()
         {
             // Setup
-            var project = Substitute.For<IProject>();
             var projectStorage = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns(project);
             projectOwner.ProjectFilePath.Returns("");
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();

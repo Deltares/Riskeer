@@ -29,6 +29,8 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
+using AvalonDock;
+using AvalonDock.Layout;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -37,7 +39,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Chart.Forms;
 using Core.Components.Gis.Forms;
-using Core.Gui.Commands;
 using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.Log;
 using Core.Gui.Forms.Main;
@@ -46,7 +47,6 @@ using Core.Gui.Forms.Project;
 using Core.Gui.Forms.PropertyView;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
-using Core.Gui.PropertyBag;
 using Core.Gui.Settings;
 using Core.Gui.Test.Forms.ViewHost;
 using Core.Gui.TestUtil;
@@ -55,8 +55,6 @@ using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
-using AvalonDock;
-using AvalonDock.Layout;
 using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test.Forms.Main
@@ -362,10 +360,7 @@ namespace Core.Gui.Test.Forms.Main
             // Setup
             var selectedObject = new object();
             var viewHost = new AvalonDockViewHost();
-            var selectedObjectProperties = Substitute.For<IObjectProperties>();
             var propertyResolver = Substitute.For<IPropertyResolver>();
-            propertyResolver.GetObjectProperties(selectedObject)
-                            .Returns(selectedObjectProperties);
 
             var gui = Substitute.For<IGui>();
             gui.ViewHost.Returns(viewHost);
@@ -394,10 +389,7 @@ namespace Core.Gui.Test.Forms.Main
             // Setup
             var selectedObject = new object();
             var viewHost = new AvalonDockViewHost();
-            var selectedObjectProperties = Substitute.For<IObjectProperties>();
             var propertyResolver = Substitute.For<IPropertyResolver>();
-            propertyResolver.GetObjectProperties(selectedObject)
-                            .Returns(selectedObjectProperties);
 
             var gui = Substitute.For<IGui>();
             gui.ViewHost.Returns(viewHost);
@@ -448,20 +440,13 @@ namespace Core.Gui.Test.Forms.Main
             {
                 new TreeNodeInfo<IProject>()
             };
-            var selectedObjectProperties = Substitute.For<IObjectProperties>();
 
             var propertyResolver = Substitute.For<IPropertyResolver>();
-            propertyResolver.GetObjectProperties(selectedObject)
-                            .Returns(selectedObjectProperties);
 
-            var viewCommands = Substitute.For<IViewCommands>();
-            var project = Substitute.For<IProject>();
 
             var gui = Substitute.For<IGui>();
             gui.ViewHost.Returns(viewHost);
             gui.PropertyResolver.Returns(propertyResolver);
-            gui.ViewCommands.Returns(viewCommands);
-            gui.Project.Returns(project);
             gui.GetTreeNodeInfos().Returns(treeNodeInfos);
             gui.FixedSettings.Returns(new GuiCoreSettings());
             gui.Selection = selectedObject;

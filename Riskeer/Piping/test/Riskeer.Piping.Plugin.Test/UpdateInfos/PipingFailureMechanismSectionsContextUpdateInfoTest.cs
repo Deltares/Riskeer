@@ -26,7 +26,6 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui;
-using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Extensions.Forms;
@@ -50,9 +49,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void Name_Always_ReturnExpectedName()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
@@ -71,9 +68,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void Category_Always_ReturnExpectedCategory()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
@@ -92,9 +87,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void Image_Always_ReturnExpectedIcon()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
@@ -113,9 +106,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void IsEnabled_FailureMechanismSectionsSourcePathSet_ReturnTrue()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -141,9 +132,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void IsEnabled_FailureMechanismSectionsSourcePathNull_ReturnFalse()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
@@ -166,9 +155,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new PipingPlugin())
             {
                 plugin.Gui = gui;
@@ -187,9 +174,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void CreateFileImporter_WithValidData_ReturnsFileImporter()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var failureMechanism = new PipingFailureMechanism();
@@ -212,9 +197,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void CurrentPath_FailureMechanismSectionsSourcePathSet_ReturnsExpectedPath()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -240,9 +223,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario
             {
@@ -270,9 +251,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new ProbabilisticPipingCalculationScenario());
 
@@ -298,9 +277,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             var assessmentSection = Substitute.For<IAssessmentSection>();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             var calculationWithOutput = new ProbabilisticPipingCalculationScenario

@@ -25,7 +25,6 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Util.Extensions;
 using Core.Gui;
-using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
 using NSubstitute;
@@ -260,9 +259,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
             using (var plugin = new GrassCoverErosionInwardsPlugin
             {
                 Gui = gui

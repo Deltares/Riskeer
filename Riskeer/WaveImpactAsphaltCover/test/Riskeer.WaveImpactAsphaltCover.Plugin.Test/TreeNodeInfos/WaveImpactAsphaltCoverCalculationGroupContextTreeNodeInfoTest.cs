@@ -1200,11 +1200,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                              assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var viewCommands = Substitute.For<IViewCommands>();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-            gui.ViewCommands.Returns(viewCommands);
 
             nodeData.Attach(observer);
 
@@ -1274,11 +1272,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                              assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var viewCommands = Substitute.For<IViewCommands>();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-            gui.ViewCommands.Returns(viewCommands);
 
             nodeData.Attach(observer);
 

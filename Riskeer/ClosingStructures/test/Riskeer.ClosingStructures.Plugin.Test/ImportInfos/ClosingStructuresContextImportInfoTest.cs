@@ -26,7 +26,6 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui;
-using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Extensions.Forms;
@@ -180,9 +179,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -211,9 +208,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
 
             using (var plugin = new ClosingStructuresPlugin())
             {

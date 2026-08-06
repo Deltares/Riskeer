@@ -876,10 +876,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(mainWindow);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
@@ -924,10 +922,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(mainWindow);
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
@@ -990,10 +986,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(mainWindow);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
@@ -1173,12 +1167,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                           assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var mainWindow = Substitute.For<IMainWindow>();
-            var viewCommands = Substitute.For<IViewCommands>();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(mainWindow);
-            gui.ViewCommands.Returns(viewCommands);
 
             nodeData.Attach(observer);
 
@@ -1248,12 +1238,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                           assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var mainWindow = Substitute.For<IMainWindow>();
-            var viewCommands = Substitute.For<IViewCommands>();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(mainWindow);
-            gui.ViewCommands.Returns(viewCommands);
 
             nodeData.Attach(observer);
 

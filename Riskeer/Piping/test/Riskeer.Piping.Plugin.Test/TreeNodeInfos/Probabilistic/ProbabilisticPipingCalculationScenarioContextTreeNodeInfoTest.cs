@@ -676,10 +676,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             var calculationObserver = Substitute.For<IObserver>();
             calculation.Attach(calculationObserver);
 
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             string textBoxMessage = null;
@@ -733,10 +731,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             var calculationObserver = Substitute.For<IObserver>();
             calculation.Attach(calculationObserver);
 
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             string textBoxMessage = null;
