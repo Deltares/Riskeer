@@ -21,12 +21,10 @@
 
 using System;
 using System.Drawing;
-using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui;
-using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Extensions.Forms;
