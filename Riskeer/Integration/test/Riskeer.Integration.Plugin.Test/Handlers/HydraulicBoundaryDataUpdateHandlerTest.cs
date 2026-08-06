@@ -172,7 +172,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = CreateAssessmentSection();
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             var duneLocationsUpdateHandler = Substitute.For<IDuneLocationsUpdateHandler>();
-            duneLocationsUpdateHandler.When(_ => _.AddLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations => locations != null)))
+            duneLocationsUpdateHandler.When(substituteCall => substituteCall.AddLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations => locations != null)))
                                       .Do(invocation =>
                                       {
                                           Assert.AreSame(hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations, invocation.Arg<IEnumerable<HydraulicBoundaryLocation>>());
@@ -331,7 +331,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = CreateAssessmentSection();
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             var duneLocationsUpdateHandler = Substitute.For<IDuneLocationsUpdateHandler>();
-            duneLocationsUpdateHandler.When(_ => _.AddLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations => locations != null)))
+            duneLocationsUpdateHandler.When(substituteCall => substituteCall.AddLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations => locations != null)))
                                       .Do(invocation =>
                                       {
                                           Assert.AreSame(hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations, invocation.Arg<IEnumerable<HydraulicBoundaryLocation>>());

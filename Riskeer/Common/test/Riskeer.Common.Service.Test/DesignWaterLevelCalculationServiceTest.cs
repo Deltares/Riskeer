@@ -377,7 +377,7 @@ namespace Riskeer.Common.Service.Test
 
             var expectedException = new HydraRingFileParserException();
             var calculator = Substitute.For<IDesignWaterLevelCalculator>();
-            calculator.When(_ => _.Calculate(Arg.Any<AssessmentLevelCalculationInput>())).Do(_ => throw expectedException);
+            calculator.When(substituteCall => substituteCall.Calculate(Arg.Any<AssessmentLevelCalculationInput>())).Do(_ => throw expectedException);
 
             calculator.LastErrorFileContent.Returns(string.Empty);
             calculator.OutputDirectory.Returns(string.Empty);
