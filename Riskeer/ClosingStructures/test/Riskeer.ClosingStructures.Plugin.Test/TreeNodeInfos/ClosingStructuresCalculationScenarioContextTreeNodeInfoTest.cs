@@ -388,10 +388,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             calculation.Attach(calculationObserver);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-            gui.MainWindow.Returns(mainWindow);
 
             ChangeStructure(structure);
 
@@ -442,10 +440,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-            gui.MainWindow.Returns(mainWindow);
 
             ChangeStructure(structure);
 
@@ -502,10 +498,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-            gui.MainWindow.Returns(mainWindow);
 
             ChangeStructure(structure);
 

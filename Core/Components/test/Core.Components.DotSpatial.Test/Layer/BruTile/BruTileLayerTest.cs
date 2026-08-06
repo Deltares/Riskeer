@@ -402,7 +402,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             const string authorityCode = "EPSG:28992";
             var extent = new Extent(10000, 123456, 987654321, 321654);
-            var tileFetcher = Substitute.For<ITileFetcher>();
 
             var schema = Substitute.For<ITileSchema>();
             schema.Srs.Returns(authorityCode);
@@ -411,13 +410,11 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             var clonedConfiguration = Substitute.For<IConfiguration>();
             clonedConfiguration.Initialized.Returns(true);
             clonedConfiguration.TileSchema.Returns(schema);
-            clonedConfiguration.TileFetcher.Returns(tileFetcher);
 
             var configuration = Substitute.For<IConfiguration>();
             configuration.Clone().Returns(clonedConfiguration);
             configuration.Initialized.Returns(true);
             configuration.TileSchema.Returns(schema);
-            configuration.TileFetcher.Returns(tileFetcher);
 
             var mapFrame = Substitute.For<IFrame>();
             const float transparency = 0.3f;
@@ -523,7 +520,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         public void Dispose_WhenDisposeLocked_DoNothing()
         {
             // Given
-            var tileFetcher = Substitute.For<ITileFetcher>();
             var schema = Substitute.For<ITileSchema>();
             schema.Srs.Returns("EPSG:28992");
             schema.Extent.Returns(new Extent());
@@ -532,7 +528,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             var configuration = Substitute.For<IConfiguration>();
             configuration.Initialized.Returns(true);
             configuration.TileSchema.Returns(schema);
-            configuration.TileFetcher.Returns(tileFetcher);
             configuration.When(c => c.Dispose()).Do(_ =>
             {
                 if (disposedLocked)

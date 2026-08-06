@@ -394,10 +394,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             calculation.Attach(calculationObserver);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
 
             plugin.Gui = gui;
 
@@ -451,10 +449,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
 
             plugin.Gui = gui;
 
@@ -511,10 +507,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
 
             plugin.Gui = gui;
 

@@ -230,11 +230,8 @@ namespace Core.Gui.Test
         {
             // Setup
             const string someFilePath = "<path to some file>";
-            var project = Substitute.For<IProject>();
 
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someFilePath)
-                          .Returns(project);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -366,11 +363,8 @@ namespace Core.Gui.Test
             // Setup
             const string someFilePath = "<path to some file>";
             const string someMigrationFilePath = "<path to some migrated file>";
-            var project = Substitute.For<IProject>();
 
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someMigrationFilePath)
-                          .Returns(project);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -409,11 +403,8 @@ namespace Core.Gui.Test
             // Setup
             const string someFilePath = "<path to some file>";
             const string someMigrationFilePath = "<path to some migrated file>";
-            var project = Substitute.For<IProject>();
 
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someMigrationFilePath)
-                          .Returns(project);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -453,11 +444,8 @@ namespace Core.Gui.Test
             const string someFilePath = "<path to some file>";
             const string someMigrationFilePath = "<path to some migrated file>";
             const string exceptionMessage = "<some exception message>";
-            var project = Substitute.For<IProject>();
 
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someMigrationFilePath)
-                          .Returns(project);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -760,11 +748,9 @@ namespace Core.Gui.Test
         public void Finish_ProjectMigratedAndOpened_ExpectedProgressText()
         {
             // Setup
-            var project = Substitute.For<IProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
-            storeProject.LoadProject(Arg.Any<string>()).Returns(project);
             var migrateProject = Substitute.For<IMigrateProject>();
             migrateProject.Migrate(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
@@ -811,11 +797,9 @@ namespace Core.Gui.Test
         public void Finish_OnlyProjectOpened_ExpectedProgressText()
         {
             // Setup
-            var project = Substitute.For<IProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
-            storeProject.LoadProject(Arg.Any<string>()).Returns(project);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -973,7 +957,6 @@ namespace Core.Gui.Test
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
-            storeProject.LoadProject(Arg.Any<string>()).Returns(project);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",

@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Gui;
-using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using NSubstitute;
@@ -138,9 +137,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
-            var window = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(window);
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
@@ -170,9 +167,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
-            var window = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(window);
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
             var failureMechanism = new DuneErosionFailureMechanism();
             var data = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),

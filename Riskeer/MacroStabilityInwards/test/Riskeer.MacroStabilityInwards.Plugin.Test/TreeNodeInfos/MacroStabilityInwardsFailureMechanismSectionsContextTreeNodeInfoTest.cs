@@ -26,7 +26,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Framework;
@@ -107,9 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
 
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddOpenItem().Returns(menuBuilder);
@@ -149,9 +146,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithAddImportItem_CorrectImportInfosPassed()
         {
             // Setup
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
-            gui.MainWindow.Returns(mainWindow);
 
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddOpenItem().Returns(menuBuilder);

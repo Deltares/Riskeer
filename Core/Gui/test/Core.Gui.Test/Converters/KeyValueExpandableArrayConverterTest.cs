@@ -132,8 +132,6 @@ namespace Core.Gui.Test.Converters
         public void GetProperties_WithoutKeyValueElementAttribute_ThrowsArgumentException()
         {
             var context = Substitute.For<ITypeDescriptorContext>();
-            var descriptor = Substitute.For<PropertyDescriptor>("name", new Attribute[0]);
-            context.PropertyDescriptor.Returns(descriptor);
 
             var converter = new KeyValueExpandableArrayConverter();
 
