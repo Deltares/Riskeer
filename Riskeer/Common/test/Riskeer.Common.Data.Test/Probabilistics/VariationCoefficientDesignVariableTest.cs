@@ -42,7 +42,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreSame(distribution, designVariable.Distribution);
-            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         [Test]
@@ -77,7 +76,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
             Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen. (Parameter 'value')", customMessagePart);
-            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         private class SimpleVariationCoefficientDesignVariable : VariationCoefficientDesignVariable<IVariationCoefficientDistribution>

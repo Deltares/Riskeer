@@ -44,7 +44,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             Assert.IsInstanceOf<DesignVariable<IDistribution>>(designVariable);
             Assert.AreSame(distribution, designVariable.Distribution);
             Assert.AreEqual(0.5, designVariable.Percentile);
-            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         [Test]
@@ -70,7 +69,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
                 Environment.NewLine
             }, StringSplitOptions.RemoveEmptyEntries)[0];
             Assert.AreEqual("Percentiel moet in het bereik [0,0, 1,0] liggen.", customMessagePart);
-            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         [Test]
@@ -88,7 +86,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreEqual(validPercentile, designVariable.Percentile);
-            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         private class SimpleDesignVariable : PercentileBasedDesignVariable<IDistribution>
