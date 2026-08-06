@@ -1799,6 +1799,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             handler.InquireConfirmation().Returns(false);
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => true,
                                                                                                                                handler);
+
             // When
             toolStripItem.PerformClick();
 

@@ -648,6 +648,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             Assert.AreEqual(4.35.ToString(CultureInfo.CurrentCulture), secondRow.Cells[meanTidalAmplitudeColumnIndex].FormattedValue);
             Assert.AreEqual(5.54.ToString(CultureInfo.CurrentCulture), secondRow.Cells[waveDirectionalSpreadColumnIndex].FormattedValue);
             Assert.AreEqual(6.45.ToString(CultureInfo.CurrentCulture), secondRow.Cells[tideSurgePhaseDifferenceColumnIndex].FormattedValue);
+
             // When
             calculations.ForEachElementDo(calculation =>
             {

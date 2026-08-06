@@ -465,7 +465,6 @@ namespace Riskeer.Common.Service.Test
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(calculator);
-            ;
 
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());

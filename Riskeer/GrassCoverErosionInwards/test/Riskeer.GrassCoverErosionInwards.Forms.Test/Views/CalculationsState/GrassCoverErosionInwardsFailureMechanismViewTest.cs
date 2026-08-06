@@ -446,6 +446,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
             failureMechanism.CalculationsGroup.NotifyObservers();
@@ -478,6 +479,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             calculationA.InputParameters.DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.5, 1.5));
             calculationA.InputParameters.NotifyObservers();
@@ -510,6 +512,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             calculationA.Name = "new name";
             calculationA.NotifyObservers();

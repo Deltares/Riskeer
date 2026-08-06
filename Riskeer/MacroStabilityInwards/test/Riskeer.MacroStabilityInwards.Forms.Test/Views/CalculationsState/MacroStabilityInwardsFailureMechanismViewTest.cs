@@ -366,6 +366,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             failureMechanism.SurfaceLines.AddRange(new[]
             {
@@ -394,6 +395,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             surfaceLine.SetGeometry(new[]
             {
@@ -421,6 +423,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             var stochasticSoilModelMapData = (MapLineData) map.Data.Collection.ElementAt(stochasticSoilModelsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -473,6 +476,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
             failureMechanism.CalculationsGroup.NotifyObservers();
@@ -515,6 +519,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             calculationA.InputParameters.SurfaceLine = surfaceLineB;
             calculationA.InputParameters.NotifyObservers();
@@ -549,6 +554,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             calculationA.Name = "new name";
             calculationA.NotifyObservers();

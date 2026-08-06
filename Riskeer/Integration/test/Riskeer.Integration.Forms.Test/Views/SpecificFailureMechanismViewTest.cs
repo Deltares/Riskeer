@@ -257,6 +257,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
             var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
             IObserver[] observers = AttachMapDataObservers(mapDataCollection);
+
             // When
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {

@@ -530,8 +530,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                                      (HydraRingCalculationSettings) callInfo[0]);
 
                                  return new TestWaveConditionsCosineCalculator();
-                             })
-                ;
+                             });
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
