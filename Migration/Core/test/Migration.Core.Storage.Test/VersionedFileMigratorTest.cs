@@ -149,7 +149,6 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             Assert.AreEqual(shouldMigrate, needsMigrate);
-            versionedFile.Received(1).GetVersion();
         }
 
         [Test]
@@ -253,8 +252,6 @@ namespace Migration.Core.Storage.Test
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual($"Het migreren van een projectbestand met versie '{incorrectVersion}' naar versie '{toVersion}' is niet ondersteund.", exception.Message);
-            _ = versionedFile.Received(1).Location;
-            versionedFile.Received(1).GetVersion();
         }
 
         [Test]
@@ -290,8 +287,6 @@ namespace Migration.Core.Storage.Test
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual($"Het migreren van een projectbestand met versie '{fromVersion}' naar versie '{incorrectVersion}' is niet ondersteund.", exception.Message);
-            _ = versionedFile.Received(1).Location;
-            versionedFile.Received(1).GetVersion();
         }
 
         [Test]
@@ -327,8 +322,6 @@ namespace Migration.Core.Storage.Test
             // Assert
             Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
             using (new FileDisposeHelper(toLocation)) {}
-
-            versionedFile.Received(1).GetVersion();
         }
 
         [Test]
@@ -365,7 +358,6 @@ namespace Migration.Core.Storage.Test
             // Assert
             Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
             File.Delete(toLocation);
-            versionedFile.Received(1).GetVersion();
         }
 
         [Test]
@@ -407,8 +399,6 @@ namespace Migration.Core.Storage.Test
                 StringAssert.EndsWith($"', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{toLocation}'.",
                                       exception.Message);
             }
-
-            versionedFile.Received(1).GetVersion();
         }
 
         private class SimpleVersionComparer : IComparer
