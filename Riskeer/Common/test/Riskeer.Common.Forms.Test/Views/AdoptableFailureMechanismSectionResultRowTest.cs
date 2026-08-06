@@ -266,7 +266,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
-            errorProvider.GetCalculatedProbabilityValidationError(null)
+            errorProvider.GetCalculatedProbabilityValidationError(Arg.Any<Func<double>>())
                          .Returns("error message");
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section)
@@ -296,7 +296,7 @@ namespace Riskeer.Common.Forms.Test.Views
             const string errorText = "error";
             var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
-            errorProvider.GetCalculatedProbabilityValidationError(null)
+            errorProvider.GetCalculatedProbabilityValidationError(Arg.Any<Func<double>>())
                          .Returns(string.Empty);
             errorProvider.GetManualProbabilityValidationError(sectionProbability)
                          .Returns(errorText);
@@ -326,7 +326,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
-            errorProvider.GetCalculatedProbabilityValidationError(null)
+            errorProvider.GetCalculatedProbabilityValidationError(Arg.Any<Func<double>>())
                          .Returns(string.Empty);
             errorProvider.GetManualProbabilityValidationError(Arg.Any<double>())
                          .Returns("error message");
@@ -682,7 +682,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
-            errorProvider.GetCalculatedProbabilityValidationError(null)
+            errorProvider.GetCalculatedProbabilityValidationError(Arg.Any<Func<double>>())
                          .Returns(string.Empty);
             errorProvider.GetManualProbabilityValidationError(Arg.Any<double>())
                          .Returns(string.Empty);
@@ -715,7 +715,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
-            errorProvider.GetCalculatedProbabilityValidationError(null)
+            errorProvider.GetCalculatedProbabilityValidationError(Arg.Any<Func<double>>())
                          .Returns(string.Empty);
             errorProvider.GetManualProbabilityValidationError(Arg.Any<double>())
                          .Returns(string.Empty);
