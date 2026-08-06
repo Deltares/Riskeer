@@ -225,6 +225,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             IEnumerable<MapData> mapDataCollection = view.Map.Data.Collection;
             MapData referenceLineMapData = mapDataCollection.ElementAt(referenceLineIndex);
             IObserver[] observers = AttachMapDataObservers(mapDataCollection);
+
             // Precondition
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
