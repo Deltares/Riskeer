@@ -1311,6 +1311,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newBoolean, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1754,6 +1755,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
+            observable.Received(1).NotifyObservers();
         }
 
         private static IEnumerable<TestCaseData> GetGeneralPropertyIndices()
