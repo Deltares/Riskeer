@@ -361,6 +361,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             failureMechanism.SurfaceLines.AddRange(new[]
             {
@@ -390,6 +391,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             surfaceLine.SetGeometry(new[]
             {
@@ -421,6 +423,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
             var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -461,6 +464,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             var stochasticSoilModelMapData = (MapLineData) map.Data.Collection.ElementAt(stochasticSoilModelsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -517,6 +521,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             var probabilisticCalculationMapData = (MapLineData) map.Data.Collection.ElementAt(probabilisticCalculationsIndex);
             var semiProbabilisticCalculationMapData = (MapLineData) map.Data.Collection.ElementAt(semiProbabilisticCalculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
             failureMechanism.CalculationsGroup.NotifyObservers();
@@ -565,6 +570,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(semiProbabilisticCalculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             calculationScenario.InputParameters.SurfaceLine = surfaceLineB;
             calculationScenario.InputParameters.NotifyObservers();
@@ -610,6 +616,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(probabilisticCalculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             calculationScenario.InputParameters.SurfaceLine = surfaceLineB;
             calculationScenario.InputParameters.NotifyObservers();
@@ -655,6 +662,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(semiProbabilisticCalculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             calculationScenario.Name = "new name";
             calculationScenario.NotifyObservers();
@@ -700,6 +708,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(probabilisticCalculationsIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // When
             calculationScenario.Name = "new name";
             calculationScenario.NotifyObservers();

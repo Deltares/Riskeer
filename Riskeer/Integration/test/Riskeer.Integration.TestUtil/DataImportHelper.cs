@@ -232,8 +232,7 @@ namespace Riskeer.Integration.TestUtil
                                                           filePath,
                                                           new ImportMessageProvider(),
                                                           PipingSurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(assessmentSection.Piping, assessmentSection.ReferenceLine)),
-                                                      "PipingSurfaceLinesCsvImporter")
-                    ;
+                                                      "PipingSurfaceLinesCsvImporter");
                 activity.Run();
                 activity.Finish();
             }

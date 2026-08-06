@@ -477,8 +477,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()).Returns(observables);
 
             string filePath = Path.Combine(testDataPath, nameof(StabilityPointStructuresImporter),
-                                           "MissingParameters", "Kunstwerken.shp")
-                ;
+                                           "MissingParameters", "Kunstwerken.shp");
 
             var importTarget = new StructureCollection<StabilityPointStructure>();
             ReferenceLine referenceLine = CreateReferenceLine();
