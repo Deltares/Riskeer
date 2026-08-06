@@ -64,7 +64,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             SetObservablePropertyValueDelegate setAction = () => {};
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
-
             // Call
             PropertyChangeHelper.ChangePropertyAndNotify(setAction, handler);
 
