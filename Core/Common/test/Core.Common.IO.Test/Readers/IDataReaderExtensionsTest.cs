@@ -26,6 +26,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 
 namespace Core.Common.IO.Test.Readers
@@ -64,7 +65,7 @@ namespace Core.Common.IO.Test.Readers
             // Setup
             var dataReader = Substitute.For<IDataReader>();
             const string columnName = "SomeColumn";
-            dataReader[columnName].Returns(_ => throw new IndexOutOfRangeException());
+            dataReader[columnName].Throws(new IndexOutOfRangeException());
 
             // Call
             Action test = () => dataReader.Read<int>(columnName);

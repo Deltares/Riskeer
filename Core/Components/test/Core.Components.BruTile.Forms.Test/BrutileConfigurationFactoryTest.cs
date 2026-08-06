@@ -34,6 +34,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.TestUtil;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 
 namespace Core.Components.BruTile.Forms.Test
@@ -72,7 +73,7 @@ namespace Core.Components.BruTile.Forms.Test
             // Setup
             var factoryThrowingNotSupportedException = Substitute.For<ITileSourceFactory>();
             factoryThrowingNotSupportedException.GetKnownTileSource(Arg.Any<KnownTileSource>())
-                                                .Returns(_ => throw new NotSupportedException());
+                                                .Throws(new NotSupportedException());
 
             using (new UseCustomTileSourceFactoryConfig(factoryThrowingNotSupportedException))
             {
@@ -192,7 +193,7 @@ namespace Core.Components.BruTile.Forms.Test
 
             var factoryThrowingCannotFindTileSourceException = Substitute.For<ITileSourceFactory>();
             factoryThrowingCannotFindTileSourceException.GetWmtsTileSources(Arg.Any<string>())
-                                                        .Returns(_ => throw new CannotFindTileSourceException());
+                                                        .Throws(new CannotFindTileSourceException());
 
             yield return new TestCaseData(factoryWithoutRequiredTileSource)
                 .SetName($"{prefix}: Required tile source not returned by factory.");

@@ -25,6 +25,7 @@ using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using Deltares.MacroStability.CSharpWrapper.Output.WaternetCreator;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
@@ -132,7 +133,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             // Setup
             var exceptionToThrow = new Exception();
             var calculator = Substitute.For<ICalculator>();
-            calculator.CalculateWaternet(0).Returns(_ => throw exceptionToThrow);
+            calculator.CalculateWaternet(0).Throws(exceptionToThrow);
             var validator = Substitute.For<IValidator>();
             validator.ValidateWaternetCreator().Returns(new ValidationOutput
             {
@@ -225,7 +226,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var exceptionToThrow = new Exception();
             var calculator = Substitute.For<ICalculator>();
             var validator = Substitute.For<IValidator>();
-            validator.ValidateWaternetCreator().Returns(_ => throw exceptionToThrow);
+            validator.ValidateWaternetCreator().Throws(exceptionToThrow);
             var kernel = new WaternetKernelWrapper(calculator, validator, string.Empty);
 
             // Call
