@@ -304,7 +304,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
                 Assert.IsNull(calculation.Output);
             }
-            // No observers notified
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]

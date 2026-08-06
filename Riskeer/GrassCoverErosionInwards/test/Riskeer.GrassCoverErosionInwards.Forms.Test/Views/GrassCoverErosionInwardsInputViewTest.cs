@@ -358,7 +358,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 calculation.InputParameters.NotifyObservers();
 
                 // Assert
-                // No update observer expected
+                observer.DidNotReceive().UpdateObserver();
             }
         }
 
