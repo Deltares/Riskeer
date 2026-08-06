@@ -27,6 +27,7 @@ using BruTile;
 using BruTile.Cache;
 using Core.Common.TestUtil;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 
 namespace Core.Components.BruTile.IO.Test
@@ -236,7 +237,7 @@ namespace Core.Components.BruTile.IO.Test
             ((ILocalTileSource) tileProvider).GetTileAsync(info).Returns(Task.FromResult(data));
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
-            persistentCache.Find(info.Index).Returns(_ => throw new IOException());
+            persistentCache.Find(info.Index).Throws(new IOException());
 
             using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))

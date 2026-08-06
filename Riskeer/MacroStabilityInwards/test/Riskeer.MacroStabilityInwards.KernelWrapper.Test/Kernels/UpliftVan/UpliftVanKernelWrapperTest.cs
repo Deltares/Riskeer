@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -212,7 +213,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Setup
             var exceptionToThrow = new Exception();
             var calculator = Substitute.For<ICalculator>();
-            calculator.Calculate().Returns(_ => throw exceptionToThrow);
+            calculator.Calculate().Throws(exceptionToThrow);
             var validator = Substitute.For<IValidator>();
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
@@ -230,7 +231,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         {
             // Setup
             var calculator = Substitute.For<ICalculator>();
-            calculator.Calculate().Returns(_ => throw new Exception());
+            calculator.Calculate().Throws(new Exception());
             var validator = Substitute.For<IValidator>();
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
@@ -273,7 +274,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var exceptionToThrow = new Exception();
             var calculator = Substitute.For<ICalculator>();
             var validator = Substitute.For<IValidator>();
-            validator.Validate().Returns(_ => throw exceptionToThrow);
+            validator.Validate().Throws(exceptionToThrow);
             var kernel = new UpliftVanKernelWrapper(calculator, validator);
 
             // Call

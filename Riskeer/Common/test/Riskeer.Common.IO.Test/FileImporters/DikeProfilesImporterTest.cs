@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
@@ -510,7 +511,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             const string exceptionMessage = "Look, an exception!";
             var strategy = Substitute.For<IDikeProfileUpdateDataStrategy>();
             strategy.UpdateDikeProfilesWithImportedData(Arg.Any<IEnumerable<DikeProfile>>(), Arg.Any<string>())
-                    .Returns(_ => throw new UpdateDataException(exceptionMessage));
+                    .Throws(new UpdateDataException(exceptionMessage));
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
             ReferenceLine referenceLine = CreateMatchingReferenceLine();

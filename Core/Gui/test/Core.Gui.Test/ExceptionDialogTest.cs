@@ -25,6 +25,7 @@ using Core.Gui.Clipboard;
 using Core.Gui.Commands;
 using Core.Gui.TestUtil.Clipboard;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
@@ -266,7 +267,7 @@ namespace Core.Gui.Test
             var commandsOwner = Substitute.For<ICommandsOwner>();
             var commands = Substitute.For<IStorageCommands>();
             commandsOwner.StorageCommands.Returns(commands);
-            commands.SaveProjectAs().Returns(_ => throw new Exception());
+            commands.SaveProjectAs().Throws(new Exception());
 
             var messageBoxTitle = "";
             var messageBoxText = "";

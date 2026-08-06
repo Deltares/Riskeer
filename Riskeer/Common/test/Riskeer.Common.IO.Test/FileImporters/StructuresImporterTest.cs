@@ -30,6 +30,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using Riskeer.Common.Data;
@@ -617,7 +618,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             messageProvider.GetUpdateDataFailedLogMessageText("Kunstwerken").Returns("error {0}");
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<TestStructure>>(), Arg.Any<string>())
-                          .Returns(_ => throw new UpdateDataException("Exception message"));
+                          .Throws(new UpdateDataException("Exception message"));
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles",
                                                                       "Kunstwerken.shp"));

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.IO.Readers;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
@@ -218,9 +219,9 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             var invalidCastException = new InvalidCastException();
             var reader = Substitute.For<IRowBasedDatabaseReader>();
-            reader.ReadOrDefault<double?>(columnName).Returns(_ => throw invalidCastException);
-            reader.ReadOrDefault<long?>(columnName).Returns(_ => throw invalidCastException);
-            reader.ReadOrDefault<string>(columnName).Returns(_ => throw invalidCastException);
+            reader.ReadOrDefault<double?>(columnName).Throws(invalidCastException);
+            reader.ReadOrDefault<long?>(columnName).Throws(invalidCastException);
+            reader.ReadOrDefault<string>(columnName).Throws(invalidCastException);
 
             reader.ReadOrDefault<double?>(Arg.Is<string>(s => s != columnName))
                   .Returns(0);

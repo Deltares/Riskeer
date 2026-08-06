@@ -24,6 +24,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
@@ -67,7 +68,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(profileName);
             reader.Read<long>(SoilProfileTableDefinitions.LayerCount).Returns(layerCount);
-            reader.Read<long>(SoilProfileTableDefinitions.SoilProfileId).Returns(_ => throw invalidCastException);
+            reader.Read<long>(SoilProfileTableDefinitions.SoilProfileId).Throws(invalidCastException);
             reader.Path.Returns(path);
 
             // Call
@@ -90,7 +91,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             const string path = "A";
             var invalidCastException = new InvalidCastException();
 
-            reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(_ => throw invalidCastException);
+            reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Throws(invalidCastException);
             reader.Path.Returns(path);
 
             // Call
@@ -114,7 +115,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var invalidCastException = new InvalidCastException();
 
             reader.Read<string>(SoilProfileTableDefinitions.ProfileName).Returns(profileName);
-            reader.Read<long>(SoilProfileTableDefinitions.LayerCount).Returns(_ => throw invalidCastException);
+            reader.Read<long>(SoilProfileTableDefinitions.LayerCount).Throws(invalidCastException);
             reader.Path.Returns(path);
 
             // Call

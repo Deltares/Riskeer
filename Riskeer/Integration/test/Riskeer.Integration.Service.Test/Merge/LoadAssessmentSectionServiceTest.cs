@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
@@ -107,12 +108,12 @@ namespace Riskeer.Integration.Service.Test.Merge
 
         [Test]
         public void LoadAssessmentSection_LoadingProjectThrowsException_ThrowsLoadAssessmentSectionExceptionAndLogsError()
-        {
+        { 
             // Setup
             const string exceptionMessage = "StorageException";
             var storageException = new StorageException(exceptionMessage);
             var storeProject = Substitute.For<IStoreProject>();
-            storeProject.LoadProject(Arg.Any<string>()).Returns(_ => throw storageException);
+            storeProject.LoadProject(Arg.Any<string>()).Throws(storageException);
             var service = new LoadAssessmentSectionService(storeProject);
 
             LoadAssessmentSectionException exception = null;

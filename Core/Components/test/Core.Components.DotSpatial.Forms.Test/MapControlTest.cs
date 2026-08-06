@@ -47,6 +47,7 @@ using DotSpatial.Controls;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
@@ -1609,7 +1610,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             var factoryThrowingCannotFindTileSourceException = Substitute.For<ITileSourceFactory>();
             factoryThrowingCannotFindTileSourceException.GetWmtsTileSources(Arg.Any<string>())
-                                                        .Returns(_ => throw new CannotFindTileSourceException());
+                                                        .Throws(new CannotFindTileSourceException());
 
             yield return new TestCaseData(factoryWithoutRequiredTileSource)
                 .SetName($"{prefix}: Required tile source not returned by factory.");
@@ -2076,7 +2077,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             var factoryThrowingNotSupportedException = Substitute.For<ITileSourceFactory>();
             factoryThrowingNotSupportedException.GetKnownTileSource(Arg.Any<KnownTileSource>())
-                                                .Returns(_ => throw new NotSupportedException());
+                                                .Throws(new NotSupportedException());
 
             yield return new TestCaseData(factoryThrowingNotSupportedException)
                 .SetName($"{prefix}: Tile source factory throws NotSupportedException.");

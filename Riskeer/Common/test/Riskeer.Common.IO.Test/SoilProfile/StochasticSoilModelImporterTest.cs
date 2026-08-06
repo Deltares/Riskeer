@@ -28,6 +28,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using log4net.Core;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
@@ -620,7 +621,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var updateStrategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
             filter.IsValidForFailureMechanism(Arg.Any<StochasticSoilModel>()).Returns(true);
-            transformer.Transform(Arg.Any<StochasticSoilModel>()).Returns(_ => throw new ImportedDataTransformException(exceptionMessage));
+            transformer.Transform(Arg.Any<StochasticSoilModel>()).Throws(new ImportedDataTransformException(exceptionMessage));
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
             var importer = new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
@@ -664,7 +665,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataProgressText);
             messageProvider.GetUpdateDataFailedLogMessageText("Stochastische ondergrondmodellen").Returns(exceptionMessage);
             var updateStrategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            updateStrategy.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>()).Returns(_ => throw updateDataException);
+            updateStrategy.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>()).Throws(updateDataException);
             var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
             filter.IsValidForFailureMechanism(Arg.Any<StochasticSoilModel>()).Returns(true);
             string validFilePath = Path.Combine(testDataPath, "complete.soil");

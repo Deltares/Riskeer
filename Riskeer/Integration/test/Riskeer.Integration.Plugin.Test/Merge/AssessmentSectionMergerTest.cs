@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using log4net.Core;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
@@ -189,7 +190,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var filePathProvider = Substitute.For<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.GetFilePath().Returns(string.Empty);
             var assessmentSectionProvider = Substitute.For<IAssessmentSectionProvider>();
-            assessmentSectionProvider.GetAssessmentSection(Arg.Any<string>()).Returns(_ => throw new AssessmentSectionProviderException());
+            assessmentSectionProvider.GetAssessmentSection(Arg.Any<string>()).Throws(new AssessmentSectionProviderException());
 
             var comparer = Substitute.For<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = Substitute.For<IAssessmentSectionMergeDataProvider>();

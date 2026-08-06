@@ -53,6 +53,7 @@ using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using AvalonDock.Layout;
+using NSubstitute.ExceptionExtensions;
 using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test
@@ -538,7 +539,7 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
 
             var projectMigrator = Substitute.For<IMigrateProject>();
-            projectMigrator.ShouldMigrate(testFile).Returns(_ => throw new ArgumentException(expectedErrorMessage));
+            projectMigrator.ShouldMigrate(testFile).Throws(new ArgumentException(expectedErrorMessage));
             var projectFactory = Substitute.For<IProjectFactory>();
             var fixedSettings = new GuiCoreSettings();
 
@@ -570,7 +571,7 @@ namespace Core.Gui.Test
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(testFile).Returns(MigrationRequired.Yes);
             projectMigrator.DetermineMigrationLocation(testFile).Returns(targetFile);
-            projectMigrator.Migrate(testFile, targetFile).Returns(_ => throw new ArgumentException(expectedErrorMessage));
+            projectMigrator.Migrate(testFile, targetFile).Throws(new ArgumentException(expectedErrorMessage));
             var projectFactory = Substitute.For<IProjectFactory>();
             var guiCoreSettings = new GuiCoreSettings
             {
@@ -608,7 +609,7 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(testFile).Returns(MigrationRequired.No);
-            projectStore.LoadProject(testFile).Returns(_ => throw new StorageException(storageExceptionText));
+            projectStore.LoadProject(testFile).Throws(new StorageException(storageExceptionText));
             var projectFactory = Substitute.For<IProjectFactory>();
             var guiCoreSettings = new GuiCoreSettings
             {
