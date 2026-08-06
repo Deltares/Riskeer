@@ -213,7 +213,6 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void UpdateForeshoreProfilesWithImportedData_WithCurrentCollectionNotEmptyAndImportedCollectionHasProfilesWithSameId_ThrowsUpdateException()
         {
             // Setup 
-
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var originalForeshoreProfiles = new[]
             {
@@ -282,7 +281,6 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void UpdateForeshoreProfilesWithImportedData_WithCurrentCollectionAndImportedCollectionHasFullOverlap_UpdatesTargetDataCollection()
         {
             // Setup
-
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var targetForeshoreProfile = new TestForeshoreProfile("Name", "ID");
             foreshoreProfiles.AddRange(new[]
