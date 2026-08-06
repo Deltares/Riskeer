@@ -69,6 +69,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             const string failureMechanismName = "Failure Mechanism Name";
             const string failureMechanismCode = "Code";
             const string errorMessage = "Error";
+            
             var failureMechanism = Substitute.For<IFailureMechanism>();
             failureMechanism.Name.Returns(failureMechanismName);
             failureMechanism.Code.Returns(failureMechanismCode);

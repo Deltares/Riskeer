@@ -376,7 +376,7 @@ namespace Riskeer.Common.Service.Test
 
             var expectedException = new HydraRingFileParserException();
             var calculator = Substitute.For<IWaveHeightCalculator>();
-            calculator.When(_ => _.Calculate(Arg.Any<WaveHeightCalculationInput>())).Do(_ => throw expectedException);
+            calculator.When(substituteCall => substituteCall.Calculate(Arg.Any<WaveHeightCalculationInput>())).Do(_ => throw expectedException);
             calculator.LastErrorFileContent.Returns(string.Empty);
             calculator.OutputDirectory.Returns(string.Empty);
 
