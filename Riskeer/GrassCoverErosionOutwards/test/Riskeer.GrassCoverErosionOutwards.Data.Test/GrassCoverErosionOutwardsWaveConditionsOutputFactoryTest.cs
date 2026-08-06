@@ -224,7 +224,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Call
             Action call = () =>
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(null,
-                                                                                                                                       waveImpactOutput, waveImpactWithWaveDirectionOutput);
+                                                                                                                                       waveImpactOutput, 
+                                                                                                                                       waveImpactWithWaveDirectionOutput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
