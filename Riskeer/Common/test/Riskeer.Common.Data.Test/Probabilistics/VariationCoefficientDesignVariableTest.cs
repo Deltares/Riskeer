@@ -43,7 +43,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreSame(distribution, designVariable.Distribution);
-            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         [Test]

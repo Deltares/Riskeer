@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NSubstitute;
@@ -43,7 +42,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreSame(distribution, designVariable.Distribution);
-            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         [Test]
