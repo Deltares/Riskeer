@@ -80,8 +80,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(0.1, 0.1));
-
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   new CalculationGroup(),

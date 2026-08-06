@@ -80,8 +80,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(0.1, 0.1));
-
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      new CalculationGroup(),

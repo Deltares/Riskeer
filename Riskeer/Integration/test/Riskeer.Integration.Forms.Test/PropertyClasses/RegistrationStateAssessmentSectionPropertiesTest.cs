@@ -113,7 +113,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             const AssessmentSectionComposition newComposition = AssessmentSectionComposition.DikeAndDune;
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.Composition.Returns(AssessmentSectionComposition.Dike);
-            assessmentSection.FailureMechanismContribution.Returns(new FailureMechanismContribution(0.1, 0.1));
 
             var observable = Substitute.For<IObservable>();
             var assessmentSectionCompositionChangeHandler = Substitute.For<IAssessmentSectionCompositionChangeHandler>();
