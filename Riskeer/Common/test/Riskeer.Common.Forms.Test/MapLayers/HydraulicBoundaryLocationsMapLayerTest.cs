@@ -614,6 +614,7 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                     }
                 }
             };
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
             {
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
