@@ -960,7 +960,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            // No observer notified
+            observable.DidNotReceive().NotifyObservers();
         }
 
         [Test]
@@ -1007,7 +1007,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             Assert.IsTrue(handler.Called);
-            // No observer notified
+            observable.DidNotReceive().NotifyObservers();
         }
 
         [Test]
@@ -1052,7 +1052,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            // No observer notified
+            observable.DidNotReceive().NotifyObservers();
         }
 
         [Test]
@@ -1096,7 +1096,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            // No observer notified
+            observable.DidNotReceive().NotifyObservers();
         }
 
         [Test]

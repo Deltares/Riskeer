@@ -372,7 +372,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
-            // No observer notified
+            calculationObserver.DidNotReceive().UpdateObserver();
+            inputObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -631,7 +632,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
-            // No observer notified
+            observer.DidNotReceive().UpdateObserver();
         }
 
         public override void Setup()
