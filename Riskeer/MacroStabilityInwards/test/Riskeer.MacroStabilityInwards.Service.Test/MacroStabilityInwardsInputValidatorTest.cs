@@ -262,7 +262,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void Validate_SurfaceLineNotNear2DProfile_ReturnsError(MacroStabilityInwardsSoilProfile2D soilProfile)
         {
             // Setup
-
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
             surfaceLine.SetGeometry(new[]
             {

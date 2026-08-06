@@ -96,7 +96,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_WithoutHandler_ThrowsArgumentNullException()
         {
             // Setup
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
