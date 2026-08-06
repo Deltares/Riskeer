@@ -373,6 +373,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
 
             observers[surfaceLinesIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[surfaceLinesIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -405,6 +406,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
 
             observers[surfaceLinesIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[surfaceLinesIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -443,6 +445,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             observers[sectionsObserverIndex].Received(1).UpdateObserver();
             observers[sectionsStartPointObserverIndex].Received(1).UpdateObserver();
             observers[sectionsEndPointObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[sectionsObserverIndex] && o != observers[sectionsStartPointObserverIndex] && o != observers[sectionsEndPointObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -476,6 +479,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, stochasticSoilModelMapData);
 
             observers[stochasticSoilModelsIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[stochasticSoilModelsIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -532,6 +536,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             observers[semiProbabilisticCalculationObserverIndex].Received(1).UpdateObserver();
             observers[probabilisticCalculationObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[semiProbabilisticCalculationObserverIndex] && o != observers[probabilisticCalculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -578,6 +583,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             // Then
             AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(), calculationMapData);
             observers[semiProbabilisticCalculationObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[semiProbabilisticCalculationObserverIndex] && o != observers[probabilisticCalculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -624,6 +630,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             // Then
             AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<ProbabilisticPipingCalculationScenario>(), calculationMapData);
             observers[probabilisticCalculationObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[probabilisticCalculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -670,6 +677,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             // Then
             AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(), calculationMapData);
             observers[semiProbabilisticCalculationObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[semiProbabilisticCalculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -716,6 +724,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             // Then
             AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<ProbabilisticPipingCalculationScenario>(), calculationMapData);
             observers[probabilisticCalculationObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[probabilisticCalculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]

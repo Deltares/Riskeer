@@ -259,6 +259,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             // Then
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
             observers[referenceLineIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[referenceLineIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -298,6 +299,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
             observers[referenceLineIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[referenceLineIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -331,6 +333,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
             observers[dikeProfilesObserverIndex].Received(1).UpdateObserver();
             observers[foreshoreProfileObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[dikeProfilesObserverIndex] && o != observers[foreshoreProfileObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -363,6 +366,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
             observers[dikeProfilesObserverIndex].Received(1).UpdateObserver();
             observers[foreshoreProfileObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[dikeProfilesObserverIndex] && o != observers[foreshoreProfileObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -403,6 +407,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
             observers[dikeProfilesObserverIndex].Received(1).UpdateObserver();
             observers[foreshoreProfileObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[dikeProfilesObserverIndex] && o != observers[foreshoreProfileObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -443,6 +448,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
             observers[calculationObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[calculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -476,6 +482,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
             observers[calculationObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[calculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -509,6 +516,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             // Then 
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
             observers[calculationObserverIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[calculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
