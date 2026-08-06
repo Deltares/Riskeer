@@ -430,6 +430,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newBoolean, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
