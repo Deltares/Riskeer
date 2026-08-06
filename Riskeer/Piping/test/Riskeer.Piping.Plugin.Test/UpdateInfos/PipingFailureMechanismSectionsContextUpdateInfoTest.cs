@@ -45,68 +45,51 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
     [TestFixture]
     public class PipingFailureMechanismSectionsContextUpdateInfoTest : NUnitFormTest
     {
+        private PipingPlugin plugin;
+
         [Test]
         public void Name_Always_ReturnExpectedName()
         {
             // Setup
-            var gui = Substitute.For<IGui>();
-            using (var plugin = new PipingPlugin())
-            {
-                plugin.Gui = gui;
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+            // Call
+            string name = updateInfo.Name;
 
-                // Call
-                string name = updateInfo.Name;
-
-                // Assert
-                Assert.AreEqual("Vakindeling", name);
-            }
+            // Assert
+            Assert.AreEqual("Vakindeling", name);
         }
 
         [Test]
         public void Category_Always_ReturnExpectedCategory()
         {
             // Setup
-            var gui = Substitute.For<IGui>();
-            using (var plugin = new PipingPlugin())
-            {
-                plugin.Gui = gui;
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+            // Call
+            string category = updateInfo.Category;
 
-                // Call
-                string category = updateInfo.Category;
-
-                // Assert
-                Assert.AreEqual("Algemeen", category);
-            }
+            // Assert
+            Assert.AreEqual("Algemeen", category);
         }
 
         [Test]
         public void Image_Always_ReturnExpectedIcon()
         {
             // Setup
-            var gui = Substitute.For<IGui>();
-            using (var plugin = new PipingPlugin())
-            {
-                plugin.Gui = gui;
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+            // Call
+            Image image = updateInfo.Image;
 
-                // Call
-                Image image = updateInfo.Image;
-
-                // Assert
-                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, image);
-            }
+            // Assert
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, image);
         }
 
         [Test]
         public void IsEnabled_FailureMechanismSectionsSourcePathSet_ReturnTrue()
         {
             // Setup
-            var gui = Substitute.For<IGui>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -114,90 +97,67 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new PipingPlugin())
-            {
-                plugin.Gui = gui;
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+            // Call
+            bool isEnabled = updateInfo.IsEnabled(context);
 
-                // Call
-                bool isEnabled = updateInfo.IsEnabled(context);
-
-                // Assert
-                Assert.IsTrue(isEnabled);
-            }
+            // Assert
+            Assert.IsTrue(isEnabled);
         }
 
         [Test]
         public void IsEnabled_FailureMechanismSectionsSourcePathNull_ReturnFalse()
         {
             // Setup
-            var gui = Substitute.For<IGui>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new PipingPlugin())
-            {
-                plugin.Gui = gui;
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+            // Call
+            bool isEnabled = updateInfo.IsEnabled(context);
 
-                // Call
-                bool isEnabled = updateInfo.IsEnabled(context);
-
-                // Assert
-                Assert.IsFalse(isEnabled);
-            }
+            // Assert
+            Assert.IsFalse(isEnabled);
         }
 
         [Test]
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Setup
-            var gui = Substitute.For<IGui>();
-            using (var plugin = new PipingPlugin())
-            {
-                plugin.Gui = gui;
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+            // Call
+            FileFilterGenerator fileFilterGenerator = updateInfo.FileFilterGenerator;
 
-                // Call
-                FileFilterGenerator fileFilterGenerator = updateInfo.FileFilterGenerator;
-
-                // Assert
-                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
-            }
+            // Assert
+            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
         }
 
         [Test]
         public void CreateFileImporter_WithValidData_ReturnsFileImporter()
         {
             // Setup
-            var gui = Substitute.For<IGui>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new PipingPlugin())
-            {
-                plugin.Gui = gui;
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-                // Call
-                IFileImporter importer = updateInfo.CreateFileImporter(context, string.Empty);
+            // Call
+            IFileImporter importer = updateInfo.CreateFileImporter(context, string.Empty);
 
-                // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
-            }
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismSectionsImporter>(importer);
         }
 
         [Test]
         public void CurrentPath_FailureMechanismSectionsSourcePathSet_ReturnsExpectedPath()
         {
             // Setup
-            var gui = Substitute.For<IGui>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
@@ -205,17 +165,13 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new PipingPlugin())
-            {
-                plugin.Gui = gui;
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-                // Call
-                string currentFilePath = updateInfo.CurrentPath(context);
+            // Call
+            string currentFilePath = updateInfo.CurrentPath(context);
 
-                // Assert
-                Assert.AreEqual(sourcePath, currentFilePath);
-            }
+            // Assert
+            Assert.AreEqual(sourcePath, currentFilePath);
         }
 
         [Test]
@@ -223,27 +179,20 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var gui = Substitute.For<IGui>();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             });
-
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new PipingPlugin())
-            {
-                plugin.Gui = gui;
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+            // Call
+            bool updatesVerified = updateInfo.VerifyUpdates(context);
 
-                // Call
-                bool updatesVerified = updateInfo.VerifyUpdates(context);
-
-                // Assert
-                Assert.IsTrue(updatesVerified);
-            }
+            // Assert
+            Assert.IsTrue(updatesVerified);
         }
 
         [Test]
@@ -251,24 +200,17 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            var gui = Substitute.For<IGui>();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new ProbabilisticPipingCalculationScenario());
-
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
+            
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-            using (var plugin = new PipingPlugin())
-            {
-                plugin.Gui = gui;
+            // Call
+            bool updatesVerified = updateInfo.VerifyUpdates(context);
 
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
-
-                // Call
-                bool updatesVerified = updateInfo.VerifyUpdates(context);
-
-                // Assert
-                Assert.IsTrue(updatesVerified);
-            }
+            // Assert
+            Assert.IsTrue(updatesVerified);
         }
 
         [Test]
@@ -277,7 +219,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         public void VerifyUpdates_CalculationWithOutputs_AlwaysReturnsExpectedInquiryMessage(bool isActionConfirmed)
         {
             // Setup
-            var gui = Substitute.For<IGui>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             var calculationWithOutput = new ProbabilisticPipingCalculationScenario
@@ -285,40 +226,45 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
-
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new PipingPlugin())
+            string textBoxMessage = null;
+            DialogBoxHandler = (name, wnd) =>
             {
-                plugin.Gui = gui;
+                var helper = new MessageBoxTester(wnd);
+                textBoxMessage = helper.Text;
 
-                string textBoxMessage = null;
-                DialogBoxHandler = (name, wnd) =>
+                if (isActionConfirmed)
                 {
-                    var helper = new MessageBoxTester(wnd);
-                    textBoxMessage = helper.Text;
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
 
-                    if (isActionConfirmed)
-                    {
-                        helper.ClickOk();
-                    }
-                    else
-                    {
-                        helper.ClickCancel();
-                    }
-                };
+            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
-                UpdateInfo updateInfo = GetUpdateInfo(plugin);
+            // Call
+            bool updatesVerified = updateInfo.VerifyUpdates(context);
 
-                // Call
-                bool updatesVerified = updateInfo.VerifyUpdates(context);
+            // Assert
+            string expectedInquiryMessage = "Als u de vakindeling wijzigt, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd." +
+                                            $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
+            Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
+            Assert.AreEqual(isActionConfirmed, updatesVerified);
+        }
 
-                // Assert
-                string expectedInquiryMessage = "Als u de vakindeling wijzigt, dan worden de resultaten van alle probabilistische piping berekeningen verwijderd." +
-                                                $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
-                Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
-                Assert.AreEqual(isActionConfirmed, updatesVerified);
-            }
+        public override void Setup()
+        {
+            plugin = new PipingPlugin();
+            plugin.Gui = Substitute.For<IGui>();
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
         }
 
         private static UpdateInfo GetUpdateInfo(PipingPlugin plugin)
