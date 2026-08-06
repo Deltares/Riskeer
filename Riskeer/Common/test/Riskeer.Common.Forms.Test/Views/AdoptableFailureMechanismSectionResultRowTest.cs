@@ -328,7 +328,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
             errorProvider.GetCalculatedProbabilityValidationError(null)
                          .Returns(string.Empty);
-            errorProvider.GetManualProbabilityValidationError(double.NaN)
+            errorProvider.GetManualProbabilityValidationError(Arg.Any<double>())
                          .Returns("error message");
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section)
@@ -643,7 +643,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var calculateStrategy = Substitute.For<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
-            errorProvider.GetManualProbabilityValidationError(double.NaN)
+            errorProvider.GetManualProbabilityValidationError(Arg.Any<double>())
                          .Returns(string.Empty);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section)
@@ -684,7 +684,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
             errorProvider.GetCalculatedProbabilityValidationError(null)
                          .Returns(string.Empty);
-            errorProvider.GetManualProbabilityValidationError(double.NaN)
+            errorProvider.GetManualProbabilityValidationError(Arg.Any<double>())
                          .Returns(string.Empty);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section)
@@ -717,7 +717,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
             errorProvider.GetCalculatedProbabilityValidationError(null)
                          .Returns(string.Empty);
-            errorProvider.GetManualProbabilityValidationError(double.NaN)
+            errorProvider.GetManualProbabilityValidationError(Arg.Any<double>())
                          .Returns(string.Empty);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section)
