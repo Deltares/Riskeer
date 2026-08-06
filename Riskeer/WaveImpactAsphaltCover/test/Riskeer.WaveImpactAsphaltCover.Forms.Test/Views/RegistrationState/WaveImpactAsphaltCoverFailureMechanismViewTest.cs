@@ -414,7 +414,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views.RegistrationState
         /// </summary>
         /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
         /// elements.</param>
-        /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
+        /// <returns>An array of substituted observers attached to the data in <paramref name="mapData"/>.</returns>
         private static IObserver[] AttachMapDataObservers(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();

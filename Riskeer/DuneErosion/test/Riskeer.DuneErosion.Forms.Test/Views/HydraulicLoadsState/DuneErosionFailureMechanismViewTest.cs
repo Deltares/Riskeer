@@ -358,11 +358,11 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.HydraulicLoadsState
         }
 
         /// <summary>
-        /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
+        /// Attaches substituted observers to all <see cref="IObservable"/> map data components.
         /// </summary>
         /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
         /// elements.</param>
-        /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
+        /// <returns>An array of substituted observers attached to the data in <paramref name="mapData"/>.</returns>
         private static IObserver[] AttachMapDataObservers(IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();
