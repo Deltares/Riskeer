@@ -52,6 +52,7 @@ namespace Riskeer.Common.Forms.Test.Views
                                                         closingSituation,
                                                         stochasts,
                                                         beta);
+
             // Assert
             Assert.AreSame(source, item.Source);
             Assert.AreEqual(nrOfDecimals, item.Beta.NumberOfDecimalPlaces);

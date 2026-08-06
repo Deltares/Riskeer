@@ -735,7 +735,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             // Call
             importer.DoPostImport();
-            
+
             // Assert
             messageProvider.Received(1).GetAddDataToModelProgressText();
             updateStrategy.Received(1).UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>());

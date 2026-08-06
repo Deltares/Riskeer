@@ -67,6 +67,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Call
             PropertyChangeHelper.ChangePropertyAndNotify(setAction, handler);
+
             // Assert
             handler.Received(1).SetPropertyValueAfterConfirmation(setAction);
         }
