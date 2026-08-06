@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
