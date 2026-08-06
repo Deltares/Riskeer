@@ -114,8 +114,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ImportInfos
             {
                 failureMechanism
             });
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
-
             var context = new StabilityStoneCoverCalculationGroupContext(new CalculationGroup(),
                                                                          null,
                                                                          failureMechanism,
