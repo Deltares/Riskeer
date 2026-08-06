@@ -235,6 +235,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 // Then
                 AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
             }
+            
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
