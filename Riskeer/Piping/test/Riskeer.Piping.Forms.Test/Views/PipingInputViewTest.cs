@@ -601,7 +601,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);
-                // No update observer expected
+                observer.DidNotReceive().UpdateObserver();
             }
         }
 

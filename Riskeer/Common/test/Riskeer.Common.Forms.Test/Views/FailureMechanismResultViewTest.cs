@@ -992,6 +992,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual(expectedErrorMessage, errorMessage);
             }
+            
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1163,6 +1165,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(initialValueText, failureMechanismAssemblyProbabilityTextBox.Text);
                 Assert.AreEqual(initialValue, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
             }
+            observer.DidNotReceive().UpdateObserver();
         }
 
         #endregion
