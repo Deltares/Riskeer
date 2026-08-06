@@ -564,6 +564,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
+            observable.Received(1).NotifyObservers();
         }
     }
 }
