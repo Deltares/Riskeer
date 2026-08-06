@@ -105,7 +105,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilderMethods()
         {
             // Setup
-
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 

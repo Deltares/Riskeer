@@ -72,7 +72,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Constructor_WithoutHandler_ThrowsArgumentNullException()
         {
             // Setup
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {

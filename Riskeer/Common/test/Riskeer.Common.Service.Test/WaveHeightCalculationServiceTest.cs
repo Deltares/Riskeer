@@ -159,7 +159,6 @@ namespace Riskeer.Common.Service.Test
         public void Calculate_ValidWaveHeightCalculationAndConverges_SetsOutputAndLogs(bool readIllustrationPoints)
         {
             // Setup
-
             var calculator = new TestWaveHeightCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult(),

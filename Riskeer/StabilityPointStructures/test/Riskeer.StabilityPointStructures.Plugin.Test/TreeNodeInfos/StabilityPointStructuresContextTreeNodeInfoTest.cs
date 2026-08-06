@@ -203,7 +203,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddImportItem().Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
