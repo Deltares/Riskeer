@@ -106,11 +106,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             };
             var inquiryHelper = Substitute.For<IInquiryHelper>();
 
-            var calculationWithIllustrationPointsObserver = Substitute.For<IObserver>();
-            calculationWithIllustrationPoints.Attach(calculationWithIllustrationPointsObserver);
-
-            var calculationWithoutIllustrationPointsObserver = Substitute.For<IObserver>();
-            calculationWithOutput.Attach(calculationWithoutIllustrationPointsObserver);
             var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
 
             // Call
