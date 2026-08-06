@@ -33,6 +33,7 @@ using Core.Gui.Helpers;
 using Core.Gui.Selection;
 using Core.Gui.TestUtil;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
@@ -466,7 +467,7 @@ namespace Core.Gui.Test.Commands
             var projectStorage = Substitute.For<IStoreProject>();
 
             var projectMigrator = Substitute.For<IMigrateProject>();
-            projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(_ => throw exception);
+            projectMigrator.ShouldMigrate(pathToSomeValidFile).Throws(exception);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -502,7 +503,7 @@ namespace Core.Gui.Test.Commands
 
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(MigrationRequired.Yes);
-            projectMigrator.DetermineMigrationLocation(pathToSomeValidFile).Returns(_ => throw new ArgumentException(errorMessage));
+            projectMigrator.DetermineMigrationLocation(pathToSomeValidFile).Throws(new ArgumentException(errorMessage));
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -551,7 +552,7 @@ namespace Core.Gui.Test.Commands
             mainWindowController.MainWindow.Returns(mainWindow);
             mainWindow.ApplicationIcon.Returns(SystemIcons.Application);
             mainWindow.Handle.Returns(IntPtr.Zero);
-            projectMigrator.Migrate(pathToSomeValidFile, pathToMigratedFile).Returns(_ => throw new ArgumentException(errorMessage));
+            projectMigrator.Migrate(pathToSomeValidFile, pathToMigratedFile).Throws(new ArgumentException(errorMessage));
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -598,7 +599,7 @@ namespace Core.Gui.Test.Commands
 
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(pathToSomeInvalidFile)
-                          .Returns(_ => throw new StorageException(goodErrorMessageText, new Exception("H@X!")));
+                          .Throws(new StorageException(goodErrorMessageText, new Exception("H@X!")));
 
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(pathToSomeInvalidFile).Returns(MigrationRequired.No);

@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using WinFormsTreeView = System.Windows.Forms.TreeView;
 
@@ -147,7 +148,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var data = Substitute.For<IDataObject>();
-            data.GetData(Arg.Any<Type>()).Returns(_ => throw new InvalidCastException());
+            data.GetData(Arg.Any<Type>()).Throws(new InvalidCastException());
 
             using (var treeView = CreateTreeViewWithTopLevelNodes(out _, out TreeNode treeNode))
             {

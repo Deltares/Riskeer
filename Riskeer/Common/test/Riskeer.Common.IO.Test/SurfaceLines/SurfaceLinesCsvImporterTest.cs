@@ -32,6 +32,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using log4net.Core;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using Riskeer.Common.Data;
@@ -1437,7 +1438,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var strategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
             strategy.UpdateSurfaceLinesWithImportedData(Arg.Is<IMechanismSurfaceLine[]>(x => x != null),
                                                         Arg.Is<string>(x => x == filePath)
-            ).Returns(_ => throw new UpdateDataException("Exception message"));
+            ).Throws(new UpdateDataException("Exception message"));
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, strategy);
             var importer = new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(surfaceLines, filePath, messageProvider, configuration);
 

@@ -73,7 +73,7 @@ namespace Core.Gui.Test.Plugin
         public void ImplicitOperator_OptionalDelegatesAndPropertiesSet_UpdateInfoFullyConverted()
         {
             // Setup
-            var fileUpdateer = Substitute.For<IFileImporter>();
+            var fileImporter = Substitute.For<IFileImporter>();
 
             const string name = "name";
             const string category = "category";
@@ -83,7 +83,7 @@ namespace Core.Gui.Test.Plugin
 
             var info = new UpdateInfo<int>
             {
-                CreateFileImporter = (data, filePath) => fileUpdateer,
+                CreateFileImporter = (data, filePath) => fileImporter,
                 IsEnabled = data => false,
                 Name = name,
                 Category = category,
@@ -103,7 +103,7 @@ namespace Core.Gui.Test.Plugin
             Assert.IsInstanceOf<UpdateInfo>(convertedInfo);
             Assert.AreEqual(typeof(int), convertedInfo.DataType);
             Assert.IsNotNull(convertedInfo.CreateFileImporter);
-            Assert.AreSame(fileUpdateer, convertedInfo.CreateFileImporter(12, ""));
+            Assert.AreSame(fileImporter, convertedInfo.CreateFileImporter(12, ""));
             Assert.IsNotNull(convertedInfo.IsEnabled);
             Assert.IsFalse(convertedInfo.IsEnabled(12));
             Assert.AreEqual(name, info.Name);

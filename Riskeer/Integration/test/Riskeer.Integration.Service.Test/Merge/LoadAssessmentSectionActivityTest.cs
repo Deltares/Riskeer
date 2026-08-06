@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
@@ -133,7 +134,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             // Setup
             var service = Substitute.For<ILoadAssessmentSectionService>();
             service.LoadAssessmentSection(Arg.Any<string>())
-                   .Returns(_ => throw new LoadAssessmentSectionException());
+                   .Throws(new LoadAssessmentSectionException());
             var owner = new AssessmentSectionOwner();
             var activity = new LoadAssessmentSectionActivity(owner, service, string.Empty);
 
