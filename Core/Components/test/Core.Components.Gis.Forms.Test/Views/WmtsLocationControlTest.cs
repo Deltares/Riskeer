@@ -38,6 +38,7 @@ using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.Forms.Views;
 using Core.Components.Gis.TestUtil;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
@@ -745,7 +746,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void GivenWmtsLocationControl_WhenConnectClickedAndCannotFindTileSourceException_ThenErrorMessageShown()
         {
             // Given
-            wmtsCapabilityFactory.GetWmtsCapabilities(null).ReturnsForAnyArgs(x => throw new CannotFindTileSourceException("error"));
+            wmtsCapabilityFactory.GetWmtsCapabilities(Arg.Any<string>()).Throws(new CannotFindTileSourceException("error"));
             string messageBoxTitle = null;
             string messageBoxText = null;
             DialogBoxHandler = (formName, wnd) =>
@@ -838,13 +839,9 @@ namespace Core.Components.Gis.Forms.Test.Views
 
         public override void Setup()
         {
+            base.Setup();
             tileFactory = Substitute.For<ITileSourceFactory>();
             wmtsCapabilityFactory = Substitute.For<IWmtsCapabilityFactory>();
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
         }
 
         private static WmtsCapability CreateWmtsCapability(ITileSource tileSource)
