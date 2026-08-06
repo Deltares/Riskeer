@@ -114,8 +114,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
             {
                 failureMechanism
             });
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
-
             var context = new WaveImpactAsphaltCoverCalculationGroupContext(new CalculationGroup(),
                                                                             null,
                                                                             failureMechanism,
