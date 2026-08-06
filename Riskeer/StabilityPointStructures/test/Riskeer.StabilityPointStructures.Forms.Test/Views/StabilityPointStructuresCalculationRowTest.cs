@@ -483,6 +483,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(handler.Called);
+            observable.Received(1).NotifyObservers();
         }
 
         /// <summary>

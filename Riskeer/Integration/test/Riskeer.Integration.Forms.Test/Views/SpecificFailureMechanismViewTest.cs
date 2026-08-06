@@ -239,6 +239,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Then
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
             observers[referenceLineIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[referenceLineIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
@@ -276,6 +277,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             observers[sectionsCollectionIndex + sectionsIndex].Received(1).UpdateObserver();
             observers[sectionsCollectionIndex + sectionsStartPointIndex].Received(1).UpdateObserver();
             observers[sectionsCollectionIndex + sectionsEndPointIndex].Received(1).UpdateObserver();
+            observers.Where(o => o != observers[sectionsCollectionIndex + sectionsIndex] &&
+                                 o != observers[sectionsCollectionIndex + sectionsStartPointIndex] &&
+                                 o != observers[sectionsCollectionIndex + sectionsEndPointIndex])
+                     .ToList()
+                     .ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]

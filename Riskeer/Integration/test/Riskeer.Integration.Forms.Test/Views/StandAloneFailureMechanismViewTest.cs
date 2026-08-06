@@ -242,6 +242,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // Assert
                 MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
                 observers[referenceLineIndex].Received(1).UpdateObserver();
+                observers.Where(o => o != observers[referenceLineIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
             }
         }
 
@@ -282,6 +283,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // Assert
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
                 observers[referenceLineIndex].Received(1).UpdateObserver();
+                observers.Where(o => o != observers[referenceLineIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
             }
         }
 
@@ -320,6 +322,11 @@ namespace Riskeer.Integration.Forms.Test.Views
                 observers[sectionsObserverIndex].Received(1).UpdateObserver();
                 observers[sectionsStartPointObserverIndex].Received(1).UpdateObserver();
                 observers[sectionsEndPointObserverIndex].Received(1).UpdateObserver();
+                observers.Where(o => o != observers[sectionsObserverIndex] &&
+                                     o != observers[sectionsStartPointObserverIndex] &&
+                                     o != observers[sectionsEndPointObserverIndex])
+                         .ToList()
+                         .ForEach(o => o.DidNotReceive().UpdateObserver());
             }
         }
 
