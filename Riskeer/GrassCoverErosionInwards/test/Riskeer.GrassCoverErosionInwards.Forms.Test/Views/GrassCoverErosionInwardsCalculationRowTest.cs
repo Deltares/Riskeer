@@ -441,33 +441,25 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Action<GrassCoverErosionInwardsCalculationRow> setProperty,
             Action<GrassCoverErosionInwardsCalculationScenario> assertions)
         {
-            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, false);
-            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, false);
+            AssertPropertyNotChanged(setProperty, assertions, true);
+            AssertPropertyNotChanged(setProperty, assertions, false);
         }
 
-        private static void AssertPropertyChangeWithOrWithoutCalculationOutput(
+        private static void AssertPropertyNotChanged(
             Action<GrassCoverErosionInwardsCalculationRow> setProperty,
             Action<GrassCoverErosionInwardsCalculationScenario> assertions,
-            bool hasOutput,
-            bool expectUpdates)
+            bool hasOutput)
         {
             // Setup
             var inputObserver = Substitute.For<IObserver>();
-
             var calculationObserver = Substitute.For<IObserver>();
-
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
-            GrassCoverErosionInwardsOutput assignedOutput = null;
 
+            GrassCoverErosionInwardsOutput assignedOutput = hasOutput ? new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.2), null, null) : null;
             GrassCoverErosionInwardsCalculationScenario calculation = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0)
             }));
-            calculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            if (hasOutput)
-            {
-                assignedOutput = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.2), null, null);
-            }
 
             calculation.Output = assignedOutput;
 
@@ -479,25 +471,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             setProperty(row);
 
             // Assert
-            if (expectUpdates)
-            {
-                inputObserver.Received(1).UpdateObserver();
-            }
-
-            if (expectUpdates && hasOutput)
-            {
-                calculationObserver.Received(1).UpdateObserver();
-            }
-
             assertions(calculation);
-            if (expectUpdates)
-            {
-                Assert.IsNull(calculation.Output);
-            }
-            else
-            {
-                Assert.AreSame(assignedOutput, calculation.Output);
-            }
+            Assert.AreSame(assignedOutput, calculation.Output);
+            inputObserver.DidNotReceive().UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         #region Column states

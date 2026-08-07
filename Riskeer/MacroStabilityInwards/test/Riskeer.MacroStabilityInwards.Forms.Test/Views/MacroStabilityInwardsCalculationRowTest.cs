@@ -177,29 +177,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Action<MacroStabilityInwardsCalculationRow> setProperty,
             Action<MacroStabilityInwardsCalculationScenario> assertions)
         {
-            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, false);
-            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, false);
+            AssertPropertyNotChanged(setProperty, assertions, true);
+            AssertPropertyNotChanged(setProperty, assertions, false);
         }
 
-        private static void AssertPropertyChangeWithOrWithoutCalculationOutput(
+        private static void AssertPropertyNotChanged(
             Action<MacroStabilityInwardsCalculationRow> setProperty,
             Action<MacroStabilityInwardsCalculationScenario> assertions,
-            bool hasOutput,
-            bool expectUpdates)
+            bool hasOutput)
         {
             // Setup
             var inputObserver = Substitute.For<IObserver>();
-
             var calculationObserver = Substitute.For<IObserver>();
-
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
-            MacroStabilityInwardsOutput assignedOutput = null;
-
+           
+            MacroStabilityInwardsOutput assignedOutput = hasOutput ? MacroStabilityInwardsOutputTestFactory.CreateOutput() : null;
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
-            if (hasOutput)
-            {
-                assignedOutput = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-            }
 
             calculation.Output = assignedOutput;
 
@@ -212,26 +205,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             assertions(calculation);
-            if (expectUpdates)
-            {
-                Assert.IsNull(calculation.Output);
-
-                inputObserver.Received(1).UpdateObserver();
-                if (hasOutput)
-                {
-                    calculationObserver.Received(1).UpdateObserver();
-                }
-            }
-            else
-            {
-                Assert.AreSame(assignedOutput, calculation.Output);
-
-                inputObserver.DidNotReceive().UpdateObserver();
-                if (hasOutput)
-                {
-                    calculationObserver.DidNotReceive().UpdateObserver();
-                }
-            }
+            Assert.AreSame(assignedOutput, calculation.Output);
+            inputObserver.DidNotReceive().UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
