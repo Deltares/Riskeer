@@ -649,13 +649,17 @@ namespace Riskeer.Piping.Forms.Test.Views
             dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
 
             // Assert
-            Assert.IsNull(calculation.Output);
+            calculationInputObserver.Received(1).UpdateObserver();
+
             if (useCalculationWithOutput)
             {
                 calculationObserver.Received(1).UpdateObserver();
+                Assert.IsNull(calculation.Output);
             }
-
-            calculationInputObserver.Received(1).UpdateObserver();
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
+            }
         }
 
         [Test]

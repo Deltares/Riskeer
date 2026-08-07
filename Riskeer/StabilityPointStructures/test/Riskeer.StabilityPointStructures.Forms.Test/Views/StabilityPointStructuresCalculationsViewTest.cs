@@ -454,7 +454,17 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
 
             // Assert
-            calculationScenario.Output = null;
+            inputObserver.Received(1).UpdateObserver();
+
+            if (useCalculationWithOutput)
+            {
+                calculationObserver.Received(1).UpdateObserver();
+                Assert.IsNull(calculationScenario.Output);
+            }
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
+            }
         }
 
         [Test]

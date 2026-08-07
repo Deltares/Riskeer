@@ -425,16 +425,15 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
 
             // Assert
+            inputObserver.Received(1).UpdateObserver();
             if (useCalculationWithOutput)
             {
-                Assert.IsNull(calculationScenario.Output);
                 calculationObserver.Received(1).UpdateObserver();
-                inputObserver.Received(1).UpdateObserver();
+                Assert.IsNull(calculationScenario.Output);
             }
             else
             {
                 calculationObserver.DidNotReceive().UpdateObserver();
-                inputObserver.Received(1).UpdateObserver();
             }
         }
 
