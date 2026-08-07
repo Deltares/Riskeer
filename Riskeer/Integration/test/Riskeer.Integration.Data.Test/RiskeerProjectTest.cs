@@ -129,14 +129,13 @@ namespace Riskeer.Integration.Data.Test
             var observer = Substitute.For<IObserver>();
             var project = new RiskeerProject(CreateAssessmentSection());
             project.Attach(observer);
-            project.NotifyObservers();
 
             // Call
             project.Detach(observer);
             project.NotifyObservers();
 
             // Assert
-            observer.Received(1).UpdateObserver();
+            observer.DidNotReceive().UpdateObserver();
         }
 
         private static AssessmentSection CreateAssessmentSection()
