@@ -399,32 +399,26 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Action<HeightStructuresCalculationRow> setProperty,
             Action<StructuresCalculationScenario<HeightStructuresInput>> assertions)
         {
-            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, false);
-            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, false);
+            AssertPropertyNotChanged(setProperty, assertions, true);
+            AssertPropertyNotChanged(setProperty, assertions, false);
         }
 
-        private static void AssertPropertyChangeWithOrWithoutCalculationOutput(
+        private static void AssertPropertyNotChanged(
             Action<HeightStructuresCalculationRow> setProperty,
             Action<StructuresCalculationScenario<HeightStructuresInput>> assertions,
-            bool hasOutput,
-            bool expectUpdates)
+            bool hasOutput)
         {
             // Setup
             var inputObserver = Substitute.For<IObserver>();
             var calculationObserver = Substitute.For<IObserver>();
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
-            StructuresOutput assignedOutput = null;
+            StructuresOutput assignedOutput = hasOutput ? new TestStructuresOutput() : null;
 
             StructuresCalculationScenario<HeightStructuresInput> calculation = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0)
             }));
-            calculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            if (hasOutput)
-            {
-                assignedOutput = new TestStructuresOutput();
-            }
 
             calculation.Output = assignedOutput;
 
@@ -437,14 +431,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Assert
             assertions(calculation);
-            if (expectUpdates)
-            {
-                Assert.IsNull(calculation.Output);
-            }
-            else
-            {
-                Assert.AreSame(assignedOutput, calculation.Output);
-            }
+            Assert.AreSame(assignedOutput, calculation.Output);
+            inputObserver.DidNotReceive().UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         #region Column states

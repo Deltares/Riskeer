@@ -499,37 +499,26 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             Action<StabilityPointStructuresCalculationRow> setProperty,
             Action<StructuresCalculationScenario<StabilityPointStructuresInput>> assertions)
         {
-            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, false);
-            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, false);
+            AssertPropertyNotChanged(setProperty, assertions, true);
+            AssertPropertyNotChanged(setProperty, assertions, false);
         }
 
-        private static void AssertPropertyChangeWithOrWithoutCalculationOutput(
+        private static void AssertPropertyNotChanged(
             Action<StabilityPointStructuresCalculationRow> setProperty,
             Action<StructuresCalculationScenario<StabilityPointStructuresInput>> assertions,
-            bool hasOutput,
-            bool expectUpdates)
+            bool hasOutput)
         {
             // Setup
             var inputObserver = Substitute.For<IObserver>();
-            if (expectUpdates) {}
-
             var calculationObserver = Substitute.For<IObserver>();
-            if (expectUpdates && hasOutput) {}
-
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
-            StructuresOutput assignedOutput = null;
-
+            StructuresOutput assignedOutput = hasOutput ? new TestStructuresOutput() : null;
             StructuresCalculationScenario<StabilityPointStructuresInput> calculation = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0)
             }));
-            calculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            if (hasOutput)
-            {
-                assignedOutput = new TestStructuresOutput();
-            }
-
+  
             calculation.Output = assignedOutput;
 
             var row = new StabilityPointStructuresCalculationRow(calculation, handler);
@@ -541,14 +530,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             // Assert
             assertions(calculation);
-            if (expectUpdates)
-            {
-                Assert.IsNull(calculation.Output);
-            }
-            else
-            {
-                Assert.AreSame(assignedOutput, calculation.Output);
-            }
+            Assert.AreSame(assignedOutput, calculation.Output);
+            calculationObserver.DidNotReceive().UpdateObserver();
+            inputObserver.DidNotReceive().UpdateObserver();
         }
 
         #region Column states

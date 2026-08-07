@@ -175,22 +175,21 @@ namespace Riskeer.Common.Forms.Test.Views
             Action<CalculationRow<TestCalculation>> setProperty,
             Action<TestCalculation> assertions)
         {
-            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, false);
-            AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, false);
+            AssertPropertyNotChanged(setProperty, assertions, true);
+            AssertPropertyNotChanged(setProperty, assertions, false);
         }
 
-        private static void AssertPropertyChangeWithOrWithoutCalculationOutput(
+        private static void AssertPropertyNotChanged(
             Action<CalculationRow<TestCalculation>> setProperty,
             Action<TestCalculation> assertions,
-            bool hasOutput,
-            bool expectUpdates)
+            bool hasOutput)
         {
             // Setup
             var inputObserver = Substitute.For<IObserver>();
             var calculationObserver = Substitute.For<IObserver>();
-
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
-            object assignedOutput = null;
+
+            object assignedOutput = hasOutput ? new object() : null;;
 
             var calculation = new TestCalculation
             {
@@ -199,12 +198,6 @@ namespace Riskeer.Common.Forms.Test.Views
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             };
-
-            if (hasOutput)
-            {
-                assignedOutput = new object();
-            }
-
             calculation.Output = assignedOutput;
 
             var row = new TestCalculationRow(calculation, handler);
@@ -216,24 +209,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             assertions(calculation);
-            if (expectUpdates)
-            {
-                Assert.IsNull(calculation.Output);
-            }
-            else
-            {
-                Assert.AreSame(assignedOutput, calculation.Output);
-            }
-
-            if (expectUpdates)
-            {
-                inputObserver.Received(1).UpdateObserver();
-            }
-            else
-            {
-                inputObserver.DidNotReceive().UpdateObserver();
-            }
-
+            Assert.AreSame(assignedOutput, calculation.Output);
+            inputObserver.DidNotReceive().UpdateObserver();
             calculationObserver.DidNotReceive().UpdateObserver();
         }
     }
