@@ -284,18 +284,13 @@ All rights reserved.
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
         </HarvestFile>
-        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe.config">
+        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.dll.config">
             <ComponentGroupName>RiskeerExecutableConfig</ComponentGroupName>
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
         </HarvestFile>
         <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.exe">
             <ComponentGroupName>MigrationExecutable</ComponentGroupName>
-            <DirectoryRefId>INSTALLDIR</DirectoryRefId>
-            <SuppressRootDirectory>true</SuppressRootDirectory>
-        </HarvestFile>
-        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.exe.config">
-            <ComponentGroupName>MigrationExecutableConfig</ComponentGroupName>
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
         </HarvestFile>

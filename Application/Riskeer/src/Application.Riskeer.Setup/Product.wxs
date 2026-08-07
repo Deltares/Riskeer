@@ -26,7 +26,6 @@
             <ComponentGroupRef Id="RiskeerExecutable"/>
             <ComponentGroupRef Id="RiskeerExecutableConfig"/>
             <ComponentGroupRef Id="MigrationExecutable"/>
-            <ComponentGroupRef Id="MigrationExecutableConfig"/>
             <ComponentGroupRef Id="RiskeerApplicationComponents"/>
             <ComponentGroupRef Id="Examples"/>
             <ComponentGroupRef Id="InstallationVerificationFiles"/>
