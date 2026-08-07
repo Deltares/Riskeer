@@ -24,8 +24,14 @@
         <Feature Id="CompleteInstallation" Title="$(var.ApplicationFullName)" Level="1"
                  ConfigurableDirectory="INSTALLDIR" AllowAdvertise="no" AllowAbsent="no">
             <ComponentGroupRef Id="RiskeerExecutable"/>
+            <ComponentGroupRef Id="RiskeerExecutableDll"/>
+            <ComponentGroupRef Id="RiskeerExecutableDepsJson"/>
+            <ComponentGroupRef Id="RiskeerExecutableRuntimeConfigJson"/>
             <ComponentGroupRef Id="RiskeerExecutableConfig"/>
             <ComponentGroupRef Id="MigrationExecutable"/>
+            <ComponentGroupRef Id="MigrationExecutableDll"/>
+            <ComponentGroupRef Id="MigrationExecutableDepsJson"/>
+            <ComponentGroupRef Id="MigrationExecutableRuntimeConfigJson"/>
             <ComponentGroupRef Id="RiskeerApplicationComponents"/>
             <ComponentGroupRef Id="Examples"/>
             <ComponentGroupRef Id="InstallationVerificationFiles"/>
