@@ -71,6 +71,9 @@ namespace Core.Gui.Forms.Log
             MessageWindowLogAppender.Instance.MessageWindow = this;
             InitializeComponent();
 
+            AutoScaleMode = AutoScaleMode.Font;
+            messagesToolStrip.RenderMode = ToolStripRenderMode.System;
+            
             // order is the same as in log4j Level (check sources of log4net)
             levelUnicodeLookup = new Dictionary<string, Tuple<string, Color>>
             {
