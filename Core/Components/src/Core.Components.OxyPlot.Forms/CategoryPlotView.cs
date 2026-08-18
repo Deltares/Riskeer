@@ -58,6 +58,14 @@ namespace Core.Components.OxyPlot.Forms
                 IsZoomEnabled = false
             };
 
+            categoryAxis.LabelFormatter = value =>
+            {
+                int index = (int) value;
+                return index >= 0 && index < categoryAxis.Labels.Count
+                           ? categoryAxis.Labels[index]
+                           : string.Empty;
+            };
+
             linearAxis = new LinearAxis
             {
                 Position = AxisPosition.Left,
@@ -150,6 +158,7 @@ namespace Core.Components.OxyPlot.Forms
         public void ClearLabels()
         {
             categoryAxis.Labels.Clear();
+            categoryAxis.AbsoluteMaximum = 0;
         }
     }
 }
