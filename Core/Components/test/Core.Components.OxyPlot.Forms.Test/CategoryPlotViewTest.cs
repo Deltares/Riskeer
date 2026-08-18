@@ -185,6 +185,38 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
+        public void Constructor_EmptyCategoryLabels_LabelFormatterReturnsEmptyString()
+        {
+            // Setup
+            var plotView = new CategoryPlotView();
+
+            // Call
+            CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+
+            // Assert
+            Assert.AreEqual(string.Empty, axis.LabelFormatter(0));
+        }
+
+        [Test]
+        public void AddLabel_WithLabel_LabelFormatterReturnsCategoryLabel()
+        {
+            // Setup
+            const string label = "Test";
+            var plotView = new CategoryPlotView();
+            plotView.AddLabels(new[]
+            {
+                label
+            });
+
+            // Call
+            CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+
+            // Assert
+            Assert.AreEqual(label, axis.LabelFormatter(0));
+            Assert.AreEqual(string.Empty, axis.LabelFormatter(1));
+        }
+
+        [Test]
         public void ClearLabels_Always_LabelsCleared()
         {
             // Setup
@@ -203,6 +235,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             // Assert
             CollectionAssert.IsEmpty(axis.Labels);
+            Assert.AreEqual(0, axis.AbsoluteMaximum);
         }
     }
 }
