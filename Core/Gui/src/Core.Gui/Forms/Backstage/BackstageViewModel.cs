@@ -174,7 +174,7 @@ namespace Core.Gui.Forms.Backstage
 
         private void OnOpenUserManual(object obj)
         {
-            Process.Start(settings.ManualFilePath);
+            Process.Start(new ProcessStartInfo(settings.ManualFilePath) { UseShellExecute = true });
         }
 
         private void OnSetCurrentViewModel(object obj)
