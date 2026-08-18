@@ -37,11 +37,15 @@ All rights reserved.
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
     <ad:DockingManager x:Name="DockingManager" AllowMixedOrientation="True" Background="{StaticResource WhiteBrush}">
             <ad:DockingManager.Theme>
                 <ad:GenericTheme/>
             </ad:DockingManager.Theme>
+            <ad:DockingManager.AnchorablePaneControlStyle>
+                <Style TargetType="{x:Type xcad:LayoutAnchorablePaneControl}" BasedOn="{StaticResource AnchorablePaneControlStyle}">
+                    <Setter Property="Background" Value="{StaticResource WhiteBrush}" />
+                </Style>
+            </ad:DockingManager.AnchorablePaneControlStyle>
             <ad:DockingManager.IconContentTemplate>
                 <DataTemplate d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
                     <TextBlock Style="{StaticResource ButtonIconStyle}"
