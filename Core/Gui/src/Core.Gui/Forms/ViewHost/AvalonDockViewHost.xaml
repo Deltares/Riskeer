@@ -38,7 +38,7 @@ All rights reserved.
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <xcad:DockingManager x:Name="DockingManager" AllowMixedOrientation="True">
+    <xcad:DockingManager x:Name="DockingManager" AllowMixedOrientation="True" Background="{StaticResource WhiteBrush}">
             <xcad:DockingManager.Theme>
                 <xcad:GenericTheme/>
             </xcad:DockingManager.Theme>
