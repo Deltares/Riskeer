@@ -107,7 +107,7 @@ namespace Riskeer.Piping.KernelWrapper.Creators
 
         private static PipingPoint CreatePipingPointOfType(Point2D projectedPoint, PipingCharacteristicPointType pointType)
         {
-            var pipingPoint = new PipingPoint(projectedPoint.X, 0.0, projectedPoint.Y)
+            var pipingPoint = new PipingPoint(projectedPoint.X, projectedPoint.Y)
             {
                 Type = pointType
             };

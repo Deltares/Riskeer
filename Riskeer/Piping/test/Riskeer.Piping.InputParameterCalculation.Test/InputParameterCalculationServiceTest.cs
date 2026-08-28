@@ -265,7 +265,8 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
             AssertPointsAreEqual(pipingSurfaceLine.BottomDitchDikeSide, otherSurfaceLine.BottomDitchDikeSide);
             AssertPointsAreEqual(pipingSurfaceLine.BottomDitchPolderSide, otherSurfaceLine.BottomDitchPolderSide);
             AssertPointsAreEqual(pipingSurfaceLine.DitchPolderSide, otherSurfaceLine.DitchPolderSide);
-            AssertPointsAreEqual(pipingSurfaceLine.DikeToeAtPolder, otherSurfaceLine.DikeToeAtPolder);
+            AssertPointsAreEqual(pipingSurfaceLine.DikeToeAtPolder,
+                                 otherSurfaceLine.Points.SingleOrDefault(p => p.Type == Deltares.WTIPiping.PipingCharacteristicPointType.DikeToeAtPolder));
 
             Assert.AreEqual(pipingSurfaceLine.Points.Count(), otherSurfaceLine.Points.Count);
             for (var i = 0; i < pipingSurfaceLine.Points.Count(); i++)
@@ -288,7 +289,6 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
             }
 
             Assert.AreEqual(point.X, otherPoint.X, 1e-2);
-            Assert.AreEqual(point.Y, otherPoint.Y, 1e-2);
             Assert.AreEqual(point.Z, otherPoint.Z, 1e-2);
         }
 
