@@ -21,7 +21,7 @@
 
 using System;
 using System.Linq;
-using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Water;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;

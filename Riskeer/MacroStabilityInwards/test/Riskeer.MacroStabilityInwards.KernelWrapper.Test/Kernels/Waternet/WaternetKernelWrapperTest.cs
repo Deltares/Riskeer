@@ -28,7 +28,7 @@ using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Water.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 {
