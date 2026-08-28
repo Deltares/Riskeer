@@ -93,26 +93,12 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 Id = idFactory.Create(),
                 Name = layerData.MaterialName,
                 IsProbabilistic = true,
-                Cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(layerData).GetDesignValue(),
-                CohesionStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.Cohesion),
-                FrictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(layerData).GetDesignValue(),
-                FrictionAngleStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.FrictionAngle),
-                ShearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(layerData).GetDesignValue(),
-                ShearStrengthRatioStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.ShearStrengthRatio),
-                StrengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(layerData).GetDesignValue(),
-                StrengthIncreaseExponentStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.StrengthIncreaseExponent),
-                CohesionAndFrictionAngleCorrelated = false,
-                ShearStrengthRatioAndShearStrengthExponentCorrelated = false,
+                MohrCoulombClassicShearStrengthModel = CreateMohrCoulombClassicShearStrengthModel(layerData),
+                SuShearStrengthModel = CreateSuShearStrengthModel(layerData),
                 ShearStrengthModelTypeAbovePhreaticLevel = GetShearStrengthModelTypeForAbovePhreaticLevel(layerData.ShearStrengthModel),
                 ShearStrengthModelTypeBelowPhreaticLevel = GetShearStrengthModelTypeForBelowPhreaticLevel(layerData.ShearStrengthModel),
                 VolumetricWeightAbovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData).GetDesignValue(),
-                VolumetricWeightBelowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData).GetDesignValue(),
-                Dilatancy = 0,
-                DilatancyStochasticParameter = PersistableStochasticParameterFactory.Create(new VariationCoefficientNormalDistribution(2)
-                {
-                    Mean = (RoundedDouble) 1,
-                    CoefficientOfVariation = (RoundedDouble) 0
-                }, false)
+                VolumetricWeightBelowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData).GetDesignValue()
             };
 
             soil.Code = $"{soil.Name}-{soil.Id}";
@@ -120,6 +106,30 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             registry.AddSoil(layer, soil.Id);
 
             return soil;
+        }
+
+        private static PersistableMohrCoulombClassicShearStrengthModel CreateMohrCoulombClassicShearStrengthModel(MacroStabilityInwardsSoilLayerData layerData)
+        {
+            return new PersistableMohrCoulombClassicShearStrengthModel
+            {
+                Cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(layerData).GetDesignValue(),
+                CohesionStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.Cohesion),
+                FrictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(layerData).GetDesignValue(),
+                FrictionAngleStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.FrictionAngle),
+                CohesionAndFrictionAngleCorrelated = false
+            };
+        }
+
+        private static PersistableSuShearStrengthModel CreateSuShearStrengthModel(MacroStabilityInwardsSoilLayerData layerData)
+        {
+            return new PersistableSuShearStrengthModel
+            {
+                ShearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(layerData).GetDesignValue(),
+                ShearStrengthRatioStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.ShearStrengthRatio),
+                StrengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(layerData).GetDesignValue(),
+                StrengthIncreaseExponentStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.StrengthIncreaseExponent),
+                ShearStrengthRatioAndShearStrengthExponentCorrelated = false
+            };
         }
 
         /// <summary>
@@ -146,7 +156,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             {
                 case MacroStabilityInwardsShearStrengthModel.CPhi:
                 case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
-                    return PersistableShearStrengthModelType.CPhi;
+                    return PersistableShearStrengthModelType.MohrCoulombClassic;
                 case MacroStabilityInwardsShearStrengthModel.SuCalculated:
                     return PersistableShearStrengthModelType.Su;
                 default:
@@ -177,7 +187,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             switch (shearStrengthModel)
             {
                 case MacroStabilityInwardsShearStrengthModel.CPhi:
-                    return PersistableShearStrengthModelType.CPhi;
+                    return PersistableShearStrengthModelType.MohrCoulombClassic;
                 case MacroStabilityInwardsShearStrengthModel.SuCalculated:
                 case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
                     return PersistableShearStrengthModelType.Su;
