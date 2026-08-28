@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Components.Persistence.Stability;
+using Components.Persistence.Stability.Version2;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;

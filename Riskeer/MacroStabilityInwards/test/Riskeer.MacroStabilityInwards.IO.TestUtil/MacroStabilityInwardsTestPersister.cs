@@ -19,7 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Shared.Components.Persistence;
+using DGeoSuite.Components.Persistence;
+
 
 namespace Riskeer.MacroStabilityInwards.IO.TestUtil
 {

@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using Components.Persistence.Stability;
+using Components.Persistence.Stability.Version2;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;

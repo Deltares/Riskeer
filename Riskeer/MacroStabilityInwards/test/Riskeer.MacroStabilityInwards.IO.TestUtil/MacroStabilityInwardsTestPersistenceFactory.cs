@@ -21,9 +21,9 @@
 
 using System;
 using System.IO;
-using Components.Persistence.Stability;
-using Components.Persistence.Stability.Data;
-using Shared.Components.Persistence;
+using Components.Persistence.Stability.Version2;
+using Components.Persistence.Stability.Version2.Data;
+using DGeoSuite.Components.Persistence;
 
 namespace Riskeer.MacroStabilityInwards.IO.TestUtil
 {
