@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using WtiStabilityWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
+using WtiStabilityWaternet = Deltares.MacroStability.CSharpWrapper.Water.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
 {

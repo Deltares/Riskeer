@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Water;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;

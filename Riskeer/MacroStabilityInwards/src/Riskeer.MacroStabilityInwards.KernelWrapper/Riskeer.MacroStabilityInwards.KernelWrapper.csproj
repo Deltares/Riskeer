@@ -51,6 +51,6 @@ All rights reserved.
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\Wti\Deltares.MacroStability.CSharpWrapper.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Macrostability-22.1.1\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\Wti\Deltares.MacroStability.CSharpWrapper.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Macrostability-23.2.1\*&quot;" />
   </Target>
 </Project>
