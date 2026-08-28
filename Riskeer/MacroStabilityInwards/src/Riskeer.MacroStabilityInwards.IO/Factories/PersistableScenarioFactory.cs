@@ -21,26 +21,25 @@
 
 using System;
 using System.Collections.Generic;
-using Components.Persistence.Stability.Version2;
 using Components.Persistence.Stability.Version2.Data;
 using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
 {
     /// <summary>
-    /// Factory for creating instances of <see cref="PersistableStage"/>.
+    /// Factory for creating instances of <see cref="PersistableScenario"/>.
     /// </summary>
-    internal static class PersistableStageFactory
+    internal static class PersistableScenarioFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="PersistableStage"/>.
+        /// Creates a collection of <see cref="PersistableScenario"/>.
         /// </summary>
         /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
-        /// <returns>A collection of <see cref="PersistableStage"/>.</returns>
+        /// <returns>A collection of <see cref="PersistableScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public static IEnumerable<PersistableStage> Create(IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        public static IEnumerable<PersistableScenario> Create(IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
             if (idFactory == null)
             {
@@ -52,21 +51,37 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
+            PersistableStage[] stages =
+            {
+                CreateStage(MacroStabilityInwardsExportStageType.Daily, MacroStabilityInwardsDataResources.Daily_DisplayName, idFactory, registry),
+                CreateStage(MacroStabilityInwardsExportStageType.Extreme, MacroStabilityInwardsDataResources.Extreme_DisplayName, idFactory, registry)
+            };
+
+            PersistableCalculation[] calculations =
+            {
+                CreateCalculation(MacroStabilityInwardsExportStageType.Daily, MacroStabilityInwardsDataResources.Daily_DisplayName, idFactory, registry),
+                CreateCalculation(MacroStabilityInwardsExportStageType.Extreme, MacroStabilityInwardsDataResources.Extreme_DisplayName, idFactory, registry)
+            };
+
             return new[]
             {
-                Create(MacroStabilityInwardsExportStageType.Daily, MacroStabilityInwardsDataResources.Daily_DisplayName, idFactory, registry),
-                Create(MacroStabilityInwardsExportStageType.Extreme, MacroStabilityInwardsDataResources.Extreme_DisplayName, idFactory, registry)
+                new PersistableScenario
+                {
+                    Id = idFactory.Create(),
+                    Label = "Scenario",
+                    Stages = stages,
+                    Calculations = calculations
+                }
             };
         }
 
-        private static PersistableStage Create(MacroStabilityInwardsExportStageType stageType, string label,
-                                               IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        private static PersistableStage CreateStage(MacroStabilityInwardsExportStageType stageType, string label,
+                                                    IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
             return new PersistableStage
             {
                 Id = idFactory.Create(),
                 Label = label,
-                CalculationSettingsId = registry.Settings[stageType],
                 GeometryId = registry.Geometries[stageType],
                 SoilLayersId = registry.SoilLayers[stageType],
                 WaternetId = registry.Waternets[stageType],
@@ -74,6 +89,17 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 StateId = stageType == MacroStabilityInwardsExportStageType.Daily
                               ? registry.States[stageType]
                               : null
+            };
+        }
+
+        private static PersistableCalculation CreateCalculation(MacroStabilityInwardsExportStageType stageType, string label,
+                                                                IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        {
+            return new PersistableCalculation
+            {
+                Id = idFactory.Create(),
+                Label = label,
+                CalculationSettingsId = registry.Settings[stageType]
             };
         }
     }

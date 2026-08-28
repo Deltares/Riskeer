@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Components.Persistence.Stability.Version2;
 using Components.Persistence.Stability.Version2.Data;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -86,8 +85,8 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.SoilVisualizations);
             Assert.IsNull(persistableDataModel.StateCorrelations);
 
-            AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings, persistableDataModel.Geometry, persistableDataModel.SoilLayers,
-                         persistableDataModel.Waternets, persistableDataModel.WaternetCreatorSettings, persistableDataModel.States);
+            AssertScenarios(persistableDataModel.Scenarios, persistableDataModel.CalculationSettings, persistableDataModel.Geometry, persistableDataModel.SoilLayers,
+                            persistableDataModel.Waternets, persistableDataModel.WaternetCreatorSettings, persistableDataModel.States);
         }
 
         /// <summary>
@@ -168,35 +167,28 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 Assert.AreEqual($"{layerData.MaterialName}-{soil.Id}", soil.Code);
                 Assert.IsTrue(soil.IsProbabilistic);
 
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(layerData).GetDesignValue(), soil.Cohesion);
-                AssertStochasticParameter(layerData.Cohesion, soil.CohesionStochasticParameter);
+                Assert.IsNotNull(soil.MohrCoulombClassicShearStrengthModel);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(layerData).GetDesignValue(), soil.MohrCoulombClassicShearStrengthModel.Cohesion);
+                AssertStochasticParameter(layerData.Cohesion, soil.MohrCoulombClassicShearStrengthModel.CohesionStochasticParameter);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(layerData).GetDesignValue(), soil.MohrCoulombClassicShearStrengthModel.FrictionAngle);
+                AssertStochasticParameter(layerData.FrictionAngle, soil.MohrCoulombClassicShearStrengthModel.FrictionAngleStochasticParameter);
 
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(layerData).GetDesignValue(), soil.FrictionAngle);
-                AssertStochasticParameter(layerData.FrictionAngle, soil.FrictionAngleStochasticParameter);
-
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(layerData).GetDesignValue(), soil.ShearStrengthRatio);
-                AssertStochasticParameter(layerData.ShearStrengthRatio, soil.ShearStrengthRatioStochasticParameter);
-
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(layerData).GetDesignValue(), soil.StrengthIncreaseExponent);
-                AssertStochasticParameter(layerData.StrengthIncreaseExponent, soil.StrengthIncreaseExponentStochasticParameter);
+                Assert.IsNotNull(soil.SuShearStrengthModel);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(layerData).GetDesignValue(), soil.SuShearStrengthModel.ShearStrengthRatio);
+                AssertStochasticParameter(layerData.ShearStrengthRatio, soil.SuShearStrengthModel.ShearStrengthRatioStochasticParameter);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(layerData).GetDesignValue(), soil.SuShearStrengthModel.StrengthIncreaseExponent);
+                AssertStochasticParameter(layerData.StrengthIncreaseExponent, soil.SuShearStrengthModel.StrengthIncreaseExponentStochasticParameter);
 
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData).GetDesignValue(), soil.VolumetricWeightAbovePhreaticLevel);
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData).GetDesignValue(), soil.VolumetricWeightBelowPhreaticLevel);
 
-                Assert.IsFalse(soil.CohesionAndFrictionAngleCorrelated);
-                Assert.IsFalse(soil.ShearStrengthRatioAndShearStrengthExponentCorrelated);
+                Assert.IsFalse(soil.MohrCoulombClassicShearStrengthModel.CohesionAndFrictionAngleCorrelated);
+                Assert.IsFalse(soil.SuShearStrengthModel.ShearStrengthRatioAndShearStrengthExponentCorrelated);
 
                 Assert.AreEqual(GetExpectedShearStrengthModelTypeForAbovePhreaticLevel(layerData.ShearStrengthModel), soil.ShearStrengthModelTypeAbovePhreaticLevel);
                 Assert.AreEqual(GetExpectedShearStrengthModelTypeForBelowPhreaticLevel(layerData.ShearStrengthModel), soil.ShearStrengthModelTypeBelowPhreaticLevel);
 
-                var dilatancyDistribution = new VariationCoefficientNormalDistribution(2)
-                {
-                    Mean = (RoundedDouble) 1,
-                    CoefficientOfVariation = (RoundedDouble) 0
-                };
-
-                Assert.AreEqual(0, soil.Dilatancy);
-                AssertStochasticParameter(dilatancyDistribution, soil.DilatancyStochasticParameter, false);
+                Assert.IsNull(soil.MohrCoulombAdvancedShearStrengthModel);
             }
         }
 
@@ -422,22 +414,29 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether the <see cref="PersistableStage"/> contains the correct data.
+        /// Asserts whether the <see cref="PersistableScenario"/> contains the correct data.
         /// </summary>
-        /// <param name="stages">The stages that needs to be asserted.</param>
+        /// <param name="scenarios">The scenarios that need to be asserted.</param>
         /// <param name="calculationSettings">The calculation settings that are used.</param>
         /// <param name="geometries">The geometries that are used.</param>
         /// <param name="soilLayers">The soil layers that are used.</param>
         /// <param name="waternets">The Waternets that are used.</param>
         /// <param name="waternetCreatorSettings">The Waternet creator settings that are used.</param>
         /// <param name="states">The states that are used.</param>
-        /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="scenarios"/>
         /// is not correct.</exception>
-        public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings,
-                                        IEnumerable<PersistableGeometry> geometries, IEnumerable<PersistableSoilLayerCollection> soilLayers,
-                                        IEnumerable<PersistableWaternet> waternets, IEnumerable<PersistableWaternetCreatorSettings> waternetCreatorSettings,
-                                        IEnumerable<PersistableState> states)
+        public static void AssertScenarios(IEnumerable<PersistableScenario> scenarios, IEnumerable<PersistableCalculationSettings> calculationSettings,
+                                           IEnumerable<PersistableGeometry> geometries, IEnumerable<PersistableSoilLayerCollection> soilLayers,
+                                           IEnumerable<PersistableWaternet> waternets, IEnumerable<PersistableWaternetCreatorSettings> waternetCreatorSettings,
+                                           IEnumerable<PersistableState> states)
         {
+            Assert.AreEqual(1, scenarios.Count());
+
+            PersistableScenario scenario = scenarios.Single();
+            Assert.IsNotNull(scenario.Id);
+            Assert.AreEqual("Scenario", scenario.Label);
+
+            IEnumerable<PersistableStage> stages = scenario.Stages;
             Assert.AreEqual(2, stages.Count());
 
             Assert.AreEqual("Dagelijkse omstandigheden", stages.First().Label);
@@ -447,7 +446,6 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             {
                 PersistableStage stage = stages.ElementAt(i);
                 Assert.IsNotNull(stage.Id);
-                Assert.AreEqual(calculationSettings.ElementAt(i).Id, stage.CalculationSettingsId);
                 Assert.AreEqual(geometries.ElementAt(i).Id, stage.GeometryId);
                 Assert.AreEqual(soilLayers.ElementAt(i).Id, stage.SoilLayersId);
                 Assert.AreEqual(waternets.ElementAt(i).Id, stage.WaternetId);
@@ -456,6 +454,16 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
 
             Assert.AreEqual(states.First().Id, stages.First().StateId);
             Assert.IsNull(stages.Last().StateId);
+
+            IEnumerable<PersistableCalculation> calculations = scenario.Calculations;
+            Assert.AreEqual(2, calculations.Count());
+            for (var i = 0; i < calculations.Count(); i++)
+            {
+                PersistableCalculation calculation = calculations.ElementAt(i);
+                Assert.IsNotNull(calculation.Id);
+                Assert.AreEqual(stages.ElementAt(i).Label, calculation.Label);
+                Assert.AreEqual(calculationSettings.ElementAt(i).Id, calculation.CalculationSettingsId);
+            }
         }
 
         /// <summary>
@@ -596,7 +604,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             {
                 case MacroStabilityInwardsShearStrengthModel.CPhi:
                 case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
-                    return PersistableShearStrengthModelType.CPhi;
+                    return PersistableShearStrengthModelType.MohrCoulombClassic;
                 case MacroStabilityInwardsShearStrengthModel.SuCalculated:
                     return PersistableShearStrengthModelType.Su;
                 default:
@@ -609,7 +617,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             switch (shearStrengthModel)
             {
                 case MacroStabilityInwardsShearStrengthModel.CPhi:
-                    return PersistableShearStrengthModelType.CPhi;
+                    return PersistableShearStrengthModelType.MohrCoulombClassic;
                 case MacroStabilityInwardsShearStrengthModel.SuCalculated:
                 case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
                     return PersistableShearStrengthModelType.Su;
