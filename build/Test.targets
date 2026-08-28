@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="6.2.0" />
   </ItemGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Coverage|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Coverage|x64'">
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
