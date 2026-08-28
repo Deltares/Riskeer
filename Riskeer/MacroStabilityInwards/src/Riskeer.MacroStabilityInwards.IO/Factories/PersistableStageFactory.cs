@@ -21,7 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Components.Persistence.Stability.Data;
+using Components.Persistence.Stability.Version2;
+using Components.Persistence.Stability.Version2.Data;
 using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories

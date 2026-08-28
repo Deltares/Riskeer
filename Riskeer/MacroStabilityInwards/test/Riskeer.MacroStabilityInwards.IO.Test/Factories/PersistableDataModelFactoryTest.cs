@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Components.Persistence.Stability.Data;
+using Components.Persistence.Stability.Version2.Data;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;

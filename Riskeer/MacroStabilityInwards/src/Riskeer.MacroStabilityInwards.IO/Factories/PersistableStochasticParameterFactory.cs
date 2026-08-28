@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Components.Persistence.Stability.Data;
+using Components.Persistence.Stability.Version2.Data;
 using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
