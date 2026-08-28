@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Components.Persistence.Stability.Data;
+using Components.Persistence.Stability.Version2.Data;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
@@ -29,13 +29,13 @@ using Riskeer.MacroStabilityInwards.IO.TestUtil;
 namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 {
     [TestFixture]
-    public class PersistableStageFactoryTest
+    public class PersistableScenarioFactoryTest
     {
         [Test]
         public void Create_IdFactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PersistableStageFactory.Create(null, new MacroStabilityInwardsExportRegistry());
+            void Call() => PersistableScenarioFactory.Create(null, new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -46,7 +46,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_RegistryNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PersistableStageFactory.Create(new IdFactory(), null);
+            void Call() => PersistableScenarioFactory.Create(new IdFactory(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -54,7 +54,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void Create_WithValidData_ReturnsStages()
+        public void Create_WithValidData_ReturnsScenarios()
         {
             // Setup
             var idFactory = new IdFactory();
@@ -120,10 +120,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             }
 
             // Call
-            IEnumerable<PersistableStage> stages = PersistableStageFactory.Create(idFactory, registry);
+            IEnumerable<PersistableScenario> scenarios = PersistableScenarioFactory.Create(idFactory, registry);
 
             // Assert
-            PersistableDataModelTestHelper.AssertStages(stages, settingsList, geometryList, soilLayersList, waternetList, waternetCreatorSettingsList, stateList);
+            PersistableDataModelTestHelper.AssertScenarios(scenarios, settingsList, geometryList, soilLayersList, waternetList, waternetCreatorSettingsList, stateList);
         }
     }
 }
