@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Input;
+using Deltares.MacroStability.CSharpWrapper.Water;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
@@ -37,7 +37,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
-using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Water.Waternet;
 using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet

@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
-using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Water.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {

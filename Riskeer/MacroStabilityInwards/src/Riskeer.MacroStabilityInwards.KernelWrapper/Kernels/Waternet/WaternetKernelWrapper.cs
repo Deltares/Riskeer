@@ -25,7 +25,7 @@ using System.Linq;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using Deltares.MacroStability.CSharpWrapper.Output.WaternetCreator;
-using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Water.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
