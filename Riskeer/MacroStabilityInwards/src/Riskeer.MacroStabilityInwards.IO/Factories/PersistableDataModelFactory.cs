@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Components.Persistence.Stability.Data;
+using Components.Persistence.Stability.Version2.Data;
 using Core.Common.Base.Data;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Primitives;

@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Components.Persistence.Stability.Data;
+using Components.Persistence.Stability.Version2.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.Data;

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Components.Persistence.Stability;
+using Components.Persistence.Stability.Version2;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;

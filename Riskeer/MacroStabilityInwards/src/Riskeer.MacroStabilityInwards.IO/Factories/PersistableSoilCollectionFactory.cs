@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Components.Persistence.Stability.Data;
+using Components.Persistence.Stability.Version2.Data;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;

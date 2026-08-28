@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Components.Persistence.Stability.Data;
+using Components.Persistence.Stability.Version2.Data;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;

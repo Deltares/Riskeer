@@ -23,8 +23,8 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Components.Persistence.Stability;
-using Components.Persistence.Stability.Data;
+using Components.Persistence.Stability.Version2;
+using Components.Persistence.Stability.Version2.Data;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Util;
@@ -35,7 +35,7 @@ using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.Helpers;
 using Riskeer.MacroStabilityInwards.IO.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
-using Shared.Components.Persistence;
+using DGeoSuite.Components.Persistence;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Exporters

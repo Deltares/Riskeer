@@ -21,7 +21,7 @@
 
 using System;
 using System.Reflection;
-using Components.Persistence.Stability.Data;
+using Components.Persistence.Stability.Version2.Data;
 using Core.Common.Util.Reflection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.IO.Properties;
