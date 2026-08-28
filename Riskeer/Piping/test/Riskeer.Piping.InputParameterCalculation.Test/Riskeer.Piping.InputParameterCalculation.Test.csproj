@@ -23,8 +23,8 @@ All rights reserved.
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Test.targets"/>
   <ItemGroup>
-    <Reference Include="WTIPiping, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\WTIPiping.dll</HintPath>
+    <Reference Include="WTIPiping, Culture=neutral, processorArchitecture=x64">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.WTIPiping.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

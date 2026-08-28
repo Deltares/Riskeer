@@ -53,7 +53,6 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             // Assert
             Assert.AreEqual(name, actual.Name);
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.X).ToArray(), actual.Points.Select(p => p.X).ToArray());
-            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Y).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
         }
@@ -79,7 +78,6 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             double[] expectedCoordinatesX = surfaceLine.Points.Select(p => p.X - firstX).ToArray();
             Assert.AreEqual(name, actual.Name);
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
-            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Y).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
         }
@@ -111,7 +109,6 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             };
             Assert.AreEqual(name, actual.Name);
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
-            CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Count()).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
         }
@@ -137,7 +134,6 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             };
             Assert.AreEqual(name, actual.Name);
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Count()).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
         }
@@ -176,7 +172,7 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             // Assert
             Assert.AreEqual(name, actual.Name);
             Assert.AreEqual(1, actual.Points.Count);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DikeToeAtPolder);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.DikeToeAtPolder);
         }
 
         [Test]
@@ -198,7 +194,7 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             // Assert
             Assert.AreEqual(name, actual.Name);
             Assert.AreEqual(1, actual.Points.Count);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchDikeSide);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.DitchDikeSide);
         }
 
         [Test]
@@ -220,7 +216,7 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             // Assert
             Assert.AreEqual(name, actual.Name);
             Assert.AreEqual(1, actual.Points.Count);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchDikeSide);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.DitchDikeSide);
         }
 
         [Test]
@@ -242,7 +238,7 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             // Assert
             Assert.AreEqual(name, actual.Name);
             Assert.AreEqual(1, actual.Points.Count);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.BottomDitchDikeSide);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.BottomDitchDikeSide);
         }
 
         [Test]
@@ -264,7 +260,7 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             // Assert
             Assert.AreEqual(name, actual.Name);
             Assert.AreEqual(1, actual.Points.Count);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.BottomDitchPolderSide);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.BottomDitchPolderSide);
         }
 
         [Test]
@@ -286,7 +282,7 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             // Assert
             Assert.AreEqual(name, actual.Name);
             Assert.AreEqual(1, actual.Points.Count);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchPolderSide);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.DitchPolderSide);
         }
 
         [Test]
@@ -313,11 +309,20 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             // Assert
             Assert.AreEqual(name, actual.Name);
             Assert.AreEqual(5, actual.Points.Count);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DikeToeAtPolder);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchDikeSide);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.BottomDitchPolderSide);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.BottomDitchDikeSide);
-            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchPolderSide);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.DikeToeAtPolder);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.DitchDikeSide);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.BottomDitchPolderSide);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.BottomDitchDikeSide);
+            AssertCharacteristicPointIsEqual(new Point3D(0.0, 0.0, 2.2), actual, PipingCharacteristicPointType.DitchPolderSide);
+        }
+
+        private void AssertCharacteristicPointIsEqual(Point3D point,
+                                                      Deltares.WTIPiping.PipingSurfaceLine surfaceLine,
+                                                      PipingCharacteristicPointType characteristicPointType)
+        {
+            PipingPoint actualPoint = surfaceLine.Points.SingleOrDefault(p => p.Type == characteristicPointType);
+
+            AssertPointsAreEqual(point, actualPoint);
         }
 
         private void AssertPointsAreEqual(Point3D point, PipingPoint otherPoint)
@@ -334,7 +339,6 @@ namespace Riskeer.Piping.KernelWrapper.Test.Creators
             }
 
             Assert.AreEqual(point.X, otherPoint.X);
-            Assert.AreEqual(point.Y, otherPoint.Y);
             Assert.AreEqual(point.Z, otherPoint.Z);
         }
     }
