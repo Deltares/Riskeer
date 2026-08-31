@@ -23,7 +23,7 @@ All rights reserved.
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Test.targets"/>
   <ItemGroup>
-    <Reference Include="Assembly.Kernel, Version=23.1.1.0, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="Assembly.Kernel, Version=26.1.1.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
     </Reference>
   </ItemGroup>
