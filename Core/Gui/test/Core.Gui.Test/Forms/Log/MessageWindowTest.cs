@@ -75,6 +75,26 @@ namespace Core.Gui.Test.Forms.Log
         }
 
         [Test]
+        public void AddMessage_WithoutPaintCycle_MessageIsAddedToDataImmediately()
+        {
+            // Setup
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                var messages = (DataTable) messageWindow.Data;
+
+                // Precondition
+                Assert.AreEqual(0, messages.Rows.Count);
+
+                // Call
+                messageWindow.AddMessage(Level.Info, new DateTime(2026, 1, 1), "Info message");
+
+                // Assert
+                Assert.AreEqual(1, messages.Rows.Count);
+                Assert.AreEqual("Info message", messages.Rows[0]["messageColumn"]);
+            }
+        }
+        
+        [Test]
         public void GivenMessageWindow_WhenMultipleMessagesAdded_ThenThirdColumnOnFirstRowIsSelected()
         {
             // Given
