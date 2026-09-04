@@ -26,6 +26,8 @@ using System.Drawing;
 using System.IO.Packaging;
 using System.Linq;
 using System.Windows;
+using System.Windows.Automation;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -90,6 +92,11 @@ namespace Core.Gui.Forms.Main
             windowInteropHelper = new WindowInteropHelper(this);
             Name = "RiskeerMainWindow";
 
+            // Explicitly set the automation id: unlike .NET Framework, modern .NET does not
+            // implicitly derive the automation id of the window root from its name. Automated
+            // (Ranorex) tests rely on this id to identify the main window.
+            AutomationProperties.SetAutomationId(this, Name);
+
             NewProjectCommand = new RelayCommand(OnNewProject);
             SaveProjectCommand = new RelayCommand(OnSaveProject, CanExecuteSaveCommand);
             SaveProjectAsCommand = new RelayCommand(OnSaveProjectAs, CanExecuteSaveCommand);
@@ -104,6 +111,11 @@ namespace Core.Gui.Forms.Main
             TogglePropertyGridViewCommand = new RelayCommand(OnTogglePropertyGridView);
             ToggleMessageWindowCommand = new RelayCommand(OnToggleMessageWindow);
             OpenLogFileCommand = new RelayCommand(OnOpenLogFile);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new MainWindowAutomationPeer(this);
         }
 
         /// <summary>
@@ -785,5 +797,24 @@ namespace Core.Gui.Forms.Main
         }
 
         #endregion
+
+        private sealed class MainWindowAutomationPeer : WindowAutomationPeer
+        {
+            public MainWindowAutomationPeer(Window owner) : base(owner)
+            {
+            }
+
+            protected override string GetAutomationIdCore()
+            {
+                string automationId = base.GetAutomationIdCore();
+                if (!string.IsNullOrWhiteSpace(automationId))
+                {
+                    return automationId;
+                }
+
+                return Owner is FrameworkElement ownerElement ? ownerElement.Name : string.Empty;
+            }
+        }
     }
 }
+

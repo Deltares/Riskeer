@@ -32,6 +32,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
@@ -81,6 +82,24 @@ namespace Application.Riskeer
         static App()
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
+
+            // Restore the behavior of .NET Framework in which the automation id of an element
+            // implicitly falls back to its name. Automated (Ranorex) tests identify elements by this id.
+            EventManager.RegisterClassHandler(typeof(FrameworkElement),
+                                              FrameworkElement.LoadedEvent,
+                                              new RoutedEventHandler(SetAutomationIdFromName));
+        }
+
+        private static void SetAutomationIdFromName(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is FrameworkElement frameworkElement)
+                || string.IsNullOrEmpty(frameworkElement.Name)
+                || !string.IsNullOrEmpty(AutomationProperties.GetAutomationId(frameworkElement)))
+            {
+                return;
+            }
+
+            AutomationProperties.SetAutomationId(frameworkElement, frameworkElement.Name);
         }
 
         private readonly ILog log;

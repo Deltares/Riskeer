@@ -35,6 +35,8 @@ All rights reserved.
                    Width="1366"
                    Height="768"
                    x:Name="RiskeerMainWindow"
+                   AutomationProperties.AutomationId="RiskeerMainWindow"
+                   AutomationProperties.Name="RiskeerMainWindow"
                    ResizeMode="CanResizeWithGrip"
                    FlowDirection="LeftToRight"
                    WindowState="Maximized">
