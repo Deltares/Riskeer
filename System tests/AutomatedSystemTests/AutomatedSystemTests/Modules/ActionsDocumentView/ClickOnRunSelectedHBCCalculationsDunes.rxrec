@@ -47,6 +47,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 	</recorditems>
@@ -65,7 +67,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ClickOnRunSelectedCalculationsHydraulicBCDA.UserCode.cs
+		ClickOnRunSelectedHBCCalculationsDunes.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

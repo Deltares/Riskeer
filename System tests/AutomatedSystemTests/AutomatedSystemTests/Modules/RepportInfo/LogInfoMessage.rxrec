@@ -61,7 +61,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		LogMessage.UserCode.cs
+		LogInfoMessage.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

@@ -48,6 +48,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<AttributeValue>
 				YM_1_12-2_dk_00022 (674 m)
@@ -69,7 +71,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		kkdelavaca.UserCode.cs
+		SetParameterInCalculationsView.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

@@ -84,7 +84,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ComparePlainTextFiles.UserCode.cs
+		ValidatePlainTextFilesAreEqual.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

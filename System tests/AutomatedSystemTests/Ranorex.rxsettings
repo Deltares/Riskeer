@@ -1,5 +1,5 @@
 ﻿<configuration
-rxversion="11.0">
+rxversion="12.0">
 	<adapter.defaultsearchtimeout>
 		10000ms
 	</adapter.defaultsearchtimeout>
@@ -540,6 +540,9 @@ rxversion="11.0">
 	</plugins.wpfnative.tree.skipanddescend>
 	<plugins.wpfnative.flags>
 	</plugins.wpfnative.flags>
+	<plugins.wpfnative.tree.removecontentpresenter>
+		False
+	</plugins.wpfnative.tree.removecontentpresenter>
 	<plugins.wpfcore.enablewpfdebug>
 		False
 	</plugins.wpfcore.enablewpfdebug>
@@ -560,6 +563,15 @@ rxversion="11.0">
 	<plugins.wpfcore.tree.realizedvirtualizeditems>
 		False
 	</plugins.wpfcore.tree.realizedvirtualizeditems>
+	<plugins.wpfcore.uselegacyserializationmechanism>
+		False
+	</plugins.wpfcore.uselegacyserializationmechanism>
+	<plugins.wpfcore.enableserializationtracing>
+		False
+	</plugins.wpfcore.enableserializationtracing>
+	<plugins.wpfcore.tree.removecontentpresenter>
+		False
+	</plugins.wpfcore.tree.removecontentpresenter>
 	<plugins.wpf.ExpensiveAttributesEnabled>
 		True
 	</plugins.wpf.ExpensiveAttributesEnabled>
@@ -581,6 +593,9 @@ rxversion="11.0">
 	<plugins.uia.SubscribeToFocusChangedEvent>
 		False
 	</plugins.uia.SubscribeToFocusChangedEvent>
+	<plugins.uia.ForceRecognitionOfContextMenusWithUIAPlugin>
+		False
+	</plugins.uia.ForceRecognitionOfContextMenusWithUIAPlugin>
 	<plugins.web.chrome.ForceAccessibleRenderer>
 		True
 	</plugins.web.chrome.ForceAccessibleRenderer>
@@ -663,6 +678,9 @@ rxversion="11.0">
 	<plugin.cef.enabledebugcapability>
 		False
 	</plugin.cef.enabledebugcapability>
+	<plugin.cef.useInjection>
+		False
+	</plugin.cef.useInjection>
 	<plugin.webdriver.commandtimeout>
 		10000ms
 	</plugin.webdriver.commandtimeout>
