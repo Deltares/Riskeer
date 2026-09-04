@@ -884,7 +884,7 @@ namespace AutomatedSystemTests
             /// Creates a new ProjectExplorerPanel  folder.
             /// </summary>
             public ProjectExplorerPanelFolder(RepoGenBaseFolder parentFolder) :
-                    base("ProjectExplorerPanel", ".//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, false, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
+                    base("ProjectExplorerPanel", ".//tree[@automationid='treeView' or @accessiblerole='Outline']", parentFolder, 30000, null, false, "f5ed0b8b-7145-426f-982e-b89248da6d53", "")
             {
                 _trajectnode = new AutomatedSystemTestsRepositoryFolders.TrajectNodeFolder(this);
             }

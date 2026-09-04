@@ -50,7 +50,7 @@ mode="Global">
 					id="f3f7de84-f41c-4188-9eff-d19414f68a60"
 					sourcename="ItemRecorderEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/?/list/list/listitem[@index=$indexSection]
+							/form[@name='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/?/list/list/listitem[@index=$indexSection]
 						</path>
 						<robustPath>
 						</robustPath>

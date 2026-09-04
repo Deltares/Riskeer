@@ -45,7 +45,7 @@ mode="Global">
 			id="ce11034c-12e0-4686-8388-75ac745d1755"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/*/container/container/tabpagelist[$indexContainerMap]//button[@name='DocumentCloseButton']
+					/form[@name='RiskeerMainWindow']/*/container/container/tabpagelist[$indexContainerMap]//button[@name='DocumentCloseButton']
 				</path>
 				<robustPath>
 				</robustPath>

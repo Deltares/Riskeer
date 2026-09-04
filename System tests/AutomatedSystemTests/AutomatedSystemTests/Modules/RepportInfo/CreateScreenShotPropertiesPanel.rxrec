@@ -41,7 +41,7 @@ mode="Global">
 			id="41bb0ddf-7a93-4518-a257-8322f257edf1"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']
+					/form[@name='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']
 				</path>
 				<robustPath>
 				</robustPath>

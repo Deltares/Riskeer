@@ -54,7 +54,7 @@ mode="Global">
 					id="f7409335-be4e-4a2b-a1e6-498adf52b16a"
 					sourcename="RepositoryEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarden waterstand']
+							/form[@name='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarden waterstand']
 						</path>
 						<robustPath>
 						</robustPath>
@@ -78,7 +78,7 @@ mode="Global">
 			id="f7409335-be4e-4a2b-a1e6-498adf52b16a"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarden waterstand']
+					/form[@name='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarden waterstand']
 				</path>
 				<robustPath>
 				</robustPath>

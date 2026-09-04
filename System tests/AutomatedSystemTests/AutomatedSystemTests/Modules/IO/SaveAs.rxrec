@@ -53,7 +53,7 @@ mode="Global">
 			id="d918d6a6-a4c6-4c01-a295-0360a81bad96"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']
+					/form[@name='RiskeerMainWindow']
 				</path>
 				<robustPath>
 				</robustPath>

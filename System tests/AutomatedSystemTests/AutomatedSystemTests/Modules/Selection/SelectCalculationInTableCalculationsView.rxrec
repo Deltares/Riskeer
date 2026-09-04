@@ -45,7 +45,7 @@ mode="Global">
 			id="00835104-4f74-4cf4-8a4b-930b241005f2"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]
+					/form[@name='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]
 				</path>
 				<robustPath>
 				</robustPath>

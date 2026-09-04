@@ -807,7 +807,7 @@ mode="Global">
 					</dynamicaction>
 				</element>
 				<path>
-					/form[@automationid='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']/container[@automationid='HeaderPanel']/tabpage[@index='1']/?/?/text[@caption='Dijken en dammen - Piping']
+					/form[@name='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']/container[@automationid='HeaderPanel']/tabpage[@index='1']/?/?/text[@caption='Dijken en dammen - Piping']
 				</path>
 				<robustPath>
 				</robustPath>

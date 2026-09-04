@@ -118,7 +118,7 @@ mode="Global">
 					id="e1c75820-980f-411c-9ada-a9dcd59572ae"
 					sourcename="ItemRecorderEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/table[@controlname='dataGridView']
+							/form[@name='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/?/?/table[@controlname='dataGridView']
 						</path>
 						<robustPath>
 						</robustPath>

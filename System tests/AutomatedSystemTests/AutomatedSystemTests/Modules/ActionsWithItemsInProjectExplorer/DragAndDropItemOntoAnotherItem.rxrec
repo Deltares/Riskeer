@@ -78,7 +78,7 @@ mode="Global">
 					id="b466899e-e209-4d83-a46c-0533f333cea5"
 					sourcename="ItemRecorderEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
+							/form[@name='RiskeerMainWindow']/element[@automationid='AvalonDockViewHost']//container[@automationid='ProjectExplorer']//tree[@automationid='treeView']/treeitem[1]
 						</path>
 						<robustPath>
 						</robustPath>

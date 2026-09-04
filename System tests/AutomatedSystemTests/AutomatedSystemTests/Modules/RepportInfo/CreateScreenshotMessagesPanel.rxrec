@@ -49,7 +49,7 @@ mode="Global">
 			id="ebb0b0be-617b-4c07-a1f1-dd02286813f8"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']
+					/form[@name='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']
 				</path>
 				<robustPath>
 				</robustPath>

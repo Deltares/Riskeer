@@ -45,7 +45,7 @@ mode="Global">
 			id="c5d97332-76d8-4900-be29-cdffe99cbf99"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+					/form[@name='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
 				</path>
 				<robustPath>
 				</robustPath>

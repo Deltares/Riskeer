@@ -44,7 +44,7 @@ name="AutomatedSystemTestsRepository">
 					refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
 					robustPath=""
 					searchtimeout="30000ms">
-						/form[@name='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename=$substringNameItemInTraject]
+						/form[@name='RiskeerMainWindow']/element[@automationid='AvalonDockViewHost']//container[@automationid='ProjectExplorer']//tree[@automationid='treeView']/treeitem[1]/treeitem[@accessiblename=$substringNameItemInTraject]
 					</item>
 					<item
 					capname="treeitem"
@@ -52,14 +52,14 @@ name="AutomatedSystemTestsRepository">
 					name="CurrentFocusInPE"
 					robustPath=""
 					searchtimeout="30000ms">
-						/form[@name='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]//treeitem[@hasfocus='true']
+						/form[@name='RiskeerMainWindow']/element[@automationid='AvalonDockViewHost']//container[@automationid='ProjectExplorer']//tree[@automationid='treeView']/treeitem[1]//treeitem[@hasfocus='true']
 					</item>
 					<basepath>
-						/form[@name='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
+						/form[@name='RiskeerMainWindow']/element[@automationid='AvalonDockViewHost']//container[@automationid='ProjectExplorer']//tree[@automationid='treeView']/treeitem[1]
 					</basepath>
 				</folder>
 				<basepath>
-					/form[@name='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
+					/form[@name='RiskeerMainWindow']/element[@automationid='AvalonDockViewHost']//container[@automationid='ProjectExplorer']//tree[@automationid='treeView']
 				</basepath>
 			</folder>
 			<folder

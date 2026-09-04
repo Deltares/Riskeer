@@ -38,7 +38,7 @@ mode="Global">
 			id="8a65568d-140f-4c4f-b21d-a105a8285816"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button
 				</path>
 				<robustPath>
 				</robustPath>
@@ -60,7 +60,7 @@ mode="Global">
 			id="8a65568d-140f-4c4f-b21d-a105a8285816"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button
 				</path>
 				<robustPath>
 				</robustPath>

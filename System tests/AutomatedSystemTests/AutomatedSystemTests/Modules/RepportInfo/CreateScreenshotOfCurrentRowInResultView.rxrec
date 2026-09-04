@@ -41,7 +41,7 @@ mode="Global">
 			id="bf8da9f6-504d-4a54-b6e0-6fbd5b8d7d1a"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]
 				</path>
 				<robustPath>
 				</robustPath>

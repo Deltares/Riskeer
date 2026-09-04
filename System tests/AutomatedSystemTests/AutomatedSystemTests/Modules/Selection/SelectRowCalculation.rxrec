@@ -38,7 +38,7 @@ mode="Global">
 			id="096ce337-4db1-4319-ad18-58102ed16cb0"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
 				</path>
 				<robustPath>
 				</robustPath>
@@ -60,7 +60,7 @@ mode="Global">
 			id="096ce337-4db1-4319-ad18-58102ed16cb0"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
 				</path>
 				<robustPath>
 				</robustPath>
@@ -89,7 +89,7 @@ mode="Global">
 			id="096ce337-4db1-4319-ad18-58102ed16cb0"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
 				</path>
 				<robustPath>
 				</robustPath>

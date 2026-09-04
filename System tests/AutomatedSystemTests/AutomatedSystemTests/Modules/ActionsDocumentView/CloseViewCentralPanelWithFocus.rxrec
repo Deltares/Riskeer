@@ -54,7 +54,7 @@ mode="Global">
 			id="79aa5f18-da55-4d5b-9c7c-bc833052d329"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']/?/tabpage/button[@automationid='DocumentCloseButton']
+					/form[@name='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']/?/tabpage/button[@automationid='DocumentCloseButton']
 				</path>
 				<robustPath>
 				</robustPath>

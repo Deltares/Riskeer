@@ -48,7 +48,7 @@ mode="Global">
 			id="4f6147c7-b35a-42d1-8fdd-175372b09979"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
+					/form[@name='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
 				</path>
 				<robustPath>
 				</robustPath>
@@ -76,7 +76,7 @@ mode="Global">
 			id="43bcbd48-5fca-439f-aa46-2e7f8b5fc251"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]
+					/form[@name='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]
 				</path>
 				<robustPath>
 				</robustPath>

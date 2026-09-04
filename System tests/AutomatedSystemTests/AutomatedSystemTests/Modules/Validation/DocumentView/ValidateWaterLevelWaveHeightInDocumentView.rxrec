@@ -54,7 +54,7 @@ mode="Global">
 					id="e735dd8e-d20c-4c5b-ab38-5962b37b89cc"
 					sourcename="RepositoryEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
+							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
 						</path>
 						<robustPath>
 						</robustPath>
@@ -78,7 +78,7 @@ mode="Global">
 			id="e735dd8e-d20c-4c5b-ab38-5962b37b89cc"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
 				</path>
 				<robustPath>
 				</robustPath>

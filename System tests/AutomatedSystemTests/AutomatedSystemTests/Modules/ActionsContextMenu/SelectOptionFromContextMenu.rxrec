@@ -107,6 +107,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename&gt;$nameOfItem]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="3a70793f-b34d-4394-aa66-273a784859ca">

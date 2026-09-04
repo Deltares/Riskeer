@@ -59,6 +59,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Probabilistische berekening toevoegen']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 	</recorditems>

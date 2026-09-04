@@ -533,7 +533,7 @@ NaQY5ZkB8P////7///9YKeNJmDfzSJ5w6R1sbsydAe/////+////W1Q8km/tiUmDD4DB09ubCAs=
 					</dynamicattribute>
 				</element>
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@automationid='HeaderPanel']/tabpage[@index='2']
+					/form[@name='RiskeerMainWindow']//container[@automationid='HeaderPanel']/tabpage[@index='2']
 				</path>
 				<robustPath>
 				</robustPath>

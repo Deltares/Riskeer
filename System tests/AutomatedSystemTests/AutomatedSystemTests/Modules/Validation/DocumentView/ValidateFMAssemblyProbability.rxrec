@@ -114,11 +114,6 @@ mode="Global">
 						WindowsForms10.EDIT.app.0.191a92a_r7_ad1
 					</attribute>
 					<attribute
-					name="controlname"
-					type="System.String">
-						failureMechanismAssemblyProbabilityTextBox
-					</attribute>
-					<attribute
 					name="handle"
 					type="System.IntPtr">
 						7080774
@@ -1018,7 +1013,7 @@ mode="Global">
 					</dynamicaction>
 				</element>
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@automationid='TableLayoutPanel']/text[@automationid='failureMechanismAssemblyProbabilityTextBox']
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@automationid='TableLayoutPanel']/text[@automationid='failureMechanismAssemblyProbabilityTextBox']
 				</path>
 				<robustPath>
 				</robustPath>

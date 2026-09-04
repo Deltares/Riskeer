@@ -94,7 +94,7 @@ mode="Global">
 					</attribute>
 				</element>
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+					/form[@name='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
 				<robustPath>
 				</robustPath>

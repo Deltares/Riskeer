@@ -63,6 +63,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<setvaluerecorditem
@@ -84,6 +86,8 @@ mode="Global">
 				<path>
 					/form[@title='Openen']/?/?/text[@controlid='1148']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<AttributeValue>
 				yourValue
@@ -111,6 +115,8 @@ mode="Global">
 				<path>
 					/form[@title='Openen']/button[@text='&amp;Open']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<mouseitem
@@ -264,6 +270,8 @@ mode="Global">
 				<path>
 					/form[@title='Bevestigen']/button[@text='OK']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="16196a77-9bea-40d1-ae97-1b2f416db424">

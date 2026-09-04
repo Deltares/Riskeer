@@ -42,7 +42,7 @@ mode="Global">
 			id="c6e3307d-ef2f-4a61-bf7b-443c02d22136"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=@substringnameitemintraject]
+					/form[@name='RiskeerMainWindow']/element[@automationid='AvalonDockViewHost']//container[@automationid='ProjectExplorer']//tree[@automationid='treeView']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=@substringnameitemintraject]
 				</path>
 				<robustPath>
 				</robustPath>
@@ -64,7 +64,7 @@ mode="Global">
 			id="c6e3307d-ef2f-4a61-bf7b-443c02d22136"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=@substringnameitemintraject]
+					/form[@name='RiskeerMainWindow']/element[@automationid='AvalonDockViewHost']//container[@automationid='ProjectExplorer']//tree[@automationid='treeView']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=@substringnameitemintraject]
 				</path>
 				<robustPath>
 				</robustPath>
@@ -102,7 +102,7 @@ mode="Global">
 			id="fa26997c-4865-408a-9bd8-120810ae0e7a"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+					/form[@name='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
 				<robustPath>
 				</robustPath>
@@ -124,7 +124,7 @@ mode="Global">
 			id="fa26997c-4865-408a-9bd8-120810ae0e7a"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+					/form[@name='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
 				<robustPath>
 				</robustPath>
@@ -152,7 +152,7 @@ mode="Global">
 			id="fa26997c-4865-408a-9bd8-120810ae0e7a"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+					/form[@name='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
 				<robustPath>
 				</robustPath>
@@ -173,7 +173,7 @@ mode="Global">
 			id="fa26997c-4865-408a-9bd8-120810ae0e7a"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+					/form[@name='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
 				<robustPath>
 				</robustPath>

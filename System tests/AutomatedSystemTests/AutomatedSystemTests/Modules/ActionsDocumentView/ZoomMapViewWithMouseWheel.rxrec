@@ -50,7 +50,7 @@ mode="Global">
 			id="c3fa3e58-ebae-43e2-88e2-41bd6c9116ad"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/list/container/container/tabpagelist[$indexContainerMap]
+					/form[@name='RiskeerMainWindow']/list/container/container/tabpagelist[$indexContainerMap]
 				</path>
 				<robustPath>
 				</robustPath>

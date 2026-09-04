@@ -557,7 +557,7 @@ nVm/LV5JkNYL
 					</dynamicaction>
 				</element>
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/?/container[@automationid='MainButtonStackPanel']/button[4]
+					/form[@name='RiskeerMainWindow']/?/?/container[@automationid='MainButtonStackPanel']/button[4]
 				</path>
 				<robustPath>
 				</robustPath>

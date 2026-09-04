@@ -42,7 +42,7 @@ mode="Global">
 			id="7db3fc24-802e-4db9-b1c2-16851d487012"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 				</path>
 				<robustPath>
 				</robustPath>
@@ -74,7 +74,7 @@ mode="Global">
 					id="7db3fc24-802e-4db9-b1c2-16851d487012"
 					sourcename="RepositoryEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
+							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 						</path>
 						<robustPath>
 						</robustPath>
@@ -95,7 +95,7 @@ mode="Global">
 					id="7db3fc24-802e-4db9-b1c2-16851d487012"
 					sourcename="ItemRecorderEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
+							/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 						</path>
 						<robustPath>
 						</robustPath>

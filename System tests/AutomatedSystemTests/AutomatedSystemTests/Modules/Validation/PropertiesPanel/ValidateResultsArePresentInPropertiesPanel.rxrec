@@ -39,7 +39,7 @@ mode="Global">
 			id="fa26997c-4865-408a-9bd8-120810ae0e7a"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+					/form[@name='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
 				<robustPath>
 				</robustPath>

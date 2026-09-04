@@ -41,7 +41,7 @@ mode="Global">
 			id="fb1c8db8-131a-43d1-b4f3-bc523782f12f"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]//treeitem[@hasfocus='true']
+					/form[@name='RiskeerMainWindow']/element[@automationid='AvalonDockViewHost']//container[@automationid='ProjectExplorer']//tree[@automationid='treeView']/treeitem[1]//treeitem[@hasfocus='true']
 				</path>
 				<robustPath>
 				</robustPath>

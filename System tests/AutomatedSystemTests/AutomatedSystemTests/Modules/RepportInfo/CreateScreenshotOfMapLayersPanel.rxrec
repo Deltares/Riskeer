@@ -41,7 +41,7 @@ mode="Global">
 			id="b84d06d6-645e-4e5d-9705-593afd9b9f18"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='MapLegendView']/container
+					/form[@name='RiskeerMainWindow']//container[@controlname='MapLegendView']/container
 				</path>
 				<robustPath>
 				</robustPath>

@@ -38,7 +38,7 @@ mode="Global">
 			id="6bff70d7-1d04-4660-85f8-51b7cf611f85"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
 				</path>
 				<robustPath>
 				</robustPath>
@@ -60,7 +60,7 @@ mode="Global">
 			id="6bff70d7-1d04-4660-85f8-51b7cf611f85"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
 				</path>
 				<robustPath>
 				</robustPath>
@@ -89,7 +89,7 @@ mode="Global">
 			id="6bff70d7-1d04-4660-85f8-51b7cf611f85"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[2]/cell[@accessiblename&gt;'Is relevant']
+					/form[@name='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[2]/cell[@accessiblename&gt;'Is relevant']
 				</path>
 				<robustPath>
 				</robustPath>

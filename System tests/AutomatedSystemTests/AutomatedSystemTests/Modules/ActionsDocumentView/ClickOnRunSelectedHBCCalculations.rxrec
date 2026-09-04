@@ -45,7 +45,7 @@ mode="Global">
 			id="705925a9-d286-4eed-8f22-23a9e3afce1c"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
+					/form[@name='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
 				</path>
 				<robustPath>
 				</robustPath>

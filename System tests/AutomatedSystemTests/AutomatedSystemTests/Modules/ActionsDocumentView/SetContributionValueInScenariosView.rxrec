@@ -49,7 +49,7 @@ mode="Global">
 			id="3476c0a3-36a4-4281-90a3-065844674eb8"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage']
+					/form[@name='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage']
 				</path>
 				<robustPath>
 				</robustPath>
@@ -74,7 +74,7 @@ mode="Global">
 			id="3476c0a3-36a4-4281-90a3-065844674eb8"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage']
+					/form[@name='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage']
 				</path>
 				<robustPath>
 				</robustPath>
@@ -95,7 +95,7 @@ mode="Global">
 			id="3476c0a3-36a4-4281-90a3-065844674eb8"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
+					/form[@name='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
 				</path>
 				<robustPath>
 				</robustPath>

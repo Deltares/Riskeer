@@ -38,7 +38,7 @@ mode="Global">
 			id="c8521886-54a9-407d-94d4-a646a9c0f68e"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
+					/form[@name='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
 				</path>
 				<robustPath>
 				</robustPath>
@@ -60,7 +60,7 @@ mode="Global">
 			id="c8521886-54a9-407d-94d4-a646a9c0f68e"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
+					/form[@name='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
 				</path>
 				<robustPath>
 				</robustPath>
@@ -89,7 +89,7 @@ mode="Global">
 			id="c8521886-54a9-407d-94d4-a646a9c0f68e"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
+					/form[@name='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
 				</path>
 				<robustPath>
 				</robustPath>
