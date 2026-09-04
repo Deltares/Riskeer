@@ -26,7 +26,7 @@ All rights reserved.
 		<ProjectGuid>{CED4450F-858B-422D-89CE-DF083B491295}</ProjectGuid>
 		<TargetFrameworkProfile></TargetFrameworkProfile>
 		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+		<Platform Condition=" '$(Platform)' == '' ">x64</Platform>
 		<OutputType>Library</OutputType>
 		<RootNamespace>Ranorex_Automation_Helpers</RootNamespace>
 		<AssemblyName>Ranorex Automation Helpers</AssemblyName>
@@ -53,8 +53,8 @@ All rights reserved.
 		<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 		<DefineConstants>TRACE;RX93</DefineConstants>
 	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Platform)' == 'x86' ">
-		<PlatformTarget>AnyCPU</PlatformTarget>
+	<PropertyGroup Condition=" '$(Platform)' == 'x64' ">
+		<PlatformTarget>x64</PlatformTarget>
 	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">

@@ -15,17 +15,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ranorex Automation Helpers"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x86 = Debug|x86
-		Release|x86 = Release|x86
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Debug|x86.Build.0 = Debug|x86
-		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Debug|x86.ActiveCfg = Debug|x86
-		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Release|x86.Build.0 = Release|x86
-		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Release|x86.ActiveCfg = Release|x86
-		{CED4450F-858B-422D-89CE-DF083B491295}.Debug|x86.Build.0 = Debug|x86
-		{CED4450F-858B-422D-89CE-DF083B491295}.Debug|x86.ActiveCfg = Debug|x86
-		{CED4450F-858B-422D-89CE-DF083B491295}.Release|x86.Build.0 = Release|x86
-		{CED4450F-858B-422D-89CE-DF083B491295}.Release|x86.ActiveCfg = Release|x86
+		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Debug|x64.Build.0 = Debug|x64
+		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Debug|x64.ActiveCfg = Debug|x64
+		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Release|x64.Build.0 = Release|x64
+		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Release|x64.ActiveCfg = Release|x64
+		{CED4450F-858B-422D-89CE-DF083B491295}.Debug|x64.Build.0 = Debug|x64
+		{CED4450F-858B-422D-89CE-DF083B491295}.Debug|x64.ActiveCfg = Debug|x64
+		{CED4450F-858B-422D-89CE-DF083B491295}.Release|x64.Build.0 = Release|x64
+		{CED4450F-858B-422D-89CE-DF083B491295}.Release|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 EndGlobal
