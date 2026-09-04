@@ -112,6 +112,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Map leegmaken...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="9caa4044-70e5-42c9-9071-5031aa78f625">
@@ -753,6 +755,8 @@ BRRRQB//2Q==
 				<path>
 					/form[@title='Bevestigen']/button[@text='OK']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="c87aecc5-357c-4056-b4ad-7cff330eee6f">

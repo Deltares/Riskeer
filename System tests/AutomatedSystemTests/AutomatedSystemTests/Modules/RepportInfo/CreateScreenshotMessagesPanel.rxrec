@@ -51,6 +51,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/?/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 	</recorditems>

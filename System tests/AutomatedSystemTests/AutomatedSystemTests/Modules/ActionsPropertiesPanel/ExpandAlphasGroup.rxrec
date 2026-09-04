@@ -96,6 +96,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="77c6eb0a-563b-4efc-aa81-48722843f728">

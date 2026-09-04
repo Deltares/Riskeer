@@ -40,6 +40,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="e4aea36d-36ee-4ed2-a015-fce090b177ee">
@@ -60,6 +62,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[@accessiblename&gt;'Is relevant']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="845de11c-9c40-42c8-af10-95110c0422d9">
@@ -87,6 +91,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[2]/cell[@accessiblename&gt;'Is relevant']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<explicitdelayitem

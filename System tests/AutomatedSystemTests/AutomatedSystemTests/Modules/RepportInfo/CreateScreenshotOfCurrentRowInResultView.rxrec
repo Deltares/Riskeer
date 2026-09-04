@@ -43,6 +43,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 	</recorditems>

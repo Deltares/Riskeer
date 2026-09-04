@@ -121,6 +121,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="e6fb22aa-31de-4af8-b904-68458e2d5db2">
@@ -552,6 +554,8 @@ xnAoooAdJbQy7t6Z3KFPJ6A5H696KKKAP//Z
 				<path>
 					/contextmenu[@processname='Riskeer']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem

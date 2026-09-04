@@ -47,6 +47,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container[@controlname&gt;'Button']/button[@controlname='CalculateForSelectedButton']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 	</recorditems>

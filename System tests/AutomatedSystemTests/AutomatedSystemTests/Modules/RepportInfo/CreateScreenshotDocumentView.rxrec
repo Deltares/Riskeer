@@ -43,6 +43,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 		<explicitdelayitem

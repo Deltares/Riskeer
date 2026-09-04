@@ -40,6 +40,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="95c1e14f-4c7e-442c-9444-f585a9f7892a">
@@ -60,6 +62,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="9f0a244f-3aa8-43bf-9fa6-08fbbb2ec49c">
@@ -87,6 +91,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 	</recorditems>

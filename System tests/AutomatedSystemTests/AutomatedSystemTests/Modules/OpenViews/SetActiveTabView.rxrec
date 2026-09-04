@@ -47,6 +47,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/*/container/container/tabpagelist[$indexContainerMap]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<explicitdelayitem

@@ -535,6 +535,8 @@ NaQY5ZkB8P////7///9YKeNJmDfzSJ5w6R1sbsydAe/////+////W1Q8km/tiUmDD4DB09ubCAs=
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@automationid='HeaderPanel']/tabpage[@index='2']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="3cbac6e4-b0d7-4120-9de4-492411d0d19e">

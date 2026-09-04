@@ -44,6 +44,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=@substringnameitemintraject]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="98ebd2fb-de53-4250-ad79-d442e506e5a0">
@@ -64,6 +66,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=@substringnameitemintraject]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="2d448535-c00d-4768-9a96-5d082211828b">
@@ -100,6 +104,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="98ebd2fb-de53-4250-ad79-d442e506e5a0">
@@ -120,6 +126,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="2d448535-c00d-4768-9a96-5d082211828b">
@@ -146,6 +154,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</keysequenceitem>
 		<keysequenceitem
@@ -165,6 +175,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</keysequenceitem>
 	</recorditems>

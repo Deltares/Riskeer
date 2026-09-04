@@ -120,6 +120,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="e6c33b7b-218e-49f4-bc43-fe39a6409c66">
@@ -578,6 +580,8 @@ lRRQA+iiigAooooAKKKKACiiigAooooA/9k=
 				<path>
 					/form[@title='Openen']/?/?/text[@controlid='1148']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<AttributeValue>
 				yourValue
@@ -750,6 +754,8 @@ lRRQA+iiigAooooAKKKKACiiigAooooA/9k=
 				<path>
 					/form[@title='Openen']/button[@text='&amp;Open']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="067daf9a-0c1a-45c1-a695-5c96994bfb96">
@@ -886,6 +892,8 @@ oASiiigYUUUUwCiiigD/2Q==
 				<path>
 					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem

@@ -112,6 +112,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Dupliceren']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="07eb2e8d-ad72-425a-8022-ba2b2fd0121f">

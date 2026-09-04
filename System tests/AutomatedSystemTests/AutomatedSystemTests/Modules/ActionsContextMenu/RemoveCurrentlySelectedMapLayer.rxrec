@@ -112,6 +112,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Verwijderen...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="98e37362-c1ed-41f4-bcd2-39103be7fc51">
@@ -497,6 +499,8 @@ igAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k=
 				<path>
 					/form[@title='Bevestigen']/button[@text='OK']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="779a15a1-922b-40c9-aafe-9c1e00916cf7">

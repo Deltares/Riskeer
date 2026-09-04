@@ -167,11 +167,6 @@ mode="Global">
 						WindowsForms10.BUTTON.app.0.90fd76_r9_ad1
 					</attribute>
 					<attribute
-					name="controlname"
-					type="System.String">
-						buttonCancel
-					</attribute>
-					<attribute
 					name="handle"
 					type="System.IntPtr">
 						3279676

@@ -47,6 +47,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 	</recorditems>

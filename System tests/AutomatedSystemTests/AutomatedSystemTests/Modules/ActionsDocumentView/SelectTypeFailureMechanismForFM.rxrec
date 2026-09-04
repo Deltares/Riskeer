@@ -30,12 +30,18 @@ mode="Global">
 		enabled="True"
 		optional="False"
 		searchpropertyid="f700350c-a803-498e-974f-393f97151107">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
 			<info
 			id="8a65568d-140f-4c4f-b21d-a105a8285816"
 			sourcename="RepositoryEditor">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="3fc13304-792d-417f-8cbd-07567fb54ac7">
@@ -56,6 +62,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container[@controlname='TableLayoutPanel']/combobox[@controlname='probabilityResultTypeComboBox']/button
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="3fc13304-792d-417f-8cbd-07567fb54ac7">
@@ -83,6 +91,8 @@ mode="Global">
 				<path>
 					/list[@controlid='1000']/listitem[@text=$textItemDropDownMenu]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 	</recorditems>

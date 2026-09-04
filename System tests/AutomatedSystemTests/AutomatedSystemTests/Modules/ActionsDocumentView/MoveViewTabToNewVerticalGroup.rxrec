@@ -809,6 +809,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']/container[@automationid='HeaderPanel']/tabpage[@index='1']/?/?/text[@caption='Dijken en dammen - Piping']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="806adf15-da26-4e36-993b-baa85d34aaa7">
@@ -1757,6 +1759,8 @@ AgICAgICPpjXO/5+y0K9qr2YMcY2fwH9/////v///wbn2cfp5FFKtcbaduo/c58L
 				<path>
 					/contextmenu[@processname='Riskeer']/?/?/text[@caption='New Vertical Tab Group']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="00205b7d-ef95-4eee-a53e-5a35a6ee8cf3">

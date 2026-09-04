@@ -43,6 +43,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 	</recorditems>

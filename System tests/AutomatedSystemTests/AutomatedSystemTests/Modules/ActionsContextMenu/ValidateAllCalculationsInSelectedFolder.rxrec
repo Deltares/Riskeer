@@ -112,6 +112,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles valideren']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="cdb198dd-43f3-4ecb-bbab-918649f07b66">

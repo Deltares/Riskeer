@@ -831,6 +831,8 @@ mode="Global">
 				<path>
 					/form[@controlname='AssessmentSectionMergeDataProviderDialog']/?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='importButton']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="3c3d70b1-87e2-43e1-9117-a1ccd0a0d5e7">

@@ -106,6 +106,8 @@ mode="Global">
 				<path>
 					/form[@controlname='AssessmentSectionMergeDataProviderDialog']//table[@controlname='dataGridView']/row[@accessiblename='Row 3']/cell[@accessiblename='Selecteer Row 3']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="b2db62a1-5668-4ed2-9fca-e386555ba893">

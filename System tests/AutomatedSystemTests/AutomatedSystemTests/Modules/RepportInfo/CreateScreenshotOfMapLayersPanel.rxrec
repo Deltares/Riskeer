@@ -43,6 +43,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='MapLegendView']/container
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 	</recorditems>

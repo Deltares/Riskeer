@@ -47,6 +47,8 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 		<WaitForRecordItem
@@ -71,6 +73,8 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']/text[@controlname='labelActivityProgressText']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<loggingrecorditem
@@ -91,6 +95,8 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 		<mouseitem
@@ -899,6 +905,8 @@ mode="Global">
 				<path>
 					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="21376ec5-a767-45e0-8369-0b8098f7c84c">
@@ -981,6 +989,8 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z
 				<path>
 					/form[@controlname='ActivityProgressDialog']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem

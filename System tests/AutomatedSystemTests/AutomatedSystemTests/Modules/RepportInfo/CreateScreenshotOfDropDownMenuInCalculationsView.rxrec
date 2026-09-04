@@ -40,6 +40,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="a4af963e-5075-4014-94e7-2d5e06e83a71">
@@ -60,6 +62,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="a4af963e-5075-4014-94e7-2d5e06e83a71">
@@ -80,6 +84,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="a4af963e-5075-4014-94e7-2d5e06e83a71">
@@ -107,6 +113,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<loggingrecorditem
@@ -127,6 +135,8 @@ mode="Global">
 				<path>
 					/list[@controlid='1000']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 		<loggingrecorditem
@@ -147,6 +157,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</loggingrecorditem>
 		<mouseitem
@@ -171,6 +183,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='CalculationsView']//table/row[@accessiblename='Row '+$indexRowCalculation]/cell[@accessiblename&gt;$nameColumn]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 	</recorditems>

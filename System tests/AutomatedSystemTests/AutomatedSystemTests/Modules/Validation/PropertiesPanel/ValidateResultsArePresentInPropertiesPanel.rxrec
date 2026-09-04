@@ -29,7 +29,8 @@ mode="Global">
 		action="Exists"
 		enabled="True"
 		optional="False"
-		searchpropertyid="26a19324-1352-4c56-93ff-637790f2b2b1">
+		searchpropertyid="26a19324-1352-4c56-93ff-637790f2b2b1"
+		similarity="1">
 			<comment>
 			</comment>
 			<bindings>
@@ -40,6 +41,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<matchname>
 				(Choose)

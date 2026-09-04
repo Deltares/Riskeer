@@ -112,6 +112,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Bijwerken...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="b4f7d7db-7acc-4efd-bd51-e3d76df75676">
@@ -427,6 +429,8 @@ AooooAKKKKACiiigAooooA//2Q==
 				<path>
 					/form[@controlname='ActivityProgressDialog']/progressbar[@controlname='progressBar']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem

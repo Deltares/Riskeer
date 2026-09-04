@@ -121,6 +121,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename&gt;'Selecteren']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="21a95807-7bcd-4069-a560-b13b92404de6">
@@ -1421,6 +1423,8 @@ P/XJaAP/2Q==
 				<path>
 					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/?/?/combobox[@controlname='mapLayerComboBox']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="a92da264-4d95-4752-bfa7-49b3a098f2d9">
@@ -1795,6 +1799,8 @@ ACiiigAooooAKKKKAP/Z
 				<path>
 					/list[@controlid='1000']/listitem[@text&gt;'Web Map Tile Service (WMT']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="ba37e40f-255f-45a8-9e3d-52376b3af2a9">
@@ -2859,6 +2865,8 @@ RQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB//9k=
 				<path>
 					/form[@controlname='BackgroundMapDataSelectionDialog']/container[@controlname='tableLayoutPanel1']/container[@controlname='propertiesGroupBox']//button[@controlname='connectToButton']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="212b3100-47ac-491c-b917-e2009846925d">

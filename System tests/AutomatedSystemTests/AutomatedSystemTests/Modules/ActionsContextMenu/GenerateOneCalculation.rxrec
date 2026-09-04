@@ -113,6 +113,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="c2cf1b1a-25fa-4c4e-a1f5-2a80ef969bc4">
@@ -541,6 +543,8 @@ QFCoWyoHToKmoooAKKKKACiiigAooooAKKKKAKWl/wCpNXapaX/qTV2gAooooAKKKKACo5f9ZD/v
 				<path>
 					/form[@controlname='SelectionDialogBase']//table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename='Gebruik Row 0']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="06fc3ca4-8946-4ce7-8515-c1f9fdc7a385">
@@ -1548,6 +1552,8 @@ AKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAqpbdG/32/maKKfQXU//Z
 				<path>
 					/form[@controlname='SelectionDialogBase']/?/?/button[@controlname='DoForSelectedButton']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="b66e8d38-b478-4164-b4ae-45ffefbd2765">

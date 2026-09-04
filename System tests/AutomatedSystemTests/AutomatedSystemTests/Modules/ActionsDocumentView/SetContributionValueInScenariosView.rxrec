@@ -51,6 +51,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 		<keysequenceitem
@@ -74,6 +76,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</keysequenceitem>
 		<keysequenceitem
@@ -93,6 +97,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container/container[@instance='1']/container[@controlname='ScenariosView']/container/container/container/container/table/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Bijdrage aanscenario[%]']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</keysequenceitem>
 	</recorditems>

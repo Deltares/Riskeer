@@ -831,6 +831,8 @@ mode="Global">
 				<path>
 					/form[@controlname='AssessmentSectionMergeDataProviderDialog']/?/?/container[@controlname='flowLayoutPanelButtons']/button[@controlname='cancelButton']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="5bad92f4-b436-4130-a396-29812f467b57">

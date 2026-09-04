@@ -129,6 +129,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="b1c859e3-8585-4714-aa80-db39e4a3c876">
@@ -477,6 +479,8 @@ WtyigCCH74+sn/oVT1BD98fWT/0Kp6ACiiigD//Z
 				<path>
 					/form[@title='Openen']/?/?/text[@controlid='1148']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<AttributeValue>
 				$fileName
@@ -633,6 +637,8 @@ WtyigCCH74+sn/oVT1BD98fWT/0Kp6ACiiigD//Z
 				<path>
 					/form[@title='Openen']/button[@text='&amp;Open']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="20f06d94-eddb-4f42-89c6-c0ebe60d5481">
@@ -754,6 +760,8 @@ ooA//9k=
 				<path>
 					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</WaitForRecordItem>
 	</recorditems>

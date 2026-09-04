@@ -40,6 +40,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="30cffcba-eca2-4fc2-af8f-dd46e1eefaa6">
@@ -60,6 +62,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<arguments
 			id="c084aef0-aa00-42ee-9da1-936d26923b83">
@@ -146,6 +150,8 @@ mode="Global">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[$rowIndex]/cell[$columnIndex]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="d88e3d01-04dc-484d-a913-3ad7e00d29eb">
@@ -317,6 +323,8 @@ ABRRRQAUUUUAFFFFAH//2Q==
 				<path>
 					/list[@controlid='1000']/listitem[@text=$textItemDropDownMenu]
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 		</mouseitem>
 	</recorditems>

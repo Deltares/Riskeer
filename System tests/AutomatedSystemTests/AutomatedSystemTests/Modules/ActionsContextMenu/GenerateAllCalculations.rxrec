@@ -113,6 +113,8 @@ mode="Global">
 				<path>
 					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="c2cf1b1a-25fa-4c4e-a1f5-2a80ef969bc4">
@@ -1265,6 +1267,8 @@ QFCoWyoHToKmoooAKKKKACiiigAooooAKKKKAKWl/wCpNXapaX/qTV2gAooooAKKKKACo5f9ZD/v
 				<path>
 					/form[@controlname='SelectionDialogBase']/container[@controlname='ButtonGroupBox']/?/?/button[@controlname='SelectAllButton']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="3d72e8b7-5c01-4099-9e20-fd218ebbc2d7">
@@ -2134,6 +2138,8 @@ PzpaKAE59B+dHPoPzpaKAP/Z
 				<path>
 					/form[@controlname='SelectionDialogBase']/?/?/button[@controlname='DoForSelectedButton']
 				</path>
+				<robustPath>
+				</robustPath>
 			</info>
 			<helperscreenshot
 			guid="b66e8d38-b478-4164-b4ae-45ffefbd2765">
