@@ -30,6 +30,7 @@ using System.Windows.Media;
 using Core.Common.Controls.Views;
 using AvalonDock.Controls;
 using AvalonDock.Layout;
+using System.Windows.Automation;
 
 namespace Core.Gui.Forms.ViewHost
 {
@@ -130,12 +131,15 @@ namespace Core.Gui.Forms.ViewHost
             {
                 Child = control
             };
+            SetAutomationProperties(hostControl, control);
+
             var layoutDocument = new CustomLayoutDocument
             {
                 Title = title,
                 Content = hostControl,
                 Symbol = symbol,
-                FontFamily = fontFamily
+                FontFamily = fontFamily,
+                ContentId = !string.IsNullOrWhiteSpace(control.Name) ? control.Name : title
             };
 
             PerformWithoutChangingActiveContent(() => AddLayoutDocument(layoutDocument));
@@ -169,12 +173,15 @@ namespace Core.Gui.Forms.ViewHost
             {
                 Child = control
             };
+            SetAutomationProperties(hostControl, control);
+
             var layoutAnchorable = new CustomLayoutAnchorable
             {
                 Content = hostControl,
                 Title = title,
                 Symbol = symbol,
-                FontFamily = fontFamily
+                FontFamily = fontFamily,
+                ContentId = !string.IsNullOrWhiteSpace(control.Name) ? control.Name : title
             };
 
             PerformWithoutChangingActiveContent(() => AddLayoutAnchorable(layoutAnchorable, toolViewLocation));
@@ -508,6 +515,17 @@ namespace Core.Gui.Forms.ViewHost
             {
                 iconBorder.Background = Brushes.Transparent;
             }
+        }
+
+        private static void SetAutomationProperties(WindowsFormsHost hostControl, Control control)
+        {
+            string automationId = !string.IsNullOrWhiteSpace(control.Name)
+                                 ? control.Name
+                                 : control.GetType().Name;
+
+            hostControl.Name = automationId;
+            AutomationProperties.SetAutomationId(hostControl, automationId);
+            AutomationProperties.SetName(hostControl, automationId);
         }
     }
 }

@@ -66,6 +66,17 @@ namespace Core.Gui.Forms.Project
 
             InitializeComponent();
 
+            // Ensure stable names for UI automation clients (e.g. Ranorex through WindowsFormsHost).
+            Name = "ProjectExplorer";
+            AccessibleName = Name;
+            IsAccessible = true;
+
+            treeViewPanel.AccessibleName = treeViewPanel.Name;
+            treeViewPanel.IsAccessible = true;
+
+            treeViewControl.AccessibleName = treeViewControl.Name;
+            treeViewControl.IsAccessible = true;
+
             this.viewCommands = viewCommands;
 
             RegisterTreeNodeInfos(treeNodeInfos);

@@ -102,6 +102,12 @@ namespace Core.Common.Controls.TreeView
         {
             InitializeComponent();
 
+            IsAccessible = true;
+            AccessibleName = Name;
+
+            treeView.IsAccessible = true;
+            treeView.AccessibleName = treeView.Name;
+
             treeView.ImageList = new ImageList
             {
                 ColorDepth = ColorDepth.Depth32Bit

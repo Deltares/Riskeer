@@ -26,6 +26,8 @@ using System.Drawing;
 using System.IO.Packaging;
 using System.Linq;
 using System.Windows;
+using System.Windows.Automation;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -90,6 +92,15 @@ namespace Core.Gui.Forms.Main
             windowInteropHelper = new WindowInteropHelper(this);
             Name = "RiskeerMainWindow";
 
+            // Explicitly set the automation id: unlike .NET Framework, modern .NET does not
+            // implicitly derive the automation id of the window root from its name. Automated
+            // (Ranorex) tests rely on this id to identify the main window.
+            AutomationProperties.SetAutomationId(this, Name);
+
+            // Re-assert automation properties once the visual tree is loaded and refresh the peer
+            // so external UI automation tools can observe the AutomationId consistently.
+            Loaded += OnLoadedEnsureAutomationId;
+
             NewProjectCommand = new RelayCommand(OnNewProject);
             SaveProjectCommand = new RelayCommand(OnSaveProject, CanExecuteSaveCommand);
             SaveProjectAsCommand = new RelayCommand(OnSaveProjectAs, CanExecuteSaveCommand);
@@ -104,6 +115,40 @@ namespace Core.Gui.Forms.Main
             TogglePropertyGridViewCommand = new RelayCommand(OnTogglePropertyGridView);
             ToggleMessageWindowCommand = new RelayCommand(OnToggleMessageWindow);
             OpenLogFileCommand = new RelayCommand(OnOpenLogFile);
+        }
+
+        private void OnLoadedEnsureAutomationId(object sender, RoutedEventArgs e)
+        {
+            Loaded -= OnLoadedEnsureAutomationId;
+
+            const string mainWindowAutomationId = "RiskeerMainWindow";
+
+            if (string.IsNullOrWhiteSpace(AutomationProperties.GetAutomationId(this)))
+            {
+                AutomationProperties.SetAutomationId(this, string.IsNullOrWhiteSpace(Name) ? mainWindowAutomationId : Name);
+            }
+
+            // Ranorex may target a WPF core/content element instead of the window node itself.
+            if (Content is FrameworkElement contentRoot
+                && string.IsNullOrWhiteSpace(AutomationProperties.GetAutomationId(contentRoot)))
+            {
+                AutomationProperties.SetAutomationId(contentRoot, mainWindowAutomationId);
+                AutomationProperties.SetName(contentRoot, mainWindowAutomationId);
+            }
+
+            AutomationPeer peer = UIElementAutomationPeer.FromElement(this) ?? UIElementAutomationPeer.CreatePeerForElement(this);
+            peer?.InvalidatePeer();
+
+            if (Content is UIElement contentElement)
+            {
+                AutomationPeer contentPeer = UIElementAutomationPeer.FromElement(contentElement) ?? UIElementAutomationPeer.CreatePeerForElement(contentElement);
+                contentPeer?.InvalidatePeer();
+            }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new MainWindowAutomationPeer(this);
         }
 
         /// <summary>
@@ -785,5 +830,23 @@ namespace Core.Gui.Forms.Main
         }
 
         #endregion
+
+        private sealed class MainWindowAutomationPeer : WindowAutomationPeer
+        {
+            public MainWindowAutomationPeer(Window owner) : base(owner)
+            {
+            }
+
+            protected override string GetAutomationIdCore()
+            {
+                string automationId = base.GetAutomationIdCore();
+                if (!string.IsNullOrWhiteSpace(automationId))
+                {
+                    return automationId;
+                }
+
+                return Owner is FrameworkElement ownerElement ? ownerElement.Name : string.Empty;
+            }
+        }
     }
 }

@@ -35,6 +35,9 @@ All rights reserved.
                    Width="1366"
                    Height="768"
                    x:Name="RiskeerMainWindow"
+                   Uid="RiskeerMainWindow"
+                   AutomationProperties.AutomationId="RiskeerMainWindow"
+                   AutomationProperties.Name="RiskeerMainWindow"
                    ResizeMode="CanResizeWithGrip"
                    FlowDirection="LeftToRight"
                    WindowState="Maximized">
@@ -91,7 +94,10 @@ All rights reserved.
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
 
-    <Grid Background="{StaticResource BackgroundColorBrush}">
+    <Grid Background="{StaticResource BackgroundColorBrush}"
+          Uid="RiskeerMainWindow"
+          AutomationProperties.AutomationId="RiskeerMainWindow"
+          AutomationProperties.Name="RiskeerMainWindow">
         <DockPanel Name="MainDockPanel">
             <StackPanel Name="MainButtonStackPanel"
                         DockPanel.Dock="Top"
@@ -153,7 +159,9 @@ All rights reserved.
                 </StackPanel>
             </DockPanel>
 
-            <viewHost:AvalonDockViewHost x:Name="AvalonDockViewHost" />
+            <viewHost:AvalonDockViewHost x:Name="AvalonDockViewHost"
+                               AutomationProperties.AutomationId="AvalonDockViewHost"
+                               AutomationProperties.Name="AvalonDockViewHost" />
 
         </DockPanel>
         
