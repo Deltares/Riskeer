@@ -733,8 +733,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             }, calculationScenario);
 
             // Assert
-            calculationScenario.Received(1).Contribution =
-                Arg.Is<RoundedDouble>(x => x == (RoundedDouble) (contribution / 100));
+            Assert.AreEqual(calculationScenario.Contribution, (RoundedDouble) (contribution / 100));
             Assert.IsTrue(successful);
         }
 
@@ -756,7 +755,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             // Assert
             Assert.IsTrue(successful);
-            calculationScenario.Received(1).IsRelevant = Arg.Is<bool>(x => x == isRelevant);
+            Assert.AreEqual(calculationScenario.IsRelevant, isRelevant);
         }
 
         private class CalculationConfigurationImporter : CalculationConfigurationImporter<CalculationConfigurationReader, ReadCalculation>
