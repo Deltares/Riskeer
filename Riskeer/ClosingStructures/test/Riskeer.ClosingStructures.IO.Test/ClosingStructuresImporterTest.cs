@@ -236,6 +236,7 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 5);
+            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
             Assert.IsTrue(importResult);
         }
 
@@ -365,7 +366,6 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
-            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()).Returns(Enumerable.Empty<IObservable>());
             strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(invocation =>
             {
                 Assert.AreSame(invocation[1], filePath);
@@ -441,9 +441,7 @@ namespace Riskeer.ClosingStructures.IO.Test
         public void DoPostImport_UpdateStrategyReturningObservables_AllObservablesNotified()
         {
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-
             var observableA = Substitute.For<IObservable>();
-
             var observableB = Substitute.For<IObservable>();
 
             IObservable[] observables =
@@ -470,11 +468,8 @@ namespace Riskeer.ClosingStructures.IO.Test
             importer.DoPostImport();
 
             // Assert
-            // Assertions performed in TearDown
-
             observableA.Received(1).NotifyObservers();
             observableB.Received(1).NotifyObservers();
-            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         private static ReferenceLine CreateReferenceLine()
