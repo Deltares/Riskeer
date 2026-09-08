@@ -565,7 +565,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
-            updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<TestStructure>>(), Arg.Any<string>());
             ReferenceLine referenceLine = CreateReferenceLine();
 
             var importer = new TestStructuresImporter(targetCollection,
@@ -582,8 +581,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importer.CreateStructuresCalled);
-
-            // Further assertions done in the TearDown
+            updateStrategy.Received().UpdateStructuresWithImportedData(createdStructures, filePath);
         }
 
         [Test]
@@ -651,11 +649,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<TestStructure>>(), Arg.Any<string>())
-                          .Returns(new[]
-                          {
+                          .Returns([
                               observableA,
                               observableB
-                          });
+                          ]);
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles",
                                                                       "Kunstwerken.shp"));

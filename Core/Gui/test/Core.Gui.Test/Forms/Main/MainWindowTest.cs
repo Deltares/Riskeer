@@ -179,7 +179,6 @@ namespace Core.Gui.Test.Forms.Main
 
             var gui = Substitute.For<IGui>();
             gui.FixedSettings.Returns(new GuiCoreSettings());
-            gui.Plugins.Returns(Enumerable.Empty<PluginBase>().ToList());
             gui.ViewHost.Returns(viewHost);
 
             using (var mainWindow = new MainWindow())
@@ -205,7 +204,6 @@ namespace Core.Gui.Test.Forms.Main
 
             var gui = Substitute.For<IGui>();
             gui.FixedSettings.Returns(new GuiCoreSettings());
-            gui.Plugins.Returns(Enumerable.Empty<PluginBase>().ToList());
             gui.ViewHost.Returns(viewHost);
 
             using (var mainWindow = new MainWindow())

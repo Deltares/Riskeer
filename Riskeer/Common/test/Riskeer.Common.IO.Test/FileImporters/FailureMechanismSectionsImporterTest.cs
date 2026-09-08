@@ -123,14 +123,13 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var updateStrategy = Substitute.For<IFailureMechanismSectionUpdateStrategy>();
-            updateStrategy.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>())
-                          .Returns(callInfo =>
+            updateStrategy.When(u => u.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
+                          .Do(callInfo =>
                           {
                               var sections = (IEnumerable<FailureMechanismSection>) callInfo.Args()[0];
                               Assert.AreEqual(sectionCount, sections.Count());
                               AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
                               Assert.AreEqual(sectionsFilePath, callInfo.Args()[1]);
-                              return Enumerable.Empty<IObservable>();
                           });
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
@@ -141,6 +140,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importSuccessful);
+            updateStrategy.Received(1).UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -160,14 +160,13 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var updateStrategy = Substitute.For<IFailureMechanismSectionUpdateStrategy>();
-            updateStrategy.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>())
-                          .Returns(callInfo =>
+            updateStrategy.When(u=>u.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
+                          .Do(callInfo =>
                           {
                               var sections = (IEnumerable<FailureMechanismSection>) callInfo.Args()[0];
                               Assert.AreEqual(7, sections.Count());
                               AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
                               Assert.AreEqual(sectionsFilePath, callInfo.Args()[1]);
-                              return Enumerable.Empty<IObservable>();
                           });
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
@@ -177,6 +176,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importSuccessful);
+            updateStrategy.Received(1).UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -185,7 +185,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var updateStrategy = Substitute.For<IFailureMechanismSectionUpdateStrategy>();
-            updateStrategy.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()).Returns(Enumerable.Empty<IObservable>());
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataToModelProgressText);
             string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
@@ -537,12 +536,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var updateStrategy = Substitute.For<IFailureMechanismSectionUpdateStrategy>();
 
-            updateStrategy.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>())
-                          .Returns(callInfo =>
-                          {
-                              CollectionAssert.IsNotEmpty((IEnumerable<FailureMechanismSection>) callInfo.Args()[0]);
-                              return Enumerable.Empty<IObservable>();
-                          });
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataToModelProgressText);
@@ -569,6 +562,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 2);
+            updateStrategy.Received(1).UpdateSectionsWithImportedData(Arg.Is<IEnumerable<FailureMechanismSection>>(f => f.Any()),
+                                                          Arg.Any<string>());
             Assert.IsTrue(importSuccessful);
         }
 
@@ -579,20 +574,20 @@ namespace Riskeer.Common.IO.Test.FileImporters
             string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                       Path.Combine("ReferenceLine", "traject_1-1.shp"));
             string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                                 Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
+                                                                 Path.Combine("FailureMechanismSections",
+                                                                              "traject_1-1_vakken.shp"));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var updateStrategy = Substitute.For<IFailureMechanismSectionUpdateStrategy>();
-            updateStrategy.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>())
-                          .Returns(callInfo =>
-                          {
-                              var sections = (IEnumerable<FailureMechanismSection>) callInfo.Args()[0];
-                              Assert.AreEqual(62, sections.Count());
-                              AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
-                              Assert.AreEqual(sectionsFilePath, callInfo.Args()[1]);
-                              return Enumerable.Empty<IObservable>();
-                          });
+            updateStrategy
+                .When(u => u.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
+                .Do(callInfo => {
+                    var sections = (IEnumerable<FailureMechanismSection>) callInfo.Args()[0];
+                    Assert.AreEqual(62, sections.Count());
+                    AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
+                    Assert.AreEqual(sectionsFilePath, callInfo.Args()[1]);
+                });
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
@@ -607,6 +602,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{sectionsFilePath}'.", 1);
+            updateStrategy.Received(1).UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>());
             Assert.IsTrue(importSuccessful);
         }
 
@@ -659,20 +655,19 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
         private static ReferenceLine ImportReferenceLine(string referenceLineFilePath)
         {
-            var referenceLine = new ReferenceLine();
+            ReferenceLine referenceLine = null;
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             handler.ConfirmUpdate().Returns(true);
 
-            handler.Update(Arg.Is<ReferenceLine>(r => r != null),
-                           Arg.Is<ReferenceLine>(r => r != null))
-                   .Returns(callInfo =>
-                   {
-                       referenceLine = (ReferenceLine) callInfo.Args()[1];
-                       return Enumerable.Empty<IObservable>();
-                   });
+            handler.When(h=>h.Update(Arg.Is<ReferenceLine>(r => r != null),
+                           Arg.Is<ReferenceLine>(r => r != null)))
+                   .Do(callInfo => referenceLine = (ReferenceLine) callInfo.Args()[1] );
 
             var referenceLineImporter = new ReferenceLineImporter(referenceLine, handler, referenceLineFilePath);
             referenceLineImporter.Import();
+            
+            handler.Received(1).Update(Arg.Is<ReferenceLine>(r => r != null),
+                                       Arg.Is<ReferenceLine>(r => r != null));
             return referenceLine;
         }
 

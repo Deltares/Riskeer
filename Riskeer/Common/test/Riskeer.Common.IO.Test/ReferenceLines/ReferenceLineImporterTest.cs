@@ -82,17 +82,15 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             var originalReferenceLine = new ReferenceLine();
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
-            handler.Update(Arg.Is<ReferenceLine>(r => r != null),
-                           Arg.Is<ReferenceLine>(r => r != null))
-                   .Returns(callInfo =>
+            handler.When(h=>h.Update(Arg.Is<ReferenceLine>(r => r != null),
+                           Arg.Is<ReferenceLine>(r => r != null)))
+                   .Do(callInfo =>
                    {
                        Assert.AreSame(originalReferenceLine, callInfo.Args()[0]);
-                       var importedReferenceLine = (ReferenceLine) callInfo.Args()[1];
-                       Point2D[] point2Ds = importedReferenceLine.Points.ToArray();
+                       Point2D[] point2Ds = ((ReferenceLine) callInfo.Args()[1]!).Points.ToArray();
                        Assert.AreEqual(803, point2Ds.Length);
                        Assert.AreEqual(193515.719, point2Ds[467].X, 1e-6);
                        Assert.AreEqual(511444.750, point2Ds[467].Y, 1e-6);
-                       return Enumerable.Empty<IObservable>();
                    });
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
@@ -106,6 +104,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{path}'.", 1);
             Assert.IsTrue(importSuccessful);
+            handler.Received(1).Update(Arg.Is<ReferenceLine>(r => r != null),
+                                     Arg.Is<ReferenceLine>(r => r != null));
         }
 
         [Test]
@@ -249,16 +249,14 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         {
             // Setup
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
-            handler.Update(Arg.Is<ReferenceLine>(r => r != null),
-                           Arg.Is<ReferenceLine>(r => r != null))
-                   .Returns(callInfo =>
+            handler.When(h=> h.Update(Arg.Is<ReferenceLine>(r => r != null),
+                                    Arg.Is<ReferenceLine>(r => r != null)))
+                   .Do(callInfo =>
                    {
-                       var importedReferenceLine = (ReferenceLine) callInfo.Args()[1];
-                       Point2D[] point2Ds = importedReferenceLine.Points.ToArray();
+                       Point2D[] point2Ds = ((ReferenceLine) callInfo.Args()[1])!.Points.ToArray();
                        Assert.AreEqual(803, point2Ds.Length);
                        Assert.AreEqual(195203.563, point2Ds[321].X, 1e-6);
                        Assert.AreEqual(512826.406, point2Ds[321].Y, 1e-6);
-                       return Enumerable.Empty<IObservable>();
                    });
             string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
@@ -276,6 +274,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
 
             // Assert
             Assert.IsTrue(importSuccessful);
+            handler.Received(1).Update(Arg.Is<ReferenceLine>(r => r != null), 
+                                       Arg.Is<ReferenceLine>(r => r != null));
         }
 
         [Test]
@@ -293,11 +293,10 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             handler.ConfirmUpdate().Returns(true);
             handler.Update(referenceLine,
                            Arg.Is<ReferenceLine>(r => r != null))
-                   .Returns(new[]
-                   {
+                   .Returns([
                        observable1,
                        observable2
-                   });
+                   ]);
             referenceLine.Attach(referenceLineObserver);
 
             var importer = new ReferenceLineImporter(referenceLine, handler, path);
@@ -325,11 +324,9 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
 
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             var importer = new ReferenceLineImporter(referenceLine, handler, path);
-            handler.ConfirmUpdate().Returns(info =>
-            {
-                importer.Cancel();
-                return true;
-            });
+            
+            handler.When(h=>h.ConfirmUpdate()).Do(_ => importer.Cancel());
+            handler.ConfirmUpdate().Returns(true);
             referenceLine.Attach(observer);
 
             // Precondition
@@ -354,13 +351,11 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
 
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             handler.ConfirmUpdate().Returns(true);
-            handler.Update(referenceLine,
-                           Arg.Is<ReferenceLine>(r => r != null))
-                   .Returns(new[]
-                   {
+            handler.Update(referenceLine, Arg.Is<ReferenceLine>(r => r != null))
+                   .Returns([
                        observable1,
                        observable2
-                   });
+                   ]);
             referenceLine.Attach(referenceLineObserver);
 
             var importer = new ReferenceLineImporter(referenceLine, handler, path);
