@@ -503,8 +503,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-            messageProvider.GetAddDataToModelProgressText()
-                           .Returns("");
             messageProvider.GetUpdateDataFailedLogMessageText("Dijkprofielen")
                            .Returns("error {0}");
 

@@ -553,7 +553,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-            messageProvider.GetAddDataToModelProgressText().Returns("");
             messageProvider.GetUpdateDataFailedLogMessageText(Arg.Any<string>()).Returns("error {0}");
 
             const string exceptionMessage = "Look, an exception!";
