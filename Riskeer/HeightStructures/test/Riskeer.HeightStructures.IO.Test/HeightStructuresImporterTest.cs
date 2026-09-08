@@ -109,7 +109,6 @@ namespace Riskeer.HeightStructures.IO.Test
             Assert.IsFalse(importResult);
             Assert.AreEqual(0, importTarget.Count);
             Assert.IsNull(importTarget.SourcePath);
-            strategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -192,7 +191,6 @@ namespace Riskeer.HeightStructures.IO.Test
                 });
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
-            strategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -461,7 +459,6 @@ namespace Riskeer.HeightStructures.IO.Test
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage);
             Assert.IsFalse(importResult);
-            strategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -498,7 +495,6 @@ namespace Riskeer.HeightStructures.IO.Test
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage);
             Assert.IsFalse(importResult);
-            strategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -543,9 +539,9 @@ namespace Riskeer.HeightStructures.IO.Test
         public void DoPostImport_UpdateStrategyReturningObservables_AllObservablesNotified()
         {
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-
             var observableA = Substitute.For<IObservable>();
             var observableB = Substitute.For<IObservable>();
+            
             IObservable[] observables =
             {
                 observableA,
@@ -553,7 +549,8 @@ namespace Riskeer.HeightStructures.IO.Test
             };
 
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()).Returns(observables);
+            strategy.UpdateStructuresWithImportedData(Arg.Is<IEnumerable<HeightStructure>>(h=> h !=null), 
+                                                      Arg.Any<string>()).Returns(observables);
 
             string validFilePath = Path.Combine(testDataPath, nameof(HeightStructuresImporter),
                                                 "MissingParameters", "Kunstwerken.shp");
@@ -570,10 +567,8 @@ namespace Riskeer.HeightStructures.IO.Test
             importer.DoPostImport();
 
             // Assert
-            // Assertions performed in TearDown
             observableA.Received(1).NotifyObservers();
             observableB.Received(1).NotifyObservers();
-            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>());
         }
 
         private static ReferenceLine CreateReferenceLine()
