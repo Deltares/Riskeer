@@ -125,17 +125,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views.CalculationsState
 
         protected override void Dispose(bool disposing)
         {
-            hydraulicBoundaryLocationsMapLayer.Dispose();
-            assessmentSectionObserver.Dispose();
-            referenceLineObserver.Dispose();
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-            calculationObserver.Dispose();
-            dikeProfilesObserver.Dispose();
-            dikeProfileObserver.Dispose();
-
             if (disposing)
             {
+                hydraulicBoundaryLocationsMapLayer?.Dispose();
+                assessmentSectionObserver?.Dispose();
+                referenceLineObserver?.Dispose();
+                calculationInputObserver?.Dispose();
+                calculationGroupObserver?.Dispose();
+                calculationObserver?.Dispose();
+                dikeProfilesObserver?.Dispose();
+                dikeProfileObserver?.Dispose();
+
                 components?.Dispose();
             }
 

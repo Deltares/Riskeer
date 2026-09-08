@@ -36,7 +36,7 @@ namespace Migration.Scripts.Data.Test
         public void Constructor_InvalidVersion_ThrowsArgumentException(string version)
         {
             // Call
-            TestDelegate call = () => new TestCreateScript(version);
+            Action call = () => new TestCreateScript(version);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -84,7 +84,7 @@ namespace Migration.Scripts.Data.Test
             var createScript = new TestCreateScript(version);
 
             // Call
-            TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);
+            Action call = () => createScript.CreateEmptyVersionedFile(filePath);
 
             // Assert
             string message = Assert.Throws<ArgumentException>(call).Message;
@@ -105,7 +105,7 @@ namespace Migration.Scripts.Data.Test
                 disposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);
+                Action call = () => createScript.CreateEmptyVersionedFile(filePath);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentException>(call);

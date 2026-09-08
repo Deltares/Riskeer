@@ -175,7 +175,6 @@ namespace Core.Gui.Forms.PropertyView
         /// Do special processing for Tab key. 
         /// http://www.codeproject.com/csharp/wdzPropertyGridUtils.asp
         /// </summary>
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Tab || keyData == (Keys.Tab | Keys.Shift))

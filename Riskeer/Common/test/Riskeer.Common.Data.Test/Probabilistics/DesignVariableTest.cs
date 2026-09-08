@@ -47,7 +47,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void ParameteredConstructor_DistributionIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimpleDesignVariable(null);
+            Action call = () => new SimpleDesignVariable(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +55,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             {
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
+            Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen. (Parameter 'value')", customMessagePart);
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             var designVariable = new SimpleDesignVariable(distribution);
 
             // Call
-            TestDelegate call = () => designVariable.Distribution = null;
+            Action call = () => designVariable.Distribution = null;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -74,7 +74,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             {
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
+            Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen. (Parameter 'value')", customMessagePart);
             Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 

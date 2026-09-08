@@ -28,6 +28,7 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
@@ -45,7 +46,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_StochasticSoilModelNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModelProperties(null);
+            Action test = () => new MacroStabilityInwardsStochasticSoilModelProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

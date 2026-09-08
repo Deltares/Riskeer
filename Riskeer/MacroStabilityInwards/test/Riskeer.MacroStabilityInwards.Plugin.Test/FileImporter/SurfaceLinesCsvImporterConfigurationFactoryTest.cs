@@ -49,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
         public void CreateUpdateStrategyConfiguration_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(null, new ReferenceLine());
+            Action test = () => SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(null, new ReferenceLine());
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -59,7 +59,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
         public void CreateUpdateStrategyConfiguration_WithoutReferenceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(new MacroStabilityInwardsFailureMechanism(), null);
+            Action test = () => SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -81,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
         public void CreateReplaceStrategyConfiguration_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(null, new ReferenceLine());
+            Action test = () => SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(null, new ReferenceLine());
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -91,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
         public void CreateReplaceStrategyConfiguration_WithoutReferenceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(new MacroStabilityInwardsFailureMechanism(), null);
+            Action test = () => SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);

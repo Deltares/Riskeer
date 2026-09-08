@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.DikeProfiles;
 using Riskeer.Common.IO.Exceptions;
 
@@ -40,7 +41,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void Constructor_NullAcceptedIds_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfileDataReader(null);
+            Action call = () => new DikeProfileDataReader(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -51,7 +52,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void Constructor_EmptyAcceptedIds_SuccessfullyInitialzed()
         {
             // Call
-            TestDelegate call = () => new DikeProfileDataReader(new string[0]);
+            Action call = () => new DikeProfileDataReader(new string[0]);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -67,7 +68,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             var reader = new DikeProfileDataReader(new string[0]);
 
             // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
+            Action call = () => reader.ReadDikeProfileData(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -87,7 +88,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             var reader = new DikeProfileDataReader(new string[0]);
 
             // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
+            Action call = () => reader.ReadDikeProfileData(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
@@ -105,7 +106,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             var reader = new DikeProfileDataReader(new string[0]);
 
             // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(invalidFilePath);
+            Action call = () => reader.ReadDikeProfileData(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -323,7 +324,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             });
 
             // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+            Action call = () => reader.ReadDikeProfileData(faultyFilePath);
 
             // Assert
             string message = Assert.Throws<CriticalFileValidationException>(call).Message;
@@ -722,7 +723,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             });
 
             // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+            Action call = () => reader.ReadDikeProfileData(faultyFilePath);
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -742,7 +743,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             });
 
             // Call
-            TestDelegate call = () => reader.ReadDikeProfileData(faultyFilePath);
+            Action call = () => reader.ReadDikeProfileData(faultyFilePath);
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;

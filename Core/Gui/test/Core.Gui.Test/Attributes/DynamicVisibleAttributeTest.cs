@@ -58,7 +58,7 @@ namespace Core.Gui.Test.Attributes
             var o = new object();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "NotExistingProperty");
+            Action call = () => DynamicVisibleAttribute.IsVisible(o, "NotExistingProperty");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMemberException>(call).Message;
@@ -85,7 +85,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicVisiblePropertyButNoValidationMethod();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
+            Action call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -100,7 +100,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicVisiblePropertyAndMultipleValidationMethods();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
+            Action call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -115,7 +115,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicVisiblePropertyButValidationMethodReturnsIncorrectValueType();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
+            Action call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -130,7 +130,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicVisiblePropertyButValidationMethodNotOneArgument();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
+            Action call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -145,7 +145,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicVisiblePropertyButValidationMethodArgumentNotString();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
+            Action call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;

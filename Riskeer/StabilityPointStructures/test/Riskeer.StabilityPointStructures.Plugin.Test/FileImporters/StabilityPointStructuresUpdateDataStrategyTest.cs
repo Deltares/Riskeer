@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;

@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.Test.Create
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            TestDelegate test = () => failureMechanismSection.Create(null);
+            Action test = () => failureMechanismSection.Create(null);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;

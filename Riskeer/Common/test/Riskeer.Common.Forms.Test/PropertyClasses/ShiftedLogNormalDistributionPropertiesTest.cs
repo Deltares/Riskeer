@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentException>(Call);
             Assert.AreEqual("handler", exception.ParamName);
-            Assert.AreEqual("Change handler required if changes are possible.\r\nParameter name: handler", exception.Message);
+            Assert.AreEqual("Change handler required if changes are possible. (Parameter 'handler')", exception.Message);
         }
 
         [Test]

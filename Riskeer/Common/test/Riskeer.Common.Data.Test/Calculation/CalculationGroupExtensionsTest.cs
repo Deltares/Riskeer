@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Common.Data.Test.Calculation

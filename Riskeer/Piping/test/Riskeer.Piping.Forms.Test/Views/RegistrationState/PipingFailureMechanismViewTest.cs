@@ -29,6 +29,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -78,7 +79,18 @@ namespace Riskeer.Piping.Forms.Test.Views.RegistrationState
         [TearDown]
         public void TearDown()
         {
+            if (testForm == null)
+            {
+                return;
+            }
+
+            if (!testForm.IsDisposed && testForm.IsHandleCreated && testForm.Visible)
+            {
+                testForm.Close();
+            }
+
             testForm.Dispose();
+            testForm = null;
         }
 
         [Test]
@@ -322,6 +334,10 @@ namespace Riskeer.Piping.Forms.Test.Views.RegistrationState
 
             testForm.Controls.Add(view);
             testForm.Show();
+            testForm.CreateControl();
+            view.CreateControl();
+            _ = testForm.Handle;
+            _ = view.Handle;
 
             return view;
         }

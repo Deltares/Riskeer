@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using Core.Common.TestUtil;
@@ -72,7 +73,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             const int invalidValue = 100;
 
             // Call
-            TestDelegate call = () => ChartDataHelper.Convert((ChartLineDashStyle) invalidValue);
+            Action call = () => ChartDataHelper.Convert((ChartLineDashStyle) invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'dashStyle' ({invalidValue}) is invalid for Enum type '{nameof(ChartLineDashStyle)}'.";
@@ -105,7 +106,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             const int invalidValue = 10;
 
             // Call
-            TestDelegate call = () => ChartDataHelper.Convert((ChartPointSymbol) invalidValue);
+            Action call = () => ChartDataHelper.Convert((ChartPointSymbol) invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'symbol' ({invalidValue}) is invalid for Enum type '{nameof(ChartPointSymbol)}'.";

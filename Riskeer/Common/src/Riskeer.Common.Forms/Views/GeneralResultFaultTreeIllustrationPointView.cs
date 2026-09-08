@@ -86,6 +86,17 @@ namespace Riskeer.Common.Forms.Views
             illustrationPointsFaultTreeControl.Data = (TopLevelFaultTreeIllustrationPoint) (IllustrationPointsControl.Selection as IllustrationPointControlItem)?.Source;
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && illustrationPointsFaultTreeControl != null)
+            {
+                illustrationPointsFaultTreeControl.SelectionChanged -= IllustrationPointsFaultTreeControlOnSelectionChanged;
+                illustrationPointsFaultTreeControl.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         /// <inheritdoc />
         /// <exception cref="NotSupportedException">Thrown when the top level fault tree illustration 
         /// contains an illustration point that is not of type <see cref="FaultTreeIllustrationPoint"/> 

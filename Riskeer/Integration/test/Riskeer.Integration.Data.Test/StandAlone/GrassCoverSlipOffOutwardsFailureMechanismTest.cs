@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.StandAlone;
 

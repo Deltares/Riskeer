@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.SoilProfile;
 
 namespace Riskeer.Common.IO.Test.SoilProfile
@@ -36,7 +37,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void GetUniqueStochasticSoilProfiles_StochasticSoilProfilesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StochasticSoilProfileHelper.GetUniqueStochasticSoilProfiles(null, string.Empty);
+            Action call = () => StochasticSoilProfileHelper.GetUniqueStochasticSoilProfiles(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -47,7 +48,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void GetUniqueStochasticSoilProfiles_SoilModelNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 StochasticSoilProfileHelper.GetUniqueStochasticSoilProfiles(Enumerable.Empty<StochasticSoilProfile>(),
                                                                             null);
 

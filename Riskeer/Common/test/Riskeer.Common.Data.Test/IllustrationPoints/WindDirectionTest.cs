@@ -37,7 +37,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => new WindDirection(null, random.NextDouble());
+            Action call = () => new WindDirection(null, random.NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

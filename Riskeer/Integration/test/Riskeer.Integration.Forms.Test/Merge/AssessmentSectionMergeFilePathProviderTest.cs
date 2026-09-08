@@ -34,7 +34,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionMergeFilePathProvider(null);
+            Action call = () => new AssessmentSectionMergeFilePathProvider(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

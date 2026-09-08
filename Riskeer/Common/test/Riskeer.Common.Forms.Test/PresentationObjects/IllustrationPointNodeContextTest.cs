@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointNodeContext(null, "", "");
+            Action test = () => new IllustrationPointNodeContext(null, "", "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var node = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
 
             // Call
-            TestDelegate test = () => new IllustrationPointNodeContext(node, null, "");
+            Action test = () => new IllustrationPointNodeContext(node, null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var node = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
 
             // Call
-            TestDelegate test = () => new IllustrationPointNodeContext(node, "", null);
+            Action test = () => new IllustrationPointNodeContext(node, "", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

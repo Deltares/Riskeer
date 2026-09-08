@@ -59,7 +59,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
 
             // Call
-            TestDelegate test = () => new PipingScenariosContext(calculationGroup, null, assessmentSection);
+            Action test = () => new PipingScenariosContext(calculationGroup, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -73,7 +73,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
 
             // Call
-            TestDelegate test = () => new PipingScenariosContext(calculationGroup, new PipingFailureMechanism(), null);
+            Action test = () => new PipingScenariosContext(calculationGroup, new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

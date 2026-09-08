@@ -36,7 +36,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Constructor_StructuresOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((StructuresOutput) null).Create<TestStructureOutputEntity>();
+            Action call = () => ((StructuresOutput) null).Create<TestStructureOutputEntity>();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

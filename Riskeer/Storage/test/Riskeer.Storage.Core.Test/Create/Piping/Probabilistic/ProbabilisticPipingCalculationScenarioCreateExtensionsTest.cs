@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;

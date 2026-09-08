@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;

@@ -27,6 +27,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PropertyClasses;

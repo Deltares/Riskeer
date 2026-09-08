@@ -61,7 +61,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
             // Call
-            TestDelegate test = () => new StabilityPointStructuresInputContextProperties(null, handler);
+            Action test = () => new StabilityPointStructuresInputContextProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -87,7 +87,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSection);
 
             // Call
-            TestDelegate test = () => new StabilityPointStructuresInputContextProperties(inputContext, null);
+            Action test = () => new StabilityPointStructuresInputContextProperties(inputContext, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

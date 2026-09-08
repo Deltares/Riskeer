@@ -60,7 +60,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation, null, assessmentSection);
+            Action test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -75,7 +75,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation, failureMechanism, null);
+            Action test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

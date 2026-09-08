@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Core.Components.OxyPlot.Converter.Stack;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 using OxyPlot.Series;
 
@@ -38,7 +39,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
         public void ConvertSeriesData_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RowChartDataConverter.ConvertSeriesData(null, new ColumnSeries());
+            Action test = () => RowChartDataConverter.ConvertSeriesData(null, new BarSeries());
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into series data.";
@@ -53,7 +54,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
             var rowData = new RowChartData("data", new double[0], null);
 
             // Call
-            TestDelegate test = () => RowChartDataConverter.ConvertSeriesData(rowData, null);
+            Action test = () => RowChartDataConverter.ConvertSeriesData(rowData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
@@ -73,7 +74,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
             };
 
             var rowData = new RowChartData("data", values, null);
-            var series = new ColumnSeries();
+            var series = new BarSeries();
 
             // Call
             RowChartDataConverter.ConvertSeriesData(rowData, series);
@@ -86,7 +87,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
         public void ConvertSeriesProperties_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RowChartDataConverter.ConvertSeriesProperties(null, new ColumnSeries());
+            Action test = () => RowChartDataConverter.ConvertSeriesProperties(null, new BarSeries());
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into series data.";
@@ -101,7 +102,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
             var rowData = new RowChartData("data", new double[0], null);
 
             // Call
-            TestDelegate test = () => RowChartDataConverter.ConvertSeriesProperties(rowData, null);
+            Action test = () => RowChartDataConverter.ConvertSeriesProperties(rowData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
@@ -121,7 +122,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
                                : null;
 
             var rowData = new RowChartData(name, new double[0], color);
-            var series = new ColumnSeries();
+            var series = new BarSeries();
 
             // Call
             RowChartDataConverter.ConvertSeriesProperties(rowData, series);

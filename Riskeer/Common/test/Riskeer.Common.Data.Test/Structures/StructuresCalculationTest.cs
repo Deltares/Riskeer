@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
@@ -156,7 +157,7 @@ namespace Riskeer.Common.Data.Test.Structures
             var calculation = new TestStructuresCalculation();
 
             // Call
-            TestDelegate call = () => calculation.ClearIllustrationPoints();
+            Action call = () => calculation.ClearIllustrationPoints();
 
             // Assert
             Assert.DoesNotThrow(call);

@@ -35,7 +35,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_HydraRingWindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WindDirectionConverter.Convert(null);
+            Action call = () => WindDirectionConverter.Convert(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

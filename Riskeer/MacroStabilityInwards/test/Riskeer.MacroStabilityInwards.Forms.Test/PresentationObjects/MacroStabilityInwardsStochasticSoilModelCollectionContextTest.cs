@@ -58,7 +58,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSection);
+            Action test = () => new MacroStabilityInwardsStochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -72,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
+            Action test = () => new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

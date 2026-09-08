@@ -49,6 +49,7 @@ using DotSpatial.Symbology;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Extent = DotSpatial.Data.Extent;
 using IMapView = DotSpatial.Controls.IMap;
 

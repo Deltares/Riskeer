@@ -33,7 +33,7 @@ namespace Core.Components.Gis.Test.Theme
         public void Constructor_CriterionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestCategoryTheme(null);
+            Action call = () => new TestCategoryTheme(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

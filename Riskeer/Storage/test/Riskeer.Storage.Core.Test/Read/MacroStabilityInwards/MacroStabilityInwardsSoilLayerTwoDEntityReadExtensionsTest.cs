@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.MacroStabilityInwards.Primitives.TestUtil;
@@ -41,7 +42,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsSoilLayerTwoDEntity) null).Read();
+            Action test = () => ((MacroStabilityInwardsSoilLayerTwoDEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

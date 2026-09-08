@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.IllustrationPoints;
@@ -53,7 +54,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             var treeNode = new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPoint);
 
             // Call
-            TestDelegate call = () => TopLevelFaultTreeIllustrationPointConverter.Convert(null, treeNode);
+            Action call = () => TopLevelFaultTreeIllustrationPointConverter.Convert(null, treeNode);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,7 +69,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
                                                                                                     "random closing situation");
 
             // Call
-            TestDelegate call = () => TopLevelFaultTreeIllustrationPointConverter.Convert(hydraRingWindDirectionClosingSituation, null);
+            Action call = () => TopLevelFaultTreeIllustrationPointConverter.Convert(hydraRingWindDirectionClosingSituation, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

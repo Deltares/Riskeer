@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 
@@ -72,7 +73,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var sectionCollection = new FailureMechanismSectionCollection();
 
             // Call
-            TestDelegate call = () => sectionCollection.SetSections(null, string.Empty);
+            Action call = () => sectionCollection.SetSections(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -86,7 +87,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var sectionCollection = new FailureMechanismSectionCollection();
 
             // Call
-            TestDelegate call = () => sectionCollection.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
+            Action call = () => sectionCollection.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -101,7 +102,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var sectionCollection = new FailureMechanismSectionCollection();
 
             // Call
-            TestDelegate call = () => sectionCollection.SetSections(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
+            Action call = () => sectionCollection.SetSections(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
 
             // Assert
             string expectedMessage = $@"'{sourcePath}' is not a valid file path.";
@@ -129,7 +130,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            TestDelegate call = () => sectionCollection.SetSections(new[]
+            Action call = () => sectionCollection.SetSections(new[]
             {
                 section1,
                 section2
@@ -160,7 +161,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            TestDelegate call = () => sectionCollection.SetSections(new[]
+            Action call = () => sectionCollection.SetSections(new[]
             {
                 section1,
                 section2
@@ -197,7 +198,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             });
 
             // When
-            TestDelegate call = () => sectionCollection.SetSections(new[]
+            Action call = () => sectionCollection.SetSections(new[]
             {
                 section1,
                 section2

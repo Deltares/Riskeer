@@ -33,6 +33,7 @@ using Core.Common.Util.Reflection;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
@@ -123,6 +124,22 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("performFailureMechanismAssemblyFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(),
+                                                          new TestFailureMechanism(),
+                                                          Substitute.For<IAssessmentSection>(),
+                                                          (mechanism, section) => null);
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]

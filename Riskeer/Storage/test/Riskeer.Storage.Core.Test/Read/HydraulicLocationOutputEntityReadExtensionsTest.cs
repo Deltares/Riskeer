@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((HydraulicLocationOutputEntity) null).Read();
+            Action call = () => ((HydraulicLocationOutputEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -23,6 +23,8 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Exceptions;
+using Core.Common.Base.Helpers;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -485,17 +487,17 @@ namespace Riskeer.Common.IO.Structures
 
             try
             {
-                return double.Parse(doubleValueText, CultureInfo.InvariantCulture);
+                return DoubleParsingHelper.Parse(doubleValueText, CultureInfo.InvariantCulture);
             }
-            catch (FormatException e)
+            catch (DoubleParsingException e) when (e.InnerException is FormatException)
             {
                 throw CreateLineParseException(lineNumber, string.Format(Resources.StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_not_number,
-                                                                         parameterName), e);
+                                                                         parameterName), e.InnerException);
             }
-            catch (OverflowException e)
+            catch (DoubleParsingException e) when (e.InnerException is OverflowException)
             {
                 throw CreateLineParseException(lineNumber, string.Format(Resources.StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_overflow_error,
-                                                                         parameterName), e);
+                                                                         parameterName), e.InnerException);
             }
         }
 

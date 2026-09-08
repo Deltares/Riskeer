@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
-            TestDelegate test = () => stochasticSoilProfile.Create(null, 0);
+            Action test = () => stochasticSoilProfile.Create(null, 0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;

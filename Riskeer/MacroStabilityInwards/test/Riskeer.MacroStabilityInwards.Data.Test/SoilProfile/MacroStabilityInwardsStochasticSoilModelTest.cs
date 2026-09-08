@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -42,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             var random = new Random(21);
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModel(null, new[]
+            Action test = () => new MacroStabilityInwardsStochasticSoilModel(null, new[]
                                                                                    {
                                                                                        new Point2D(random.NextDouble(), random.NextDouble())
                                                                                    },
@@ -60,7 +61,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_GeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(string.Empty, null, new[]
+            Action call = () => new MacroStabilityInwardsStochasticSoilModel(string.Empty, null, new[]
             {
                 CreateStochasticSoilProfile()
             });
@@ -77,7 +78,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             const string name = "modelName";
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(name, Enumerable.Empty<Point2D>(), new[]
+            Action call = () => new MacroStabilityInwardsStochasticSoilModel(name, Enumerable.Empty<Point2D>(), new[]
             {
                 CreateStochasticSoilProfile()
             });
@@ -99,7 +100,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             };
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(name, geometry, null);
+            Action call = () => new MacroStabilityInwardsStochasticSoilModel(name, geometry, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -118,7 +119,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             };
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(name,
+            Action call = () => new MacroStabilityInwardsStochasticSoilModel(name,
                                                                                    geometry,
                                                                                    Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>());
 
@@ -164,7 +165,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             });
 
             // Call
-            TestDelegate test = () => model.Update(null);
+            Action test = () => model.Update(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -440,7 +441,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             });
 
             // Call 
-            TestDelegate call = () => model.Update(otherModel);
+            Action call = () => model.Update(otherModel);
 
             // Assert 
             Assert.Throws<InvalidOperationException>(call);

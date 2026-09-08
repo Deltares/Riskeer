@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             var entity = new StabilityPointStructureEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            Action call = () => entity.Read(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

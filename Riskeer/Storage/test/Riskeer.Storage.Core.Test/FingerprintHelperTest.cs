@@ -23,6 +23,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
@@ -37,7 +38,7 @@ namespace Riskeer.Storage.Core.Test
         public void Get_EntityIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FingerprintHelper.Get(null);
+            Action call = () => FingerprintHelper.Get(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

@@ -47,7 +47,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Create_MapDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(null);
+            Action test = () => ImageBasedMapDataLayerFactory.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -61,7 +61,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             var mapData = new TestImageBasedMapData("test", true);
 
             // Call
-            TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(mapData);
+            Action test = () => ImageBasedMapDataLayerFactory.Create(mapData);
 
             // Assert
             var exception = Assert.Throws<NotSupportedException>(test);
@@ -81,7 +81,7 @@ namespace Core.Components.DotSpatial.Test.Layer
                 var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
 
                 // Call
-                TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(wellKnownMapData);
+                Action test = () => ImageBasedMapDataLayerFactory.Create(wellKnownMapData);
 
                 // Assert
                 var exception = Assert.Throws<ConfigurationInitializationException>(test);
@@ -108,7 +108,7 @@ namespace Core.Components.DotSpatial.Test.Layer
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(mapData);
+                Action test = () => ImageBasedMapDataLayerFactory.Create(mapData);
 
                 // Assert
                 var exception = Assert.Throws<ConfigurationInitializationException>(test);
@@ -130,7 +130,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
                 // Call
-                TestDelegate test = () => ImageBasedMapDataLayerFactory.Create(backgroundMapData);
+                Action test = () => ImageBasedMapDataLayerFactory.Create(backgroundMapData);
 
                 // Assert
                 var exception = Assert.Throws<ConfigurationInitializationException>(test);

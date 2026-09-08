@@ -92,7 +92,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations.Converters
             var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
+            Action call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationStabilityStoneCoverCalculationType)}'.";
@@ -180,7 +180,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations.Converters
             var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+            Action call = () => converter.ConvertFrom(invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(StabilityStoneCoverWaveConditionsCalculationType)}'.";
@@ -228,7 +228,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations.Converters
             var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(null);
+            Action call = () => converter.ConvertFrom(null);
 
             // Assert
             Assert.Throws<NotSupportedException>(call);

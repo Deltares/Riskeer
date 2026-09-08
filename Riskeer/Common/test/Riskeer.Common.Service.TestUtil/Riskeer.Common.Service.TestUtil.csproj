@@ -21,7 +21,7 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)build\TestUtil.targets" />
+  <Import Project="$(SolutionDir)build\TestUtil.targets"/>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
@@ -36,7 +36,9 @@ All rights reserved.
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
-      <Version>3.14.0</Version>
+      <Version>4.6.1</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
 </Project>

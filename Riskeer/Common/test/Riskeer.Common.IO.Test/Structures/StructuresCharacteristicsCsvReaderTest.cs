@@ -42,7 +42,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_InvalidStringArgument_ThrowsArgumentException(string path)
         {
             // Call
-            TestDelegate call = () => new StructuresCharacteristicsCsvReader(path);
+            Action call = () => new StructuresCharacteristicsCsvReader(path);
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(path).Build("Bestandspad mag niet leeg of ongedefinieerd zijn.");
@@ -60,7 +60,7 @@ namespace Riskeer.Common.IO.Test.Structures
             string corruptPath = path.Replace('V', invalidCharacters[0]);
 
             // Call
-            TestDelegate call = () => new StructuresCharacteristicsCsvReader(corruptPath);
+            Action call = () => new StructuresCharacteristicsCsvReader(corruptPath);
 
             // Assert
             const string innerExpectedMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
@@ -72,7 +72,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_PathToFolder_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new StructuresCharacteristicsCsvReader(testDataPath);
+            Action call = () => new StructuresCharacteristicsCsvReader(testDataPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -89,7 +89,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetLineCount();
+                Action call = () => reader.GetLineCount();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -106,7 +106,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetLineCount();
+                Action call = () => reader.GetLineCount();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -125,7 +125,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetLineCount();
+                Action call = () => reader.GetLineCount();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -152,7 +152,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetLineCount();
+                Action call = () => reader.GetLineCount();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -249,7 +249,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetLineCount();
+                Action call = () => reader.GetLineCount();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -267,7 +267,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -284,7 +284,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -303,7 +303,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -330,7 +330,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -370,7 +370,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -406,7 +406,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -425,7 +425,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -444,7 +444,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -466,7 +466,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -488,7 +488,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -507,7 +507,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -526,7 +526,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -545,7 +545,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -564,7 +564,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -583,7 +583,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -602,7 +602,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -621,7 +621,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -640,7 +640,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -659,7 +659,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -678,7 +678,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
@@ -697,7 +697,7 @@ namespace Riskeer.Common.IO.Test.Structures
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                Action call = () => reader.ReadLine();
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;

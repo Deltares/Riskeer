@@ -67,7 +67,7 @@ namespace Core.Components.Chart.Test.Styles
             var polygonStyle = new ChartAreaStyle();
 
             // Call
-            TestDelegate test = () => polygonStyle.StrokeThickness = invalidValue;
+            Action test = () => polygonStyle.StrokeThickness = invalidValue;
 
             // Assert
             const string message = "De waarde voor lijndikte moet in het bereik [0, 48] liggen.";

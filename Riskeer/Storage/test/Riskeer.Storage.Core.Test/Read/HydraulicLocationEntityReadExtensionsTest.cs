@@ -34,7 +34,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((HydraulicLocationEntity) null).Read(new ReadConversionCollector());
+            Action call = () => ((HydraulicLocationEntity) null).Read(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new HydraulicLocationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            Action call = () => entity.Read(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

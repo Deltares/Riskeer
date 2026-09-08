@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Exceptions;
@@ -41,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void Transform_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilProfileTransformer.Transform(null);
+            Action test = () => MacroStabilityInwardsSoilProfileTransformer.Transform(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -54,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             // Setup
             var soilProfile = Substitute.For<ISoilProfile>();
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilProfileTransformer.Transform(soilProfile);
+            Action test = () => MacroStabilityInwardsSoilProfileTransformer.Transform(soilProfile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -70,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             var profile = new SoilProfile1D(1, "test", 3, Enumerable.Empty<SoilLayer1D>());
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
+            Action call = () => MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -107,7 +108,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(1, "test", Enumerable.Empty<SoilLayer2D>(), Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
+            Action call = () => MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -189,7 +190,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             });
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
+            Action call = () => MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);

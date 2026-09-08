@@ -39,7 +39,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_IllustrationPointControlItemNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointRow(null);
+            Action test = () => new IllustrationPointRow(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

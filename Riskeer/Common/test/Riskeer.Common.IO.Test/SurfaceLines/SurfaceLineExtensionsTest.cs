@@ -35,7 +35,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         public void GetSingleReferenceLineIntersection_WithoutSurfaceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((SurfaceLine) null).GetSingleReferenceLineIntersection(new ReferenceLine());
+            Action test = () => ((SurfaceLine) null).GetSingleReferenceLineIntersection(new ReferenceLine());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -46,7 +46,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         public void GetSingleReferenceLineIntersection_WithoutReferenceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SurfaceLine().GetSingleReferenceLineIntersection(null);
+            Action test = () => new SurfaceLine().GetSingleReferenceLineIntersection(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -134,7 +134,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
+            Action test = () => surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
@@ -197,7 +197,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
+            Action test = () => surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";

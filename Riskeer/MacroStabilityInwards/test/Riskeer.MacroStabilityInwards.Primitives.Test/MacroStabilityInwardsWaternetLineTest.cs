@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.Primitives.Test

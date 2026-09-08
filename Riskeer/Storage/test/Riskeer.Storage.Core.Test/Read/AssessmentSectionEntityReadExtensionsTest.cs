@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
@@ -48,7 +49,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new AssessmentSectionEntity();
 
             // Call
-            TestDelegate test = () => entity.Read(null);
+            Action test = () => entity.Read(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

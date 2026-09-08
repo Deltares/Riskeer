@@ -33,7 +33,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_TopLeftPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSliceResult(null, new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
+            Action call = () => new UpliftVanSliceResult(null, new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
                                                                new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
@@ -45,7 +45,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_TopRightPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSliceResult(new Point2D(0, 0), null, new Point2D(0, 0), new Point2D(0, 0),
+            Action call = () => new UpliftVanSliceResult(new Point2D(0, 0), null, new Point2D(0, 0), new Point2D(0, 0),
                                                                new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
@@ -57,7 +57,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_BottomLeftPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), null, new Point2D(0, 0),
+            Action call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), null, new Point2D(0, 0),
                                                                new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
@@ -69,7 +69,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_BottomRightPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null,
+            Action call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null,
                                                                new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
@@ -81,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null);
+            Action call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

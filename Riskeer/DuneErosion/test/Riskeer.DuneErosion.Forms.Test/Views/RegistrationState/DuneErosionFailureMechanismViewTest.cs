@@ -29,6 +29,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -72,7 +73,18 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
         [TearDown]
         public void TearDown()
         {
+            if (testForm == null)
+            {
+                return;
+            }
+
+            if (!testForm.IsDisposed && testForm.IsHandleCreated && testForm.Visible)
+            {
+                testForm.Close();
+            }
+
             testForm.Dispose();
+            testForm = null;
         }
 
         [Test]
@@ -92,6 +104,20 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
             AssertEmptyMapData(view.Map.Data);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new DuneErosionFailureMechanismView(new DuneErosionFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -264,6 +290,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
 
             testForm.Controls.Add(view);
             testForm.Show();
+            testForm.CreateControl();
+            view.CreateControl();
+            _ = testForm.Handle;
+            _ = view.Handle;
 
             return view;
         }

@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             // Setup
             var soilProfile = Substitute.For<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             // Call
-            TestDelegate call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(null, soilProfile);
+            Action call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(null, soilProfile);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             StochasticSoilProfile stochasticSoilProfile = StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(soilProfile);
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, null);
+            Action call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             var stochasticSoilProfile = new StochasticSoilProfile(double.NaN, soilProfile);
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, macroStabilityInwardsSoilProfile);
+            Action call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, macroStabilityInwardsSoilProfile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);

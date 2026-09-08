@@ -56,7 +56,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             FailureMechanismContribution contribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            TestDelegate call = () => new NormContext(contribution, null);
+            Action call = () => new NormContext(contribution, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

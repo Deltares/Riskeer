@@ -39,7 +39,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Chart
             var series = new TestSeries();
 
             // Call
-            TestDelegate test = () => testConverter.ConvertSeriesData(null, series);
+            Action test = () => testConverter.ConvertSeriesData(null, series);
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into series data.";
@@ -54,7 +54,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Chart
             var chartData = new TestChartData("test data");
 
             // Call
-            TestDelegate test = () => testConverter.ConvertSeriesData(chartData, null);
+            Action test = () => testConverter.ConvertSeriesData(chartData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";
@@ -69,7 +69,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Chart
             var series = new TestSeries();
 
             // Call
-            TestDelegate test = () => testConverter.ConvertSeriesProperties(null, series);
+            Action test = () => testConverter.ConvertSeriesProperties(null, series);
 
             // Assert
             const string expectedMessage = "Null data cannot be converted into series data.";
@@ -84,7 +84,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Chart
             var chartData = new TestChartData("test data");
 
             // Call
-            TestDelegate test = () => testConverter.ConvertSeriesProperties(chartData, null);
+            Action test = () => testConverter.ConvertSeriesProperties(chartData, null);
 
             // Assert
             const string expectedMessage = "Null data cannot be used as conversion target.";

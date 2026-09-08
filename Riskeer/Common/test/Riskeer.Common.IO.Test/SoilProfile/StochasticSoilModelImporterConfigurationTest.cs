@@ -53,7 +53,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
             var strategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             // Call
-            TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(null, filter, strategy);
+            Action test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(null, filter, strategy);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -67,7 +67,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var transformer = Substitute.For<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
             var strategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             // Setup
-            TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, null, strategy);
+            Action test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, null, strategy);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -81,7 +81,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var transformer = Substitute.For<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
             var filter = Substitute.For<IStochasticSoilModelMechanismFilter>();
             // Call
-            TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, null);
+            Action test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

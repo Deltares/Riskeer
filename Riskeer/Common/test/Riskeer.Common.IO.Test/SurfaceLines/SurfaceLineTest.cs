@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.SurfaceLines;
 
 namespace Riskeer.Common.IO.Test.SurfaceLines
@@ -72,7 +73,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var surfaceLine = new SurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.SetGeometry(null);
+            Action test = () => surfaceLine.SetGeometry(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -86,7 +87,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var surfaceLine = new SurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.SetGeometry(new Point3D[]
+            Action test = () => surfaceLine.SetGeometry(new Point3D[]
             {
                 null
             });
@@ -107,7 +108,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             IEnumerable<Point3D> zeroLengthGeometry = Enumerable.Repeat(new Point3D(3, 4, 7), pointCount);
 
             // Call
-            TestDelegate test = () => surfaceLine.SetGeometry(zeroLengthGeometry);
+            Action test = () => surfaceLine.SetGeometry(zeroLengthGeometry);
 
             // Assert
             const string expectedMessage = "Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.";
@@ -139,7 +140,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var surfaceLine = new SurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.SetGeometry(points);
+            Action test = () => surfaceLine.SetGeometry(points);
 
             // Assert
             const string expectedMessage = "Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).";

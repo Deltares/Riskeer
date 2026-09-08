@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -40,7 +41,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
         public void Create_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((DuneLocationCalculation) null).Create(new PersistenceRegistry());
+            Action call = () => ((DuneLocationCalculation) null).Create(new PersistenceRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,7 +55,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
-            TestDelegate call = () => calculation.Create(null);
+            Action call = () => calculation.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -113,13 +114,13 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             Assert.IsNotNull(entity);
 
             DuneLocationCalculationOutputEntity outputEntity = entity.DuneLocationCalculationOutputEntities.Single();
-            Assert.AreEqual(output.WaterLevel, outputEntity.WaterLevel, output.WaterLevel.GetAccuracy());
-            Assert.AreEqual(output.WaveHeight, outputEntity.WaveHeight, output.WaveHeight.GetAccuracy());
-            Assert.AreEqual(output.WavePeriod, outputEntity.WavePeriod, output.WavePeriod.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.WaterLevel, outputEntity.WaterLevel, output.WaterLevel.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.WaveHeight, outputEntity.WaveHeight, output.WaveHeight.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.WavePeriod, outputEntity.WavePeriod, output.WavePeriod.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, outputEntity.TargetProbability);
-            Assert.AreEqual(output.TargetReliability, outputEntity.TargetReliability, output.TargetReliability.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.TargetReliability, outputEntity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, outputEntity.CalculatedProbability);
-            Assert.AreEqual(output.CalculatedReliability, outputEntity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.CalculatedReliability, outputEntity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(output.CalculationConvergence), outputEntity.CalculationConvergence);
         }
 

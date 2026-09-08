@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.DirectoryServices.AccountManagement;
 using System.Globalization;
 using System.IO;
@@ -65,6 +66,9 @@ namespace Application.Riskeer
     /// <summary>
     /// Interaction logic for App.xaml.
     /// </summary>
+    [SuppressMessage("Design",
+                     "CA1001:Types that own disposable fields should be disposable",
+                     Justification = "The WPF Application lifetime is managed by the framework. GuiCore is disposed explicitly from OnExit.")]
     public partial class App
     {
         // Start application after this process will exit (used during restart)
@@ -146,6 +150,17 @@ namespace Application.Riskeer
             };
 
             RunRiskeer();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            System.Windows.Forms.Application.ThreadException -= Application_ThreadException;
+            AppDomain.CurrentDomain.UnhandledException -= AppDomain_UnhandledException;
+
+            gui?.Dispose();
+            gui = null;
+
+            base.OnExit(e);
         }
 
         private void RunRiskeer()

@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Chart.Test.Data
 {
@@ -49,7 +50,7 @@ namespace Core.Components.Chart.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate test = () => new TestPointBasedChartData(invalidName);
+            Action test = () => new TestPointBasedChartData(invalidName);
 
             // Assert
             const string expectedMessage = "A name must be set to the chart data.";
@@ -81,7 +82,7 @@ namespace Core.Components.Chart.Test.Data
             var data = new TestPointBasedChartData("test data");
 
             // Call
-            TestDelegate test = () => data.Points = null;
+            Action test = () => data.Points = null;
 
             // Assert
             const string expectedMessage = "The array of points cannot be null.";

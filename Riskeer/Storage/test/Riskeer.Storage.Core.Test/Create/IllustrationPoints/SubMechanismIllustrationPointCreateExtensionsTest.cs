@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.Create.IllustrationPoints;

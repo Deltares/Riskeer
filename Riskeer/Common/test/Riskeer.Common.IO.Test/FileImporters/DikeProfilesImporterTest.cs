@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Exceptions;
@@ -67,7 +68,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
-            TestDelegate call = () => new DikeProfilesImporter(null, new ReferenceLine(), "", new TestDikeProfileUpdateStrategy(), messageProvider);
+            Action call = () => new DikeProfilesImporter(null, new ReferenceLine(), "", new TestDikeProfileUpdateStrategy(), messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -80,7 +81,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
-            TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), null, "", new TestDikeProfileUpdateStrategy(), messageProvider);
+            Action call = () => new DikeProfilesImporter(new DikeProfileCollection(), null, "", new TestDikeProfileUpdateStrategy(), messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -93,7 +94,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
-            TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), null, new TestDikeProfileUpdateStrategy(), messageProvider);
+            Action call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), null, new TestDikeProfileUpdateStrategy(), messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -106,7 +107,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
-            TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), string.Empty, null, messageProvider);
+            Action call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), string.Empty, null, messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -117,7 +118,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Constructor_MessageProviderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), string.Empty,
+            Action call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), string.Empty,
                                                                new TestDikeProfileUpdateStrategy(), null);
 
             // Assert

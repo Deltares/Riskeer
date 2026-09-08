@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Data.Entity.Infrastructure;
 using System.Globalization;
 using NUnit.Framework;
@@ -68,7 +69,7 @@ namespace Riskeer.Storage.Core.Test.DbContext
             // Call
             using (var entities = new TestRiskeerEntities(fullConnectionString))
             {
-                TestDelegate test = () => entities.CallOnModelCreating();
+                Action test = () => entities.CallOnModelCreating();
 
                 // Assert
                 Assert.Throws<UnintentionalCodeFirstException>(test);

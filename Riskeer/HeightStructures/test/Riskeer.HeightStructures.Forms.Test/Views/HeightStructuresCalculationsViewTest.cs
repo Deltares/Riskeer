@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -31,6 +32,7 @@ using Core.Common.Controls.DataGrid;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -73,6 +75,20 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.AreEqual("Genereer &berekeningen...", button.Text);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new HeightStructuresCalculationsView(new CalculationGroup(), new HeightStructuresFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]

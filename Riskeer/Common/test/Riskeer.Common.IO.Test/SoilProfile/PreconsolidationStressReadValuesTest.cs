@@ -37,7 +37,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void PreconsolidationStressReadValues_ReaderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PreconsolidationStressReadValues(null, string.Empty);
+            Action call = () => new PreconsolidationStressReadValues(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -50,7 +50,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             var reader = Substitute.For<IRowBasedDatabaseReader>();
             // Call
-            TestDelegate call = () => new PreconsolidationStressReadValues(reader, null);
+            Action call = () => new PreconsolidationStressReadValues(reader, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -118,7 +118,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                   .Returns("");
             reader.Path.Returns(path);
             // Call
-            TestDelegate test = () => new PreconsolidationStressReadValues(reader, profileName);
+            Action test = () => new PreconsolidationStressReadValues(reader, profileName);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{path}' (ondergrondschematisatie '{profileName}'): " +

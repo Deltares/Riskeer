@@ -61,8 +61,7 @@ namespace Riskeer.Common.IO.DikeProfiles
             IOUtils.ValidateFilePath(shapeFilePath);
             if (!File.Exists(shapeFilePath))
             {
-                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(CoreCommonUtilResources.Error_File_does_not_exist);
+                string message = new FileReaderErrorMessageBuilder(shapeFilePath).Build(CoreCommonUtilResources.Error_File_does_not_exist);
                 throw new CriticalFileReadException(message);
             }
 
@@ -150,8 +149,7 @@ namespace Riskeer.Common.IO.DikeProfiles
             {
                 if (e.InnerException != null && e.InnerException.GetType() == typeof(ApplicationException))
                 {
-                    string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                        .Build(Resources.PointShapefileReader_File_can_only_contain_points);
+                    string message = new FileReaderErrorMessageBuilder(shapeFilePath).Build(Resources.PointShapefileReader_File_can_only_contain_points);
                     throw new CriticalFileReadException(message, e);
                 }
 
@@ -176,7 +174,8 @@ namespace Riskeer.Common.IO.DikeProfiles
 
             try
             {
-                return Convert.ToDouble(value);
+                double val = Convert.ToDouble(value);
+                return double.IsInfinity(val) ? throw new LineParseException(Resources.ProfileLocationReader_GetProfileLocations_Invalid_X0, new OverflowException()) : val;
             }
             catch (Exception e) when (e is FormatException || e is InvalidCastException || e is OverflowException)
             {
@@ -213,8 +212,7 @@ namespace Riskeer.Common.IO.DikeProfiles
             {
                 if (!pointsShapeFileReader.HasAttribute(attribute))
                 {
-                    throw new CriticalFileReadException(
-                        string.Format(Resources.ProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_, attribute));
+                    throw new CriticalFileReadException(string.Format(Resources.ProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_, attribute));
                 }
             }
         }

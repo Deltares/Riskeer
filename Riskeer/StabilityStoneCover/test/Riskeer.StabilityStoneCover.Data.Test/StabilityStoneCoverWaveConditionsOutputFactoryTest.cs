@@ -34,7 +34,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void CreateOutputWithBlocks_BlocksNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithBlocks(null);
+            Action call = () => StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithBlocks(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,7 +59,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void CreateOutputWithColumns_ColumnsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumns(null);
+            Action call = () => StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumns(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -84,7 +84,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void CreateOutputWithColumnsAndBlocks_ColumnsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(null, Enumerable.Empty<WaveConditionsOutput>());
+            Action call = () => StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(null, Enumerable.Empty<WaveConditionsOutput>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -95,7 +95,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void CreateOutputWithColumnsAndBlocks_BlocksNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(Enumerable.Empty<WaveConditionsOutput>(), null);
+            Action call = () => StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(Enumerable.Empty<WaveConditionsOutput>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

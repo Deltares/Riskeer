@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
@@ -160,7 +161,7 @@ namespace Riskeer.Storage.Core.TestUtil.MacroStabilityInwards
             }
             else
             {
-                Assert.AreEqual(expectedDouble, actualDouble, expectedDouble.GetAccuracy());
+                NullableDoubleAssert.AreEqual(expectedDouble, actualDouble, expectedDouble.GetAccuracy());
             }
         }
     }

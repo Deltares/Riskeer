@@ -33,7 +33,7 @@ namespace Core.Common.Util.Test.IO
         public void Constructor_AssemblyNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new EmbeddedResourceFileWriter(null, true, "A");
+            Action call = () => new EmbeddedResourceFileWriter(null, true, "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -44,7 +44,7 @@ namespace Core.Common.Util.Test.IO
         public void Constructor_FilePathsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new EmbeddedResourceFileWriter(GetType().Assembly, true, null);
+            Action call = () => new EmbeddedResourceFileWriter(GetType().Assembly, true, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -120,7 +120,7 @@ namespace Core.Common.Util.Test.IO
         public void EmbeddedResourceFileWriter_ResourceNotEmbedded_ArgumentExceptionThrown(bool removeFilesOnDispose)
         {
             // Setup & Call
-            TestDelegate test = () => new EmbeddedResourceFileWriter(GetType().Assembly, removeFilesOnDispose, "NonEmbeddedResource.txt");
+            Action test = () => new EmbeddedResourceFileWriter(GetType().Assembly, removeFilesOnDispose, "NonEmbeddedResource.txt");
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
@@ -133,7 +133,7 @@ namespace Core.Common.Util.Test.IO
         public void EmbeddedResourceFileWriter_NonExistingResource_ArgumentExceptionThrown(bool removeFilesOnDispose)
         {
             // Setup & Call
-            TestDelegate test = () => new EmbeddedResourceFileWriter(GetType().Assembly, removeFilesOnDispose, "NonExistingResource.txt");
+            Action test = () => new EmbeddedResourceFileWriter(GetType().Assembly, removeFilesOnDispose, "NonExistingResource.txt");
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);

@@ -41,6 +41,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<object>>(context);
             Assert.IsInstanceOf<IObservable>(context);
+            Assert.IsInstanceOf<IDisposable>(context);
             Assert.IsEmpty(context.Observers);
         }
 
@@ -153,6 +154,24 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
             // Then
             observer.Received().UpdateObserver();
+        }
+
+        [Test]
+        public void GivenContextWithObserverAttached_WhenDisposed_ThenNoLongerObservesLocationCalculationsEnumeration()
+        {
+            // Given
+            var observer = Substitute.For<IObserver>();
+            var locationCalculationsEnumerationToObserve = new ObservableList<IObservable>();
+            var context = new TestLocationCalculationsContext(new object(), locationCalculationsEnumerationToObserve);
+
+            context.Attach(observer);
+
+            // When
+            context.Dispose();
+            locationCalculationsEnumerationToObserve.NotifyObservers();
+
+            // Then
+            observer.DidNotReceive().UpdateObserver();
         }
 
         private class TestLocationCalculationsContext : LocationCalculationsContext<object, IObservable>

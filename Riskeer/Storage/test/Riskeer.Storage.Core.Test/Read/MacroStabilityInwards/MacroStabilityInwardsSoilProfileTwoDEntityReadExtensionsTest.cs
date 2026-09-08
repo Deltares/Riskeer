@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -47,7 +48,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             var entity = new MacroStabilityInwardsSoilProfileTwoDEntity();
 
             // Call
-            TestDelegate test = () => entity.Read(null);
+            Action test = () => entity.Read(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -61,7 +62,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsSoilProfileTwoDEntity) null).Read(collector);
+            Action test = () => ((MacroStabilityInwardsSoilProfileTwoDEntity) null).Read(collector);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

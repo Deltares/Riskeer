@@ -22,6 +22,9 @@
 using System;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using BruTile;
 using BruTile.Predefined;
 using BruTile.Web;
@@ -45,7 +48,9 @@ namespace Core.Components.BruTile.TestUtil
         /// <param name="mapData">The map data to work with.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/> is <c>null</c>.</exception>
         public TestWellKnownTileSource(WellKnownTileSourceMapData mapData)
-            : base(CreateTileSchema(mapData), new WellKnownRequestStub(), "Stub schema", null, GetStubTile) {}
+            : base(CreateTileSchema(mapData),
+                   new BasicUrlBuilder("https://www.stub.org/tiles/{z}/{x}/{y}.png"),
+                   "Stub schema") {}
 
         /// <summary>
         /// Create a new tile schema.
@@ -63,7 +68,12 @@ namespace Core.Components.BruTile.TestUtil
             return new GlobalSphericalMercator(YAxis.TMS, 0, 19, mapData.Name);
         }
 
-        private static byte[] GetStubTile(Uri url)
+        public override Task<byte[]> GetTileAsync(HttpClient httpClient, TileInfo tileInfo, CancellationToken? cancellationToken = null)
+        {
+            return Task.FromResult(GetStubTileData());
+        }
+
+        private static byte[] GetStubTileData()
         {
             if (pngTileData == null)
             {
@@ -75,14 +85,6 @@ namespace Core.Components.BruTile.TestUtil
             }
 
             return pngTileData;
-        }
-
-        private class WellKnownRequestStub : IRequest
-        {
-            public Uri GetUri(TileInfo info)
-            {
-                return new Uri(@"https://www.stub.org/tiles/someTile.png");
-            }
         }
     }
 }

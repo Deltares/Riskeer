@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Storage.Core.DbContext;
@@ -43,7 +44,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new StochasticSoilModelEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsPipingStochasticSoilModel(null);
+            Action test = () => entity.ReadAsPipingStochasticSoilModel(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -57,7 +58,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((StochasticSoilModelEntity) null).ReadAsPipingStochasticSoilModel(collector);
+            Action test = () => ((StochasticSoilModelEntity) null).ReadAsPipingStochasticSoilModel(collector);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -75,7 +76,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             // Call
-            TestDelegate test = () => entity.ReadAsPipingStochasticSoilModel(new ReadConversionCollector());
+            Action test = () => entity.ReadAsPipingStochasticSoilModel(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(test).ParamName;
@@ -179,7 +180,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new StochasticSoilModelEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsMacroStabilityInwardsStochasticSoilModel(null);
+            Action test = () => entity.ReadAsMacroStabilityInwardsStochasticSoilModel(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -193,7 +194,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((StochasticSoilModelEntity) null).ReadAsMacroStabilityInwardsStochasticSoilModel(collector);
+            Action test = () => ((StochasticSoilModelEntity) null).ReadAsMacroStabilityInwardsStochasticSoilModel(collector);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -211,7 +212,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             // Call
-            TestDelegate test = () => entity.ReadAsMacroStabilityInwardsStochasticSoilModel(new ReadConversionCollector());
+            Action test = () => entity.ReadAsMacroStabilityInwardsStochasticSoilModel(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(test).ParamName;

@@ -27,6 +27,7 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Forms.PropertyClasses;
 
@@ -42,7 +43,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SubMechanismIllustrationPointValuesProperties(null);
+            Action call = () => new SubMechanismIllustrationPointValuesProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

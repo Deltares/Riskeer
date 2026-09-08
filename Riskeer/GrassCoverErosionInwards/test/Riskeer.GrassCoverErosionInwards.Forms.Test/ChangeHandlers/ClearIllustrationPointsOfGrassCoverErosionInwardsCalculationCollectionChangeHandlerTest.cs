@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using Core.Gui.Helpers;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.GrassCoverErosionInwards.Data;

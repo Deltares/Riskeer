@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;

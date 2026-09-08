@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Primitives;
 

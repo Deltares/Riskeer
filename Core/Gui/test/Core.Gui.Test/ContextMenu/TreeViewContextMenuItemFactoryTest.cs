@@ -28,6 +28,7 @@ using Core.Gui.Properties;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.ContextMenu
 {
@@ -41,12 +42,12 @@ namespace Core.Gui.Test.ContextMenu
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => new TreeViewContextMenuItemFactory(null, treeViewControl);
+                Action test = () => new TreeViewContextMenuItemFactory(null, treeViewControl);
 
                 // Assert
                 string message = Assert.Throws<ArgumentNullException>(test).Message;
                 StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de data bekend is.", message);
-                StringAssert.EndsWith("dataObject", message);
+                StringAssert.EndsWith("(Parameter 'dataObject')", message);
             }
         }
 
@@ -54,12 +55,12 @@ namespace Core.Gui.Test.ContextMenu
         public void Constructor_WithoutTreeViewControl_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TreeViewContextMenuItemFactory(new object(), null);
+            Action test = () => new TreeViewContextMenuItemFactory(new object(), null);
 
             // Assert
             string message = Assert.Throws<ArgumentNullException>(test).Message;
             StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de boom bekend is.", message);
-            StringAssert.EndsWith("treeViewControl", message);
+            StringAssert.EndsWith("(Parameter 'treeViewControl')", message);
         }
 
         [Test]
@@ -69,7 +70,7 @@ namespace Core.Gui.Test.ContextMenu
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => new TreeViewContextMenuItemFactory(new object(), treeViewControl);
+                Action test = () => new TreeViewContextMenuItemFactory(new object(), treeViewControl);
 
                 // Assert
                 Assert.DoesNotThrow(test);

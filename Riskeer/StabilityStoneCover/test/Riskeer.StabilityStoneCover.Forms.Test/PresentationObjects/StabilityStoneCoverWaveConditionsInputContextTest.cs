@@ -67,7 +67,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
             // Call
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
+            Action test = () => new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
                                                                                         calculation,
                                                                                         assessmentSection,
                                                                                         null);

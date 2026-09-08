@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
+            Action call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 null,
                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                                 failureMechanism,
@@ -97,7 +97,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
-            TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
+            Action call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                                 null,
                                                                                 new PipingFailureMechanism(),
@@ -114,7 +114,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
-            TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
+            Action call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                                 null,
@@ -129,7 +129,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
+            Action call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                                 new PipingFailureMechanism(),

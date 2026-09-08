@@ -27,6 +27,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Test

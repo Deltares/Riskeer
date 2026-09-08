@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.Create;
@@ -43,7 +44,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Create(null);
+            Action test = () => failureMechanism.Create(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

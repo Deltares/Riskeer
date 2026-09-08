@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Contribution;
 
 namespace Riskeer.Common.Data.Test.Contribution

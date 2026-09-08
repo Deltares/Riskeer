@@ -55,7 +55,7 @@ namespace Riskeer.Common.IO.Test
         public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
+            Action call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -73,7 +73,7 @@ namespace Riskeer.Common.IO.Test
             string invalidFilePath = validFilePath.Replace("_", invalidPathChars[1].ToString());
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
+            Action call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
@@ -89,7 +89,7 @@ namespace Riskeer.Common.IO.Test
                                                                 Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
+            Action call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -104,7 +104,7 @@ namespace Riskeer.Common.IO.Test
                                                                 "I_do_not_exist.shp");
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
+            Action call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
@@ -125,7 +125,7 @@ namespace Riskeer.Common.IO.Test
                                                                 shapeFileName);
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
+            Action call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': kon geen lijnen vinden in dit bestand.";
@@ -162,7 +162,7 @@ namespace Riskeer.Common.IO.Test
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetFailureMechanismSectionCount();
+                Action call = () => reader.GetFailureMechanismSectionCount();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -272,7 +272,7 @@ namespace Riskeer.Common.IO.Test
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.ReadFailureMechanismSection();
+                Action call = () => reader.ReadFailureMechanismSection();
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -291,7 +291,7 @@ namespace Riskeer.Common.IO.Test
             using (var reader = new FailureMechanismSectionReader(validFilePath))
             {
                 // Call
-                TestDelegate call = () =>
+                Action call = () =>
                 {
                     reader.ReadFailureMechanismSection();
                     reader.ReadFailureMechanismSection();
@@ -318,7 +318,7 @@ namespace Riskeer.Common.IO.Test
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new FailureMechanismSectionReader(path);
+                Action call = () => new FailureMechanismSectionReader(path);
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";

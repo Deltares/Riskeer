@@ -37,6 +37,7 @@ using DotSpatial.Symbology;
 using NetTopologySuite.Geometries;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Point = NetTopologySuite.Geometries.Point;
 using PointShape = DotSpatial.Symbology.PointShape;
 

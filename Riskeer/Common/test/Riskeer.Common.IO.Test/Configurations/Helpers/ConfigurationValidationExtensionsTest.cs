@@ -42,7 +42,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string calculationName = "calculation";
 
             // Call
-            TestDelegate test = () => ((WaveReductionConfiguration) null).ValidateWaveReduction(null, calculationName, null);
+            Action test = () => ((WaveReductionConfiguration) null).ValidateWaveReduction(null, calculationName, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -55,7 +55,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Setup
             var log = Substitute.For<ILog>();
             // Call
-            TestDelegate test = () => ((WaveReductionConfiguration) null).ValidateWaveReduction(null, null, log);
+            Action test = () => ((WaveReductionConfiguration) null).ValidateWaveReduction(null, null, log);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

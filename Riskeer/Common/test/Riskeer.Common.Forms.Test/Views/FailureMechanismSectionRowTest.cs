@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new FailureMechanismSectionRow(null, double.NaN, double.NaN);
+            Action test = () => new FailureMechanismSectionRow(null, double.NaN, double.NaN);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

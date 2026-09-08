@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Gui.Commands;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Commands
 {

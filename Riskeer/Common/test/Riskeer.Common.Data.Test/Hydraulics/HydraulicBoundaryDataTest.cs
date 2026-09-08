@@ -21,6 +21,7 @@
 
 using Core.Common.Base;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.Test.Hydraulics

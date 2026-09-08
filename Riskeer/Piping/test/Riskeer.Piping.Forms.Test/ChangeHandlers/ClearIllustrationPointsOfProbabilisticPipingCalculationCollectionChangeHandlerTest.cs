@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using Core.Gui.Helpers;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;

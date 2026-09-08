@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.Test.Data
 {
@@ -39,7 +40,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate test = () => new MapDataCollection(invalidName);
+            Action test = () => new MapDataCollection(invalidName);
 
             // Assert
             const string expectedMessage = "A name must be set to the map data.";
@@ -308,7 +309,7 @@ namespace Core.Components.Gis.Test.Data
             var mapDataCollection = new MapDataCollection("test");
 
             // Call
-            TestDelegate call = () => mapDataCollection.Add(null);
+            Action call = () => mapDataCollection.Add(null);
 
             // Assert
             const string expectedMessage = "An item cannot be null when adding it to the collection.";
@@ -345,7 +346,7 @@ namespace Core.Components.Gis.Test.Data
             var mapDataCollection = new MapDataCollection("test");
 
             // Call
-            TestDelegate call = () => mapDataCollection.Insert(0, null);
+            Action call = () => mapDataCollection.Insert(0, null);
 
             // Assert
             const string expectedMessage = "An item cannot be null when adding it to the collection.";
@@ -448,7 +449,7 @@ namespace Core.Components.Gis.Test.Data
             mapDataCollection.Add(existingItem);
 
             // Call
-            TestDelegate call = () => mapDataCollection.Insert(invalidIndex, itemToInsert);
+            Action call = () => mapDataCollection.Insert(invalidIndex, itemToInsert);
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(call, "index");

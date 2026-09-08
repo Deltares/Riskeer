@@ -25,6 +25,7 @@ using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Chart.Test.Data
 {
@@ -69,7 +70,7 @@ namespace Core.Components.Chart.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate test = () => new ChartPointData(invalidName);
+            Action test = () => new ChartPointData(invalidName);
 
             // Assert
             const string expectedMessage = "A name must be set to the chart data.";
@@ -80,7 +81,7 @@ namespace Core.Components.Chart.Test.Data
         public void Constructor_StyleNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ChartPointData("test data", null);
+            Action test = () => new ChartPointData("test data", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

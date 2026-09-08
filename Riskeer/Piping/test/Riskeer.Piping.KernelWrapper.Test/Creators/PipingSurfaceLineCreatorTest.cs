@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Piping.KernelWrapper.Creators;
 using PipingSurfaceLine = Riskeer.Piping.Primitives.PipingSurfaceLine;
 

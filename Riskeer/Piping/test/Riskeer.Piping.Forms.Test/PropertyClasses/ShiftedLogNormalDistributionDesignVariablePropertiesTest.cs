@@ -38,7 +38,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void SingleParameterConstructor_DesignVariableNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ShiftedLogNormalDistributionDesignVariableProperties(null);
+            Action test = () => new ShiftedLogNormalDistributionDesignVariableProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -69,7 +69,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate test = () => new ShiftedLogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
+            Action test = () => new ShiftedLogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                                                null,
                                                                                                handler);
 

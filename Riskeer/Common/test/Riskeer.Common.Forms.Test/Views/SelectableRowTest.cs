@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.Test.Views
             const string name = "name";
 
             // Call
-            TestDelegate test = () => new SelectableRow<object>(null, name);
+            Action test = () => new SelectableRow<object>(null, name);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_WithoutName_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SelectableRow<object>(new object(), null);
+            Action test = () => new SelectableRow<object>(new object(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

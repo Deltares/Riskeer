@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Plugin.FileImporters;

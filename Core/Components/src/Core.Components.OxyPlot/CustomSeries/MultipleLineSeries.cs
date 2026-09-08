@@ -95,19 +95,24 @@ namespace Core.Components.OxyPlot.CustomSeries
             VerifyAxes();
 
             OxyRect clippingRect = GetClippingRect();
-            rc.SetClip(clippingRect);
+            rc.PushClip(clippingRect);
 
-            // Transform all points to screen coordinates
-            foreach (IEnumerable<DataPoint> line in Lines)
+            try
             {
-                int n0 = line.Count();
-                var pts0 = new ScreenPoint[n0];
-                TransformToScreenCoordinates(n0, pts0, line);
+                // Transform all points to screen coordinates
+                foreach (IEnumerable<DataPoint> line in Lines)
+                {
+                    int n0 = line.Count();
+                    var pts0 = new ScreenPoint[n0];
+                    TransformToScreenCoordinates(n0, pts0, line);
 
-                rc.DrawLine(pts0, Color, StrokeThickness, Dashes?.ToArray() ?? LineStyle.GetDashArray());
+                    rc.DrawLine(pts0, Color, StrokeThickness, EdgeRenderingMode.PreferSpeed, Dashes?.ToArray() ?? LineStyle.GetDashArray(), LineJoin.Miter);
+                }
             }
-
-            rc.ResetClip();
+            finally
+            {
+                rc.PopClip();
+            }
         }
 
         protected override void UpdateMaxMin()

@@ -61,7 +61,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Readers
         public void Constructor_WorkingDirectoryNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HydraRingDatabaseReader(null, "", 0);
+            Action test = () => new HydraRingDatabaseReader(null, "", 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -75,7 +75,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Readers
             string directory = Path.Combine(testDirectory, validDatabase);
 
             // Call
-            TestDelegate test = () => new HydraRingDatabaseReader(directory, null, 0);
+            Action test = () => new HydraRingDatabaseReader(directory, null, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -87,7 +87,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Readers
         public void Constructor_WithInvalidWorkingDirectoryPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate test = () => new HydraRingDatabaseReader(invalidPath, "", 0);
+            Action test = () => new HydraRingDatabaseReader(invalidPath, "", 0);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -102,7 +102,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Readers
             string directory = Path.Combine(testDirectory, path);
 
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new HydraRingDatabaseReader(directory, query, 0)) {}
             };

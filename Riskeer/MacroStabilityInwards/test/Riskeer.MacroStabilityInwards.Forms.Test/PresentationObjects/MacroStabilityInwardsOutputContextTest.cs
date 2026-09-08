@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOutputContext(calculation, null, assessmentSection);
+            Action call = () => new MacroStabilityInwardsOutputContext(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOutputContext(calculation, failureMechanism, null);
+            Action call = () => new MacroStabilityInwardsOutputContext(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

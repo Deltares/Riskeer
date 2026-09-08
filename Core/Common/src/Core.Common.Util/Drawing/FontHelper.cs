@@ -56,14 +56,17 @@ namespace Core.Common.Util.Drawing
             IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
             Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
             privateFontCollection.AddMemoryFont(fontPtr, fontData.Length);
-            AddFontMemResourceEx(fontPtr, (uint) fontData.Length, IntPtr.Zero, ref dummy);
+            NativeMethods.AddFontMemResourceEx(fontPtr, (uint) fontData.Length, IntPtr.Zero, ref dummy);
             Marshal.FreeCoTaskMem(fontPtr);
 
             return new Font(privateFontCollection.Families[privateFontCollection.Families.Length - 1], 14.0F);
         }
 
-        [DllImport("gdi32.dll")]
-        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
-                                                          IntPtr pdv, [In] ref uint pcFonts);
+        private static class NativeMethods
+        {
+            [DllImport("gdi32.dll")]
+            internal static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
+                                                               IntPtr pdv, [In] ref uint pcFonts);
+        }
     }
 }

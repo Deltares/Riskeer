@@ -46,7 +46,7 @@ namespace Core.Gui.Test.Forms.PropertyView
         public void ParameteredConstructor_InputIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PropertyResolver(null);
+            Action call = () => new PropertyResolver(null);
 
             // Assert
             const string expectedMessage = "Kan geen 'PropertyResolver' maken zonder een lijst van 'PropertyInfo'.";

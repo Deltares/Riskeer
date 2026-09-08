@@ -40,6 +40,7 @@ using Core.Components.Gis.TestUtil;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.Forms.Test.Views
 {
@@ -61,7 +62,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_WmtsCapabilityFactoryNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WmtsLocationControl(null, null);
+            Action test = () => new WmtsLocationControl(null, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -196,7 +197,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             {
                 // Call
-                TestDelegate call = () =>
+                Action call = () =>
                 {
                     using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
                     {

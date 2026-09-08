@@ -122,7 +122,7 @@ namespace Riskeer.Piping.IO.Test.SurfaceLines
         public void SetCharacteristicPoints_SurfaceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((PipingSurfaceLine) null).SetCharacteristicPoints(new CharacteristicPoints("Empty"));
+            Action test = () => ((PipingSurfaceLine) null).SetCharacteristicPoints(new CharacteristicPoints("Empty"));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -174,7 +174,7 @@ namespace Riskeer.Piping.IO.Test.SurfaceLines
             surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
 
             // Call
-            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
+            Action test = () => surfaceLine.SetCharacteristicPoints(points);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);

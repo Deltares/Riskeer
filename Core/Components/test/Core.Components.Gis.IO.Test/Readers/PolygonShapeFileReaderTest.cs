@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -31,6 +32,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.IO.Test.Readers
 {
@@ -70,7 +72,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                                     shapeFileName);
 
             // Call
-            TestDelegate call = () => new PolygonShapeFileReader(nonPolygonShapeFile);
+            Action call = () => new PolygonShapeFileReader(nonPolygonShapeFile);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{nonPolygonShapeFile}': kon geen polygonen vinden in dit bestand.";
@@ -89,7 +91,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new PolygonShapeFileReader(path);
+                Action call = () => new PolygonShapeFileReader(path);
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";

@@ -37,7 +37,7 @@ namespace Core.Components.Gis.Forms.Test.Views
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WmtsConnectionDialog(null);
+            Action test = () => new WmtsConnectionDialog(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -51,7 +51,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             var info = new WmtsConnectionInfo("name", "url");
 
             // Call
-            TestDelegate test = () => new WmtsConnectionDialog(null, info);
+            Action test = () => new WmtsConnectionDialog(null, info);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -290,7 +290,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             var dialogParent = Substitute.For<IWin32Window>();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 using (var control = new WmtsConnectionDialog(dialogParent))
                 {

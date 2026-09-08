@@ -354,7 +354,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
 
             // Call
-            TestDelegate call = () => input.DeviationWaveDirection = (RoundedDouble) invalidValue;
+            Action call = () => input.DeviationWaveDirection = (RoundedDouble) invalidValue;
 
             // Assert
             const string expectedMessage = "De waarde voor de afwijking van de golfrichting moet in het bereik [-360,00, 360,00] liggen.";
@@ -520,7 +520,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
 
             // Call
-            TestDelegate call = () => input.FailureProbabilityOpenStructure = probability;
+            Action call = () => input.FailureProbabilityOpenStructure = probability;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
@@ -553,7 +553,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
 
             // Call
-            TestDelegate call = () => input.FailureProbabilityReparation = probability;
+            Action call = () => input.FailureProbabilityReparation = probability;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
@@ -612,7 +612,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
 
             // Call
-            TestDelegate call = () => input.ProbabilityOpenStructureBeforeFlooding = probability;
+            Action call = () => input.ProbabilityOpenStructureBeforeFlooding = probability;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
@@ -641,7 +641,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
 
             // Call
-            TestDelegate call = () => input.IdenticalApertures = 0;
+            Action call = () => input.IdenticalApertures = 0;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor het aantal identieke openingen moet groter of gelijk zijn aan 1.");

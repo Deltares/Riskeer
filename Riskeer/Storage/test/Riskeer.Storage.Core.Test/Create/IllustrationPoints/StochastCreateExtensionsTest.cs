@@ -36,7 +36,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
         public void Create_StochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((Stochast) null).Create(0);
+            Action call = () => ((Stochast) null).Create(0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

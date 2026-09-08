@@ -756,7 +756,10 @@ namespace Riskeer.HydraRing.Calculation.Services
 
                         if (val is double d)
                         {
-                            valueStrings.Add(d.ToString(CultureInfo.InvariantCulture));
+                            // G15 is added here to restore .net framework behaviour
+                            // See https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings
+                            // Specifically General format specifier (G), G15 is the old .net framework default
+                            valueStrings.Add(d.ToString("G15", CultureInfo.InvariantCulture));
                             continue;
                         }
 

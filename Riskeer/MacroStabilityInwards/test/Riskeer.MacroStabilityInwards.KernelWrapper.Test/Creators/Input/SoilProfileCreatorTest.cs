@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;

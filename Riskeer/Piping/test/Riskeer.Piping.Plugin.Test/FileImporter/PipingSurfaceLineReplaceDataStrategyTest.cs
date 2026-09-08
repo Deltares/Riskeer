@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.UpdateDataStrategies;
 using Riskeer.Common.IO.SurfaceLines;
@@ -230,7 +231,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             var strategy = new PipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
+            Action call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
                                                                                   sourceFilePath);
 
             // Assert

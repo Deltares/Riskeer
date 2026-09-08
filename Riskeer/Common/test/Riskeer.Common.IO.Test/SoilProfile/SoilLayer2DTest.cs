@@ -35,7 +35,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_OuterLoopNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayer2D(null, Enumerable.Empty<SoilLayer2D>());
+            Action test = () => new SoilLayer2D(null, Enumerable.Empty<SoilLayer2D>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -46,7 +46,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_NestedLayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), null);
+            Action test = () => new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

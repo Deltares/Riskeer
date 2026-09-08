@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -35,6 +35,7 @@ using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
@@ -48,7 +49,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint_HydraRingGeneralResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(null);
+            Action call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -163,7 +164,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
                 });
 
             // Call
-            TestDelegate call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
+            Action call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
 
             // Assert
             var exception = Assert.Throws<IllustrationPointConversionException>(call);
@@ -176,7 +177,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint_HydraRingGeneralResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(null);
+            Action call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -240,7 +241,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
                 });
 
             // Call
-            TestDelegate call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(hydraGeneralResult);
+            Action call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(hydraGeneralResult);
 
             // Assert
             var exception = Assert.Throws<IllustrationPointConversionException>(call);

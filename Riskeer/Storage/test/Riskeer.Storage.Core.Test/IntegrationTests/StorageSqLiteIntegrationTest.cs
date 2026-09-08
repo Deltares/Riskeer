@@ -33,6 +33,7 @@ using Core.Gui.Forms.Main;
 using Core.Gui.Settings;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;

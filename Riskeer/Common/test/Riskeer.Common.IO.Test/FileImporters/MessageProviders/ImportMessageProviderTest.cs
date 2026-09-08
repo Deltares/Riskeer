@@ -59,7 +59,7 @@ namespace Riskeer.Common.IO.Test.FileImporters.MessageProviders
             var messageProvider = new ImportMessageProvider();
 
             // Call
-            TestDelegate call = () => messageProvider.GetCancelledLogMessageText(null);
+            Action call = () => messageProvider.GetCancelledLogMessageText(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -88,7 +88,7 @@ namespace Riskeer.Common.IO.Test.FileImporters.MessageProviders
             var messageProvider = new ImportMessageProvider();
 
             // Call
-            TestDelegate call = () => messageProvider.GetUpdateDataFailedLogMessageText(null);
+            Action call = () => messageProvider.GetUpdateDataFailedLogMessageText(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

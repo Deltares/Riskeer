@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test.Converters
         public void Convert_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanSlipPlaneConstraintsConverter.Convert(null);
+            Action call = () => UpliftVanSlipPlaneConstraintsConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

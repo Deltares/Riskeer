@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.Create;
@@ -39,7 +40,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 ((IEnumerable<HydraulicBoundaryLocationCalculation>) null).Create(new PersistenceRegistry());
 
             // Assert
@@ -55,7 +56,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            TestDelegate call = () => calculations.Create(null);
+            Action call = () => calculations.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

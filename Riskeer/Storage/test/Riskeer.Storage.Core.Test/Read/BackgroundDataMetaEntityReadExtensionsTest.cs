@@ -34,7 +34,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((BackgroundDataMetaEntity) null).Read();
+            Action test = () => ((BackgroundDataMetaEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

@@ -330,7 +330,7 @@ namespace Core.Gui.Test.Forms.PropertyView
             var propertyResolver = Substitute.For<IPropertyResolver>();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
             {
                 using (var control = new PropertyGridView(propertyResolver))
                 {

@@ -43,7 +43,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var writer = new ReferenceLineWriter();
 
             // Call
-            TestDelegate call = () => writer.WriteReferenceLine(null, "anId", filePath);
+            Action call = () => writer.WriteReferenceLine(null, "anId", filePath);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -66,7 +66,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var writer = new ReferenceLineWriter();
 
             // Call
-            TestDelegate call = () => writer.WriteReferenceLine(referenceLine, null, filePath);
+            Action call = () => writer.WriteReferenceLine(referenceLine, null, filePath);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -92,7 +92,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var writer = new ReferenceLineWriter();
 
             // Call
-            TestDelegate call = () => writer.WriteReferenceLine(referenceLine, id, filePath);
+            Action call = () => writer.WriteReferenceLine(referenceLine, id, filePath);
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -112,7 +112,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var writer = new ReferenceLineWriter();
 
             // Call
-            TestDelegate call = () => writer.WriteReferenceLine(referenceLine, "anId", null);
+            Action call = () => writer.WriteReferenceLine(referenceLine, "anId", null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

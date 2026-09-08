@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
@@ -153,7 +154,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 var richTextBoxControl = (RichTextBoxControl) new ControlTester("richTextBoxControl").TheObject;
 
                 // Call
-                TestDelegate test = () => richTextBoxControl.Rtf = validRtfString;
+                Action test = () => richTextBoxControl.Rtf = validRtfString;
 
                 // Assert
                 Assert.DoesNotThrow(test);

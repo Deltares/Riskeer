@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -90,7 +91,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             Assert.IsNotNull(entity);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(location.CoastalAreaId, entity.CoastalAreaId);
-            Assert.AreEqual(location.Offset, entity.Offset, location.Offset.GetAccuracy());
+            NullableDoubleAssert.AreEqual(location.Offset, entity.Offset, location.Offset.GetAccuracy());
             Assert.AreEqual(order, entity.Order);
         }
 

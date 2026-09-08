@@ -56,7 +56,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_NameInvalid_ThrowArgumentException(string invalidName)
         {
             // Call
-            TestDelegate call = () => new SimpleImageBasedMapData(invalidName);
+            Action call = () => new SimpleImageBasedMapData(invalidName);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -94,7 +94,7 @@ namespace Core.Components.Gis.Test.Data
             var mapData = new SimpleImageBasedMapData("A");
 
             // Call
-            TestDelegate call = () => mapData.Transparency = (RoundedDouble) invalidTransparency;
+            Action call = () => mapData.Transparency = (RoundedDouble) invalidTransparency;
 
             // Assert
             const string message = "De transparantie moet in het bereik [0,00, 1,00] liggen.";

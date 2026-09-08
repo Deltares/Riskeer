@@ -28,6 +28,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;

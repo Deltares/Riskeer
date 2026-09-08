@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_CalculatableObjectNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SimpleCalculatableRow(null);
+            Action test = () => new SimpleCalculatableRow(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

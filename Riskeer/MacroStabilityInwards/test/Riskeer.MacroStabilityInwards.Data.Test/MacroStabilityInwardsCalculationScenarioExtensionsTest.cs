@@ -75,7 +75,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            TestDelegate call = () => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
+            Action call = () => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
 
             // Assert
             Assert.Throws<InvalidOperationException>(call);
@@ -110,7 +110,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(referenceLine.Points);
 
             // Call
-            TestDelegate call = () => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
+            Action call = () => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

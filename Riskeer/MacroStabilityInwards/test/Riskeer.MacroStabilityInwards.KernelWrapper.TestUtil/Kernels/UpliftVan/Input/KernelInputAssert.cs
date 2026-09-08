@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {

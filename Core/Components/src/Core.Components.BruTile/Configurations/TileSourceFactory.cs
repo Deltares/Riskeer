@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
+using System.Net.Http;
 using BruTile;
 using BruTile.Predefined;
 using BruTile.Wmts;
@@ -38,6 +38,7 @@ namespace Core.Components.BruTile.Configurations
     /// </summary>
     public class TileSourceFactory : ITileSourceFactory
     {
+        private static readonly HttpClient httpClient = new HttpClient();
         private static ITileSourceFactory instance;
 
         /// <summary>
@@ -53,8 +54,6 @@ namespace Core.Components.BruTile.Configurations
                 if (instance == null)
                 {
                     instance = new TileSourceFactory();
-
-                    AddSupportForAllSecurityProtocols();
                 }
 
                 return instance;
@@ -78,7 +77,8 @@ namespace Core.Components.BruTile.Configurations
 
         public ITileSource GetKnownTileSource(KnownTileSource knownTileSource)
         {
-            return KnownTileSources.Create(knownTileSource, userAgent: "Riskeer");
+            return KnownTileSources.Create(knownTileSource,
+                                           configureHttpRequestMessage: ConfigureHttpRequestMessage);
         }
 
         /// <summary>
@@ -92,13 +92,11 @@ namespace Core.Components.BruTile.Configurations
         {
             try
             {
-                WebRequest req = WebRequest.Create(capabilitiesUrl);
-                using (WebResponse resp = req.GetResponse())
+                using (Stream s = httpClient.GetStreamAsync(capabilitiesUrl).GetAwaiter().GetResult())
                 {
-                    using (Stream s = resp.GetResponseStream())
-                    {
-                        return WmtsParser.Parse(s);
-                    }
+                    return WmtsCapabilitiesParser.Parse(s,
+                                                        BoundingBoxAxisOrderInterpretation.CRS,
+                                                        ConfigureHttpRequestMessage);
                 }
             }
             catch (Exception e)
@@ -109,10 +107,9 @@ namespace Core.Components.BruTile.Configurations
             }
         }
 
-        private static void AddSupportForAllSecurityProtocols()
+        private static void ConfigureHttpRequestMessage(HttpRequestMessage message)
         {
-            ServicePointManager.SecurityProtocol |=
-                SecurityProtocolType.Tls12;
+            message.Headers.UserAgent.ParseAdd("Riskeer");
         }
     }
 }

@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             var imageBasedMapData = new TestImageBasedMapData("someMapData", true);
 
             // Call
-            TestDelegate test = () => new BackgroundMapDataSelectionDialog(null, imageBasedMapData);
+            Action test = () => new BackgroundMapDataSelectionDialog(null, imageBasedMapData);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -378,7 +378,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             }))
             {
                 // Call
-                TestDelegate call = () =>
+                Action call = () =>
                 {
                     using (var dialogParent = new Form())
                     using (var dialog = new BackgroundMapDataSelectionDialog(dialogParent, null))

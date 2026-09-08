@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
@@ -45,7 +46,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
 
             // Call
-            TestDelegate test = () => stochasticSoilModel.Create(null, 0);
+            Action test = () => stochasticSoilModel.Create(null, 0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -59,7 +60,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsStochasticSoilModel) null).Create(registry, 0);
+            Action test = () => ((MacroStabilityInwardsStochasticSoilModel) null).Create(registry, 0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;

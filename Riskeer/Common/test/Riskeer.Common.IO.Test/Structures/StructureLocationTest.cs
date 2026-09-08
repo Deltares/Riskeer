@@ -37,7 +37,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_IdNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new StructureLocation(null, name, point);
+            Action call = () => new StructureLocation(null, name, point);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -48,7 +48,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new StructureLocation(id, null, point);
+            Action call = () => new StructureLocation(id, null, point);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -59,7 +59,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_PointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new StructureLocation(id, name, null);
+            Action call = () => new StructureLocation(id, name, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

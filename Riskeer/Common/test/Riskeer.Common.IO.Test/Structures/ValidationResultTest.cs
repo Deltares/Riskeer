@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Structures;
 
 namespace Riskeer.Common.IO.Test.Structures
@@ -34,7 +35,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_ErrorMessagesNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new ValidationResult(null);
+            Action call = () => new ValidationResult(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -52,7 +53,7 @@ namespace Riskeer.Common.IO.Test.Structures
             errorMessages.Add(errormessage);
 
             // Call
-            TestDelegate call = () => new ValidationResult(errorMessages);
+            Action call = () => new ValidationResult(errorMessages);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Invalid error message string.");

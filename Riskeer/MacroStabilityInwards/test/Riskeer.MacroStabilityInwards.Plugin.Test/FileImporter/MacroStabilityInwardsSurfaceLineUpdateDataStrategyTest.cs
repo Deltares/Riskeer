@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.UpdateDataStrategies;
 using Riskeer.Common.IO.SurfaceLines;
@@ -46,7 +47,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(null);
+            Action call = () => new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -71,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(null,
+            Action test = () => strategy.UpdateSurfaceLinesWithImportedData(null,
                                                                                   string.Empty);
 
             // Assert
@@ -86,7 +87,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+            Action test = () => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                   null);
 
             // Assert
@@ -157,7 +158,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
+            Action call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
                                                                                   sourceFilePath);
 
             // Assert
@@ -200,7 +201,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
+            Action call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
                                                                                   sourceFilePath);
 
             // Assert

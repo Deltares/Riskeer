@@ -33,6 +33,7 @@ using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.DotSpatial.Test.Layer
 {
@@ -43,7 +44,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Constructor_WithoutMapPolygonData_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapPolygonDataLayer(null);
+            Action test = () => new MapPolygonDataLayer(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

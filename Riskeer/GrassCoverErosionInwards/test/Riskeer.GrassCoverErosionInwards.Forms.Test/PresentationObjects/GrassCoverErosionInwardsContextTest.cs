@@ -59,7 +59,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var observableObject = new ObservableObject();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, null, assessmentSection);
+            Action call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -74,7 +74,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, failureMechanism, null);
+            Action call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

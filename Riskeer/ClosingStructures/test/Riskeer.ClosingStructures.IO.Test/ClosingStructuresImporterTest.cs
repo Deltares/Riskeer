@@ -53,7 +53,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
-            TestDelegate test = () => new ClosingStructuresImporter(
+            Action test = () => new ClosingStructuresImporter(
                 new StructureCollection<ClosingStructure>(),
                 new ReferenceLine(),
                 string.Empty,

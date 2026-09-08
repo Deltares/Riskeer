@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Constructor_PropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInput(null);
+            Action test = () => new MacroStabilityInwardsInput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -207,7 +207,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                                                                                       string expectedMessage)
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInput(properties);
+            Action test = () => new MacroStabilityInwardsInput(properties);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
@@ -378,7 +378,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             });
 
             // Call
-            TestDelegate test = () => inputParameters.TangentLineZTop = (RoundedDouble) zTop;
+            Action test = () => inputParameters.TangentLineZTop = (RoundedDouble) zTop;
 
             // Assert
             const string expectedMessage = "Tangentlijn Z-boven moet groter zijn dan of gelijk zijn aan tangentlijn Z-onder, of NaN.";
@@ -396,7 +396,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             });
 
             // Call
-            TestDelegate test = () => inputParameters.TangentLineZBottom = (RoundedDouble) zBottom;
+            Action test = () => inputParameters.TangentLineZBottom = (RoundedDouble) zBottom;
 
             // Assert
             const string expectedMessage = "Tangentlijn Z-onder moet kleiner zijn dan of gelijk zijn aan tangentlijn Z-boven, of NaN.";
@@ -412,7 +412,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var inputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            TestDelegate call = () => inputParameters.TangentLineNumber = tangentLineNumber;
+            Action call = () => inputParameters.TangentLineNumber = tangentLineNumber;
 
             // Assert
             const string message = "De waarde voor het aantal raaklijnen moet in het bereik [1, 50] liggen.";

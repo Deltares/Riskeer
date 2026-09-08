@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Service.TestUtil;
 
 namespace Riskeer.Common.Plugin.TestUtil

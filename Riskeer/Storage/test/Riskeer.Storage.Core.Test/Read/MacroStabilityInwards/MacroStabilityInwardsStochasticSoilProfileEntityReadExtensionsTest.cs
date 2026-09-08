@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             var entity = new MacroStabilityInwardsStochasticSoilProfileEntity();
 
             // Call
-            TestDelegate test = () => entity.Read(null);
+            Action test = () => entity.Read(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsStochasticSoilProfileEntity) null).Read(collector);
+            Action test = () => ((MacroStabilityInwardsStochasticSoilProfileEntity) null).Read(collector);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

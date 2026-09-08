@@ -73,7 +73,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             var generalInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
 
             // Call
-            TestDelegate test = () => generalInput.C = (RoundedDouble) newValue;
+            Action test = () => generalInput.C = (RoundedDouble) newValue;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(

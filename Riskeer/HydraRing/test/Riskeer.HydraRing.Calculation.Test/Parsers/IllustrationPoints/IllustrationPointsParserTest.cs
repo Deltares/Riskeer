@@ -26,6 +26,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.Parsers;
@@ -56,7 +57,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             var parser = new IllustrationPointsParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(null, 0);
+            Action test = () => parser.Parse(null, 0);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -70,7 +71,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             var parser = new IllustrationPointsParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -86,7 +87,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             var parser = new IllustrationPointsParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -102,7 +103,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             var parser = new IllustrationPointsParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -121,7 +122,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             var parser = new IllustrationPointsParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -136,7 +137,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             var parser = new IllustrationPointsParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -151,7 +152,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             var parser = new IllustrationPointsParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
@@ -172,7 +173,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             var parser = new IllustrationPointsParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(path, 1);
+            Action test = () => parser.Parse(path, 1);
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);

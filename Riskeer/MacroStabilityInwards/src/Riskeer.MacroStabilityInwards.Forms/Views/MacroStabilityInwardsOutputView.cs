@@ -110,11 +110,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            calculationObserver.Dispose();
-            inputObserver.Dispose();
-
             if (disposing)
             {
+                calculationObserver?.Dispose();
+                inputObserver?.Dispose();
+
                 components?.Dispose();
             }
 

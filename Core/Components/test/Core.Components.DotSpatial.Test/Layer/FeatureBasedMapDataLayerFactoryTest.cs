@@ -67,7 +67,7 @@ namespace Core.Components.DotSpatial.Test.Layer
             var testData = new TestFeatureBasedMapData("test data");
 
             // Call
-            TestDelegate test = () => FeatureBasedMapDataLayerFactory.Create(testData);
+            Action test = () => FeatureBasedMapDataLayerFactory.Create(testData);
 
             // Assert
             Assert.Throws<NotSupportedException>(test);

@@ -40,7 +40,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             IDistribution distribution = null;
 
             // Call
-            TestDelegate test = () => distribution.ToStochastConfiguration();
+            Action test = () => distribution.ToStochastConfiguration();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -74,7 +74,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             IDistribution distribution = null;
 
             // Call
-            TestDelegate test = () => distribution.ToStochastConfigurationWithMean();
+            Action test = () => distribution.ToStochastConfigurationWithMean();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -106,7 +106,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             IDistribution distribution = null;
 
             // Call
-            TestDelegate test = () => distribution.ToStochastConfigurationWithStandardDeviation();
+            Action test = () => distribution.ToStochastConfigurationWithStandardDeviation();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -138,7 +138,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             IVariationCoefficientDistribution distribution = null;
 
             // Call
-            TestDelegate test = () => distribution.ToStochastConfiguration();
+            Action test = () => distribution.ToStochastConfiguration();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -172,7 +172,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             IVariationCoefficientDistribution distribution = null;
 
             // Call
-            TestDelegate test = () => distribution.ToStochastConfigurationWithMean();
+            Action test = () => distribution.ToStochastConfigurationWithMean();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -204,7 +204,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             IVariationCoefficientDistribution distribution = null;
 
             // Call
-            TestDelegate test = () => distribution.ToStochastConfigurationWithVariationCoefficient();
+            Action test = () => distribution.ToStochastConfigurationWithVariationCoefficient();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -238,7 +238,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const double mean = 1.1;
 
             // Call
-            TestDelegate call = () => distribution.TrySetMean(mean, "A", "B");
+            Action call = () => distribution.TrySetMean(mean, "A", "B");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -307,7 +307,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const double mean = 1.1;
 
             // Call
-            TestDelegate call = () => distribution.TrySetStandardDeviation(mean, "A", "B");
+            Action call = () => distribution.TrySetStandardDeviation(mean, "A", "B");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -377,7 +377,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const double standardDeviation = 2.2;
 
             // Call
-            TestDelegate call = () => distribution.TrySetDistributionProperties(mean, standardDeviation, "A", "B");
+            Action call = () => distribution.TrySetDistributionProperties(mean, standardDeviation, "A", "B");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -470,7 +470,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const double mean = 1.1;
 
             // Call
-            TestDelegate call = () => distribution.TrySetMean(mean, "A", "B");
+            Action call = () => distribution.TrySetMean(mean, "A", "B");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -539,7 +539,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const double mean = 1.1;
 
             // Call
-            TestDelegate call = () => distribution.TrySetVariationCoefficient(mean, "A", "B");
+            Action call = () => distribution.TrySetVariationCoefficient(mean, "A", "B");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -609,7 +609,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const double variationCoefficient = 2.2;
 
             // Call
-            TestDelegate call = () => distribution.TrySetDistributionProperties(mean, variationCoefficient, "A", "B");
+            Action call = () => distribution.TrySetDistributionProperties(mean, variationCoefficient, "A", "B");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

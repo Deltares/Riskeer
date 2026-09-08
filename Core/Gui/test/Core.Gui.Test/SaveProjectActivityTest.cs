@@ -27,6 +27,7 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test
 {
@@ -65,7 +66,7 @@ namespace Core.Gui.Test
             var projectOwner = Substitute.For<IProjectOwner>();
 
             // Call
-            TestDelegate call = () => new SaveProjectActivity(project, null, true, storeProject, projectOwner);
+            Action call = () => new SaveProjectActivity(project, null, true, storeProject, projectOwner);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -80,7 +81,7 @@ namespace Core.Gui.Test
             var projectOwner = Substitute.For<IProjectOwner>();
 
             // Call
-            TestDelegate call = () => new SaveProjectActivity(null, "", true, storeProject, projectOwner);
+            Action call = () => new SaveProjectActivity(null, "", true, storeProject, projectOwner);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -95,7 +96,7 @@ namespace Core.Gui.Test
             var projectOwner = Substitute.For<IProjectOwner>();
 
             // Call
-            TestDelegate call = () => new SaveProjectActivity(project, "", true, null, projectOwner);
+            Action call = () => new SaveProjectActivity(project, "", true, null, projectOwner);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -110,7 +111,7 @@ namespace Core.Gui.Test
             var storeProject = Substitute.For<IStoreProject>();
 
             // Call
-            TestDelegate call = () => new SaveProjectActivity(project, "", true, storeProject, null);
+            Action call = () => new SaveProjectActivity(project, "", true, storeProject, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

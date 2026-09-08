@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Piping.Primitives;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
@@ -40,7 +41,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var entity = new PipingSoilProfileEntity();
 
             // Call
-            TestDelegate test = () => entity.Read(null);
+            Action test = () => entity.Read(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -54,7 +55,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((PipingSoilProfileEntity) null).Read(collector);
+            Action test = () => ((PipingSoilProfileEntity) null).Read(collector);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

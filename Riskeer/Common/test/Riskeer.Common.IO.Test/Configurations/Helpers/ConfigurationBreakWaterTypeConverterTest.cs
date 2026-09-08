@@ -108,7 +108,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const ConfigurationBreakWaterType invalidValue = (ConfigurationBreakWaterType) 99999999;
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
+            Action call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationBreakWaterType)}'.";
@@ -124,7 +124,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(random.NextEnumValue<ConfigurationBreakWaterType>(), typeof(object));
+            Action call = () => converter.ConvertTo(random.NextEnumValue<ConfigurationBreakWaterType>(), typeof(object));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -210,7 +210,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom("A");
+            Action call = () => converter.ConvertFrom("A");
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -241,7 +241,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom((BreakWaterType) invalidValue);
+            Action call = () => converter.ConvertFrom((BreakWaterType) invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(BreakWaterType)}'.";

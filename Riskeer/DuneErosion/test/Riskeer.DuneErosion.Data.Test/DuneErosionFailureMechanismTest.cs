@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.DuneErosion.Data.TestUtil;
 

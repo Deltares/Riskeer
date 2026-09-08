@@ -37,7 +37,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void LayerProperties_ReaderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new LayerProperties(null, "");
+            Action test = () => new LayerProperties(null, "");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,7 +50,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             var reader = Substitute.For<IRowBasedDatabaseReader>();
             // Call
-            TestDelegate test = () => new LayerProperties(reader, null);
+            Action test = () => new LayerProperties(reader, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -228,7 +228,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                   .Returns("");
             reader.Path.Returns(path);
             // Call
-            TestDelegate test = () => new LayerProperties(reader, profileName);
+            Action test = () => new LayerProperties(reader, profileName);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{path}' (ondergrondschematisatie '{profileName}'): " +

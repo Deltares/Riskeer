@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void CreateHydraulicBoundaryLocationCalculationsObserver_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(null, () => {});
+            Action call = () => ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(null, () => {});
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             // Setup
             var calculations = Substitute.For<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>();
             // Call
-            TestDelegate call = () => ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(calculations, null);
+            Action call = () => ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(calculations, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

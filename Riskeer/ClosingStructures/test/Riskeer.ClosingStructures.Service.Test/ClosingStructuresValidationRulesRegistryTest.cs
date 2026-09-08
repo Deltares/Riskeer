@@ -50,7 +50,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             var registry = new ClosingStructuresValidationRulesRegistry();
 
             // Call
-            TestDelegate test = () => registry.GetValidationRules(null);
+            Action test = () => registry.GetValidationRules(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -64,7 +64,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             var registry = new ClosingStructuresValidationRulesRegistry();
 
             // Call
-            TestDelegate test = () => registry.GetValidationRules(new ClosingStructuresInput
+            Action test = () => registry.GetValidationRules(new ClosingStructuresInput
             {
                 InflowModelType = (ClosingStructureInflowModelType) 99
             });

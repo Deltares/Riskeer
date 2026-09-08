@@ -64,7 +64,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             var referencePoint = new Point2D(2.2, 3.3);
 
             // Call
-            TestDelegate call = () => new ProfileLocation(null, "aNAME", 1.1, referencePoint);
+            Action call = () => new ProfileLocation(null, "aNAME", 1.1, referencePoint);
 
             // Assert
             const string expectedMessage = "De locatie parameter 'ID' heeft geen waarde.";
@@ -76,7 +76,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void Constructor_InitializedWithNullPoint_ThrowArgumentException()
         {
             // Call
-            TestDelegate call = () => new ProfileLocation("anID", "aNAME", 1.1, null);
+            Action call = () => new ProfileLocation("anID", "aNAME", 1.1, null);
 
             // Assert
             const string expectedMessage = "De locatie heeft geen coördinaten.";
@@ -95,7 +95,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             var referencePoint = new Point2D(2.2, 3.3);
 
             // Call
-            TestDelegate call = () => new ProfileLocation(id, "aNAME", 1.1, referencePoint);
+            Action call = () => new ProfileLocation(id, "aNAME", 1.1, referencePoint);
 
             // Assert
             const string expectedMessage = "De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.";
@@ -113,7 +113,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             var referencePoint = new Point2D(2.2, 3.3);
 
             // Call
-            TestDelegate call = () => new ProfileLocation("anID", "aNAME", x0, referencePoint);
+            Action call = () => new ProfileLocation("anID", "aNAME", x0, referencePoint);
 
             // Assert
             const string expectedMessage = "De locatie parameter 'X0' bevat een ongeldig getal.";

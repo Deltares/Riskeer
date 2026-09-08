@@ -127,7 +127,7 @@ namespace Core.Components.Gis.Test.Data.Removable
             var testData = new TestFeatureBasedMapData("test");
 
             // Call
-            TestDelegate test = () => RemovableMapDataConverter.FromFeatureBasedMapData(testData);
+            Action test = () => RemovableMapDataConverter.FromFeatureBasedMapData(testData);
 
             // Assert
             var exception = Assert.Throws<NotSupportedException>(test);
@@ -138,7 +138,7 @@ namespace Core.Components.Gis.Test.Data.Removable
         public void FromFeatureBasedMapData_WithoutData_ThrowsNotSupportedException()
         {
             // Call
-            TestDelegate test = () => RemovableMapDataConverter.FromFeatureBasedMapData(null);
+            Action test = () => RemovableMapDataConverter.FromFeatureBasedMapData(null);
 
             // Assert
             Assert.Throws<NotSupportedException>(test);

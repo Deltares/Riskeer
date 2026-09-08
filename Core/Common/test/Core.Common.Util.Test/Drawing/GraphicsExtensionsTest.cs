@@ -36,7 +36,7 @@ namespace Core.Common.Util.Test.Drawing
         public void DrawImageTransparent_GraphicsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GraphicsExtensions.DrawImageTransparent(null, Resources.Black2x2, 1, 1, 0.4f);
+            Action call = () => GraphicsExtensions.DrawImageTransparent(null, Resources.Black2x2, 1, 1, 0.4f);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -53,7 +53,7 @@ namespace Core.Common.Util.Test.Drawing
             using (Bitmap target = Resources.Black2x2.Clone(rect2By2, imageFormat))
             {
                 // Call
-                TestDelegate call = () => Graphics.FromImage(target).DrawImageTransparent(null, 0, 0, 0.4f);
+                Action call = () => Graphics.FromImage(target).DrawImageTransparent(null, 0, 0, 0.4f);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

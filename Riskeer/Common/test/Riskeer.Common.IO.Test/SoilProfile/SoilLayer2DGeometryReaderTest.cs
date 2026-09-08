@@ -28,6 +28,7 @@ using System.Xml.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
 
@@ -43,7 +44,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read((byte[]) null);
+            Action test = () => reader.Read((byte[]) null);
 
             // Assert
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "De geometrie is leeg.");
@@ -57,7 +58,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read((XDocument) null);
+            Action test = () => reader.Read((XDocument) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -72,7 +73,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
+            Action test = () => reader.Read(xmlDoc);
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
@@ -87,7 +88,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
+            Action test = () => reader.Read(xmlDoc);
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
@@ -102,7 +103,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
+            Action test = () => reader.Read(xmlDoc);
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
@@ -153,7 +154,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
+            Action test = () => reader.Read(xmlDoc);
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
@@ -171,7 +172,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
+            Action test = () => reader.Read(xmlDoc);
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
@@ -192,7 +193,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
+            Action test = () => reader.Read(xmlDoc);
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
@@ -211,7 +212,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
+            Action test = () => reader.Read(xmlDoc);
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
@@ -232,7 +233,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
+            Action test = () => reader.Read(xmlDoc);
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
@@ -475,7 +476,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read(bytes);
+            Action test = () => reader.Read(bytes);
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);
@@ -513,7 +514,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
-            TestDelegate test = () => reader.Read(bytes);
+            Action test = () => reader.Read(bytes);
 
             // Assert
             var exception = Assert.Throws<SoilLayerConversionException>(test);

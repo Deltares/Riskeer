@@ -29,6 +29,7 @@ using Migration.Scripts.Data.Exceptions;
 using Migration.Scripts.Data.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Migration.Core.Storage.Test
 {
@@ -39,7 +40,7 @@ namespace Migration.Core.Storage.Test
         public void Constructor_ComparerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimpleVersionedFileMigrator(null);
+            Action call = () => new SimpleVersionedFileMigrator(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -98,7 +99,7 @@ namespace Migration.Core.Storage.Test
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
-            TestDelegate call = () => migrator.NeedsMigrate(null, "");
+            Action call = () => migrator.NeedsMigrate(null, "");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -114,7 +115,7 @@ namespace Migration.Core.Storage.Test
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
-            TestDelegate call = () => migrator.NeedsMigrate(versionedFile, null);
+            Action call = () => migrator.NeedsMigrate(versionedFile, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -163,7 +164,7 @@ namespace Migration.Core.Storage.Test
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
-            TestDelegate call = () => migrator.Migrate(null, toVersion, toLocation);
+            Action call = () => migrator.Migrate(null, toVersion, toLocation);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -182,7 +183,7 @@ namespace Migration.Core.Storage.Test
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
-            TestDelegate call = () => migrator.Migrate(versionedFile, null, toLocation);
+            Action call = () => migrator.Migrate(versionedFile, null, toLocation);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -201,7 +202,7 @@ namespace Migration.Core.Storage.Test
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
-            TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, null);
+            Action call = () => migrator.Migrate(versionedFile, toVersion, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -222,7 +223,7 @@ namespace Migration.Core.Storage.Test
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
-            TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
+            Action call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
 
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
@@ -247,7 +248,7 @@ namespace Migration.Core.Storage.Test
             var migrator = new SimpleVersionedFileMigrator(comparer);
 
             // Call
-            TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
+            Action call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
 
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
@@ -284,7 +285,7 @@ namespace Migration.Core.Storage.Test
             };
 
             // Call
-            TestDelegate call = () => migrator.Migrate(versionedFile, incorrectVersion, toLocation);
+            Action call = () => migrator.Migrate(versionedFile, incorrectVersion, toLocation);
 
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
@@ -401,7 +402,7 @@ namespace Migration.Core.Storage.Test
                 };
 
                 // Call
-                TestDelegate call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
+                Action call = () => migrator.Migrate(versionedFile, toVersion, toLocation);
 
                 // Assert
                 var exception = Assert.Throws<CriticalMigrationException>(call);

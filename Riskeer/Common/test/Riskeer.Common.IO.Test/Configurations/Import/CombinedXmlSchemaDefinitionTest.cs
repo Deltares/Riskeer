@@ -48,7 +48,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Constructor_EmptyMainSchemaDefinition_ThrowArgumentException(string emptyMainSchemaDefinition)
         {
             // Call
-            TestDelegate call = () => new CombinedXmlSchemaDefinition(emptyMainSchemaDefinition, new Dictionary<string, string>
+            Action call = () => new CombinedXmlSchemaDefinition(emptyMainSchemaDefinition, new Dictionary<string, string>
             {
                 {
                     "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
@@ -67,7 +67,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Constructor_NestedSchemaDefinitionsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, null);
+            Action call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -81,7 +81,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Constructor_EmptyNestedSchemaDefinition_ThrowArgumentException(string emptyNestedSchemaDefinition)
         {
             // Call
-            TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
+            Action call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
             {
                 {
                     "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
@@ -114,7 +114,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string xsdPath = Path.Combine(testDirectoryPath, invalidMainSchemaDefinition);
 
             // Call
-            TestDelegate call = () => new CombinedXmlSchemaDefinition(File.ReadAllText(xsdPath), new Dictionary<string, string>
+            Action call = () => new CombinedXmlSchemaDefinition(File.ReadAllText(xsdPath), new Dictionary<string, string>
             {
                 {
                     "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
@@ -145,7 +145,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string xsdPath = Path.Combine(testDirectoryPath, invalidNestedSchemaDefinition);
 
             // Call
-            TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
+            Action call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
             {
                 {
                     "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
@@ -165,7 +165,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Constructor_NestedSchemaDefinitionUnused_ThrowArgumentException()
         {
             // Call
-            TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
+            Action call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
             {
                 {
                     "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
@@ -187,7 +187,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Constructor_ValidSchemaDefinition_DoesNotThrowException()
         {
             // Call
-            TestDelegate call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
+            Action call = () => new CombinedXmlSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>
             {
                 {
                     "NestedSchemaDefinition1.xsd", validNestedSchemaDefinition1
@@ -219,7 +219,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             });
 
             // Call
-            TestDelegate call = () => combinedXmlSchemaDefinition.Validate(validXmlDocument);
+            Action call = () => combinedXmlSchemaDefinition.Validate(validXmlDocument);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -243,7 +243,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             });
 
             // Call
-            TestDelegate call = () => combinedXmlSchemaDefinition.Validate(invalidXmlDocument);
+            Action call = () => combinedXmlSchemaDefinition.Validate(invalidXmlDocument);
 
             // Assert
             Assert.Throws<XmlSchemaValidationException>(call);

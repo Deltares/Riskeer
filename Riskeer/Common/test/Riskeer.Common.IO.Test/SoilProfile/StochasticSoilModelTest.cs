@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
 
@@ -37,7 +38,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var failureMechanismType = new Random(145).NextEnumValue<FailureMechanismType>();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModel(null, failureMechanismType);
+            Action test = () => new StochasticSoilModel(null, failureMechanismType);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -45,7 +46,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((WaveImpactAsphaltCoverWaveConditionsCalculationEntity) null).Read(new ReadConversionCollector());
+            Action call = () => ((WaveImpactAsphaltCoverWaveConditionsCalculationEntity) null).Read(new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,7 +60,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            Action call = () => entity.Read(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

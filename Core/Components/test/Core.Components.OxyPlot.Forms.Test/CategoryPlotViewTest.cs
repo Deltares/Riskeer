@@ -23,9 +23,12 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 using OxyPlot.Axes;
+using OxyPlot.Legends;
 using OxyPlot.WindowsForms;
+using Core.Components.OxyPlot.DataSeries.Stack;
 
 namespace Core.Components.OxyPlot.Forms.Test
 {
@@ -51,6 +54,8 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.AreEqual(2, axes.Count);
 
             Axis categoryAxis = axes.First(ax => ax.GetType() == typeof(CategoryAxis));
+            Assert.AreEqual(AxisPosition.Bottom, categoryAxis.Position);
+            Assert.AreEqual(StackChartAxisKeys.CategoryAxisKey, categoryAxis.Key);
             Assert.AreEqual(1, categoryAxis.MinorStep);
             Assert.AreEqual(90, categoryAxis.Angle);
 
@@ -59,15 +64,19 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.IsFalse(categoryAxis.IsZoomEnabled);
 
             Axis linearAxis = axes.First(ax => ax.GetType() == typeof(LinearAxis));
+            Assert.AreEqual(AxisPosition.Left, linearAxis.Position);
+            Assert.AreEqual(StackChartAxisKeys.ValueAxisKey, linearAxis.Key);
             Assert.AreEqual(0, linearAxis.MinimumPadding);
             Assert.IsFalse(linearAxis.IsPanEnabled);
             Assert.IsFalse(linearAxis.IsZoomEnabled);
             Assert.IsNull(linearAxis.Title);
 
-            Assert.AreEqual(0, plotModel.LegendBorderThickness);
-            Assert.AreEqual(LegendOrientation.Horizontal, plotModel.LegendOrientation);
-            Assert.AreEqual(LegendPlacement.Outside, plotModel.LegendPlacement);
-            Assert.AreEqual(LegendPosition.TopCenter, plotModel.LegendPosition);
+            Assert.AreEqual(1, plotModel.Legends.Count);
+            LegendBase legend = plotModel.Legends.Single();
+            Assert.AreEqual(0, legend.LegendBorderThickness);
+            Assert.AreEqual(LegendOrientation.Horizontal, legend.LegendOrientation);
+            Assert.AreEqual(LegendPlacement.Outside, legend.LegendPlacement);
+            Assert.AreEqual(LegendPosition.TopCenter, legend.LegendPosition);
         }
 
         [Test]
@@ -133,7 +142,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             var plotView = new CategoryPlotView();
 
             // Call
-            TestDelegate test = () => plotView.AddLabels(null);
+            Action test = () => plotView.AddLabels(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

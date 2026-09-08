@@ -44,7 +44,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => new HydraRingInitializationService(random.NextEnumValue<HydraRingFailureMechanismType>(),
+            Action call = () => new HydraRingInitializationService(random.NextEnumValue<HydraRingFailureMechanismType>(),
                                                                          random.Next(),
                                                                          "D:\\work",
                                                                          null);

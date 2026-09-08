@@ -32,6 +32,7 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.Views.CalculationsState;
@@ -69,7 +70,18 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
         [TearDown]
         public void TearDown()
         {
+            if (testForm == null)
+            {
+                return;
+            }
+
+            if (!testForm.IsDisposed && testForm.IsHandleCreated && testForm.Visible)
+            {
+                testForm.Close();
+            }
+
             testForm.Dispose();
+            testForm = null;
         }
 
         [Test]
@@ -617,6 +629,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
 
             testForm.Controls.Add(view);
             testForm.Show();
+            testForm.CreateControl();
+            view.CreateControl();
+            _ = testForm.Handle;
+            _ = view.Handle;
 
             return view;
         }

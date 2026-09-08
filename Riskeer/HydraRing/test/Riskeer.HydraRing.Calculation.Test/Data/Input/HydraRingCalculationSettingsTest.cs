@@ -33,7 +33,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
         public void Constructor_HlcdFilePathNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraRingCalculationSettings(null, false);
+            Action call = () => new HydraRingCalculationSettings(null, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

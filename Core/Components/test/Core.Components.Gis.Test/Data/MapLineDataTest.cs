@@ -32,6 +32,7 @@ using Core.Components.Gis.Style;
 using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.Test.Data
 {
@@ -77,7 +78,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate test = () => new MapLineData(invalidName);
+            Action test = () => new MapLineData(invalidName);
 
             // Assert
             const string expectedMessage = "A name must be set to the map data.";
@@ -88,7 +89,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_StyleNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapLineData("test data", null);
+            Action test = () => new MapLineData("test data", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -121,7 +122,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_StyleNullAndWithMapTheme_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MapLineData("test data",
+            Action call = () => new MapLineData("test data",
                                                       null,
                                                       new MapTheme<LineCategoryTheme>("attribute", new[]
                                                       {
@@ -197,7 +198,7 @@ namespace Core.Components.Gis.Test.Data
             var data = new MapLineData("test data");
 
             // Call
-            TestDelegate test = () => data.Features = null;
+            Action test = () => data.Features = null;
 
             // Assert
             const string expectedMessage = "The array of features cannot be null or contain null.";
@@ -211,7 +212,7 @@ namespace Core.Components.Gis.Test.Data
             var data = new MapLineData("test data");
 
             // Call
-            TestDelegate test = () => data.Features = new MapFeature[]
+            Action test = () => data.Features = new MapFeature[]
             {
                 null
             };
@@ -245,7 +246,7 @@ namespace Core.Components.Gis.Test.Data
             };
 
             // Call
-            TestDelegate test = () => data.Features = features;
+            Action test = () => data.Features = features;
 
             // Assert
             const string expectedMessage = "MapLineData only accepts MapFeature instances whose MapGeometries contain a single point-collection.";

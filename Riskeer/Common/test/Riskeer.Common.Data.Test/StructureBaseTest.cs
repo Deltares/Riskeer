@@ -40,7 +40,7 @@ namespace Riskeer.Common.Data.Test
         public void Constructor_NameNullOrWhiteSpace_ThrowArgumentException(string name)
         {
             // Call
-            TestDelegate call = () => new TestStructureBase(new StructureBase.ConstructionProperties
+            Action call = () => new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = name,
                 Id = "anId",
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Data.Test
         public void Constructor_IdNullOrWhiteSpace_ThrowArgumentException(string id)
         {
             // Call
-            TestDelegate call = () => new TestStructureBase(new StructureBase.ConstructionProperties
+            Action call = () => new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = "aName",
                 Id = id,
@@ -77,7 +77,7 @@ namespace Riskeer.Common.Data.Test
         public void Constructor_LocationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestStructureBase(new StructureBase.ConstructionProperties
+            Action call = () => new TestStructureBase(new StructureBase.ConstructionProperties
             {
                 Name = "aName",
                 Id = "anId",
@@ -155,7 +155,7 @@ namespace Riskeer.Common.Data.Test
             });
 
             // Call
-            TestDelegate call = () => structure.CopyProperties(null);
+            Action call = () => structure.CopyProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

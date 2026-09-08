@@ -38,7 +38,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var subMechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 new TopLevelSubMechanismIllustrationPoint(null, "closing situation", subMechanismIllustrationPoint);
 
             // Assert
@@ -54,7 +54,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var subMechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 new TopLevelSubMechanismIllustrationPoint(windDirection, null, subMechanismIllustrationPoint);
 
             // Assert
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
 
             // Call
-            TestDelegate call = () =>
+            Action call = () =>
                 new TopLevelSubMechanismIllustrationPoint(windDirection, "closing situation", null);
 
             // Assert

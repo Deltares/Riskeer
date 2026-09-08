@@ -55,7 +55,6 @@ namespace Core.Components.DotSpatial.Forms
         private static readonly Font font = FontHelper.CreateFont(Resources.Symbols, privateFontCollection);
 
         private readonly ILog log = LogManager.GetLogger(typeof(MapControl));
-        private readonly Cursor defaultCursor = Cursors.Default;
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
         private readonly Observer backGroundMapDataObserver;
         private readonly List<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
@@ -149,14 +148,16 @@ namespace Core.Components.DotSpatial.Forms
 
         protected override void Dispose(bool disposing)
         {
-            map.Dispose();
-            mouseCoordinatesMapExtension.Dispose();
-            mapDataCollectionObserver.Dispose();
-            backGroundMapDataObserver.Dispose();
-            backgroundLayerStatus.Dispose();
-
             if (disposing)
             {
+                updateTimer?.Dispose();
+                mapFunctionSelectionZoom?.Dispose();
+                mouseCoordinatesMapExtension?.Dispose();
+                mapDataCollectionObserver?.Dispose();
+                backGroundMapDataObserver?.Dispose();
+                backgroundLayerStatus?.Dispose();
+                map?.Dispose();
+                
                 components?.Dispose();
             }
 
@@ -566,17 +567,17 @@ namespace Core.Components.DotSpatial.Forms
 
         private void MapFunctionActivateFunction(object sender, EventArgs e)
         {
-            map.Cursor = defaultCursor;
+            map.Cursor = Cursors.Default;
         }
 
         private void MapFunctionOnMouseUp(object sender, GeoMouseArgs e)
         {
-            map.Cursor = defaultCursor;
+            map.Cursor = Cursors.Default;
         }
 
         private void MapFunctionPanOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
         {
-            map.Cursor = geoMouseArgs.Button != MouseButtons.Right ? Cursors.Hand : defaultCursor;
+            map.Cursor = geoMouseArgs.Button != MouseButtons.Right ? Cursors.Hand : Cursors.Default;
         }
 
         private void MapFunctionSelectionZoomOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
@@ -589,7 +590,7 @@ namespace Core.Components.DotSpatial.Forms
                 default:
                     map.Cursor = map.IsBusy
                                      ? Cursors.SizeNWSE
-                                     : defaultCursor;
+                                     : Cursors.Default;
                     break;
             }
         }

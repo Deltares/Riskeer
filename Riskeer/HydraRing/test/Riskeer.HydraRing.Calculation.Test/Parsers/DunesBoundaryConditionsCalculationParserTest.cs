@@ -56,7 +56,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             var parser = new DunesBoundaryConditionsCalculationParser();
 
             // Call
-            TestDelegate test = () => parser.Parse(null, 1);
+            Action test = () => parser.Parse(null, 1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

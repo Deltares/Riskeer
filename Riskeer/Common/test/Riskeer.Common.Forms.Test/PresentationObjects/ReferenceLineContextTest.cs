@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ReferenceLineContext(new ReferenceLine(), null);
+            Action call = () => new ReferenceLineContext(new ReferenceLine(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

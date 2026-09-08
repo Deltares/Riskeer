@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_CenterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSlidingCircleResult(null, 0.1, true, 0.2, 0.3, 0.4, 0.5);
+            Action call = () => new UpliftVanSlidingCircleResult(null, 0.1, true, 0.2, 0.3, 0.4, 0.5);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

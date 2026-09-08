@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Components.Gis.IO.Writers;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.IO.Test.Writers
 {
@@ -41,7 +42,7 @@ namespace Core.Components.Gis.IO.Test.Writers
         public void Constructor_NoFilePath_ThrowArgumentException(string filePath)
         {
             // Call
-            TestDelegate call = () => new WmtsConnectionInfoWriter(filePath);
+            Action call = () => new WmtsConnectionInfoWriter(filePath);
 
             // Assert
             const string expectedMessage = "bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -53,7 +54,7 @@ namespace Core.Components.Gis.IO.Test.Writers
         public void Constructor_FilePathIsDirectory_ThrowArgumentException()
         {
             // Call
-            TestDelegate call = () => new WmtsConnectionInfoWriter("c:/");
+            Action call = () => new WmtsConnectionInfoWriter("c:/");
 
             // Assert
             const string expectedMessage = "bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -69,7 +70,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             string filePath = "c:/_.config".Replace('_', invalidPathChars[0]);
 
             // Call
-            TestDelegate call = () => new WmtsConnectionInfoWriter(filePath);
+            Action call = () => new WmtsConnectionInfoWriter(filePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': "
@@ -113,7 +114,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
                 {
                     // Call
-                    TestDelegate call = () => wmtsConfigurationWriter.WriteWmtsConnectionInfo(Enumerable.Empty<WmtsConnectionInfo>());
+                    Action call = () => wmtsConfigurationWriter.WriteWmtsConnectionInfo(Enumerable.Empty<WmtsConnectionInfo>());
 
                     // Assert
                     string message = Assert.Throws<CriticalFileWriteException>(call).Message;
@@ -135,7 +136,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             var wmtsConfigurationWriter = new WmtsConnectionInfoWriter(filePath);
 
             // Call
-            TestDelegate call = () => wmtsConfigurationWriter.WriteWmtsConnectionInfo(null);
+            Action call = () => wmtsConfigurationWriter.WriteWmtsConnectionInfo(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

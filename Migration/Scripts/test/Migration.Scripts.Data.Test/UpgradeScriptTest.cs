@@ -34,7 +34,7 @@ namespace Migration.Scripts.Data.Test
         public void Constructor_InvalidFromVersion_ThrowsArgumentException(string fromVersion)
         {
             // Call
-            TestDelegate call = () => new TestUpgradeScript(fromVersion, "toVersion");
+            Action call = () => new TestUpgradeScript(fromVersion, "toVersion");
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -47,7 +47,7 @@ namespace Migration.Scripts.Data.Test
         public void Constructor_InvalidToVersion_ThrowsArgumentException(string toVersion)
         {
             // Call
-            TestDelegate call = () => new TestUpgradeScript("fromVersion", toVersion);
+            Action call = () => new TestUpgradeScript("fromVersion", toVersion);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -81,7 +81,7 @@ namespace Migration.Scripts.Data.Test
             var upgradeScript = new TestUpgradeScript(fromVersion, toVersion);
 
             // Call
-            TestDelegate call = () => upgradeScript.Upgrade(sourceFilePath, "filePath.ext");
+            Action call = () => upgradeScript.Upgrade(sourceFilePath, "filePath.ext");
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -100,7 +100,7 @@ namespace Migration.Scripts.Data.Test
             var upgradeScript = new TestUpgradeScript(fromVersion, toVersion);
 
             // Call
-            TestDelegate call = () => upgradeScript.Upgrade("filePath.ext", targetFilePath);
+            Action call = () => upgradeScript.Upgrade("filePath.ext", targetFilePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);

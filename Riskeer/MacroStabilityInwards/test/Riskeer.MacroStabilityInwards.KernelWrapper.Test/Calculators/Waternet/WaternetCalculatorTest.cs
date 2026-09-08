@@ -26,6 +26,7 @@ using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;

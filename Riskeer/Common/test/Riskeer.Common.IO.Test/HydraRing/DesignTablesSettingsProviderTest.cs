@@ -46,7 +46,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void Constructor_InvalidPath_ThrowCriticalFileReadException(string databasePath)
         {
             // Call
-            TestDelegate test = () => new DesignTablesSettingsProvider(databasePath);
+            Action test = () => new DesignTablesSettingsProvider(databasePath);
 
             // Assert
             Assert.Throws<CriticalFileReadException>(test);
@@ -70,7 +70,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             using (var designTablesSettingsProvider = new DesignTablesSettingsProvider(completeDatabaseDataPath))
             {
                 // Call
-                TestDelegate test = () => designTablesSettingsProvider.GetDesignTablesSetting(0,
+                Action test = () => designTablesSettingsProvider.GetDesignTablesSetting(0,
                                                                                               (HydraRingFailureMechanismType) 4000);
 
                 // Assert

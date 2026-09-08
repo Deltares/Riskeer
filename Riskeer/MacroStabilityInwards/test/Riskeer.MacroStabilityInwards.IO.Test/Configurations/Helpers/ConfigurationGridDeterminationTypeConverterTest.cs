@@ -102,7 +102,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var converter = new ConfigurationGridDeterminationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, convertToType);
+            Action call = () => converter.ConvertTo(invalidValue, convertToType);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationGridDeterminationType)}'.";
@@ -118,7 +118,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var converter = new ConfigurationGridDeterminationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(random.NextEnumValue<ConfigurationGridDeterminationType>(), typeof(object));
+            Action call = () => converter.ConvertTo(random.NextEnumValue<ConfigurationGridDeterminationType>(), typeof(object));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -180,7 +180,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var converter = new ConfigurationGridDeterminationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+            Action call = () => converter.ConvertFrom(invalidValue);
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -194,7 +194,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var converter = new ConfigurationGridDeterminationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+            Action call = () => converter.ConvertFrom(invalidValue);
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -208,7 +208,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             var converter = new ConfigurationGridDeterminationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+            Action call = () => converter.ConvertFrom(invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(MacroStabilityInwardsGridDeterminationType)}'.";

@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.Data.Test
@@ -40,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(null, grid, Enumerable.Empty<RoundedDouble>());
+            Action call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(null, grid, Enumerable.Empty<RoundedDouble>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(grid, null, Enumerable.Empty<RoundedDouble>());
+            Action call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(grid, null, Enumerable.Empty<RoundedDouble>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsGrid rightGrid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, null);
+            Action call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

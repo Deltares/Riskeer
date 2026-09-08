@@ -31,6 +31,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
@@ -78,7 +79,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
-            TestDelegate call = () => new TestStructuresImporter(null,
+            Action call = () => new TestStructuresImporter(null,
                                                                  testReferenceLine,
                                                                  testFilePath,
                                                                  updateStrategy,
@@ -96,7 +97,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
-            TestDelegate call = () => new TestStructuresImporter(testImportTarget,
+            Action call = () => new TestStructuresImporter(testImportTarget,
                                                                  null,
                                                                  testFilePath,
                                                                  updateStrategy,
@@ -114,7 +115,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
-            TestDelegate call = () => new TestStructuresImporter(testImportTarget,
+            Action call = () => new TestStructuresImporter(testImportTarget,
                                                                  testReferenceLine,
                                                                  null,
                                                                  updateStrategy,
@@ -131,7 +132,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
-            TestDelegate call = () => new TestStructuresImporter(testImportTarget,
+            Action call = () => new TestStructuresImporter(testImportTarget,
                                                                  testReferenceLine,
                                                                  testFilePath,
                                                                  null,
@@ -148,7 +149,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
-            TestDelegate call = () => new TestStructuresImporter(testImportTarget,
+            Action call = () => new TestStructuresImporter(testImportTarget,
                                                                  testReferenceLine,
                                                                  testFilePath,
                                                                  updateStrategy,

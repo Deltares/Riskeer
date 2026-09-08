@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StructureCollectionProperties<StructureBase>(null);
+            Action test = () => new StructureCollectionProperties<StructureBase>(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

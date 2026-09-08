@@ -43,7 +43,7 @@ namespace Riskeer.Common.Service.Test
         public void Constructor_CalculatableNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestCalculatableActivity(null);
+            Action test = () => new TestCalculatableActivity(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

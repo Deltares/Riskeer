@@ -52,7 +52,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestFeatureBasedMapDataProperties(null, Enumerable.Empty<MapDataCollection>());
+            Action call = () => new TestFeatureBasedMapDataProperties(null, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -63,7 +63,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
         public void Constructor_ParentsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestFeatureBasedMapDataProperties(new TestFeatureBasedMapData(), null);
+            Action call = () => new TestFeatureBasedMapDataProperties(new TestFeatureBasedMapData(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

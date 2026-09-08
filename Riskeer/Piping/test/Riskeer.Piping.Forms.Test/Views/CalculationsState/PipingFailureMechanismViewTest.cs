@@ -33,6 +33,7 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -83,7 +84,18 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
         [TearDown]
         public void TearDown()
         {
+            if (testForm == null)
+            {
+                return;
+            }
+
+            if (!testForm.IsDisposed && testForm.IsHandleCreated && testForm.Visible)
+            {
+                testForm.Close();
+            }
+
             testForm.Dispose();
+            testForm = null;
         }
 
         [Test]
@@ -798,6 +810,10 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 
             testForm.Controls.Add(view);
             testForm.Show();
+            testForm.CreateControl();
+            view.CreateControl();
+            _ = testForm.Handle;
+            _ = view.Handle;
 
             return view;
         }

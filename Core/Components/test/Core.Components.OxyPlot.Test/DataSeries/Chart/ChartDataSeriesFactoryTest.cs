@@ -87,7 +87,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
             var testData = new TestChartData("test data");
 
             // Call
-            TestDelegate test = () => ChartDataSeriesFactory.Create(testData);
+            Action test = () => ChartDataSeriesFactory.Create(testData);
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
@@ -97,7 +97,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
         public void Create_NullData_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ChartDataSeriesFactory.Create(null);
+            Action test = () => ChartDataSeriesFactory.Create(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);

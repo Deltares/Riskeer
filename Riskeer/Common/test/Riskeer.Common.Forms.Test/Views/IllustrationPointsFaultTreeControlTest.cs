@@ -25,9 +25,9 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
-using Core.Components.GraphSharp.Data;
-using Core.Components.GraphSharp.Forms;
-using Core.Components.GraphSharp.TestUtil;
+using Core.Components.GraphShape.Data;
+using Core.Components.GraphShape.Forms;
+using Core.Components.GraphShape.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -106,7 +106,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     new IllustrationPointNode(new TestIllustrationPoint()));
 
                 // When
-                TestDelegate test = () => control.Data = notSupported;
+                Action test = () => control.Data = notSupported;
 
                 // Then
                 var exception = Assert.Throws<NotSupportedException>(test);
@@ -134,7 +134,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     rootNode);
 
                 // When
-                TestDelegate test = () => control.Data = topLevelFaultTreeIllustrationPoint;
+                Action test = () => control.Data = topLevelFaultTreeIllustrationPoint;
 
                 // Then
                 var exception = Assert.Throws<NotSupportedException>(test);

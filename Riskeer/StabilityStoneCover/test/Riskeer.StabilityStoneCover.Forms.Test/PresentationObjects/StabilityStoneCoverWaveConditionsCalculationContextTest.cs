@@ -67,7 +67,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationContext(calculation, null, failureMechanism, assessmentSection);
+            Action call = () => new StabilityStoneCoverWaveConditionsCalculationContext(calculation, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

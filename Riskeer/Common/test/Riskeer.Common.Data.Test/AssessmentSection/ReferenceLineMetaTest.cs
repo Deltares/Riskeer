@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Common.Data.Test.AssessmentSection

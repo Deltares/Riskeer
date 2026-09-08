@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan

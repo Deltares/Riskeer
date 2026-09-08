@@ -58,7 +58,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, null);
+            Action test = () => new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -73,7 +73,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, null, assessmentSection);
+            Action call = () => new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

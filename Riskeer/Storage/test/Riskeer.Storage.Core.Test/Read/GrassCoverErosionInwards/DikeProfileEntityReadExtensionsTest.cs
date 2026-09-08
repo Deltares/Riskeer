@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
@@ -46,7 +47,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new DikeProfileEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            Action call = () => entity.Read(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -89,7 +90,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             };
 
             // Call
-            TestDelegate test = () => profile.Read(new ReadConversionCollector());
+            Action test = () => profile.Read(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(test).ParamName;
@@ -109,7 +110,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             };
 
             // Call
-            TestDelegate test = () => profile.Read(new ReadConversionCollector());
+            Action test = () => profile.Read(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(test).ParamName;

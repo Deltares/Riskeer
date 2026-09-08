@@ -34,7 +34,7 @@ namespace Core.Components.Gis.Test.Theme
         public void Constructor_StyleNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), null);
+            Action call = () => new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -33,7 +33,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HydraulicBoundaryLocation(0, null, 0.0, 0.0);
+            Action test = () => new HydraulicBoundaryLocation(0, null, 0.0, 0.0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

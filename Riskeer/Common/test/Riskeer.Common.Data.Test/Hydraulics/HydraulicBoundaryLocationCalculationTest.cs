@@ -37,7 +37,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HydraulicBoundaryLocationCalculation(null);
+            Action test = () => new HydraulicBoundaryLocationCalculation(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -123,7 +123,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            TestDelegate call = () => calculation.ClearIllustrationPoints();
+            Action call = () => calculation.ClearIllustrationPoints();
 
             // Assert
             Assert.DoesNotThrow(call);

@@ -354,6 +354,7 @@ namespace Core.Common.Controls.TreeView
 
             if (disposing)
             {
+                updateTimer.Dispose();
                 components?.Dispose();
             }
 
@@ -847,7 +848,7 @@ namespace Core.Common.Controls.TreeView
         {
             var stream = new MemoryStream();
             image.Save(stream, image.RawFormat);
-            var md5 = new MD5CryptoServiceProvider();
+            var md5 = MD5.Create();
             byte[] hash = md5.ComputeHash(stream.ToArray());
             return Encoding.UTF8.GetString(hash);
         }
@@ -961,7 +962,7 @@ namespace Core.Common.Controls.TreeView
                     // Update the context menu (relevant in case of keyboard navigation in the tree view)
                     UpdateContextMenuStrip(selectedNode, treeNodeInfo, parentTag);
 
-                    if (treeView.ContextMenu != null && selectedNode.ContextMenuStrip != null)
+                    if (treeView.ContextMenuStrip != null && selectedNode.ContextMenuStrip != null)
                     {
                         Point location = selectedNode.Bounds.Location;
                         location.Offset(0, selectedNode.Bounds.Height);

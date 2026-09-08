@@ -44,7 +44,7 @@ namespace Core.Components.BruTile.Test.Configurations
             const int invalidTileSource = 9999;
 
             // Call
-            TestDelegate call = () => WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration((WellKnownTileSource) invalidTileSource);
+            Action call = () => WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration((WellKnownTileSource) invalidTileSource);
 
             // Assert
             string expectedMessage = $"The value of argument 'wellKnownTileSource' ({invalidTileSource}) is invalid for Enum type '{nameof(WellKnownTileSource)}'.";
@@ -111,7 +111,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 configuration.Dispose();
 
                 // Call
-                TestDelegate call = () => configuration.Clone();
+                Action call = () => configuration.Clone();
 
                 // Assert
                 string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
@@ -150,7 +150,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 configuration.Dispose();
 
                 // Call
-                TestDelegate call = () => configuration.Initialize();
+                Action call = () => configuration.Initialize();
 
                 // Assert
                 string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;

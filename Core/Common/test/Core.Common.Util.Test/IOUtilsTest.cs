@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using System.Text;
 using System.Threading;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -38,7 +37,7 @@ namespace Core.Common.Util.Test
         public void GetFullPath_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate call = () => IOUtils.GetFullPath(invalidPath);
+            Action call = () => IOUtils.GetFullPath(invalidPath);
 
             // Assert
             const string message = "Het bestandspad moet opgegeven zijn.";
@@ -49,15 +48,10 @@ namespace Core.Common.Util.Test
         public void GetFullPath_PathTooLong_ThrowsArgumentException()
         {
             // Setup
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(@"C:\");
-            stringBuilder.Append(new string('A', 300));
-
-            stringBuilder.Append(Path.DirectorySeparatorChar);
-            string tooLongFolderPath = stringBuilder.ToString();
+            string tooLongFolderPath = InvalidPathHelper.TooLongFolderPath;
 
             // Call
-            TestDelegate call = () => IOUtils.GetFullPath(tooLongFolderPath);
+            Action call = () => IOUtils.GetFullPath(tooLongFolderPath);
 
             // Assert
             const string message = "Het bestandspad is te lang.";
@@ -73,7 +67,7 @@ namespace Core.Common.Util.Test
             string invalidPath = path.Replace('d', invalidPathChars[0]);
 
             // Call
-            TestDelegate call = () => IOUtils.GetFullPath(invalidPath);
+            Action call = () => IOUtils.GetFullPath(invalidPath);
 
             // Assert
             const string message = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
@@ -87,7 +81,7 @@ namespace Core.Common.Util.Test
             const string folderWithInvalidColonCharacter = @"C:\Left:Right";
 
             // Call
-            TestDelegate call = () => IOUtils.GetFullPath(folderWithInvalidColonCharacter);
+            Action call = () => IOUtils.GetFullPath(folderWithInvalidColonCharacter);
 
             // Assert
             const string message = "Het bestandspad bevat een ':' op een ongeldige plek.";
@@ -139,15 +133,7 @@ namespace Core.Common.Util.Test
         public void IsValidFolderPath_PathTooLong_ReturnFalse()
         {
             // Setup
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(@"C:\");
-            for (var i = 0; i < 300; i++)
-            {
-                stringBuilder.Append("A");
-            }
-
-            stringBuilder.Append(Path.DirectorySeparatorChar);
-            string tooLongFolderPath = stringBuilder.ToString();
+            string tooLongFolderPath = InvalidPathHelper.TooLongFolderPath;
 
             // Call
             bool isFolderPathValid = IOUtils.IsValidFolderPath(tooLongFolderPath);
@@ -189,7 +175,7 @@ namespace Core.Common.Util.Test
         public void ValidateFolderPath_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate call = () => IOUtils.ValidateFolderPath(invalidPath);
+            Action call = () => IOUtils.ValidateFolderPath(invalidPath);
 
             // Assert
             string message = $"Fout bij het schrijven naar bestandsmap '{invalidPath}': het bestandspad moet opgegeven zijn.";
@@ -200,18 +186,10 @@ namespace Core.Common.Util.Test
         public void ValidateFolderPath_PathTooLong_ThrowsArgumentException()
         {
             // Setup
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(@"C:\");
-            for (var i = 0; i < 300; i++)
-            {
-                stringBuilder.Append("A");
-            }
-
-            stringBuilder.Append(Path.DirectorySeparatorChar);
-            string tooLongFolderPath = stringBuilder.ToString();
+            string tooLongFolderPath = InvalidPathHelper.TooLongFolderPath;
 
             // Call
-            TestDelegate call = () => IOUtils.ValidateFolderPath(tooLongFolderPath);
+            Action call = () => IOUtils.ValidateFolderPath(tooLongFolderPath);
 
             // Assert
             string message = $"Fout bij het schrijven naar bestandsmap '{tooLongFolderPath}': het bestandspad is te lang.";
@@ -225,7 +203,7 @@ namespace Core.Common.Util.Test
             const string folderWithInvalidColonCharacter = @"C:\Left:Right";
 
             // Call
-            TestDelegate call = () => IOUtils.ValidateFolderPath(folderWithInvalidColonCharacter);
+            Action call = () => IOUtils.ValidateFolderPath(folderWithInvalidColonCharacter);
 
             // Assert
             string message = $"Fout bij het schrijven naar bestandsmap '{folderWithInvalidColonCharacter}': het bestandspad bevat een ':' op een ongeldige plek.";
@@ -239,7 +217,7 @@ namespace Core.Common.Util.Test
             string path = TestHelper.GetScratchPadPath();
 
             // Call
-            TestDelegate call = () => IOUtils.ValidateFolderPath(path);
+            Action call = () => IOUtils.ValidateFolderPath(path);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -252,7 +230,7 @@ namespace Core.Common.Util.Test
             string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util, "validFile.txt");
 
             // Call
-            TestDelegate call = () => IOUtils.ValidateFilePath(path);
+            Action call = () => IOUtils.ValidateFilePath(path);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -265,7 +243,7 @@ namespace Core.Common.Util.Test
         public void ValidateFilePath_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate call = () => IOUtils.ValidateFilePath(invalidPath);
+            Action call = () => IOUtils.ValidateFilePath(invalidPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -282,7 +260,7 @@ namespace Core.Common.Util.Test
             string invalidPath = path.Replace('d', invalidPathChars[0]);
 
             // Call
-            TestDelegate call = () => IOUtils.ValidateFilePath(invalidPath);
+            Action call = () => IOUtils.ValidateFilePath(invalidPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -298,7 +276,7 @@ namespace Core.Common.Util.Test
             string folderPath = TestHelper.GetScratchPadPath() + Path.DirectorySeparatorChar;
 
             // Call
-            TestDelegate call = () => IOUtils.ValidateFilePath(folderPath);
+            Action call = () => IOUtils.ValidateFilePath(folderPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -367,7 +345,7 @@ namespace Core.Common.Util.Test
         public void DeleteOldFiles_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate call = () => IOUtils.DeleteOldFiles(invalidPath, "", 0);
+            Action call = () => IOUtils.DeleteOldFiles(invalidPath, "", 0);
 
             // Assert
             string invalidParameterName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -384,7 +362,7 @@ namespace Core.Common.Util.Test
             string path = TestHelper.GetScratchPadPath();
 
             // Call
-            TestDelegate call = () => IOUtils.DeleteOldFiles(path, invalidSearchPattern, 0);
+            Action call = () => IOUtils.DeleteOldFiles(path, invalidSearchPattern, 0);
 
             // Assert
             string invalidParameterName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -401,7 +379,7 @@ namespace Core.Common.Util.Test
             Assert.IsFalse(Directory.Exists(path));
 
             // Call
-            TestDelegate call = () => IOUtils.DeleteOldFiles(path, "*.log", 0);
+            Action call = () => IOUtils.DeleteOldFiles(path, "*.log", 0);
 
             // Assert
             var exception = Assert.Throws<IOException>(call);
@@ -437,7 +415,7 @@ namespace Core.Common.Util.Test
         public void CreateFileIfNotExists_FilePathNullOrWhiteSpace_ThrowsArgumentException(string filePath)
         {
             // Call
-            TestDelegate call = () => IOUtils.CreateFileIfNotExists(filePath);
+            Action call = () => IOUtils.CreateFileIfNotExists(filePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -457,7 +435,7 @@ namespace Core.Common.Util.Test
                 File.SetAttributes(filePath, attributes | FileAttributes.ReadOnly);
 
                 // Call
-                TestDelegate call = () => IOUtils.CreateFileIfNotExists(filePath);
+                Action call = () => IOUtils.CreateFileIfNotExists(filePath);
 
                 // Assert
                 string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.";
@@ -477,7 +455,7 @@ namespace Core.Common.Util.Test
             using (new FileDisposeHelper(filePath))
             {
                 // Call
-                TestDelegate call = () => IOUtils.CreateFileIfNotExists(filePath);
+                Action call = () => IOUtils.CreateFileIfNotExists(filePath);
 
                 // Assert
                 Assert.DoesNotThrow(call);

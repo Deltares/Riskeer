@@ -23,6 +23,7 @@ using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Forms.Factories;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories

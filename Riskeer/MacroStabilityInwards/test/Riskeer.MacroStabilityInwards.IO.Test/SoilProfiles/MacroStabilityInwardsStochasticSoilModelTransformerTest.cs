@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
@@ -56,7 +57,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
 
             // Call
-            TestDelegate call = () => transformer.Transform(null);
+            Action call = () => transformer.Transform(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -72,7 +73,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             var soilModel = new StochasticSoilModel("some name", failureMechanismType);
 
             // Call
-            TestDelegate test = () => transformer.Transform(soilModel);
+            Action test = () => transformer.Transform(soilModel);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -89,7 +90,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
 
             // Call
-            TestDelegate test = () => transformer.Transform(stochasticSoilModel);
+            Action test = () => transformer.Transform(stochasticSoilModel);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
@@ -279,7 +280,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
 
             // Call
-            TestDelegate call = () => transformer.Transform(soilModel);
+            Action call = () => transformer.Transform(soilModel);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -303,7 +304,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
 
             // Call
-            TestDelegate call = () => transformer.Transform(soilModel);
+            Action call = () => transformer.Transform(soilModel);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);

@@ -28,6 +28,7 @@ using Core.Common.Base.IO;
 using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.ReferenceLines;
 
@@ -45,7 +46,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void ReadReferenceLinesMetas_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
+            Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -62,7 +63,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             string invalidFilePath = validFilePath.Replace("P", invalidPathChars[1].ToString());
 
             // Call
-            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
+            Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
@@ -77,7 +78,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             string invalidFilePath = Path.Combine(testDataPath, Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
+            Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -91,7 +92,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             string invalidFilePath = Path.Combine(testDataPath, "I_do_not_exist.shp");
 
             // Call
-            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
+            Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
@@ -110,7 +111,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, shapeFileName);
 
-            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
+            Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert .
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': kon geen lijnen vinden in dit bestand.";
@@ -143,7 +144,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             string validFilePath = Path.Combine(testDataPath, shapeFileName);
 
-            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
+            Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
@@ -161,7 +162,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             string validFilePath = Path.Combine(testDataPath, shapeFileName);
 
-            TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
+            Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;

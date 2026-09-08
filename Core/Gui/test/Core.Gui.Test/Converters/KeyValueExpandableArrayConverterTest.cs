@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Converters
 {
@@ -79,7 +80,7 @@ namespace Core.Gui.Test.Converters
             var converter = new KeyValueExpandableArrayConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(sourceArray, typeof(int));
+            Action call = () => converter.ConvertTo(sourceArray, typeof(int));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -93,7 +94,7 @@ namespace Core.Gui.Test.Converters
             var converter = new KeyValueExpandableArrayConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(sourceArray, null);
+            Action call = () => converter.ConvertTo(sourceArray, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -105,7 +106,7 @@ namespace Core.Gui.Test.Converters
             var converter = new KeyValueExpandableArrayConverter();
 
             // Call
-            TestDelegate test = () => converter.GetProperties(new object());
+            Action test = () => converter.GetProperties(new object());
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test,
@@ -120,7 +121,7 @@ namespace Core.Gui.Test.Converters
             var converter = new KeyValueExpandableArrayConverter();
 
             // Call
-            TestDelegate test = () => converter.GetProperties(context, new object());
+            Action test = () => converter.GetProperties(context, new object());
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test,
@@ -137,7 +138,7 @@ namespace Core.Gui.Test.Converters
             var converter = new KeyValueExpandableArrayConverter();
 
             // Call
-            TestDelegate test = () => converter.GetProperties(context, new object());
+            Action test = () => converter.GetProperties(context, new object());
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
@@ -241,7 +242,7 @@ namespace Core.Gui.Test.Converters
             var converter = new KeyValueExpandableArrayConverter();
 
             // Call
-            TestDelegate test = () => converter.GetProperties(context, array);
+            Action test = () => converter.GetProperties(context, array);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -268,7 +269,7 @@ namespace Core.Gui.Test.Converters
             var converter = new KeyValueExpandableArrayConverter();
 
             // Call
-            TestDelegate test = () => converter.GetProperties(context, array);
+            Action test = () => converter.GetProperties(context, array);
 
             // Assert
             Assert.Throws<ArgumentException>(test);

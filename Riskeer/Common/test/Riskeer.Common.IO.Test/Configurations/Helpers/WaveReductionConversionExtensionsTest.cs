@@ -43,7 +43,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var structureInput = new SimpleStructuresInput();
 
             // Call
-            TestDelegate call = () => WaveReductionConversionExtensions.SetConfigurationForeshoreProfileDependentProperties(null, structureInput);
+            Action call = () => WaveReductionConversionExtensions.SetConfigurationForeshoreProfileDependentProperties(null, structureInput);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -57,7 +57,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var configuration = new SimpleStructuresCalculationConfiguration();
 
             // Call
-            TestDelegate call = () => configuration.SetConfigurationForeshoreProfileDependentProperties<StructureBase>(null);
+            Action call = () => configuration.SetConfigurationForeshoreProfileDependentProperties<StructureBase>(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

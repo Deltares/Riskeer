@@ -37,7 +37,7 @@ namespace Migration.Scripts.Data.Test
             var upgradeScript = new TestUpgradeScript("1", "2");
 
             // Call
-            TestDelegate call = () => new FileMigrationScript(null, upgradeScript);
+            Action call = () => new FileMigrationScript(null, upgradeScript);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -51,7 +51,7 @@ namespace Migration.Scripts.Data.Test
             var createScript = new TestCreateScript("1");
 
             // Call
-            TestDelegate call = () => new FileMigrationScript(createScript, null);
+            Action call = () => new FileMigrationScript(createScript, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -82,7 +82,7 @@ namespace Migration.Scripts.Data.Test
             var migrationScript = new FileMigrationScript(createScript, upgradeScript);
 
             // Call
-            TestDelegate call = () => migrationScript.Upgrade(null);
+            Action call = () => migrationScript.Upgrade(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

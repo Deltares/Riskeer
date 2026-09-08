@@ -22,7 +22,7 @@
 using System.Windows.Media;
 using Core.Gui.Forms.ViewHost;
 using NUnit.Framework;
-using Xceed.Wpf.AvalonDock.Layout;
+using AvalonDock.Layout;
 
 namespace Core.Gui.Test.Forms.ViewHost
 {

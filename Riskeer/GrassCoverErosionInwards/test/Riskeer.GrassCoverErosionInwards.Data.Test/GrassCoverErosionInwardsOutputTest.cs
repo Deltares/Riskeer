@@ -36,7 +36,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Constructor_OvertoppingOutputNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsOutput(
+            Action test = () => new GrassCoverErosionInwardsOutput(
                 null,
                 new TestDikeHeightOutput(double.NaN),
                 new TestOvertoppingRateOutput(double.NaN));

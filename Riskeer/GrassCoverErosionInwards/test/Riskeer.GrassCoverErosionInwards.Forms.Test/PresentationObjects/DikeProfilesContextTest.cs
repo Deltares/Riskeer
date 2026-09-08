@@ -58,7 +58,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new DikeProfilesContext(null, failureMechanism, assessmentSection);
+            Action call = () => new DikeProfilesContext(null, failureMechanism, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -73,7 +73,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var dikeProfiles = new DikeProfileCollection();
 
             // Call
-            TestDelegate call = () => new DikeProfilesContext(dikeProfiles, null, assessmentSection);
+            Action call = () => new DikeProfilesContext(dikeProfiles, null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -87,7 +87,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, null);
+            Action call = () => new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

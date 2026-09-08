@@ -38,7 +38,7 @@ namespace Core.Components.Gis.Test.Theme
         public void Constructor_InvalidAttribute_ThrowsArgumentException(string invalidAttributeName)
         {
             // Call
-            TestDelegate call = () => new MapTheme<TestCategoryTheme>(invalidAttributeName, new[]
+            Action call = () => new MapTheme<TestCategoryTheme>(invalidAttributeName, new[]
             {
                 CreateCategoryTheme()
             });
@@ -52,7 +52,7 @@ namespace Core.Components.Gis.Test.Theme
         public void Constructor_CategoryThemesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MapTheme<TestCategoryTheme>("Arbitrary attribute", null);
+            Action call = () => new MapTheme<TestCategoryTheme>("Arbitrary attribute", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -63,7 +63,7 @@ namespace Core.Components.Gis.Test.Theme
         public void Constructor_CategoryThemesEmpty_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new MapTheme<CategoryTheme>("Arbitrary attribute",
+            Action call = () => new MapTheme<CategoryTheme>("Arbitrary attribute",
                                                                   Enumerable.Empty<CategoryTheme>());
 
             // Assert

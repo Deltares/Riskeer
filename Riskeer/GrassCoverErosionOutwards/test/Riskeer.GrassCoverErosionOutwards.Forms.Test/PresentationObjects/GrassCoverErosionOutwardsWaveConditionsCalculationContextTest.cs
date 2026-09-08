@@ -67,7 +67,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation, null, failureMechanism, assessmentSection);
+            Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

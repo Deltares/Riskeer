@@ -44,7 +44,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         public void Constructor_InvalidStringArgument_ThrowsArgumentException(string path)
         {
             // Call
-            TestDelegate call = () => new SurfaceLinesCsvReader(path);
+            Action call = () => new SurfaceLinesCsvReader(path);
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(path).Build("Bestandspad mag niet leeg of ongedefinieerd zijn.");
@@ -62,7 +62,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             string corruptPath = path.Replace('V', invalidCharacters[0]);
 
             // Call
-            TestDelegate call = () => new SurfaceLinesCsvReader(corruptPath);
+            Action call = () => new SurfaceLinesCsvReader(corruptPath);
 
             // Assert
             const string innerExpectedMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
@@ -74,7 +74,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         public void Constructor_PathToFolder_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new SurfaceLinesCsvReader(testDataPath);
+            Action call = () => new SurfaceLinesCsvReader(testDataPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -156,7 +156,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.GetSurfaceLinesCount();
+                Action call = () => reader.GetSurfaceLinesCount();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -178,7 +178,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.GetSurfaceLinesCount();
+                Action call = () => reader.GetSurfaceLinesCount();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -200,7 +200,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.GetSurfaceLinesCount();
+                Action call = () => reader.GetSurfaceLinesCount();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -221,7 +221,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.GetSurfaceLinesCount();
+                Action call = () => reader.GetSurfaceLinesCount();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -248,7 +248,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.GetSurfaceLinesCount();
+                Action call = () => reader.GetSurfaceLinesCount();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -436,7 +436,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -458,7 +458,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -480,7 +480,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -503,7 +503,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -530,7 +530,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -556,7 +556,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -564,8 +564,10 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                                          .WithLocation("op regel 2")
                                          .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
                                          .Build("Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
+                Assert.IsNotNull(exception);
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<FormatException>(exception.InnerException);
+                Assert.IsNotNull(exception.InnerException);
+                Assert.IsInstanceOf<FormatException>(exception.InnerException.InnerException);
             }
         }
 
@@ -587,7 +589,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -595,8 +597,10 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                                          .WithLocation("op regel 2")
                                          .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
                                          .Build("Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.");
+                Assert.IsNotNull(exception);
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<OverflowException>(exception.InnerException);
+                Assert.IsNotNull(exception.InnerException);
+                Assert.IsInstanceOf<OverflowException>(exception.InnerException.InnerException);
             }
         }
 
@@ -612,7 +616,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 // 1st line has no text at all:
@@ -643,7 +647,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 // 1st line has no text at all:
@@ -674,7 +678,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -697,7 +701,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -720,7 +724,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 // 1st row lacks 1 coordinate value:
@@ -753,7 +757,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -779,7 +783,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadSurfaceLine();
+                Action call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);

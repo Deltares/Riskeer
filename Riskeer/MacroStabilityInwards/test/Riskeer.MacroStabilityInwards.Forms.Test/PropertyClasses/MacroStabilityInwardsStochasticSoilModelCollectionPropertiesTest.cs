@@ -37,7 +37,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModelCollectionProperties(null);
+            Action test = () => new MacroStabilityInwardsStochasticSoilModelCollectionProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

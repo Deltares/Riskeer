@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 
@@ -100,7 +101,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void GetStochastNamesRecursively_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => IllustrationPointNodeExtensions.GetStochastNamesRecursively(null);
+            Action test = () => IllustrationPointNodeExtensions.GetStochastNamesRecursively(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

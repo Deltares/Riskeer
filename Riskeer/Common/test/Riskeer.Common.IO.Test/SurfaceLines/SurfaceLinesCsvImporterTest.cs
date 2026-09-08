@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -33,6 +33,7 @@ using Core.Common.Util.Builders;
 using log4net.Core;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.IO.Exceptions;
@@ -68,7 +69,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, updateStrategy);
 
             // Call
-            TestDelegate call = () => new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(null,
+            Action call = () => new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(null,
                                                                                          string.Empty,
                                                                                          messageProvider,
                                                                                          configuration);
@@ -86,7 +87,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, updateStrategy);
 
             // Call
-            TestDelegate call = () => new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(new TestSurfaceLineCollection(),
+            Action call = () => new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(new TestSurfaceLineCollection(),
                                                                                          string.Empty,
                                                                                          null,
                                                                                          configuration);
@@ -104,7 +105,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var collection = new TestSurfaceLineCollection();
 
             // Call
-            TestDelegate call = () => new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(collection,
+            Action call = () => new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(collection,
                                                                                          string.Empty,
                                                                                          messageProvider,
                                                                                          null);
@@ -188,7 +189,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 }
                 else
                 {
-                    Assert.Fail("Not expecting progress: \"{0}: {1} out of {2}\".", currentStepName, currentStep, totalNumberOfSteps);
+                    Assert.Fail($"Not expecting progress: \"{currentStepName}: {currentStep} out of {totalNumberOfSteps}\".");
                 }
 
                 callCount++;
@@ -1371,7 +1372,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 }
                 else
                 {
-                    Assert.Fail("Not expecting progress: \"{0}: {1} out of {2}\".", currentStepName, currentStep, totalNumberOfSteps);
+                    Assert.Fail($"Not expecting progress: \"{currentStepName}: {currentStep} out of {totalNumberOfSteps}\".");
                 }
 
                 callCount++;

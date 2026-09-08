@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SurfaceLines;
@@ -78,7 +79,7 @@ namespace Riskeer.Piping.IO.Test.SurfaceLines
         public void Constructor_WithoutReferenceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingSurfaceLineTransformer(null);
+            Action test = () => new PipingSurfaceLineTransformer(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -107,7 +108,7 @@ namespace Riskeer.Piping.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => transformer.Transform(surfaceLine, null);
+            Action test = () => transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
@@ -140,7 +141,7 @@ namespace Riskeer.Piping.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => transformer.Transform(surfaceLine, null);
+            Action test = () => transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
@@ -219,7 +220,7 @@ namespace Riskeer.Piping.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => transformer.Transform(surfaceLine, characteristicPoints);
+            Action test = () => transformer.Transform(surfaceLine, characteristicPoints);
 
             // Assert
             string message = $"Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie '{locationName}'.";

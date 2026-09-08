@@ -26,7 +26,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
     /// <summary>
     /// Persister that can be used in tests.
     /// </summary>
-    public class MacroStabilityInwardsTestPersister : IPersister
+    public sealed class MacroStabilityInwardsTestPersister : IPersister
     {
         /// <summary>
         /// Gets whether <see cref="Persist"/> is called.

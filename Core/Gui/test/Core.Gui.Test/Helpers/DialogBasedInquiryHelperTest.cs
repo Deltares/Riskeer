@@ -41,7 +41,7 @@ namespace Core.Gui.Test.Helpers
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DialogBasedInquiryHelper(null);
+            Action test = () => new DialogBasedInquiryHelper(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -220,7 +220,7 @@ namespace Core.Gui.Test.Helpers
             helper.GetTargetFolderLocation();
 
             // Assert
-            Assert.AreEqual("Browse For Folder", windowName);
+            Assert.AreEqual("Select Folder", windowName);
         }
 
         [Test]

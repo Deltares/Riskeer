@@ -51,7 +51,13 @@ namespace Riskeer.Common.Forms.Helpers
                 string trimmedString = value.Trim();
                 if (!trimmedString.StartsWith(returnPeriodNotation))
                 {
-                    return Convert.ToDouble(value);
+                  double doubleVal = Convert.ToDouble(value);
+                  if (double.IsInfinity(doubleVal))
+                  {
+                      throw new OverflowException();
+                  }
+
+                  return doubleVal;
                 }
 
                 string returnPeriodValue = trimmedString.Substring(2).ToLower();

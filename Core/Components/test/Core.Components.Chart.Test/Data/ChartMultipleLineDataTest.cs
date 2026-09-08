@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Chart.Test.Data
 {
@@ -65,7 +66,7 @@ namespace Core.Components.Chart.Test.Data
         public void Constructor_StyleNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ChartLineData("test data", null);
+            Action test = () => new ChartLineData("test data", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -109,7 +110,7 @@ namespace Core.Components.Chart.Test.Data
             var data = new ChartMultipleLineData("test data");
 
             // Call
-            TestDelegate test = () => data.Lines = null;
+            Action test = () => data.Lines = null;
 
             // Assert
             const string expectedMessage = "The collection of point arrays cannot be null.";
@@ -123,7 +124,7 @@ namespace Core.Components.Chart.Test.Data
             var data = new ChartMultipleLineData("test data");
 
             // Call
-            TestDelegate test = () => data.Lines = new List<Point2D[]>
+            Action test = () => data.Lines = new List<Point2D[]>
             {
                 null
             };

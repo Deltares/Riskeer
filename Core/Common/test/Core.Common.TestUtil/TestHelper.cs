@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -35,6 +35,7 @@ using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Timer = System.Timers.Timer;
 
 namespace Core.Common.TestUtil
@@ -322,7 +323,7 @@ namespace Core.Common.TestUtil
         /// <param name="test">The test to execute and should throw <see cref="ArgumentException"/> of type <typeparamref name="T"/>.</param>
         /// <param name="expectedCustomMessage">The expected custom part of the <see cref="ArgumentException.Message"/>.</param>
         /// <return>The <see cref="ArgumentException"/> that was thrown while executing <paramref name="test"/>.</return>
-        public static T AssertThrowsArgumentExceptionAndTestMessage<T>(TestDelegate test, string expectedCustomMessage) where T : ArgumentException
+        public static T AssertThrowsArgumentExceptionAndTestMessage<T>(Action test, string expectedCustomMessage) where T : ArgumentException
         {
             var exception = Assert.Throws<T>(test);
 

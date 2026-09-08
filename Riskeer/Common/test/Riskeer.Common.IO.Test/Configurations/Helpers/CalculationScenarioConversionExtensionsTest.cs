@@ -37,7 +37,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void ToScenarioConfiguration_CalculationScenarioNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((ICalculationScenario) null).ToScenarioConfiguration();
+            Action test = () => ((ICalculationScenario) null).ToScenarioConfiguration();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

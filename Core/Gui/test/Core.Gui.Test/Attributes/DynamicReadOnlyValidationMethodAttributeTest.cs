@@ -36,7 +36,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicReadOnlyPropertyButNoValidationMethod();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);
+            Action call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -51,7 +51,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicReadOnlyPropertyAndMultipleValidationMethods();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);
+            Action call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -66,7 +66,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicReadOnlyPropertyButValidationMethodReturnsIncorrectValueType();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);
+            Action call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -81,7 +81,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicReadOnlyPropertyButValidationMethodNotOneArgument();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);
+            Action call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -96,7 +96,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicReadOnlyPropertyButValidationMethodArgumentNotString();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);
+            Action call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;

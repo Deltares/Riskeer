@@ -33,7 +33,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// </summary>
     /// <typeparam name="TWrappedData">The object type of the wrapped instance.</typeparam>
     /// <typeparam name="TObservable">The object type of the instances that effect the unique identification.</typeparam>
-    public abstract class LocationCalculationsContext<TWrappedData, TObservable> : WrappedObjectContextBase<TWrappedData>, IObservable
+    public abstract class LocationCalculationsContext<TWrappedData, TObservable> : WrappedObjectContextBase<TWrappedData>, IObservable, IDisposable
         where TWrappedData : class
         where TObservable : class, IObservable
     {
@@ -50,6 +50,12 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
         protected LocationCalculationsContext(TWrappedData wrappedData)
             : base(wrappedData) {}
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         public IEnumerable<IObserver> Observers => observers;
 
@@ -102,6 +108,22 @@ namespace Riskeer.Common.Forms.PresentationObjects
                     // Catch any exception due to inevitably updating the unique identification of data that was already removed 
                 }
             }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing)
+            {
+                return;
+            }
+
+            if (!(LocationCalculationsEnumerationToObserve is TObservable))
+            {
+                locationCalculationsEnumerationObserver?.Dispose();
+            }
+
+            locationCalculationsObserver?.Dispose();
+            observers.Clear();
         }
 
         /// <summary>

@@ -39,7 +39,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3);
 
             // Call
-            TestDelegate test = () => new MapCalculationData(
+            Action test = () => new MapCalculationData(
                 null,
                 calculationLocation,
                 hydraulicBoundaryLocation);
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.1, 2.3);
 
             // Call
-            TestDelegate test = () => new MapCalculationData(
+            Action test = () => new MapCalculationData(
                 calculationName,
                 null,
                 hydraulicBoundaryLocation);
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var calculationLocation = new Point2D(0.0, 2.3);
 
             // Call
-            TestDelegate test = () => new MapCalculationData(
+            Action test = () => new MapCalculationData(
                 calculationName,
                 calculationLocation,
                 null);

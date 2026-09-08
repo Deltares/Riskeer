@@ -35,7 +35,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestTopLevelIllustrationPointBase(null, "closing situation");
+            Action call = () => new TestTopLevelIllustrationPointBase(null, "closing situation");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -46,7 +46,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         public void Constructor_ClosingSituationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestTopLevelIllustrationPointBase(
+            Action call = () => new TestTopLevelIllustrationPointBase(
                 WindDirectionTestFactory.CreateTestWindDirection(),
                 null);
 

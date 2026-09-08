@@ -27,6 +27,7 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;

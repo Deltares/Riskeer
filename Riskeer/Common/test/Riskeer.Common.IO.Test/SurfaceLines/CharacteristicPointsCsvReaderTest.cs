@@ -43,7 +43,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         public void Constructor_InvalidStringArgument_ThrowsArgumentException(string path)
         {
             // Call
-            TestDelegate call = () => new CharacteristicPointsCsvReader(path);
+            Action call = () => new CharacteristicPointsCsvReader(path);
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(path).Build("Bestandspad mag niet leeg of ongedefinieerd zijn.");
@@ -61,7 +61,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             string corruptPath = path.Replace('V', invalidCharacters[0]);
 
             // Call
-            TestDelegate call = () => new CharacteristicPointsCsvReader(corruptPath);
+            Action call = () => new CharacteristicPointsCsvReader(corruptPath);
 
             // Assert
             const string innerErrorMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
@@ -73,7 +73,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         public void Constructor_PathToFolder_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new CharacteristicPointsCsvReader(testDataPath);
+            Action call = () => new CharacteristicPointsCsvReader(testDataPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -126,7 +126,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.GetLocationsCount();
+                Action call = () => reader.GetLocationsCount();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -148,7 +148,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.GetLocationsCount();
+                Action call = () => reader.GetLocationsCount();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -170,7 +170,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.GetLocationsCount();
+                Action call = () => reader.GetLocationsCount();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -199,7 +199,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -222,7 +222,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.GetLocationsCount();
+                Action call = () => reader.GetLocationsCount();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -245,7 +245,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.GetLocationsCount();
+                Action call = () => reader.GetLocationsCount();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -313,7 +313,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -335,7 +335,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -357,7 +357,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -380,7 +380,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -403,7 +403,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -426,7 +426,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -457,7 +457,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -482,7 +482,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 // 1st line has no text at all:
@@ -513,7 +513,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 // 1st line has no text at all:
@@ -544,7 +544,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -567,7 +567,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 // 1st row lacks 1 coordinate value:
@@ -600,7 +600,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+                Action call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 // 1st row lacks 1 coordinate value:

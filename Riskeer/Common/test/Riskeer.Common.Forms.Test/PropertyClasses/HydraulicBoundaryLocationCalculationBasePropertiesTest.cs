@@ -30,6 +30,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
@@ -58,7 +59,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationCalculationBaseProperties(null);
+            Action test = () => new TestHydraulicBoundaryLocationCalculationBaseProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

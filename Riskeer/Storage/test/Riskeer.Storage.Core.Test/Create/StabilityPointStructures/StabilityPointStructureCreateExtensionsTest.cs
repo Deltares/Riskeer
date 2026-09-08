@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
             StabilityPointStructure structure = new TestStabilityPointStructure();
 
             // Call
-            TestDelegate call = () => structure.Create(null, 0);
+            Action call = () => structure.Create(null, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

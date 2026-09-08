@@ -36,7 +36,7 @@ namespace Riskeer.Common.Util.Test
         public void CreateSinglePointMapFeature_PointNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(null);
+            Action test = () => RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

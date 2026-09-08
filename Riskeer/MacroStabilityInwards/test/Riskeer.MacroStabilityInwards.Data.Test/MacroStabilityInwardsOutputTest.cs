@@ -42,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                                                                         new RoundedDouble[0]);
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOutput(null, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
+            Action call = () => new MacroStabilityInwardsOutput(null, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,7 +57,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                                                                      MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                                      new MacroStabilityInwardsSlice[0], 0, 0);
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOutput(slidingCurve, null,
+            Action call = () => new MacroStabilityInwardsOutput(slidingCurve, null,
                                                                       new MacroStabilityInwardsOutput.ConstructionProperties());
 
             // Assert
@@ -78,7 +78,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                                                                         new RoundedDouble[0]);
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOutput(slidingCurve, slipPlane, null);
+            Action call = () => new MacroStabilityInwardsOutput(slidingCurve, slipPlane, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

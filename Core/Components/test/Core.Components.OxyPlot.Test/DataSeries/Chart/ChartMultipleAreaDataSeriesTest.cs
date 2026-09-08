@@ -28,6 +28,7 @@ using Core.Components.Chart.Styles;
 using Core.Components.OxyPlot.CustomSeries;
 using Core.Components.OxyPlot.DataSeries.Chart;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 
 namespace Core.Components.OxyPlot.Test.DataSeries.Chart
@@ -42,7 +43,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
         public void Constructor_WithoutChartMultipleAreaData_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ChartMultipleAreaDataSeries(null);
+            Action test = () => new ChartMultipleAreaDataSeries(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

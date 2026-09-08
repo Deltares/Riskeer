@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
         public void Convert_WaternetCalculatorResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsWaternetConverter.Convert(null);
+            Action call = () => MacroStabilityInwardsWaternetConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

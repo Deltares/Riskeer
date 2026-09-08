@@ -32,7 +32,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new Stochast(null, double.NaN, double.NaN);
+            Action call = () => new Stochast(null, double.NaN, double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

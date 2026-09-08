@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -38,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test.Converters
         public void Convert_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(null);
+            Action call = () => MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

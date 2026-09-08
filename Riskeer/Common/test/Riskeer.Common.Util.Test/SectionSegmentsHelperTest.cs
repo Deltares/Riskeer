@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Util.Test
@@ -34,7 +35,7 @@ namespace Riskeer.Common.Util.Test
         public void MakeSectionSegments_SectionsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SectionSegmentsHelper.MakeSectionSegments(null);
+            Action test = () => SectionSegmentsHelper.MakeSectionSegments(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -45,7 +46,7 @@ namespace Riskeer.Common.Util.Test
         public void MakeSectionSegments_SectionsElementNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SectionSegmentsHelper.MakeSectionSegments(new FailureMechanismSection[]
+            Action test = () => SectionSegmentsHelper.MakeSectionSegments(new FailureMechanismSection[]
             {
                 null
             });
@@ -91,7 +92,7 @@ namespace Riskeer.Common.Util.Test
         public void GetSectionForPoint_SectionSegmentsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SectionSegmentsHelper.GetSectionForPoint(null, new Point2D(0, 0));
+            Action test = () => SectionSegmentsHelper.GetSectionForPoint(null, new Point2D(0, 0));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -112,7 +113,7 @@ namespace Riskeer.Common.Util.Test
             };
 
             // Call
-            TestDelegate test = () => SectionSegmentsHelper.GetSectionForPoint(sectionSegments, null);
+            Action test = () => SectionSegmentsHelper.GetSectionForPoint(sectionSegments, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

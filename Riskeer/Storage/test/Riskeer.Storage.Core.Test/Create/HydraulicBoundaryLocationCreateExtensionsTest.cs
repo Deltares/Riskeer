@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", 2, 3);
 
             // Call
-            TestDelegate test = () => hydraulicBoundaryLocation.Create(null, 0);
+            Action test = () => hydraulicBoundaryLocation.Create(null, 0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -51,7 +51,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => ((HydraulicBoundaryLocation) null).Create(new PersistenceRegistry(), random.Next());
+            Action call = () => ((HydraulicBoundaryLocation) null).Create(new PersistenceRegistry(), random.Next());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

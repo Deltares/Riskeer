@@ -109,7 +109,7 @@ namespace Core.Common.Base.Test.Data
         public void Constructor_InvalidNumberOfPlaces_ThrowArgumentOutOfRangeException(int invalidNumberOfPlaces)
         {
             // Call
-            TestDelegate call = () => new RoundedDouble(invalidNumberOfPlaces);
+            Action call = () => new RoundedDouble(invalidNumberOfPlaces);
 
             // Assert
             const string expectedMessage = "Value must be in range [0, 15].";
@@ -213,7 +213,7 @@ namespace Core.Common.Base.Test.Data
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("N", 1.0, 2, "1,00")]
+        [TestCase("N", 1.0, 2, "1,000")]
         [TestCase("N0", 123456789.0, 3, "123.456.789")]
         [TestCase("N1", 12345678.90, 2, "12.345.678,9")]
         [TestCase("N1", 12345678.90, 3, "12.345.678,9")]
@@ -245,7 +245,7 @@ namespace Core.Common.Base.Test.Data
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("N", 1.0, 2, "1.00")]
+        [TestCase("N", 1.0, 2, "1.000")]
         [TestCase("N0", 123456789.0, 3, "123,456,789")]
         [TestCase("N1", 12345678.90, 2, "12,345,678.9")]
         [TestCase("N1", 12345678.90, 3, "12,345,678.9")]
@@ -783,7 +783,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble = new RoundedDouble(1, 10);
 
             // Call
-            TestDelegate call = () => roundedDouble.CompareTo(new object());
+            Action call = () => roundedDouble.CompareTo(new object());
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Arg must be double or RoundedDouble");

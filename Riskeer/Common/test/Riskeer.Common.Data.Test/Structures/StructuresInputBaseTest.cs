@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
@@ -294,7 +295,7 @@ namespace Riskeer.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
 
             // Call
-            TestDelegate call = () => input.StructureNormalOrientation = (RoundedDouble) invalidValue;
+            Action call = () => input.StructureNormalOrientation = (RoundedDouble) invalidValue;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.");
@@ -450,7 +451,7 @@ namespace Riskeer.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
 
             // Call
-            TestDelegate call = () => input.FailureProbabilityStructureWithErosion = (RoundedDouble) failureProbabilityStructureWithErosion;
+            Action call = () => input.FailureProbabilityStructureWithErosion = (RoundedDouble) failureProbabilityStructureWithErosion;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");

@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives.TestUtil;
@@ -44,7 +45,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
 
             // Call
-            TestDelegate test = () => stochasticSoilModel.Create(null, 0);
+            Action test = () => stochasticSoilModel.Create(null, 0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -58,7 +59,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => ((PipingStochasticSoilModel) null).Create(registry, 0);
+            Action test = () => ((PipingStochasticSoilModel) null).Create(registry, 0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;

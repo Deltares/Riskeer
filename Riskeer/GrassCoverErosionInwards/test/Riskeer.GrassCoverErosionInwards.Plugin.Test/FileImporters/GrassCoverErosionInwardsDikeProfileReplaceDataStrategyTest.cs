@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.TestUtil;
@@ -69,7 +70,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(null,
+            Action call = () => strategy.UpdateDikeProfilesWithImportedData(null,
                                                                                   string.Empty);
 
             // Assert
@@ -84,7 +85,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(),
+            Action call = () => strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(),
                                                                                   null);
 
             // Assert
@@ -187,7 +188,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(importedSurfaceLines,
+            Action call = () => strategy.UpdateDikeProfilesWithImportedData(importedSurfaceLines,
                                                                                   sourceFilePath);
 
             // Assert

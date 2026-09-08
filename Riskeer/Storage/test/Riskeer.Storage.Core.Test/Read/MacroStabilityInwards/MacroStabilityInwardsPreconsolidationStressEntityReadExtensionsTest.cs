@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsPreconsolidationStressEntity) null).Read();
+            Action test = () => ((MacroStabilityInwardsPreconsolidationStressEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

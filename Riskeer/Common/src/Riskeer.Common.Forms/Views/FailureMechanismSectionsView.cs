@@ -88,10 +88,9 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
-
             if (disposing)
             {
+                failureMechanismObserver?.Dispose();
                 components?.Dispose();
             }
 

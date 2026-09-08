@@ -51,7 +51,7 @@ namespace Riskeer.Common.Util.Test.TypeConverters
         public void ConvertTo_MapDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => BackgroundDataConverter.ConvertTo(null);
+            Action test = () => BackgroundDataConverter.ConvertTo(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Util.Test.TypeConverters
             var unsupportedImageBasedMapData = new TestImageBasedMapData("What's in a name?", false);
 
             // Call 
-            TestDelegate call = () => BackgroundDataConverter.ConvertTo(unsupportedImageBasedMapData);
+            Action call = () => BackgroundDataConverter.ConvertTo(unsupportedImageBasedMapData);
 
             // Assert
             var exception = Assert.Throws<NotSupportedException>(call);
@@ -123,7 +123,7 @@ namespace Riskeer.Common.Util.Test.TypeConverters
         public void ConvertFrom_BackgroundDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => BackgroundDataConverter.ConvertFrom(null);
+            Action test = () => BackgroundDataConverter.ConvertFrom(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -137,7 +137,7 @@ namespace Riskeer.Common.Util.Test.TypeConverters
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             // Call
-            TestDelegate test = () => BackgroundDataConverter.ConvertFrom(backgroundData);
+            Action test = () => BackgroundDataConverter.ConvertFrom(backgroundData);
 
             // Assert
             var exception = Assert.Throws<NotSupportedException>(test);
@@ -181,7 +181,7 @@ namespace Riskeer.Common.Util.Test.TypeConverters
             var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration((RiskeerWellKnownTileSource) 999));
 
             // Call
-            TestDelegate call = () => BackgroundDataConverter.ConvertFrom(backgroundData);
+            Action call = () => BackgroundDataConverter.ConvertFrom(backgroundData);
 
             // Assert
             Assert.Throws<InvalidEnumArgumentException>(call);

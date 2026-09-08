@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsGridSettingsProperties(null, changeHandler);
+            Action call = () => new MacroStabilityInwardsGridSettingsProperties(null, changeHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -85,7 +85,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsGridSettingsProperties(input, null);
+            Action call = () => new MacroStabilityInwardsGridSettingsProperties(input, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

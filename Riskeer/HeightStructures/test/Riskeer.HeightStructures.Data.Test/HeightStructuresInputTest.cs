@@ -310,7 +310,7 @@ namespace Riskeer.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
 
             // Call
-            TestDelegate call = () => input.DeviationWaveDirection = (RoundedDouble) invalidValue;
+            Action call = () => input.DeviationWaveDirection = (RoundedDouble) invalidValue;
 
             // Assert
             const string expectedMessage = "De waarde voor de afwijking van de golfrichting moet in het bereik [-360,00, 360,00] liggen.";

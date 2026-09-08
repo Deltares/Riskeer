@@ -45,7 +45,7 @@ namespace Riskeer.Common.Util.Test
         public void Constructor_WithoutFailureMechanismSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SectionSegments(null);
+            Action test = () => new SectionSegments(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -105,7 +105,7 @@ namespace Riskeer.Common.Util.Test
             var sectionSegments = new SectionSegments(failureMechanismSection);
 
             // Call
-            TestDelegate test = () => sectionSegments.Distance(null);
+            Action test = () => sectionSegments.Distance(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

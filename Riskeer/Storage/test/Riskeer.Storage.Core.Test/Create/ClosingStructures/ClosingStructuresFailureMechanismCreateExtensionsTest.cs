@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.Calculation;
@@ -44,7 +45,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Create(null);
+            Action test = () => failureMechanism.Create(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

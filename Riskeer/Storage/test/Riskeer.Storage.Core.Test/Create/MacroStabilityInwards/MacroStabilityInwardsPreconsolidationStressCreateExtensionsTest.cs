@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
         public void Create_PreconsolidationStressNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsPreconsolidationStress) null).Create(0);
+            Action test = () => ((MacroStabilityInwardsPreconsolidationStress) null).Create(0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -69,10 +69,10 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(stress.Location.Y, entity.CoordinateZ);
 
             VariationCoefficientLogNormalDistribution preconsolidationStressDistribution = stress.Stress;
-            Assert.AreEqual(preconsolidationStressDistribution.Mean, entity.PreconsolidationStressMean,
-                            preconsolidationStressDistribution.GetAccuracy());
-            Assert.AreEqual(preconsolidationStressDistribution.CoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation,
-                            preconsolidationStressDistribution.GetAccuracy());
+            NullableDoubleAssert.AreEqual(preconsolidationStressDistribution.Mean, entity.PreconsolidationStressMean,
+                                          preconsolidationStressDistribution.GetAccuracy());
+            NullableDoubleAssert.AreEqual(preconsolidationStressDistribution.CoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation,
+                                        preconsolidationStressDistribution.GetAccuracy());
             Assert.AreEqual(order, entity.Order);
         }
 

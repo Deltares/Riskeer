@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
 

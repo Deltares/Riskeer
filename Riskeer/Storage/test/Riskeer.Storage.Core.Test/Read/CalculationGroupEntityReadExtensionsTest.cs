@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Structures;

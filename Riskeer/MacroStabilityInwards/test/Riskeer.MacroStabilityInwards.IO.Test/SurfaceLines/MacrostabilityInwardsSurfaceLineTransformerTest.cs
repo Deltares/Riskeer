@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SurfaceLines;
@@ -115,7 +116,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
         public void Constructor_WithoutReferenceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSurfaceLineTransformer(null);
+            Action test = () => new MacroStabilityInwardsSurfaceLineTransformer(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -144,7 +145,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => transformer.Transform(surfaceLine, null);
+            Action test = () => transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
@@ -177,7 +178,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => transformer.Transform(surfaceLine, null);
+            Action test = () => transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
@@ -221,7 +222,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
             MacroStabilityInwardsSurfaceLine result = null;
 
             // Call
-            TestDelegate test = () => result = transformer.Transform(surfaceLine, null);
+            Action test = () => result = transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Karakteristieke punten definitie voor profielschematisatie '{locationName}' is verplicht.";
@@ -374,7 +375,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => transformer.Transform(surfaceLine, characteristicPoints);
+            Action test = () => transformer.Transform(surfaceLine, characteristicPoints);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);

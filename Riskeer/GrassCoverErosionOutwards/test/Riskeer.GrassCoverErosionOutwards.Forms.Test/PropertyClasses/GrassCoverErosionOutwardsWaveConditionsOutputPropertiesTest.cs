@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -43,7 +44,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Constructor_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsOutputProperties(null,
+            Action call = () => new GrassCoverErosionOutwardsWaveConditionsOutputProperties(null,
                                                                                                   new GrassCoverErosionOutwardsWaveConditionsInput());
 
             // Assert
@@ -58,7 +59,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output, null);
+            Action call = () => new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

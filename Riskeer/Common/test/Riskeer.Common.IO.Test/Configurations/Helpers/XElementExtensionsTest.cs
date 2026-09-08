@@ -378,11 +378,11 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, elementValue));
 
             // Call
-            TestDelegate call = () => element.GetConvertedValueFromDescendantStringElement<DoubleConverter>(descendantElementName);
+            Action call = () => element.GetConvertedValueFromDescendantStringElement<DoubleConverter>(descendantElementName);
 
             // Assert
-            var exception = Assert.Throws<Exception>(call);
-            Assert.AreEqual($"{elementValue} is not a valid value for Double.", exception.Message);
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual($"{elementValue} is not a valid value for Double. (Parameter 'value')", exception.Message);
         }
 
         [Test]
@@ -395,7 +395,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, elementValue));
 
             // Call
-            TestDelegate call = () => element.GetConvertedValueFromDescendantStringElement<TypeConverter>(descendantElementName);
+            Action call = () => element.GetConvertedValueFromDescendantStringElement<TypeConverter>(descendantElementName);
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -469,7 +469,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, elementValue));
 
             // Call
-            TestDelegate call = () => element.GetConvertedValueFromDescendantDoubleElement<ConverterThrowsExceptionOnConvertFrom>(
+            Action call = () => element.GetConvertedValueFromDescendantDoubleElement<ConverterThrowsExceptionOnConvertFrom>(
                 descendantElementName);
 
             // Assert

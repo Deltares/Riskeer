@@ -26,6 +26,7 @@ using System.Reflection;
 using Core.Gui.Forms.Backstage;
 using Core.Gui.Settings;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Forms.Backstage
 {
@@ -158,7 +159,7 @@ namespace Core.Gui.Test.Forms.Backstage
             bool userManualPresent)
         {
             // Given
-            string path = Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path);
+            string path = Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().Location).Path);
 
             var settings = new GuiCoreSettings
             {

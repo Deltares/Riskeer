@@ -34,7 +34,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SubMechanismIllustrationPoint(null,
+            Action call = () => new SubMechanismIllustrationPoint(null,
                                                                         Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                         Enumerable.Empty<IllustrationPointResult>(),
                                                                         123);
@@ -48,7 +48,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_StochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SubMechanismIllustrationPoint("Name", null, Enumerable.Empty<IllustrationPointResult>(), 123);
+            Action call = () => new SubMechanismIllustrationPoint("Name", null, Enumerable.Empty<IllustrationPointResult>(), 123);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,7 +59,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_IllustrationPointResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SubMechanismIllustrationPoint("Name", Enumerable.Empty<SubMechanismIllustrationPointStochast>(), null, 123);
+            Action call = () => new SubMechanismIllustrationPoint("Name", Enumerable.Empty<SubMechanismIllustrationPointStochast>(), null, 123);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

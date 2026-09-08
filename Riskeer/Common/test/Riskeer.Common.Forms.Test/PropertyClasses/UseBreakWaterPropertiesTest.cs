@@ -135,7 +135,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate test = () => new UseBreakWaterProperties(null, handler);
+            Action test = () => new UseBreakWaterProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -149,7 +149,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var testUseBreakWater = new TestUseBreakWater();
 
             // Call
-            TestDelegate test = () => new UseBreakWaterProperties(testUseBreakWater, null);
+            Action test = () => new UseBreakWaterProperties(testUseBreakWater, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

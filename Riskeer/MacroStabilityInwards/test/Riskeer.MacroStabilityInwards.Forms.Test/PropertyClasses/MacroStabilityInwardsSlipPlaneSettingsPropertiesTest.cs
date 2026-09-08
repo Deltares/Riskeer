@@ -67,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneSettingsProperties(null, changeHandler);
+            Action call = () => new MacroStabilityInwardsSlipPlaneSettingsProperties(null, changeHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -81,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneSettingsProperties(input, null);
+            Action call = () => new MacroStabilityInwardsSlipPlaneSettingsProperties(input, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

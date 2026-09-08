@@ -38,7 +38,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
         public void CreateGeneralResultSubMechanismIllustrationPointEntity_GeneralResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((GeneralResult<TopLevelSubMechanismIllustrationPoint>) null)
+            Action call = () => ((GeneralResult<TopLevelSubMechanismIllustrationPoint>) null)
                 .CreateGeneralResultSubMechanismIllustrationPointEntity();
 
             // Assert
@@ -119,7 +119,7 @@ namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
         public void CreateGeneralResultFaultTreeIllustrationPointEntity_GeneralResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((GeneralResult<TopLevelFaultTreeIllustrationPoint>) null)
+            Action call = () => ((GeneralResult<TopLevelFaultTreeIllustrationPoint>) null)
                 .CreateGeneralResultFaultTreeIllustrationPointEntity();
 
             // Assert

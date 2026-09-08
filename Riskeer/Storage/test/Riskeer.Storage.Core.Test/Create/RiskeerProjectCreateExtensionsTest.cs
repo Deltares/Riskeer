@@ -38,7 +38,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var project = new RiskeerProject(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
-            TestDelegate test = () => project.Create(null);
+            Action test = () => project.Create(null);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;

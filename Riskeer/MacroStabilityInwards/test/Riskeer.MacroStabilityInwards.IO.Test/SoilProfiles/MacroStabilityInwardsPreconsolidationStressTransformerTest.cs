@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void Transform_PreconsolidationStressNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(null);
+            Action call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -83,7 +83,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             PreconsolidationStress preconsolidationStress)
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
+            Action call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -99,7 +99,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         public void Transform_InvalidPreconsolidationStressDistributionValues_ThrowsImportedDataTransformException(PreconsolidationStress preconsolidationStress)
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
+            Action call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -123,7 +123,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             };
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
+            Action call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -144,7 +144,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
             };
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
+            Action call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);

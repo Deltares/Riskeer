@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
@@ -43,7 +44,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
         public void Create_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((StabilityStoneCoverWaveConditionsCalculation) null).Create(new PersistenceRegistry(), 0);
+            Action call = () => ((StabilityStoneCoverWaveConditionsCalculation) null).Create(new PersistenceRegistry(), 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,7 +58,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => calculation.Create(null, 0);
+            Action call = () => calculation.Create(null, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -95,14 +96,14 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
 
             // Assert
             StabilityStoneCoverWaveConditionsInput input = calculation.InputParameters;
-            Assert.AreEqual(input.Orientation, entity.Orientation, input.Orientation.GetAccuracy());
+            NullableDoubleAssert.AreEqual(input.Orientation, entity.Orientation, input.Orientation.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
-            Assert.AreEqual(input.UpperBoundaryRevetment, entity.UpperBoundaryRevetment, input.UpperBoundaryRevetment.GetAccuracy());
-            Assert.AreEqual(input.LowerBoundaryRevetment, entity.LowerBoundaryRevetment, input.LowerBoundaryRevetment.GetAccuracy());
-            Assert.AreEqual(input.UpperBoundaryWaterLevels, entity.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
-            Assert.AreEqual(input.LowerBoundaryWaterLevels, entity.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
-            Assert.AreEqual(input.StepSize, entity.StepSize, input.StepSize.GetAccuracy());
+            NullableDoubleAssert.AreEqual(input.UpperBoundaryRevetment, entity.UpperBoundaryRevetment, input.UpperBoundaryRevetment.GetAccuracy());
+            NullableDoubleAssert.AreEqual(input.LowerBoundaryRevetment, entity.LowerBoundaryRevetment, input.LowerBoundaryRevetment.GetAccuracy());
+            NullableDoubleAssert.AreEqual(input.UpperBoundaryWaterLevels, entity.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
+            NullableDoubleAssert.AreEqual(input.LowerBoundaryWaterLevels, entity.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
+            NullableDoubleAssert.AreEqual(input.StepSize, entity.StepSize, input.StepSize.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.CalculationType), entity.CalculationType);
             Assert.AreEqual(Convert.ToByte(input.WaterLevelType), entity.WaterLevelType);
 

@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Components.PointedTree.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.Factories;

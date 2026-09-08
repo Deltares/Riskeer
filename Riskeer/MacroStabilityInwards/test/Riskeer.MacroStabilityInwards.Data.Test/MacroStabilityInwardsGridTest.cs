@@ -63,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Constructor_InvalidX_ThrowsArgumentException(double xLeft, double xRight)
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsGrid(xLeft, xRight, double.NaN, double.NaN);
+            Action test = () => new MacroStabilityInwardsGrid(xLeft, xRight, double.NaN, double.NaN);
 
             // Assert
             const string message = "X links moet kleiner zijn dan of gelijk zijn aan X rechts, of NaN.";
@@ -87,7 +87,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Constructor_InvalidZ_ThrowsArgumentException(double zBottom, double zTop)
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsGrid(double.NaN, double.NaN, zTop, zBottom);
+            Action test = () => new MacroStabilityInwardsGrid(double.NaN, double.NaN, zTop, zBottom);
 
             // Assert
             const string message = "Z boven moet groter zijn dan of gelijk zijn aan Z onder, of NaN.";
@@ -145,7 +145,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var grid = new MacroStabilityInwardsGrid(double.NaN, xRight, double.NaN, double.NaN);
 
             // Call
-            TestDelegate test = () => grid.XLeft = (RoundedDouble) xLeft;
+            Action test = () => grid.XLeft = (RoundedDouble) xLeft;
 
             // Assert
             const string message = "X links moet kleiner zijn dan of gelijk zijn aan X rechts, of NaN.";
@@ -160,7 +160,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var grid = new MacroStabilityInwardsGrid(xLeft, double.NaN, double.NaN, double.NaN);
 
             // Call
-            TestDelegate test = () => grid.XRight = (RoundedDouble) xRight;
+            Action test = () => grid.XRight = (RoundedDouble) xRight;
 
             // Assert
             const string message = "X rechts moet groter zijn dan of gelijk zijn aan X links, of NaN.";
@@ -175,7 +175,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, zBottom);
 
             // Call
-            TestDelegate test = () => grid.ZTop = (RoundedDouble) zTop;
+            Action test = () => grid.ZTop = (RoundedDouble) zTop;
 
             // Assert
             const string message = "Z boven moet groter zijn dan of gelijk zijn aan Z onder, of NaN.";
@@ -190,7 +190,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, zTop, double.NaN);
 
             // Call
-            TestDelegate test = () => grid.ZBottom = (RoundedDouble) zBottom;
+            Action test = () => grid.ZBottom = (RoundedDouble) zBottom;
 
             // Assert
             const string message = "Z onder moet kleiner zijn dan of gelijk zijn aan Z boven, of NaN.";
@@ -207,7 +207,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
-            TestDelegate call = () => grid.NumberOfHorizontalPoints = numberOfPoints;
+            Action call = () => grid.NumberOfHorizontalPoints = numberOfPoints;
 
             // Assert
             const string expectedMessage = "De waarde voor het aantal horizontale punten moet in het bereik [1, 100] liggen.";
@@ -224,7 +224,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
-            TestDelegate call = () => grid.NumberOfVerticalPoints = numberOfPoints;
+            Action call = () => grid.NumberOfVerticalPoints = numberOfPoints;
 
             // Assert
             const string expectedMessage = "De waarde voor het aantal verticale punten moet in het bereik [1, 100] liggen.";

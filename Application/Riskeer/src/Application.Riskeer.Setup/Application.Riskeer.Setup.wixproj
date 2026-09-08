@@ -284,7 +284,22 @@ All rights reserved.
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
         </HarvestFile>
-        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe.config">
+        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.dll">
+            <ComponentGroupName>RiskeerExecutableDll</ComponentGroupName>
+            <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+            <SuppressRootDirectory>true</SuppressRootDirectory>
+        </HarvestFile>
+        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.deps.json">
+            <ComponentGroupName>RiskeerExecutableDepsJson</ComponentGroupName>
+            <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+            <SuppressRootDirectory>true</SuppressRootDirectory>
+        </HarvestFile>
+        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.runtimeconfig.json">
+            <ComponentGroupName>RiskeerExecutableRuntimeConfigJson</ComponentGroupName>
+            <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+            <SuppressRootDirectory>true</SuppressRootDirectory>
+        </HarvestFile>
+        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.dll.config">
             <ComponentGroupName>RiskeerExecutableConfig</ComponentGroupName>
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
@@ -294,8 +309,18 @@ All rights reserved.
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
         </HarvestFile>
-        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.exe.config">
-            <ComponentGroupName>MigrationExecutableConfig</ComponentGroupName>
+        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.dll">
+            <ComponentGroupName>MigrationExecutableDll</ComponentGroupName>
+            <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+            <SuppressRootDirectory>true</SuppressRootDirectory>
+        </HarvestFile>
+        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.deps.json">
+            <ComponentGroupName>MigrationExecutableDepsJson</ComponentGroupName>
+            <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+            <SuppressRootDirectory>true</SuppressRootDirectory>
+        </HarvestFile>
+        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.runtimeconfig.json">
+            <ComponentGroupName>MigrationExecutableRuntimeConfigJson</ComponentGroupName>
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
         </HarvestFile>

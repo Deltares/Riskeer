@@ -5,14 +5,25 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CA1001</NoWarn> <!-- "Types that own disposable fields should be disposable" -->
+  </PropertyGroup>
   <Import Project="$(SolutionDir)build\Base.targets" />
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="6.2.0" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Coverage|x86'">
     <DebugType>none</DebugType>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(SolutionDir)build\AssemblyResolver.cs">
+      <Link>AssemblyResolver\AssemblyResolver.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)build\AssemblyResolverSetup.cs">
+      <Link>AssemblyResolver\AssemblyResolverSetup.cs</Link>
+    </Compile>
+  </ItemGroup>
   <Target Name="CopyTestData" AfterTargets="Build">
     <ItemGroup>
       <MySourceFiles Include="$(ProjectDir)test-data\**\*.*"/>

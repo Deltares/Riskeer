@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            TestDelegate call = () => ((HydraulicLocationCalculationEntity) null).Read(calculation);
+            Action call = () => ((HydraulicLocationCalculationEntity) null).Read(calculation);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new HydraulicLocationCalculationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            Action call = () => entity.Read(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

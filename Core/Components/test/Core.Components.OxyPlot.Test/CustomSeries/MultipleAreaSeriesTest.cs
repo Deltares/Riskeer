@@ -23,6 +23,7 @@ using System;
 using Core.Components.OxyPlot.CustomSeries;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OxyPlot;
 
 namespace Core.Components.OxyPlot.Test.CustomSeries
@@ -50,7 +51,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             var series = new MultipleAreaSeries();
 
             // Call
-            TestDelegate test = () => series.Render(null);
+            Action test = () => series.Render(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -69,7 +70,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default, default, null, default);
         }
 
         [Test]
@@ -92,7 +93,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default, default, null, default);
         }
 
         [Test]
@@ -106,8 +107,6 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             model.Series.Add(series);
 
             var renderContext = Substitute.For<IRenderContext>();
-            renderContext.SetClip(Arg.Any<OxyRect>()).Returns(true);
-
             var area = new DataPoint[pointCount];
             series.Areas.Add(area);
 
@@ -127,9 +126,9 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<OxyColor>(c => c == series.Fill),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
+                Arg.Any<EdgeRenderingMode>(),
                 Arg.Any<double[]>(),
-                Arg.Any<LineJoin>(),
-                Arg.Any<bool>());
+                Arg.Any<LineJoin>());
         }
 
         [Test]
@@ -143,8 +142,6 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             model.Series.Add(series);
 
             var renderContext = Substitute.For<IRenderContext>();
-            renderContext.SetClip(Arg.Any<OxyRect>()).Returns(true);
-
             for (var i = 0; i < areaCount; i++)
             {
                 series.Areas.Add(new[]
@@ -164,9 +161,9 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<OxyColor>(c => c == series.Fill),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
+                Arg.Any<EdgeRenderingMode>(),
                 Arg.Any<double[]>(),
-                Arg.Any<LineJoin>(),
-                Arg.Any<bool>());
+                Arg.Any<LineJoin>());
         }
     }
 }

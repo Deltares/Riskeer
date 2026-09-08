@@ -61,7 +61,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, null, assessmentSection);
+            Action call = () => new StabilityPointStructuresCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,7 +76,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, failureMechanism, null);
+            Action call = () => new StabilityPointStructuresCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

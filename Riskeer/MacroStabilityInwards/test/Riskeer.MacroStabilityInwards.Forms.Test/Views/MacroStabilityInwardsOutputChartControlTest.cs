@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;

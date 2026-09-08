@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
@@ -43,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(null, surfaceLine);
+            Action test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(null, surfaceLine);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -61,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             });
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, null);
+            Action test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -76,7 +77,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
+            Action test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
             var exception = Assert.Throws<NotSupportedException>(test);

@@ -44,7 +44,7 @@ namespace Migration.Console.Test
         public void Constructor_ApplicationNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimpleConsoleBase(null, applicationDescription);
+            Action call = () => new SimpleConsoleBase(null, applicationDescription);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -55,7 +55,7 @@ namespace Migration.Console.Test
         public void Constructor_ApplicationDescriptionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SimpleConsoleBase(applicationName, null);
+            Action call = () => new SimpleConsoleBase(applicationName, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

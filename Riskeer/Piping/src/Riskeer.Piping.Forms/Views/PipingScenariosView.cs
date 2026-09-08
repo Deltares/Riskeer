@@ -133,14 +133,14 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
-            sectionConfigurationsObserver.Dispose();
-            calculationGroupObserver.Dispose();
-            calculationObserver.Dispose();
-            calculationInputObserver.Dispose();
-
             if (disposing)
             {
+                failureMechanismObserver?.Dispose();
+                sectionConfigurationsObserver?.Dispose();
+                calculationGroupObserver?.Dispose();
+                calculationObserver?.Dispose();
+                calculationInputObserver?.Dispose();
+
                 components?.Dispose();
             }
 

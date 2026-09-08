@@ -27,7 +27,7 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.Converter.Stack
 {
     /// <summary>
-    /// The converter that converts <see cref="RowChartData"/> data into <see cref="ColumnSeries"/> data.
+    /// The converter that converts <see cref="RowChartData"/> data into <see cref="BarSeries"/> data.
     /// </summary>
     public static class RowChartDataConverter
     {
@@ -36,11 +36,11 @@ namespace Core.Components.OxyPlot.Converter.Stack
         /// </summary>
         /// <param name="data">The row chart data to create the series from.</param>
         /// <param name="series">The series to set the converted data to.</param>
-        public static void ConvertSeriesData(RowChartData data, ColumnSeries series)
+        public static void ConvertSeriesData(RowChartData data, BarSeries series)
         {
             ValidateParameters(data, series);
 
-            series.Items.AddRange(data.Values.Select(i => new ColumnItem(i)));
+            series.Items.AddRange(data.Values.Select(i => new BarItem(i)));
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Core.Components.OxyPlot.Converter.Stack
         /// <param name="series">The series to convert the general properties to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> 
         /// or <paramref name="series"/> is <c>null</c>.</exception>
-        public static void ConvertSeriesProperties(RowChartData data, ColumnSeries series)
+        public static void ConvertSeriesProperties(RowChartData data, BarSeries series)
         {
             ValidateParameters(data, series);
 
@@ -63,7 +63,7 @@ namespace Core.Components.OxyPlot.Converter.Stack
             }
         }
 
-        private static void ValidateParameters(RowChartData data, ColumnSeries series)
+        private static void ValidateParameters(RowChartData data, BarSeries series)
         {
             if (data == null)
             {

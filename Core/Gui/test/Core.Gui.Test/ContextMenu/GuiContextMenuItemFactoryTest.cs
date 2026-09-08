@@ -30,6 +30,7 @@ using Core.Gui.Plugin;
 using Core.Gui.Properties;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.ContextMenu
 {
@@ -61,7 +62,7 @@ namespace Core.Gui.Test.ContextMenu
             StringAssert.StartsWith($"Kan geen '{nameof(ApplicationFeatureCommandHandler)}'-afhankelijk element " +
                                     $"in het contextmenu creëren zonder een '{nameof(ApplicationFeatureCommandHandler)}'.",
                                     exception.Message);
-            StringAssert.EndsWith("applicationFeatureCommandHandler", exception.Message);
+            StringAssert.EndsWith("(Parameter 'applicationFeatureCommandHandler')", exception.Message);
         }
 
         [Test]
@@ -86,7 +87,7 @@ namespace Core.Gui.Test.ContextMenu
             StringAssert.StartsWith($"Kan geen '{nameof(IImportCommandHandler)}'-afhankelijk element " +
                                     $"in het contextmenu creëren zonder een '{nameof(IImportCommandHandler)}'.",
                                     exception.Message);
-            StringAssert.EndsWith("importCommandHandler", exception.Message);
+            StringAssert.EndsWith("(Parameter 'importCommandHandler')", exception.Message);
         }
 
         [Test]
@@ -111,7 +112,7 @@ namespace Core.Gui.Test.ContextMenu
             StringAssert.StartsWith($"Kan geen '{nameof(IExportCommandHandler)}'-afhankelijk element " +
                                     $"in het contextmenu creëren zonder een '{nameof(IExportCommandHandler)}'.",
                                     exception.Message);
-            StringAssert.EndsWith("exportCommandHandler", exception.Message);
+            StringAssert.EndsWith("(Parameter 'exportCommandHandler')", exception.Message);
         }
 
         [Test]
@@ -136,7 +137,7 @@ namespace Core.Gui.Test.ContextMenu
             StringAssert.StartsWith($"Kan geen '{nameof(IUpdateCommandHandler)}'-afhankelijk element " +
                                     $"in het contextmenu creëren zonder een '{nameof(IUpdateCommandHandler)}'.",
                                     exception.Message);
-            StringAssert.EndsWith("updateCommandHandler", exception.Message);
+            StringAssert.EndsWith("(Parameter 'updateCommandHandler')", exception.Message);
         }
 
         [Test]
@@ -161,7 +162,7 @@ namespace Core.Gui.Test.ContextMenu
             StringAssert.StartsWith($"Kan geen '{nameof(IViewCommands)}'-afhankelijk element " +
                                     $"in het contextmenu creëren zonder een '{nameof(IViewCommands)}'.",
                                     exception.Message);
-            StringAssert.EndsWith("viewCommandsHandler", exception.Message);
+            StringAssert.EndsWith("(Parameter 'viewCommandsHandler')", exception.Message);
         }
 
         [Test]
@@ -185,7 +186,7 @@ namespace Core.Gui.Test.ContextMenu
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de data bekend is.", exception.Message);
-            StringAssert.EndsWith("dataObject", exception.Message);
+            StringAssert.EndsWith("(Parameter 'dataObject')", exception.Message);
         }
 
         [Test]

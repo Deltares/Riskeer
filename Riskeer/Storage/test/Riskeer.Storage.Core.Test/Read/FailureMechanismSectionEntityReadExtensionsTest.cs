@@ -36,7 +36,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_CollectorNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new FailureMechanismSectionEntity().Read(null);
+            Action test = () => new FailureMechanismSectionEntity().Read(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -55,7 +55,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             // Call
-            TestDelegate test = () => entity.Read(new ReadConversionCollector());
+            Action test = () => entity.Read(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(test).ParamName;

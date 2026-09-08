@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
@@ -33,6 +34,7 @@ using Core.Gui.Properties;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
@@ -71,7 +73,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestHydraulicBoundaryCalculationsView(null,
+            Action call = () => new TestHydraulicBoundaryCalculationsView(null,
                                                                                 new AssessmentSectionStub());
 
             // Assert
@@ -83,12 +85,27 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            Action call = () => new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                 null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                 new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -413,7 +430,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ButtonTester button = GetCalculateForSelectedButton();
 
             // Call
-            TestDelegate test = () => button.Click();
+            Action test = () => button.Click();
 
             // Assert
             Assert.DoesNotThrow(test);

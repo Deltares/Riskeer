@@ -27,6 +27,7 @@ using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Plugin
 {
@@ -67,7 +68,7 @@ namespace Core.Gui.Test.Plugin
             using (var plugin = new SimplePlugin())
             {
                 // Call
-                TestDelegate call = () => plugin.Activate();
+                Action call = () => plugin.Activate();
 
                 // Assert
                 Assert.DoesNotThrow(call);
@@ -81,7 +82,7 @@ namespace Core.Gui.Test.Plugin
             using (var plugin = new SimplePlugin())
             {
                 // Call
-                TestDelegate call = () => plugin.Deactivate();
+                Action call = () => plugin.Deactivate();
 
                 // Assert
                 Assert.DoesNotThrow(call);

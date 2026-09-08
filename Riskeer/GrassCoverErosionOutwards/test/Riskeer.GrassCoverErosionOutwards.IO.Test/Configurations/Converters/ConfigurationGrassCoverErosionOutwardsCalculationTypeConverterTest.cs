@@ -92,7 +92,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
             var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
+            Action call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationGrassCoverErosionOutwardsCalculationType)}'.";
@@ -186,7 +186,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
             var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+            Action call = () => converter.ConvertFrom(invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(GrassCoverErosionOutwardsWaveConditionsCalculationType)}'.";
@@ -240,7 +240,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
             var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(null);
+            Action call = () => converter.ConvertFrom(null);
 
             // Assert
             Assert.Throws<NotSupportedException>(call);

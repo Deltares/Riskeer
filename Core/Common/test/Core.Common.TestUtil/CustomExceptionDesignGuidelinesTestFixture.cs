@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.TestUtil
 {

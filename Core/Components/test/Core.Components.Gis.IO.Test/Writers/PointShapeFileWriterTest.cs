@@ -64,7 +64,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             using (var writer = new PointShapeFileWriter())
             {
                 // Call
-                TestDelegate call = () => writer.CopyToFeature(mapData);
+                Action call = () => writer.CopyToFeature(mapData);
 
                 // Assert
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Een feature mag maar één geometrie bevatten.");
@@ -98,7 +98,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             using (var writer = new PointShapeFileWriter())
             {
                 // Call
-                TestDelegate call = () => writer.CopyToFeature(mapData);
+                Action call = () => writer.CopyToFeature(mapData);
 
                 // Assert
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Een feature mag maar één geometrie bevatten.");
@@ -130,7 +130,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 writer.CopyToFeature(mapPointData1);
 
                 // Call
-                TestDelegate call = () => writer.CopyToFeature(mapPointData2);
+                Action call = () => writer.CopyToFeature(mapPointData2);
 
                 // Assert
                 const string message = "Column 'anotherKey' does not belong to table .";

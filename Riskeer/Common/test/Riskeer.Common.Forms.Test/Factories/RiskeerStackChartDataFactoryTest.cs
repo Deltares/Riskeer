@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.Factories;
@@ -51,7 +52,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateColumns_IllustrationPointControlItemsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerStackChartDataFactory.CreateColumns(null, new StackChartData());
+            Action test = () => RiskeerStackChartDataFactory.CreateColumns(null, new StackChartData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -62,7 +63,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateColumns_StackChartDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerStackChartDataFactory.CreateColumns(Enumerable.Empty<IllustrationPointControlItem>(), null);
+            Action test = () => RiskeerStackChartDataFactory.CreateColumns(Enumerable.Empty<IllustrationPointControlItem>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -176,7 +177,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateRows_IllustrationPointControlItemsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerStackChartDataFactory.CreateRows(null, new StackChartData());
+            Action test = () => RiskeerStackChartDataFactory.CreateRows(null, new StackChartData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -187,7 +188,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateRows_StackChartDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerStackChartDataFactory.CreateRows(Enumerable.Empty<IllustrationPointControlItem>(), null);
+            Action test = () => RiskeerStackChartDataFactory.CreateRows(Enumerable.Empty<IllustrationPointControlItem>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

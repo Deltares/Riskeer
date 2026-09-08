@@ -29,6 +29,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Importers;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.IO.Test.Importers
 {

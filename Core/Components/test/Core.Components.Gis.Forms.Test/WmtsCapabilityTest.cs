@@ -37,7 +37,7 @@ namespace Core.Components.Gis.Forms.Test
             const string coordinateSystem = "Coördinatenstelsel";
 
             // Call
-            TestDelegate call = () => new WmtsCapability(null, format, title, coordinateSystem);
+            Action call = () => new WmtsCapability(null, format, title, coordinateSystem);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -53,7 +53,7 @@ namespace Core.Components.Gis.Forms.Test
             const string coordinateSystem = "Coördinatenstelsel";
 
             // Call
-            TestDelegate call = () => new WmtsCapability(id, null, title, coordinateSystem);
+            Action call = () => new WmtsCapability(id, null, title, coordinateSystem);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -69,7 +69,7 @@ namespace Core.Components.Gis.Forms.Test
             const string coordinateSystem = "Coördinatenstelsel";
 
             // Call
-            TestDelegate call = () => new WmtsCapability(id, format, null, coordinateSystem);
+            Action call = () => new WmtsCapability(id, format, null, coordinateSystem);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -85,7 +85,7 @@ namespace Core.Components.Gis.Forms.Test
             const string title = "Eerste kaartlaag";
 
             // Call
-            TestDelegate call = () => new WmtsCapability(id, format, title, null);
+            Action call = () => new WmtsCapability(id, format, title, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -102,7 +102,7 @@ namespace Core.Components.Gis.Forms.Test
             const string coordinateSystem = "Coördinatenstelsel";
 
             // Call
-            TestDelegate call = () => new WmtsCapability(id, format, title, coordinateSystem);
+            Action call = () => new WmtsCapability(id, format, title, coordinateSystem);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Specified image format is not a MIME type.");
@@ -135,7 +135,7 @@ namespace Core.Components.Gis.Forms.Test
             const string sourceCapabilitiesUrl = "sourceCapabilitiesUrl";
 
             // Call
-            TestDelegate call = () => wmtsCapability.ToWmtsMapdata(null, sourceCapabilitiesUrl);
+            Action call = () => wmtsCapability.ToWmtsMapdata(null, sourceCapabilitiesUrl);
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -149,7 +149,7 @@ namespace Core.Components.Gis.Forms.Test
             const string displayName = "displayName";
 
             // Call
-            TestDelegate call = () => wmtsCapability.ToWmtsMapdata(displayName, null);
+            Action call = () => wmtsCapability.ToWmtsMapdata(displayName, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

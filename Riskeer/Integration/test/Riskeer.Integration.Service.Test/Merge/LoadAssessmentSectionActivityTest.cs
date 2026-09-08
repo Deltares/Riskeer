@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             // Setup
             var service = Substitute.For<ILoadAssessmentSectionService>();
             // Call
-            TestDelegate call = () => new LoadAssessmentSectionActivity(null, service, string.Empty);
+            Action call = () => new LoadAssessmentSectionActivity(null, service, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void Constructor_LoadAssessmentSectionServiceNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new LoadAssessmentSectionActivity(new AssessmentSectionOwner(), null, string.Empty);
+            Action call = () => new LoadAssessmentSectionActivity(new AssessmentSectionOwner(), null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             // Setup
             var service = Substitute.For<ILoadAssessmentSectionService>();
             // Call
-            TestDelegate call = () => new LoadAssessmentSectionActivity(new AssessmentSectionOwner(),
+            Action call = () => new LoadAssessmentSectionActivity(new AssessmentSectionOwner(),
                                                                         service,
                                                                         null);
 

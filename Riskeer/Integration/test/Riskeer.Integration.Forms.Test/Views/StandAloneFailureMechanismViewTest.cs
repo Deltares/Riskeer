@@ -29,6 +29,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssemblyTool;

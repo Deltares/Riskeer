@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
@@ -41,7 +42,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string testFile = Path.Combine(testDataPath, "does not exist");
 
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new SoilDatabaseVersionReader(testFile)) {}
             };
@@ -57,7 +58,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () =>
+            Action test = () =>
             {
                 using (new SoilDatabaseVersionReader(fileName)) {}
             };
@@ -91,7 +92,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var versionReader = new SoilDatabaseVersionReader(filePath))
             {
                 // Call
-                TestDelegate test = () => versionReader.VerifyVersion();
+                Action test = () => versionReader.VerifyVersion();
 
                 // Assert
                 string message = $"Fout bij het lezen van bestand '{filePath}':" +
@@ -112,7 +113,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var versionReader = new SoilDatabaseVersionReader(filePath))
             {
                 // Call
-                TestDelegate test = () => versionReader.VerifyVersion();
+                Action test = () => versionReader.VerifyVersion();
 
                 // Assert
                 const string requiredVersion = "17.2.0.0";
@@ -135,7 +136,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             using (var versionReader = new SoilDatabaseVersionReader(filePath))
             {
                 // Call
-                TestDelegate test = () => versionReader.VerifyVersion();
+                Action test = () => versionReader.VerifyVersion();
 
                 // Assert
                 Assert.DoesNotThrow(test);

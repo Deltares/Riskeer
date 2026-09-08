@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((PipingSoilLayerEntity) null).Read();
+            Action test = () => ((PipingSoilLayerEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

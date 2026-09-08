@@ -58,7 +58,7 @@ namespace Core.Gui.Test.Attributes
             var o = new object();
 
             // Call
-            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "NotExistingProperty");
+            Action call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "NotExistingProperty");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMemberException>(call).Message;
@@ -85,7 +85,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicPropertyOrderPropertyButNoEvaluationMethod();
 
             // Call
-            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
+            Action call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -100,7 +100,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicPropertyOrderPropertyAndMultipleEvaluationMethods();
 
             // Call
-            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
+            Action call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -115,7 +115,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicPropertyOrderPropertyButEvaluationMethodReturnsIncorrectValueType();
 
             // Call
-            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
+            Action call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -130,7 +130,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicPropertyOrderPropertyButEvaluationMethodNotOneArgument();
 
             // Call
-            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
+            Action call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -145,7 +145,7 @@ namespace Core.Gui.Test.Attributes
             var o = new InvalidClassWithDynamicPropertyOrderPropertyButEvaluationMethodArgumentNotString();
 
             // Call
-            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
+            Action call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;

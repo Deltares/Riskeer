@@ -108,7 +108,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations.Helpers
             const ConfigurationClosingStructureInflowModelType invalidValue = (ConfigurationClosingStructureInflowModelType) 99999999;
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
+            Action call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationClosingStructureInflowModelType)}'.";
@@ -124,7 +124,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations.Helpers
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(random.NextEnumValue<ConfigurationClosingStructureInflowModelType>(), typeof(object));
+            Action call = () => converter.ConvertTo(random.NextEnumValue<ConfigurationClosingStructureInflowModelType>(), typeof(object));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -210,7 +210,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations.Helpers
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom("A");
+            Action call = () => converter.ConvertFrom("A");
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -241,7 +241,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations.Helpers
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom((ClosingStructureInflowModelType) invalidValue);
+            Action call = () => converter.ConvertFrom((ClosingStructureInflowModelType) invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ClosingStructureInflowModelType)}'.";

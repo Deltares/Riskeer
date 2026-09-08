@@ -66,7 +66,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SemiProbabilisticPipingOutputContext(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), new PipingFailureMechanism(), null);
+            Action call = () => new SemiProbabilisticPipingOutputContext(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

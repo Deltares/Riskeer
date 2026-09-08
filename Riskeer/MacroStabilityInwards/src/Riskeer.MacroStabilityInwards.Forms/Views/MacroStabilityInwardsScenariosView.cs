@@ -105,14 +105,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
-            failureMechanismSectionConfigurationsObserver.Dispose();
-            calculationGroupObserver.Dispose();
-            calculationObserver.Dispose();
-            calculationInputObserver.Dispose();
-
             if (disposing)
             {
+                failureMechanismObserver?.Dispose();
+                failureMechanismSectionConfigurationsObserver?.Dispose();
+                calculationGroupObserver?.Dispose();
+                calculationObserver?.Dispose();
+                calculationInputObserver?.Dispose();
+
                 components?.Dispose();
             }
 

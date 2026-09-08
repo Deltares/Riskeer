@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate test = () => new UseForeshoreProperties(null, handler);
+            Action test = () => new UseForeshoreProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -58,7 +58,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var testUseForeshore = new TestUseForeshore();
             // Call
-            TestDelegate test = () => new UseForeshoreProperties(testUseForeshore, null);
+            Action test = () => new UseForeshoreProperties(testUseForeshore, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

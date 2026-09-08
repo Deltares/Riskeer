@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.UpdateDataStrategies;
 using Riskeer.Common.IO.SoilProfile;
@@ -220,7 +221,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             var strategy = new PipingStochasticSoilModelReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, "path");
+            Action test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, "path");
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(test);

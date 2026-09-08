@@ -73,7 +73,7 @@ namespace Core.Components.Chart.Test.Styles
             var pointStyle = new ChartPointStyle();
 
             // Call
-            TestDelegate test = () => pointStyle.Size = invalidValue;
+            Action test = () => pointStyle.Size = invalidValue;
 
             // Assert
             const string message = "De waarde voor grootte moet in het bereik [0, 48] liggen.";
@@ -109,7 +109,7 @@ namespace Core.Components.Chart.Test.Styles
             var pointStyle = new ChartPointStyle();
 
             // Call
-            TestDelegate test = () => pointStyle.StrokeThickness = invalidValue;
+            Action test = () => pointStyle.StrokeThickness = invalidValue;
 
             // Assert
             const string message = "De waarde voor lijndikte moet in het bereik [0, 48] liggen.";

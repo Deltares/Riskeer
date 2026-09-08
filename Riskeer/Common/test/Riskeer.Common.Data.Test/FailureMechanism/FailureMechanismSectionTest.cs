@@ -57,7 +57,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void Constructor_NameNull_ThrowArugmentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSection(null, Enumerable.Empty<Point2D>());
+            Action call = () => new FailureMechanismSection(null, Enumerable.Empty<Point2D>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,7 +68,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void Constructor_GeometryPointsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSection("name", null);
+            Action call = () => new FailureMechanismSection("name", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void Constructor_GeometryIsEmpty_ThrowArgumentException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSection("", Enumerable.Empty<Point2D>());
+            Action call = () => new FailureMechanismSection("", Enumerable.Empty<Point2D>());
 
             // Assert
             const string expectedMessage = "Vak moet minstens uit één punt bestaan.";
@@ -98,7 +98,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             };
 
             // Call
-            TestDelegate call = () => new FailureMechanismSection("name", geometryPoints);
+            Action call = () => new FailureMechanismSection("name", geometryPoints);
 
             // Assert
             const string expectedMessage = "One or multiple elements are null.";

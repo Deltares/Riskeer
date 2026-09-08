@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            TestDelegate call = () => calculation.Create(null);
+            Action call = () => calculation.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,7 +51,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((HydraulicBoundaryLocationCalculation) null).Create(new PersistenceRegistry());
+            Action call = () => ((HydraulicBoundaryLocationCalculation) null).Create(new PersistenceRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -37,7 +37,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsSlidingCircle rightCircle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(null, rightCircle, Enumerable.Empty<MacroStabilityInwardsSlice>(), 0, 0);
+            Action call = () => new MacroStabilityInwardsSlidingCurve(null, rightCircle, Enumerable.Empty<MacroStabilityInwardsSlice>(), 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,7 +51,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsSlidingCircle leftCircle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(leftCircle, null, Enumerable.Empty<MacroStabilityInwardsSlice>(), 0, 0);
+            Action call = () => new MacroStabilityInwardsSlidingCurve(leftCircle, null, Enumerable.Empty<MacroStabilityInwardsSlice>(), 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -65,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsSlidingCircle circle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(circle, circle, null, 0, 0);
+            Action call = () => new MacroStabilityInwardsSlidingCurve(circle, circle, null, 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

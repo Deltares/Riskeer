@@ -28,6 +28,7 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PropertyClasses;
@@ -46,7 +47,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_StochasticSoilModelNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingStochasticSoilModelProperties(null);
+            Action test = () => new PipingStochasticSoilModelProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

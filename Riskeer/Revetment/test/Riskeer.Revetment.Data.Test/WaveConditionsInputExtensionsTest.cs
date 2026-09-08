@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Riskeer.Revetment.Data.Test
 {
@@ -33,7 +34,7 @@ namespace Riskeer.Revetment.Data.Test
         public void GetWaterLevels_WaveConditionsInputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => WaveConditionsInputExtensions.GetWaterLevels(null, RoundedDouble.NaN);
+            Action test = () => WaveConditionsInputExtensions.GetWaterLevels(null, RoundedDouble.NaN);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

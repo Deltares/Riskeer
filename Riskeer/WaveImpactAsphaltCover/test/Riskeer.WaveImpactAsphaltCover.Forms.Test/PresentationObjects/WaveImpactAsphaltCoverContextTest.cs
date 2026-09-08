@@ -61,7 +61,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var observableObject = Substitute.For<IObservable>();
 
             // Call
-            TestDelegate call = () => new SimpleWaveImpactAsphaltCoverContext<IObservable>(observableObject, null, assessmentSection);
+            Action call = () => new SimpleWaveImpactAsphaltCoverContext<IObservable>(observableObject, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,7 +76,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleWaveImpactAsphaltCoverContext<IObservable>(observableObject, failureMechanism, null);
+            Action call = () => new SimpleWaveImpactAsphaltCoverContext<IObservable>(observableObject, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

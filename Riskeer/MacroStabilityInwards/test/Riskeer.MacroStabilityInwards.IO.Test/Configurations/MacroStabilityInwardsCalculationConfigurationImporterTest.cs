@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.Configurations.Import;
@@ -61,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsCalculationConfigurationImporter("",
+            Action test = () => new MacroStabilityInwardsCalculationConfigurationImporter("",
                                                                                                 new CalculationGroup(),
                                                                                                 null,
                                                                                                 new MacroStabilityInwardsFailureMechanism());
@@ -75,7 +76,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsCalculationConfigurationImporter("",
+            Action test = () => new MacroStabilityInwardsCalculationConfigurationImporter("",
                                                                                                 new CalculationGroup(),
                                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                                 null);

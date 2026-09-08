@@ -50,7 +50,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var registry = new StabilityPointStructuresValidationRulesRegistry();
 
             // Call
-            TestDelegate test = () => registry.GetValidationRules(null);
+            Action test = () => registry.GetValidationRules(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -64,7 +64,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var registry = new StabilityPointStructuresValidationRulesRegistry();
 
             // Call
-            TestDelegate test = () => registry.GetValidationRules(new StabilityPointStructuresInput
+            Action test = () => registry.GetValidationRules(new StabilityPointStructuresInput
             {
                 InflowModelType = (StabilityPointStructureInflowModelType) 99
             });
@@ -83,7 +83,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var registry = new StabilityPointStructuresValidationRulesRegistry();
 
             // Call
-            TestDelegate test = () => registry.GetValidationRules(new StabilityPointStructuresInput
+            Action test = () => registry.GetValidationRules(new StabilityPointStructuresInput
             {
                 InflowModelType = inflowModelType,
                 LoadSchematizationType = (LoadSchematizationType) 99

@@ -26,6 +26,7 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
 using Riskeer.Revetment.IO.Configurations;

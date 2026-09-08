@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
@@ -55,7 +56,7 @@ namespace Core.Common.IO.Test.Readers
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet.";
 
             // Call
-            TestDelegate call = () => StreamReaderHelper.InitializeStreamReader(filePath);
+            Action call = () => StreamReaderHelper.InitializeStreamReader(filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -71,7 +72,7 @@ namespace Core.Common.IO.Test.Readers
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bestandspad verwijst naar een map die niet bestaat.";
 
             // Call
-            TestDelegate call = () => StreamReaderHelper.InitializeStreamReader(filePath);
+            Action call = () => StreamReaderHelper.InitializeStreamReader(filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(call);

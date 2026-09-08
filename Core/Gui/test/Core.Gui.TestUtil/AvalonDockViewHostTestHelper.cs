@@ -23,7 +23,7 @@ using System.Linq;
 using System.Windows.Forms.Integration;
 using Core.Common.Controls.Views;
 using Core.Gui.Forms.ViewHost;
-using Xceed.Wpf.AvalonDock.Layout;
+using AvalonDock.Layout;
 
 namespace Core.Gui.TestUtil
 {

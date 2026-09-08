@@ -42,7 +42,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
             // Call
-            TestDelegate call = () => new TileReprojector(null, projection, projection);
+            Action call = () => new TileReprojector(null, projection, projection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

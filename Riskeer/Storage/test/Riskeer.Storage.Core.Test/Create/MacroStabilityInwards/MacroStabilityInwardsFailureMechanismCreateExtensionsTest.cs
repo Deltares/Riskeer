@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -48,7 +49,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Create(null);
+            Action test = () => failureMechanism.Create(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

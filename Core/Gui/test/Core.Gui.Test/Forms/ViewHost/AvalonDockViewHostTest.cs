@@ -34,7 +34,8 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
-using Xceed.Wpf.AvalonDock.Layout;
+using NUnit.Framework.Legacy;
+using AvalonDock.Layout;
 
 namespace Core.Gui.Test.Forms.ViewHost
 {

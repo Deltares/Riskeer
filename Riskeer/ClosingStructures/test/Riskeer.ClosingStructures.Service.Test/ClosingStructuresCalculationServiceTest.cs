@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
@@ -236,7 +237,7 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             // Call
             var isValid = false;
-            TestDelegate call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             const string expectedMessage = "The value of argument 'input' (9001) is invalid for Enum type 'ClosingStructureInflowModelType'.";
@@ -303,7 +304,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                TestDelegate call = () => service.Calculate(calculation,
+                Action call = () => service.Calculate(calculation,
                                                             failureMechanism.GeneralInput,
                                                             CreateCalculationSettings());
 

@@ -29,6 +29,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Components.Gis.IO.Readers;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Gis.IO.Test.Readers
 {
@@ -47,7 +48,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             var reader = new WmtsConnectionInfoReader();
 
             // Call
-            TestDelegate call = () => reader.ReadWmtsConnectionInfos(filePath);
+            Action call = () => reader.ReadWmtsConnectionInfos(filePath);
 
             // Assert
             const string expectedMessage = "bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -62,7 +63,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             var reader = new WmtsConnectionInfoReader();
 
             // Call
-            TestDelegate call = () => reader.ReadWmtsConnectionInfos("c:/");
+            Action call = () => reader.ReadWmtsConnectionInfos("c:/");
 
             // Assert
             const string expectedMessage = "bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -79,7 +80,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             var reader = new WmtsConnectionInfoReader();
 
             // Call
-            TestDelegate call = () => reader.ReadWmtsConnectionInfos(filePath);
+            Action call = () => reader.ReadWmtsConnectionInfos(filePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': "
@@ -161,7 +162,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             var reader = new WmtsConnectionInfoReader();
 
             // Call
-            TestDelegate call = () => reader.ReadWmtsConnectionInfos(filePath);
+            Action call = () => reader.ReadWmtsConnectionInfos(filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -241,7 +242,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => reader.ReadWmtsConnectionInfos(filePath);
+                Action call = () => reader.ReadWmtsConnectionInfos(filePath);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);

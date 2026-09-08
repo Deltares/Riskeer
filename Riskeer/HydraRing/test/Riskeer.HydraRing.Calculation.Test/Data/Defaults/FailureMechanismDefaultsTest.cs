@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.HydraRing.Calculation.Data.Defaults;
 
 namespace Riskeer.HydraRing.Calculation.Test.Data.Defaults

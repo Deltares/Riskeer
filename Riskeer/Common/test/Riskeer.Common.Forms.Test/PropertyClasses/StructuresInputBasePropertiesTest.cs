@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -31,6 +31,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -70,7 +71,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                       failureMechanism,
                                                       assessmentSection);
             // Call
-            TestDelegate call = () => new SimpleStructuresInputProperties(inputContext, null, handler);
+            Action call = () => new SimpleStructuresInputProperties(inputContext, null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -84,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties constructionProperties = GetRandomConstructionProperties();
 
             // Call
-            TestDelegate call = () => new SimpleStructuresInputProperties(null, constructionProperties, handler);
+            Action call = () => new SimpleStructuresInputProperties(null, constructionProperties, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -103,7 +104,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                       assessmentSection);
 
             // Call
-            TestDelegate call = () => new SimpleStructuresInputProperties(inputContext, constructionProperties, null);
+            Action call = () => new SimpleStructuresInputProperties(inputContext, constructionProperties, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -312,7 +313,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
             // Call
-            TestDelegate call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+            Action call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
             // Assert
             Assert.DoesNotThrow(call);

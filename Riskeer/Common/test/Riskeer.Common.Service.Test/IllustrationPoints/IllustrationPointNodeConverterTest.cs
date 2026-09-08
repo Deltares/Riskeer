@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
@@ -168,7 +169,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
             var hydraRingIllustrationPointTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingIllustrationPointData);
 
             // Call
-            TestDelegate call = () => IllustrationPointNodeConverter.Convert(hydraRingIllustrationPointTreeNode);
+            Action call = () => IllustrationPointNodeConverter.Convert(hydraRingIllustrationPointTreeNode);
 
             // Assert
             var exception = Assert.Throws<IllustrationPointConversionException>(call);

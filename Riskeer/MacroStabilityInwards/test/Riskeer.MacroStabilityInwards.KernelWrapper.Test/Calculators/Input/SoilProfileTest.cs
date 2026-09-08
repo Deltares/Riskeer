@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SoilProfile(null, new PreconsolidationStress[0]);
+            Action call = () => new SoilProfile(null, new PreconsolidationStress[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -43,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         public void Constructor_PreconsolidationStressesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SoilProfile(new SoilLayer[0], null);
+            Action call = () => new SoilProfile(new SoilLayer[0], null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate test = () => new SimpleDesignVariableProperties(DistributionReadOnlyProperties.None,
+            Action test = () => new SimpleDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                          null,
                                                                          handler);
 

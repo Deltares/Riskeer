@@ -38,7 +38,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var faultTreeNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             // Call
-            TestDelegate call = () => new TopLevelFaultTreeIllustrationPoint(null,
+            Action call = () => new TopLevelFaultTreeIllustrationPoint(null,
                                                                              "closing situation",
                                                                              faultTreeNode);
 
@@ -55,7 +55,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             var faultTreeNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             // Call
-            TestDelegate call = () => new TopLevelFaultTreeIllustrationPoint(windDirection,
+            Action call = () => new TopLevelFaultTreeIllustrationPoint(windDirection,
                                                                              null,
                                                                              faultTreeNode);
 
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
 
             // Call
-            TestDelegate call = () => new TopLevelFaultTreeIllustrationPoint(windDirection,
+            Action call = () => new TopLevelFaultTreeIllustrationPoint(windDirection,
                                                                              "closingSituation",
                                                                              null);
 

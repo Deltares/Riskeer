@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(null);
+            Action call = () => new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

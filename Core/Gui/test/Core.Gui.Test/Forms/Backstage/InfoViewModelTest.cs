@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Gui.Forms.Backstage;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.Forms.Backstage
 {

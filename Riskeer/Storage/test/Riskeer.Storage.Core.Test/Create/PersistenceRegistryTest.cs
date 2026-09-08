@@ -113,7 +113,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 var registry = new PersistenceRegistry();
 
                 // Call
-                TestDelegate test = () => registerToRegistry(registry, null, CreateDataModel());
+                Action test = () => registerToRegistry(registry, null, CreateDataModel());
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -127,7 +127,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 var registry = new PersistenceRegistry();
 
                 // Call
-                TestDelegate test = () => registerToRegistry(registry, new TEntity(), null);
+                Action test = () => registerToRegistry(registry, new TEntity(), null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -141,7 +141,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 var registry = new PersistenceRegistry();
 
                 // Call
-                TestDelegate test = () => containsInRegistry(registry, null);
+                Action test = () => containsInRegistry(registry, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -198,7 +198,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 var registry = new PersistenceRegistry();
 
                 // Call
-                TestDelegate test = () => getFromRegistry(registry, null);
+                Action test = () => getFromRegistry(registry, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -230,7 +230,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 TDataModel dataModel = CreateDataModel();
 
                 // Call
-                TestDelegate test = () => getFromRegistry(registry, dataModel);
+                Action test = () => getFromRegistry(registry, dataModel);
 
                 // Assert
                 Assert.Throws<InvalidOperationException>(test);
@@ -244,7 +244,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 registerToRegistry(registry, new TEntity(), CreateDataModel());
 
                 // Call
-                TestDelegate test = () => getFromRegistry(registry, CreateDataModel());
+                Action test = () => getFromRegistry(registry, CreateDataModel());
 
                 // Assert
                 Assert.Throws<InvalidOperationException>(test);

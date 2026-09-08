@@ -93,14 +93,14 @@ namespace Riskeer.Integration.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            assessmentSectionObserver.Dispose();
-            referenceLineObserver.Dispose();
-            failureMechanismObserver.Dispose();
-            hydraulicBoundaryLocationsMapLayer.Dispose();
-            assemblyResultMapLayer.Dispose();
-
             if (disposing)
             {
+                assessmentSectionObserver?.Dispose();
+                referenceLineObserver?.Dispose();
+                failureMechanismObserver?.Dispose();
+                hydraulicBoundaryLocationsMapLayer?.Dispose();
+                assemblyResultMapLayer?.Dispose();
+
                 components?.Dispose();
             }
 

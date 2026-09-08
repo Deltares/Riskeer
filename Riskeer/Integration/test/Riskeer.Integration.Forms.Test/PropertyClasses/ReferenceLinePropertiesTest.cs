@@ -27,6 +27,7 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses;
@@ -40,7 +41,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_ReferenceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ReferenceLineProperties(null);
+            Action call = () => new ReferenceLineProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

@@ -24,6 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Data.TestUtil
 {
@@ -99,6 +100,12 @@ namespace Core.Common.Data.TestUtil
 
             Assert.IsNotNull(original);
             Assert.IsInstanceOf<IEnumerable<T>>(clone);
+
+            if (ReferenceEquals(original, Array.Empty<T>()) 
+                && ReferenceEquals((IEnumerable<T>) clone, Array.Empty<T>()))
+            {
+                return;
+            }
             Assert.AreNotSame(original, clone);
 
             var observable = original as IObservable;

@@ -61,6 +61,12 @@ namespace Core.Components.Gis.IO.Readers
             {
                 ShapeFile = new PolygonShapefile(filePath);
             }
+            catch (ApplicationException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath)
+                    .Build(GisIOResources.PointShapeFileReader_File_contains_geometries_not_polygons);
+                throw new CriticalFileReadException(message, exception);
+            }
             catch (ArgumentException e)
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)

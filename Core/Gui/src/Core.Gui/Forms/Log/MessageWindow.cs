@@ -59,7 +59,6 @@ namespace Core.Gui.Forms.Log
 
         private bool filtering;
         private bool copying;
-        private Bitmap dialogImage;
 
         /// <summary>
         /// Creates a new instance of <see cref="MessageWindow" />.
@@ -160,7 +159,6 @@ namespace Core.Gui.Forms.Log
                 Font = font
             };
 
-            dialogImage = font.FontFamily.ToBitmap(0xE90C, 512);
         }
 
         private void PopulateMessages()
@@ -268,10 +266,12 @@ namespace Core.Gui.Forms.Log
                 return;
             }
 
-            var messageWindowDialog = new MessageWindowDialog(
-                dialogParent, dialogImage, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
-
-            messageWindowDialog.ShowDialog();
+            using Bitmap detailsImage = font.FontFamily.ToBitmap(0xE90C, 512);
+            using (var messageWindowDialog = new MessageWindowDialog(
+                       dialogParent, detailsImage, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value))
+            {
+                messageWindowDialog.ShowDialog();
+            }
         }
 
         /// <summary>

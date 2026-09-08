@@ -44,7 +44,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             var categoryTheme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
 
             // Call
-            TestDelegate call = () => new TestCategoryThemeProperties(null, categoryTheme, new TestFeatureBasedMapData());
+            Action call = () => new TestCategoryThemeProperties(null, categoryTheme, new TestFeatureBasedMapData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +55,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
         public void Constructor_CategoryThemeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestCategoryThemeProperties(string.Empty, null, new TestFeatureBasedMapData());
+            Action call = () => new TestCategoryThemeProperties(string.Empty, null, new TestFeatureBasedMapData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,7 +69,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             var categoryTheme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
 
             // Call
-            TestDelegate call = () => new TestCategoryThemeProperties(string.Empty, categoryTheme, null);
+            Action call = () => new TestCategoryThemeProperties(string.Empty, categoryTheme, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

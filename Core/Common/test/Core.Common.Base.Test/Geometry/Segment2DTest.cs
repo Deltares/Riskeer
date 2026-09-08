@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Base.Test.Geometry
 {
@@ -52,7 +53,7 @@ namespace Core.Common.Base.Test.Geometry
             var secondPoint = new Point2D(0, 0);
 
             // Call
-            TestDelegate test = () => new Segment2D(null, secondPoint);
+            Action test = () => new Segment2D(null, secondPoint);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -66,7 +67,7 @@ namespace Core.Common.Base.Test.Geometry
             var firstPoint = new Point2D(0, 0);
 
             // Call
-            TestDelegate test = () => new Segment2D(firstPoint, null);
+            Action test = () => new Segment2D(firstPoint, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -195,7 +196,7 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(new Point2D(1.2, 3.5), new Point2D(8.13, 21.34));
 
             // Call
-            TestDelegate call = () => segment.GetEuclideanDistanceToPoint(null);
+            Action call = () => segment.GetEuclideanDistanceToPoint(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

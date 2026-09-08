@@ -35,7 +35,7 @@ namespace Core.Common.Util.Test.Enums
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Assert
             Assert.IsInstanceOf<EnumConverter>(converter);
@@ -45,7 +45,7 @@ namespace Core.Common.Util.Test.Enums
         public void CanConvertTo_DestinationTypeIsInvalid_ReturnsFalse()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
             bool canConvert = converter.CanConvertTo(typeof(NotSupportedType));
@@ -58,7 +58,7 @@ namespace Core.Common.Util.Test.Enums
         public void CanConvertTo_DestinationTypeIsString_ReturnsTrue()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
             bool canConvert = converter.CanConvertTo(typeof(string));
@@ -75,7 +75,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            TestDelegate test = () => converter.ConvertTo(notSupportedValue, typeof(SimpleEnum));
+            Action test = () => converter.ConvertTo(notSupportedValue, typeof(SimpleEnum));
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
@@ -89,7 +89,7 @@ namespace Core.Common.Util.Test.Enums
 
             // Call
             var result = new object();
-            TestDelegate test = () => result = converter.ConvertTo(null, typeof(string));
+            Action test = () => result = converter.ConvertTo(null, typeof(string));
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -131,7 +131,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            TestDelegate test = () => converter.ConvertTo(enumValue, null);
+            Action test = () => converter.ConvertTo(enumValue, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -145,7 +145,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            TestDelegate test = () => converter.ConvertTo(enumValue, typeof(NotSupportedType));
+            Action test = () => converter.ConvertTo(enumValue, typeof(NotSupportedType));
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
@@ -170,7 +170,7 @@ namespace Core.Common.Util.Test.Enums
         public void CanConvertFrom_SourceTypeIsInvalid_ReturnsFalse()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
             bool canConvert = converter.CanConvertFrom(typeof(NotSupportedType));
@@ -183,7 +183,7 @@ namespace Core.Common.Util.Test.Enums
         public void CanConvertFrom_SourceTypeIsString_ReturnsTrue()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
             bool canConvert = converter.CanConvertFrom(typeof(string));
@@ -199,7 +199,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            TestDelegate test = () => converter.ConvertFrom(typeof(NotSupportedType));
+            Action test = () => converter.ConvertFrom(typeof(NotSupportedType));
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
@@ -212,7 +212,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            TestDelegate test = () => converter.ConvertFrom(null);
+            Action test = () => converter.ConvertFrom(null);
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
@@ -256,7 +256,7 @@ namespace Core.Common.Util.Test.Enums
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(second);
+            Action call = () => converter.ConvertFrom(second);
 
             // Assert
             string message = Assert.Throws<FormatException>(call).Message;

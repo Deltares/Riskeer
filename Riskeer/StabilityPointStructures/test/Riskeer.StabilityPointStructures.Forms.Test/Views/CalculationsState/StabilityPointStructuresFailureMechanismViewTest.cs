@@ -32,6 +32,7 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -69,7 +70,18 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views.CalculationsState
         [TearDown]
         public void TearDown()
         {
+            if (testForm == null)
+            {
+                return;
+            }
+
+            if (!testForm.IsDisposed && testForm.IsHandleCreated && testForm.Visible)
+            {
+                testForm.Close();
+            }
+
             testForm.Dispose();
+            testForm = null;
         }
 
         [Test]
@@ -134,6 +146,21 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views.CalculationsState
 
             // Assert
             MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(),
+                                                                        new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -641,6 +668,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views.CalculationsState
 
             testForm.Controls.Add(view);
             testForm.Show();
+            testForm.CreateControl();
+            view.CreateControl();
+            _ = testForm.Handle;
+            _ = view.Handle;
 
             return view;
         }

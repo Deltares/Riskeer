@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.UpdateDataStrategies;
 using Riskeer.Common.IO.SoilProfile;
@@ -46,7 +47,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
         public void Constructor_WithoutCalculations_CreatesNewInstance()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModelUpdateDataStrategy(null);
+            Action test = () => new MacroStabilityInwardsStochasticSoilModelUpdateDataStrategy(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -71,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsStochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(null, string.Empty);
+            Action test = () => strategy.UpdateModelWithImportedData(null, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -85,7 +86,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsStochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new List<MacroStabilityInwardsStochasticSoilModel>(), null);
+            Action test = () => strategy.UpdateModelWithImportedData(new List<MacroStabilityInwardsStochasticSoilModel>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -112,7 +113,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             };
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, sourceFilePath);
+            Action test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(test);
@@ -136,7 +137,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             };
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, sourceFilePath);
+            Action test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(test);

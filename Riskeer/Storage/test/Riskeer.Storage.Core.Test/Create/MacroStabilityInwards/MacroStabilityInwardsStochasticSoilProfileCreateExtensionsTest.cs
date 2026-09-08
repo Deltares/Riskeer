@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsStochasticSoilProfile) null).Create(registry, 0);
+            Action test = () => ((MacroStabilityInwardsStochasticSoilProfile) null).Create(registry, 0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -58,7 +58,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, soilProfile);
 
             // Call
-            TestDelegate test = () => stochasticSoilProfile.Create(null, 0);
+            Action test = () => stochasticSoilProfile.Create(null, 0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -73,7 +73,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => stochasticSoilProfile.Create(registry, 1);
+            Action test = () => stochasticSoilProfile.Create(registry, 1);
 
             // Assert
             var exception = Assert.Throws<NotSupportedException>(test);

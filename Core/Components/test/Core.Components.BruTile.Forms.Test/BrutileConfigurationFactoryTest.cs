@@ -45,7 +45,7 @@ namespace Core.Components.BruTile.Forms.Test
         public void CreateInitializedConfiguration_MapDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(null);
+            Action test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -59,7 +59,7 @@ namespace Core.Components.BruTile.Forms.Test
             var mapData = new TestImageBasedMapData("test", true);
 
             // Call
-            TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(mapData);
+            Action test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(mapData);
 
             // Assert
             var exception = Assert.Throws<NotSupportedException>(test);
@@ -79,7 +79,7 @@ namespace Core.Components.BruTile.Forms.Test
                 var wellKnownMapData = new WellKnownTileSourceMapData(WellKnownTileSource.BingAerial);
 
                 // Call
-                TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(wellKnownMapData);
+                Action test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(wellKnownMapData);
 
                 // Assert
                 var exception = Assert.Throws<ConfigurationInitializationException>(test);
@@ -103,7 +103,7 @@ namespace Core.Components.BruTile.Forms.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(mapData);
+                Action test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(mapData);
 
                 // Assert
                 var exception = Assert.Throws<ConfigurationInitializationException>(test);
@@ -147,7 +147,7 @@ namespace Core.Components.BruTile.Forms.Test
             using (new UseCustomTileSourceFactoryConfig(factory))
             {
                 // Call
-                TestDelegate test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(backgroundMapData);
+                Action test = () => BrutileConfigurationFactory.CreateInitializedConfiguration(backgroundMapData);
 
                 // Assert
                 var exception = Assert.Throws<ConfigurationInitializationException>(test);

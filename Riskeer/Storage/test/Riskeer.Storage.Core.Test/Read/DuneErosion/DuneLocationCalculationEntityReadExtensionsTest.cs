@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
-            TestDelegate call = () => ((DuneLocationCalculationEntity) null).Read(calculation);
+            Action call = () => ((DuneLocationCalculationEntity) null).Read(calculation);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +55,7 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             var entity = new DuneLocationCalculationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            Action call = () => entity.Read(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

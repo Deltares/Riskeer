@@ -23,14 +23,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Windows.Threading;
 using System.Windows.Forms;
 using Core.Common.Util.Reflection;
-using Core.Components.GraphSharp.Data;
-using Core.Components.GraphSharp.Forms;
-using Core.Components.GraphSharp.TestUtil;
+using Core.Components.GraphShape.Data;
+using Core.Components.GraphShape.Forms;
+using Core.Components.GraphShape.TestUtil;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
@@ -46,10 +48,13 @@ namespace Riskeer.Common.Forms.Test.Views
     public class GeneralResultFaultTreeIllustrationPointViewTest
     {
         private Form testForm;
+        private SynchronizationContext originalSynchronizationContext;
 
         [SetUp]
         public void Setup()
         {
+            originalSynchronizationContext = SynchronizationContext.Current;
+            SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
             testForm = new Form();
         }
 
@@ -57,6 +62,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void TearDown()
         {
             testForm.Dispose();
+            SynchronizationContext.SetSynchronizationContext(originalSynchronizationContext);
         }
 
         [Test]

@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
@@ -42,7 +43,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Create(null);
+            Action test = () => failureMechanism.Create(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

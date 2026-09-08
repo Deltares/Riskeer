@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Components.Stack.Test.Data
 {
@@ -51,7 +52,7 @@ namespace Core.Components.Stack.Test.Data
             var data = new StackChartData();
 
             // Call
-            TestDelegate test = () => data.AddColumn(null);
+            Action test = () => data.AddColumn(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -86,7 +87,7 @@ namespace Core.Components.Stack.Test.Data
             });
 
             // Call
-            TestDelegate test = () => data.AddColumn("Column 2");
+            Action test = () => data.AddColumn("Column 2");
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(test);
@@ -101,7 +102,7 @@ namespace Core.Components.Stack.Test.Data
             data.AddColumn("column 1");
 
             // Call
-            TestDelegate test = () => data.AddRow(null, new[]
+            Action test = () => data.AddRow(null, new[]
             {
                 1.0
             }, Color.White);
@@ -119,7 +120,7 @@ namespace Core.Components.Stack.Test.Data
             data.AddColumn("Column 1");
 
             // Call
-            TestDelegate test = () => data.AddRow("test", null, Color.White);
+            Action test = () => data.AddRow("test", null, Color.White);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -135,7 +136,7 @@ namespace Core.Components.Stack.Test.Data
             data.AddColumn("column 2");
 
             // Call
-            TestDelegate test = () => data.AddRow("test", new[]
+            Action test = () => data.AddRow("test", new[]
             {
                 2.1
             });
@@ -201,7 +202,7 @@ namespace Core.Components.Stack.Test.Data
             // Setup
             var data = new StackChartData();
             // Call
-            TestDelegate test = () => data.AddRow("Row", new[]
+            Action test = () => data.AddRow("Row", new[]
             {
                 1.1,
                 2.2

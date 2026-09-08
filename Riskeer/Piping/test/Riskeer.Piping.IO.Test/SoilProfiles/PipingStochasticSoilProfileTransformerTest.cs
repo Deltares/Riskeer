@@ -42,7 +42,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
 
             // Call
-            TestDelegate test = () => PipingStochasticSoilProfileTransformer.Transform(null, soilProfile);
+            Action test = () => PipingStochasticSoilProfileTransformer.Transform(null, soilProfile);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -57,7 +57,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             StochasticSoilProfile stochasticSoilProfile = StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(soilProfile);
 
             // Call
-            TestDelegate test = () => PipingStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, null);
+            Action test = () => PipingStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -74,7 +74,7 @@ namespace Riskeer.Piping.IO.Test.SoilProfiles
             var stochasticSoilProfile = new StochasticSoilProfile(double.NaN, soilProfile);
 
             // Call
-            TestDelegate call = () => PipingStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, pipingSoilProfile);
+            Action call = () => PipingStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, pipingSoilProfile);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);

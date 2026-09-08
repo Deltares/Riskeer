@@ -66,7 +66,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, updateStrategy);
 
             // Call
-            TestDelegate call = () => new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
+            Action call = () => new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
                 null,
                 filePath,
                 messageProvider,
@@ -88,7 +88,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, updateStrategy);
 
             // Call
-            TestDelegate call = () => new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
+            Action call = () => new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
                 collection,
                 filePath,
                 null,
@@ -108,7 +108,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string filePath = string.Empty;
 
             // Call
-            TestDelegate call = () => new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
+            Action call = () => new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
                 collection,
                 filePath,
                 messageProvider,

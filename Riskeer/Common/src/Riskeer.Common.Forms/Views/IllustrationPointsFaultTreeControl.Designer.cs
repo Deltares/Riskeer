@@ -50,7 +50,7 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.pointedTreeGraphControl = new Core.Components.GraphSharp.Forms.PointedTreeGraphControl();
+            this.pointedTreeGraphControl = new Core.Components.GraphShape.Forms.PointedTreeGraphControl();
             this.SuspendLayout();
             // 
             // pointedTreeGraphControl
@@ -74,6 +74,6 @@ namespace Riskeer.Common.Forms.Views
 
         #endregion
 
-        private Core.Components.GraphSharp.Forms.PointedTreeGraphControl pointedTreeGraphControl;
+        private Core.Components.GraphShape.Forms.PointedTreeGraphControl pointedTreeGraphControl;
     }
 }

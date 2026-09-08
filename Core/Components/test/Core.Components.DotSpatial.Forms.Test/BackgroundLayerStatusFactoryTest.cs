@@ -34,7 +34,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void CreateBackgroundLayerStatus_MapDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(null);
+            Action test = () => BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -48,7 +48,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             var mapData = new SimpleImageBasedMapData();
 
             // Call
-            TestDelegate test = () => BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(mapData);
+            Action test = () => BackgroundLayerStatusFactory.CreateBackgroundLayerStatus(mapData);
 
             // Assert
             string message = Assert.Throws<NotSupportedException>(test).Message;

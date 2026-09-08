@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -47,17 +48,17 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
 
             // Assert
             Assert.AreEqual(order, entity.Order);
-            Assert.AreEqual(output.WaterLevel, entity.WaterLevel, output.WaterLevel.GetAccuracy());
-            Assert.AreEqual(output.WaveHeight, entity.WaveHeight, output.WaveHeight.GetAccuracy());
-            Assert.AreEqual(output.WavePeakPeriod, entity.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
-            Assert.AreEqual(output.WaveAngle, entity.WaveAngle, output.WaveAngle.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.WaterLevel, entity.WaterLevel, output.WaterLevel.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.WaveHeight, entity.WaveHeight, output.WaveHeight.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.WavePeakPeriod, entity.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.WaveAngle, entity.WaveAngle, output.WaveAngle.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(outputType), entity.OutputType);
-            Assert.AreEqual(output.WaveDirection, entity.WaveDirection, output.WaveDirection.GetAccuracy());
-            Assert.AreEqual(output.Resistance, entity.Resistance, output.Resistance.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.WaveDirection, entity.WaveDirection, output.WaveDirection.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.Resistance, entity.Resistance, output.Resistance.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
-            Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
-            Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            NullableDoubleAssert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
 
             Assert.AreEqual(0, entity.StabilityStoneCoverWaveConditionsOutputEntityId);

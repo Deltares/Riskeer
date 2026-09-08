@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
 
             // Call
-            TestDelegate test = () => soilProfile.Create(null);
+            Action test = () => soilProfile.Create(null);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;

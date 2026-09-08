@@ -56,7 +56,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
+            Action call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -74,7 +74,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             string invalidFilePath = validFilePath.Replace("1", invalidPathChars[1].ToString());
 
             // Call
-            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
+            Action call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
@@ -90,7 +90,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
                                                                 Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
+            Action call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
@@ -105,7 +105,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
                                                                 "I_do_not_exist.shp");
 
             // Call
-            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
+            Action call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
@@ -127,7 +127,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
                                                                 shapeFileName);
 
             // Call
-            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
+            Action call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': kon geen punten vinden in dit bestand.";
@@ -147,7 +147,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
                                                                 Path.Combine("DikeProfiles", fileName));
 
             // Call
-            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
+            Action call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             string expectedMessage = $"Het bestand heeft geen attribuut '{missingColumnName}'. Dit attribuut is vereist.";
@@ -166,7 +166,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new ProfileLocationReader(path);
+                Action call = () => new ProfileLocationReader(path);
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
@@ -228,7 +228,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             using (var reader = new ProfileLocationReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetNextProfileLocation();
+                Action call = () => reader.GetNextProfileLocation();
 
                 // Assert
                 const string expectedMessage = "De locatie parameter 'ID' heeft geen waarde.";
@@ -247,7 +247,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             using (var reader = new ProfileLocationReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetNextProfileLocation();
+                Action call = () => reader.GetNextProfileLocation();
 
                 // Assert
                 const string expectedMessage = "Het profiel heeft geen geldige waarde voor attribuut 'X0'.";
@@ -268,7 +268,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             using (var reader = new ProfileLocationReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetNextProfileLocation();
+                Action call = () => reader.GetNextProfileLocation();
 
                 // Assert
                 const string expectedMessage = "De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.";
@@ -433,7 +433,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             using (var reader = new ProfileLocationReader(validFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetNextProfileLocation();
+                Action call = () => reader.GetNextProfileLocation();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -451,7 +451,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             using (var reader = new ProfileLocationReader(validFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetNextProfileLocation();
+                Action call = () => reader.GetNextProfileLocation();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);

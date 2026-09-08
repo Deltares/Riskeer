@@ -2133,7 +2133,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 }
 
                 // Call
-                TestDelegate call = () => control.SetCurrentCell(control.GetCell(0, 1));
+                Action call = () => control.SetCurrentCell(control.GetCell(0, 1));
 
                 // Assert
                 Assert.DoesNotThrow(call);

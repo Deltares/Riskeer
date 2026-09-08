@@ -65,7 +65,7 @@ namespace Core.Components.Gis.Test.Style
             var lineStyle = new LineStyle();
 
             // Call
-            TestDelegate test = () => lineStyle.Width = invalidValue;
+            Action test = () => lineStyle.Width = invalidValue;
 
             // Assert
             const string message = "De waarde voor lijndikte moet in het bereik [0, 48] liggen.";

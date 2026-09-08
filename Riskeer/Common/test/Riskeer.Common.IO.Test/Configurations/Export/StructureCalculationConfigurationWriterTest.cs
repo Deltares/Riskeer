@@ -47,7 +47,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             var writer = new SimpleStructureCalculationConfigurationWriter(filePath, false);
             {
                 // Call
-                TestDelegate test = () => writer.Write(null);
+                Action test = () => writer.Write(null);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);

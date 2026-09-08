@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 
@@ -34,7 +35,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void Constructor_ConstructionPropertiesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged, null);
+            Action test = () => new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -61,7 +62,7 @@ namespace Riskeer.DuneErosion.Data.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new DuneLocationCalculationOutput(convergence,
+            Action call = () => new DuneLocationCalculationOutput(convergence,
                                                                         new DuneLocationCalculationOutput.ConstructionProperties
                                                                         {
                                                                             WaterLevel = waterLevel,
@@ -102,7 +103,7 @@ namespace Riskeer.DuneErosion.Data.Test
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             // Call
-            TestDelegate call = () => new DuneLocationCalculationOutput(convergence,
+            Action call = () => new DuneLocationCalculationOutput(convergence,
                                                                         new DuneLocationCalculationOutput.ConstructionProperties
                                                                         {
                                                                             WaterLevel = waterLevel,

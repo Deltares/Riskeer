@@ -45,7 +45,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void Constructor_InvalidPath_ThrowCriticalFileReadException(string databasePath)
         {
             // Call
-            TestDelegate test = () => new TimeIntegrationSettingsProvider(databasePath);
+            Action test = () => new TimeIntegrationSettingsProvider(databasePath);
 
             // Assert
             Assert.Throws<CriticalFileReadException>(test);

@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_IllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointProperties(null,
+            Action test = () => new IllustrationPointProperties(null,
                                                                       "Point name A",
                                                                       "Closing Situation");
 
@@ -61,7 +61,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointProperties(new TestIllustrationPoint(),
+            Action test = () => new IllustrationPointProperties(new TestIllustrationPoint(),
                                                                       null,
                                                                       "Closing Situation");
 
@@ -74,7 +74,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_ClosingSituationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointProperties(new TestIllustrationPoint(),
+            Action test = () => new IllustrationPointProperties(new TestIllustrationPoint(),
                                                                       "SE",
                                                                       null);
 

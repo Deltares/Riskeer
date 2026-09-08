@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
 namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
@@ -36,7 +37,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_WithoutData_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointTreeNode(null);
+            Action test = () => new IllustrationPointTreeNode(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -66,7 +67,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             var treeNode = new IllustrationPointTreeNode(data);
 
             // Call
-            TestDelegate call = () => treeNode.SetChildren(null);
+            Action call = () => treeNode.SetChildren(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -85,7 +86,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             var childrenToBeAttached = new IllustrationPointTreeNode[nrOfChildren];
 
             // Call
-            TestDelegate call = () => treeNode.SetChildren(childrenToBeAttached);
+            Action call = () => treeNode.SetChildren(childrenToBeAttached);
 
             // Assert
             const string expectedMessage = "Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben.";

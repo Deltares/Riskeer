@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Forms;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -40,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSurfaceLineSelectionDialog(null, Enumerable.Empty<MacroStabilityInwardsSurfaceLine>());
+            Action test = () => new MacroStabilityInwardsSurfaceLineSelectionDialog(null, Enumerable.Empty<MacroStabilityInwardsSurfaceLine>());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -54,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test
             using (var viewParent = new Form())
             {
                 // Call
-                TestDelegate test = () => new MacroStabilityInwardsSurfaceLineSelectionDialog(viewParent, null);
+                Action test = () => new MacroStabilityInwardsSurfaceLineSelectionDialog(viewParent, null);
 
                 // Assert
                 string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

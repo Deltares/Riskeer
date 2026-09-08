@@ -32,6 +32,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -77,7 +78,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInputContextProperties(null,
+            Action test = () => new MacroStabilityInwardsInputContextProperties(null,
                                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                       handler);
 
@@ -103,7 +104,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 assessmentSection);
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInputContextProperties(context, null, handler);
+            Action test = () => new MacroStabilityInwardsInputContextProperties(context, null, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -126,7 +127,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 assessmentSection);
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInputContextProperties(context,
+            Action test = () => new MacroStabilityInwardsInputContextProperties(context,
                                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                       null);
 
@@ -1022,7 +1023,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
             // Call
-            TestDelegate call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+            Action call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
             // Assert
             Assert.DoesNotThrow(call);

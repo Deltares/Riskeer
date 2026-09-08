@@ -58,7 +58,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             var closingStructures = new StructureCollection<ClosingStructure>();
 
             // Call
-            TestDelegate test = () => new ClosingStructuresContext(closingStructures, null, assessmentSection);
+            Action test = () => new ClosingStructuresContext(closingStructures, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -72,7 +72,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            TestDelegate test = () => new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, null);
+            Action test = () => new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

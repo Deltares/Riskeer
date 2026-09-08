@@ -25,6 +25,7 @@ using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 

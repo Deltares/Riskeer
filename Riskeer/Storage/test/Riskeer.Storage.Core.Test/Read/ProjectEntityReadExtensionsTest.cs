@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new ProjectEntity();
 
             // Call
-            TestDelegate test = () => entity.Read(null);
+            Action test = () => entity.Read(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;

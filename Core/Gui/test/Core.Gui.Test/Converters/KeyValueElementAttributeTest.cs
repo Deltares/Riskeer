@@ -33,7 +33,7 @@ namespace Core.Gui.Test.Converters
         public void Constructor_WithoutValuePropertyName_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new KeyValueElementAttribute("name", null);
+            Action test = () => new KeyValueElementAttribute("name", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -44,7 +44,7 @@ namespace Core.Gui.Test.Converters
         public void Constructor_WithoutNamePropertyName_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new KeyValueElementAttribute(null, "value");
+            Action test = () => new KeyValueElementAttribute(null, "value");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -104,7 +104,7 @@ namespace Core.Gui.Test.Converters
             var attribute = new KeyValueElementAttribute("IDoNotExist", nameof(TestObject.Value));
 
             // Call
-            TestDelegate test = () => attribute.GetName(new TestObject());
+            Action test = () => attribute.GetName(new TestObject());
 
             // Assert
             const string expectedMessage = "Name property 'IDoNotExist' was not found on type TestObject.";
@@ -154,7 +154,7 @@ namespace Core.Gui.Test.Converters
             var attribute = new KeyValueElementAttribute(nameof(TestObject.Name), "IDoNotExist");
 
             // Call
-            TestDelegate test = () => attribute.GetValue(new TestObject());
+            Action test = () => attribute.GetValue(new TestObject());
 
             // Assert
             const string expectedMessage = "Value property 'IDoNotExist' was not found on type TestObject.";

@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace AssemblyResolver
 {
@@ -38,15 +37,40 @@ namespace AssemblyResolver
         private const string dllPattern = "*.dll";
 
         private static readonly Dictionary<string, string> assemblyPaths = CreateAssemblyPaths();
+        private static readonly Dictionary<string, List<AssemblyPath>> assemblyPathsBySimpleName = CreateAssemblyPathsBySimpleName();
 
         /// <summary>
         /// Resolves an assembly.
         /// </summary>
         /// <param name="args">The arguments containing the assembly name to resolve.</param>
         /// <returns>The resolved assembly, or <c>null</c> if not found.</returns>
-        internal static Assembly ResolveAssembly(ResolveEventArgs args)
+        internal static System.Reflection.Assembly ResolveAssembly(System.ResolveEventArgs args)
         {
-            return assemblyPaths.TryGetValue(args.Name, out string assemblyPath) ? Assembly.LoadFrom(assemblyPath) : null;
+            if (assemblyPaths.TryGetValue(args.Name, out string assemblyPath))
+            {
+                return System.Reflection.Assembly.LoadFrom(assemblyPath);
+            }
+
+            System.Reflection.AssemblyName requestedAssemblyName;
+            try
+            {
+                requestedAssemblyName = new System.Reflection.AssemblyName(args.Name);
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
+
+            if (requestedAssemblyName.Version == new Version(0, 0, 0, 0) && assemblyPathsBySimpleName.TryGetValue(requestedAssemblyName.Name, out List<AssemblyPath> candidates))
+            {
+                AssemblyPath candidate = candidates.Where(ap => PublicKeyTokensMatch(ap.AssemblyName.GetPublicKeyToken(), requestedAssemblyName.GetPublicKeyToken())).OrderByDescending(ap => ap.AssemblyName.Version).FirstOrDefault();
+                if (candidate != null)
+                {
+                    return System.Reflection.Assembly.LoadFrom(candidate.Path);
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -59,11 +83,7 @@ namespace AssemblyResolver
         private static Dictionary<string, string> CreateAssemblyPaths()
         {
             var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            foreach (AssemblyPath ap in Directory
-                                        .EnumerateFiles(GetAssembliesDirectory(), dllPattern, SearchOption.AllDirectories)
-                                        .Where(file => !file.EndsWith(resourcesDllPattern, StringComparison.OrdinalIgnoreCase))
-                                        .Select(TryCreateAssemblyPath)
-                                        .Where(ap => ap != null))
+            foreach (AssemblyPath ap in Directory.EnumerateFiles(GetAssembliesDirectory(), dllPattern, SearchOption.AllDirectories).Where(file => !file.EndsWith(resourcesDllPattern, StringComparison.OrdinalIgnoreCase)).Select(TryCreateAssemblyPath).Where(ap => ap != null))
             {
                 if (!result.TryGetValue(ap.AssemblyName.FullName, out string existingPath))
                 {
@@ -71,19 +91,59 @@ namespace AssemblyResolver
                 }
                 else
                 {
-                    throw new InvalidOperationException(
-                        $"Duplicate assembly name '{ap.AssemblyName.FullName}' found at '{ap.Path}' and '{existingPath}'.");
+                    throw new InvalidOperationException($"Duplicate assembly name '{ap.AssemblyName.FullName}' found at '{ap.Path}' and '{existingPath}'.");
                 }
             }
 
             return result;
         }
 
+        private static Dictionary<string, List<AssemblyPath>> CreateAssemblyPathsBySimpleName()
+        {
+            var result = new Dictionary<string, List<AssemblyPath>>(StringComparer.OrdinalIgnoreCase);
+            foreach (KeyValuePair<string, string> kvp in assemblyPaths)
+            {
+                var assemblyName = new System.Reflection.AssemblyName(kvp.Key);
+                if (!result.TryGetValue(assemblyName.Name, out List<AssemblyPath> items))
+                {
+                    items = new List<AssemblyPath>();
+                    result[assemblyName.Name] = items;
+                }
+
+                items.Add(new AssemblyPath(assemblyName, kvp.Value));
+            }
+
+            return result;
+        }
+
+        private static bool PublicKeyTokensMatch(byte[] leftToken, byte[] rightToken)
+        {
+            if (leftToken == null || leftToken.Length == 0 || rightToken == null || rightToken.Length == 0)
+            {
+                return true;
+            }
+
+            if (leftToken.Length != rightToken.Length)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < leftToken.Length; i++)
+            {
+                if (leftToken[i] != rightToken[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private static AssemblyPath TryCreateAssemblyPath(string file)
         {
             try
             {
-                return new AssemblyPath(AssemblyName.GetAssemblyName(file), file);
+                return new AssemblyPath(System.Reflection.AssemblyName.GetAssemblyName(file), file);
             }
             catch (BadImageFormatException)
             {
@@ -102,7 +162,7 @@ namespace AssemblyResolver
 
         private static string GetApplicationDirectory()
         {
-            DirectoryInfo rootDirectoryInfo = Directory.GetParent(Assembly.GetExecutingAssembly().Location);
+            DirectoryInfo rootDirectoryInfo = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
             while (rootDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
             {
@@ -114,13 +174,13 @@ namespace AssemblyResolver
 
         private sealed class AssemblyPath
         {
-            public AssemblyPath(AssemblyName assemblyName, string path)
+            public AssemblyPath(System.Reflection.AssemblyName assemblyName, string path)
             {
                 AssemblyName = assemblyName;
                 Path = path;
             }
 
-            public AssemblyName AssemblyName { get; }
+            public System.Reflection.AssemblyName AssemblyName { get; }
 
             public string Path { get; }
         }

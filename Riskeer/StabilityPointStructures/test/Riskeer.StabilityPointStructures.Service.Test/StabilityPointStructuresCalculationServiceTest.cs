@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
@@ -438,7 +439,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             };
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresCalculationService.Validate(calculation,
+            Action call = () => StabilityPointStructuresCalculationService.Validate(calculation,
                                                                                           assessmentSection);
             // Assert
             const string expectedMessage = "The value of argument 'input' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
@@ -468,7 +469,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             };
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresCalculationService.Validate(calculation,
+            Action call = () => StabilityPointStructuresCalculationService.Validate(calculation,
                                                                                           assessmentSection);
             // Assert
             const string expectedMessage = "The value of argument 'input' (100) is invalid for Enum type 'LoadSchematizationType'.";
@@ -498,7 +499,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                TestDelegate call = () => service.Calculate(calculation,
+                Action call = () => service.Calculate(calculation,
                                                             failureMechanism.GeneralInput,
                                                             CreateCalculationSettings());
 
@@ -534,7 +535,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                TestDelegate call = () => service.Calculate(calculation,
+                Action call = () => service.Calculate(calculation,
                                                             failureMechanism.GeneralInput,
                                                             CreateCalculationSettings());
 

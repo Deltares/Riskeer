@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_BackgroundDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new BackgroundDataProperties(null);
+            Action call = () => new BackgroundDataProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

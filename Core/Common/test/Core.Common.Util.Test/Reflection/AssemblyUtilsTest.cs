@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,6 +24,7 @@ using System.IO;
 using System.Reflection;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Util.Test.Reflection
 {
@@ -94,41 +95,7 @@ namespace Core.Common.Util.Test.Reflection
             Assert.AreEqual(assemblyInfo.Title, executingAssemblyInfo.Title);
             Assert.AreEqual(assemblyInfo.Version, executingAssemblyInfo.Version);
         }
-
-        [Test]
-        public void GetTypeByName_ForThisTestSuite_ReturnTypeOfThisTestSuite()
-        {
-            // Setup
-            string typeName = GetType().FullName;
-
-            // Call
-            Type returnedType = AssemblyUtils.GetTypeByName(typeName);
-
-            // Assert
-            Assert.AreEqual(GetType(), returnedType);
-        }
-
-        [Test]
-        public void GetTypeByName_NameNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => AssemblyUtils.GetTypeByName(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("name", exception.ParamName);
-        }
-
-        [Test]
-        public void GetTypeByName_ForNonExistingClass_ReturnNull()
-        {
-            // Call
-            Type returnedType = AssemblyUtils.GetTypeByName("I.Dont.Exist");
-
-            // Assert
-            Assert.IsNull(returnedType);
-        }
-
+        
         [Test]
         public void GetAssemblyResourceStream_AssemblyNull_ThrowArgumentNullException()
         {

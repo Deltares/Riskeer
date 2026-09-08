@@ -785,7 +785,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             var input = new StabilityPointStructuresInput();
 
             // Call
-            TestDelegate call = () => input.FailureProbabilityRepairClosure = probability;
+            Action call = () => input.FailureProbabilityRepairClosure = probability;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
@@ -896,7 +896,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             var input = new StabilityPointStructuresInput();
 
             // Call
-            TestDelegate call = () => input.ProbabilityCollisionSecondaryStructure = probability;
+            Action call = () => input.ProbabilityCollisionSecondaryStructure = probability;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Kans moet in het bereik [0,0, 1,0] liggen.");
@@ -983,7 +983,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             var input = new StabilityPointStructuresInput();
 
             // Call
-            TestDelegate call = () => input.VerticalDistance = (RoundedDouble) (-0.01);
+            Action call = () => input.VerticalDistance = (RoundedDouble) (-0.01);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
@@ -1011,7 +1011,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             var input = new StabilityPointStructuresInput();
 
             // Call
-            TestDelegate call = () => input.LevellingCount = -1;
+            Action call = () => input.LevellingCount = -1;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(

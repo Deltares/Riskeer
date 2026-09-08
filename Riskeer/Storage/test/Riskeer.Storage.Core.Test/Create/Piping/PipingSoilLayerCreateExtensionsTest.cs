@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         public void Create_SoilLayerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((PipingSoilLayer) null).Create(0);
+            Action test = () => ((PipingSoilLayer) null).Create(0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -84,22 +84,22 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.AreEqual(Convert.ToByte(soilLayer.IsAquifer), entity.IsAquifer);
             Assert.AreEqual(soilLayer.Color.ToInt64(), Convert.ToInt64(entity.Color));
 
-            Assert.AreEqual(soilLayer.BelowPhreaticLevel.Mean, entity.BelowPhreaticLevelMean,
-                            soilLayer.BelowPhreaticLevel.GetAccuracy());
-            Assert.AreEqual(soilLayer.BelowPhreaticLevel.StandardDeviation, entity.BelowPhreaticLevelDeviation,
-                            soilLayer.BelowPhreaticLevel.GetAccuracy());
-            Assert.AreEqual(soilLayer.BelowPhreaticLevel.Shift, entity.BelowPhreaticLevelShift,
-                            soilLayer.BelowPhreaticLevel.GetAccuracy());
+            NullableDoubleAssert.AreEqual(soilLayer.BelowPhreaticLevel.Mean, entity.BelowPhreaticLevelMean,
+                                          soilLayer.BelowPhreaticLevel.GetAccuracy());
+            NullableDoubleAssert.AreEqual(soilLayer.BelowPhreaticLevel.StandardDeviation, entity.BelowPhreaticLevelDeviation,
+                                          soilLayer.BelowPhreaticLevel.GetAccuracy());
+            NullableDoubleAssert.AreEqual(soilLayer.BelowPhreaticLevel.Shift, entity.BelowPhreaticLevelShift,
+                                          soilLayer.BelowPhreaticLevel.GetAccuracy());
 
-            Assert.AreEqual(soilLayer.DiameterD70.Mean, entity.DiameterD70Mean,
-                            soilLayer.DiameterD70.GetAccuracy());
-            Assert.AreEqual(soilLayer.DiameterD70.CoefficientOfVariation, entity.DiameterD70CoefficientOfVariation,
-                            soilLayer.DiameterD70.GetAccuracy());
+            NullableDoubleAssert.AreEqual(soilLayer.DiameterD70.Mean, entity.DiameterD70Mean,
+                                          soilLayer.DiameterD70.GetAccuracy());
+            NullableDoubleAssert.AreEqual(soilLayer.DiameterD70.CoefficientOfVariation, entity.DiameterD70CoefficientOfVariation,
+                                          soilLayer.DiameterD70.GetAccuracy());
 
-            Assert.AreEqual(soilLayer.Permeability.Mean, entity.PermeabilityMean,
-                            soilLayer.Permeability.GetAccuracy());
-            Assert.AreEqual(soilLayer.Permeability.CoefficientOfVariation, entity.PermeabilityCoefficientOfVariation,
-                            soilLayer.Permeability.GetAccuracy());
+            NullableDoubleAssert.AreEqual(soilLayer.Permeability.Mean, entity.PermeabilityMean,
+                                          soilLayer.Permeability.GetAccuracy());
+            NullableDoubleAssert.AreEqual(soilLayer.Permeability.CoefficientOfVariation, entity.PermeabilityCoefficientOfVariation,
+                                          soilLayer.Permeability.GetAccuracy());
             Assert.AreEqual(order, entity.Order);
         }
 

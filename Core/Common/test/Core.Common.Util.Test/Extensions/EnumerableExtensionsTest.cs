@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Core.Common.Util.Test.Extensions
 {
@@ -34,7 +35,7 @@ namespace Core.Common.Util.Test.Extensions
         public void ForEachElementDo_IteratorNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => EnumerableExtensions.ForEachElementDo<object>(null, e => {});
+            Action call = () => EnumerableExtensions.ForEachElementDo<object>(null, e => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -48,7 +49,7 @@ namespace Core.Common.Util.Test.Extensions
             IEnumerable<object> enumerable = Enumerable.Empty<object>();
 
             // Call
-            TestDelegate call = () => enumerable.ForEachElementDo(null);
+            Action call = () => enumerable.ForEachElementDo(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -80,7 +81,7 @@ namespace Core.Common.Util.Test.Extensions
         public void HasDuplicates_IteratorNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => EnumerableExtensions.HasDuplicates<object, object>(null, e => null);
+            Action call = () => EnumerableExtensions.HasDuplicates<object, object>(null, e => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -94,7 +95,7 @@ namespace Core.Common.Util.Test.Extensions
             IEnumerable<object> enumerable = Enumerable.Empty<object>();
 
             // Call
-            TestDelegate call = () => enumerable.HasDuplicates<object, object>(null);
+            Action call = () => enumerable.HasDuplicates<object, object>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -170,7 +171,7 @@ namespace Core.Common.Util.Test.Extensions
         public void HasMultipleUniqueValues_IteratorNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => EnumerableExtensions.HasMultipleUniqueValues<object, object>(null, e => null);
+            Action call = () => EnumerableExtensions.HasMultipleUniqueValues<object, object>(null, e => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -184,7 +185,7 @@ namespace Core.Common.Util.Test.Extensions
             IEnumerable<object> enumerable = Enumerable.Empty<object>();
 
             // Call
-            TestDelegate call = () => enumerable.HasMultipleUniqueValues<object, object>(null);
+            Action call = () => enumerable.HasMultipleUniqueValues<object, object>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

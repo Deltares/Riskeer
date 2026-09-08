@@ -446,7 +446,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             });
 
             // Call
-            TestDelegate call = () => structure.CopyProperties(null);
+            Action call = () => structure.CopyProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

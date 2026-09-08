@@ -37,7 +37,7 @@ namespace Riskeer.Common.Util.Test
             var location = new Point2D(0, 0);
 
             // Call
-            TestDelegate test = () => new CalculationWithLocation(null, location);
+            Action test = () => new CalculationWithLocation(null, location);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,7 +50,7 @@ namespace Riskeer.Common.Util.Test
             // Setup
             var calculation = Substitute.For<ICalculation>();
             // Call
-            TestDelegate test = () => new CalculationWithLocation(calculation, null);
+            Action test = () => new CalculationWithLocation(calculation, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

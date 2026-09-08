@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.MacroStabilityInwards;
@@ -42,7 +43,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => ((MacroStabilityInwardsSurfaceLine) null).Create(registry, 0);
+            Action call = () => ((MacroStabilityInwardsSurfaceLine) null).Create(registry, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -56,7 +57,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate call = () => surfaceLine.Create(null, 0);
+            Action call = () => surfaceLine.Create(null, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -268,7 +269,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
                         Assert.AreEqual(geometry[surfaceLevelInsideIndex].Z, characteristicPointEntity.Z);
                         break;
                     default:
-                        Assert.Fail("Invalid characteristic point type found: {0}", characteristicPointEntity.Type);
+                        Assert.Fail($"Invalid characteristic point type found: {characteristicPointEntity.Type}");
                         break;
                 }
             }

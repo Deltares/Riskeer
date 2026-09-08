@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -40,7 +41,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             var point2D = new Point2D(0.0, 0.0);
 
             // Call
-            TestDelegate call = () => SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(null, point2D);
+            Action call = () => SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(null, point2D);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIPiping;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Piping.KernelWrapper.Creators;
 using Riskeer.Piping.Primitives;
 

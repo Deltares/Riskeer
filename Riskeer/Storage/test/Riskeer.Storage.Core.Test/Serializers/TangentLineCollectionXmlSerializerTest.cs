@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Riskeer.Storage.Core.Serializers;
 using Riskeer.Storage.Core.TestUtil.Serializers;
 

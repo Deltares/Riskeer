@@ -33,6 +33,7 @@ using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using PointShape = DotSpatial.Symbology.PointShape;
 
 namespace Core.Components.DotSpatial.Test.Layer
@@ -44,7 +45,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         public void Constructor_WithoutMapPointData_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapPointDataLayer(null);
+            Action test = () => new MapPointDataLayer(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
