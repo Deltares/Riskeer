@@ -494,8 +494,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
             importer.DoPostImport();
 
             // Assert
-            observableA.NotifyObservers();
-            observableB.NotifyObservers();
+            observableA.Received().NotifyObservers();
+            observableB.Received().NotifyObservers();            
         }
 
         [Test]
