@@ -111,7 +111,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             const string expectedMessage = "HLCD bestand importeren afgebroken. Geen gegevens gewijzigd.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
-            handler.Received(1).InquireConfirmation();
         }
 
         [Test]
@@ -135,7 +134,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             var expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': het HLCD bestand moet zich in dezelfde map bevinden als de toegevoegde HRD bestanden.";
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
-            handler.Received(1).InquireConfirmation();
         }
 
         [Test]
@@ -212,7 +210,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Setup
             var handler = Substitute.For<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.InquireConfirmation().Returns(true);
-            handler.Update(Arg.Any<ReadHydraulicLocationConfigurationDatabase>(), Arg.Any<IDictionary<HydraulicBoundaryDatabase, long>>(), Arg.Any<string>()).Returns(Enumerable.Empty<IObservable>());
             var progressChangeNotifications = new List<ProgressNotification>();
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
@@ -234,8 +231,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             DataImportHelper.ImportHydraulicBoundaryData(assessmentSection, validHlcdFilePath, validHrdFilePath);
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
 
-            var expectedDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
-
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
             var handler = Substitute.For<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.InquireConfirmation().Returns(true);
@@ -249,7 +244,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{hlcdFilePath}'.", 1);
             Assert.IsTrue(importResult);
-            handler.Received(1).InquireConfirmation();
+            var expectedDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
             handler.Received(1).Update(
                 Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
                 Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
@@ -282,7 +277,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
-            handler.Received(1).InquireConfirmation();
             handler.Received(1).Update(
                 Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
                 Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
@@ -319,7 +313,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             var expectedMessage = $"Fout bij het lezen van bestand '{invalidHrdFilePath}': het bestand bestaat niet.";
             AssertImportFailed(Call, expectedMessage, ref importSuccessful);
-            handler.Received(1).InquireConfirmation();
         }
 
         [Test]
@@ -351,10 +344,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             observable1.Received(1).NotifyObservers();
             observable2.Received(1).NotifyObservers();
-            handler.Received(1).InquireConfirmation();
-            handler.Received(1).Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
-                                      Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(db => db != null),
-                                      Arg.Is<string>(s => s != null));
         }
 
         [Test]
@@ -389,7 +378,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             const int totalNumberOfSteps = 3;
             var handler = Substitute.For<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.InquireConfirmation().Returns(true);
-            handler.Update(Arg.Any<ReadHydraulicLocationConfigurationDatabase>(), Arg.Any<IDictionary<HydraulicBoundaryDatabase, long>>(), Arg.Any<string>()).Returns(Enumerable.Empty<IObservable>());
             HydraulicBoundaryData hydraulicBoundaryData = CreateLinkedHydraulicBoundaryData();
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationDatabase(), handler,

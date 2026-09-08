@@ -400,10 +400,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataToModelProgressText);
             var updateStrategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
 
-            updateStrategy.UpdateSurfaceLinesWithImportedData(
-                Arg.Is<IMechanismSurfaceLine[]>(arr => surfaceLines.All(arr.Contains)),
-                validFilePath);
-
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, updateStrategy);
             var importer = new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(surfaceLines, validFilePath, messageProvider, configuration);
             importer.SetProgressChanged((description, step, steps) =>
@@ -428,6 +424,9 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             Tuple<string, LogLevelConstant> expectedLogMessageAndLogLevel = Tuple.Create(expectedMessage, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLogLevel, 3);
             Assert.IsTrue(importResult);
+            updateStrategy.Received(1).UpdateSurfaceLinesWithImportedData(
+                Arg.Is<IMechanismSurfaceLine[]>(arr => surfaceLines.All(arr.Contains)),
+                validFilePath);
         }
 
         [Test]
@@ -1077,10 +1076,10 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             const string exceptionMessage = "This is exceptional";
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => throw new ImportedDataTransformException(exceptionMessage));
+            transformer.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())
+                       .Throws(new ImportedDataTransformException(exceptionMessage));
             const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";
-            string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
-            string validSurfaceLinesFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
+            string validSurfaceLinesFilePath = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -1482,7 +1481,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Call
             importer.DoPostImport();
 
-            // Asserts done in the TearDown method
+            // Assert
             observableA.Received(1).NotifyObservers();
             observableB.Received(1).NotifyObservers();
         }
