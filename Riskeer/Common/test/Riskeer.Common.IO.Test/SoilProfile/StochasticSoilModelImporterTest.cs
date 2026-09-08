@@ -710,7 +710,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             var observableA = Substitute.For<IObservable>();
             var observableB = Substitute.For<IObservable>();
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-            messageProvider.GetAddDataToModelProgressText().Returns("");
             var updateStrategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             updateStrategy.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>())
                           .Returns(new[]
