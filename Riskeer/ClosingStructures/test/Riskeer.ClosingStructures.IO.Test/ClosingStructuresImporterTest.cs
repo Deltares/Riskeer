@@ -236,7 +236,7 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 5);
-            updateStrategy.Received().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
             Assert.IsTrue(importResult);
         }
 
