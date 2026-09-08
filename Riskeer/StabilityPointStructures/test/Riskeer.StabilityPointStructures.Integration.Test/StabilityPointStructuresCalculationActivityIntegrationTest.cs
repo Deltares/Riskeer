@@ -219,6 +219,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -270,6 +271,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -305,18 +307,10 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             };
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                Arg.Is<HydraRingCalculationSettings>(s => s != null)).Returns(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
+            HydraRingCalculationSettings actualSettings = null;
             calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
                                        Arg.Is<HydraRingCalculationSettings>(settings => settings != null)))
-                             .Do(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation[0]);
-                             });
+                             .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -337,8 +331,9 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             }
 
             // Assert
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                Arg.Is<HydraRingCalculationSettings>(settings => settings != null));
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation), actualSettings);
         }
     }
 }

@@ -150,13 +150,11 @@ namespace Riskeer.Common.Service.Test
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory
                 .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        calculationSettings,
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return calculator;
-                });
+                .Returns(calculator);
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> 
+                                       c.CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
@@ -176,6 +174,9 @@ namespace Riskeer.Common.Service.Test
             }
 
             Assert.AreEqual(ActivityState.Executed, activity.State);
+            
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(calculationSettings, actualSettings);
+           
         }
 
         [Test]
@@ -221,7 +222,6 @@ namespace Riskeer.Common.Service.Test
                 });
             }
 
-            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             Assert.AreEqual(ActivityState.Executed, activity.State);
         }
 
@@ -263,7 +263,6 @@ namespace Riskeer.Common.Service.Test
             Assert.IsNotNull(calculationOutput);
             Assert.AreEqual(expectedDesignWaterLevel, calculationOutput.Result, calculationOutput.Result.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, calculationOutput.CalculationConvergence);
-            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -324,8 +323,6 @@ namespace Riskeer.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(messages[6]);
                 });
 
-                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
-
                 Assert.AreSame(output, hydraulicBoundaryLocationCalculation.Output);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
                 Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -374,7 +371,6 @@ namespace Riskeer.Common.Service.Test
                     Assert.AreEqual($"Waterstand berekening voor locatie 'locationName' ({calculationIdentifier}) is niet geconvergeerd.", msgs[4]);
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
-                calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
