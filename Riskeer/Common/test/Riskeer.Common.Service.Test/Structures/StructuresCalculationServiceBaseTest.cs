@@ -307,7 +307,7 @@ namespace Riskeer.Common.Service.Test.Structures
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(
-                                 Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                                 Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(callInfo =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -357,7 +357,7 @@ namespace Riskeer.Common.Service.Test.Structures
                 IllustrationPointsResult = new TestGeneralResult()
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
@@ -408,7 +408,7 @@ namespace Riskeer.Common.Service.Test.Structures
                 IllustrationPointsParserErrorMessage = parserMessage
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
@@ -457,7 +457,7 @@ namespace Riskeer.Common.Service.Test.Structures
                 IllustrationPointsParserErrorMessage = "Parser error"
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
@@ -505,7 +505,7 @@ namespace Riskeer.Common.Service.Test.Structures
                 IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
@@ -558,7 +558,7 @@ namespace Riskeer.Common.Service.Test.Structures
                 IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
@@ -614,7 +614,7 @@ namespace Riskeer.Common.Service.Test.Structures
             };
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(calculator);
 
             var messageProvider = Substitute.For<IStructuresCalculationMessageProvider>();
@@ -656,7 +656,7 @@ namespace Riskeer.Common.Service.Test.Structures
                 LastErrorFileContent = lastErrorFileContent
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(calculator);
 
             const string calculationFailedMessage = "Calculation failed";

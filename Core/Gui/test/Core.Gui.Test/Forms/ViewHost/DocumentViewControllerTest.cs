@@ -177,7 +177,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             viewHost.DocumentViews.Returns(new IView[0]);
 
-            viewHost.When(x => x.AddDocumentView(Arg.Any<TestView>(),
+            viewHost.When(vh => vh.AddDocumentView(Arg.Any<TestView>(),
                                                  viewName, Arg.Any<string>(), Arg.Any<FontFamily>()))
                     .Do(invocation =>
                     {
@@ -228,7 +228,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             var viewHost = Substitute.For<IViewHost>();
 
             viewHost.DocumentViews.Returns(new IView[0]);
-            viewHost.When(x => x.AddDocumentView(
+            viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
                               Arg.Any<string>(),
@@ -266,7 +266,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             var viewHost = Substitute.For<IViewHost>();
 
             viewHost.DocumentViews.Returns(new IView[0]);
-            viewHost.When(x => x.AddDocumentView(
+            viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
                               Arg.Any<string>(),
@@ -304,7 +304,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             var viewHost = Substitute.For<IViewHost>();
 
             viewHost.DocumentViews.Returns(new IView[0]);
-            viewHost.When(x => x.AddDocumentView(
+            viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
                               Arg.Any<string>(),
@@ -380,7 +380,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             var viewHost = Substitute.For<IViewHost>();
 
             viewHost.DocumentViews.Returns(new IView[0]);
-            viewHost.When(x => x.AddDocumentView(
+            viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
                               Arg.Any<string>(),
@@ -425,7 +425,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             var viewHost = Substitute.For<IViewHost>();
 
             viewHost.DocumentViews.Returns(new IView[0]);
-            viewHost.When(x => x.AddDocumentView(
+            viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
                               Arg.Any<string>(),
@@ -477,7 +477,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             var viewHost = Substitute.For<IViewHost>();
 
             viewHost.DocumentViews.Returns(new IView[0]);
-            viewHost.When(x => x.AddDocumentView(
+            viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
                               Arg.Any<string>(),
@@ -530,7 +530,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             var viewHost = Substitute.For<IViewHost>();
 
             viewHost.DocumentViews.Returns(new IView[0]);
-            viewHost.When(x => x.AddDocumentView(
+            viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
                               Arg.Any<string>(),
@@ -776,7 +776,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                         documentViews.Add(callInfo.Args()[0] as TestView);
                     });
 
-            viewHost.When(x => x.Remove(Arg.Any<TestView>()))
+            viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
                     .Do(invocation =>
                     {
                         documentViews.Remove(invocation.Args()[0] as TestView);
@@ -901,7 +901,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                         documentViews.Add(callInfo.Args()[0] as TestView);
                     });
 
-            viewHost.When(x => x.Remove(Arg.Any<TestView>()))
+            viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
                     .Do(invocation =>
                     {
                         documentViews.Remove(invocation.Args()[0] as TestView);
@@ -949,7 +949,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                         documentViews.Add(callInfo.Args()[0] as TestView);
                     });
 
-            viewHost.When(x => x.Remove(Arg.Any<TestView>()))
+            viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
                     .Do(invocation =>
                     {
                         documentViews.Remove(invocation.Args()[0] as TestView);
@@ -1014,7 +1014,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                         documentViews.Add(callInfo.Args()[0] as TestView);
                     });
 
-            viewHost.When(x => x.Remove(Arg.Any<TestView>()))
+            viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
                     .Do(invocation =>
                     {
                         documentViews.Remove(invocation.Args()[0] as TestView);

@@ -82,8 +82,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             var originalReferenceLine = new ReferenceLine();
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
-            handler.Update(Arg.Is<ReferenceLine>(x => x != null),
-                           Arg.Is<ReferenceLine>(x => x != null))
+            handler.Update(Arg.Is<ReferenceLine>(r => r != null),
+                           Arg.Is<ReferenceLine>(r => r != null))
                    .Returns(callInfo =>
                    {
                        Assert.AreSame(originalReferenceLine, callInfo.Args()[0]);
@@ -249,8 +249,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         {
             // Setup
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
-            handler.Update(Arg.Is<ReferenceLine>(x => x != null),
-                           Arg.Is<ReferenceLine>(x => x != null))
+            handler.Update(Arg.Is<ReferenceLine>(r => r != null),
+                           Arg.Is<ReferenceLine>(r => r != null))
                    .Returns(callInfo =>
                    {
                        var importedReferenceLine = (ReferenceLine) callInfo.Args()[1];
@@ -292,7 +292,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             handler.ConfirmUpdate().Returns(true);
             handler.Update(referenceLine,
-                           Arg.Is<ReferenceLine>(x => x != null))
+                           Arg.Is<ReferenceLine>(r => r != null))
                    .Returns(new[]
                    {
                        observable1,
@@ -355,7 +355,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             handler.ConfirmUpdate().Returns(true);
             handler.Update(referenceLine,
-                           Arg.Is<ReferenceLine>(x => x != null))
+                           Arg.Is<ReferenceLine>(r => r != null))
                    .Returns(new[]
                    {
                        observable1,

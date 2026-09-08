@@ -149,7 +149,7 @@ namespace Riskeer.Common.Service.Test
                                                                                validHrdFileVersion, usePreprocessorClosure);
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory
-                .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -176,7 +176,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
             }
 
-            calculatorFactory.Received(1).CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
+            calculatorFactory.Received(1).CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
             Assert.AreEqual(ActivityState.Executed, activity.State);
         }
 
@@ -193,7 +193,7 @@ namespace Riskeer.Common.Service.Test
                 Converged = true
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+            calculatorFactory.CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(calculator);
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 
@@ -221,7 +221,7 @@ namespace Riskeer.Common.Service.Test
                 });
             }
 
-            calculatorFactory.Received(1).CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
+            calculatorFactory.Received(1).CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
             Assert.AreEqual(ActivityState.Executed, activity.State);
         }
 

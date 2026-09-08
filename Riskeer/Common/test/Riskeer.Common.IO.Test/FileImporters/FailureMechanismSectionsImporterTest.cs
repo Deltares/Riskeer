@@ -663,8 +663,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             handler.ConfirmUpdate().Returns(true);
 
-            handler.Update(Arg.Is<ReferenceLine>(x => x != null),
-                           Arg.Is<ReferenceLine>(x => x != null))
+            handler.Update(Arg.Is<ReferenceLine>(r => r != null),
+                           Arg.Is<ReferenceLine>(r => r != null))
                    .Returns(callInfo =>
                    {
                        referenceLine = (ReferenceLine) callInfo.Args()[1];

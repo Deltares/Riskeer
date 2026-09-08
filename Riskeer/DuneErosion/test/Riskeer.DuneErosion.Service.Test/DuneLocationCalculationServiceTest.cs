@@ -124,7 +124,7 @@ namespace Riskeer.DuneErosion.Service.Test
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -154,7 +154,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 AssertInput(expectedInput, actualInput);
             }
 
-            calculatorFactory.Received(1).CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
+            calculatorFactory.Received(1).CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
         }
 
         [Test]

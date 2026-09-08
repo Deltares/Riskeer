@@ -243,7 +243,7 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var plugin = Substitute.For<PluginBase>();
-            plugin.When(x => x.Deactivate()).Do(_ => throw new Exception("Bad stuff happening!"));
+            plugin.When(p => p.Deactivate()).Do(_ => throw new Exception("Bad stuff happening!"));
             plugin.Dispose();
             var projectFactory = Substitute.For<IProjectFactory>();
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
@@ -685,13 +685,10 @@ namespace Core.Gui.Test
         {
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
-            var plugin = Substitute.For<PluginBase>();
-
-
-
-
-            plugin.When(x => x.Activate()).Do(_ => throw new Exception("ERROR!"));
             var projectFactory = Substitute.For<IProjectFactory>();
+            var plugin = Substitute.For<PluginBase>();
+            plugin.When(p => p.Activate()).Throw(new Exception("ERROR!"));
+            
             // Setup
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -716,8 +713,8 @@ namespace Core.Gui.Test
 
 
 
-            plugin.When(x => x.Activate()).Do(_ => throw new Exception("ERROR!"));
-            plugin.When(x => x.Deactivate()).Do(_ => throw new Exception("MORE ERROR!"));
+            plugin.When(p => p.Activate()).Do(_ => throw new Exception("ERROR!"));
+            plugin.When(p => p.Deactivate()).Do(_ => throw new Exception("MORE ERROR!"));
             var projectFactory = Substitute.For<IProjectFactory>();
 
             // Setup

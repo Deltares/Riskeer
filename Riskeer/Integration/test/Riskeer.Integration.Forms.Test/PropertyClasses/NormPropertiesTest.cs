@@ -146,7 +146,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.When(x => x.ChangeNormativeProbability(Arg.Any<Action>()))
+            failureMechanismContributionNormChangeHandler.When(f => f.ChangeNormativeProbability(Arg.Any<Action>()))
                                                          .Do(invocation =>
                                                          {
                                                              var actionToPerform = invocation.Arg<Action>();
@@ -170,7 +170,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             failureMechanismContribution.NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability;
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.When(x => x.ChangeProbability(Arg.Any<Action>()))
+            failureMechanismContributionNormChangeHandler.When(f => f.ChangeProbability(Arg.Any<Action>()))
                                                          .Do(invocation =>
                                                          {
                                                              var actionToPerform = invocation.Arg<Action>();
@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             failureMechanismContribution.NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability;
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.When(x => x.ChangeNormativeProbability(Arg.Any<Action>()))
+            failureMechanismContributionNormChangeHandler.When(f => f.ChangeNormativeProbability(Arg.Any<Action>()))
                                                          .Do(invocation =>
                                                          {
                                                              var actionToPerform = invocation.Arg<Action>();
@@ -216,7 +216,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.When(x => x.ChangeProbability(Arg.Any<Action>()))
+            failureMechanismContributionNormChangeHandler.When(f => f.ChangeProbability(Arg.Any<Action>()))
                                                          .Do(invocation =>
                                                          {
                                                              var actionToPerform = invocation.Arg<Action>();
@@ -239,7 +239,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.When(x => x.ChangeNormativeProbabilityType(Arg.Any<Action>()))
+            failureMechanismContributionNormChangeHandler.When(f => f.ChangeNormativeProbabilityType(Arg.Any<Action>()))
                                                          .Do(invocation =>
                                                          {
                                                              var actionToPerform = invocation.Arg<Action>();

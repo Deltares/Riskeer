@@ -153,7 +153,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>())
                        .Returns(menuBuilder);
-            menuBuilder.When(x => x.AddImportItem(Arg.Any<ImportInfo[]>()))
+            menuBuilder.When(m => m.AddImportItem(Arg.Any<ImportInfo[]>()))
                        .Do(invocation =>
                        {
                            var importInfos = invocation.Arg<ImportInfo[]>();

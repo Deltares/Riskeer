@@ -246,13 +246,13 @@ namespace Core.Gui.Test.Forms.Main
             EventHandler<ViewChangeEventArgs> front = null;
             EventHandler<ViewChangeEventArgs> closed = null;
             EventHandler<EventArgs> changed = null;
-            viewHost.When(x => x.ViewOpened += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+            viewHost.When(vh => vh.ViewOpened += Arg.Any<EventHandler<ViewChangeEventArgs>>())
                     .Do(ci => opened = ci.Arg<EventHandler<ViewChangeEventArgs>>());
-            viewHost.When(x => x.ViewBroughtToFront += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+            viewHost.When(vh => vh.ViewBroughtToFront += Arg.Any<EventHandler<ViewChangeEventArgs>>())
                     .Do(ci => front = ci.Arg<EventHandler<ViewChangeEventArgs>>());
-            viewHost.When(x => x.ViewClosed += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+            viewHost.When(vh => vh.ViewClosed += Arg.Any<EventHandler<ViewChangeEventArgs>>())
                     .Do(ci => closed = ci.Arg<EventHandler<ViewChangeEventArgs>>());
-            viewHost.When(x => x.ActiveDocumentViewChanged += Arg.Any<EventHandler<EventArgs>>())
+            viewHost.When(vh => vh.ActiveDocumentViewChanged += Arg.Any<EventHandler<EventArgs>>())
                     .Do(ci => changed = ci.Arg<EventHandler<EventArgs>>());
 
             var gui = Substitute.For<IGui>();
@@ -300,21 +300,21 @@ namespace Core.Gui.Test.Forms.Main
             EventHandler<ViewChangeEventArgs> closed = null;
             EventHandler<EventArgs> changed = null;
 
-            viewHost.When(x => x.ViewOpened += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+            viewHost.When(vh => vh.ViewOpened += Arg.Any<EventHandler<ViewChangeEventArgs>>())
                     .Do(ci => opened = ci.Arg<EventHandler<ViewChangeEventArgs>>());
-            viewHost.When(x => x.ViewBroughtToFront += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+            viewHost.When(vh => vh.ViewBroughtToFront += Arg.Any<EventHandler<ViewChangeEventArgs>>())
                     .Do(ci => front = ci.Arg<EventHandler<ViewChangeEventArgs>>());
-            viewHost.When(x => x.ViewClosed += Arg.Any<EventHandler<ViewChangeEventArgs>>())
+            viewHost.When(vh => vh.ViewClosed += Arg.Any<EventHandler<ViewChangeEventArgs>>())
                     .Do(ci => closed = ci.Arg<EventHandler<ViewChangeEventArgs>>());
-            viewHost.When(x => x.ActiveDocumentViewChanged += Arg.Any<EventHandler<EventArgs>>())
+            viewHost.When(vh => vh.ActiveDocumentViewChanged += Arg.Any<EventHandler<EventArgs>>())
                     .Do(ci => changed = ci.Arg<EventHandler<EventArgs>>());
-            viewHost.When(x => x.ViewOpened -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
+            viewHost.When(vh => vh.ViewOpened -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
                     .Do(ci => opened = null);
-            viewHost.When(x => x.ViewBroughtToFront -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
+            viewHost.When(vh => vh.ViewBroughtToFront -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
                     .Do(ci => front = null);
-            viewHost.When(x => x.ViewClosed -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
+            viewHost.When(vh => vh.ViewClosed -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
                     .Do(ci => closed = null);
-            viewHost.When(x => x.ActiveDocumentViewChanged -= Arg.Any<EventHandler<EventArgs>>())
+            viewHost.When(vh => vh.ActiveDocumentViewChanged -= Arg.Any<EventHandler<EventArgs>>())
                     .Do(ci => changed = null);
 
             var gui = Substitute.For<IGui>();

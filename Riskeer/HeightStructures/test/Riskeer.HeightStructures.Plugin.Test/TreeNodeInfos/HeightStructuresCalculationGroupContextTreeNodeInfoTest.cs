@@ -949,7 +949,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
                 Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
-            calculatorFactory.When(x => x.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+            calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
                                        Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
