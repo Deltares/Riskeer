@@ -314,7 +314,7 @@ namespace Riskeer.HeightStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
             strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
-            
+            {
                 Assert.AreSame(invocation[1], filePath);
 
                 var readStructures = (IEnumerable<HeightStructure>) invocation[0];
