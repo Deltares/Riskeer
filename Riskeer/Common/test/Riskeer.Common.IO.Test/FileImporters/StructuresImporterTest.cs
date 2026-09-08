@@ -614,7 +614,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-            messageProvider.GetAddDataToModelProgressText().Returns("");
             messageProvider.GetUpdateDataFailedLogMessageText("Kunstwerken").Returns("error {0}");
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             updateStrategy.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<TestStructure>>(), Arg.Any<string>())

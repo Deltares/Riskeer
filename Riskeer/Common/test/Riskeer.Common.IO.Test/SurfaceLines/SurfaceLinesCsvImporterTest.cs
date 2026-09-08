@@ -1432,7 +1432,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             string filePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-            messageProvider.GetAddDataToModelProgressText().Returns("");
             messageProvider.GetUpdateDataFailedLogMessageText("Profielschematisaties").Returns("error {0}");
 
             var strategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();

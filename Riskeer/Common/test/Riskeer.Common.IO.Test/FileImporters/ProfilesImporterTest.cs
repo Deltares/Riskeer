@@ -551,8 +551,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             const string typeDescriptor = "A typeDescriptor";
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-            messageProvider.GetAddDataToModelProgressText()
-                           .Returns("");
             messageProvider.GetUpdateDataFailedLogMessageText(typeDescriptor)
                            .Returns("error {0}");
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,

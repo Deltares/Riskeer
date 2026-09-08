@@ -389,7 +389,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             var existingItem = Substitute.For<ICalculationBase>();
-            existingItem.Name.Returns("");
             var originalOwnerObserver = Substitute.For<IObserver>();
             const string name = "Very cool name";
 
