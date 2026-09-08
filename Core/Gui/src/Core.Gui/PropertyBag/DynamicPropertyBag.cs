@@ -63,7 +63,7 @@ namespace Core.Gui.PropertyBag
 
             var properties = new HashSet<PropertySpec>();
             foreach (PropertyInfo propertyInfo in propertyObject.GetType().GetProperties()
-                                                                .OrderBy(x => x.MetadataToken))
+                                                                .OrderBy(p => p.MetadataToken))
             {
                 properties.Add(new PropertySpec(propertyInfo));
             }

@@ -764,7 +764,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
             var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
-            contextMenuBuilder.When(x => x.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
+            contextMenuBuilder.When(c => c.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
                               .Do(callinfo =>
                               {
                                   var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
@@ -796,7 +796,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
             var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
-            contextMenuBuilder.When(x => x.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
+            contextMenuBuilder.When(c => c.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
                               .Do(callinfo =>
                               {
                                   var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
@@ -828,7 +828,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
             var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
-            contextMenuBuilder.When(x => x.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
+            contextMenuBuilder.When(c => c.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
                               .Do(callinfo =>
                               {
                                   var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
@@ -860,7 +860,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                 : "Deze berekening heeft geen illustratiepunten om te wissen.";
             var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationChangeHandler>();
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
-            contextMenuBuilder.When(x => x.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
+            contextMenuBuilder.When(c => c.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
                               .Do(callinfo =>
                               {
                                   var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();

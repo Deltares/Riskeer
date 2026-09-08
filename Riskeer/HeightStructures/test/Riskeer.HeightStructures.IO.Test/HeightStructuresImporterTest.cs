@@ -120,7 +120,7 @@ namespace Riskeer.HeightStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
             {
                 Assert.AreSame(invocation[1], filePath);
 
@@ -203,7 +203,7 @@ namespace Riskeer.HeightStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
             {
                 Assert.AreSame(invocation[1], filePath);
 
@@ -258,7 +258,7 @@ namespace Riskeer.HeightStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
             {
                 Assert.AreSame(invocation[1], filePath);
 
@@ -313,8 +313,8 @@ namespace Riskeer.HeightStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
-            {
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
+            
                 Assert.AreSame(invocation[1], filePath);
 
                 var readStructures = (IEnumerable<HeightStructure>) invocation[0];
@@ -354,7 +354,7 @@ namespace Riskeer.HeightStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.When(x => x.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
             {
                 Assert.AreSame(invocation[1], filePath);
 

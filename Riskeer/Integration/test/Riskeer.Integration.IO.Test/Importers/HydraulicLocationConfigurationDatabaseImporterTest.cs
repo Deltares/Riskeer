@@ -251,7 +251,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             Assert.IsTrue(importResult);
             handler.Received(1).InquireConfirmation();
             handler.Received(1).Update(
-                Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
+                Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
                 Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
                                                                          x.Count == 1 &&
                                                                          x.ContainsKey(expectedDatabase) &&
@@ -284,7 +284,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             Assert.IsTrue(importResult);
             handler.Received(1).InquireConfirmation();
             handler.Received(1).Update(
-                Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
+                Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
                 Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
                                                                          x.Count == 1 &&
                                                                          x.ContainsKey(expectedDatabase) &&
@@ -332,9 +332,9 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             var handler = Substitute.For<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.InquireConfirmation().Returns(true);
-            handler.Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
-                           Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x => x != null),
-                           Arg.Is<string>(x => x != null)).Returns(new[]
+            handler.Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
+                           Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(db => db != null),
+                           Arg.Is<string>(f => f != null)).Returns(new[]
             {
                 observable1,
                 observable2
@@ -352,9 +352,9 @@ namespace Riskeer.Integration.IO.Test.Importers
             observable1.Received(1).NotifyObservers();
             observable2.Received(1).NotifyObservers();
             handler.Received(1).InquireConfirmation();
-            handler.Received(1).Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(x => x != null),
-                                      Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x => x != null),
-                                      Arg.Is<string>(x => x != null));
+            handler.Received(1).Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
+                                      Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(db => db != null),
+                                      Arg.Is<string>(s => s != null));
         }
 
         [Test]

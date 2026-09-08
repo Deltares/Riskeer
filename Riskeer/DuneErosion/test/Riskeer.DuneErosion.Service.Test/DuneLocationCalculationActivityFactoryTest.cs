@@ -247,7 +247,7 @@ namespace Riskeer.DuneErosion.Service.Test
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
             calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

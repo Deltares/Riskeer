@@ -1344,7 +1344,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             int nrOfCalculators = failureMechanism.Calculations.Count();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory
-                .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                 .Returns(callInfo =>
                 {
                     var settings = callInfo.Arg<HydraRingCalculationSettings>();
@@ -1392,7 +1392,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 });
             }
 
-            calculatorFactory.Received(nrOfCalculators).CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
+            calculatorFactory.Received(nrOfCalculators).CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
         }
 
         [Test]
