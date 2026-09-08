@@ -273,16 +273,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
                 Arg.Any<HydraRingCalculationSettings>()).Returns(testCalculator);
+            HydraRingCalculationSettings actualSettings = null;
             calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
                                        Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         hydraulicBoundaryData,
-                                         calculation.InputParameters.HydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation[0]);
-                             });
+                             .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -292,6 +286,12 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion,
                                 actualInput.Variables.Single(v => v.VariableId == 105).Value);
             }
+            
+            // Assert
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                           calculation.InputParameters.HydraulicBoundaryLocation), 
+                actualSettings);
         }
     }
 }

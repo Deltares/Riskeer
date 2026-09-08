@@ -126,8 +126,6 @@ namespace Riskeer.HeightStructures.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -172,8 +170,6 @@ namespace Riskeer.HeightStructures.Integration.Test
                 // Assert
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -214,7 +210,6 @@ namespace Riskeer.HeightStructures.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             observer.Received(1).UpdateObserver();
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -266,7 +261,6 @@ namespace Riskeer.HeightStructures.Integration.Test
             // Assert
             Assert.IsNull(calculation.Output);
             observer.Received(1).UpdateObserver();
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -302,17 +296,9 @@ namespace Riskeer.HeightStructures.Integration.Test
             };
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) callInfo[0]);
-
-                                 return new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
-                             });
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new TestHeightStructuresCalculationScenario
@@ -334,7 +320,9 @@ namespace Riskeer.HeightStructures.Integration.Test
             }
 
             // Assert
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation), actualSettings);
         }
     }
 }

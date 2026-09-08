@@ -272,17 +272,14 @@ namespace Riskeer.HeightStructures.Service.Test
         {
             var testCalculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         hydraulicBoundaryData,
-                                         calculation.InputParameters.HydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) callInfo[0]);
-
-                                 return testCalculator;
-                             });
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> 
+                                       c.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+                                           Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
+            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+                                           Arg.Any<HydraRingCalculationSettings>())
+                             .Returns( testCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -295,6 +292,11 @@ namespace Riskeer.HeightStructures.Service.Test
 
             calculatorFactory.Received(1)
                              .CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            // Assert
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                           calculation.InputParameters.HydraulicBoundaryLocation),
+                actualSettings);
         }
     }
 }

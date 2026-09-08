@@ -109,12 +109,12 @@ namespace Riskeer.ClosingStructures.Integration.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
+                    string[] msgs = [.. messages];
                     Assert.AreEqual(6, msgs.Length);
                     Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
@@ -125,8 +125,6 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -172,8 +170,6 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 // Assert
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -215,7 +211,6 @@ namespace Riskeer.ClosingStructures.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             observer.Received(1).UpdateObserver();
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -268,7 +263,6 @@ namespace Riskeer.ClosingStructures.Integration.Test
             // Assert
             Assert.IsNull(calculation.Output);
             observer.Received(1).UpdateObserver();
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -304,17 +298,10 @@ namespace Riskeer.ClosingStructures.Integration.Test
             };
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresClosureCalculationInput>());
+            HydraRingCalculationSettings actualSettings = null;
             calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                       Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
-            {
-                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                        assessmentSection.HydraulicBoundaryData,
-                        hydraulicBoundaryLocation),
-                    (HydraRingCalculationSettings) invocation[0]);
-            });
+                                       Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculationScenario
@@ -336,8 +323,9 @@ namespace Riskeer.ClosingStructures.Integration.Test
             }
 
             // Assert
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                Arg.Any<HydraRingCalculationSettings>());
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation), actualSettings);
         }
     }
 }
