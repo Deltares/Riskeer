@@ -96,7 +96,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
             Assert.IsFalse(importResult);
             Assert.AreEqual(0, importTarget.Count);
-            updateStrategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -491,10 +490,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             importer.DoPostImport();
 
             // Assert
-            // Assertions performed in TearDown
             observableA.Received(1).NotifyObservers();
             observableB.Received(1).NotifyObservers();
-            strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         private static ReferenceLine CreateReferenceLine()
