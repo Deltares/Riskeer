@@ -124,7 +124,7 @@ namespace Riskeer.Common.Service.Test
                                                                                validHrdFileVersion, usePreprocessorClosure);
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory
-                .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

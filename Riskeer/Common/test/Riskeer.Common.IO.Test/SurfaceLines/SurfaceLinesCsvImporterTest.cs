@@ -142,7 +142,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataToModelProgressText);
 
             var readSurfaceLines = new Collection<SurfaceLine>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => readSurfaceLines.Add(callInfo.Arg<SurfaceLine>()));
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => readSurfaceLines.Add(callInfo.Arg<SurfaceLine>()));
 
             const int expectedNumberOfSurfaceLines = 2;
             const string twovalidsurfacelinesCsv = "TwoValidSurfaceLines.csv";
@@ -230,7 +230,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var readSurfaceLines = new Collection<SurfaceLine>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => readSurfaceLines.Add(callInfo.Arg<SurfaceLine>()));
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => readSurfaceLines.Add(callInfo.Arg<SurfaceLine>()));
 
             const string twovalidsurfacelinesCsv = "ValidSurfaceLine_HasConsecutiveDuplicatePoints.csv";
             string validFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
@@ -666,7 +666,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         {
             // Setup
             var readSurfaceLines = new Collection<SurfaceLine>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => readSurfaceLines.Add(callInfo.Arg<SurfaceLine>()));
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => readSurfaceLines.Add(callInfo.Arg<SurfaceLine>()));
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             const string fileName = "TwoValidSurfaceLines_DuplicateIdentifier";
@@ -707,7 +707,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         {
             // Setup
             var readSurfaceLines = new Collection<SurfaceLine>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => readSurfaceLines.Add(callInfo.Arg<SurfaceLine>()));
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => readSurfaceLines.Add(callInfo.Arg<SurfaceLine>()));
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             string corruptPath = Path.Combine(ioTestDataPath, "TwoValidAndOneInvalidNumberRowSurfaceLines.csv");
 
@@ -844,7 +844,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var readSurfaceLines = new Collection<SurfaceLine>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => readSurfaceLines.Add(callInfo.Arg<SurfaceLine>()));
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => readSurfaceLines.Add(callInfo.Arg<SurfaceLine>()));
             const string fileName = "TwoValidSurfaceLines";
             string surfaceLinesFile = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
             string nonExistingCharacteristicFile = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
@@ -1033,7 +1033,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             var readSurfaceLines = new Collection<SurfaceLine>();
             var readCharacteristicPoints = new Collection<CharacteristicPoints>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo =>
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo =>
             {
                 readSurfaceLines.Add(callInfo.Arg<SurfaceLine>());
                 readCharacteristicPoints.Add(callInfo.Arg<CharacteristicPoints>());
@@ -1077,7 +1077,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             const string exceptionMessage = "This is exceptional";
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => throw new ImportedDataTransformException(exceptionMessage));
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo => throw new ImportedDataTransformException(exceptionMessage));
             const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";
             string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
             string validSurfaceLinesFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
@@ -1122,7 +1122,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             var readSurfaceLines = new Collection<SurfaceLine>();
             var readCharacteristicPoints = new Collection<CharacteristicPoints>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo =>
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo =>
             {
                 readSurfaceLines.Add(callInfo.Arg<SurfaceLine>());
                 readCharacteristicPoints.Add(callInfo.Arg<CharacteristicPoints>());
@@ -1188,7 +1188,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             var readSurfaceLines = new Collection<SurfaceLine>();
             var readCharacteristicPoints = new Collection<CharacteristicPoints>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo =>
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo =>
             {
                 readSurfaceLines.Add(callInfo.Arg<SurfaceLine>());
                 readCharacteristicPoints.Add(callInfo.Arg<CharacteristicPoints>());
@@ -1248,7 +1248,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             var readSurfaceLines = new Collection<SurfaceLine>();
             var readCharacteristicPoints = new Collection<CharacteristicPoints>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo =>
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo =>
             {
                 readSurfaceLines.Add(callInfo.Arg<SurfaceLine>());
                 readCharacteristicPoints.Add(callInfo.Arg<CharacteristicPoints>());
@@ -1309,7 +1309,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             var readSurfaceLines = new Collection<SurfaceLine>();
             var readCharacteristicPoints = new Collection<CharacteristicPoints>();
-            transformer.When(x => x.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo =>
+            transformer.When(t => t.Transform(Arg.Any<SurfaceLine>(), Arg.Any<CharacteristicPoints>())).Do(callInfo =>
             {
                 readSurfaceLines.Add(callInfo.Arg<SurfaceLine>());
                 readCharacteristicPoints.Add(callInfo.Arg<CharacteristicPoints>());
@@ -1436,9 +1436,9 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             messageProvider.GetUpdateDataFailedLogMessageText("Profielschematisaties").Returns("error {0}");
 
             var strategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
-            strategy.UpdateSurfaceLinesWithImportedData(Arg.Is<IMechanismSurfaceLine[]>(x => x != null),
-                                                        Arg.Is<string>(x => x == filePath)
-            ).Throws(new UpdateDataException("Exception message"));
+            strategy.UpdateSurfaceLinesWithImportedData(Arg.Is<IMechanismSurfaceLine[]>(i => i != null),
+                                                        Arg.Is<string>(s => s == filePath))
+                    .Throws(new UpdateDataException("Exception message"));
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, strategy);
             var importer = new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(surfaceLines, filePath, messageProvider, configuration);
 

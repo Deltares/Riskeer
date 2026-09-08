@@ -127,7 +127,7 @@ namespace Core.Gui.Test.Commands
             projectOwner.When(po => po.SetProject(null, null));
 
             var projectFactory = Substitute.For<IProjectFactory>();
-            projectFactory.When(x => x.CreateNewProject()).Do(x =>
+            projectFactory.When(p => p.CreateNewProject()).Do(x =>
             {
                 throw new ProjectFactoryException(expectedExceptionMessage);
             });
@@ -170,7 +170,7 @@ namespace Core.Gui.Test.Commands
                 var projectStorage = Substitute.For<IStoreProject>();
                 projectStorage.HasStagedProject.Returns(false);
                 projectStorage.StageProject(project);
-                projectStorage.When(x => x.SaveProjectAs(someValidFilePath))
+                projectStorage.When(p => p.SaveProjectAs(someValidFilePath))
                               .Do(x =>
                               {
                                   throw new StorageException(exceptionMessage, new Exception("l33t h4xor!"));

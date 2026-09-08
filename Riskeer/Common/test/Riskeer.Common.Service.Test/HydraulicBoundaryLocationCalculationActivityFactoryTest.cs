@@ -199,7 +199,7 @@ namespace Riskeer.Common.Service.Test
             var calculator = new TestWaveHeightCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory
-                .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -222,7 +222,7 @@ namespace Riskeer.Common.Service.Test
             }
 
             calculatorFactory.Received(1)
-                             .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
+                             .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
         }
 
         private static void AssertDesignWaterLevelCalculationActivity(Activity activity,
@@ -234,7 +234,7 @@ namespace Riskeer.Common.Service.Test
             var calculator = new TestDesignWaterLevelCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory
-                .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
+                .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                 .Returns(callInfo =>
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -256,7 +256,7 @@ namespace Riskeer.Common.Service.Test
             }
 
             calculatorFactory.Received(1)
-                             .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null));
+                             .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
         }
 
         private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, bool usePreprocessorClosure, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
