@@ -854,6 +854,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     }
                 }
             };
+            
+            HydraRingCalculationSettings actualSettings = null;
+            HydraulicBoundaryCalculationSettings expectedSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                hydraulicBoundaryData, hydraulicBoundaryLocation);
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.Id.Returns("1");
@@ -863,15 +867,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
             calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(x => x != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                   hydraulicBoundaryLocation),
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return dunesBoundaryConditionsCalculator;
-                });
+                .CreateDunesBoundaryConditionsCalculator(Arg.Do<HydraRingCalculationSettings>(
+                                                             s => actualSettings = s))
+                .Returns(dunesBoundaryConditionsCalculator);
+
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (var view = new DuneLocationCalculationsView(duneLocationCalculations,
@@ -902,6 +901,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
                     Assert.AreEqual(0, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedSettings, actualSettings);
                 }
             }
         }
