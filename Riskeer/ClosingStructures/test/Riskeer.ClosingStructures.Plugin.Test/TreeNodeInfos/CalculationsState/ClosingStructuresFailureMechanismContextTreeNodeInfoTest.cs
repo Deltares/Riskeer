@@ -344,9 +344,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.Id.Returns(string.Empty);
-
             assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 
             var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
@@ -651,6 +649,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
                 Assert.IsTrue(calculationWithOutput.HasOutput);
                 Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
             }
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -722,6 +721,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             }
 
             affectedCalculationObserver.Received(1).UpdateObserver();
+            unaffectedCalculationObserver.DidNotReceive().UpdateObserver();
         }
 
         public override void Setup()

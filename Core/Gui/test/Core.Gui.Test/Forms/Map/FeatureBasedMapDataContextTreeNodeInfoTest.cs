@@ -268,15 +268,7 @@ namespace Core.Gui.Test.Forms.Map
         public void CanRemove_WithNotRemovableData_ReturnFalse()
         {
             // Setup
-            var notRemovable = (FeatureBasedMapData) Substitute.For(
-                new[]
-                {
-                    typeof(FeatureBasedMapData)
-                },
-                new object[]
-                {
-                    "name"
-                });
+            var notRemovable = Substitute.For<FeatureBasedMapData>("name");
             FeatureBasedMapDataContext context = GetContext(notRemovable);
 
             // Call
