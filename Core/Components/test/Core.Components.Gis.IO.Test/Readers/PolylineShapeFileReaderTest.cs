@@ -235,7 +235,6 @@ namespace Core.Components.Gis.IO.Test.Readers
                 var line4 = (MapLineData) reader.ReadFeature();
 
                 // Assert
-
                 #region Assertions for 'line1'
 
                 MapFeature[] features1 = line1.Features.ToArray();

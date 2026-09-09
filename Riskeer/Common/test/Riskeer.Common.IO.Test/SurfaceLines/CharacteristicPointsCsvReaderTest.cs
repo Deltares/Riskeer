@@ -656,7 +656,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 CharacteristicPoints location2 = reader.ReadCharacteristicPointsLocation();
 
                 // Assert
-
                 #region 1st location
 
                 Assert.AreEqual("Rotterdam1", location1.Name);

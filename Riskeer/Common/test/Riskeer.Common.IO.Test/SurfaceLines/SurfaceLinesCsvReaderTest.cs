@@ -289,7 +289,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 SurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
 
                 // Assert
-
                 #region 1st surface line
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
@@ -338,7 +337,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 SurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
 
                 // Assert
-
                 #region 1st surface line
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
@@ -830,7 +828,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 SurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
 
                 // Assert
-
                 #region 1st surface line
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);

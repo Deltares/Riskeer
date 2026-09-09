@@ -265,6 +265,7 @@ namespace Core.Gui.Test.Forms.Map
             Assert.IsTrue(context.WrappedData.IsVisible);
             Assert.IsTrue(featureBasedMapData1.IsVisible);
             Assert.IsTrue(featureBasedMapData2.IsVisible);
+            observer1.DidNotReceive().UpdateObserver();
             observer2.Received(1).UpdateObserver();
         }
 

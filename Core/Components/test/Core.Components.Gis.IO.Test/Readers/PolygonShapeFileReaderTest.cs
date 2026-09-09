@@ -342,7 +342,6 @@ namespace Core.Components.Gis.IO.Test.Readers
                 var polygons4 = (MapPolygonData) reader.ReadFeature();
 
                 // Assert
-
                 #region Assertsions for 'polygon1'
 
                 MapFeature[] features1 = polygons1.Features.ToArray();

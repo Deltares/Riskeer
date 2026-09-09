@@ -237,7 +237,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.RegistrationSt
             info.ContextMenuStrip(context, null, treeViewCommands);
 
             // Assert
-
             Received.InOrder(() =>
             {
                 menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());

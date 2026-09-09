@@ -161,7 +161,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Assert
-
             #region Geometry
 
             var outerLoopPoint1 = new CSharpWrapperPoint2D(0, 0);
@@ -447,7 +446,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Assert
-
             #region Geometry
 
             var outerLoopPoint1 = new CSharpWrapperPoint2D(0, 0);

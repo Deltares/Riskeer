@@ -276,7 +276,6 @@ namespace Core.Components.Gis.IO.Test.Readers
                 var points6 = (MapPointData) reader.ReadFeature();
 
                 // Assert
-
                 #region Assertion for 'point1'
 
                 MapFeature[] features1 = points1.Features.ToArray();
