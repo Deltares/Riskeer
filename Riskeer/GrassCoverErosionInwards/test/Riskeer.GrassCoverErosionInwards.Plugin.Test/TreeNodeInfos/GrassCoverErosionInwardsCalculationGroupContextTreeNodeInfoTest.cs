@@ -90,7 +90,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
         private IGui gui;
         private TreeNodeInfo info;
-
         private GrassCoverErosionInwardsPlugin plugin;
 
         [Test]
@@ -326,6 +325,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Call
             info.ContextMenuStrip(groupContext, parentGroupContext, treeViewCommands);
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddImportItem();
@@ -667,6 +667,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             calculation1InputObserver.Received(1).UpdateObserver();
             calculation2InputObserver.Received(1).UpdateObserver();
+            calculation1Observer.DidNotReceive().UpdateObserver();
+            calculation2Observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1180,6 +1182,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             }
 
             affectedCalculationObserver.Received(1).UpdateObserver();
+            unaffectedCalculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1343,20 +1346,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             int nrOfCalculators = failureMechanism.Calculations.Count();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory
-                .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
-
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            hydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        settings);
-
-                    return new TestOvertoppingCalculator();
-                });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                                       .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                                       .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
             plugin.Gui = gui;
 
             DialogBoxHandler = (name, wnd) =>
@@ -1392,6 +1385,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 });
             }
 
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                        hydraulicBoundaryData,
+                        hydraulicBoundaryLocation),
+                    actualSettings);
+            }
             calculatorFactory.Received(nrOfCalculators).CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
         }
 

@@ -299,17 +299,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
                 Converged = false
             };
 
-            HydraulicBoundaryCalculationSettings expectedCalculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation);
             calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     expectedCalculationSettings,
-                                     callInfo.Arg<HydraRingCalculationSettings>());
-                                 return waveConditionsCalculator;
-                             });
+                             .Returns(waveConditionsCalculator);
 
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=>c.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+        
             plugin.Gui = gui;
             plugin.Activate();
 
@@ -340,6 +336,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
                 });
 
                 calculatorFactory.Received(6).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+
+
+                foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                            assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation), actualSettings);
+                }
             }
         }
 

@@ -581,6 +581,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void ContextMenuStrip_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
         {
+            // Setupf
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
