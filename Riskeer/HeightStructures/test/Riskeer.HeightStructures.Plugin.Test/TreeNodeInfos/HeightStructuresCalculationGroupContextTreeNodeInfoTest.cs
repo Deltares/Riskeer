@@ -661,6 +661,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             }
 
             calculationInputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -810,6 +811,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculationWithOutput.HasOutput);
                 Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
             }
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -877,6 +879,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             }
 
             affectedCalculationObserver.Received(1).UpdateObserver();
+            unaffectedCalculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1378,6 +1381,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             }
 
             inputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1475,7 +1479,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
 
             ChangeStructure(structure);
 

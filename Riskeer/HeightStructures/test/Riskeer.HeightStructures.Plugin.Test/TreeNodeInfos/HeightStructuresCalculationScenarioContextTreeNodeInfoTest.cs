@@ -408,10 +408,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
                 // Then
                 Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
-
-                // Note: observer assertions are verified below.
             }
-
             inputObserver.Received(1).UpdateObserver();
         }
 
@@ -526,8 +523,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 string expectedMessage = "Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening " +
                                          $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedMessage, textBoxMessage);
-
-                // Note: observer assertions are verified below.
             }
 
             inputObserver.Received(1).UpdateObserver();
