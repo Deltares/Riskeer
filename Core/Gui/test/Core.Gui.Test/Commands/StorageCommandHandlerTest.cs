@@ -451,7 +451,7 @@ namespace Core.Gui.Test.Commands
             Assert.IsFalse(result);
             Received.InOrder(() =>
             {
-                projectMigrator.Received(1).ShouldMigrate(pathToSomeValidFile);
+                projectMigrator.ShouldMigrate(pathToSomeValidFile);
                 projectMigrator.DetermineMigrationLocation(pathToSomeValidFile);
             });
         }

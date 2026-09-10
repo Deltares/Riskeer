@@ -194,9 +194,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
@@ -248,9 +246,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
@@ -324,9 +320,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
@@ -364,15 +358,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
             menuBuilder.AddRenameItem().Returns(menuBuilder);
             menuBuilder.AddDeleteItem().Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
@@ -625,6 +616,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             calculationInputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -659,9 +651,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
+         
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
@@ -773,7 +764,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                 Assert.IsTrue(calculationWithOutput.HasOutput);
                 Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
-            }
+            }calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -841,6 +832,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             affectedCalculationObserver.Received(1).UpdateObserver();
+            unaffectedCalculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -900,9 +892,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.Id.Returns(string.Empty);
-
             assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 
             var groupContext = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
@@ -1031,9 +1021,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewCommands))
@@ -1121,9 +1109,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             group.Children.Add(calculation);
@@ -1162,7 +1148,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
@@ -1318,7 +1303,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, null, failureMechanism, assessmentSection);
 
             var inputObserver = Substitute.For<IObserver>();
-
             calculation.InputParameters.Attach(inputObserver);
 
             var calculationObserver = Substitute.For<IObserver>();
@@ -1340,6 +1324,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             inputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]

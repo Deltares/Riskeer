@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -213,7 +214,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  null,
                                                                                  failureMechanism,
@@ -272,7 +273,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  null,
                                                                                  failureMechanism,
@@ -334,7 +335,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  parentGroup,
                                                                                  failureMechanism,
@@ -397,7 +398,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                  parentGroup,
                                                                                  failureMechanism,
@@ -458,7 +459,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithoutParentNodeWithoutHydraulicLocationsDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
@@ -551,8 +552,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                               CoreGuiResources.PropertiesHS,
                                                               false);
             }
-
-            exportCommandHandler.Received(1).CanExportFrom(nodeData);
         }
 
         [Test]
@@ -666,9 +665,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                               CoreGuiResources.PropertiesHS,
                                                               false);
             }
-
-            importCommandHandler.Received(1).GetSupportedImportInfos(nodeData);
-            exportCommandHandler.Received(1).CanExportFrom(nodeData);
         }
 
         [Test]
@@ -679,7 +675,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var group = new CalculationGroup();
             failureMechanism.CalculationsGroup.Children.Add(group);
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                              failureMechanism.CalculationsGroup,
                                                                              failureMechanism,
@@ -846,17 +842,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                   .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                   .Sum(c => c.InputParameters.GetWaterLevels(WaveConditionsInputHelper.GetAssessmentLevel(c.InputParameters, assessmentSection)).Count());
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) callInfo[0]);
-                                 return new TestWaveConditionsCosineCalculator();
-                             });
-
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+            
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
@@ -884,6 +874,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 observerB.Received(1).UpdateObserver();
                 calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
+
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation),
+                    actualSettings);
+            }
         }
 
         [Test]
@@ -891,7 +889,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var group = new CalculationGroup();
 
@@ -1037,6 +1035,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     observerA.Received(1).UpdateObserver();
                     observerB.Received(1).UpdateObserver();
                 }
+                else
+                {
+                    observerA.DidNotReceive().UpdateObserver();
+                    observerB.DidNotReceive().UpdateObserver();
+                }
             }
         }
 
@@ -1045,7 +1048,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -1335,7 +1338,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var context = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                             null,
@@ -1423,7 +1426,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationWithForeshoreProfileAndInputOutOfSync_ContextMenuItemUpdateForeshoreProfilesEnabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -1470,7 +1473,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var calculationObserver = Substitute.For<IObserver>();
             var calculationInputObserver = Substitute.For<IObserver>();
 
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -252,16 +253,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
                 Converged = false
             };
 
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
             calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            assessmentSection.HydraulicBoundaryData,
-                            duneLocation.HydraulicBoundaryLocation), callInfo.Arg<HydraRingCalculationSettings>());
-                    return dunesBoundaryConditionsCalculator;
-                });
+                .When(c => c.CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+            calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
+                             .Returns(dunesBoundaryConditionsCalculator);
 
             plugin.Gui = gui;
             plugin.Activate();
@@ -288,7 +285,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
                 });
             }
 
-            calculatorFactory.Received(2).CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
+            calculatorFactory.Received(2)
+                             .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
+
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                        assessmentSection.HydraulicBoundaryData, duneLocation.HydraulicBoundaryLocation), actualSettings);
+            }
         }
     }
 }

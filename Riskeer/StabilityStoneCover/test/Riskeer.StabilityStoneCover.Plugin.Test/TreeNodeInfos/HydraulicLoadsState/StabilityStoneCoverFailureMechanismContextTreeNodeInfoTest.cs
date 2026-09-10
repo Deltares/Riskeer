@@ -271,16 +271,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsSt
             gui.MainWindow.Returns(mainWindow);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     callInfo.Arg<HydraRingCalculationSettings>());
-                                 return new TestWaveConditionsCosineCalculator();
-                             });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             plugin.Gui = gui;
 
@@ -296,6 +289,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsSt
                 Assert.AreEqual(3, calculationB.Output.BlocksOutput.Count());
                 Assert.AreEqual(3, calculationB.Output.ColumnsOutput.Count());
                 calculatorFactory.Received(12).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            }					 
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation),
+                    actualSettings);
             }
         }
 

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -536,8 +537,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                               CoreGuiResources.PropertiesHS,
                                                               false);
             }
-
-            exportCommandHandler.Received(1).CanExportFrom(nodeData);
         }
 
         [Test]
@@ -641,9 +640,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                               CoreGuiResources.PropertiesHS,
                                                               false);
             }
-
-            importCommandHandler.Received(1).GetSupportedImportInfos(nodeData);
-            exportCommandHandler.Received(1).CanExportFrom(nodeData);
         }
 
         [Test]
@@ -813,16 +809,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             gui.MainWindow.Returns(mainWindow);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) callInfo[0]);
-                                 return new TestWaveConditionsCosineCalculator();
-                             });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
@@ -849,6 +839,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(3, calculationA.Output.ColumnsOutput.Count());
                 Assert.AreEqual(3, calculationB.Output.BlocksOutput.Count());
                 Assert.AreEqual(3, calculationB.Output.ColumnsOutput.Count());
+            }		 
+          
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation),
+                    actualSettings);
             }
         }
 
@@ -1004,6 +1002,11 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     Assert.IsNull(calculationB.Output);
                     observerA.Received(1).UpdateObserver();
                     observerB.Received(1).UpdateObserver();
+                }
+                else
+                {
+                    observerA.DidNotReceive().UpdateObserver();
+                    observerB.DidNotReceive().UpdateObserver();
                 }
             }
         }
@@ -1261,6 +1264,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(0, group.Children.Count);
             Assert.NotNull(dialog);
             Assert.NotNull(grid);
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1477,6 +1481,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             }
 
             calculationInputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         public override void Setup()

@@ -368,17 +368,11 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
 
             int nrOfCalculators = failureMechanism.Calculations.Count();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
-                                 Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     invocation.ArgAt<HydraRingCalculationSettings>(0));
-                                 return new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
-                             });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=>c.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+                                 Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+                             
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
@@ -424,6 +418,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
 
             calculatorFactory.Received(nrOfCalculators).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
                 Arg.Any<HydraRingCalculationSettings>());
+
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                        assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation), actualSettings);
+            }
         }
 
         [Test]
@@ -664,6 +665,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
                 Assert.IsTrue(calculationWithOutput.HasOutput);
                 Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
             }
+
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -733,6 +736,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             }
 
             affectedCalculationObserver.Received(1).UpdateObserver();
+            unaffectedCalculationObserver.DidNotReceive().UpdateObserver();
         }
 
         public override void Setup()

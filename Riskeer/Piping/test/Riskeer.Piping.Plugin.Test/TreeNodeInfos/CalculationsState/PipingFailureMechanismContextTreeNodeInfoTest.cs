@@ -233,6 +233,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
                 {
                     observer.Received(2).UpdateObserver();
                 }
+                else
+                {
+                    observer.DidNotReceive().UpdateObserver();
+                }
             }
         }
 

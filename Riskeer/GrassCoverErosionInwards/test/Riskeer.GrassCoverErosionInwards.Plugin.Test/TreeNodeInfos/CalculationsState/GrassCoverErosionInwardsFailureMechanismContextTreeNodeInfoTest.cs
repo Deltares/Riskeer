@@ -363,16 +363,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             int nrOfCalculators = failureMechanism.Calculations.Count();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
-            calculatorFactory
-                .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                   hydraulicBoundaryLocation),
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestOvertoppingCalculator();
-                });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             plugin.Gui = gui;
 
@@ -410,6 +404,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             }
 
             calculatorFactory.Received(nrOfCalculators).CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
+
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation),
+                    actualSettings);
+            }
         }
 
         [Test]
@@ -647,6 +649,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
                 Assert.IsTrue(output.DikeHeightOutput.HasGeneralResult);
                 Assert.IsTrue(output.OvertoppingRateOutput.HasGeneralResult);
             }
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -717,6 +720,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             }
 
             affectedCalculationObserver.Received(1).UpdateObserver();
+            unaffectedCalculationObserver.DidNotReceive().UpdateObserver();
         }
 
         public override void Setup()

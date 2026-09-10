@@ -272,16 +272,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.HydraulicLoad
             gui.MainWindow.Returns(mainWindow);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     callInfo.Arg<HydraRingCalculationSettings>());
-                                 return new TestWaveConditionsCosineCalculator();
-                             });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             plugin.Gui = gui;
 
@@ -295,6 +289,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.HydraulicLoad
                 Assert.AreEqual(3, calculationA.Output.Items.Count());
                 Assert.AreEqual(3, calculationB.Output.Items.Count());
                 calculatorFactory.Received(6).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            }
+     
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation),
+                    actualSettings);
             }
         }
 

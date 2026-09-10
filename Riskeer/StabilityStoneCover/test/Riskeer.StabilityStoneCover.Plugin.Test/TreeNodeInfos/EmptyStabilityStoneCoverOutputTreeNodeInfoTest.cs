@@ -141,6 +141,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(output, null, treeViewCommands);
             }
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddPropertiesItem();
