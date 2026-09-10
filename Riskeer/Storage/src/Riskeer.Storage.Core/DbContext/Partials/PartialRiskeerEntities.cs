@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System.Data.Entity;
+using System.Data.Entity.Core.Common;
+using System.Data.SQLite;
+using System.Data.SQLite.EF6;
 
 namespace Riskeer.Storage.Core.DbContext
 {
@@ -27,6 +30,7 @@ namespace Riskeer.Storage.Core.DbContext
     /// Partial implementation of <see cref="RiskeerEntities"/> that support a connection string 
     /// and does not read the connection string from the configuration.
     /// </summary>
+    [DbConfigurationType(typeof(SqLiteConfiguration))]
     public partial class RiskeerEntities
     {
         /// <summary>
@@ -149,6 +153,20 @@ namespace Riskeer.Storage.Core.DbContext
             SubMechanismIllustrationPointEntities.Load();
             SubMechanismIllustrationPointStochastEntities.Load();
             IllustrationPointResultEntities.Load();
+        }
+
+        private class SqLiteConfiguration : DbConfiguration
+        {
+            public SqLiteConfiguration()
+            {
+                var providerServices = (DbProviderServices) SQLiteProviderFactory.Instance.GetService(typeof(DbProviderServices));
+
+                SetProviderFactory("System.Data.SQLite", SQLiteFactory.Instance);
+                SetProviderServices("System.Data.SQLite", providerServices);
+
+                SetProviderFactory("System.Data.SQLite.EF6", SQLiteProviderFactory.Instance);
+                SetProviderServices("System.Data.SQLite.EF6", providerServices);
+            }
         }
     }
 }
