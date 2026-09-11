@@ -548,6 +548,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
 
                 inputObserver.Received(1).UpdateObserver();
+                calculationObserver.DidNotReceive().UpdateObserver();
             }
         }
 
@@ -789,6 +790,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
                 // When
                 void Call() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
 
+                // Then
                 const int expectedValidationMessageCount = 5;
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
                 {
@@ -803,6 +805,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
 
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
                 });
+                observer.DidNotReceive().UpdateObserver();
             }
         }
 

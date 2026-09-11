@@ -316,7 +316,7 @@ namespace Core.Gui.Test.Commands
                 // Activity dialog opened and will be closed automatically once done.
             };
 
-            // Act
+            // Call
             var result = false;
 
             void Call() =>

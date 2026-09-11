@@ -365,7 +365,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                   expectedItemText, expectedItemTooltip, RiskeerCommonFormsResources.CalculateAllIcon);
                 }
             }
-            // Expect no calls on arguments
         }
 
         [Test]
@@ -404,7 +403,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(contextMenuItem.Enabled);
                 }
             }
-            // Expect no calls on arguments
         }
 
         [Test]
@@ -434,7 +432,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
             }
-            // Expect no calls on arguments
         }
 
         [Test]
@@ -490,17 +487,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Converged = false
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
             calculatorFactory
                 .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            assessmentSection.HydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return designWaterLevelCalculator;
-                });
+                .Returns(designWaterLevelCalculator);
             DialogBoxHandler = (name, wnd) =>
             {
                 // Expect an activity dialog which is automatically closed
@@ -537,7 +529,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations[0].Output);
                 }
 
-                calculatorFactory.Received(2).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(2).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());			 
+                foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+                {
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                                   hydraulicBoundaryLocation),
+                        actualSettings);
+                }
             }
         }
 
@@ -592,6 +591,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
                     Assert.IsTrue(calculation.Output.HasGeneralResult);
                 }
+                calculationObserver.DidNotReceive().UpdateObserver();
             }
         }
 

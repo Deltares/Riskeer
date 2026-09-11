@@ -326,8 +326,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                   false);
                 }
             }
-
-            // Assert
         }
 
         [Test]
@@ -411,7 +409,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(contextMenuItem.Enabled);
                 }
             }
-            // Expect no calls on arguments
         }
 
         [Test]
@@ -454,7 +451,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
             }
-            // Expect no calls on arguments
         }
 
         [Test]
@@ -516,18 +512,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var waveHeightCalculator = new TestWaveHeightCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
             calculatorFactory
                 .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            assessmentSection.HydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return waveHeightCalculator;
-                });
+                .Returns(waveHeightCalculator);
+
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -556,6 +547,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             calculatorFactory.Received(1)
                              .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation), actualSettings);
         }
 
         [Test]
@@ -730,6 +724,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             if (continuation)
             {
                 calculationObserver.Received(1).UpdateObserver();
+            }
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
             }
         }
 

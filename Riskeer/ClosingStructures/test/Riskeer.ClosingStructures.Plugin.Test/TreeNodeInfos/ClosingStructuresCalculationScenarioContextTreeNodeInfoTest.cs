@@ -403,6 +403,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             inputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -720,6 +721,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             }
 
             calculationInputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -840,9 +842,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.Id.Returns(string.Empty);
-
             assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 
             var parent = new CalculationGroup();
@@ -970,6 +970,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                 });
             }
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1073,6 +1074,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
                 Assert.IsTrue(calculation.Output.HasGeneralResult);
             }
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]

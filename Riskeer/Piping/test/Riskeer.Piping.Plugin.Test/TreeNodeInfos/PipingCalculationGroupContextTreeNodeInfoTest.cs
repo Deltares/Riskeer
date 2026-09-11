@@ -2149,6 +2149,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             calculation1InputObserver.Received(1).UpdateObserver();
             calculation2InputObserver.Received(1).UpdateObserver();
+            calculation1Observer.DidNotReceive().UpdateObserver();
+            calculation2Observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
