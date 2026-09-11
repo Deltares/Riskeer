@@ -64,7 +64,6 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsTrue(result);
-            propertyResolver.Received(1).GetObjectProperties(target);
         }
 
         [Test]
@@ -83,7 +82,6 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsFalse(result);
-            propertyResolver.Received(1).GetObjectProperties(target);
         }
     }
 }

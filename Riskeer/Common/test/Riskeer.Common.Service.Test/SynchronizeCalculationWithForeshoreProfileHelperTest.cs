@@ -42,7 +42,7 @@ namespace Riskeer.Common.Service.Test
             // Call
             SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput(calculation);
 
-            // Assert;
+            // Assert
             calculationInput.DidNotReceive().NotifyObservers();
             calculation.DidNotReceive().NotifyObservers();
         }

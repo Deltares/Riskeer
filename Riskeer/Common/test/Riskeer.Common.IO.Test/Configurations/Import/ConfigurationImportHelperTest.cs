@@ -92,7 +92,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. " +
                                    $"Voor berekening '{calculationName}' is een variatiecoëfficiënt gevonden.";
             var log = Substitute.For<ILog>();
-            log.ErrorFormat(expectedFormat, expectedError, calculationName);
             var configuration = new StochastConfiguration
             {
                 VariationCoefficient = new Random(21).NextDouble()
@@ -111,6 +110,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             // Assert
             Assert.IsFalse(valid);
+            log.Received(1).ErrorFormat(expectedFormat, expectedError, calculationName);
         }
 
         [Test]
@@ -172,7 +172,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string expectedError = $"Indien voor parameter '{stochastName}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. " +
                                    $"Voor berekening '{calculationName}' is een standaardafwijking gevonden.";
             var log = Substitute.For<ILog>();
-            log.ErrorFormat(expectedFormat, expectedError, calculationName);
             var configuration = new StochastConfiguration
             {
                 StandardDeviation = new Random(21).NextDouble()
@@ -191,6 +190,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             // Assert
             Assert.IsFalse(valid);
+            log.Received(1).ErrorFormat(expectedFormat, expectedError, calculationName);
         }
 
         private class TestInputWithStochasts : CloneableObservable, ICalculationInput

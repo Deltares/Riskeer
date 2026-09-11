@@ -35,6 +35,7 @@ namespace Core.Common.Controls.TreeView.Test
         [Test]
         public void HandleItemDrag_WithItemInTree_SelectsItem()
         {
+            // Setup
             using (var treeView = new WinFormsTreeView())
             {
                 var treeNode = new TreeNode();
@@ -58,6 +59,7 @@ namespace Core.Common.Controls.TreeView.Test
         [Test]
         public void HandleItemDrag_WithItemNotInTree_SelectsNull()
         {
+            // Setup
             using (var treeView = new WinFormsTreeView())
             {
                 var treeNode = new TreeNode();

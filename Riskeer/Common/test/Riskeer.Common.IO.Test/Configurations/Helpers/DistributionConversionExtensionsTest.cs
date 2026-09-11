@@ -280,7 +280,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string exceptionMessage = "A";
             var distribution = Substitute.For<IDistribution>();
             distribution.When(d => d.Mean = Arg.Any<RoundedDouble>())
-                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
+                        .Throw(new ArgumentOutOfRangeException(null, exceptionMessage));
             const int mean = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -350,7 +350,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string exceptionMessage = "A";
             var distribution = Substitute.For<IDistribution>();
             distribution.When(d => d.StandardDeviation = Arg.Any<RoundedDouble>())
-                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
+                        .Throw( new ArgumentOutOfRangeException(null, exceptionMessage));
             const int standardDeviation = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -417,7 +417,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string exceptionMessage = "A";
             var distribution = Substitute.For<IDistribution>();
             distribution.When(d => d.Mean = Arg.Any<RoundedDouble>())
-                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
+                        .Throw( new ArgumentOutOfRangeException(null, exceptionMessage));
             const int mean = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -443,7 +443,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string exceptionMessage = "A";
             var distribution = Substitute.For<IDistribution>();
             distribution.When(d => d.StandardDeviation = Arg.Any<RoundedDouble>())
-                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
+                        .Throw( new ArgumentOutOfRangeException(null, exceptionMessage));
 
             const int standardDeviation = 5;
             const string stochastName = "B";
@@ -514,7 +514,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string exceptionMessage = "A";
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
             distribution.When(d => d.Mean = Arg.Any<RoundedDouble>())
-                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
+                        .Throw( new ArgumentOutOfRangeException(null, exceptionMessage));
             const int mean = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -584,7 +584,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string exceptionMessage = "A";
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
             distribution.When(d => d.CoefficientOfVariation = Arg.Any<RoundedDouble>())
-                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
+                        .Throw( new ArgumentOutOfRangeException(null, exceptionMessage));
             const int variationCoefficient = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -651,7 +651,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string exceptionMessage = "A";
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
             distribution.When(d => d.Mean = Arg.Any<RoundedDouble>())
-                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
+                        .Throw( new ArgumentOutOfRangeException(null, exceptionMessage));
             const int mean = 5;
             const string stochastName = "B";
             const string calculationName = "C";
@@ -677,7 +677,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string exceptionMessage = "A";
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
             distribution.When(d => d.CoefficientOfVariation = Arg.Any<RoundedDouble>())
-                        .Do(_ => throw new ArgumentOutOfRangeException(null, exceptionMessage));
+                        .Throw( new ArgumentOutOfRangeException(null, exceptionMessage));
 
             const int variationCoefficient = 5;
             const string stochastName = "B";

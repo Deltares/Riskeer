@@ -306,15 +306,13 @@ namespace Riskeer.Common.Service.Test.Structures
                 OutputDirectory = validHrdFilePath
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(
-                                 Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, callInfo.Arg<HydraRingCalculationSettings>());
-                                 return calculator;
-                             });
-
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
+			calculatorFactory
+                .CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(calculator);
+            
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = Substitute.For<IStructuresCalculationMessageProvider>();
             messageProvider.GetCalculationPerformedMessage(validHrdFilePath).Returns(performedCalculationMessage);
@@ -343,6 +341,8 @@ namespace Riskeer.Common.Service.Test.Structures
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                calculationSettings, actualSettings);
         }
 
         [Test]

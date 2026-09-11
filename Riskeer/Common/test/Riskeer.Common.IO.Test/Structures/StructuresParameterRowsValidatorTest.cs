@@ -507,7 +507,7 @@ namespace Riskeer.Common.IO.Test.Structures
             // Call
             ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
 
-            // Assert;
+            // Assert
             Assert.IsTrue(validationResult.IsValid);
             CollectionAssert.IsEmpty(validationResult.ErrorMessages);
         }
