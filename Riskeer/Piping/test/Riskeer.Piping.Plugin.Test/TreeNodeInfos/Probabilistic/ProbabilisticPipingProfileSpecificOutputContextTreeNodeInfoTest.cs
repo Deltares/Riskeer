@@ -151,6 +151,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 menuBuilder.AddOpenItem();
                 menuBuilder.AddSeparator();
                 menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
             });
         }
     }

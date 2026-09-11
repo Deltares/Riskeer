@@ -397,7 +397,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                   expectedItemText, expectedItemTooltip, RiskeerCommonFormsResources.CalculateAllIcon);
                 }
             }
-            // Expect no calls on arguments
         }
 
         [Test]
@@ -448,7 +447,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(contextMenuItem.Enabled);
                 }
             }
-            // Expect no calls on arguments
         }
 
         [Test]
@@ -491,7 +489,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
             }
-            // Expect no calls on arguments
         }
 
         [Test]
@@ -690,8 +687,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
                 }
             }
-
-            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -766,6 +761,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             if (continuation)
             {
                 calculationObserver.Received(1).UpdateObserver();
+            }
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
             }
         }
 

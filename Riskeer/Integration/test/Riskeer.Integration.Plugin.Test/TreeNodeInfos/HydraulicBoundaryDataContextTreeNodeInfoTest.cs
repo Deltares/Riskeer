@@ -212,8 +212,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, assessmentSection, treeViewCommands))
                 {
+                    // Assert
                     Assert.AreEqual(6, contextMenuStrip.Items.Count);
-
                     TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip,
                                                                   contextMenuImportHydraulicLocationConfigurationDatabaseIndex,
                                                                   "&Selecteer HLCD bestand...",
@@ -248,6 +248,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, null, treeViewCommands))
                 {
+                    // Assert
                     Assert.AreEqual(6, contextMenuStrip.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, contextMenuSelectDifferentFolderIndex,

@@ -122,6 +122,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(context, null, treeViewCommands);
             }
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddPropertiesItem();

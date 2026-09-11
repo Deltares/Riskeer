@@ -655,7 +655,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
         private static ReferenceLine ImportReferenceLine(string referenceLineFilePath)
         {
-            ReferenceLine referenceLine = null;
+            var referenceLine = new ReferenceLine();
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             handler.ConfirmUpdate().Returns(true);
 

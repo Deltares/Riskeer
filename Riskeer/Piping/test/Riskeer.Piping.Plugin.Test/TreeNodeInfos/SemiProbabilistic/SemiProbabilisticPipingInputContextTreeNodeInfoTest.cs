@@ -136,7 +136,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             info.ContextMenuStrip(null, null, treeViewCommands);
 
             // Assert
-            menuBuilder.Received(1).Build();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
     }
 }

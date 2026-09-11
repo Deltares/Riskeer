@@ -418,6 +418,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             }
 
             calculationObserver.Received(2).UpdateObserver();
+            calculationsObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -489,17 +490,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
+	
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                                       .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+							 
             calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                   hydraulicBoundaryLocation),
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return dunesBoundaryConditionsCalculator;
-                });
-
+                .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(dunesBoundaryConditionsCalculator);
+            
             plugin.Gui = gui;
             plugin.Activate();
 
@@ -516,6 +516,14 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                 dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(duneLocationCalculationsForTargetProbability.TargetProbability),
                                 dunesBoundaryConditionsCalculationInput.Beta);
+            }
+            
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation),
+                    actualSettings);
             }
         }
 

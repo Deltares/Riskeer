@@ -122,7 +122,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            menuBuilder.Received(1).Build();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
         }
     }
 }

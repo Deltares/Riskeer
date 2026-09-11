@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -1877,16 +1878,11 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
                 assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory
-                .CreatePipingCalculator(
-                    Arg.Do<HydraRingCalculationSettings>(settings =>
-                    {
-                        HydraRingCalculationSettingsTestHelper
-                            .AssertHydraRingCalculationSettings(
-                                calculationSettings,
-                                settings);
-                    }))
-                .Returns(new TestPipingCalculator());
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                                       .CreatePipingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+
             calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -1896,9 +1892,14 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             }
 
             // Assert
-            calculatorFactory.Received(2)
-                             .CreatePipingCalculator(
-                                 Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(2).CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation),
+                    actualSettings);
+            }
         }
 
         [Test]

@@ -452,20 +452,14 @@ namespace Riskeer.Integration.Service.Test
             var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c
+                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
             calculatorFactory
                 .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
-
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            hydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        settings);
-
-                    return designWaterLevelCalculator;
-                });
+                .Returns(designWaterLevelCalculator);
+            
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = activity.Run;
@@ -477,6 +471,10 @@ namespace Riskeer.Integration.Service.Test
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), actualCalculationInput.Beta);
             }
+            
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation), actualSettings);
         }
 
         private static void AssertWaveHeightCalculationActivity(Activity activity,
@@ -488,20 +486,13 @@ namespace Riskeer.Integration.Service.Test
             var waveHeightCalculator = new TestWaveHeightCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c
+                .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
             calculatorFactory
                 .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
-
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            hydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        settings);
-
-                    return waveHeightCalculator;
-                });
+                .Returns( waveHeightCalculator);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = activity.Run;
@@ -513,6 +504,9 @@ namespace Riskeer.Integration.Service.Test
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), actualCalculationInput.Beta);
             }
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation), actualSettings);
         }
     }
 }

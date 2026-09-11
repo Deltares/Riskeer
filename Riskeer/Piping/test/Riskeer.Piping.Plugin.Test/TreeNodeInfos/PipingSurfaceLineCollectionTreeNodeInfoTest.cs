@@ -201,14 +201,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             plugin.Gui = gui;
 
-            // Act
+            // Call
             info.ContextMenuStrip(null, null, treeViewCommands);
 
             // Assert
             Received.InOrder(() =>
             {
-                gui.Get(Arg.Any<object>(), treeViewCommands);
-
                 menuBuilder.AddImportItem();
                 menuBuilder.AddUpdateItem();
                 menuBuilder.AddSeparator();

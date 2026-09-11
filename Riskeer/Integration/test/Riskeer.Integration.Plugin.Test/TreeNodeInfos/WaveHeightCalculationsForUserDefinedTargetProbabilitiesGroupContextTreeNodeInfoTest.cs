@@ -487,17 +487,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Converged = false
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                                       .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
             calculatorFactory
                 .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            assessmentSection.HydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return waveHeightCalculator;
-                });
+                .Returns(waveHeightCalculator);
+            
             DialogBoxHandler = (name, wnd) =>
             {
                 // Expect an activity dialog which is automatically closed
@@ -537,6 +534,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             calculatorFactory.Received(2)
                              .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
+							 
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation),
+                    actualSettings);
+            }
         }
 
         [Test]
@@ -591,6 +596,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation.Output.HasGeneralResult);
                 }
             }
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]

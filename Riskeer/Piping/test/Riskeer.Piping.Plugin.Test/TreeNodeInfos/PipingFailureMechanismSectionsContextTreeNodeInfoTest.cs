@@ -118,7 +118,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
             
             using (var plugin = new PipingPlugin())
@@ -151,19 +150,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            
+            ImportInfo[] importInfos = null; 
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
-            menuBuilder.AddImportItem(
-                           Arg.Do<ImportInfo[]>(importInfos =>
-                           {
-                               Assert.AreEqual(1, importInfos.Length);
-                               Assert.IsTrue(
-                                   importInfos.Any(i =>
-                                                       i.DataType == typeof(PipingFailureMechanismSectionsContext)));
-                           }))
-                       .Returns(menuBuilder);
+            menuBuilder.When(m=>m.AddImportItem(Arg.Any<ImportInfo[]>()))
+                       .Do(callInfo => { importInfos = callInfo.Arg<ImportInfo[]>(); });
+            menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
             
@@ -182,12 +175,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 menuBuilder.AddOpenItem();
                 menuBuilder.AddSeparator();
-                menuBuilder.AddImportItem(Arg.Any<IEnumerable<ImportInfo>>());
+                menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>());
                 menuBuilder.AddUpdateItem();
                 menuBuilder.AddSeparator();
                 menuBuilder.AddPropertiesItem();
                 menuBuilder.Build();
             });
+            Assert.AreEqual(1, importInfos.Length);
+            Assert.IsTrue(importInfos.Any(i =>
+                                              i.DataType == typeof(PipingFailureMechanismSectionsContext)));
         }
 
         [Test]

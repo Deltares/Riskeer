@@ -246,17 +246,12 @@ namespace Riskeer.DuneErosion.Service.Test
             var calculator = new TestDunesBoundaryConditionsCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
             calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            hydraulicBoundaryData,
-                            hydraulicBoundaryData.GetLocations().First()),
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return calculator;
-                });
+                .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(calculator);
 
             void Call()
             {
@@ -272,6 +267,10 @@ namespace Riskeer.DuneErosion.Service.Test
             DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = calculator.ReceivedInputs.Last();
             Assert.AreEqual(locationId, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), dunesBoundaryConditionsCalculationInput.Beta);
+            
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                           hydraulicBoundaryData.GetLocations().First()), actualSettings);
         }
     }
 }

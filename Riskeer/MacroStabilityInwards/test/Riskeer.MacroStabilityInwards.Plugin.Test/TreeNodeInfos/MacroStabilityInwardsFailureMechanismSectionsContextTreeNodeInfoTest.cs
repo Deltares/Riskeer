@@ -147,20 +147,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var gui = Substitute.For<IGui>();
-
+            ImportInfo[] importInfos = null;
+                
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
-            menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>())
-                       .Returns(menuBuilder);
+            menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
             menuBuilder.When(m => m.AddImportItem(Arg.Any<ImportInfo[]>()))
-                       .Do(invocation =>
-                       {
-                           var importInfos = invocation.Arg<ImportInfo[]>();
-                           Assert.AreEqual(1, importInfos.Length);
-                           Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(MacroStabilityInwardsFailureMechanismSectionsContext)));
-                       });
-
+                       .Do(invocation => { importInfos = invocation.Arg<ImportInfo[]>(); });
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
@@ -180,7 +174,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            menuBuilder.Received(1).Build();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>());
+                menuBuilder.AddUpdateItem();
+                menuBuilder.AddSeparator();
+                menuBuilder.AddPropertiesItem();
+                menuBuilder.Build();
+            });
+            Assert.AreEqual(1, importInfos.Length);
+            Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(MacroStabilityInwardsFailureMechanismSectionsContext)));
         }
 
         [Test]

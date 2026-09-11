@@ -198,16 +198,12 @@ namespace Riskeer.Common.Service.Test
         {
             var calculator = new TestWaveHeightCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
             calculatorFactory
-                .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                   hydraulicBoundaryLocation),
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return calculator;
-                });
+                .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(calculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -220,9 +216,10 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
             }
-
-            calculatorFactory.Received(1)
-                             .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
+            
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation), actualSettings);
         }
 
         private static void AssertDesignWaterLevelCalculationActivity(Activity activity,
@@ -233,16 +230,12 @@ namespace Riskeer.Common.Service.Test
         {
             var calculator = new TestDesignWaterLevelCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
             calculatorFactory
-                .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                   hydraulicBoundaryLocation),
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return calculator;
-                });
+                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(calculator);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = activity.Run;
@@ -255,8 +248,9 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), designWaterLevelCalculationInput.Beta);
             }
 
-            calculatorFactory.Received(1)
-                             .CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation), actualSettings);
         }
 
         private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, bool usePreprocessorClosure, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)

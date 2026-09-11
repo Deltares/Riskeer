@@ -104,53 +104,26 @@ namespace Riskeer.Integration.Service.Test
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
                                                                            hydraulicBoundaryLocation);
 
-            calculatorFactory
-                .CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        expectedCalculationSettings,
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestPipingCalculator();
-                });
-            calculatorFactory
-                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        expectedCalculationSettings,
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestOvertoppingCalculator();
-                });
-            calculatorFactory
-                .CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        expectedCalculationSettings,
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
-                });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                .CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
-            calculatorFactory
-                .CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        expectedCalculationSettings,
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestStructuresCalculator<StructuresClosureCalculationInput>();
-                });
+            calculatorFactory.When(c=> c
+                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
-            calculatorFactory
-                .CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        expectedCalculationSettings,
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-                });
+            calculatorFactory.When(c=> c
+                .CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+
+            calculatorFactory.When(c=> c
+                .CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+
+            calculatorFactory.When(c=> c
+                .CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             // Call
             IEnumerable<CalculatableActivity> activities =
@@ -177,19 +150,18 @@ namespace Riskeer.Integration.Service.Test
 
             Received.InOrder(() =>
             {
-                calculatorFactory.CreatePipingCalculator(
-                    Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreatePipingCalculator(
-                    Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateOvertoppingCalculator(
-                    Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
-                    Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                    Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                    Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
             });
+            
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedCalculationSettings, actualSettings);
+            }
         }
 
         [Test]
@@ -240,48 +212,25 @@ namespace Riskeer.Integration.Service.Test
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
                                                                            hydraulicBoundaryLocation);
 
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
             calculatorFactory
                 .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        expectedCalculationSettings,
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestDesignWaterLevelCalculator
-                    {
-                        DesignWaterLevel = 2.0
-                    };
-                });
+                .Returns(new TestDesignWaterLevelCalculator { DesignWaterLevel = 2.0 });
 
-            calculatorFactory
-                .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        expectedCalculationSettings,
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestWaveHeightCalculator();
-                });
+            calculatorFactory.When(c=> c
+                .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
-            calculatorFactory
-                .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        expectedCalculationSettings,
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestWaveConditionsCosineCalculator();
-                });
+            calculatorFactory.When(c=> c
+                .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
-            calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        expectedCalculationSettings,
-                        callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestDunesBoundaryConditionsCalculator();
-                });
+            calculatorFactory.When(c=> c
+                .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             // Call
             IEnumerable<CalculatableActivity> activities =
@@ -297,32 +246,16 @@ namespace Riskeer.Integration.Service.Test
 
             Received.InOrder(() =>
             {
-                calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
-
-                calculatorFactory.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
-
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-                calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-
+                Enumerable.Range(1, 4).ToList().ForEach(_ => calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()));
+                Enumerable.Range(1, 2).ToList().ForEach(_ => calculatorFactory.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()));
+                Enumerable.Range(1, 15).ToList().ForEach(_ => calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()));
                 calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>());
             });
+            
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedCalculationSettings, actualSettings);
+            }
         }
 
         private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation hydraulicBoundaryLocation)

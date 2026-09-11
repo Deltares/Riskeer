@@ -121,7 +121,11 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            menuBuilder.Received(1).Build();
+            Received.InOrder(() =>
+            {
+                menuBuilder.AddOpenItem();
+                menuBuilder.Build();
+            });
         }
     }
 }

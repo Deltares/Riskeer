@@ -382,6 +382,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, calculation);
+            observer.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -399,7 +400,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection =AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
@@ -428,6 +429,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Call
             info.ContextMenuStrip(context, null, treeViewCommands);
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddExportItem();
@@ -558,7 +560,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithoutForeshoreProfile_ContextMenuItemUpdateForeshoreProfileDisabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection =AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var parent = new CalculationGroup();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
@@ -593,7 +595,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputInSync_ContextMenuItemUpdateForeshoreProfileDisabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection =AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var parent = new CalculationGroup();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -634,7 +636,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithForeshoreProfileAndInputOutSync_ContextMenuItemUpdateForeshoreProfileEnabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection =AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile();
@@ -680,7 +682,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var calculationObserver = Substitute.For<IObserver>();
             var calculationInputObserver = Substitute.For<IObserver>();
 
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection =AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
@@ -722,6 +724,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             }
 
             calculationInputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -732,7 +735,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Given
             var calculationObserver = Substitute.For<IObserver>();
             var calculationInputObserver = Substitute.For<IObserver>();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
@@ -801,6 +804,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 calculationObserver.Received(1).UpdateObserver();
                 calculationInputObserver.Received(1).UpdateObserver();
+            }
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
+                calculationInputObserver.DidNotReceive().UpdateObserver();
             }
         }
 
@@ -967,16 +975,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(assessmentLevel);
             int nrOfCalculators = waterLevels.Count();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) callInfo[0]);
-                                 return new TestWaveConditionsCosineCalculator();
-                             });
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
 
             plugin.Gui = gui;
 
@@ -1002,6 +1003,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(3, calculation.Output.Items.Count());
                 observer.Received(1).UpdateObserver();
             }
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation), actualSettings);
         }
 
         [Test]
@@ -1009,7 +1013,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection =AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -1059,7 +1063,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection =AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -1108,7 +1112,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
 
             var observer = Substitute.For<IObserver>();
 

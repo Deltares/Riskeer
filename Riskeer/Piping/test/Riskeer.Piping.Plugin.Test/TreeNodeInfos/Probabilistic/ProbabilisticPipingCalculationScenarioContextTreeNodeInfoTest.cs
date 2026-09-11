@@ -635,7 +635,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
@@ -650,6 +649,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                 Assert.IsTrue(calculation.InputParameters.IsEntryAndExitPointInputSynchronized);
 
                 inputObserver.Received(1).UpdateObserver();
+                calculationObserver.DidNotReceive().UpdateObserver();
             }
         }
 

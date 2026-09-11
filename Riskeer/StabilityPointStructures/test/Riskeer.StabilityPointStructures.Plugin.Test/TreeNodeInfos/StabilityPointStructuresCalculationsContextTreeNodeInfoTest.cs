@@ -190,14 +190,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
-            menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
@@ -712,6 +706,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -783,6 +778,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }
+            affectedCalculationObserver.Received().UpdateObserver();
+            unaffectedCalculationObserver.DidNotReceive().UpdateObserver();
         }
 
         public override void Setup() {}

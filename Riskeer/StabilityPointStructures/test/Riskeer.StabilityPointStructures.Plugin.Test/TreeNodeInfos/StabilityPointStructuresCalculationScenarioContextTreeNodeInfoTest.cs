@@ -413,6 +413,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Then
                 Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
             }
+            calculationObserver.DidNotReceive().UpdateObserver();
+            calculationInputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -443,8 +445,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
-
-            if (continuation) {}
 
             var messageBoxText = "";
             DialogBoxHandler = (name, wnd) =>
@@ -485,6 +485,17 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             Assert.AreEqual(expectedMessageBoxText, messageBoxText);
+            
+            if (continuation)
+            {
+                calculationObserver.Received().UpdateObserver();
+                calculationInputObserver.Received().UpdateObserver();
+            }
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
+                calculationInputObserver.DidNotReceive().UpdateObserver();
+            }
         }
 
         [Test]
@@ -686,6 +697,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Then
                 Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
             }
+            calculationObserver.DidNotReceive().UpdateObserver();
+            calculationInputObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -717,8 +730,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
-
-            if (continuation) {}
 
             var messageBoxText = "";
             DialogBoxHandler = (name, wnd) =>
@@ -762,6 +773,17 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             Assert.AreEqual(expectedMessageBoxText, messageBoxText);
+            
+            if (continuation)
+            {
+                calculationObserver.Received().UpdateObserver();
+                calculationInputObserver.Received().UpdateObserver();
+            }
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
+                calculationInputObserver.DidNotReceive().UpdateObserver();
+            }
         }
 
         [Test]
@@ -933,6 +955,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                 });
             }
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1042,6 +1065,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
                 Assert.IsTrue(calculation.Output.HasGeneralResult);
             }
+
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1087,6 +1112,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
                 Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
+            
+            calculationObserver.Received(1).UpdateObserver();
         }
 
         [Test]
@@ -1121,6 +1148,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+            observer.Received(1).UpdateObserver();
         }
 
         public override void Setup()
