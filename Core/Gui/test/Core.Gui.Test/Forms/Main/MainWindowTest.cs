@@ -236,45 +236,6 @@ namespace Core.Gui.Test.Forms.Main
         }
 
         [Test]
-        public void SubscribeToGui_GuiSet_AttachEvents()
-        {
-            // Setup
-            var viewHost = Substitute.For<IViewHost>();
-            EventHandler<ViewChangeEventArgs> opened = null;
-            EventHandler<ViewChangeEventArgs> front = null;
-            EventHandler<ViewChangeEventArgs> closed = null;
-            EventHandler<EventArgs> changed = null;
-            viewHost.When(vh => vh.ViewOpened += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => opened = ci.Arg<EventHandler<ViewChangeEventArgs>>());
-            viewHost.When(vh => vh.ViewBroughtToFront += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => front = ci.Arg<EventHandler<ViewChangeEventArgs>>());
-            viewHost.When(vh => vh.ViewClosed += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => closed = ci.Arg<EventHandler<ViewChangeEventArgs>>());
-            viewHost.When(vh => vh.ActiveDocumentViewChanged += Arg.Any<EventHandler<EventArgs>>())
-                    .Do(ci => changed = ci.Arg<EventHandler<EventArgs>>());
-
-            var gui = Substitute.For<IGui>();
-            gui.ViewHost.Returns(viewHost);
-            gui.FixedSettings.Returns(new GuiCoreSettings());
-            using (var mainWindow = new MainWindow())
-            {
-                mainWindow.SetGui(gui);
-
-                // Call
-                mainWindow.SubscribeToGui();
-            }
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(opened, Is.Not.Null);
-                Assert.That(front, Is.Not.Null);
-                Assert.That(closed, Is.Not.Null);
-                Assert.That(changed, Is.Not.Null);
-            });
-        }
-
-        [Test]
         public void UnsubscribeFromGui_NoGuiSet_DoNothing()
         {
             // Setup
@@ -289,7 +250,7 @@ namespace Core.Gui.Test.Forms.Main
         }
 
         [Test]
-        public void UnsubscribeFromGui_GuiSetAndSubscribed_DetachEvents()
+        public void SubscribeToAndUnsubscribeFromGui_GuiSet_AttachAndDetachEvents()
         {
             // Setup
             var viewHost = Substitute.For<IViewHost>();
@@ -322,19 +283,22 @@ namespace Core.Gui.Test.Forms.Main
             {
                 mainWindow.SetGui(gui);
                 mainWindow.SubscribeToGui();
+                
+                // Precondition
+                Assert.IsNotNull(opened);
+                Assert.IsNotNull(front);
+                Assert.IsNotNull(closed);
+                Assert.IsNotNull(changed);
 
                 // Call
                 mainWindow.UnsubscribeFromGui();
             }
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(opened, Is.Null);
-                Assert.That(front, Is.Null);
-                Assert.That(closed, Is.Null);
-                Assert.That(changed, Is.Null);
-            });
+            Assert.IsNull(opened);
+            Assert.IsNull(front);
+            Assert.IsNull(closed);
+            Assert.IsNull(changed);
         }
 
         [Test]
@@ -440,7 +404,6 @@ namespace Core.Gui.Test.Forms.Main
             };
 
             var propertyResolver = Substitute.For<IPropertyResolver>();
-
 
             var gui = Substitute.For<IGui>();
             gui.ViewHost.Returns(viewHost);
@@ -863,7 +826,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
-            projectFactory.CreateNewProject().Returns(Substitute.For<IProject>());
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -959,11 +921,7 @@ namespace Core.Gui.Test.Forms.Main
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), directoryPath))
             {
                 var project = Substitute.For<IProject>();
-
                 var projectStore = Substitute.For<IStoreProject>();
-                projectStore.SaveProjectFileFilter.Returns(string.Empty);
-                projectStore.HasStagedProject.Returns(false);
-
                 var projectMigrator = Substitute.For<IMigrateProject>();
                 var projectFactory = Substitute.For<IProjectFactory>();
                 DialogBoxHandler = (s, hWnd) =>
@@ -1080,11 +1038,7 @@ namespace Core.Gui.Test.Forms.Main
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), directoryPath))
             {
                 var project = Substitute.For<IProject>();
-
                 var projectStore = Substitute.For<IStoreProject>();
-                projectStore.SaveProjectFileFilter.Returns(string.Empty);
-                projectStore.HasStagedProject.Returns(false);
-
                 var projectMigrator = Substitute.For<IMigrateProject>();
                 var projectFactory = Substitute.For<IProjectFactory>();
                 DialogBoxHandler = (s, hWnd) =>
@@ -1138,9 +1092,6 @@ namespace Core.Gui.Test.Forms.Main
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Core.Gui);
             string filePath = Path.Combine(directoryPath, nameof(MainWindowTest), "Project.risk");
             var projectStore = Substitute.For<IStoreProject>();
-            projectStore.LoadProject(filePath).Returns(Substitute.For<IProject>());
-            projectStore.OpenProjectFileFilter.Returns(string.Empty);
-
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             DialogBoxHandler = (s, hWnd) =>

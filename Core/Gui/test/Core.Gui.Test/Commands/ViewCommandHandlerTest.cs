@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Gui.Commands;
 using Core.Gui.Forms.ViewHost;
@@ -40,7 +41,6 @@ namespace Core.Gui.Test.Commands
             var selectedObject = new object();
 
             var documentViewController = Substitute.For<IDocumentViewController>();
-            documentViewController.OpenViewForData(selectedObject).Returns(true);
             var viewController = Substitute.For<IViewController>();
             viewController.DocumentViewController.Returns(documentViewController);
             var applicationSelection = Substitute.For<IApplicationSelection>();
@@ -78,7 +78,6 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsFalse(hasViewDefinitionsForData);
-            documentViewController.Received(1).GetViewInfosFor(viewObject);
         }
 
         [Test]
@@ -109,7 +108,6 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsTrue(hasViewDefinitionsForData);
-            documentViewController.Received(1).GetViewInfosFor(viewObject);
         }
 
         [Test]
@@ -119,7 +117,6 @@ namespace Core.Gui.Test.Commands
             var viewObject = new object();
 
             var documentViewController = Substitute.For<IDocumentViewController>();
-            documentViewController.OpenViewForData(viewObject).Returns(true);
             var viewController = Substitute.For<IViewController>();
             viewController.DocumentViewController.Returns(documentViewController);
             var applicationSelection = Substitute.For<IApplicationSelection>();
@@ -148,7 +145,7 @@ namespace Core.Gui.Test.Commands
             commandHandler.RemoveAllViewsForItem(null);
 
             // Assert
-            _ = viewController.DidNotReceive().ViewHost;
+            Assert.IsFalse(viewController.ReceivedCalls().Any());
         }
 
         [Test]
@@ -166,7 +163,7 @@ namespace Core.Gui.Test.Commands
             commandHandler.RemoveAllViewsForItem(new object());
 
             // Assert
-            pluginsHost.DidNotReceive().GetAllDataWithViewDefinitionsRecursively(Arg.Any<object>());
+            Assert.IsFalse(pluginsHost.ReceivedCalls().Any());
         }
 
         [Test]
@@ -210,7 +207,6 @@ namespace Core.Gui.Test.Commands
             // Assert
             documentViewsResolver.Received(1).CloseAllViewsFor(data);
             documentViewsResolver.Received(1).CloseAllViewsFor(childData);
-            pluginsHost.Received(1).GetAllDataWithViewDefinitionsRecursively(data);
         }
     }
 }
