@@ -330,6 +330,7 @@ namespace Riskeer.Common.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
+            calculation.DidNotReceive().ClearOutput();
         }
 
         [Test]

@@ -171,6 +171,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             // Call
             info.ContextMenuStrip(nodeData, null, treeViewCommands);
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddExportItem();
@@ -410,6 +411,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
             }
             inputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -753,6 +755,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             }
 
             calculationInputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -832,6 +835,11 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             {
                 calculationObserver.Received(1).UpdateObserver();
                 calculationInputObserver.Received(1).UpdateObserver();
+            }
+            else
+            {
+                calculationObserver.DidNotReceive().UpdateObserver();
+                calculationInputObserver.DidNotReceive().UpdateObserver();
             }
         }
 
@@ -1002,6 +1010,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                 });
             }
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1111,6 +1120,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
                 Assert.IsTrue(calculation.Output.HasGeneralResult);
             }
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]

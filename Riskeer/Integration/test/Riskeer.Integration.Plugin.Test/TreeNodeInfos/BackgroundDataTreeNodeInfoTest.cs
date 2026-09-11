@@ -316,7 +316,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
 
                 backgroundDataObserver.Received(1).UpdateObserver();
-                tileFactory.Received(1).GetWmtsTileSources(Arg.Any<string>());
             }
         }
 

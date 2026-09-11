@@ -400,6 +400,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             }
 
             inputObserver.Received(1).UpdateObserver();
+            calculationObserver.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -626,20 +627,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             gui.MainWindow.Returns(mainWindow);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory
-                .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c
+                               .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                               .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
 
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            hydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        settings);
-
-                    return new TestOvertoppingCalculator();
-                });
             plugin.Gui = gui;
 
             calculation.Attach(observer);
@@ -673,6 +665,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             }
 
             observer.Received(1).UpdateObserver();
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                    hydraulicBoundaryData,
+                    hydraulicBoundaryLocation),
+                actualSettings);
         }
 
         [Test]
@@ -741,6 +738,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                 });
             }
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
