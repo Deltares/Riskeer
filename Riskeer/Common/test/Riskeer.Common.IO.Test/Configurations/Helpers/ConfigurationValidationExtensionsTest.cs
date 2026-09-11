@@ -99,7 +99,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             const string error = "Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen.";
             const string expectedMessage = "{0} Berekening '{1}' is overgeslagen.";
             var log = Substitute.For<ILog>();
-            log.ErrorFormat(expectedMessage, error, calculationName);
             var waveReductionConfiguration = new WaveReductionConfiguration();
             var random = new Random(21);
 
@@ -124,6 +123,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.IsFalse(valid);
+            log.Received(1).ErrorFormat(expectedMessage, error, calculationName);
         }
 
         [Test]
@@ -174,7 +174,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
 
             string error = $"Het opgegeven voorlandprofiel '{profileName}' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden.";
             var log = Substitute.For<ILog>();
-            log.ErrorFormat(expectedMessage, error, calculationName);
             var waveReductionConfiguration = new WaveReductionConfiguration
             {
                 UseForeshoreProfile = true
@@ -185,6 +184,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.IsFalse(valid);
+            log.Received(1).ErrorFormat(expectedMessage, error, calculationName);
         }
     }
 }

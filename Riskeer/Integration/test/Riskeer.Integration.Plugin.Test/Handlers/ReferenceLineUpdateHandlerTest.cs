@@ -347,7 +347,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             handler.DoPostUpdateActions();
 
             // Assert
-            Assert.That(viewCommands.ReceivedCalls().Count(), Is.EqualTo(0));
+            Assert.IsFalse(viewCommands.ReceivedCalls().Any());
         }
 
         [Test]

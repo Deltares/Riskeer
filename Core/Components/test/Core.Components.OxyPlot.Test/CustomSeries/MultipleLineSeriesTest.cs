@@ -143,10 +143,8 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
                 Arg.Is<EdgeRenderingMode>(m => m == series.EdgeRenderingMode),
-                Arg.Is<double[]>(d => d == expectedDashes ||
-                                      (d != null &&
-                                       expectedDashes != null &&
-                                       d.SequenceEqual(expectedDashes))));
+                Arg.Is<double[]>(d => d.SequenceEqual(dashes ?? style.Value.GetDashArray())),
+                Arg.Any<LineJoin>());
         }
 
         [Test]
@@ -197,10 +195,8 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
                 Arg.Is<EdgeRenderingMode>(m => m == series.EdgeRenderingMode),
-                Arg.Is<double[]>(d => d == expectedDashes ||
-                                      (d != null &&
-                                       expectedDashes != null &&
-                                       d.SequenceEqual(expectedDashes))));
+                Arg.Is<double[]>(d => d.SequenceEqual(dashes ?? style.Value.GetDashArray())),
+                Arg.Any<LineJoin>());
         }
     }
 }

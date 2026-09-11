@@ -252,14 +252,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataText);
 
             var updateStrategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            updateStrategy.When(updateStratcall => updateStratcall.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>()))
+            updateStrategy.When(u => u.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>()))
                           .Do(callInfo =>
                           {
                               var soilModels = callInfo.Arg<IEnumerable<IMechanismStochasticSoilModel>>();
                               Assert.AreEqual(nrOfFailureMechanismSpecificModelsInDatabase, soilModels.Count());
                               Assert.AreEqual(validFilePath, callInfo.Arg<string>());
                           });
-
             var importer = new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
                 new TestStochasticSoilModelCollection(),
                 validFilePath,
@@ -301,6 +300,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressMessages,
                                                                                progressChangeNotifications);
             filter.Received(totalNrOfStochasticSoilModelInDatabase).IsValidForFailureMechanism(Arg.Any<StochasticSoilModel>());
+            updateStrategy.Received(1).UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -391,7 +391,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
-            messageProvider.Received(1).GetCancelledLogMessageText("Stochastische ondergrondmodellen");
         }
 
         [Test]

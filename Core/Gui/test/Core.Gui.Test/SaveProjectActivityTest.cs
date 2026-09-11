@@ -182,7 +182,7 @@ namespace Core.Gui.Test
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
             storeProject.HasStagedProject.Returns(true);
-            storeProject.When(sp => sp.SaveProjectAs(filePath)).Do(_ => throw exception);
+            storeProject.When(sp => sp.SaveProjectAs(filePath)).Throw(exception);
 
             var activity = new SaveProjectActivity(project, filePath, false, storeProject, projectOwner);
 
@@ -210,7 +210,7 @@ namespace Core.Gui.Test
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
             storeProject.HasStagedProject.Returns(true);
-            storeProject.When(sp => sp.SaveProjectAs(filePath)).Do(_ => throw exception);
+            storeProject.When(sp => sp.SaveProjectAs(filePath)).Throw(exception);
 
             var activity = new SaveProjectActivity(project, filePath, true, storeProject, projectOwner);
 

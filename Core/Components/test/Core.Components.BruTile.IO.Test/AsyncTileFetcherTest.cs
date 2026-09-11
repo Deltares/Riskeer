@@ -288,18 +288,11 @@ namespace Core.Components.BruTile.IO.Test
 
             using (var allRequestsDoneEvent = new ManualResetEvent(false))
             {
-                var tileSource = new TileSourceStub(allRequestsDoneEvent)
-                {
-                    TileDataToReturn = data
-                };
                 var callCount = 0;
-                var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
-                ((ILocalTileSource) tileProvider).GetTileAsync(info).Returns(_ =>
-                {
-                    allRequestsDoneEvent.WaitOne();
-                    callCount++;
-                    return Task.FromResult(data);
-                });
+                var tileSource = Substitute.For<IHttpTileSource>();
+                tileSource.When(t => t.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>()))
+                          .Do(_ => { callCount++; allRequestsDoneEvent.WaitOne(); });
+                tileSource.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>()).Returns(Task.FromResult(data));
 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
                 using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200))
@@ -329,7 +322,6 @@ namespace Core.Components.BruTile.IO.Test
                     // Assert
                     if (fetcherIsDoneEvent.WaitOne(allowedTileFetchTime))
                     {
-                        Assert.AreEqual(1, tileSource.GetTileCallCount);
                         Assert.AreEqual(1, callCount);
 
                         Assert.AreEqual(1, tileReceivedCounter);
@@ -425,8 +417,8 @@ namespace Core.Components.BruTile.IO.Test
 
             using (var blockingEvent = new ManualResetEvent(false))
             {
-                var blockingTileProvider = Substitute.For<ITileSource, ILocalTileSource>();
-                ((ILocalTileSource) blockingTileProvider).GetTileAsync(info).Returns(_ =>
+                var blockingTileSource = Substitute.For<IHttpTileSource>();
+                blockingTileSource.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>()).Returns(_ =>
                 {
                     blockingEvent.WaitOne();
                     return Task.FromResult(data);
@@ -493,12 +485,9 @@ namespace Core.Components.BruTile.IO.Test
             {
                 var tileInfo = new TileInfo();
                 var tileSource = Substitute.For<IHttpTileSource>();
-                tileSource.GetTileAsync(Arg.Any<HttpClient>(), tileInfo)
-                          .Returns(_ =>
-                          {
-                              isReadyCalledEvent.WaitOne(100);
-                              return Task.FromResult<byte[]>(null);
-                          });
+                tileSource.When(t => t.GetTileAsync(Arg.Any<HttpClient>(), tileInfo, Arg.Any<CancellationToken>()))
+                          .Do(_ => { isReadyCalledEvent.WaitOne(100); });
+                tileSource.GetTileAsync(Arg.Any<HttpClient>(), tileInfo, Arg.Any<CancellationToken>()).Returns(Task.FromResult<byte[]>(null));
 
                 using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200))
                 {

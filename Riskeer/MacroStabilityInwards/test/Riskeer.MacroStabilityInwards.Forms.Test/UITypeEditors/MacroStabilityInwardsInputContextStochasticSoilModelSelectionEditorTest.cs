@@ -80,7 +80,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
 
             provider.GetService(Arg.Any<Type>()).Returns(service);
-            // service.DropDownControl(Arg.Any<Control>());
             context.Instance.Returns(propertyBag);
 
             // Call
@@ -146,7 +145,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
 
             provider.GetService(Arg.Any<Type>()).Returns(service);
-            // service.DropDownControl(Arg.Any<Control>());
             context.Instance.Returns(propertyBag);
 
             // Call

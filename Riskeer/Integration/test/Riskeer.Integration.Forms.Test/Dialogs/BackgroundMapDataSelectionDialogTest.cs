@@ -397,11 +397,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             tileFactory = Substitute.For<ITileSourceFactory>();
         }
 
-        public override void TearDown()
-        {
-            base.TearDown();
-        }
-
         private static void AssertMapDataControls<T>(BackgroundMapDataSelectionDialog dialog)
             where T : BackgroundMapDataSelectionControl
         {
