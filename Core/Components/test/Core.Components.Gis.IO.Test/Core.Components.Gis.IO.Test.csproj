@@ -23,6 +23,7 @@ All rights reserved.
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Test.targets"/>
   <Import Project="$(SolutionDir)build\NUnit.targets"/>
+  <Import Project="$(SolutionDir)build\NSubstitute.targets"/>
   <ItemGroup>
     <Compile Remove="test-data\**"/>
     <EmbeddedResource Remove="test-data\**"/>
@@ -96,9 +97,6 @@ All rights reserved.
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="NSubstitute">
-      <Version>6.0.0</Version>
     </PackageReference>
     <PackageReference Include="System.ComponentModel.Composition">
       <Version>10.0.10</Version>
