@@ -340,16 +340,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
 
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(ci =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         hydraulicBoundaryData,
-                                         calculation.InputParameters.HydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) ci[0]);
-                                 return testCalculator;
-                             });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+            calculatorFactory
+                .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(testCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -363,6 +360,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             }
 
             calculatorFactory.Received(nrOfCalculations).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                               calculation.InputParameters.HydraulicBoundaryLocation),
+                    actualSettings);
+            }
         }
     }
 }

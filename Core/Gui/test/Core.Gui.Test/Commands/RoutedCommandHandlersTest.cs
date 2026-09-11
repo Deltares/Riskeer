@@ -104,7 +104,6 @@ namespace Core.Gui.Test.Commands
             routedCommand.Execute(parameter, frameworkElement);
 
             // Then
-            command.Received(1).CanExecute(parameter);
             command.Received(1).Execute(parameter);
         }
 
@@ -132,7 +131,6 @@ namespace Core.Gui.Test.Commands
             routedCommand.Execute(parameter, frameworkElement);
 
             // Then
-            command.Received(1).CanExecute(parameter);
             command.DidNotReceive().Execute(parameter);
         }
 

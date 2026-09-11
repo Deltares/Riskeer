@@ -137,16 +137,10 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                 }
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            hydraulicBoundaryData,
-                            duneLocation.HydraulicBoundaryLocation), callInfo.Arg<HydraRingCalculationSettings>());
-                    return new TestDunesBoundaryConditionsCalculator();
-                });
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
+           
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             using (var viewParent = new TestViewParentForm())
@@ -178,6 +172,9 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                     Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' ({calculationIdentifier}) is gelukt.", msgs[7]);
                 });
             }
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           duneLocation.HydraulicBoundaryLocation), actualSettings);
         }
     }
 }

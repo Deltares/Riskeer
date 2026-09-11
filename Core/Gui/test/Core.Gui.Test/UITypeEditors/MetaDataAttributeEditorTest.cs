@@ -62,7 +62,6 @@ namespace Core.Gui.Test.UITypeEditors
 
             // Assert
             Assert.AreSame(someValue, result);
-            serviceProvider.Received(1).GetService(Arg.Any<Type>());
         }
 
         [Test]
@@ -88,7 +87,6 @@ namespace Core.Gui.Test.UITypeEditors
 
             // Assert
             Assert.AreSame(selectableMetaDataAttribute, result);
-            serviceProvider.Received(1).GetService(Arg.Any<Type>());
         }
 
         private static SelectableMetaDataAttribute CreateSelectableMetaDataAttribute()

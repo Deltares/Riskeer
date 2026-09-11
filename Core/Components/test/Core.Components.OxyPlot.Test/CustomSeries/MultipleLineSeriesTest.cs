@@ -33,7 +33,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
     public class MultipleLineSeriesTest
     {
         [Test]
-        public void DefaultConstructor_RetunsDefaultValues()
+        public void DefaultConstructor_ReturnsDefaultValues()
         {
             // Call
             var series = new MultipleLineSeries();
@@ -70,7 +70,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, default, default, null, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, 0, default);
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, default, default, null, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, 0, default);
         }
 
         [Test]
@@ -144,11 +144,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
                 Arg.Any<EdgeRenderingMode>(),
-                Arg.Is<double[]>(d =>
-                                     d == expectedDashes ||
-                                     (d != null &&
-                                      expectedDashes != null &&
-                                      d.SequenceEqual(expectedDashes))),
+                Arg.Is<double[]>(d => d.SequenceEqual(dashes ?? style.Value.GetDashArray())),
                 Arg.Any<LineJoin>());
         }
 
@@ -200,10 +196,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
                 Arg.Any<EdgeRenderingMode>(),
-                Arg.Is<double[]>(d => d == expectedDashes ||
-                                      (d != null &&
-                                       expectedDashes != null &&
-                                       d.SequenceEqual(expectedDashes))),
+                Arg.Is<double[]>(d => d.SequenceEqual(dashes ?? style.Value.GetDashArray())),
                 Arg.Any<LineJoin>());
         }
     }

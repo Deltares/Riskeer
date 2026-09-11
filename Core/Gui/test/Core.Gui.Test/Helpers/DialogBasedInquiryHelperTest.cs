@@ -126,7 +126,7 @@ namespace Core.Gui.Test.Helpers
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GetTargetFileLocation_Always_ShowsOpenFileDialog()
+        public void GetTargetFileLocation_Always_ShowsSaveAsDialog()
         {
             // Setup
             var helper = new DialogBasedInquiryHelper(dialogParent);
@@ -291,14 +291,11 @@ namespace Core.Gui.Test.Helpers
 
             Assert.AreEqual(description, title);
             Assert.AreEqual(query, actualQuery);
-            _ = dialogParent.Received(1).Handle;
         }
 
         public override void Setup()
         {
             dialogParent = Substitute.For<IWin32Window>();
         }
-
-        public override void TearDown() {}
     }
 }

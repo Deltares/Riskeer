@@ -58,7 +58,6 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(hasStochasticSoilModel);
 
             provider.GetService(Arg.Any<Type>()).Returns(service);
-            // service.DropDownControl(Arg.Any<Control>());
             context.Instance.Returns(propertyBag);
 
             // Call
@@ -97,7 +96,6 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(hasStochasticSoilModel);
 
             provider.GetService(Arg.Any<Type>()).Returns(service);
-            // service.DropDownControl(Arg.Any<Control>());
             context.Instance.Returns(propertyBag);
 
             // Call

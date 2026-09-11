@@ -32,7 +32,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
     public class MultipleAreaSeriesTest
     {
         [Test]
-        public void DefaultConstructor_RetunsDefaultValues()
+        public void DefaultConstructor_ReturnsDefaultValues()
         {
             // Call
             var series = new MultipleAreaSeries();
@@ -70,7 +70,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default, default, null, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, 0, default);
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default, default, null, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, 0, default);
         }
 
         [Test]

@@ -287,12 +287,9 @@ namespace Core.Components.BruTile.IO.Test
             {
                 var callCount = 0;
                 var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
-                ((ILocalTileSource) tileProvider).GetTileAsync(info).Returns(_ =>
-                {
-                    allRequestsDoneEvent.WaitOne();
-                    callCount++;
-                    return Task.FromResult(data);
-                });
+                ((ILocalTileSource) tileProvider).When(t=>t.GetTileAsync(info))
+                                                 .Do(_ => { allRequestsDoneEvent.WaitOne(); callCount++; });
+                ((ILocalTileSource) tileProvider).GetTileAsync(info).Returns(Task.FromResult(data));
 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
                 using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200))
@@ -485,12 +482,9 @@ namespace Core.Components.BruTile.IO.Test
             {
                 var tileInfo = new TileInfo();
                 var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
-                ((ILocalTileSource) tileProvider).GetTileAsync(tileInfo)
-                            .Returns(_ =>
-                            {
-                                isReadyCalledEvent.WaitOne(100);
-                                return Task.FromResult<byte[]>(null);
-                            });
+                ((ILocalTileSource) tileProvider).When(t=>t.GetTileAsync(tileInfo))
+                                                 .Do(_ => { isReadyCalledEvent.WaitOne(100); });
+                ((ILocalTileSource) tileProvider).GetTileAsync(tileInfo).Returns(Task.FromResult<byte[]>(null));
 
                 using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200))
                 {

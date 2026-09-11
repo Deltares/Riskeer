@@ -520,33 +520,26 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         public void Dispose_WhenDisposeLocked_DoNothing()
         {
             // Given
+            var tileFetcher = Substitute.For<ITileFetcher>();
             var schema = Substitute.For<ITileSchema>();
             schema.Srs.Returns("EPSG:28992");
             schema.Extent.Returns(new Extent());
 
-            var disposedLocked = false;
             var configuration = Substitute.For<IConfiguration>();
             configuration.Initialized.Returns(true);
             configuration.TileSchema.Returns(schema);
-            configuration.When(c => c.Dispose()).Do(_ =>
-            {
-                if (disposedLocked)
-                {
-                    Assert.Fail("configuration shouldn't be disposed if layer.Dispose is locked.");
-                }
-            });
+            configuration.TileFetcher.Returns(tileFetcher);
+
             using (var layer = new BruTileLayer(configuration))
             {
                 // When
                 layer.LockDispose();
-                disposedLocked = true;
                 layer.Dispose();
                 layer.UnlockDispose();
-                disposedLocked = false;
+    
+                // Then
+                configuration.DidNotReceive().Dispose();
             }
-
-            // Then
-            // Asserts method call in proper order
         }
 
         [Test]

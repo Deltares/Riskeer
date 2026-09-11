@@ -120,7 +120,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Given
             var observer = Substitute.For<IObserver>();
-            observer.When(o => o.UpdateObserver()).Do(_ => throw new InvalidOperationException());
+            observer.When(o => o.UpdateObserver()).Throw(new InvalidOperationException());
             var locationCalculationsEnumerationToObserve = new ObservableList<IObservable>();
             var context = new TestLocationCalculationsContext(new object(), locationCalculationsEnumerationToObserve);
 
@@ -138,7 +138,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Given
             var observer = Substitute.For<IObserver>();
-            observer.When(o => o.UpdateObserver()).Do(_ => throw new InvalidOperationException());
+            observer.When(o => o.UpdateObserver()).Throw(new InvalidOperationException());
             var observable = new TestObservable();
             var locationCalculationsEnumerationToObserve = new ObservableList<IObservable>
             {
