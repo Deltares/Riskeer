@@ -459,11 +459,8 @@ namespace Core.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            importCommandHandler.Received(1)
-                                .ImportOn(nodeData,
-                                          Arg.Is<ImportInfo[]>(x =>
-                                                                   x.Length == importInfos.Length &&
-                                                                   x.SequenceEqual(importInfos)));
+            importCommandHandler.Received(1).ImportOn(nodeData,
+                                            Arg.Is<ImportInfo[]>(x => x.SequenceEqual(importInfos)));
         }
 
         [Test]
