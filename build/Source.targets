@@ -1,4 +1,7 @@
 <Project>
+  <PropertyGroup>
+    <CommonOutputDir>$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\</CommonOutputDir>
+  </PropertyGroup>
   <Import Project="$(SolutionDir)build\Base.targets" />
   <PropertyGroup>
     <ContentSQLiteInteropFiles>false</ContentSQLiteInteropFiles>
@@ -6,12 +9,4 @@
     <CleanSQLiteInteropFiles>false</CleanSQLiteInteropFiles>
     <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
   </PropertyGroup>
-  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
-    <Exec Command=":loop
-      xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;
-      if ErrorLevel 1 goto loop"/>
-    <Exec Command=":loop
-      xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;
-      if ErrorLevel 1 goto loop" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('COVERAGE'))"/>
-  </Target>
 </Project>

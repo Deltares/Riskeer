@@ -3,7 +3,7 @@
     <NoWarn>$(NoWarn);CA1001</NoWarn> <!-- "Types that own disposable fields should be disposable" -->
   </PropertyGroup>
   <PropertyGroup>
-    <OutputPath>$(SolutionDir)bin\$(Configuration)\Test</OutputPath>
+    <CommonOutputDir>$(SolutionDir)bin\$(Configuration)\Test\</CommonOutputDir>
   </PropertyGroup>
   <Import Project="$(SolutionDir)build\Base.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Coverage|x86'">
