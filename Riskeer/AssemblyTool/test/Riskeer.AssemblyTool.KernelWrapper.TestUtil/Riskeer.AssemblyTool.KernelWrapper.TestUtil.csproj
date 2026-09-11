@@ -22,6 +22,7 @@ All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\TestUtil.targets"/>
+  <Import Project="$(SolutionDir)build\NUnit.targets"/>
   <ItemGroup>
     <Reference Include="Assembly.Kernel">
       <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
@@ -35,10 +36,5 @@ All rights reserved.
   <ItemGroup>
     <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
     <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj"/>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NUnit">
-      <Version>4.6.1</Version>
-    </PackageReference>
   </ItemGroup>
 </Project>

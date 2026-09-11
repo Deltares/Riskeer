@@ -22,6 +22,7 @@ All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\TestUtil.targets"/>
+  <Import Project="$(SolutionDir)build\NUnit.targets"/>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
@@ -32,10 +33,5 @@ All rights reserved.
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
     <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.KernelWrapper\Riskeer.MacroStabilityInwards.KernelWrapper.csproj"/>
     <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj"/>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NUnit">
-      <Version>4.6.1</Version>
-    </PackageReference>
   </ItemGroup>
 </Project>

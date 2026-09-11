@@ -22,6 +22,7 @@ All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Test.targets"/>
+  <Import Project="$(SolutionDir)build\NUnit.targets"/>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
@@ -31,10 +32,5 @@ All rights reserved.
     <ProjectReference Include="..\..\..\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj"/>
     <ProjectReference Include="..\..\src\Migration.Console\Migration.Console.csproj"/>
     <ProjectReference Include="..\Migration.Console.TestUtil\Migration.Console.TestUtil.csproj"/>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NUnit">
-      <Version>4.6.1</Version>
-    </PackageReference>
   </ItemGroup>
 </Project>

@@ -22,6 +22,7 @@ All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Test.targets"/>
+  <Import Project="$(SolutionDir)build\NUnit.targets"/>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
@@ -38,11 +39,6 @@ All rights reserved.
     <ProjectReference Include="..\..\src\Core.Components.Stack\Core.Components.Stack.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit">
-      <Version>4.6.1</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="OxyPlot.WindowsForms">
       <Version>2.2.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>

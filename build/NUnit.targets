@@ -1,0 +1,11 @@
+<Project>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>4.6.1</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+    </PackageReference>
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y &quot;$(PkgNUnit)\lib\net8.0\*&quot; &quot;$(CommonOutputDir)*&quot;"/>
+  </Target>
+</Project>

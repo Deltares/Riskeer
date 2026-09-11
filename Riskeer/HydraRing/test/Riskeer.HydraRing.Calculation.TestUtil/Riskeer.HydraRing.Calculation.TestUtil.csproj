@@ -22,6 +22,7 @@ All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\TestUtil.targets"/>
+  <Import Project="$(SolutionDir)build\NUnit.targets"/>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
@@ -29,10 +30,5 @@ All rights reserved.
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj"/>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NUnit">
-      <Version>4.6.1</Version>
-    </PackageReference>
   </ItemGroup>
 </Project>
