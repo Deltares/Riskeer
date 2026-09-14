@@ -36,13 +36,13 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         [TestCaseSource(nameof(ReferencePointLocations))]
         public void Constructor_ArgumentsNotNull_ReturnsRightData(Point2D referencePoint, double expectedDistance)
         {
-            // Setup 
+            // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Location", 0, 0);
 
             // Call
             var inputItem = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint);
 
-            // Assert 
+            // Assert
             Assert.AreSame(hydraulicBoundaryLocation, inputItem.HydraulicBoundaryLocation);
             Assert.AreEqual(0, inputItem.Distance.NumberOfDecimalPlaces);
             Assert.AreEqual(expectedDistance, inputItem.Distance.Value);
@@ -51,13 +51,13 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         [Test]
         public void Constructor_HydraulicBoundaryLocationNull_ThrowsArgumentException()
         {
-            // Setup 
+            // Setup
             var referencePoint = new Point2D(0, 0);
 
             // Call
             void Call() => new SelectableHydraulicBoundaryLocation(null, referencePoint);
 
-            // Assert 
+            // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocation", paramName);
         }

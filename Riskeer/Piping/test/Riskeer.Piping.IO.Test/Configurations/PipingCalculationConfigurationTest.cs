@@ -59,7 +59,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
         [Test]
         public void Constructor_WithValidData_PropertiesAreDefault()
         {
-            // Setup 
+            // Setup
             const string name = "some name";
             var calculationType = new Random(21).NextEnumValue<PipingCalculationConfigurationType>();
 

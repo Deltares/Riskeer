@@ -172,7 +172,7 @@ namespace Core.Gui.Test.Forms.Chart
         [TestCaseSource(nameof(ChartDataLegendImages))]
         public void Image_WrappedDataChartPointData_ReturnsExpectedImage(ChartData chartData, Image expectedImage)
         {
-            // Setup            
+            // Setup
             ChartDataContext context = GetContext(chartData);
 
             // Call

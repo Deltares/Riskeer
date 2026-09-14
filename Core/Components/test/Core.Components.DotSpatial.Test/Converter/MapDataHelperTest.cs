@@ -85,7 +85,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         public void Convert_InvalidLineDashStyle_ThrowsInvalidEnumArgumentException()
         {
-            // Setup 
+            // Setup
             const int invalidValue = 100;
 
             // Call

@@ -116,7 +116,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         [TestCase("  ")]
         public void VerticalAxisTitle_AlwaysSetsNewVerticalAxisTitleToModelAndInvalidatesView(string newTitle)
         {
-            // Setup 
+            // Setup
             using (var form = new Form())
             using (var view = new CategoryPlotView(string.Empty, string.Empty))
             {

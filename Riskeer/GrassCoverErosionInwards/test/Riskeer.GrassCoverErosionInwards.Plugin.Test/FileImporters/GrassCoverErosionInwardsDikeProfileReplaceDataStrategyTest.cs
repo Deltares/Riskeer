@@ -103,7 +103,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(failureMechanism);
             const string newSourcePath = "some/other/path";
 
-            // Call 
+            // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(),
                                                                                                    newSourcePath);
 

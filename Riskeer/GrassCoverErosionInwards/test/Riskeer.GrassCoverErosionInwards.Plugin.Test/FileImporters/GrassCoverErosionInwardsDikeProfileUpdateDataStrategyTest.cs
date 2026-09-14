@@ -58,7 +58,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
         [Test]
         public void Constructor_CreatesNewInstance()
         {
-            // Call 
+            // Call
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Assert

@@ -126,7 +126,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var criticalFlowRate = new LogNormalDistribution(4)
             {
                 Mean = (RoundedDouble) 0.004,

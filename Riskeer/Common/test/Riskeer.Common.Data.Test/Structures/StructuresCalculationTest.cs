@@ -91,7 +91,7 @@ namespace Riskeer.Common.Data.Test.Structures
                 Output = new TestStructuresOutput()
             };
 
-            // Call 
+            // Call
             bool calculationHasOutput = calculation.HasOutput;
 
             // Assert

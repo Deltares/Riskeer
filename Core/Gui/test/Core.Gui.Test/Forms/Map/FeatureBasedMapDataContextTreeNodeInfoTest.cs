@@ -124,7 +124,7 @@ namespace Core.Gui.Test.Forms.Map
         [TestCaseSource(nameof(MapDataLegendImages))]
         public void Image_WithContext_ReturnExpectedImage(FeatureBasedMapData mapData, Image expectedImage)
         {
-            // Setup            
+            // Setup
             FeatureBasedMapDataContext context = GetContext(mapData);
 
             // Call

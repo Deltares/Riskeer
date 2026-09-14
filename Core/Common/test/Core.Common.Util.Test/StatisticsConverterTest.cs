@@ -39,7 +39,7 @@ namespace Core.Common.Util.Test
             // Call
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            // Assert 
+            // Assert
             Assert.AreEqual(expectedProbability, probability, 1.0e-6);
         }
 

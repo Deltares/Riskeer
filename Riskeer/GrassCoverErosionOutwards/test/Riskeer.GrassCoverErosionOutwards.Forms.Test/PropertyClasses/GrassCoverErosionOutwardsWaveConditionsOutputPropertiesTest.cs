@@ -106,7 +106,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output, new GrassCoverErosionOutwardsWaveConditionsInput());
 
-            // Assert 
+            // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.WaveRunUpOutput, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(waveRunUpOutput.Length, properties.WaveRunUpOutput.Length);
             WaveConditionsOutputProperties waveRunUpProperty = properties.WaveRunUpOutput[0];

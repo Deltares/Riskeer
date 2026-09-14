@@ -597,7 +597,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                       handler);
 
-            // Call 
+            // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
                 properties.GetSelectableHydraulicBoundaryLocations();
 
@@ -638,7 +638,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                       handler);
 
-            // Call 
+            // Call
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
             // Assert
@@ -946,7 +946,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                       handler);
 
-            // Call 
+            // Call
             IEnumerable<SelectableTargetProbability> selectableTargetProbabilities = properties.GetSelectableTargetProbabilities();
 
             // Assert

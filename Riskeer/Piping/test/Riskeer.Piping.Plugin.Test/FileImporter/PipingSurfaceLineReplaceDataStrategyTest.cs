@@ -94,7 +94,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         [Test]
         public void UpdateSurfaceLinesWithImportedData_DifferentSourcePath_UpdatesSourcePathOfTargetCollection()
         {
-            // Setup 
+            // Setup
             var failureMechanism = new PipingFailureMechanism();
             PipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
 

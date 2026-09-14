@@ -98,7 +98,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 new AssessmentSectionStub(),
                 Array.Empty<ForeshoreProfile>());
 
-            // Call 
+            // Call
             var view = (WaveConditionsInputView) info.CreateInstance(context);
 
             // Assert

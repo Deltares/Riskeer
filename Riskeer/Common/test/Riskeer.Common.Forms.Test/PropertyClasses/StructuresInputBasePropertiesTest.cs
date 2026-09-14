@@ -357,7 +357,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
                 handler);
 
-            // Call 
+            // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
                 properties.GetSelectableHydraulicBoundaryLocations();
 
@@ -397,7 +397,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
                 handler);
 
-            // Call 
+            // Call
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
             // Assert

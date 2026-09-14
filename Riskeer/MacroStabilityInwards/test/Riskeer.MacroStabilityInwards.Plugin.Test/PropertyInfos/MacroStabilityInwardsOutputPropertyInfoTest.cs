@@ -62,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
         [Test]
         public void CreateInstance_ValidData_NewPropertiesWithOutputAsData()
         {
-            // Setup            
+            // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism);
             var scenario = new MacroStabilityInwardsCalculationScenario

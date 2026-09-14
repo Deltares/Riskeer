@@ -419,7 +419,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         [Test]
         public void Update_ModelsWithAddedProfilesWithSameNames_ThrowsInvalidOperationException()
         {
-            // Setup 
+            // Setup
             const string profileName = "Name of Profile";
 
             MacroStabilityInwardsSoilProfile1D soilProfileOne =
@@ -440,10 +440,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
                 existingStochasticSoilProfileTwo
             });
 
-            // Call 
+            // Call
             Action call = () => model.Update(otherModel);
 
-            // Assert 
+            // Assert
             Assert.Throws<InvalidOperationException>(call);
 
             Assert.AreEqual(1, otherModel.StochasticSoilProfiles.Count());
