@@ -56,7 +56,7 @@ All rights reserved.
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net462\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Log4net-3.3.2\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\netstandard2.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Log4net-3.3.2\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Numerics)\lib\net6.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Numerics-5.0.0\*&quot;"/>
   </Target>
 </Project>
