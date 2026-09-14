@@ -93,13 +93,13 @@
     <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_ApplicationInsights)\lib\netstandard2.0\*&quot; &quot;$(OutDir)*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_CodeCoverage)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Extensions_DependencyModel)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Testing_Extensions_Telemetry)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
+    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_Testing_Extensions_Telemetry)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Testing_Extensions_TrxReport_Abstractions)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Testing_Extensions_VSTestBridge)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Testing_Platform)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Testing_Platform_MSBuild)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_TestPlatform_ObjectModel)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_TestPlatform_TestHost)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
+    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_Testing_Extensions_VSTestBridge)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
+    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_Testing_Platform)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
+    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_Testing_Platform_MSBuild)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
+    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_TestPlatform_ObjectModel)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
+    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_TestPlatform_TestHost)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgNUnit3TestAdapter)\build\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
   </Target>
 </Project>
