@@ -39,7 +39,7 @@ namespace Application.Riskeer.Migration.Console
 
         static RiskeerMigrationConsole()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
+            AssemblyResolver.AssemblyResolverInstaller.Install();
         }
 
         /// <summary>

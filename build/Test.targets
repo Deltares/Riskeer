@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TestProjectType>UnitTest</TestProjectType>
     <OutputPath>$(SolutionDir)bin\$(Configuration)\Test</OutputPath>
+    <RunSettingsFilePath>$(SolutionDir)bin\$(Configuration)\Test\Riskeer.runsettings</RunSettingsFilePath> <!-- Auto generated --> 
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
@@ -80,6 +81,15 @@
     <Compile Include="$(SolutionDir)build\AssemblyResolverSetup.cs">
       <Link>AssemblyResolver\AssemblyResolverSetup.cs</Link>
     </Compile>
+    <Compile Include="$(SolutionDir)build\AssemblyResolverInstaller.cs">
+      <Link>AssemblyResolver\AssemblyResolverInstaller.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)build\AssemblyResolverStartupHook\AssemblyResolverStartupHook.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
   <Target Name="CopyTestData" AfterTargets="Build">
     <ItemGroup>

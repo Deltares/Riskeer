@@ -42,11 +42,16 @@ namespace AssemblyResolver
         /// <summary>
         /// Resolves an assembly.
         /// </summary>
-        /// <param name="args">The arguments containing the assembly name to resolve.</param>
+        /// <param name="assemblyName">The name of the assembly to resolve.</param>
         /// <returns>The resolved assembly, or <c>null</c> if not found.</returns>
-        internal static System.Reflection.Assembly ResolveAssembly(System.ResolveEventArgs args)
+        internal static System.Reflection.Assembly ResolveAssembly(System.Reflection.AssemblyName assemblyName)
         {
-            if (assemblyPaths.TryGetValue(args.Name, out string assemblyPath))
+            return ResolveAssembly(assemblyName.FullName);
+        }
+
+        private static System.Reflection.Assembly ResolveAssembly(string name)
+        {
+            if (assemblyPaths.TryGetValue(name, out string assemblyPath))
             {
                 return System.Reflection.Assembly.LoadFrom(assemblyPath);
             }
@@ -54,7 +59,7 @@ namespace AssemblyResolver
             System.Reflection.AssemblyName requestedAssemblyName;
             try
             {
-                requestedAssemblyName = new System.Reflection.AssemblyName(args.Name);
+                requestedAssemblyName = new System.Reflection.AssemblyName(name);
             }
             catch (ArgumentException)
             {
@@ -162,11 +167,17 @@ namespace AssemblyResolver
 
         private static string GetApplicationDirectory()
         {
-            DirectoryInfo rootDirectoryInfo = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string executingAssemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            DirectoryInfo rootDirectoryInfo = Directory.GetParent(executingAssemblyLocation);
 
-            while (rootDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
+            while (rootDirectoryInfo != null && rootDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
             {
                 rootDirectoryInfo = Directory.GetParent(rootDirectoryInfo.FullName);
+            }
+
+            if (rootDirectoryInfo == null)
+            {
+                throw new DirectoryNotFoundException($"No 'Application' directory found in '{executingAssemblyLocation}' or any of its parent directories.");
             }
 
             return Path.Combine(rootDirectoryInfo.FullName, "Application");

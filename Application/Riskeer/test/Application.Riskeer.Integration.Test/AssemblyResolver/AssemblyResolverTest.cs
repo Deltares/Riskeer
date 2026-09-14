@@ -31,9 +31,9 @@ namespace Application.Riskeer.Integration.Test.AssemblyResolver
         [Test]
         public void ResolveAssembly_WhenAssemblyDoesNotExist_ReturnsNull()
         {
-            var args = new ResolveEventArgs("NonExistingAssembly");
+            var assemblyName = new AssemblyName("NonExistingAssembly");
 
-            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
+            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(assemblyName);
 
             Assert.That(result, Is.Null);
         }
@@ -41,21 +41,52 @@ namespace Application.Riskeer.Integration.Test.AssemblyResolver
         [Test]
         public void ResolveAssembly_WhenAssemblyExists_ReturnsAssembly()
         {
-            const string assemblyName = "log4net, Version=3.3.2.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a";
+            const string assemblyFullName = "log4net, Version=3.3.2.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a";
 
-            var args = new ResolveEventArgs(assemblyName);
-            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
+            var assemblyName = new AssemblyName(assemblyFullName);
+            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(assemblyName);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetName().FullName, Is.EqualTo(assemblyName));
+            Assert.That(result.GetName().FullName, Is.EqualTo(assemblyFullName));
         }
 
         [Test]
         public void ResolveAssembly_WhenAssemblyIsNative_ReturnsNull()
         {
-            var args = new ResolveEventArgs("SQLite.Interop");
+            var assemblyName = new AssemblyName("SQLite.Interop");
 
-            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(args);
+            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(assemblyName);
+
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void ResolveAssembly_WhenVersionIsWildcard_ReturnsHighestMatchingAssembly()
+        {
+            var assemblyName = new AssemblyName("log4net, Version=0.0.0.0");
+
+            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(assemblyName);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.GetName().Version, Is.EqualTo(new Version(3, 3, 2, 0)));
+        }
+
+        [Test]
+        public void ResolveAssembly_WhenVersionIsWildcardAndPublicKeyTokenDiffers_ReturnsNull()
+        {
+            var assemblyName = new AssemblyName("log4net, Version=0.0.0.0, Culture=neutral, PublicKeyToken=0123456789abcdef");
+
+            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(assemblyName);
+
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void ResolveAssembly_WhenAssemblyIsSatelliteResourceAssembly_ReturnsNull()
+        {
+            var assemblyName = new AssemblyName("AvalonDock.resources, Version=4.74.1.0, Culture=de, PublicKeyToken=3e4669d2f30244f4");
+
+            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(assemblyName);
 
             Assert.That(result, Is.Null);
         }

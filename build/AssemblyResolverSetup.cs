@@ -19,17 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Runtime.CompilerServices;
 
 namespace AssemblyResolver
 {
+    /// <summary>
+    /// Installs the assembly resolver from a module initializer.
+    /// </summary>
+    /// <remarks>
+    /// This is a fallback for runs where the <c>AssemblyResolverStartupHook</c> is not active (i.e. when
+    /// <c>DOTNET_STARTUP_HOOKS</c> is not set). A module initializer only runs on first member access on the module,
+    /// which is too late for test discovery, hence the startup hook. Both paths share the same idempotency guard, so
+    /// whichever runs first wins.
+    /// </remarks>
     internal static class AssemblyResolverSetup
     {
         [ModuleInitializer]
         internal static void Initialize()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => AssemblyResolver.ResolveAssembly(args);
+            AssemblyResolverInstaller.Install();
         }
     }
 }
