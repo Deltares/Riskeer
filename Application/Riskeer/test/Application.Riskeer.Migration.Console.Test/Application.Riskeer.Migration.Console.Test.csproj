@@ -35,6 +35,8 @@ All rights reserved.
     <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj"/>
     <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj"/>
     <ProjectReference Include="..\..\..\..\Riskeer\Migration\test\Riskeer.Migration.Core.TestUtil\Riskeer.Migration.Core.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\src\Application.Riskeer.Migration.Console\Application.Riskeer.Migration.Console.csproj"/>
+    <ProjectReference Include="..\..\src\Application.Riskeer.Migration.Console\Application.Riskeer.Migration.Console.csproj">
+      <Private>true</Private>
+    </ProjectReference>
   </ItemGroup>
 </Project>
