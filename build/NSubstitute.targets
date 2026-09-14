@@ -11,7 +11,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="NSubstitutePostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(PkgCastle_Core)\lib\netstandard2.1\*&quot; &quot;$(OutDir)*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgNSubstitute)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
   </Target>

@@ -100,7 +100,7 @@
           DestinationFiles="@(MySourceFiles->'$(OutDir)test-data\$(ProjectName)\%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true"/>
   </Target>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="TestPostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_ApplicationInsights)\lib\netstandard2.0\*&quot; &quot;$(OutDir)*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_CodeCoverage)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Extensions_DependencyModel)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>

@@ -6,7 +6,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="NUnitPostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(PkgNUnit)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
   </Target>
 </Project>
