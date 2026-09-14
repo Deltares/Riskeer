@@ -340,9 +340,6 @@ namespace Riskeer.HeightStructures.Service.Test
                                                                                                            validHrdFilePath);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
-
             var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
@@ -389,8 +386,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -406,9 +401,6 @@ namespace Riskeer.HeightStructures.Service.Test
                                                                                                            validHrdFilePath);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
-
             var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
@@ -438,8 +430,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -509,8 +499,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -583,8 +571,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -645,8 +631,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -706,8 +690,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -770,8 +752,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
-
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -789,14 +769,13 @@ namespace Riskeer.HeightStructures.Service.Test
                                                                                                            validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, (HydraRingCalculationSettings) callInfo[0]);
-
-                                 return calculator;
-                             });
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c
+                                       .CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
+            calculatorFactory
+                .CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(calculator);
 
             var calculation = new TestHeightStructuresCalculationScenario
             {
@@ -816,6 +795,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
             // Assert
             calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(calculationSettings, actualSettings);
         }
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()

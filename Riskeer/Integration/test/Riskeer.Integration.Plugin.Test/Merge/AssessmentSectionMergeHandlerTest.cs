@@ -598,12 +598,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             sourceHydraulicBoundaryDatabase.FilePath = "hbd2.sql";
             var documentViewController = Substitute.For<IDocumentViewController>();
             var hydraulicBoundaryDataUpdateHandler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
-            hydraulicBoundaryDataUpdateHandler.AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase)
-                                              .Returns(_ =>
-                                              {
-                                                  targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(sourceHydraulicBoundaryDatabase);
-                                                  return Enumerable.Empty<IObservable>();
-                                              });
+            hydraulicBoundaryDataUpdateHandler.When(h=>h.AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase))
+                                              .Do(_ => targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(sourceHydraulicBoundaryDatabase));
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 
             // When
@@ -979,6 +975,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat.", LogLevelConstant.Info));
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1024,6 +1021,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
             Assert.AreEqual(1, waveHeightTargetProbabilities.Count);
             Assert.AreEqual(0.1, waveHeightTargetProbabilities.ElementAt(0).TargetProbability);
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1280,6 +1278,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat.", LogLevelConstant.Info));
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1319,6 +1318,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 targetAssessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities;
             Assert.AreEqual(1, duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.Count);
             Assert.AreEqual(0.1, duneErosionDuneLocationCalculationsForUserDefinedTargetProbabilities.ElementAt(0).TargetProbability);
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
@@ -1458,17 +1458,11 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var documentViewController = Substitute.For<IDocumentViewController>();
             var hydraulicBoundaryDataUpdateHandler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
 
-            hydraulicBoundaryDataUpdateHandler.AddHydraulicBoundaryDatabase(hydraulicBoundaryDatabase3)
-                                              .Returns(_ =>
-                                              {
+            hydraulicBoundaryDataUpdateHandler.When(h => h.AddHydraulicBoundaryDatabase(hydraulicBoundaryDatabase3))
+                                              .Do(_ => {
                                                   targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(hydraulicBoundaryDatabase3);
-
-                                                  targetAssessmentSection.DuneErosion.SetDuneLocations(
-                                                      hydraulicBoundaryDatabase3.Locations
-                                                                                .Select(l => new DuneLocation(string.Empty, l, new DuneLocation.ConstructionProperties()))
-                                                                                .ToArray());
-
-                                                  return Enumerable.Empty<IObservable>();
+                                                  targetAssessmentSection.DuneErosion.SetDuneLocations(hydraulicBoundaryDatabase3.Locations
+                                                      .Select(l => new DuneLocation(string.Empty, l, new DuneLocation.ConstructionProperties())).ToArray());
                                               });
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 

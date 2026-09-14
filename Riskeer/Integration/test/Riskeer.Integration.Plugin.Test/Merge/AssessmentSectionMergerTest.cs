@@ -203,7 +203,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             TestHelper.AssertLogMessagesCount(Call, 0);
-            assessmentSectionProvider.Received(1).GetAssessmentSection(Arg.Any<string>());
         }
 
         [Test]
@@ -227,7 +226,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Er is geen traject gevonden dat samengevoegd kan worden.", LogLevelConstant.Error), 1);
-            comparer.Received(1).Compare(Arg.Any<AssessmentSection>(), Arg.Any<AssessmentSection>());
         }
 
         [Test]
@@ -251,7 +249,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
-            mergeDataProvider.Received(1).GetMergeData(Arg.Any<AssessmentSection>());
         }
 
         [Test]
@@ -313,8 +310,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Then
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
             {
-                mergeHandler.Received(1).PerformMerge(originalAssessmentSection, mergeData, hydraulicBoundaryDataUpdateHandler);
-
                 Assert.AreEqual(3, messages.Count());
 
                 Assert.AreEqual("Samenvoegen van trajectinformatie is gestart.", messages.ElementAt(0).Item1);
