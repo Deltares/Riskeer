@@ -46,6 +46,9 @@
     <ProjectReference>
       <Private>false</Private>
     </ProjectReference>
+    <Reference>
+      <Private>false</Private>
+    </Reference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1" />
