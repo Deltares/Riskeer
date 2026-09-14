@@ -56,7 +56,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
         [Test]
         public void Equals_ToDerivedObject_ReturnsFalse()
         {
-            // Setup  
+            // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
             var failureMechanism = new ClosingStructuresFailureMechanism();

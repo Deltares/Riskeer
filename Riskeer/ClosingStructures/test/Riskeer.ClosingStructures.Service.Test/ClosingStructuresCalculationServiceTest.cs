@@ -71,7 +71,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         [TestCase(double.NegativeInfinity)]
         public void Validate_InvalidVerticalWallCalculation_LogsErrorAndReturnsFalse(double value)
         {
-            // Setup 
+            // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), validHrdFilePath);
             var calculation = new TestClosingStructuresCalculationScenario
             {
@@ -85,7 +85,7 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var isValid = false;
 
-            // Call 
+            // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
@@ -123,7 +123,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         [TestCase(double.NegativeInfinity)]
         public void Validate_InvalidLowSillCalculation_LogsErrorAndReturnsFalse(double value)
         {
-            // Setup 
+            // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), validHrdFilePath);
             var calculation = new TestClosingStructuresCalculationScenario
             {
@@ -137,7 +137,7 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var isValid = false;
 
-            // Call 
+            // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
@@ -176,7 +176,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         [TestCase(double.NegativeInfinity)]
         public void Validate_InvalidFloodedCulvertCalculation_LogsErrorAndReturnsFalse(double value)
         {
-            // Setup 
+            // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), validHrdFilePath);
             var calculation = new TestClosingStructuresCalculationScenario
             {
@@ -190,7 +190,7 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var isValid = false;
 
-            // Call 
+            // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
@@ -224,7 +224,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         [Test]
         public void Validate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
         {
-            // Setup 
+            // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), validHrdFilePath);
             var calculation = new TestClosingStructuresCalculationScenario
             {

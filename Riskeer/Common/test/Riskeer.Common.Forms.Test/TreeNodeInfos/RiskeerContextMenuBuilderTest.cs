@@ -384,7 +384,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
-            // Call    
+            // Call
             riskeerContextMenuBuilder.AddRenameItem();
 
             // Assert

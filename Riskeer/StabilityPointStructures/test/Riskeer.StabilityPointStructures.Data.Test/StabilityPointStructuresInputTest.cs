@@ -595,7 +595,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void LevelCrestStructure_Always_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
@@ -647,7 +647,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void AreaFlowApertures_Always_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
@@ -673,7 +673,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void ConstructiveStrengthLinearLoadModel_Always_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
@@ -699,7 +699,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void ConstructiveStrengthQuadraticLoadModel_Always_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
@@ -725,7 +725,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void StabilityLinearLoadModel_Always_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
@@ -751,7 +751,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void StabilityQuadraticLoadModel_Always_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
@@ -800,7 +800,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             // Setup
             var input = new StabilityPointStructuresInput();
 
-            // Call 
+            // Call
             input.FailureProbabilityRepairClosure = probability;
 
             // Assert
@@ -810,7 +810,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void FailureCollisionEnergy_Always_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
@@ -836,7 +836,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void ShipMass_Always_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
@@ -862,7 +862,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void ShipVelocity_Always_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
@@ -911,7 +911,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             // Setup
             var input = new StabilityPointStructuresInput();
 
-            // Call 
+            // Call
             input.ProbabilityCollisionSecondaryStructure = probability;
 
             // Assert
@@ -965,7 +965,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [TestCase(0)]
         public void VerticalDistance_ValidValue_ExpectedValues(double verticalDistance)
         {
-            // Setup 
+            // Setup
             var input = new StabilityPointStructuresInput();
 
             // Call
@@ -979,7 +979,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void VerticalDistance_InvalidValue_ThrowsArgumentOutOfRangeException()
         {
-            // Setup 
+            // Setup
             var input = new StabilityPointStructuresInput();
 
             // Call
@@ -1007,7 +1007,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void LevellingCount_InvalidValue_ThrowsArgumentOutOfRangeException()
         {
-            // Setup 
+            // Setup
             var input = new StabilityPointStructuresInput();
 
             // Call

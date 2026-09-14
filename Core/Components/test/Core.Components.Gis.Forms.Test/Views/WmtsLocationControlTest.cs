@@ -242,7 +242,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             using (var form = new Form())
             using (WmtsLocationControl control = ShowFullyConfiguredWmtsLocationControl(form, wmtsCapabilityFactory))
             {
-                // Call                
+                // Call
                 MapData selectedMapData = control.SelectedMapData;
 
                 // Assert

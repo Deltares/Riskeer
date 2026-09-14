@@ -49,7 +49,7 @@ namespace Riskeer.Common.Service.Test.ValidationRules
         [Test]
         public void Validate_InvalidOrientation_ErrorMessage()
         {
-            // Setup 
+            // Setup
             var orientation = new RoundedDouble(2, double.NaN);
 
             var rule = new NumericInputRule(orientation, paramName);

@@ -66,7 +66,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                 Data = waveImpactAsphaltCoverWaveConditionsOutput
             };
 
-            // Assert 
+            // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Items, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(items.Length, properties.Items.Length);
 

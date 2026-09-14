@@ -32,7 +32,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var modelFactorStorageVolume = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,

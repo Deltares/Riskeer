@@ -350,7 +350,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Call
             toolStripItem.PerformClick();
 
-            // Assert            
+            // Assert
             calculationWithOutputMock1.Received(1).ClearOutput();
             calculationWithOutputMock1.Received(1).NotifyObservers();
             calculationWithOutputMock2.Received(1).ClearOutput();

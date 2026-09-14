@@ -112,7 +112,7 @@ namespace Core.Common.Base.Test.Service
             {
                 if (fileImportActivity.State != ActivityState.Canceled)
                 {
-                    // Call 
+                    // Call
                     fileImportActivity.Cancel();
                 }
             };
@@ -132,7 +132,7 @@ namespace Core.Common.Base.Test.Service
             {
                 if (fileImportActivity.State != ActivityState.Canceled)
                 {
-                    // Call 
+                    // Call
                     fileImportActivity.Cancel();
                 }
             };

@@ -56,7 +56,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
         [Test]
         public void Equals_ToDerivedObject_ReturnsFalse()
         {
-            // Setup  
+            // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
             var failureMechanism = new HeightStructuresFailureMechanism();

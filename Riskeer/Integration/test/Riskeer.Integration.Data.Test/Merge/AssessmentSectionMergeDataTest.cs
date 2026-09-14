@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Data.Test.Merge
                 MergeDuneErosion = random.NextBoolean()
             };
 
-            // Call            
+            // Call
             var mergeData = new AssessmentSectionMergeData(assessmentSection, constructionProperties);
 
             // Assert

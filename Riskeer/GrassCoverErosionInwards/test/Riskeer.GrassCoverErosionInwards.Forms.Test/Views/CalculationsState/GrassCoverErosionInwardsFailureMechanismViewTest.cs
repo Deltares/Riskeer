@@ -524,7 +524,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
             calculationA.Name = "new name";
             calculationA.NotifyObservers();
 
-            // Then 
+            // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
             observers[calculationObserverIndex].Received(1).UpdateObserver();
             observers.Where(o => o != observers[calculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());

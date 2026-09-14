@@ -54,7 +54,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             configuration.Contribution = contribution;
             configuration.IsRelevant = isRelevant;
 
-            // Assert 
+            // Assert
             Assert.AreEqual(contribution, configuration.Contribution);
             Assert.AreEqual(isRelevant, configuration.IsRelevant);
         }

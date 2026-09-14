@@ -98,7 +98,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 new AssessmentSectionStub(),
                 Array.Empty<ForeshoreProfile>());
 
-            // Call 
+            // Call
             var view = (WaveConditionsInputView) info.CreateInstance(context);
 
             // Assert

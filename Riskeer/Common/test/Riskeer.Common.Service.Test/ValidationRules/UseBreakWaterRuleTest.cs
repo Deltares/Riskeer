@@ -44,7 +44,7 @@ namespace Riskeer.Common.Service.Test.ValidationRules
             breakWater.BreakWater.Returns(new BreakWater(type, 5.0));
             var rule = new UseBreakWaterRule(breakWater);
 
-            // Call 
+            // Call
             IEnumerable<string> message = rule.Validate();
 
             // Assert
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Service.Test.ValidationRules
             breakWater.BreakWater.Returns(new BreakWater(type, height));
             var rule = new UseBreakWaterRule(breakWater);
 
-            // Call 
+            // Call
             IEnumerable<string> message = rule.Validate();
 
             // Assert
@@ -86,7 +86,7 @@ namespace Riskeer.Common.Service.Test.ValidationRules
             breakWater.BreakWater.Returns(new BreakWater(type, height));
             var rule = new UseBreakWaterRule(breakWater);
 
-            // Call 
+            // Call
             IEnumerable<string> messages = rule.Validate();
 
             string[] validationMessages = messages.ToArray();

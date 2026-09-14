@@ -96,7 +96,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
         [Test]
         public void UpdateStructuresWithImportedData_DifferentSourcePath_UpdatesSourcePathOfTargetCollection()
         {
-            // Setup 
+            // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
             StructureCollection<ClosingStructure> targetCollection = failureMechanism.ClosingStructures;
 

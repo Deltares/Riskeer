@@ -377,7 +377,7 @@ namespace Riskeer.Migration.Test
 
                 var migrationSuccessful = false;
 
-                // When 
+                // When
                 void Call() => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Then
@@ -602,7 +602,7 @@ namespace Riskeer.Migration.Test
 
                 var migrationSuccessful = true;
 
-                // Call 
+                // Call
                 void Call() => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Assert
@@ -641,7 +641,7 @@ namespace Riskeer.Migration.Test
 
                 var migrationSuccessful = true;
 
-                // Call 
+                // Call
                 void Call() => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Assert
@@ -680,7 +680,7 @@ namespace Riskeer.Migration.Test
 
                 var migrationSuccessful = true;
 
-                // Call 
+                // Call
                 void Call() => migrationSuccessful = migrator.Migrate(sourceFilePath, targetFilePath);
 
                 // Assert
@@ -716,7 +716,7 @@ namespace Riskeer.Migration.Test
 
                 var migrationSuccessful = true;
 
-                // Call 
+                // Call
                 void Call() => migrationSuccessful = migrator.Migrate(sourceFilePath, sourceFilePath);
 
                 // Assert

@@ -186,7 +186,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         [Test]
         public void UpdateForeshoreProfilesWithImportedData_CurrentCollectionEmptyImportedCollectionContainDuplicateIDs_ThrowUpdateException()
         {
-            // Setup 
+            // Setup
             var foreshoreProfiles = new ForeshoreProfileCollection();
 
             const string duplicateId = "duplicate ID";
@@ -212,7 +212,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         [Test]
         public void UpdateForeshoreProfilesWithImportedData_WithCurrentCollectionNotEmptyAndImportedCollectionHasProfilesWithSameId_ThrowsUpdateException()
         {
-            // Setup 
+            // Setup
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var originalForeshoreProfiles = new[]
             {
@@ -243,7 +243,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         [Test]
         public void UpdateForeshoreProfilesWithImportedData_CurrentCollectionAndImportedCollectionHasNoOverlap_UpdatesTargetCollection()
         {
-            // Setup 
+            // Setup
             const string currentForeshoreProfile = "Current ID";
             var targetForeshoreProfile = new TestForeshoreProfile(string.Empty, currentForeshoreProfile);
 

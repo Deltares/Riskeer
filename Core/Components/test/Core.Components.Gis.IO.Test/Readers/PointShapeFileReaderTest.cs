@@ -80,10 +80,10 @@ namespace Core.Components.Gis.IO.Test.Readers
             string nonExistingPointShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                           "NonExistingFile");
 
-            // Call 
+            // Call
             Action call = () => new PointShapeFileReader(nonExistingPointShapeFile);
 
-            // Assert 
+            // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{nonExistingPointShapeFile}': het bestand bestaat niet.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);

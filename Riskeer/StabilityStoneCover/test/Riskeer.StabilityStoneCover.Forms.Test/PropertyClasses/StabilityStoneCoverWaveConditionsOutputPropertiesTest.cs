@@ -100,7 +100,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var properties = new StabilityStoneCoverWaveConditionsOutputProperties(
                 stabilityStoneCoverWaveConditionsOutput, new StabilityStoneCoverWaveConditionsInput());
 
-            // Assert 
+            // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Blocks, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(blocksOutput.Length, properties.Blocks.Length);
 

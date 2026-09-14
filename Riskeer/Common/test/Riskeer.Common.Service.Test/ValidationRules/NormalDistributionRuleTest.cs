@@ -53,7 +53,7 @@ namespace Riskeer.Common.Service.Test.ValidationRules
         [TestCase(double.PositiveInfinity)]
         public void Validate_InvalidMean_ErrorMessage(double value)
         {
-            // Setup 
+            // Setup
             var distribution = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) value
@@ -77,7 +77,7 @@ namespace Riskeer.Common.Service.Test.ValidationRules
         [TestCase(double.PositiveInfinity)]
         public void ValidateDistribution_InvalidStandardDeviation_ErrorMessage(double value)
         {
-            // Setup 
+            // Setup
             var distribution = new NormalDistribution(2)
             {
                 StandardDeviation = (RoundedDouble) value

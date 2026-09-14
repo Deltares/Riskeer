@@ -43,7 +43,7 @@ namespace Core.Components.Gis.Test.Data
         [Test]
         public void GetFeatureBasedMapDataRecursively_CollectionWithNestedData_ReturnAllFeatureBasedMapData()
         {
-            // Setup            
+            // Setup
             var line = new MapLineData("line");
             var polygon = new MapPolygonData("polygon");
             var nestedCollection = new MapDataCollection("nested");

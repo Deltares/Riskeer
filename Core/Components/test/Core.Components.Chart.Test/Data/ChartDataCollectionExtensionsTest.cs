@@ -43,7 +43,7 @@ namespace Core.Components.Chart.Test.Data
         [Test]
         public void GetFeatureBasedChartDataRecursively_CollectionWithNestedData_ReturnAllFeatureBasedChartData()
         {
-            // Setup            
+            // Setup
             var line = new ChartLineData("line");
             var polygon = new ChartAreaData("polygon");
             var nestedCollection = new ChartDataCollection("nested");

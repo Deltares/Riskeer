@@ -535,7 +535,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Setup
             var input = new ClosingStructuresInput();
 
-            // Call 
+            // Call
             input.FailureProbabilityOpenStructure = probability;
 
             // Assert
@@ -568,7 +568,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Setup
             var input = new ClosingStructuresInput();
 
-            // Call 
+            // Call
             input.FailureProbabilityReparation = probability;
 
             // Assert
@@ -627,7 +627,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Setup
             var input = new ClosingStructuresInput();
 
-            // Call 
+            // Call
             input.ProbabilityOpenStructureBeforeFlooding = probability;
 
             // Assert

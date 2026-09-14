@@ -370,7 +370,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
-            // Call 
+            // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
                 properties.GetSelectableHydraulicBoundaryLocations();
 
@@ -402,7 +402,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
-            // Call 
+            // Call
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
             // Assert
@@ -580,7 +580,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList =
                 properties.GetSelectableHydraulicBoundaryLocations().ToList();
 
-            // When 
+            // When
             properties.DikeProfile = otherProfile;
 
             // Then

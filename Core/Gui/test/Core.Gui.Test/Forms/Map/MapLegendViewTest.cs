@@ -113,7 +113,7 @@ namespace Core.Gui.Test.Forms.Map
         [Test]
         public void Data_OtherObjectType_ThrowsInvalidCastException()
         {
-            // Setup 
+            // Setup
             using (var view = new MapLegendView(contextMenuBuilderProvider))
             {
                 // Call

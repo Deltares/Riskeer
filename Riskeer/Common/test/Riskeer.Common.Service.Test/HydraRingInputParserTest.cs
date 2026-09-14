@@ -57,7 +57,7 @@ namespace Riskeer.Common.Service.Test
             // Call
             IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshore);
 
-            // Assert 
+            // Assert
             HydraRingForelandPoint[] actualForelandPoints = parsedForeshore.ToArray();
             Assert.AreEqual(pointOne.X, actualForelandPoints[0].X);
             Assert.AreEqual(pointOne.Y, actualForelandPoints[0].Z);
@@ -75,7 +75,7 @@ namespace Riskeer.Common.Service.Test
             // Call
             IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshore);
 
-            // Assert 
+            // Assert
             CollectionAssert.IsEmpty(parsedForeshore);
         }
 
@@ -96,7 +96,7 @@ namespace Riskeer.Common.Service.Test
             // Call
             HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWater);
 
-            // Assert 
+            // Assert
             Assert.AreEqual(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), parsedBreakWater.Type);
             Assert.AreEqual(expectedBreakWater.Height, parsedBreakWater.Height, expectedBreakWater.Height.GetAccuracy());
         }

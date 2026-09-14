@@ -67,7 +67,7 @@ namespace Riskeer.Revetment.Service.Test
         [Test]
         public void Validate_HydraulicBoundaryDataNull_ThrowArgumentNullException()
         {
-            // Setup 
+            // Setup
             var input = new WaveConditionsInput();
 
             // Call
@@ -106,7 +106,7 @@ namespace Riskeer.Revetment.Service.Test
         [Test]
         public void Validate_InvalidHydraulicBoundaryDatabase_ReturnsFalseAndLogsValidationError()
         {
-            // Setup 
+            // Setup
             var isValid = false;
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
@@ -158,7 +158,7 @@ namespace Riskeer.Revetment.Service.Test
         [Test]
         public void Validate_HydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
         {
-            // Setup 
+            // Setup
             var isValid = false;
             string hrdFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
@@ -342,7 +342,7 @@ namespace Riskeer.Revetment.Service.Test
         [TestCase(ForeshoreCalculationType.ForeshoreWithValidBreakWater)]
         public void Validate_ValidInputValidateForeshoreProfile_ReturnsTrueAndLogsValidationStartAndEnd(ForeshoreCalculationType calculationType)
         {
-            // Setup 
+            // Setup
             var isValid = false;
 
             WaveConditionsInput input = GetDefaultValidationInput();
