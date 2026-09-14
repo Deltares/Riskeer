@@ -22,6 +22,7 @@ All rights reserved.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\TestUtil.targets"/>
+  <Import Project="$(SolutionDir)build\NUnit.targets"/>
   <ItemGroup>
     <Reference Include="Deltares.MacroStability.CSharpWrapper">
       <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.CSharpWrapper.dll</HintPath>
