@@ -41,6 +41,11 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ProjectReference>
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1" />
   </ItemGroup>
