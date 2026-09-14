@@ -1,11 +1,16 @@
 <Project>
   <ItemGroup>
+    <PackageReference Include="Castle.Core">
+      <Version>5.1.1</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+    </PackageReference>
     <PackageReference Include="NSubstitute">
       <Version>6.0.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y &quot;$(PkgCastle_Core)\lib\netstandard2.1\*&quot; &quot;$(OutDir)*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgNSubstitute)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
   </Target>
 </Project>
