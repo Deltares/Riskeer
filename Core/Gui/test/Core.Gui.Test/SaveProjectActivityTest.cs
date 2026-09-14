@@ -368,7 +368,7 @@ namespace Core.Gui.Test
                                                                            LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
             Assert.AreEqual(ActivityState.Finished, activity.State);
-            projectOwner.DidNotReceiveWithAnyArgs().SetProject(default(IProject), default(string));
+            projectOwner.DidNotReceive().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
             project.DidNotReceive().NotifyObservers();
         }
 
@@ -499,6 +499,9 @@ namespace Core.Gui.Test
             if (!saveExistingProject)
             {
                 projectOwner.Received(1).SetProject(project, filePath);
+            }else
+            {
+                projectOwner.DidNotReceive().SetProject(project, filePath);
             }
         }
 

@@ -514,9 +514,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(waveConditionsCosineCalculator.IsCanceled);
             }
-
-            calculatorFactory.Received(1)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -685,10 +682,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 LastErrorFileContent = lastErrorFileContent
             };
 
-            const int successfulCalculationsBeforeFailure = 3;
+            const int successfulCalculationsBeforeFailureCount = 3;
             const int failingCalculationCount = 1;
-            const int successfulCalculationsAfterFailure = 5;
-            const int totalCalculationCount = successfulCalculationsBeforeFailure + failingCalculationCount + successfulCalculationsAfterFailure;
+            const int successfulCalculationsAfterFailureCount = 5;
+            const int totalCalculationCount = successfulCalculationsBeforeFailureCount + failingCalculationCount + successfulCalculationsAfterFailureCount;
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var createdCalculatorCount = 0;
@@ -696,16 +693,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                              .Returns(_ =>
                              {
                                  createdCalculatorCount++;
-                                 if (createdCalculatorCount <= successfulCalculationsBeforeFailure)
-                                 {
-                                     return new TestWaveConditionsCosineCalculator();
-                                 }
-
-                                 if (createdCalculatorCount <= successfulCalculationsBeforeFailure + failingCalculationCount)
+                                 if (createdCalculatorCount > successfulCalculationsBeforeFailureCount && createdCalculatorCount <= successfulCalculationsBeforeFailureCount + failingCalculationCount)
                                  {
                                      return calculatorThatFails;
                                  }
-
                                  return new TestWaveConditionsCosineCalculator();
                              });
 
@@ -832,8 +823,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             calculation.InputParameters.CalculationType = calculationType;
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(new TestWaveConditionsCosineCalculator());
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

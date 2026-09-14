@@ -60,12 +60,12 @@ namespace Riskeer.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void LoadAssessmentSection_Always_SendsFilePathToLoadsProject()
+        public void LoadAssessmentSection_Always_SendsFilePathToLoadProject()
         {
             // Setup
             const string filePath = "Some\\path";
             var storeProject = Substitute.For<IStoreProject>();
-            storeProject.LoadProject(filePath).Returns(CreateProject());
+            storeProject.LoadProject(Arg.Any<string>()).Returns(CreateProject());
             var service = new LoadAssessmentSectionService(storeProject);
 
             // Call

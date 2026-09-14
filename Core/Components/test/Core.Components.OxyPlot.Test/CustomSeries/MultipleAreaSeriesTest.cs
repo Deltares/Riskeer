@@ -70,7 +70,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, 0, default);
+            renderContext.DidNotReceive().DrawPolygon(Arg.Any<ScreenPoint[]>(), Arg.Any<OxyColor>(), Arg.Any<OxyColor>(), Arg.Any<double>(), Arg.Any<EdgeRenderingMode>(), Arg.Any<double[]>(), Arg.Any<LineJoin>());
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, 0, default);
+            renderContext.DidNotReceive().DrawPolygon(Arg.Any<ScreenPoint[]>(), Arg.Any<OxyColor>(), Arg.Any<OxyColor>(), Arg.Any<double>(), Arg.Any<EdgeRenderingMode>(), Arg.Any<double[]>(), Arg.Any<LineJoin>());
         }
 
         [Test]
