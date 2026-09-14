@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <TestProjectType>UnitTest</TestProjectType>
-    <CommonOutputDir>$(SolutionDir)bin\$(Configuration)\Test\</CommonOutputDir>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\Test</OutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
@@ -29,7 +29,7 @@
       <MySourceFiles Include="$(ProjectDir)test-data\**\*.*"/>
     </ItemGroup>
     <Copy SourceFiles="@(MySourceFiles)"
-          DestinationFiles="@(MySourceFiles->'$(CommonOutputDir)test-data\$(ProjectName)\%(RecursiveDir)%(Filename)%(Extension)')"
+          DestinationFiles="@(MySourceFiles->'$(OutDir)test-data\$(ProjectName)\%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true"/>
   </Target> 
 </Project>
