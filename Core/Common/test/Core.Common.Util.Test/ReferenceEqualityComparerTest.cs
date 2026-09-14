@@ -75,7 +75,7 @@ namespace Core.Common.Util.Test
             var objectFirst = new TestObject();
             var objectSecond = new TestObject();
 
-            // Call 
+            // Call
             bool equals = comparer.Equals(objectFirst, objectSecond);
 
             // Assert

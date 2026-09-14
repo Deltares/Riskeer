@@ -68,7 +68,7 @@ namespace Riskeer.Common.Forms.Test
             var firstStructure = new TestStructure();
             var secondStructure = new TestStructure();
 
-            // Call 
+            // Call
             bool firstEqualsSecond = comparer.Equals(firstStructure, secondStructure);
             bool secondEqualsFirst = comparer.Equals(secondStructure, firstStructure);
 
@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test
             var comparer = new StructureIdEqualityComparer();
             var firstStructure = new TestStructure();
 
-            // Call 
+            // Call
             bool firstEqualsSecond = comparer.Equals(firstStructure, secondStructure);
             bool secondEqualsFirst = comparer.Equals(secondStructure, firstStructure);
 
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Forms.Test
             var firstStructure = new TestStructure("id");
             var secondStructure = new TestStructure("other id");
 
-            // Call 
+            // Call
             bool firstEqualsSecond = comparer.Equals(firstStructure, secondStructure);
             bool secondEqualsFirst = comparer.Equals(secondStructure, firstStructure);
 

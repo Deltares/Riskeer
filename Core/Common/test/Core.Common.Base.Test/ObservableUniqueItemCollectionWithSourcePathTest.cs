@@ -163,7 +163,7 @@ namespace Core.Common.Base.Test
                 getUniqueFeature, typeDescriptor, featureDescription);
             var item = new TestItem("Item A");
 
-            // Call 
+            // Call
             const string filePath = "";
             collection.AddRange(new[]
             {
@@ -183,7 +183,7 @@ namespace Core.Common.Base.Test
                 getUniqueFeature, typeDescriptor, featureDescription);
             var item = new TestItem("Item A");
 
-            // Call 
+            // Call
             const string filePath = "some/file/path";
             collection.AddRange(new[]
             {

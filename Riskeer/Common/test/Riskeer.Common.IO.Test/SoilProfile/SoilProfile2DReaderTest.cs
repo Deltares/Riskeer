@@ -615,7 +615,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             {
                 reader.Initialize();
 
-                // Call 
+                // Call
                 SoilProfileWrapper<SoilProfile2D> readProfile = reader.ReadSoilProfile();
 
                 // Assert
@@ -679,7 +679,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             {
                 reader.Initialize();
 
-                // Call 
+                // Call
                 SoilProfileWrapper<SoilProfile2D> readProfile = reader.ReadSoilProfile();
 
                 // Assert

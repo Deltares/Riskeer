@@ -96,7 +96,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
         [Test]
         public void UpdateSurfaceLinesWithImportedData_DifferentSourcePath_UpdatesSourcePathOfTargetCollection()
         {
-            // Setup 
+            // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             MacroStabilityInwardsSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             var strategy = new MacroStabilityInwardsSurfaceLineReplaceDataStrategy(failureMechanism);

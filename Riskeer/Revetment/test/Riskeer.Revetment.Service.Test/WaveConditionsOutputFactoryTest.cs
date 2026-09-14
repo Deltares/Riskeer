@@ -46,7 +46,7 @@ namespace Riskeer.Revetment.Service.Test
             const double targetProbability = 1 / 7.7;
             const double calculatedReliability = -8.8;
 
-            // Call 
+            // Call
             WaveConditionsOutput output = WaveConditionsOutputFactory.CreateOutput(waterLevel, waveHeight, wavePeakPeriod,
                                                                                    waveAngle, waveDirection, resistance,
                                                                                    targetProbability, calculatedReliability,

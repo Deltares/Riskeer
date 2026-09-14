@@ -119,7 +119,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         [TestCase(double.PositiveInfinity)]
         public void Validate_InvalidLowSillLinearCalculation_LogsErrorAndReturnsFalse(double value)
         {
-            // Setup 
+            // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -136,7 +136,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             var isValid = false;
 
-            // Call 
+            // Call
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
@@ -195,7 +195,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         [TestCase(double.PositiveInfinity)]
         public void Validate_InvalidLowSillQuadraticCalculation_LogsErrorAndReturnsFalse(double value)
         {
-            // Setup 
+            // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -212,7 +212,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             var isValid = false;
 
-            // Call 
+            // Call
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
@@ -271,7 +271,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         [TestCase(double.PositiveInfinity)]
         public void Validate_InvalidFloodedCulvertLinearCalculation_LogsErrorAndReturnsFalse(double value)
         {
-            // Setup 
+            // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -288,7 +288,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             var isValid = false;
 
-            // Call 
+            // Call
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
@@ -349,7 +349,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         [TestCase(double.PositiveInfinity)]
         public void Validate_InvalidQuadraticCulvertLinearCalculation_LogsErrorAndReturnsFalse(double value)
         {
-            // Setup 
+            // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), validHrdFilePath);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
@@ -366,7 +366,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             var isValid = false;
 
-            // Call 
+            // Call
             Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert

@@ -200,7 +200,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             {
                 reader.Initialize();
 
-                // Call 
+                // Call
                 PreconsolidationStress[] preconsolidationStresses = reader.ReadPreconsolidationStresses().ToArray();
 
                 // Assert

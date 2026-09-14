@@ -66,7 +66,7 @@ namespace Riskeer.Integration.Test.FileImporters
 
             var strategy = new ForeshoreProfileReplaceDataStrategy(failureMechanism, foreshoreProfiles);
 
-            // Call 
+            // Call
             IEnumerable<IObservable> affectedObjects =
                 strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(),
                                                                  sourceFilePath);

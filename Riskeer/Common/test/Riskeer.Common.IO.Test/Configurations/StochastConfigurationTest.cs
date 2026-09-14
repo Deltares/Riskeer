@@ -56,7 +56,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             configuration.StandardDeviation = standardDeviation;
             configuration.VariationCoefficient = variationCoefficient;
 
-            // Assert 
+            // Assert
             Assert.AreEqual(mean, configuration.Mean);
             Assert.AreEqual(standardDeviation, configuration.StandardDeviation);
             Assert.AreEqual(variationCoefficient, configuration.VariationCoefficient);

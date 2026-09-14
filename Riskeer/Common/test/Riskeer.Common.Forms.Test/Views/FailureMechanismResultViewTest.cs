@@ -170,7 +170,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup 
+            // Setup
             const int nameColumnIndex = 0;
             const int stringColumnIndex = 1;
 
@@ -194,7 +194,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         public void Constructor_ComboBoxCorrectlyInitialized()
         {
-            // Setup 
+            // Setup
             var failureMechanism = new TestFailureMechanism();
 
             // Call
@@ -1175,7 +1175,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         public void FailureMechanismResultView_WithoutSections_FailureMechanismAssemblyResultsCorrectState()
         {
-            // Setup 
+            // Setup
             var failureMechanism = new TestFailureMechanism();
 
             // Call
@@ -1202,7 +1202,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void FailureMechanismResultView_WithSections_FailureMechanismAssemblyResultsCorrectState(
             FailureMechanismAssemblyProbabilityResultType resultType)
         {
-            // Setup 
+            // Setup
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =

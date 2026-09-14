@@ -916,7 +916,7 @@ namespace Core.Common.Base.Test.Data
             // Setup
             var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
 
-            // Call 
+            // Call
             bool roundedDoubleIsLess = roundedDouble < value;
             bool doubleIsLess = value < roundedDouble;
 
@@ -934,7 +934,7 @@ namespace Core.Common.Base.Test.Data
             // Setup
             var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
 
-            // Call 
+            // Call
             bool roundedDoubleIsLess = roundedDouble < value;
             bool doubleIsLess = value < roundedDouble;
 
@@ -955,7 +955,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDoubleOne = new RoundedDouble(1, roundedDoubleValue1);
             var roundedDoubleTwo = new RoundedDouble(1, roundedDoubleValue2);
 
-            // Call 
+            // Call
             bool roundedDoubleIsLess = roundedDoubleOne < roundedDoubleTwo;
             bool isLessDouble = roundedDoubleTwo < roundedDoubleOne;
 
@@ -976,7 +976,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue1);
             var roundedDouble2 = new RoundedDouble(1, roundedDoubleValue2);
 
-            // Call 
+            // Call
             bool roundedDoubleOneIsLess = roundedDouble1 < roundedDouble2;
             bool roundedDoubleTwoIsLess = roundedDouble2 < roundedDouble1;
 
@@ -996,7 +996,7 @@ namespace Core.Common.Base.Test.Data
             // Setup
             var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
 
-            // Call 
+            // Call
             bool roundedDoubleIsLess = roundedDouble <= value;
             bool doubleIsLess = value <= roundedDouble;
 
@@ -1014,7 +1014,7 @@ namespace Core.Common.Base.Test.Data
             // Setup
             var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
 
-            // Call 
+            // Call
             bool roundedDoubleIsLess = roundedDouble <= value;
             bool doubleIsLess = value <= roundedDouble;
 
@@ -1035,7 +1035,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDoubleOne = new RoundedDouble(1, roundedDoubleValue1);
             var roundedDoubleTwo = new RoundedDouble(1, roundedDoubleValue2);
 
-            // Call 
+            // Call
             bool roundedDoubleIsLess = roundedDoubleOne <= roundedDoubleTwo;
             bool isLessDouble = roundedDoubleTwo <= roundedDoubleOne;
 
@@ -1056,7 +1056,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue1);
             var roundedDouble2 = new RoundedDouble(1, roundedDoubleValue2);
 
-            // Call 
+            // Call
             bool roundedDoubleOneIsLess = roundedDouble1 <= roundedDouble2;
             bool roundedDoubleTwoIsLess = roundedDouble2 <= roundedDouble1;
 
@@ -1076,7 +1076,7 @@ namespace Core.Common.Base.Test.Data
             // Setup
             var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
 
-            // Call 
+            // Call
             bool roundedDoubleIsGreater = roundedDouble > value;
             bool doubleIsGreater = value > roundedDouble;
 
@@ -1094,7 +1094,7 @@ namespace Core.Common.Base.Test.Data
             // Setup
             var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
 
-            // Call 
+            // Call
             bool roundedDoubleIsLess = roundedDouble > value;
             bool doubleIsLess = value > roundedDouble;
 
@@ -1115,7 +1115,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDoubleOne = new RoundedDouble(1, roundedDoubleValue1);
             var roundedDoubleTwo = new RoundedDouble(1, roundedDoubleValue2);
 
-            // Call 
+            // Call
             bool roundedDoubleOneIsGreater = roundedDoubleOne > roundedDoubleTwo;
             bool roundedDoubleTwoIsGreater = roundedDoubleTwo > roundedDoubleOne;
 
@@ -1136,7 +1136,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue1);
             var roundedDouble2 = new RoundedDouble(1, roundedDoubleValue2);
 
-            // Call 
+            // Call
             bool roundedDoubleOneIsGreater = roundedDouble1 > roundedDouble2;
             bool roundedDoubleTwoIsGreater = roundedDouble2 > roundedDouble1;
 
@@ -1156,7 +1156,7 @@ namespace Core.Common.Base.Test.Data
             // Setup
             var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
 
-            // Call 
+            // Call
             bool roundedDoubleIsGreater = roundedDouble >= value;
             bool doubleIsGreater = value >= roundedDouble;
 
@@ -1174,7 +1174,7 @@ namespace Core.Common.Base.Test.Data
             // Setup
             var roundedDouble = new RoundedDouble(1, roundedDoubleValue);
 
-            // Call 
+            // Call
             bool roundedDoubleIsLess = roundedDouble >= value;
             bool doubleIsLess = value >= roundedDouble;
 
@@ -1195,7 +1195,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDoubleOne = new RoundedDouble(1, roundedDoubleValue1);
             var roundedDoubleTwo = new RoundedDouble(1, roundedDoubleValue2);
 
-            // Call 
+            // Call
             bool roundedDoubleOneIsGreater = roundedDoubleOne >= roundedDoubleTwo;
             bool roundedDoubleTwoIsGreater = roundedDoubleTwo >= roundedDoubleOne;
 
@@ -1216,7 +1216,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble1 = new RoundedDouble(1, roundedDoubleValue1);
             var roundedDouble2 = new RoundedDouble(1, roundedDoubleValue2);
 
-            // Call 
+            // Call
             bool roundedDoubleOneIsGreater = roundedDouble1 >= roundedDouble2;
             bool roundedDoubleTwoIsGreater = roundedDouble2 >= roundedDouble1;
 

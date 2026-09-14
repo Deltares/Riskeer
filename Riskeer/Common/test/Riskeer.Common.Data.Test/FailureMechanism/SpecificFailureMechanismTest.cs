@@ -59,7 +59,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Setup
             var failureMechanism = new SpecificFailureMechanism();
 
-            // Call 
+            // Call
             void Call() => failureMechanism.SetSections(null, string.Empty);
 
             // Assert
@@ -73,7 +73,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Setup
             var failureMechanism = new SpecificFailureMechanism();
 
-            // Call 
+            // Call
             void Call() => failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
 
             // Assert

@@ -37,7 +37,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             // Setup
             var configuration = new TestBackgroundDataConfiguration();
 
-            // Call 
+            // Call
             var backgroundData = new BackgroundData(configuration);
 
             // Assert
@@ -51,7 +51,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         [Test]
         public void Constructor_ConfigurationNull_ThrowArgumentNullException()
         {
-            // Call 
+            // Call
             Action test = () => new BackgroundData(null);
 
             // Assert

@@ -503,7 +503,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // When
                 buttonTester.Click();
 
-                // Then 
+                // Then
                 Assert.IsFalse(button.Enabled);
                 Assert.IsEmpty(warningProvider.GetError(button));
             }
@@ -527,7 +527,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // When
                 assessmentSection.SpecificFailureMechanisms.NotifyObservers();
 
-                // Then 
+                // Then
                 Assert.IsTrue(buttonTester.Properties.Enabled);
                 Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
             }
@@ -553,7 +553,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // When
                 failureMechanism.NotifyObservers();
 
-                // Then 
+                // Then
                 Assert.IsTrue(buttonTester.Properties.Enabled);
                 Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
             }
@@ -577,7 +577,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // When
                 assessmentSection.NotifyObservers();
 
-                // Then 
+                // Then
                 Assert.IsTrue(buttonTester.Properties.Enabled);
                 Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
             }
@@ -603,7 +603,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
                 failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
 
-                // Then 
+                // Then
                 Assert.IsTrue(buttonTester.Properties.Enabled);
                 Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
             }
@@ -629,7 +629,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // When
                 calculation.NotifyObservers();
 
-                // Then 
+                // Then
                 Assert.IsTrue(buttonTester.Properties.Enabled);
                 Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
             }

@@ -98,7 +98,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 new AssessmentSectionStub(),
                 Enumerable.Empty<ForeshoreProfile>());
 
-            // Call 
+            // Call
             var view = (WaveConditionsInputView) info.CreateInstance(context);
 
             // Assert

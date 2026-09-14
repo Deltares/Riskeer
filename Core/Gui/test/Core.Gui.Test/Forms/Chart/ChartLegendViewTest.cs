@@ -44,7 +44,7 @@ namespace Core.Gui.Test.Forms.Chart
         [Test]
         public void Constructor_WithoutContextMenuBuilderProvider_CreatesUserControl()
         {
-            // Call 
+            // Call
             void Call() => new ChartLegendView(null);
 
             // Assert
@@ -55,10 +55,10 @@ namespace Core.Gui.Test.Forms.Chart
         [Test]
         public void Constructor_WithBuilderProvider_CreatesUserControl()
         {
-            // Setup 
+            // Setup
             var menuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
-            // Call 
+            // Call
             using (var view = new ChartLegendView(menuBuilderProvider))
             {
                 // Assert
@@ -72,7 +72,7 @@ namespace Core.Gui.Test.Forms.Chart
         [Test]
         public void Data_ChartDataCollection_DataSet()
         {
-            // Setup 
+            // Setup
             var menuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             using (var view = new ChartLegendView(menuBuilderProvider))
@@ -90,7 +90,7 @@ namespace Core.Gui.Test.Forms.Chart
         [Test]
         public void Data_ForNull_NullSet()
         {
-            // Setup 
+            // Setup
             var menuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             using (var view = new ChartLegendView(menuBuilderProvider))
@@ -106,7 +106,7 @@ namespace Core.Gui.Test.Forms.Chart
         [Test]
         public void Data_OtherObject_ThrowsInvalidCastException()
         {
-            // Setup 
+            // Setup
             var menuBuilderProvider = Substitute.For<IContextMenuBuilderProvider>();
 
             using (var view = new ChartLegendView(menuBuilderProvider))

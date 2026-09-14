@@ -97,7 +97,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
         [Test]
         public void UpdateStructuresWithImportedData_DifferentSourcePath_UpdatesSourcePathOfTargetCollection()
         {
-            // Setup 
+            // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
             StructureCollection<HeightStructure> targetCollection = failureMechanism.HeightStructures;
 

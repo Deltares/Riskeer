@@ -64,7 +64,7 @@ namespace Riskeer.Common.Util.Test.TypeConverters
             // Setup
             var unsupportedImageBasedMapData = new TestImageBasedMapData("What's in a name?", false);
 
-            // Call 
+            // Call
             Action call = () => BackgroundDataConverter.ConvertTo(unsupportedImageBasedMapData);
 
             // Assert
