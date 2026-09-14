@@ -23,6 +23,7 @@ All rights reserved.
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Test.targets"/>
   <Import Project="$(SolutionDir)build\NUnit.targets"/>
+  <Import Project="$(SolutionDir)build\NSubstitute.targets"/>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
