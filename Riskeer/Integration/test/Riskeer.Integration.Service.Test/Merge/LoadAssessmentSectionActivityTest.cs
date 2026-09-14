@@ -93,12 +93,11 @@ namespace Riskeer.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void Run_Always_SendsFilePathToGetAssessmentSections()
+        public void Run_Always_SendsFilePathToLoadAssessmentSection()
         {
             // Setup
             const string filePath = "File\\Path";
             var service = Substitute.For<ILoadAssessmentSectionService>();
-            service.LoadAssessmentSection(filePath).Returns(new AssessmentSection(AssessmentSectionComposition.Dike));
             var owner = new AssessmentSectionOwner();
             var activity = new LoadAssessmentSectionActivity(owner, service, filePath);
 

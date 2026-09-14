@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -205,20 +206,13 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
             var calculator = new TestOvertoppingCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
             calculatorFactory
                 .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
-
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            assessmentSection.HydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        settings);
-
-                    return calculator;
-                });
+                .Returns(calculator);
+            
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
@@ -263,6 +257,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                                                                     generalInput.FshallowModelFactor.UpperBoundary);
 
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                        assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation), actualSettings);
             }
         }
 
@@ -470,36 +468,19 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001);
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
 
-            calculatorFactory
-                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                                       .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            assessmentSection.HydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        settings);
-
-                    return new TestOvertoppingCalculator();
-                });
-
+            calculatorFactory.When(c=> c
+                                       .CreateDikeHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
             calculatorFactory
                 .CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
-
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            assessmentSection.HydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        settings);
-
-                    return dikeHeightCalculator;
-                });
+                .Returns(dikeHeightCalculator);
+            
             DikeProfile dikeProfile = CreateDikeProfile();
             dikeProfile.BreakWater.Type = breakWaterType;
 
@@ -558,6 +539,13 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                                                                    generalInput.FshallowModelFactor.UpperBoundary);
 
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+            }
+							 
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation), actualSettings);
             }
         }
 
@@ -885,34 +873,18 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001);
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory
-                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
-
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            assessmentSection.HydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        settings);
-
-                    return new TestOvertoppingCalculator();
-                });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            
+            calculatorFactory.When(c=> c
+                                       .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+            
+            calculatorFactory.When(c=> c
+                                       .CreateOvertoppingRateCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
             calculatorFactory
                 .CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(callInfo =>
-                {
-                    var settings = callInfo.Arg<HydraRingCalculationSettings>();
-
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                            assessmentSection.HydraulicBoundaryData,
-                            hydraulicBoundaryLocation),
-                        settings);
-
-                    return overtoppingRateCalculator;
-                });
+                .Returns(overtoppingRateCalculator);
 
             DikeProfile dikeProfile = CreateDikeProfile();
             dikeProfile.BreakWater.Type = breakWaterType;
@@ -971,6 +943,12 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                                                                         generalInput.FshallowModelFactor.UpperBoundary);
 
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+            }
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation), actualSettings);
             }
         }
 

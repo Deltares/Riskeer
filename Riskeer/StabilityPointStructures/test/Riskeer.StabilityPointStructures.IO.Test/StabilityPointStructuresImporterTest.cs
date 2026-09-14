@@ -391,7 +391,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test
                     .Do(invocation =>
                     {
                         Assert.AreSame(invocation[1], filePath);
-
                         var readStructures = (IEnumerable<StabilityPointStructure>) invocation[0];
                         Assert.AreEqual(1, readStructures.Count());
                     });
@@ -481,8 +480,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             var importTarget = new StructureCollection<StabilityPointStructure>();
             ReferenceLine referenceLine = CreateReferenceLine();
 
-            var importer = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath,
-                                                                messageProvider, strategy);
+            var importer = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath, messageProvider, strategy);
 
             importer.Import();
 

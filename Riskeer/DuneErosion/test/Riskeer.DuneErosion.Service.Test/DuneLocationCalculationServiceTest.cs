@@ -123,14 +123,12 @@ namespace Riskeer.DuneErosion.Service.Test
                 Converged = true
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
             calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        calculationSettings, callInfo.Arg<HydraRingCalculationSettings>());
-                    return calculator;
-                });
+                .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(calculator);
 
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var duneLocation = new DuneLocation("test", new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0),
@@ -154,7 +152,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 AssertInput(expectedInput, actualInput);
             }
 
-            calculatorFactory.Received(1).CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(calculationSettings, actualSettings);
         }
 
         [Test]
@@ -218,8 +216,6 @@ namespace Riskeer.DuneErosion.Service.Test
                 Assert.AreEqual(calculator.WaveDirectionalSpread, actualCalculationOutput.WaveDirectionalSpread, actualCalculationOutput.WaveDirectionalSpread.GetAccuracy());
                 Assert.AreEqual(calculator.TideSurgePhaseDifference, actualCalculationOutput.TideSurgePhaseDifference, actualCalculationOutput.TideSurgePhaseDifference.GetAccuracy());
             }
-
-            calculatorFactory.Received(1).CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -264,8 +260,6 @@ namespace Riskeer.DuneErosion.Service.Test
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
             }
-
-            calculatorFactory.Received(1).CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -297,8 +291,6 @@ namespace Riskeer.DuneErosion.Service.Test
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
             }
-
-            calculatorFactory.Received(1).CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -359,8 +351,6 @@ namespace Riskeer.DuneErosion.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(duneLocationCalculation.Output);
             }
-
-            calculatorFactory.Received(1).CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -416,7 +406,6 @@ namespace Riskeer.DuneErosion.Service.Test
                         StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
-                calculatorFactory.Received(1).CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>());
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(duneLocationCalculation.Output);
             }
@@ -482,7 +471,6 @@ namespace Riskeer.DuneErosion.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(duneLocationCalculation.Output);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
-                calculatorFactory.Received(1).CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 

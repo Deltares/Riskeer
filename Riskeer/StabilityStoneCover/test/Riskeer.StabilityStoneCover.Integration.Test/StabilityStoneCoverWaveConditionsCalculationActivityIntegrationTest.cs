@@ -520,17 +520,10 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 assessmentSection);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) callInfo[0]);
-
-                                 return new TestWaveConditionsCosineCalculator();
-                             });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                                       .CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -541,6 +534,13 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
             // Assert
             calculatorFactory.Received(GetWaterLevels(calculation, assessmentSection).Count() * 2)
                              .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation),
+                    actualSettings);
+            }
         }
 
         [Test]

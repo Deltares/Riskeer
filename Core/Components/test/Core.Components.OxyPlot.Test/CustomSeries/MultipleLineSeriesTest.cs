@@ -70,7 +70,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, 0, default);
+            renderContext.DidNotReceive().DrawLine(Arg.Any<ScreenPoint[]>(), Arg.Any<OxyColor>(), Arg.Any<double>(), Arg.Any<EdgeRenderingMode>());
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, 0, default);
+            renderContext.DidNotReceive().DrawLine(Arg.Any<ScreenPoint[]>(), Arg.Any<OxyColor>(), Arg.Any<double>(), Arg.Any<EdgeRenderingMode>());
         }
 
         [Test]

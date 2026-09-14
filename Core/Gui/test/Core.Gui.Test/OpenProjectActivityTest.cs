@@ -27,6 +27,7 @@ using Core.Common.Base.Service;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 
@@ -294,10 +295,7 @@ namespace Core.Gui.Test
             var innerException = new Exception("A");
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(someFilePath)
-                          .Returns(x =>
-                          {
-                              throw new StorageException(message, innerException);
-                          });
+                          .Throws(new StorageException(message, innerException));
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -331,10 +329,7 @@ namespace Core.Gui.Test
             const string someFilePath = "<path to some file>";
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(someFilePath)
-                          .Returns(x =>
-                          {
-                              throw new ArgumentException();
-                          });
+                          .Throws(new ArgumentException());
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -365,7 +360,6 @@ namespace Core.Gui.Test
             const string someMigrationFilePath = "<path to some migrated file>";
 
             var projectStorage = Substitute.For<IStoreProject>();
-
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
 
@@ -405,13 +399,12 @@ namespace Core.Gui.Test
             const string someMigrationFilePath = "<path to some migrated file>";
 
             var projectStorage = Substitute.For<IStoreProject>();
-
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
 
             var projectMigrator = Substitute.For<IMigrateProject>();
-            projectMigrator.Migrate(someFilePath, someMigrationFilePath)
-                           .Returns(false);
+            projectMigrator.Migrate(someFilePath, someMigrationFilePath).Returns(false);
+            
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -435,6 +428,7 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageIsGenerated(call, "Openen van project is gestart.", 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
+            projectStorage.DidNotReceive().LoadProject(someMigrationFilePath);
         }
 
         [Test]
@@ -446,16 +440,12 @@ namespace Core.Gui.Test
             const string exceptionMessage = "<some exception message>";
 
             var projectStorage = Substitute.For<IStoreProject>();
-
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
 
             var projectMigrator = Substitute.For<IMigrateProject>();
-            projectMigrator.Migrate(someFilePath, someMigrationFilePath)
-                           .Returns(x =>
-                           {
-                               throw new ArgumentException(exceptionMessage);
-                           });
+            projectMigrator.Migrate(someFilePath, someMigrationFilePath).Throws(new ArgumentException(exceptionMessage));
+
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -483,6 +473,7 @@ namespace Core.Gui.Test
             }, 2);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
+            projectStorage.DidNotReceive().LoadProject(someMigrationFilePath);
         }
 
         [Test]
@@ -573,15 +564,12 @@ namespace Core.Gui.Test
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
             var project = Substitute.For<IProject>();
-            project.NotifyObservers();
 
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someFilePath)
-                          .Returns(project);
+            projectStorage.LoadProject(someFilePath).Returns(project);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.SetProject(project, someFilePath);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -611,6 +599,8 @@ namespace Core.Gui.Test
             Assert.AreEqual(ActivityState.Finished, activity.State);
 
             Assert.AreEqual(Path.GetFileNameWithoutExtension(someFilePath), project.Name);
+            project.Received().NotifyObservers();
+            projectOwner.Received().SetProject(project, someFilePath);
         }
 
         [Test]
@@ -619,12 +609,10 @@ namespace Core.Gui.Test
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someFilePath)
-                          .Returns((IProject) null);
+            projectStorage.LoadProject(someFilePath).Returns((IProject) null);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.SetProject(null, null);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -653,6 +641,7 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
+            projectOwner.Received().SetProject(null, null);
         }
 
         [Test]
@@ -662,15 +651,10 @@ namespace Core.Gui.Test
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someFilePath)
-                          .Returns(x =>
-                          {
-                              throw exceptionToThrow;
-                          });
+            projectStorage.LoadProject(someFilePath).Throws(exceptionToThrow);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.SetProject(null, null);
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,
@@ -699,6 +683,7 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
+            projectOwner.Received().SetProject(null, null);
         }
 
         [Test]
@@ -707,15 +692,11 @@ namespace Core.Gui.Test
             // Setup
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
             var project = Substitute.For<IProject>();
-            project.DidNotReceive().NotifyObservers();
-
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someFilePath)
-                          .Returns(project);
+            projectStorage.LoadProject(someFilePath).Returns(project);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.DidNotReceive().SetProject(project, someFilePath);
 
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
@@ -740,8 +721,9 @@ namespace Core.Gui.Test
             Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van project is geannuleerd.",
                                                                            LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
-
             Assert.AreEqual(ActivityState.Canceled, activity.State);
+            project.DidNotReceive().NotifyObservers();
+            projectOwner.DidNotReceive().SetProject(project, someFilePath);
         }
 
         [Test]
@@ -842,7 +824,7 @@ namespace Core.Gui.Test
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
             var migrateProject = Substitute.For<IMigrateProject>();
-            migrateProject.Migrate(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
+            migrateProject.Migrate(Arg.Any<string>(), Arg.Any<string>()).Throws(new ArgumentException());
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",
@@ -909,6 +891,7 @@ namespace Core.Gui.Test
 
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
+            storeProject.DidNotReceive().LoadProject(Arg.Any<string>());
         }
 
         [Test]
@@ -943,6 +926,7 @@ namespace Core.Gui.Test
 
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
+            storeProject.DidNotReceive().LoadProject(Arg.Any<string>());
         }
 
         [Test]
@@ -971,6 +955,7 @@ namespace Core.Gui.Test
 
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
+            projectOwner.DidNotReceive().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
         }
 
         [Test]
@@ -997,6 +982,7 @@ namespace Core.Gui.Test
 
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
+            projectOwner.DidNotReceive().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
         }
 
         private static IEnumerable<TestCaseData> ExceptionCases()

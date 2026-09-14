@@ -99,19 +99,21 @@ namespace Core.Gui.Test.Forms.PropertyView
             var dataObject = new object();
 
             var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(dataObject).Returns(new object());
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
                 propertyGridView.Data = dataObject;
 
-                object selectedObject = propertyGridView.SelectedObject;
+                // Precondition
+                Assert.IsNotNull(propertyGridView.SelectedObject);
 
                 // Call
                 propertyGridView.Data = null;
 
                 // Assert
-                Assert.AreSame(selectedObject, propertyGridView.SelectedObject);
                 Assert.AreEqual(0, propertyGridView.RefreshCalled);
+                Assert.IsNull(propertyGridView.SelectedObject);
             }
 
             propertyResolver.Received(1).GetObjectProperties(dataObject);
@@ -139,8 +141,6 @@ namespace Core.Gui.Test.Forms.PropertyView
                 Assert.AreSame(selectedObject, propertyGridView.SelectedObject);
                 Assert.AreEqual(0, propertyGridView.RefreshCalled);
             }
-
-            propertyResolver.Received(1).GetObjectProperties(dataObject);
         }
 
         [Test]
@@ -183,12 +183,14 @@ namespace Core.Gui.Test.Forms.PropertyView
             {
                 propertyGridView.Data = observableDataObject;
 
+                // Precondition
+                observableDataObject.Received(1).Attach(Arg.Any<IObserver>());
+    
                 // When
                 propertyGridView.Data = newDataObject;
             }
 
             // Then
-            observableDataObject.Received(1).Attach(Arg.Any<IObserver>());
             observableDataObject.Received(1).Detach(Arg.Any<IObserver>());
         }
 

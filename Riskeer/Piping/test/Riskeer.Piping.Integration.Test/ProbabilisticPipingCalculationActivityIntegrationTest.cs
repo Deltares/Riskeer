@@ -122,6 +122,7 @@ namespace Riskeer.Piping.Integration.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
+                calculatorFactory.Received(2).CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -156,6 +157,7 @@ namespace Riskeer.Piping.Integration.Test
             }
 
             observer.Received(1).UpdateObserver();
+            calculatorFactory.Received(2).CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -186,8 +188,8 @@ namespace Riskeer.Piping.Integration.Test
                 // Assert
                 string expectedProgressTexts = "Stap 1 van 2 | Uitvoeren sterkte berekening voor doorsnede" + Environment.NewLine +
                                                "Stap 2 van 2 | Uitvoeren sterkte berekening voor vak" + Environment.NewLine;
-
                 Assert.AreEqual(expectedProgressTexts, progressTexts);
+                calculatorFactory.Received(2).CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 
@@ -245,6 +247,8 @@ namespace Riskeer.Piping.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
                 Assert.IsNull(calculation.Output);
+                calculatorFactory.Received(2).CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
+                observer.DidNotReceive().UpdateObserver();
             }
         }
 
@@ -304,6 +308,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
                 Assert.IsNull(calculation.Output);
             }
+            calculatorFactory.Received(2).CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
             observer.DidNotReceive().UpdateObserver();
         }
 
@@ -347,6 +352,8 @@ namespace Riskeer.Piping.Integration.Test
 
                 AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, 0, profileSpecificInputs[0]);
                 AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, failureMechanismSensitiveSectionLength, sectionSpecificInputs[0]);
+                
+                calculatorFactory.Received(2).CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }
 

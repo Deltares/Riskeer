@@ -135,14 +135,12 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
-            calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(c => c != null))
-                .Returns(callInfo =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        calculationSettings, callInfo.Arg<HydraRingCalculationSettings>());
-                    return calculator;
-                });
+            HydraRingCalculationSettings actualSettings = null;
+            calculatorFactory.When(c=> c.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
+			calculatorFactory
+                .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                .Returns(calculator);
             var duneLocation = new TestDuneLocation(locationName);
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(duneLocation),
@@ -160,6 +158,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 Assert.AreEqual(duneLocation.Id, calculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), calculationInput.Beta);
             }
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(calculationSettings, actualSettings);
         }
 
         [Test]
