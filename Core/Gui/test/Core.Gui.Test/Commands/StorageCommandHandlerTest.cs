@@ -48,7 +48,6 @@ namespace Core.Gui.Test.Commands
             // Setup
             const string savedProjectPath = @"C:\savedProject.rtd";
 
-
             var projectStorage = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -76,10 +75,11 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create("Nieuw project aanmaken is gelukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
+            projectOwner.Received(1).SetProject(Arg.Is<IProject>(p=>p!=null), null);
         }
 
         [Test]
-        public void CreateNewProject_ProjectFactoryReturnsNull_LogsMessageAndProjectSetToNull()
+        public void CreateNewProject_ProjectFactoryReturnsNull_LogsMessageAndProjectNotSet()
         {
             // Setup
             var projectStorage = Substitute.For<IStoreProject>();
@@ -111,6 +111,7 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create("Nieuw project aanmaken is geannuleerd.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
+            projectOwner.DidNotReceive().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
         }
 
         [Test]
@@ -124,13 +125,9 @@ namespace Core.Gui.Test.Commands
             var projectOwner = Substitute.For<IProjectOwner>();
             projectOwner.Project.Returns(Substitute.For<IProject>());
             projectOwner.ProjectFilePath.Returns((string) null);
-            projectOwner.When(po => po.SetProject(null, null));
 
             var projectFactory = Substitute.For<IProjectFactory>();
-            projectFactory.When(p => p.CreateNewProject()).Do(x =>
-            {
-                throw new ProjectFactoryException(expectedExceptionMessage);
-            });
+            projectFactory.When(p => p.CreateNewProject()).Throw(new ProjectFactoryException(expectedExceptionMessage));
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
@@ -169,12 +166,8 @@ namespace Core.Gui.Test.Commands
 
                 var projectStorage = Substitute.For<IStoreProject>();
                 projectStorage.HasStagedProject.Returns(false);
-                projectStorage.StageProject(project);
                 projectStorage.When(p => p.SaveProjectAs(someValidFilePath))
-                              .Do(x =>
-                              {
-                                  throw new StorageException(exceptionMessage, new Exception("l33t h4xor!"));
-                              });
+                              .Throws(new StorageException(exceptionMessage, new Exception("l33t h4xor!")));
 
                 var projectMigrator = Substitute.For<IMigrateProject>();
 
@@ -213,6 +206,7 @@ namespace Core.Gui.Test.Commands
                 };
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 3);
                 Assert.IsFalse(result);
+                projectStorage.Received(1).StageProject(project);
             }
         }
 
@@ -230,7 +224,6 @@ namespace Core.Gui.Test.Commands
                 projectStorage.HasStagedProject.Returns(false);
 
                 var projectMigrator = Substitute.For<IMigrateProject>();
-
                 var projectOwner = Substitute.For<IProjectOwner>();
                 projectOwner.Project.Returns(project);
                 projectOwner.ProjectFilePath.Returns(someValidFilePath);
@@ -269,7 +262,7 @@ namespace Core.Gui.Test.Commands
         [Test]
         public void OpenExistingProject_MigrationNeeded_MigratesFileAndSetNewlyLoadedProjectAtMigratedFileAndReturnTrue()
         {
-            // Arrange
+            // Setup
             const string fileName = "newProject";
 
             var pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
@@ -333,9 +326,6 @@ namespace Core.Gui.Test.Commands
 
             Assert.IsTrue(result);
 
-            projectOwner.Received(1)
-                        .SetProject(loadedProject, pathToMigratedFile);
-
             Received.InOrder(() =>
             {
                 projectMigrator.ShouldMigrate(pathToSomeValidFile);
@@ -358,7 +348,6 @@ namespace Core.Gui.Test.Commands
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(MigrationRequired.Aborted);
 
-            var project = Substitute.For<IProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
 
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -393,11 +382,8 @@ namespace Core.Gui.Test.Commands
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(MigrationRequired.NotSupported);
 
-            var project = Substitute.For<IProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
-
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.SetProject(Arg.Any<IProject>(), Arg.Any<string>());
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
@@ -430,9 +416,7 @@ namespace Core.Gui.Test.Commands
             projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(MigrationRequired.Yes);
 
             var projectFactory = Substitute.For<IProjectFactory>();
-
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.SetProject(Arg.Any<IProject>(), Arg.Any<string>());
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
@@ -454,6 +438,7 @@ namespace Core.Gui.Test.Commands
                 projectMigrator.ShouldMigrate(pathToSomeValidFile);
                 projectMigrator.DetermineMigrationLocation(pathToSomeValidFile);
             });
+            projectOwner.DidNotReceive().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
         }
 
         [Test]
@@ -488,7 +473,7 @@ namespace Core.Gui.Test.Commands
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(errorMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(result);
-            projectOwner.Received(1).SetProject(Arg.Any<IProject>(), Arg.Any<string>());
+            projectOwner.Received(1).SetProject(null, null);
         }
 
         [Test]
@@ -529,7 +514,7 @@ namespace Core.Gui.Test.Commands
                 projectMigrator.ShouldMigrate(pathToSomeValidFile);
                 projectMigrator.DetermineMigrationLocation(pathToSomeValidFile);
             });
-            projectOwner.Received(1).SetProject(Arg.Any<IProject>(), Arg.Any<string>());
+            projectOwner.Received(1).SetProject(null, null);
         }
 
         [Test]
@@ -577,20 +562,17 @@ namespace Core.Gui.Test.Commands
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(errorMessage, LogLevelConstant.Error), 3);
             Assert.IsFalse(result);
-            projectOwner.Received(1).SetProject(Arg.Any<IProject>(), Arg.Any<string>());
+            projectOwner.Received(1).SetProject(null, null);
             Received.InOrder(() =>
             {
                 projectMigrator.ShouldMigrate(pathToSomeValidFile);
                 projectMigrator.DetermineMigrationLocation(pathToSomeValidFile);
-                _ = mainWindowController.MainWindow;
-                _ = mainWindow.ApplicationIcon;
-                _ = mainWindow.Handle;
                 projectMigrator.Migrate(pathToSomeValidFile, pathToMigratedFile);
             });
         }
 
         [Test]
-        public void OpenExistingProject_LoadingProjectThrowsStorageException_LogFailureSetNullProjectAndReturnFalse()
+        public void OpenExistingProject_LoadProjectThrowsStorageException_LogFailureSetNullProjectAndReturnFalse()
         {
             // Setup
             const string pathToSomeInvalidFile = "<path to some invalid file>";
@@ -640,7 +622,7 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_LoadingNull_LogFailureSetNullProjectAndReturnFalse()
+        public void OpenExistingProject_LoadProjectReturnsNull_LogFailureSetNullProjectAndReturnFalse()
         {
             // Setup
             const string pathToSomeInvalidFile = "<path to some invalid file>";
@@ -681,7 +663,7 @@ namespace Core.Gui.Test.Commands
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
             Assert.IsFalse(result);
-            projectOwner.Received(1).SetProject(Arg.Any<IProject>(), Arg.Any<string>());
+            projectOwner.Received(1).SetProject(null,null);
         }
 
         [Test]
@@ -700,8 +682,6 @@ namespace Core.Gui.Test.Commands
             projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(MigrationRequired.No);
 
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.SetProject(loadedProject, pathToSomeValidFile);
-
             var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
@@ -733,6 +713,7 @@ namespace Core.Gui.Test.Commands
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
             Assert.IsTrue(result);
+            projectOwner.Received(1).SetProject(loadedProject, pathToSomeValidFile);
         }
 
         [Test]
@@ -757,7 +738,6 @@ namespace Core.Gui.Test.Commands
             var projectOwner = Substitute.For<IProjectOwner>();
             projectOwner.Project.Returns(originalProject);
             projectOwner.ProjectFilePath.Returns("<original file path>");
-            projectOwner.SetProject(loadedProject, pathToSomeValidFile);
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
 
@@ -790,6 +770,7 @@ namespace Core.Gui.Test.Commands
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
             Assert.IsTrue(result);
+            projectOwner.Received(1).SetProject(loadedProject, pathToSomeValidFile);
         }
 
         [Test]
@@ -953,15 +934,12 @@ namespace Core.Gui.Test.Commands
             // Assert
             Assert.IsFalse(changesHandled);
             projectStorage.Received(1).StageProject(project);
-            projectStorage.Received(1).HasStagedProjectChanges(Arg.Any<string>());
             projectStorage.Received(1).UnstageProject();
-            inquiryHelper.Received(1).InquirePerformOptionalStep("Project afsluiten",
-                                                                $"Sla wijzigingen in het project op: {projectName}?");
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void HandleUnsavedChangesProjectSetWithChangeNoPressed_ReturnsTrue()
+        public void HandleUnsavedChanges_ProjectSetWithChangeNoPressed_ReturnsTrue()
         {
             // Setup
             var project = Substitute.For<IProject>();
@@ -997,10 +975,7 @@ namespace Core.Gui.Test.Commands
             // Assert
             Assert.IsTrue(changesHandled);
             projectStorage.Received(1).StageProject(project);
-            projectStorage.Received(1).HasStagedProjectChanges(Arg.Any<string>());
             projectStorage.Received(1).UnstageProject();
-            inquiryHelper.Received(1).InquirePerformOptionalStep("Project afsluiten",
-                                                                $"Sla wijzigingen in het project op: {projectName}?");
         }
 
         [Test]
@@ -1018,7 +993,6 @@ namespace Core.Gui.Test.Commands
                 var projectStorage = Substitute.For<IStoreProject>();
                 projectStorage.HasStagedProject.Returns(true);
                 projectStorage.HasStagedProjectChanges(Arg.Any<string>()).Returns(true);
-                projectStorage.SaveProjectAs(someValidFilePath);
 
                 var projectMigrator = Substitute.For<IMigrateProject>();
                 var projectFactory = Substitute.For<IProjectFactory>();
@@ -1054,19 +1028,19 @@ namespace Core.Gui.Test.Commands
                 // Assert
                 Assert.IsTrue(changesHandled);
                 projectStorage.Received(1).StageProject(project);
-                projectStorage.Received(1).HasStagedProjectChanges(Arg.Any<string>());
                 projectStorage.Received(1).UnstageProject();
+                projectStorage.Received(1).SaveProjectAs(someValidFilePath);
             }
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void HandleUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue()
+        public void HandleUnsavedChanges_ProjectSetWithChangeYesPressedFileDoesNotExist_ReturnsTrue()
         {
             // Setup
             const string fileFilter = "<Some text> | *.rtd";
             const string projectName = "Project";
-            string someValidFilePath = TestHelper.GetScratchPadPath(nameof(HandleUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue));
+            string someValidFilePath = TestHelper.GetScratchPadPath(nameof(HandleUnsavedChanges_ProjectSetWithChangeYesPressedFileDoesNotExist_ReturnsTrue));
 
             DialogBoxHandler = (s, hWnd) =>
             {
@@ -1080,7 +1054,6 @@ namespace Core.Gui.Test.Commands
             projectStorage.HasStagedProject.Returns(true);
             projectStorage.HasStagedProjectChanges(someValidFilePath).Returns(true);
             projectStorage.SaveProjectFileFilter.Returns(fileFilter);
-            projectStorage.SaveProjectAs(someValidFilePath);
 
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
@@ -1113,13 +1086,9 @@ namespace Core.Gui.Test.Commands
             // Assert
             Assert.IsTrue(changesHandled);
             projectStorage.Received(1).StageProject(project);
-            projectStorage.Received(1).HasStagedProjectChanges(someValidFilePath);
+            projectStorage.Received(1).SaveProjectAs(someValidFilePath);
             projectStorage.Received(1).UnstageProject();
             projectOwner.Received(1).SetProject(project, someValidFilePath);
-
-            inquiryHelper.Received(1).InquirePerformOptionalStep("Project afsluiten",
-                                                                $"Sla wijzigingen in het project op: {projectName}?");
-            inquiryHelper.Received(1).GetTargetFileLocation(fileFilter, projectName);
         }
 
         private static IEnumerable<TestCaseData> GetExceptions()

@@ -140,9 +140,9 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             double[] expectedDashes = dashes ?? style.Value.GetDashArray();
             renderContext.Received(1).DrawLine(
                 Arg.Is<ScreenPoint[]>(sp => sp.Length == pointCount),
-                Arg.Is<OxyColor>(c => c == series.Color),
-                Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Is<EdgeRenderingMode>(m => m == series.EdgeRenderingMode),
+                series.Color,
+                series.StrokeThickness,
+                series.EdgeRenderingMode,
                 Arg.Is<double[]>(d => d.SequenceEqual(dashes ?? style.Value.GetDashArray())),
                 Arg.Any<LineJoin>());
         }
@@ -192,9 +192,9 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             double[] expectedDashes = dashes ?? style.Value.GetDashArray();
             renderContext.Received(lineCount).DrawLine(
                 Arg.Is<ScreenPoint[]>(sp => sp.Length == 1),
-                Arg.Is<OxyColor>(c => c == series.Color),
-                Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Is<EdgeRenderingMode>(m => m == series.EdgeRenderingMode),
+                series.Color,
+                series.StrokeThickness,
+                series.EdgeRenderingMode,
                 Arg.Is<double[]>(d => d.SequenceEqual(dashes ?? style.Value.GetDashArray())),
                 Arg.Any<LineJoin>());
         }
