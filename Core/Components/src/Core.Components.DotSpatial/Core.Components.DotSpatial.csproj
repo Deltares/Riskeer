@@ -140,6 +140,6 @@ All rights reserved.
     <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Symbology_Forms)\lib\net6.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Symbology.Forms-4.0.656\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgNetTopologySuite)\lib\netstandard2.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\NetTopologySuite-2.4.0\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_ComponentModel_Composition)\lib\net10.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.ComponentModel.Composition-10.0.10\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_OleDb)\lib\net10.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.OleDb-10.0.10\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_OleDb)\runtimes\win\lib\net10.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.OleDb-10.0.10\*&quot;"/>
   </Target>
 </Project>
