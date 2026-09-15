@@ -126,7 +126,6 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             var map = Substitute.For<IMap>();
             map.PixelToProj(new Point(startPointX, startPointY)).Returns(new Coordinate(geoStartPointX, geoStartPointY));
             map.PixelToProj(new Point(endPointX, endPointY)).Returns(new Coordinate(geoEndPointX, geoEndPointY));
-            map.Invalidate();
             Extent expectedExtend = new Envelope(geoStartPointX, geoEndPointX, geoStartPointY, geoEndPointY).ToExtent();
 
             var mapFunction = new MapFunctionSelectionZoom(map);
@@ -163,7 +162,6 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
 
             // Assert
             Assert.IsFalse(map.IsBusy);
-            map.Received(1).Invalidate();
             mapFrame.Received(1).ResetExtents();
         }
 

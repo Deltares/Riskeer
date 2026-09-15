@@ -441,7 +441,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             object draggedItemContext;
 
             CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism);
-            treeViewControl.TryRenameNodeForData(draggedItemContext);
 
             CalculationGroup originalOwnerGroup;
             TestCalculationGroupContext originalOwnerGroupContext;
@@ -491,6 +490,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             newOwnerObserver.UpdateObserver();
             originalOwnerObserver.UpdateObserver();
+            treeViewControl.Received(1).TryRenameNodeForData(draggedItemContext);
         }
 
         /// <summary>

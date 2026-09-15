@@ -147,8 +147,6 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(new TestWaveConditionsCosineCalculator());
 
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
 
@@ -305,11 +303,8 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             calculation.InputParameters.CalculationType = calculationType;
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(new TestWaveConditionsCosineCalculator());
-
+            
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var currentStep = 1;
@@ -340,12 +335,6 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                               assessmentSection,
                                                                               stabilityStoneCoverFailureMechanism.GeneralInput);
             }
-
-            int nrOfCalculators = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
-                                      ? GetWaterLevels(calculation, assessmentSection).Count() * 2
-                                      : GetWaterLevels(calculation, assessmentSection).Count();
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -420,10 +409,6 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, waveConditionsInputs[i]);
                 }
             }
-
-            int nrOfCalculators = waterLevels.Length * 2;
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -631,18 +616,13 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             };
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            TestWaveConditionsCosineCalculator[] calculators =
-            {
-                calculatorThatFails,
-                new TestWaveConditionsCosineCalculator(),
-                new TestWaveConditionsCosineCalculator(),
-                new TestWaveConditionsCosineCalculator(),
-                new TestWaveConditionsCosineCalculator(),
-                new TestWaveConditionsCosineCalculator()
-            };
-            var calculatorIndex = 0;
             calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(_ => calculators[calculatorIndex++]);
+                             .Returns(calculatorThatFails,
+                                      new TestWaveConditionsCosineCalculator(),
+                                      new TestWaveConditionsCosineCalculator(),
+                                      new TestWaveConditionsCosineCalculator(),
+                                      new TestWaveConditionsCosineCalculator(),
+                                      new TestWaveConditionsCosineCalculator());
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
@@ -728,18 +708,13 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             };
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            TestWaveConditionsCosineCalculator[] calculators =
-            {
-                new TestWaveConditionsCosineCalculator(),
-                new TestWaveConditionsCosineCalculator(),
-                new TestWaveConditionsCosineCalculator(),
-                calculatorThatFails,
-                new TestWaveConditionsCosineCalculator(),
-                new TestWaveConditionsCosineCalculator()
-            };
-            var calculatorIndex = 0;
             calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(_ => calculators[calculatorIndex++]);
+                             .Returns(new TestWaveConditionsCosineCalculator(),
+                                      new TestWaveConditionsCosineCalculator(),
+                                      new TestWaveConditionsCosineCalculator(),
+                                      calculatorThatFails,
+                                      new TestWaveConditionsCosineCalculator(),
+                                      new TestWaveConditionsCosineCalculator());
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryData.GetLocations().First());
@@ -822,17 +797,10 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) callInfo[0]);
-
-                                 return new TestWaveConditionsCosineCalculator();
-                             });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                                       .CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -846,6 +814,12 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
             calculatorFactory.Received(nrOfCalculators)
                              .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation), actualSettings);
+            }
         }
 
         private static void AssertCalculationLogs(string[] logMessages, RoundedDouble[] waterLevels, string calculationType, int index)

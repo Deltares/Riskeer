@@ -538,19 +538,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var calculator = new TestWaveConditionsCosineCalculator();
-
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(ci =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) ci[0]);
-                                 return calculator;
-                             });
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+            calculatorFactory.When(c=> c
+                                       .CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -563,6 +555,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 
             // Assert
             calculatorFactory.Received(3).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation), actualSettings);
+            }
         }
 
         [Test]

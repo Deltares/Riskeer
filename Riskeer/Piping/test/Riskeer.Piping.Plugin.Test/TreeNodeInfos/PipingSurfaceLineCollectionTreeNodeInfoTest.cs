@@ -185,7 +185,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
-            // Arrange
+            // Setup
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
 
             menuBuilder.AddImportItem().Returns(menuBuilder);

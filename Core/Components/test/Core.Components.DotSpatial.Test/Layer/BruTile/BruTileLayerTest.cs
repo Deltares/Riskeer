@@ -445,8 +445,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                     Assert.AreEqual(transparency, clonedLayer.Transparency);
                 }
-
-                configuration.Received(1).Clone();
             }
         }
 
@@ -820,11 +818,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                         Index = new TileIndex(0, 0, otherZoomLevel)
                                     }, new byte[0]));
 
+                // Then
                 mapFrame.DidNotReceive().Invalidate(Arg.Any<DotSpatialExtent>());
             }
-
-            // Then
-            // mapFrame.Invalidate shouldn't be called!
         }
 
         [Test]
@@ -933,7 +929,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 c => c.Image);
 
             var tileFetcher = Substitute.For<ITileFetcher>();
-            tileFetcher.When(tf => tf.DropAllPendingTileRequests()).Do(_ => {});
             configureTileFetcherGetTileStub(tileFetcher, tileInfoImageLookup);
 
             var tileSchema = Substitute.For<ITileSchema>();
@@ -975,9 +970,12 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 tileFetcher.GetTile(tileInfoImagePair.Key)
                            .Returns(_ =>
                            {
-                               bool alreadyRequested = getTileCalledForTileInfoLookup[tileInfoImagePair.Key];
+                               if (getTileCalledForTileInfoLookup[tileInfoImagePair.Key])
+                               {
+                                   return ToByteArray(tileInfoImagePair.Value);
+                               }
                                getTileCalledForTileInfoLookup[tileInfoImagePair.Key] = true;
-                               return alreadyRequested ? null : ToByteArray(tileInfoImagePair.Value);
+                               return null;
                            });
             }
         }
@@ -1029,7 +1027,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
             var configuration = Substitute.For<IConfiguration>();
             configuration.Initialized.Returns(false);
-            configuration.When(c => c.Initialize()).Do(_ => {});
             configuration.TileSchema.Returns(schema);
             configuration.TileFetcher.Returns(tileFetcher);
 

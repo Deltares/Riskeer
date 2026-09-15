@@ -115,6 +115,7 @@ namespace Core.Common.Controls.TreeView.Test
                 }
                 finally
                 {
+                    // Prevents cursor jumps on local machine when running tests while machine is still in use
                     ddh.HandleDragLeave(treeView);
                     Cursor.Position = originalCursorPosition;
                 }
@@ -128,17 +129,17 @@ namespace Core.Common.Controls.TreeView.Test
             var data = Substitute.For<IDataObject>();
             data.GetData(Arg.Any<Type>()).Returns(new object());
 
-            using (var treeView = CreateTreeViewWithTopLevelNodes(out _, out TreeNode treeNode))
+            using (var treeView = CreateTreeViewWithTopLevelNodes(out _, out TreeNode targetNode))
             {
-                Point nodePoint = GetNodeMiddlePoint(treeNode);
+                Point nodePoint = GetNodeMiddlePoint(targetNode);
                 Point screenPoint = treeView.PointToScreen(nodePoint);
 
                 var ddh = new DragDropHandler();
                 var dragEvent = new DragEventArgs(data, 0, screenPoint.X, screenPoint.Y, DragDropEffects.All, DragDropEffects.None);
-                Func<object, TreeNodeInfo> action = o => new TreeNodeInfo();
+                TreeNodeInfo Action(object o) => new();
 
                 // Call
-                ddh.HandleDragOver(treeView, dragEvent, action);
+                ddh.HandleDragOver(treeView, dragEvent, Action);
 
                 // Assert
                 Assert.AreEqual(DragDropEffects.None, dragEvent.Effect);
@@ -152,9 +153,9 @@ namespace Core.Common.Controls.TreeView.Test
             var data = Substitute.For<IDataObject>();
             data.GetData(Arg.Any<Type>()).Throws(new InvalidCastException());
 
-            using (var treeView = CreateTreeViewWithTopLevelNodes(out _, out TreeNode treeNode))
+            using (var treeView = CreateTreeViewWithTopLevelNodes(out _, out TreeNode targetNode))
             {
-                Point nodePoint = GetNodeMiddlePoint(treeNode);
+                Point nodePoint = GetNodeMiddlePoint(targetNode);
                 Point screenPoint = treeView.PointToScreen(nodePoint);
 
                 var ddh = new DragDropHandler();
@@ -181,7 +182,6 @@ namespace Core.Common.Controls.TreeView.Test
 
             treeView.Nodes.Add(draggingNode);
             treeView.Nodes.Add(targetNode);
-            treeView.CreateControl();
 
             return treeView;
         }
@@ -189,7 +189,7 @@ namespace Core.Common.Controls.TreeView.Test
         private static Point GetNodeMiddlePoint(TreeNode treeNode)
         {
             Rectangle bounds = treeNode.Bounds;
-            return new Point(bounds.Left + 1, bounds.Top + bounds.Height / 2);
+            return new Point(bounds.Left + bounds.Width / 2, bounds.Top + bounds.Height / 2);
         }
     }
 }

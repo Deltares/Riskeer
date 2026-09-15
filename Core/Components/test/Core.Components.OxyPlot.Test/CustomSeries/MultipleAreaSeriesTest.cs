@@ -123,9 +123,9 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             // Assert
             renderContext.Received(1).DrawPolygon(
                 Arg.Is<ScreenPoint[]>(sp => sp.Length == pointCount),
-                Arg.Is<OxyColor>(c => c == series.Fill),
-                Arg.Is<OxyColor>(c => c == series.Color),
-                Arg.Is<double>(d => d == series.StrokeThickness),
+                series.Fill,
+                series.Color,
+                series.StrokeThickness,
                 Arg.Any<EdgeRenderingMode>(),
                 Arg.Any<double[]>(),
                 Arg.Any<LineJoin>());
@@ -158,9 +158,9 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             // Assert
             renderContext.Received(areaCount).DrawPolygon(
                 Arg.Is<ScreenPoint[]>(sp => sp.Length == 1),
-                Arg.Is<OxyColor>(c => c == series.Fill),
-                Arg.Is<OxyColor>(c => c == series.Color),
-                Arg.Is<double>(d => d == series.StrokeThickness),
+                series.Fill,
+                series.Color,
+                series.StrokeThickness,
                 Arg.Any<EdgeRenderingMode>(),
                 Arg.Any<double[]>(),
                 Arg.Any<LineJoin>());
