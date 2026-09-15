@@ -51,9 +51,6 @@ All rights reserved.
     <None Include="$(SolutionDir)build\DatabaseStructure.sql">
       <Link>DbContext\DatabaseStructure</Link>
     </None>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <EntityDeploy Include="DbContext\RiskeerEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RiskeerEntities.Designer.cs</LastGenOutput>
