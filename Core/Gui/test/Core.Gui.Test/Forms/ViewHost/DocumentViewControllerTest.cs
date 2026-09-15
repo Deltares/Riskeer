@@ -114,9 +114,9 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
-                              Arg.Is(title),
-                              Arg.Is(symbol),
-                              Arg.Is(fontFamily)))
+                              title,
+                              symbol,
+                              fontFamily))
                     .Do(callInfo =>
                     {
                         view = callInfo.Arg<TestView>();
@@ -181,7 +181,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                                                  viewName, Arg.Any<string>(), Arg.Any<FontFamily>()))
                     .Do(invocation =>
                     {
-                        view = invocation.Args()[0] as TestView;
+                        view = invocation.Arg<TestView>();
                     });
             var data = new InheritedFromA();
             var afterCreateCalled = false;
@@ -229,13 +229,13 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
-                              Arg.Any<TestView>(),
+                              Arg.Any<TestViewDerivative>(),
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
                     .Do(invocation =>
                     {
-                        view = invocation.Args()[0] as TestViewDerivative;
+                        view = invocation.Arg<TestViewDerivative>();
                     });
             var data = new InheritedFromA();
 
@@ -273,7 +273,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<FontFamily>()))
                     .Do(invocation =>
                     {
-                        view = invocation.Args()[0] as TestView;
+                        view = invocation.Arg<TestView>();
                     });
             var data = new A();
 
@@ -305,13 +305,13 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
-                              Arg.Any<TestView>(),
+                              Arg.Any<TestViewDerivative>(),
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
                     .Do(invocation =>
                     {
-                        view = invocation.Args()[0] as TestViewDerivative;
+                        view = invocation.Arg<TestViewDerivative>();
                     });
             var data = new object();
 
@@ -387,7 +387,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<FontFamily>()))
                     .Do(invocation =>
                     {
-                        view = invocation.Args()[0] as TestView;
+                        view = invocation.Arg<TestView>();
                     });
             var data = new object();
 
@@ -432,7 +432,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<FontFamily>()))
                     .Do(invocation =>
                     {
-                        view = invocation.Args()[0] as TestView;
+                        view = invocation.Arg<TestView>();
                     });
             var data = new object();
 
@@ -484,7 +484,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<FontFamily>()))
                     .Do(invocation =>
                     {
-                        view = invocation.Args()[0] as TestView;
+                        view = invocation.Arg<TestView>();
                     });
             var data = new object();
 
@@ -531,13 +531,13 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
-                              Arg.Any<TestView>(),
+                              Arg.Any<TestViewDerivative>(),
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
                     .Do(invocation =>
                     {
-                        view = invocation.Args()[0] as TestViewDerivative;
+                        view = invocation.Arg<TestViewDerivative>();
                     });
             var data = new object();
 
@@ -571,11 +571,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             var viewHost = Substitute.For<IViewHost>();
 
             viewHost.DocumentViews.Returns(new IView[0]);
-            viewHost.AddDocumentView(
-                Arg.Any<TestView>(),
-                Arg.Any<string>(),
-                Arg.Any<string>(),
-                Arg.Any<FontFamily>());
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<object, TestView>()
@@ -618,7 +613,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<FontFamily>()))
                     .Do(callInfo =>
                     {
-                        viewList.Add(callInfo.Args()[0] as TestView);
+                        viewList.Add(callInfo.Arg<TestView>());
                     });
 
             var viewInfos = new ViewInfo[]
@@ -636,7 +631,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            viewHost.Received(1).BringToFront(Arg.Is<TestView>(c => c == viewList.First()));
+            viewHost.Received().BringToFront(viewList.First());
         }
 
         [Test]
@@ -773,33 +768,34 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<FontFamily>()))
                     .Do(callInfo =>
                     {
-                        documentViews.Add(callInfo.Args()[0] as TestView);
+                        documentViews.Add(callInfo.Arg<TestView>());
                     });
 
             viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
                     .Do(invocation =>
                     {
-                        documentViews.Remove(invocation.Args()[0] as TestView);
+                        documentViews.Remove(invocation.Arg<TestView>());
                     });
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<A, TestView>(),
                 new ViewInfo<InheritedFromA, TestViewDerivative>()
             };
-
+            
             using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
                 documentViewController.OpenViewForData(data1);
                 documentViewController.OpenViewForData(data2);
 
+                // Precondition
+                Assert.AreEqual(2, documentViews.Count);
+    
                 // Call
                 documentViewController.CloseAllViews();
             }
 
             // Assert
             CollectionAssert.IsEmpty(documentViews);
-            viewHost.Received(2).AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
-            viewHost.Received(2).Remove(Arg.Any<TestView>());
         }
 
         [Test]
@@ -858,7 +854,12 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<FontFamily>()))
                     .Do(callInfo =>
                     {
-                        documentViews.Add(callInfo.Args()[0] as TestView);
+                        documentViews.Add(callInfo.Arg<TestView>());
+                    });
+            viewHost.When(x => x.Remove(Arg.Any<TestView>()))
+                    .Do(invocation =>
+                    {
+                        documentViews.Remove(invocation.Arg<TestView>());
                     });
             var viewInfos = new ViewInfo[]
             {
@@ -876,7 +877,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            viewHost.Received(2).AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
+            Assert.AreEqual(2, documentViews.Count);
         }
 
         [Test]
@@ -898,13 +899,13 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<FontFamily>()))
                     .Do(callInfo =>
                     {
-                        documentViews.Add(callInfo.Args()[0] as TestView);
+                        documentViews.Add(callInfo.Arg<TestView>());
                     });
 
             viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
                     .Do(invocation =>
                     {
-                        documentViews.Remove(invocation.Args()[0] as TestView);
+                        documentViews.Remove(invocation.Arg<TestView>());
                     });
 
             var viewInfos = new ViewInfo[]
@@ -923,8 +924,8 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            viewHost.Received(2).AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
-            viewHost.Received(1).Remove(Arg.Any<TestView>());
+            Assert.AreEqual(1, documentViews.Count);
+            Assert.AreSame(data2, documentViews[0].Data);
         }
 
         [Test]
@@ -946,13 +947,13 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<FontFamily>()))
                     .Do(callInfo =>
                     {
-                        documentViews.Add(callInfo.Args()[0] as TestView);
+                        documentViews.Add(callInfo.Arg<TestView>());
                     });
 
             viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
                     .Do(invocation =>
                     {
-                        documentViews.Remove(invocation.Args()[0] as TestView);
+                        documentViews.Remove(invocation.Arg<TestView>());
                     });
             var viewInfos = new ViewInfo[]
             {
@@ -983,13 +984,15 @@ namespace Core.Gui.Test.Forms.ViewHost
                 documentViewController.OpenViewForData(data1);
                 documentViewController.OpenViewForData(data2);
 
+                // Precondition
+                Assert.AreEqual(2, documentViews.Count);
+    
                 // Call
                 documentViewController.CloseAllViewsFor(unusedViewData);
             }
 
             // Assert
-            viewHost.Received(2).AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
-            viewHost.Received(2).Remove(Arg.Any<TestView>());
+            CollectionAssert.IsEmpty(documentViews);
         }
 
         [Test]
@@ -1011,13 +1014,13 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<FontFamily>()))
                     .Do(callInfo =>
                     {
-                        documentViews.Add(callInfo.Args()[0] as TestView);
+                        documentViews.Add(callInfo.Arg<TestView>());
                     });
 
             viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
                     .Do(invocation =>
                     {
-                        documentViews.Remove(invocation.Args()[0] as TestView);
+                        documentViews.Remove(invocation.Arg<TestView>());
                     });
 
             var viewClosed = false;
@@ -1056,8 +1059,6 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             // Assert
             Assert.IsTrue(viewClosed);
-            viewHost.Received(1).AddDocumentView(Arg.Any<TestView>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<FontFamily>());
-            viewHost.Received(1).Remove(Arg.Any<TestView>());
         }
 
         private class A {}

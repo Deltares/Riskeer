@@ -1084,9 +1084,6 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
-            }, new TestPipingCalculator
-            {
-                IllustrationPointsResult = new TestGeneralResult()
             });
             calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryData.GetLocations().First(hbl => hbl.Id == 1300001);
             calculation.InputParameters.ShouldProfileSpecificIllustrationPointsBeCalculated = shouldProfileSpecificIllustrationPointsBeCalculated;
@@ -1132,9 +1129,6 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestPipingCalculator
-            {
-                IllustrationPointsResult = new TestGeneralResult()
-            }, new TestPipingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
             });

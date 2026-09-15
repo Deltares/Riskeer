@@ -185,12 +185,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             var messageBoxText = "";
             var messageBoxTitle = "";
-            var calculationWithOutputMock1 = Substitute.For<ICalculation>();
-            var calculationWithOutputMock2 = Substitute.For<ICalculation>();
+            var calculationWithOutput1 = Substitute.For<ICalculation>();
+            var calculationWithOutput2 = Substitute.For<ICalculation>();
             var calculationWithoutOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutputMock1.HasOutput.Returns(true);
-            calculationWithOutputMock2.HasOutput.Returns(true);
+            calculationWithOutput1.HasOutput.Returns(true);
+            calculationWithOutput2.HasOutput.Returns(true);
             calculationWithoutOutput.HasOutput.Returns(false);
 
             DialogBoxHandler = (name, wnd) =>
@@ -206,12 +206,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    calculationWithOutputMock1,
+                    calculationWithOutput1,
                     new CalculationGroup
                     {
                         Children =
                         {
-                            calculationWithOutputMock2,
+                            calculationWithOutput2,
                             calculationWithoutOutput
                         }
                     }
@@ -226,21 +226,23 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
-            calculationWithOutputMock1.Received(1).ClearOutput();
-            calculationWithOutputMock1.Received(1).NotifyObservers();
-            calculationWithOutputMock2.Received(1).ClearOutput();
-            calculationWithOutputMock2.Received(1).NotifyObservers();
+            calculationWithOutput1.Received(1).ClearOutput();
+            calculationWithOutput1.Received(1).NotifyObservers();
+            calculationWithOutput2.Received(1).ClearOutput();
+            calculationWithOutput2.Received(1).NotifyObservers();
+            calculationWithoutOutput.DidNotReceive().ClearOutput();
+            calculationWithoutOutput.DidNotReceive().NotifyObservers();
         }
 
         [Test]
         public void CreateClearAllCalculationOutputInGroupItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
-            var calculationWithOutputMock1 = Substitute.For<ICalculation>();
-            var calculationWithOutputMock2 = Substitute.For<ICalculation>();
+            var calculationWithOutput1 = Substitute.For<ICalculation>();
+            var calculationWithOutput2 = Substitute.For<ICalculation>();
             var calculationWithoutOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutputMock1.HasOutput.Returns(true);
-            calculationWithOutputMock2.HasOutput.Returns(true);
+            calculationWithOutput1.HasOutput.Returns(true);
+            calculationWithOutput2.HasOutput.Returns(true);
             calculationWithoutOutput.HasOutput.Returns(false);
             DialogBoxHandler = (name, wnd) =>
             {
@@ -253,12 +255,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    calculationWithOutputMock1,
+                    calculationWithOutput1,
                     new CalculationGroup
                     {
                         Children =
                         {
-                            calculationWithOutputMock2,
+                            calculationWithOutput2,
                             calculationWithoutOutput
                         }
                     }
@@ -272,8 +274,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             calculationWithoutOutput.DidNotReceive().ClearOutput();
-            calculationWithOutputMock1.DidNotReceive().ClearOutput();
-            calculationWithOutputMock2.DidNotReceive().ClearOutput();
+            calculationWithOutput1.DidNotReceive().ClearOutput();
+            calculationWithOutput2.DidNotReceive().ClearOutput();
         }
 
         [Test]
@@ -324,18 +326,18 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateClearAllCalculationOutputInFailureMechanismItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
         {
             // Setup
-            var calculationWithOutputMock1 = Substitute.For<ICalculation>();
-            var calculationWithOutputMock2 = Substitute.For<ICalculation>();
+            var calculationWithOutput1 = Substitute.For<ICalculation>();
+            var calculationWithOutput2 = Substitute.For<ICalculation>();
             var calculationWithoutOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutputMock1.HasOutput.Returns(true);
-            calculationWithOutputMock2.HasOutput.Returns(true);
+            calculationWithOutput1.HasOutput.Returns(true);
+            calculationWithOutput2.HasOutput.Returns(true);
             calculationWithoutOutput.HasOutput.Returns(false);
 
             var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
-                calculationWithOutputMock1,
-                calculationWithOutputMock2,
+                calculationWithOutput1,
+                calculationWithOutput2,
                 calculationWithoutOutput
             });
             DialogBoxHandler = (name, wnd) =>
@@ -351,29 +353,31 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
-            calculationWithOutputMock1.Received(1).ClearOutput();
-            calculationWithOutputMock1.Received(1).NotifyObservers();
-            calculationWithOutputMock2.Received(1).ClearOutput();
-            calculationWithOutputMock2.Received(1).NotifyObservers();
+            calculationWithOutput1.Received(1).ClearOutput();
+            calculationWithOutput1.Received(1).NotifyObservers();
+            calculationWithOutput2.Received(1).ClearOutput();
+            calculationWithOutput2.Received(1).NotifyObservers();
+            calculationWithoutOutput.DidNotReceive().ClearOutput();
+            calculationWithoutOutput.DidNotReceive().NotifyObservers();
         }
 
         [Test]
         public void CreateClearAllCalculationOutputInFailureMechanismItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
             // Setup
-            var calculationWithOutputMock1 = Substitute.For<ICalculation>();
-            var calculationWithOutputMock2 = Substitute.For<ICalculation>();
+            var calculationWithOutput1 = Substitute.For<ICalculation>();
+            var calculationWithOutput2 = Substitute.For<ICalculation>();
             var calculationWithoutOutput = Substitute.For<ICalculation>();
 
-            calculationWithOutputMock1.HasOutput.Returns(true);
-            calculationWithOutputMock2.HasOutput.Returns(true);
+            calculationWithOutput1.HasOutput.Returns(true);
+            calculationWithOutput2.HasOutput.Returns(true);
             calculationWithoutOutput.HasOutput.Returns(false);
 
             var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
             failureMechanism.Calculations.Returns(new[]
             {
-                calculationWithOutputMock1,
-                calculationWithOutputMock2,
+                calculationWithOutput1,
+                calculationWithOutput2,
                 calculationWithoutOutput
             });
             DialogBoxHandler = (name, wnd) =>
@@ -389,8 +393,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
-            calculationWithOutputMock1.DidNotReceive().ClearOutput();
-            calculationWithOutputMock2.DidNotReceive().ClearOutput();
+            calculationWithOutput1.DidNotReceive().ClearOutput();
+            calculationWithOutput2.DidNotReceive().ClearOutput();
+            calculationWithoutOutput.DidNotReceive().ClearOutput();
         }
 
         [Test]
@@ -525,6 +530,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Call
             toolStripItem.PerformClick();
+            
+            // Assert
+            calculationWithOutput.DidNotReceive().ClearOutput();
+            calculationWithOutput.DidNotReceive().NotifyObservers();
         }
 
         #region CreateDuplicateCalculationItem
@@ -713,10 +722,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             calculation.InputParameters.Returns(input);
             calculation.HasOutput.Returns(hasOutput);
             var inquiryHelper = Substitute.For<IInquiryHelper>();
-            if (hasOutput)
-            {
-                inquiryHelper.InquireContinuation(inquireContinuationMessage).Returns(continuation);
-            }
+            inquiryHelper.InquireContinuation(inquireContinuationMessage).Returns(continuation);
 
             ICalculation<ICalculationInputWithForeshoreProfile> actionCalculation = null;
             var actionPerformed = false;
@@ -815,10 +821,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             calculationWithoutChanges.InputParameters.Returns(inputWithoutChanges);
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
-            if (hasOutput)
-            {
-                inquiryHelper.InquireContinuation(inquireContinuationMessage).Returns(continuation);
-            }
+            inquiryHelper.InquireContinuation(inquireContinuationMessage).Returns(continuation);
 
             ICalculation<ICalculationInputWithForeshoreProfile> actionCalculation = null;
             var actionPerformed = false;
@@ -1567,7 +1570,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            Assert.AreEqual(handler.ReceivedCalls().Count(), 1);
+            handler.DidNotReceive().ClearIllustrationPoints();
         }
 
         [Test]
@@ -1646,7 +1649,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            Assert.AreEqual(handler.ReceivedCalls().Count(), 1);
+            handler.DidNotReceive().ClearIllustrationPoints();
         }
 
         [Test]
@@ -1725,7 +1728,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            Assert.AreEqual(handler.ReceivedCalls().Count(), 1);
+            handler.DidNotReceive().ClearIllustrationPoints();
         }
 
         [Test]
@@ -1804,7 +1807,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            Assert.AreEqual(handler.ReceivedCalls().Count(), 1);
+            handler.DidNotReceive().ClearIllustrationPoints();
         }
 
         [Test]

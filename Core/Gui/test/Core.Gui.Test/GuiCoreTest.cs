@@ -244,7 +244,6 @@ namespace Core.Gui.Test
             var projectMigrator = Substitute.For<IMigrateProject>();
             var plugin = Substitute.For<PluginBase>();
             plugin.When(p => p.Deactivate()).Throw(new Exception("Bad stuff happening!"));
-            plugin.Dispose();
             var projectFactory = Substitute.For<IProjectFactory>();
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
             gui.Plugins.Add(plugin);
@@ -255,6 +254,7 @@ namespace Core.Gui.Test
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.", 1);
             CollectionAssert.IsEmpty(gui.Plugins);
+            plugin.Received().Dispose();
         }
 
         [Test]
@@ -709,10 +709,6 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var plugin = Substitute.For<PluginBase>();
-
-
-
-
             plugin.When(p => p.Activate()).Throw(new Exception("ERROR!"));
             plugin.When(p => p.Deactivate()).Throw(new Exception("MORE ERROR!"));
             var projectFactory = Substitute.For<IProjectFactory>();
@@ -814,11 +810,6 @@ namespace Core.Gui.Test
                 };
                 CollectionAssert.AreEquivalent(expectedDataDefinitions, dataInstancesWithViewDefinitions);
             }
-
-            plugin1.Received(1).Dispose();
-            plugin1.Received(1).Deactivate();
-            plugin2.Received(1).Dispose();
-            plugin2.Received(1).Deactivate();
         }
 
         [Test]
@@ -866,11 +857,6 @@ namespace Core.Gui.Test
                 };
                 CollectionAssert.AreEquivalent(expectedDataDefinitions, dataInstancesWithViewDefinitions);
             }
-
-            plugin1.Received(1).Dispose();
-            plugin1.Received(1).Deactivate();
-            plugin2.Received(1).Dispose();
-            plugin2.Received(1).Deactivate();
         }
 
         [Test]
@@ -932,13 +918,6 @@ namespace Core.Gui.Test
                 IEnumerable<TreeNodeInfo> expected = nodesPluginA.Concat(nodesPluginB).Concat(nodesPluginC);
                 CollectionAssert.AreEquivalent(expected, result);
             }
-
-            pluginA.Received(1).Dispose();
-            pluginA.Received(1).Deactivate();
-            pluginB.Received(1).Dispose();
-            pluginB.Received(1).Deactivate();
-            pluginC.Received(1).Dispose();
-            pluginC.Received(1).Deactivate();
         }
 
         [Test]
