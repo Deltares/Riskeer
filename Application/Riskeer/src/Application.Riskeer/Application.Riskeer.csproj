@@ -140,6 +140,7 @@ All rights reserved.
       <Version>10.0.5</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <NoWarn>NU1510</NoWarn> <!-- NU1510 is suppressed because the System.DirectoryServices runtime is really needed by the System.DirectoryServices.AccountManagement runtime -->
     </PackageReference>
     <PackageReference Include="System.DirectoryServices.AccountManagement">
       <Version>10.0.5</Version>
