@@ -568,6 +568,31 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         }
 
         [Test]
+        public void DrawRegions_LayerVisibleButSelected_DoNothing()
+        {
+            // Setup
+            IConfiguration configuration = CreateStubConfiguration();
+            using (var layer = new BruTileLayer(configuration)
+            {
+                IsVisible = true
+            })
+            {
+                var mapArgs = new MapArgs(new Rectangle(), null, null);
+                var regions = new List<DotSpatialExtent>
+                {
+                    layer.Extent
+                };
+
+                // Call
+                Action call = () => layer.DrawRegions(mapArgs, regions, true);
+
+                // Assert
+                Assert.DoesNotThrow(call,
+                                    "No exception should be thrown for null Graphics objects, as nothing should be drawn.");
+            }
+        }
+
+        [Test]
         [TestCaseSource(nameof(DrawRegionsTestCases))]
         public void DrawRegions_VariousTestCases_DrawMapTiles(TileInfosTestConfig testConfig,
                                                               Bitmap mapCanvasSource,
