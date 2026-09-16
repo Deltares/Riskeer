@@ -26,6 +26,7 @@ All rights reserved.
   <ItemGroup>
     <Reference Include="NUnitForms, Version=2.0.6471.16266, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+      <Private>true</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

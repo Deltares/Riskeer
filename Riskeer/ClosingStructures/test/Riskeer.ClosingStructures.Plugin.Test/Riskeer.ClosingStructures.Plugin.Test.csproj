@@ -26,8 +26,8 @@ All rights reserved.
   <ItemGroup>
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+      <Private>true</Private>
     </Reference>
-
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
