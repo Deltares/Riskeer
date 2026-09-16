@@ -24,7 +24,7 @@ All rights reserved.
   <Import Project="$(SolutionDir)build\Test.targets"/>
   <Import Project="$(SolutionDir)build\NSubstitute.targets"/>
   <ItemGroup>
-    <Reference Include="NUnitForms, Version=2.0.6471.16266, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
       <Private>true</Private>
     </Reference>
