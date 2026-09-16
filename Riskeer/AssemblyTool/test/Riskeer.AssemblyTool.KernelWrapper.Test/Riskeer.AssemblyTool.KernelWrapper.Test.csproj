@@ -24,7 +24,7 @@ All rights reserved.
   <Import Project="$(SolutionDir)build\Test.targets"/>
   <Import Project="$(SolutionDir)build\NSubstitute.targets"/>
   <ItemGroup>
-    <Reference Include="Assembly.Kernel, Version=23.1.1.0, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="Assembly.Kernel">
       <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
     </Reference>
   </ItemGroup>
