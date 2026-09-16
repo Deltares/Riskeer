@@ -49,7 +49,7 @@ All rights reserved.
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Numerics)\lib\net6.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Numerics-5.0.0\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Spatial)\lib\net461\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Spatial-0.6.0\*&quot;"/>
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Spatial)\lib\netstandard2.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Spatial-0.6.0\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgNetTopologySuite)\lib\netstandard2.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\NetTopologySuite-2.4.0\*&quot;"/>
   </Target>
 </Project>
