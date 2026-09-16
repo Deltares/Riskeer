@@ -219,7 +219,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             Projection = projectionInfo ?? sourceProjection;
         }
 
-        public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions, bool selected)
+        public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions, bool selected = false)
         {
             if (!IsVisible || selected)
             {
@@ -227,7 +227,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             }
 
             IEnumerable<DotSpatialExtent> regionsToDraw = regions.Any()
-                                                              ? (IEnumerable<DotSpatialExtent>) regions
+                                                              ? regions
                                                               : new[]
                                                               {
                                                                   args.GeographicExtents
@@ -238,11 +238,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             {
                 DrawRegion(args, region, schema);
             }
-        }
-
-        public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions)
-        {
-            DrawRegions(args, regions, false);
         }
 
         protected override void Dispose(bool disposeManagedResources)
