@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
@@ -51,12 +52,9 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             Action call = () => new SimpleVariationCoefficientDesignVariable(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessagePart = exception.Message.Split(new[]
-            {
-                Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen. (Parameter 'value')", customMessagePart);
+            const string expectedMessage = "Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            Assert.AreEqual("value", exception.ParamName);
         }
 
         [Test]
@@ -70,12 +68,10 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             Action call = () => designVariable.Distribution = null;
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessagePart = exception.Message.Split(new[]
-            {
-                Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen. (Parameter 'value')", customMessagePart);
+            const string expectedMessage = "Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            Assert.AreEqual("value", exception.ParamName);
+
             Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 

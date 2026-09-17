@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
@@ -83,9 +84,9 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             void Call() => new ShiftedLogNormalDistributionProperties(DistributionReadOnlyProperties.None, new LogNormalDistribution(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(Call);
+            const string expectedMessage = "Change handler required if changes are possible.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
             Assert.AreEqual("handler", exception.ParamName);
-            Assert.AreEqual("Change handler required if changes are possible. (Parameter 'handler')", exception.Message);
         }
 
         [Test]
