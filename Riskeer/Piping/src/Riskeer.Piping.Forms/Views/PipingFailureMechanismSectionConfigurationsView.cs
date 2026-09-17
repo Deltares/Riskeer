@@ -39,7 +39,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public PipingFailureMechanismSectionConfigurationsView(PipingFailureMechanism failureMechanism)
-            : base(failureMechanism?.SectionConfigurations ?? throw new ArgumentNullException(nameof(failureMechanism)), failureMechanism,
+            : base(failureMechanism?.SectionConfigurations, failureMechanism,
                    (configuration, start, end) =>
                    {
                        var changeHandler = new PipingFailureMechanismSectionConfigurationChangeHandler(configuration, failureMechanism);

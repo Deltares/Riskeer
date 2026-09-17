@@ -53,8 +53,13 @@ namespace Riskeer.Common.Forms.Views
         public FailureMechanismSectionConfigurationsView(IObservableEnumerable<TFailureMechanismSectionConfiguration> sectionConfigurations,
                                                          IFailureMechanism failureMechanism,
                                                          Func<TFailureMechanismSectionConfiguration, double, double, TFailureMechanismSectionConfigurationRow> createRowFunc)
-            : base(sectionConfigurations?.Select(sc => sc.Section) ?? throw new ArgumentNullException(nameof(sectionConfigurations)), failureMechanism)
+            : base(sectionConfigurations?.Select(sc => sc.Section) ?? [], failureMechanism)
         {
+            if (sectionConfigurations == null)
+            {
+                throw new ArgumentNullException(nameof(sectionConfigurations));
+            }
+
             if (createRowFunc == null)
             {
                 throw new ArgumentNullException(nameof(createRowFunc));
