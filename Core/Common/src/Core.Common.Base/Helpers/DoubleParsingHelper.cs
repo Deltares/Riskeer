@@ -73,10 +73,6 @@ namespace Core.Common.Base.Helpers
 
                 throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_must_represent_number, exception);
             }
-            catch (OverflowException exception)
-            {
-                throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double, exception);
-            }
         }
     }
 }
