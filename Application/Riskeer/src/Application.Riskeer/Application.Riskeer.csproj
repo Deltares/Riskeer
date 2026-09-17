@@ -77,11 +77,6 @@ All rights reserved.
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="ControlzEx">
-      <Version>4.4.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="EntityFramework">
       <Version>6.5.2</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
@@ -165,7 +160,6 @@ All rights reserved.
     </Compile>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net462\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgEntityFramework)\lib\netstandard2.1\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\EntityFramework-6.5.2\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\netstandard2.0\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\Log4net-3.3.2\*&quot;"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net47\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.11\*&quot;"/>
