@@ -28,7 +28,6 @@ using Core.Gui.Properties;
 using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.ContextMenu
 {
@@ -45,9 +44,9 @@ namespace Core.Gui.Test.ContextMenu
                 Action test = () => new TreeViewContextMenuItemFactory(null, treeViewControl);
 
                 // Assert
-                string message = Assert.Throws<ArgumentNullException>(test).Message;
-                StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de data bekend is.", message);
-                StringAssert.EndsWith("(Parameter 'dataObject')", message);
+                const string expectedMessage = "Kan geen element in het contextmenu creëren zonder dat de data bekend is.";
+                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+                Assert.AreEqual("dataObject", exception.ParamName);
             }
         }
 
@@ -58,9 +57,9 @@ namespace Core.Gui.Test.ContextMenu
             Action test = () => new TreeViewContextMenuItemFactory(new object(), null);
 
             // Assert
-            string message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de boom bekend is.", message);
-            StringAssert.EndsWith("(Parameter 'treeViewControl')", message);
+            const string expectedMessage = "Kan geen element in het contextmenu creëren zonder dat de boom bekend is.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            Assert.AreEqual("treeViewControl", exception.ParamName);
         }
 
         [Test]

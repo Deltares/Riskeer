@@ -30,7 +30,6 @@ using Core.Gui.Plugin;
 using Core.Gui.Properties;
 using NSubstitute;
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace Core.Gui.Test.ContextMenu
 {
@@ -58,11 +57,10 @@ namespace Core.Gui.Test.ContextMenu
                                                          new object());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith($"Kan geen '{nameof(ApplicationFeatureCommandHandler)}'-afhankelijk element " +
-                                    $"in het contextmenu creëren zonder een '{nameof(ApplicationFeatureCommandHandler)}'.",
-                                    exception.Message);
-            StringAssert.EndsWith("(Parameter 'applicationFeatureCommandHandler')", exception.Message);
+            const string expectedMessage = $"Kan geen '{nameof(ApplicationFeatureCommandHandler)}'-afhankelijk element " +
+                                           $"in het contextmenu creëren zonder een '{nameof(ApplicationFeatureCommandHandler)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
+            Assert.AreEqual("applicationFeatureCommandHandler", exception.ParamName);
         }
 
         [Test]
@@ -83,11 +81,10 @@ namespace Core.Gui.Test.ContextMenu
                                                          new object());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith($"Kan geen '{nameof(IImportCommandHandler)}'-afhankelijk element " +
-                                    $"in het contextmenu creëren zonder een '{nameof(IImportCommandHandler)}'.",
-                                    exception.Message);
-            StringAssert.EndsWith("(Parameter 'importCommandHandler')", exception.Message);
+            const string expectedMessage = $"Kan geen '{nameof(IImportCommandHandler)}'-afhankelijk element " +
+                                           $"in het contextmenu creëren zonder een '{nameof(IImportCommandHandler)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
+            Assert.AreEqual("importCommandHandler", exception.ParamName);
         }
 
         [Test]
@@ -108,11 +105,10 @@ namespace Core.Gui.Test.ContextMenu
                                                          new object());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith($"Kan geen '{nameof(IExportCommandHandler)}'-afhankelijk element " +
-                                    $"in het contextmenu creëren zonder een '{nameof(IExportCommandHandler)}'.",
-                                    exception.Message);
-            StringAssert.EndsWith("(Parameter 'exportCommandHandler')", exception.Message);
+            const string expectedMessage = $"Kan geen '{nameof(IExportCommandHandler)}'-afhankelijk element " +
+                                           $"in het contextmenu creëren zonder een '{nameof(IExportCommandHandler)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
+            Assert.AreEqual("exportCommandHandler", exception.ParamName);
         }
 
         [Test]
@@ -133,11 +129,10 @@ namespace Core.Gui.Test.ContextMenu
                                                          new object());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith($"Kan geen '{nameof(IUpdateCommandHandler)}'-afhankelijk element " +
-                                    $"in het contextmenu creëren zonder een '{nameof(IUpdateCommandHandler)}'.",
-                                    exception.Message);
-            StringAssert.EndsWith("(Parameter 'updateCommandHandler')", exception.Message);
+            const string expectedMessage = $"Kan geen '{nameof(IUpdateCommandHandler)}'-afhankelijk element " +
+                                           $"in het contextmenu creëren zonder een '{nameof(IUpdateCommandHandler)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
+            Assert.AreEqual("updateCommandHandler", exception.ParamName);
         }
 
         [Test]
@@ -158,11 +153,10 @@ namespace Core.Gui.Test.ContextMenu
                                                          new object());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith($"Kan geen '{nameof(IViewCommands)}'-afhankelijk element " +
-                                    $"in het contextmenu creëren zonder een '{nameof(IViewCommands)}'.",
-                                    exception.Message);
-            StringAssert.EndsWith("(Parameter 'viewCommandsHandler')", exception.Message);
+            const string expectedMessage = $"Kan geen '{nameof(IViewCommands)}'-afhankelijk element " +
+                                           $"in het contextmenu creëren zonder een '{nameof(IViewCommands)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
+            Assert.AreEqual("viewCommandsHandler", exception.ParamName);
         }
 
         [Test]
@@ -184,9 +178,9 @@ namespace Core.Gui.Test.ContextMenu
                                                          null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            StringAssert.StartsWith("Kan geen element in het contextmenu creëren zonder dat de data bekend is.", exception.Message);
-            StringAssert.EndsWith("(Parameter 'dataObject')", exception.Message);
+            const string expectedMessage = "Kan geen element in het contextmenu creëren zonder dat de data bekend is.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
+            Assert.AreEqual("dataObject", exception.ParamName);
         }
 
         [Test]
