@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Core.Gui.Attributes;
 using Core.Gui.Forms.PropertyView;
 
@@ -92,10 +93,9 @@ namespace Core.Gui.PropertyBag
 
         public AttributeCollection GetAttributes()
         {
-            // Skips compiler injected metadata
             Attribute[] attributes = TypeDescriptor.GetAttributes(this, true)
                                                    .Cast<Attribute>()
-                                                   .Where(attribute => attribute.GetType().Namespace != "System.Runtime.CompilerServices")
+                                                   .Where(attribute => !IsCompilerGenerated(attribute))
                                                    .ToArray();
 
             return attributes.Length == 0 ? AttributeCollection.Empty : new AttributeCollection(attributes);
@@ -190,6 +190,11 @@ namespace Core.Gui.PropertyBag
         {
             BrowsableAttribute browsableAttribute = attributesFilter.OfType<BrowsableAttribute>().FirstOrDefault();
             return browsableAttribute == null || propertySpecDescriptor.IsBrowsable == browsableAttribute.Browsable;
+        }
+
+        private static bool IsCompilerGenerated(Attribute attribute)
+        {
+            return attribute.GetType().Namespace == typeof(CompilerGeneratedAttribute).Namespace;
         }
 
         public object GetPropertyOwner(PropertyDescriptor pd)
