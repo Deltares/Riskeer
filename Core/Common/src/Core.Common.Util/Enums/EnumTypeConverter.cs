@@ -39,6 +39,7 @@ namespace Core.Common.Util.Enums
         /// </summary>
         /// <remarks>This class is designed such that it looks for <see cref="ResourcesDisplayNameAttribute"/> on each Enum value.</remarks>
         /// <param name="type">A <see cref="Type"/> that represents the type of enumeration to associate with this enumeration converter.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="type"/> is not an enumeration type.</exception>
         public EnumTypeConverter(Type type) : base(type) {}
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
