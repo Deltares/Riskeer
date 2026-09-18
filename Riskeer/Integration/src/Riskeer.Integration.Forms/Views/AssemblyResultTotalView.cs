@@ -109,9 +109,10 @@ namespace Riskeer.Integration.Forms.Views
         {
             if (disposing)
             {
-                components?.Dispose();
                 assessmentSectionObserver.Dispose();
                 assessmentSectionResultObserver.Dispose();
+                
+                components?.Dispose();
             }
 
             base.Dispose(disposing);

@@ -88,10 +88,10 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && illustrationPointsFaultTreeControl != null)
+            if (disposing)
             {
-                illustrationPointsFaultTreeControl.SelectionChanged -= IllustrationPointsFaultTreeControlOnSelectionChanged;
-                illustrationPointsFaultTreeControl.Dispose();
+                illustrationPointsFaultTreeControl?.SelectionChanged -= IllustrationPointsFaultTreeControlOnSelectionChanged;
+                illustrationPointsFaultTreeControl?.Dispose();
             }
 
             base.Dispose(disposing);

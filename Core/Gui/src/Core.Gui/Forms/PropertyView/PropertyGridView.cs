@@ -148,16 +148,9 @@ namespace Core.Gui.Forms.PropertyView
 
         private void DisposeObjectProperties()
         {
-            if (objectProperties != null)
-            {
-                objectProperties.RefreshRequired -= HandleRefreshRequired;
-
-                var disposableObjectProperties = objectProperties as IDisposable;
-                disposableObjectProperties?.Dispose();
-
-                var observableObjectProperties = objectProperties.Data as IObservable;
-                observableObjectProperties?.Detach(this);
-            }
+            objectProperties?.RefreshRequired -= HandleRefreshRequired;
+            (objectProperties as IDisposable)?.Dispose();
+            (objectProperties?.Data as IObservable)?.Detach(this);
         }
 
         private void HandleRefreshRequired(object sender, EventArgs e)
