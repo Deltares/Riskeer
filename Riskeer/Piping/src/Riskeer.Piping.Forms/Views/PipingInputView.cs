@@ -138,11 +138,11 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            calculationObserver.Dispose();
-            calculationInputObserver.Dispose();
-
             if (disposing)
             {
+                calculationObserver.Dispose();
+                calculationInputObserver.Dispose();
+
                 components?.Dispose();
             }
 

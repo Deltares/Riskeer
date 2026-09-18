@@ -150,12 +150,12 @@ namespace Riskeer.Revetment.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            calculationObserver.Dispose();
-            calculationInputObserver.Dispose();
-            hydraulicBoundaryLocationCalculationObserver.Dispose();
-
             if (disposing)
             {
+                calculationObserver.Dispose();
+                calculationInputObserver.Dispose();
+                hydraulicBoundaryLocationCalculationObserver.Dispose();
+
                 components?.Dispose();
             }
 

@@ -149,11 +149,11 @@ namespace Core.Components.OxyPlot.Forms
 
         protected override void Dispose(bool disposing)
         {
-            plotView.Dispose();
-            chartDataCollectionObserver.Dispose();
-
             if (disposing)
             {
+                plotView.Dispose();
+                chartDataCollectionObserver.Dispose();
+
                 components?.Dispose();
             }
 

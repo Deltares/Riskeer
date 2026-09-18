@@ -116,11 +116,11 @@ namespace Core.Gui.Forms.ProgressDialog
         {
             if (disposing)
             {
-                components?.Dispose();
                 task?.Dispose();
-            }
+                cancellationTokenSource.Dispose();
 
-            cancellationTokenSource.Dispose();
+                components?.Dispose();
+            }
 
             base.Dispose(disposing);
         }
