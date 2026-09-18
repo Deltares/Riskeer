@@ -128,7 +128,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views.HydraulicLoadsState
             if (disposing)
             {
                 hydraulicBoundaryLocationsMapLayer?.Dispose();
-
                 assessmentSectionObserver?.Dispose();
                 referenceLineObserver?.Dispose();
                 foreshoreProfilesObserver?.Dispose();

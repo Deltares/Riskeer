@@ -128,7 +128,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Views.HydraulicLoadsState
             if (disposing)
             {
                 hydraulicBoundaryLocationsMapLayer?.Dispose();
-
                 assessmentSectionObserver?.Dispose();
                 referenceLineObserver?.Dispose();
                 foreshoreProfilesObserver?.Dispose();

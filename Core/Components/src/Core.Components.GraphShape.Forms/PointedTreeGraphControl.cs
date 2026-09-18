@@ -92,6 +92,7 @@ namespace Core.Components.GraphShape.Forms
             if (disposing)
             {
                 ClearData();
+
                 components?.Dispose();
             }
 

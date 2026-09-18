@@ -131,7 +131,6 @@ namespace Riskeer.HeightStructures.Forms.Views.CalculationsState
             if (disposing)
             {
                 hydraulicBoundaryLocationsMapLayer?.Dispose();
-
                 assessmentSectionObserver?.Dispose();
                 referenceLineObserver?.Dispose();
                 foreshoreProfilesObserver?.Dispose();

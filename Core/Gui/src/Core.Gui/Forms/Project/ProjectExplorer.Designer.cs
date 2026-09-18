@@ -38,7 +38,6 @@ namespace Core.Gui.Forms.Project
             {
                 components.Dispose();
             }
-
             base.Dispose(disposing);
         }
 

@@ -129,7 +129,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views.CalculationsState
             if (disposing)
             {
                 hydraulicBoundaryLocationsMapLayer?.Dispose();
-
                 assessmentSectionObserver?.Dispose();
                 referenceLineObserver?.Dispose();
                 stochasticSoilModelsObserver?.Dispose();
