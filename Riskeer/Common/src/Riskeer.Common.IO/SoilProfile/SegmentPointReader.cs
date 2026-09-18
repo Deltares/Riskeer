@@ -100,11 +100,10 @@ namespace Riskeer.Common.IO.SoilProfile
 
         protected override void Dispose(bool disposing)
         {
-            if (dataReader != null)
+            if (disposing)
             {
-                dataReader.Close();
-                dataReader.Dispose();
-                dataReader = null;
+                dataReader?.Close();
+                dataReader?.Dispose();
             }
 
             base.Dispose(disposing);

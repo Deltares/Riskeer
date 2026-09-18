@@ -74,7 +74,6 @@ namespace Core.Components.DotSpatial.Forms
             if (disposing)
             {
                 backgroundLayerStatus?.Dispose();
-                backgroundLayerStatus = null;
             }
 
             base.Dispose(disposing);
