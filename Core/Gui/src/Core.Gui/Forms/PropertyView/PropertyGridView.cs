@@ -89,7 +89,10 @@ namespace Core.Gui.Forms.PropertyView
 
         protected override void Dispose(bool disposing)
         {
-            DisposeObjectProperties();
+            if (disposing)
+            {
+                DisposeObjectProperties();
+            }
 
             base.Dispose(disposing);
         }

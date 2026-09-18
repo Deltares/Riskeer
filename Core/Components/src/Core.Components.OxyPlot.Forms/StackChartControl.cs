@@ -111,8 +111,11 @@ namespace Core.Components.OxyPlot.Forms
 
         protected override void Dispose(bool disposing)
         {
-            plotView.Dispose();
-            stackChartDataObserver.Dispose();
+            if (disposing)
+            {
+                plotView.Dispose();
+                stackChartDataObserver.Dispose();
+            }
 
             base.Dispose(disposing);
         }

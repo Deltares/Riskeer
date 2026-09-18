@@ -47,7 +47,10 @@ namespace Riskeer.Integration.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            mapLayer.Dispose();
+            if (disposing)
+            {
+                mapLayer.Dispose();
+            }
 
             base.Dispose(disposing);
         }
