@@ -57,8 +57,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views.RegistrationState
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
-            assemblyResultMapLayer.Dispose();
+            if (disposing)
+            {
+                failureMechanismObserver?.Dispose();
+                assemblyResultMapLayer?.Dispose();
+            }
 
             base.Dispose(disposing);
         }

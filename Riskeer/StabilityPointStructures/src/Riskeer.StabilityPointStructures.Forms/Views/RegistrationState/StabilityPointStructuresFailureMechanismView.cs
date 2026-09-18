@@ -57,8 +57,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Views.RegistrationState
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
-            assemblyResultsMapLayer.Dispose();
+            if (disposing)
+            {
+                failureMechanismObserver?.Dispose();
+                assemblyResultsMapLayer?.Dispose();
+            }
 
             base.Dispose(disposing);
         }

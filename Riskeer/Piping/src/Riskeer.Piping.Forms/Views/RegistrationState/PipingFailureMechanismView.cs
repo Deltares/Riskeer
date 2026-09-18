@@ -45,7 +45,10 @@ namespace Riskeer.Piping.Forms.Views.RegistrationState
 
         protected override void Dispose(bool disposing)
         {
-            assemblyResultMapLayer.Dispose();
+            if (disposing)
+            {
+                assemblyResultMapLayer?.Dispose();
+            }
 
             base.Dispose(disposing);
         }
