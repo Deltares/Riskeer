@@ -350,11 +350,10 @@ namespace Core.Common.Controls.TreeView
 
         protected override void Dispose(bool disposing)
         {
-            updateTimer.Stop();
-
             if (disposing)
             {
                 updateTimer.Dispose();
+
                 components?.Dispose();
             }
 
