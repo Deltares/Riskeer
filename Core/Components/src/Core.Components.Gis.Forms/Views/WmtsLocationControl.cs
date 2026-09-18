@@ -103,16 +103,6 @@ namespace Core.Components.Gis.Forms.Views
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                components?.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
-
         private WmtsConnectionInfo PreSelectComboBox()
         {
             WmtsConnectionInfo suggestedInfo = TryCreateWmtsConnectionInfo(activeWmtsMapData?.Name,

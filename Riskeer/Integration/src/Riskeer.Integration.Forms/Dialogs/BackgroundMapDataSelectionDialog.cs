@@ -68,16 +68,6 @@ namespace Riskeer.Integration.Forms.Dialogs
         /// </summary>
         public ImageBasedMapData SelectedMapData { get; private set; }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                components?.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
-
         private BackgroundMapDataSelectionControl GetBackgroundMapDataControlToSelect(ImageBasedMapData mapData)
         {
             if (mapData is WellKnownTileSourceMapData)

@@ -63,16 +63,6 @@ namespace Core.Components.Gis.Forms.Views
         /// </summary>
         public string WmtsConnectionUrl { get; private set; }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                components?.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
-
         protected override Button GetCancelButton()
         {
             return cancelButton;

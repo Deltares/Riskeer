@@ -67,16 +67,6 @@ namespace Riskeer.Common.Forms
             DataGridViewControl.SetDataSource(data);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                components?.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
-
         protected override Button GetCancelButton()
         {
             return CustomCancelButton;
