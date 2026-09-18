@@ -147,9 +147,10 @@ namespace Riskeer.Common.Forms.Views
         {
             if (disposing)
             {
+                calculationsObserver.Dispose();
+                calculationObserver.Dispose();
+
                 components?.Dispose();
-                calculationsObserver?.Dispose();
-                calculationObserver?.Dispose();
             }
 
             base.Dispose(disposing);

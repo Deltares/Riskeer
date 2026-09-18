@@ -93,7 +93,7 @@ namespace Riskeer.Common.Forms.Views
         {
             if (disposing)
             {
-                sectionConfigurationsObserver?.Dispose();
+                sectionConfigurationsObserver.Dispose();
             }
 
             base.Dispose(disposing);

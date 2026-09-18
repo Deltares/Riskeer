@@ -150,13 +150,13 @@ namespace Core.Components.DotSpatial.Forms
         {
             if (disposing)
             {
-                updateTimer?.Dispose();
-                mapFunctionSelectionZoom?.Dispose();
-                mouseCoordinatesMapExtension?.Dispose();
-                mapDataCollectionObserver?.Dispose();
-                backGroundMapDataObserver?.Dispose();
-                backgroundLayerStatus?.Dispose();
-                map?.Dispose();
+                updateTimer.Dispose();
+                mapFunctionSelectionZoom.Dispose();
+                mouseCoordinatesMapExtension.Dispose();
+                mapDataCollectionObserver.Dispose();
+                backGroundMapDataObserver.Dispose();
+                backgroundLayerStatus.Dispose();
+                map.Dispose();
                 
                 components?.Dispose();
             }

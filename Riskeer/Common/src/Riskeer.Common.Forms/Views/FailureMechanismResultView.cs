@@ -159,12 +159,11 @@ namespace Riskeer.Common.Forms.Views
         {
             if (disposing)
             {
-                failureMechanismObserver?.Dispose();
-                failureMechanismSectionResultObserver?.Dispose();
-                failureMechanismSectionResultsObserver?.Dispose();
-                if (DataGridViewControl != null) {
-                    DataGridViewControl.CellFormatting -= HandleCellStyling;
-                }
+                failureMechanismObserver.Dispose();
+                failureMechanismSectionResultObserver.Dispose();
+                failureMechanismSectionResultsObserver.Dispose();
+
+                DataGridViewControl.CellFormatting -= HandleCellStyling;
 
                 RemoveSectionResultRowEvents();
 

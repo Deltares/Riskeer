@@ -220,10 +220,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             if (disposing)
             {
-                calculationObserver?.Dispose();
-                calculationInputObserver?.Dispose();
-                hydraulicLocationCalculationObserver?.Dispose();
-                failureMechanismContributionObserver?.Dispose();
+                calculationObserver.Dispose();
+                calculationInputObserver.Dispose();
+                hydraulicLocationCalculationObserver.Dispose();
+                failureMechanismContributionObserver.Dispose();
 
                 components?.Dispose();
             }

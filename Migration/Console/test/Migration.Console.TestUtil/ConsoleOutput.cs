@@ -70,7 +70,7 @@ namespace Migration.Console.TestUtil
             if (disposing)
             {
                 SystemConsole.SetOut(originalOutput);
-                stringWriter?.Dispose();
+                stringWriter.Dispose();
             }
 
             disposed = true;

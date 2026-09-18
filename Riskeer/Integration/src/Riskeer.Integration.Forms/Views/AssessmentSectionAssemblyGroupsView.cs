@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             if (disposing)
             {
-                failureMechanismContributionObserver?.Dispose();
+                failureMechanismContributionObserver.Dispose();
 
                 components?.Dispose();
             }

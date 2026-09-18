@@ -90,7 +90,8 @@ namespace Riskeer.Common.Forms.Views
         {
             if (disposing)
             {
-                failureMechanismObserver?.Dispose();
+                failureMechanismObserver.Dispose();
+
                 components?.Dispose();
             }
 

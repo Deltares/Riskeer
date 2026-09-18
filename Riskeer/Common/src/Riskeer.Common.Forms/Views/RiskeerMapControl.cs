@@ -99,7 +99,8 @@ namespace Riskeer.Common.Forms.Views
         {
             if (disposing)
             {
-                backgroundDataObserver?.Dispose();
+                backgroundDataObserver.Dispose();
+
                 components?.Dispose();
             }
 

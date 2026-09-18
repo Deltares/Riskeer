@@ -112,8 +112,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             if (disposing)
             {
-                calculationObserver?.Dispose();
-                inputObserver?.Dispose();
+                calculationObserver.Dispose();
+                inputObserver.Dispose();
 
                 components?.Dispose();
             }
