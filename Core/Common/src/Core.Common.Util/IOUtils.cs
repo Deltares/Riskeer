@@ -124,16 +124,7 @@ namespace Core.Common.Util
                 throw new ArgumentException(message);
             }
 
-            string name;
-            try
-            {
-                name = Path.GetFileName(path);
-            }
-            catch (ArgumentException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_cannot_contain_invalid_characters);
-                throw new ArgumentException(message, exception);
-            }
+            string name = Path.GetFileName(path);
 
             if (string.IsNullOrEmpty(name))
             {
