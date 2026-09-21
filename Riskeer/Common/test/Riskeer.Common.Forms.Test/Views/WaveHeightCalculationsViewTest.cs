@@ -105,9 +105,8 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Dispose_ViewNotLoaded_DoesNotThrow()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub();
             var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                      assessmentSection,
+                                                      AssessmentSectionTestHelper.CreateAssessmentSectionStub(),
                                                       () => 0.01,
                                                       () => "1/100");
 

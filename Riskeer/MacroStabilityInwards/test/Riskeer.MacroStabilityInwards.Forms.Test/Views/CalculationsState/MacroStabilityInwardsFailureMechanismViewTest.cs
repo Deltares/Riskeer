@@ -155,8 +155,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
         public void Dispose_ViewNotLoaded_DoesNotThrow()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(),
+                                                                     new AssessmentSectionStub());
 
             // Call
             void Call() => view.Dispose();

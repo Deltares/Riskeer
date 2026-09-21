@@ -179,12 +179,11 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Dispose_ViewNotLoaded_DoesNotThrow()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var view =new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
-                                                       new DuneErosionFailureMechanism(),
-                                                       assessmentSection,
-                                                       () => 0.01,
-                                                       () => "1/100");
+            var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
+                                                        new DuneErosionFailureMechanism(),
+                                                        new AssessmentSectionStub(),
+                                                        () => 0.01,
+                                                        () => "1/100");
 
             // Call
             void Call() => view.Dispose();
