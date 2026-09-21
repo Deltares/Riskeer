@@ -241,7 +241,7 @@ namespace Core.Gui
 
                 isExiting = true;
 
-                mainWindow.UnsubscribeFromGui();
+                mainWindow?.UnsubscribeFromGui();
 
                 Selection = null;
 
