@@ -135,11 +135,11 @@ namespace Riskeer.Piping.Forms.Views
         {
             if (disposing)
             {
-                failureMechanismObserver?.Dispose();
-                sectionConfigurationsObserver?.Dispose();
-                calculationGroupObserver?.Dispose();
-                calculationObserver?.Dispose();
-                calculationInputObserver?.Dispose();
+                failureMechanismObserver.Dispose();
+                sectionConfigurationsObserver.Dispose();
+                calculationGroupObserver.Dispose();
+                calculationObserver.Dispose();
+                calculationInputObserver.Dispose();
 
                 components?.Dispose();
             }
