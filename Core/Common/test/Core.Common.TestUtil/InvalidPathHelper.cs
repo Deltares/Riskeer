@@ -25,7 +25,7 @@ using System.IO;
 namespace Core.Common.TestUtil
 {
     /// <summary>
-    /// Helper containing a source of invalid paths that can be used in tests as a TestCaseSource.
+    /// Helper for creating invalid paths.
     /// </summary>
     public static class InvalidPathHelper
     {
@@ -37,22 +37,12 @@ namespace Core.Common.TestUtil
         /// <summary>
         /// Gets a single path part that exceeds the supported length.
         /// </summary>
-        public static string TooLongPathPart => new string('a', tooLongPathLength);
+        public static string TooLongPathPart => new('a', tooLongPathLength);
 
         /// <summary>
         /// Gets an absolute folder path that exceeds the supported length.
         /// </summary>
         public static string TooLongFolderPath => $@"C:{Path.DirectorySeparatorChar}{TooLongPathPart}{Path.DirectorySeparatorChar}";
-
-        /// <summary>
-        /// Creates an absolute file path that exceeds the supported length.
-        /// </summary>
-        /// <param name="fileName">The file name to append to the too long folder path.</param>
-        /// <returns>A path that should always exceed the supported length.</returns>
-        public static string CreateTooLongFilePath(string fileName)
-        {
-            return Path.Combine(TooLongFolderPath, fileName);
-        }
 
         /// <summary>
         /// Returns a collection of invalid paths.
@@ -70,6 +60,16 @@ namespace Core.Common.TestUtil
                     $@"C:{Path.DirectorySeparatorChar}"
                 };
             }
+        }
+
+        /// <summary>
+        /// Creates an absolute file path that exceeds the supported length.
+        /// </summary>
+        /// <param name="fileName">The file name to append to the too long folder path.</param>
+        /// <returns>A path that should always exceed the supported length.</returns>
+        public static string CreateTooLongFilePath(string fileName)
+        {
+            return Path.Combine(TooLongFolderPath, fileName);
         }
     }
 }

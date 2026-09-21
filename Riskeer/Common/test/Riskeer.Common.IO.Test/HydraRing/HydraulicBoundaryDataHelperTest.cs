@@ -136,7 +136,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         public void ValidateFilesForCalculation_PathToHrdFileTooLong_ReturnsMessageWithError()
         {
             // Setup
-            string hrdFilePath = InvalidPathHelper.TooLongFolderPath + validHrdFileName;
+            string hrdFilePath = InvalidPathHelper.CreateTooLongFilePath(validHrdFileName);
 
             // Call
             string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(validHlcdFilePath, hrdFilePath, false);
