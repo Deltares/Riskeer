@@ -124,9 +124,9 @@ namespace Riskeer.HydraRing.Calculation.Readers
         {
             if (disposing)
             {
-                reader?.Dispose();
-                connection?.Dispose();
-                command?.Dispose();
+                reader.Dispose();
+                connection.Dispose();
+                command.Dispose();
             }
         }
 

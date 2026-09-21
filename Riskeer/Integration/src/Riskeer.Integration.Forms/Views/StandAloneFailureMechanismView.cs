@@ -114,11 +114,11 @@ namespace Riskeer.Integration.Forms.Views
         {
             if (disposing)
             {
-                failureMechanismObserver?.Dispose();
-                assessmentSectionObserver?.Dispose();
-                referenceLineObserver?.Dispose();
-                hydraulicBoundaryLocationsMapLayer?.Dispose();
-                assemblyResultMapLayer?.Dispose();
+                failureMechanismObserver.Dispose();
+                assessmentSectionObserver.Dispose();
+                referenceLineObserver.Dispose();
+                hydraulicBoundaryLocationsMapLayer.Dispose();
+                assemblyResultMapLayer.Dispose();
 
                 components?.Dispose();
             }
