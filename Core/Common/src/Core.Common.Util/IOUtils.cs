@@ -41,14 +41,7 @@ namespace Core.Common.Util
         /// </summary>
         /// <param name="path">The folder path to be validated.</param>
         /// <returns><c>true</c> if the folder path is valid; <c>false</c> otherwise.</returns>
-        /// <remarks>A valid folder path:
-        /// <list type="bullet">
-        /// <item>is not empty nor contains only whitespaces.</item>
-        /// <item>has no access rights to that location.</item>
-        /// <item>isn't too long.</item>
-        /// <item>does not contain an invalid ':' character.</item>
-        /// </list>
-        /// </remarks>
+        /// <remarks>See <see cref="GetFullPath"/> for the conditions that make a folder path valid.</remarks>
         public static bool IsValidFolderPath(string path)
         {
             try
@@ -67,14 +60,8 @@ namespace Core.Common.Util
         /// Validates the folder path.
         /// </summary>
         /// <param name="path">The folder path to be validated.</param>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item>The folder path is empty or contains only whitespaces.</item>
-        /// <item>Caller has no access rights to the folder path.</item>
-        /// <item>The folder path is too long.</item>
-        /// <item>The folder path contains an invalid ':' character.</item>
-        /// </list>
-        /// </exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
+        /// <remarks>See <see cref="GetFullPath"/> for the conditions that make a folder path valid.</remarks>
         public static void ValidateFolderPath(string path)
         {
             try
@@ -128,7 +115,7 @@ namespace Core.Common.Util
         /// </summary>
         /// <param name="path">The file path to be validated.</param>
         /// <returns><c>true</c> if the file path is valid, <c>false</c> otherwise.</returns>
-        /// <remarks>See <see cref="ValidateFilePath"/> for the conditions that make a path valid.</remarks>
+        /// <remarks>See <see cref="ValidateFilePath"/> for the conditions that make a file path valid.</remarks>
         public static bool IsValidFilePath(string path)
         {
             try
@@ -223,14 +210,17 @@ namespace Core.Common.Util
         /// </summary>
         /// <param name="path">The file or directory for which to obtain absolute path information.</param>
         /// <returns>The fully qualified location of path, such as "C:\MyFile.txt".</returns>
-        /// <exception cref="ArgumentException">Thrown when:
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
+        /// <remarks>A valid path:
         /// <list type="bullet">
-        /// <item>The path is <c>null</c>, empty or contains only whitespaces.</item>
-        /// <item>The caller has no access rights to the path.</item>
-        /// <item>The path is too long.</item>
-        /// <item>The path contains a ':' that is not part of a volume identifier.</item>
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>is not too long,</item>
+        /// <item>does not contain a colon outside the volume identifier,</item>
+        /// <item>does not contain an invalid path character (<seealso cref="Path.GetInvalidPathChars()"/>),</item>
+        /// <item>provides the caller with sufficient access rights.</item>
         /// </list>
-        /// </exception>
+        /// </remarks>
         public static string GetFullPath(string path)
         {
             ValidatePath(path);
@@ -243,18 +233,6 @@ namespace Core.Common.Util
             {
                 throw new ArgumentException(Resources.IOUtils_No_access_rights_to_path, exception);
             }
-        }
-
-        private static bool ContainsInvalidColonOutsideVolumeIdentifier(string path)
-        {
-            int colonIndex = path.IndexOf(':');
-            if (colonIndex < 0)
-            {
-                return false;
-            }
-
-            bool hasSingleDriveSeparator = colonIndex == 1 && char.IsLetter(path[0]) && path.IndexOf(':', colonIndex + 1) < 0;
-            return !hasSingleDriveSeparator;
         }
 
         private static void ValidatePath(string path, Func<string, string> decorateMessageFunc = null)
@@ -279,6 +257,18 @@ namespace Core.Common.Util
             }
 
             throw new ArgumentException(message);
+        }
+
+        private static bool ContainsInvalidColonOutsideVolumeIdentifier(string path)
+        {
+            int colonIndex = path.IndexOf(':');
+            if (colonIndex < 0)
+            {
+                return false;
+            }
+
+            bool hasSingleDriveSeparator = colonIndex == 1 && char.IsLetter(path[0]) && path.IndexOf(':', colonIndex + 1) < 0;
+            return !hasSingleDriveSeparator;
         }
     }
 }
