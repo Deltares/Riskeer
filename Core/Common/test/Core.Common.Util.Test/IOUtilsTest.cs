@@ -34,7 +34,7 @@ namespace Core.Common.Util.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void GetFullPath_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
+        public void GetFullPath_EmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
             Action call = () => IOUtils.GetFullPath(invalidPath);
@@ -120,7 +120,7 @@ namespace Core.Common.Util.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void IsValidFolderPath_InvalidEmptyPath_ReturnFalse(string invalidPath)
+        public void IsValidFolderPath_EmptyPath_ReturnFalse(string invalidPath)
         {
             // Call
             bool isFolderPathValid = IOUtils.IsValidFolderPath(invalidPath);
@@ -172,7 +172,7 @@ namespace Core.Common.Util.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void ValidateFolderPath_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
+        public void ValidateFolderPath_EmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
             Action call = () => IOUtils.ValidateFolderPath(invalidPath);
@@ -240,7 +240,7 @@ namespace Core.Common.Util.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void ValidateFilePath_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
+        public void ValidateFilePath_EmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
             Action call = () => IOUtils.ValidateFilePath(invalidPath);
@@ -248,6 +248,37 @@ namespace Core.Common.Util.Test
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void ValidateFilePath_PathTooLong_ThrowsArgumentException()
+        {
+            // Setup
+            string tooLongFilePath = InvalidPathHelper.CreateTooLongFilePath("fileInPathThatIsTooLong.txt");
+
+            // Call
+            Action call = () => IOUtils.ValidateFilePath(tooLongFilePath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            string expectedMessage = $"Fout bij het lezen van bestand '{tooLongFilePath}': het bestandspad is te lang.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void ValidateFilePath_InvalidColonCharacterInPath_ThrowsArgumentException()
+        {
+            // Setup
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util, "validFile.txt");
+            string invalidPath = path.Replace('d', ':');
+
+            // Call
+            Action call = () => IOUtils.ValidateFilePath(invalidPath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': het bestandspad bevat een ':' op een ongeldige plek.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -285,6 +316,24 @@ namespace Core.Common.Util.Test
         }
 
         [Test]
+        public void ValidateFilePath_PathContainingInvalidFileNameCharacters_ThrowsArgumentException()
+        {
+            // Setup
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util, "validFile.txt");
+            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            string invalidPath = path.Replace('d', invalidFileNameChars[0]);
+
+            // Call
+            Action call = () => IOUtils.ValidateFilePath(invalidPath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidPath}': er zitten ongeldige tekens in het bestandspad. "
+                                     + "Alle tekens in het bestandspad moeten geldig zijn.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
         public void IsValidFilePath_ValidPath_ReturnsTrue()
         {
             // Setup
@@ -301,8 +350,32 @@ namespace Core.Common.Util.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void IsValidFilePath_InvalidEmptyPath_ReturnsFalse(string invalidPath)
+        public void IsValidFilePath_EmptyPath_ReturnsFalse(string invalidPath)
         {
+            // Call
+            bool valid = IOUtils.IsValidFilePath(invalidPath);
+
+            // Assert
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        public void IsValidFilePath_PathTooLong_ReturnsFalse()
+        {
+            // Call
+            bool valid = IOUtils.IsValidFilePath(InvalidPathHelper.CreateTooLongFilePath("fileInPathThatIsTooLong.txt"));
+
+            // Assert
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        public void IsValidFilePath_InvalidColonCharacterInPath_ReturnsFalse()
+        {
+            // Setup
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util, "validFile.txt");
+            string invalidPath = path.Replace('d', ':');
+
             // Call
             bool valid = IOUtils.IsValidFilePath(invalidPath);
 
@@ -339,10 +412,25 @@ namespace Core.Common.Util.Test
         }
 
         [Test]
+        public void IsValidFilePath_PathContainingInvalidFileNameCharacters_ReturnsFalse()
+        {
+            // Setup
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util, "validFile.txt");
+            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            string invalidPath = path.Replace('d', invalidFileNameChars[0]);
+
+            // Call
+            bool valid = IOUtils.IsValidFilePath(invalidPath);
+
+            // Assert
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void DeleteOldFiles_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
+        public void DeleteOldFiles_EmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
             Action call = () => IOUtils.DeleteOldFiles(invalidPath, "", 0);
