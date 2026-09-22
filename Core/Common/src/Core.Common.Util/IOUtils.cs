@@ -97,12 +97,13 @@ namespace Core.Common.Util
         /// <list type="bullet">
         /// <item>is not empty or <c>null</c>,</item>
         /// <item>does not consist out of only whitespace characters,</item>
-        /// <item>does not contain an invalid character,</item>
-        /// <item>does not end with a directory or path separator (empty file name).</item>
+        /// <item>is not too long,</item>
+        /// <item>does not contain a colon outside the volume identifier,</item>
+        /// <item>does not contain an invalid path character (<seealso cref="Path.GetInvalidPathChars()"/>),</item>
+        /// <item>does not end with a directory or path separator (empty file name),</item>
+        /// <item>does not have a file name that contains an invalid file name character (<seealso cref="Path.GetInvalidFileNameChars()"/>).</item>
         /// </list>
         /// </remarks>
-        /// <seealso cref="Path.GetInvalidPathChars()"/>
-        /// <seealso cref="Path.GetInvalidFileNameChars()"/>
         public static void ValidateFilePath(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
@@ -122,7 +123,7 @@ namespace Core.Common.Util
                 string message = new FileReaderErrorMessageBuilder(path).Build(Resources.IOUtils_Path_contains_invalid_colon);
                 throw new ArgumentException(message);
             }
-            
+
             if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
             {
                 string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_cannot_contain_invalid_characters);
@@ -149,14 +150,7 @@ namespace Core.Common.Util
         /// </summary>
         /// <param name="path">The file path to be validated.</param>
         /// <returns><c>true</c> if the file path is valid, <c>false</c> otherwise.</returns>
-        /// <remarks>A valid path:
-        /// <list type="bullet">
-        /// <item>contains not only whitespace,</item>
-        /// <item>does not contain an invalid character,</item>
-        /// <item>is not empty or <c>null</c>,</item>
-        /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list>
-        /// </remarks>
+        /// <remarks>See <see cref="ValidateFilePath"/> for the conditions that make a path valid.</remarks>
         public static bool IsValidFilePath(string path)
         {
             try
