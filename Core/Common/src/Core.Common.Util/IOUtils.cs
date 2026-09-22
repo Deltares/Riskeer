@@ -297,10 +297,6 @@ namespace Core.Common.Util
             {
                 throw new ArgumentException(Resources.IOUtils_Path_too_long, exception);
             }
-            catch (NotSupportedException exception)
-            {
-                throw new ArgumentException(Resources.IOUtils_Path_contains_invalid_character, exception);
-            }
         }
 
         private static bool ContainsInvalidColonOutsideVolumeIdentifier(string path)
