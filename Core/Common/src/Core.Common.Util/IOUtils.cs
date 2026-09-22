@@ -285,10 +285,6 @@ namespace Core.Common.Util
             {
                 return Path.GetFullPath(path);
             }
-            catch (ArgumentException exception)
-            {
-                throw new ArgumentException(Resources.Error_Path_cannot_contain_invalid_characters, exception);
-            }
             catch (SecurityException exception)
             {
                 throw new ArgumentException(Resources.IOUtils_No_access_rights_to_path, exception);
