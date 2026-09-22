@@ -174,7 +174,7 @@
   <data name="IOUtils_Path_too_long" xml:space="preserve">
     <value>Het bestandspad is te lang.</value>
   </data>
-  <data name="IOUtils_Path_contains_invalid_character" xml:space="preserve">
+  <data name="IOUtils_Path_contains_invalid_colon" xml:space="preserve">
     <value>Het bestandspad bevat een ':' op een ongeldige plek.</value>
   </data>
   <data name="ColorAccess_Create_Accessible_area_outside_image_bounds_error" xml:space="preserve">

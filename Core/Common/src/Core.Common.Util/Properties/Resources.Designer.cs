@@ -274,9 +274,9 @@ namespace Core.Common.Util.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het bestandspad bevat een &apos;:&apos; op een ongeldige plek..
         /// </summary>
-        public static string IOUtils_Path_contains_invalid_character {
+        public static string IOUtils_Path_contains_invalid_colon {
             get {
-                return ResourceManager.GetString("IOUtils_Path_contains_invalid_character", resourceCulture);
+                return ResourceManager.GetString("IOUtils_Path_contains_invalid_colon", resourceCulture);
             }
         }
         

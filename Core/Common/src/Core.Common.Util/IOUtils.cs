@@ -117,6 +117,12 @@ namespace Core.Common.Util
                 throw new ArgumentException(message, new PathTooLongException());
             }
 
+            if (ContainsInvalidColonOutsideVolumeIdentifier(path))
+            {
+                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.IOUtils_Path_contains_invalid_colon);
+                throw new ArgumentException(message);
+            }
+            
             if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
             {
                 string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_cannot_contain_invalid_characters);
@@ -128,12 +134,6 @@ namespace Core.Common.Util
             if (string.IsNullOrEmpty(name))
             {
                 string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_empty_file_name);
-                throw new ArgumentException(message);
-            }
-
-            if (name.IndexOf(":") >= 0)
-            {
-                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.IOUtils_Path_contains_invalid_character);
                 throw new ArgumentException(message);
             }
 
@@ -268,7 +268,7 @@ namespace Core.Common.Util
 
             if (ContainsInvalidColonOutsideVolumeIdentifier(path))
             {
-                throw new ArgumentException(Resources.IOUtils_Path_contains_invalid_character);
+                throw new ArgumentException(Resources.IOUtils_Path_contains_invalid_colon);
             }
 
             if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
