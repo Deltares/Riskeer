@@ -266,11 +266,6 @@ namespace Core.Common.Util
                 throw new ArgumentException(Resources.IOUtils_Path_cannot_be_empty);
             }
 
-            if (path.Length > maxPath)
-            {
-                throw new ArgumentException(Resources.IOUtils_Path_too_long);
-            }
-
             if (ContainsInvalidColonOutsideVolumeIdentifier(path))
             {
                 throw new ArgumentException(Resources.IOUtils_Path_contains_invalid_character);
