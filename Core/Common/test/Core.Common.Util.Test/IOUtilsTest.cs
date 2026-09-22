@@ -59,6 +59,20 @@ namespace Core.Common.Util.Test
         }
 
         [Test]
+        public void GetFullPath_InvalidColonCharacterInPath_ThrowsArgumentException()
+        {
+            // Setup
+            const string folderWithInvalidColonCharacter = @"C:\Left:Right";
+
+            // Call
+            Action call = () => IOUtils.GetFullPath(folderWithInvalidColonCharacter);
+
+            // Assert
+            const string message = "Het bestandspad bevat een ':' op een ongeldige plek.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        }
+
+        [Test]
         public void GetFullPath_PathContainingInvalidPathCharacters_ThrowsArgumentException()
         {
             // Setup
@@ -71,20 +85,6 @@ namespace Core.Common.Util.Test
 
             // Assert
             const string message = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
-        }
-
-        [Test]
-        public void GetFullPath_InvalidColonCharacterInPath_ThrowsArgumentException()
-        {
-            // Setup
-            const string folderWithInvalidColonCharacter = @"C:\Left:Right";
-
-            // Call
-            Action call = () => IOUtils.GetFullPath(folderWithInvalidColonCharacter);
-
-            // Assert
-            const string message = "Het bestandspad bevat een ':' op een ongeldige plek.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -156,6 +156,21 @@ namespace Core.Common.Util.Test
         }
 
         [Test]
+        public void IsValidFolderPath_PathContainingInvalidPathCharacters_ReturnsFalse()
+        {
+            // Setup
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util);
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+            string invalidPath = path.Replace('d', invalidPathChars[0]);
+
+            // Call
+            bool valid = IOUtils.IsValidFolderPath(invalidPath);
+
+            // Assert
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
         public void IsValidFolderPath_ValidPath_ReturnTrue()
         {
             // Setup
@@ -208,6 +223,24 @@ namespace Core.Common.Util.Test
             // Assert
             string message = $"Fout bij het schrijven naar bestandsmap '{folderWithInvalidColonCharacter}': het bestandspad bevat een ':' op een ongeldige plek.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        }
+
+        [Test]
+        public void ValidateFolderPath_PathContainingInvalidPathCharacters_ThrowsArgumentException()
+        {
+            // Setup
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util);
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+            string invalidPath = path.Replace('d', invalidPathChars[0]);
+
+            // Call
+            Action call = () => IOUtils.ValidateFolderPath(invalidPath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            string expectedMessage = $"Fout bij het schrijven naar bestandsmap '{invalidPath}': er zitten ongeldige tekens in het bestandspad. "
+                                     + "Alle tekens in het bestandspad moeten geldig zijn.";
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
