@@ -106,29 +106,7 @@ namespace Core.Common.Util
         /// </remarks>
         public static void ValidateFilePath(string path)
         {
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_be_specified);
-                throw new ArgumentException(message);
-            }
-
-            if (path.Length > maxPath)
-            {
-                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.IOUtils_Path_too_long);
-                throw new ArgumentException(message, new PathTooLongException());
-            }
-
-            if (ContainsInvalidColonOutsideVolumeIdentifier(path))
-            {
-                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.IOUtils_Path_contains_invalid_colon);
-                throw new ArgumentException(message);
-            }
-
-            if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
-            {
-                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_cannot_contain_invalid_characters);
-                throw new ArgumentException(message);
-            }
+            ValidatePath(path, message => new FileReaderErrorMessageBuilder(path).Build(message));
 
             string name = Path.GetFileName(path);
 
@@ -255,20 +233,7 @@ namespace Core.Common.Util
         /// </exception>
         public static string GetFullPath(string path)
         {
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                throw new ArgumentException(Resources.IOUtils_Path_cannot_be_empty);
-            }
-
-            if (ContainsInvalidColonOutsideVolumeIdentifier(path))
-            {
-                throw new ArgumentException(Resources.IOUtils_Path_contains_invalid_colon);
-            }
-
-            if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
-            {
-                throw new ArgumentException(Resources.Error_Path_cannot_contain_invalid_characters);
-            }
+            ValidatePath(path);
 
             try
             {
@@ -277,10 +242,6 @@ namespace Core.Common.Util
             catch (SecurityException exception)
             {
                 throw new ArgumentException(Resources.IOUtils_No_access_rights_to_path, exception);
-            }
-            catch (PathTooLongException exception)
-            {
-                throw new ArgumentException(Resources.IOUtils_Path_too_long, exception);
             }
         }
 
@@ -294,6 +255,30 @@ namespace Core.Common.Util
 
             bool hasSingleDriveSeparator = colonIndex == 1 && char.IsLetter(path[0]) && path.IndexOf(':', colonIndex + 1) < 0;
             return !hasSingleDriveSeparator;
+        }
+
+        private static void ValidatePath(string path, Func<string, string> decorateMessageFunc = null)
+        {
+            string message = path switch
+            {
+                _ when string.IsNullOrWhiteSpace(path) => Resources.Error_Path_must_be_specified,
+                _ when path.Length > maxPath => Resources.IOUtils_Path_too_long,
+                _ when ContainsInvalidColonOutsideVolumeIdentifier(path) => Resources.IOUtils_Path_contains_invalid_colon,
+                _ when path.IndexOfAny(Path.GetInvalidPathChars()) >= 0 => Resources.Error_Path_cannot_contain_invalid_characters,
+                _ => null
+            };
+
+            if (message == null)
+            {
+                return;
+            }
+
+            if (decorateMessageFunc != null)
+            {
+                message = decorateMessageFunc(message);
+            }
+
+            throw new ArgumentException(message);
         }
     }
 }

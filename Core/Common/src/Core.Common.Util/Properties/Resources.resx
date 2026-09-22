@@ -165,9 +165,6 @@
   <data name="Error_Writing_to_Directory_0_CustomMessage_1_" xml:space="preserve">
     <value>Fout bij het schrijven naar bestandsmap '{0}': {1}</value>
   </data>
-  <data name="IOUtils_Path_cannot_be_empty" xml:space="preserve">
-    <value>Het bestandspad moet opgegeven zijn.</value>
-  </data>
   <data name="IOUtils_No_access_rights_to_path" xml:space="preserve">
     <value>Geen toegangsrechten tot bestandspad.</value>
   </data>

@@ -263,15 +263,6 @@ namespace Core.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestandspad moet opgegeven zijn..
-        /// </summary>
-        public static string IOUtils_Path_cannot_be_empty {
-            get {
-                return ResourceManager.GetString("IOUtils_Path_cannot_be_empty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het bestandspad bevat een &apos;:&apos; op een ongeldige plek..
         /// </summary>
         public static string IOUtils_Path_contains_invalid_colon {

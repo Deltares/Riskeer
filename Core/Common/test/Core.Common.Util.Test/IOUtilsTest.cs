@@ -40,7 +40,7 @@ namespace Core.Common.Util.Test
             Action call = () => IOUtils.GetFullPath(invalidPath);
 
             // Assert
-            const string message = "Het bestandspad moet opgegeven zijn.";
+            const string message = "Bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
@@ -178,7 +178,7 @@ namespace Core.Common.Util.Test
             Action call = () => IOUtils.ValidateFolderPath(invalidPath);
 
             // Assert
-            string message = $"Fout bij het schrijven naar bestandsmap '{invalidPath}': het bestandspad moet opgegeven zijn.";
+            string message = $"Fout bij het schrijven naar bestandsmap '{invalidPath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
