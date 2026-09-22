@@ -177,7 +177,7 @@ namespace Core.Common.Util.Test
             string path = TestHelper.GetScratchPadPath();
 
             // Call
-            bool isFolderPathValid = IOUtils.IsValidFilePath(path);
+            bool isFolderPathValid = IOUtils.IsValidFolderPath(path);
 
             // Assert
             Assert.IsTrue(isFolderPathValid);
