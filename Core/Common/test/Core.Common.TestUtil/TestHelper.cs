@@ -259,9 +259,10 @@ namespace Core.Common.TestUtil
         /// </summary>
         /// <param name="expectedImage">The expected image.</param>
         /// <param name="actualImage">The actual image.</param>
+        /// <param name="tolerance">Allowed difference in pixels.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actualImage"/> is not
         /// equal to <paramref name="expectedImage"/>.</exception>
-        public static void AssertImagesAreEqual(Image expectedImage, Image actualImage)
+        public static void AssertImagesAreEqual(Image expectedImage, Image actualImage, int tolerance = 0)
         {
             if (expectedImage == null)
             {
@@ -274,7 +275,26 @@ namespace Core.Common.TestUtil
             Assert.AreEqual(expectedImage.Size, actualImage.Size);
             IEnumerable<Color> expectedImageBytes = GetImageAsColorArray(expectedImage);
             IEnumerable<Color> actualImageBytes = GetImageAsColorArray(actualImage);
-            CollectionAssert.AreEqual(expectedImageBytes, actualImageBytes);
+            if (tolerance == 0)
+            {
+                CollectionAssert.AreEqual(expectedImageBytes, actualImageBytes);
+            }
+            else
+            {
+                Assert.AreEqual(actualImageBytes.Count(), expectedImageBytes.Count(), "Images are not the same size");
+                var numberOfDifferences = 0;
+                for (var i = 0; i < expectedImageBytes.Count(); i++)
+                {
+                    Color actualColor = actualImageBytes.ElementAt(i);
+                    Color expectedColor = expectedImageBytes.ElementAt(i);
+                    if (expectedColor != actualColor)
+                    {
+                        numberOfDifferences += 1;
+                    }
+                }
+                
+                Assert.LessOrEqual(numberOfDifferences, tolerance, "Expected differences should be smaller than " + tolerance + " but it was " + numberOfDifferences);
+            }
         }
 
         /// <summary>

@@ -46,6 +46,26 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
     [TestFixture]
     public class BruTileLayerTest
     {
+        /// <summary>
+        /// Number of pixels that may differ for test cases that do not involve reprojection.
+        /// </summary>
+        private const int defaultPixelTolerance = 0;
+
+        /// <summary>
+        /// Number of pixels that may differ for test cases that involve reprojection of the tiles.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="TileReprojector"/> inversely projects every destination pixel and truncates the result to an
+        /// integer source pixel index. Pixels landing on a  source pixel boundary (outline) flip to a neighboring
+        /// pixel when the projection math differs slightly. Since the underlying DotSpatial math relies on
+        /// <see cref="Math"/> transcendental functions, which .NET does not guarantee to be bit-identical across
+        /// machines, the reference images generated on a single developer machine deviate by a thin outline of pixels
+        /// on build agents with other hardware or Windows versions. A tolerance of roughly 0.1% of the total number
+        /// of pixels is therefore allowed, which is still far too small to hide an actual rendering regression
+        /// (a misplaced or missing 256x256 tile accounts for tens of thousands of pixels).
+        /// </remarks>
+        private const int reprojectionPixelTolerance = 600;
+
         private static IEnumerable<TestCaseData> DrawRegionsTestCases
         {
             get
@@ -62,7 +82,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
                                               new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
                                               false,
-                                              0f)
+                                              0f,
+                                              defaultPixelTolerance)
                     .SetName("DrawRegions for 2 consecutive tiles at level 4.");
 
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
@@ -77,7 +98,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
                                               null,
                                               false,
-                                              0f)
+                                              0f,
+                                              defaultPixelTolerance)
                     .SetName("DrawRegions for 2 consecutive tiles at level 4 without specifying region.");
 
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
@@ -92,7 +114,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               new DotSpatialExtent(4.71640686348909, 52.5275200480914, 4.84542703038542, 52.622163604187),
                                               new DotSpatialExtent(4.71640686348909, 52.5275200480914, 4.84542703038542, 52.622163604187),
                                               true,
-                                              0f)
+                                              0f,
+                                              reprojectionPixelTolerance)
                     .SetName("DrawRegions for 2 loose tiles at level 9 in WGS84.");
 
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
@@ -107,7 +130,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               new DotSpatialExtent(4.71640686348909, 52.5275200480914, 4.84542703038542, 52.622163604187),
                                               null,
                                               true,
-                                              0f)
+                                              0f,
+                                              defaultPixelTolerance)
                     .SetName("DrawRegions for 2 loose tiles at level 9 in WGS84 without specifying region.");
 
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
@@ -122,7 +146,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               new DotSpatialExtent(4.71640686348909, 52.5275200480914, 4.84542703038542, 52.622163604187),
                                               new DotSpatialExtent(4.58738669659276, 52.5275200480914, 4.45836652969643, 52.622163604187),
                                               false,
-                                              0f)
+                                              0f,
+                                              defaultPixelTolerance)
                     .SetName("DrawRegions at level 9 for region outside viewport.");
 
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
@@ -137,7 +162,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
                                               new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
                                               false,
-                                              1f)
+                                              1f,
+                                              defaultPixelTolerance)
                     .SetName("DrawRegions for 2 consecutive tiles at level 4 for fully transparent layer.");
 
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
@@ -152,7 +178,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
                                               new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
                                               false,
-                                              0.5f)
+                                              0.5f,
+                                              defaultPixelTolerance)
                     .SetName("DrawRegions for 2 consecutive tiles at level 4 for 50% transparent layer.");
 
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
@@ -167,7 +194,8 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
                                               new DotSpatialExtent(-78529.9210634486, 403315.730436505, 306453.46038588, 581961.051306503),
                                               false,
-                                              0f)
+                                              0f,
+                                              defaultPixelTolerance)
                     .SetName("DrawRegions for 2 corrupted image tiles at level 4.");
             }
         }
@@ -604,7 +632,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 layer.DrawRegions(mapArgs, regions);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(expectedResult, mapCanvas);
+                TestHelper.AssertImagesAreEqual(expectedResult, mapCanvas, pixelTolerance);
             }
         }
 
