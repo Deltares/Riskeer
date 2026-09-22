@@ -176,14 +176,7 @@ namespace Core.Common.Util
         /// </summary>
         /// <param name="path">The file path to be created.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
-        /// <remarks>A valid path:
-        /// <list type="bullet">
-        /// <item>is not empty or <c>null</c>,</item>
-        /// <item>does not consist out of only whitespace characters,</item>
-        /// <item>does not contain an invalid character,</item>
-        /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list>
-        /// </remarks>
+        /// <remarks>See <see cref="ValidateFilePath"/> for the conditions that make a file path valid.</remarks>
         public static void CreateFileIfNotExists(string path)
         {
             ValidateFilePath(path);
