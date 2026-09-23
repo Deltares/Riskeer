@@ -182,8 +182,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string expectedMessage = new FileReaderErrorMessageBuilder(filePath)
-                    .Build("Bestandspad mag niet leeg of ongedefinieerd zijn.");
+                var expectedMessage = $"De locatie '{filePath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
                 StringAssert.StartsWith(expectedMessage, messageArray[0]);
             });
             Assert.IsFalse(importResult);
@@ -238,8 +237,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(folderPath)
-                .Build("Bestandspad mag niet verwijzen naar een lege bestandsnaam.");
+            var expectedMessage = $"De locatie '{folderPath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importResult);
         }

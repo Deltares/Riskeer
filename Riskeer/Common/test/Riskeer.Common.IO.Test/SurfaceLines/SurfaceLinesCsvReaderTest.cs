@@ -47,7 +47,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             Action call = () => new SurfaceLinesCsvReader(path);
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(path).Build("Bestandspad mag niet leeg of ongedefinieerd zijn.");
+            var expectedMessage = $"De locatie '{path}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -77,7 +77,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            string expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build("Bestandspad mag niet verwijzen naar een lege bestandsnaam.");
+            var expectedMessage = $"De locatie '{testDataPath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

@@ -51,7 +51,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             Action call = () => reader.ReadWmtsConnectionInfos(filePath);
 
             // Assert
-            const string expectedMessage = "bestandspad mag niet leeg of ongedefinieerd zijn.";
+            const string expectedMessage = "het bestandspad mag niet leeg of ongedefinieerd zijn.";
             string message = Assert.Throws<ArgumentException>(call).Message;
             StringAssert.Contains(expectedMessage, message);
         }
@@ -66,7 +66,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             Action call = () => reader.ReadWmtsConnectionInfos("c:/");
 
             // Assert
-            const string expectedMessage = "bestandspad mag niet verwijzen naar een lege bestandsnaam.";
+            const string expectedMessage = "het bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             string message = Assert.Throws<ArgumentException>(call).Message;
             StringAssert.Contains(expectedMessage, message);
         }
