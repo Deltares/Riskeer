@@ -44,7 +44,7 @@ namespace Riskeer.Migration.Core.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet leeg of ongedefinieerd zijn.", exception.Message);
+            Assert.AreEqual($"De locatie '{filePath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.", exception.Message);
         }
 
         [Test]

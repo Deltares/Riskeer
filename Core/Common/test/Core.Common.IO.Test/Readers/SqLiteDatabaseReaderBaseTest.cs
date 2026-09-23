@@ -111,7 +111,7 @@ namespace Core.Common.IO.Test.Readers
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            string expectedMessage = $"Fout bij het lezen van bestand '{fileName}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            var expectedMessage = $"De locatie '{fileName}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
 
             // Call
             Action test = () => new TestReader(fileName).Dispose();

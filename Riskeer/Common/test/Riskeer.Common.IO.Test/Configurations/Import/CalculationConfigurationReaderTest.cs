@@ -106,7 +106,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             });
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            var expectedMessage = $"De locatie '{invalidFilePath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
@@ -142,7 +142,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             });
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
+            var expectedMessage = $"De locatie '{invalidFilePath}' is ongeldig: het bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 

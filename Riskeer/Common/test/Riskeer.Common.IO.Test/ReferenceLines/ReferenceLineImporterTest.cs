@@ -147,7 +147,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': bestandspad mag niet verwijzen naar een lege bestandsnaam. "
+            string expectedMessage = $@"De locatie '{path}' is ongeldig: het bestandspad mag niet verwijzen naar een lege bestandsnaam. "
                                      + $"{Environment.NewLine}Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);

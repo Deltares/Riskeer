@@ -238,7 +238,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage = string.Format(
-                expectedUpdateDataFailedText, $@"Fout bij het lezen van bestand '{sectionsFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.");
+                expectedUpdateDataFailedText, $@"De locatie '{sectionsFilePath}' is ongeldig: het bestandspad mag niet verwijzen naar een lege bestandsnaam.");
             TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }

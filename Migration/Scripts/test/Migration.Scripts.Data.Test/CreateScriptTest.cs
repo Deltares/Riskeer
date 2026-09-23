@@ -88,7 +88,7 @@ namespace Migration.Scripts.Data.Test
 
             // Assert
             string message = Assert.Throws<ArgumentException>(call).Message;
-            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet leeg of ongedefinieerd zijn.", message);
+            Assert.AreEqual($"De locatie '{filePath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.", message);
         }
 
         [Test]

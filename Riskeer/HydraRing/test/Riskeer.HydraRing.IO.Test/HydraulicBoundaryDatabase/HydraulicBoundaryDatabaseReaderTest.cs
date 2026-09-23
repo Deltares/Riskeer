@@ -81,7 +81,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             };
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hrdFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            var expectedMessage = $"De locatie '{hrdFilePath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

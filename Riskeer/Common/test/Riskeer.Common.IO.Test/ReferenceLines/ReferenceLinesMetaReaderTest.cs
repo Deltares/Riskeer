@@ -49,7 +49,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            var expectedMessage = $"De locatie '{invalidFilePath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -80,7 +80,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
+            var expectedMessage = $"De locatie '{invalidFilePath}' is ongeldig: het bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

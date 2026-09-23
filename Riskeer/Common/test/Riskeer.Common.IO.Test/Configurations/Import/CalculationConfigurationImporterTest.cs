@@ -70,7 +70,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             void Call() => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam. " + Environment.NewLine +
+            string expectedMessage = $"De locatie '{filePath}' is ongeldig: het bestandspad mag niet verwijzen naar een lege bestandsnaam. " + Environment.NewLine +
                                      "Er is geen berekeningenconfiguratie geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
