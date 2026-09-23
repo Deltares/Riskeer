@@ -163,7 +163,7 @@ namespace Core.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn..
+        ///   Looks up a localized string similar to Er zitten ongeldige tekens in het bestandspad..
         /// </summary>
         public static string Error_Path_cannot_contain_invalid_characters {
             get {
@@ -172,7 +172,7 @@ namespace Core.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestandspad mag niet leeg of ongedefinieerd zijn..
+        ///   Looks up a localized string similar to Het bestandspad mag niet leeg of ongedefinieerd zijn..
         /// </summary>
         public static string Error_Path_must_be_specified {
             get {
@@ -181,7 +181,7 @@ namespace Core.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestandspad mag niet verwijzen naar een lege bestandsnaam..
+        ///   Looks up a localized string similar to Het bestandspad mag niet verwijzen naar een lege bestandsnaam..
         /// </summary>
         public static string Error_Path_must_not_point_to_empty_file_name {
             get {
