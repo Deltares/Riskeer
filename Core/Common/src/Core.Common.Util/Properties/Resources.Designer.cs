@@ -254,6 +254,15 @@ namespace Core.Common.Util.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie &apos;{0}&apos; is ongeldig: {1}.
+        /// </summary>
+        public static string IOUtils_Location_0_is_invalid_1_ {
+            get {
+                return ResourceManager.GetString("IOUtils_Location_0_is_invalid_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geen toegangsrechten tot bestandspad..
         /// </summary>
         public static string IOUtils_No_access_rights_to_path {

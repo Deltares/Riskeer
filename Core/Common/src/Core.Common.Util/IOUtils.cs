@@ -24,7 +24,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security;
-using Core.Common.Util.Builders;
 using Core.Common.Util.Properties;
 
 namespace Core.Common.Util
@@ -64,50 +63,7 @@ namespace Core.Common.Util
         /// <remarks>See <see cref="GetFullPath"/> for the conditions that make a folder path valid.</remarks>
         public static void ValidateFolderPath(string path)
         {
-            try
-            {
-                GetFullPath(path);
-            }
-            catch (ArgumentException exception)
-            {
-                string message = new DirectoryWriterErrorMessageBuilder(path).Build(exception.Message);
-                throw new ArgumentException(message, exception.InnerException);
-            }
-        }
-
-        /// <summary>
-        /// Validates the file path.
-        /// </summary>
-        /// <param name="path">The file path to be validated.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
-        /// <remarks>A valid path:
-        /// <list type="bullet">
-        /// <item>is not empty or <c>null</c>,</item>
-        /// <item>does not consist out of only whitespace characters,</item>
-        /// <item>is not too long,</item>
-        /// <item>does not contain a colon outside the volume identifier,</item>
-        /// <item>does not contain an invalid path character (<seealso cref="Path.GetInvalidPathChars()"/>),</item>
-        /// <item>does not end with a directory or path separator (empty file name),</item>
-        /// <item>does not have a file name that contains an invalid file name character (<seealso cref="Path.GetInvalidFileNameChars()"/>).</item>
-        /// </list>
-        /// </remarks>
-        public static void ValidateFilePath(string path)
-        {
-            ValidatePath(path, message => new FileReaderErrorMessageBuilder(path).Build(message));
-
-            string name = Path.GetFileName(path);
-
-            if (string.IsNullOrEmpty(name))
-            {
-                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_empty_file_name);
-                throw new ArgumentException(message);
-            }
-
-            if (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
-            {
-                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_cannot_contain_invalid_characters);
-                throw new ArgumentException(message);
-            }
+            GetFullPath(path);
         }
 
         /// <summary>
@@ -128,6 +84,40 @@ namespace Core.Common.Util
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Validates the file path.
+        /// </summary>
+        /// <param name="path">The file path to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
+        /// <remarks>A valid path:
+        /// <list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>is not too long,</item>
+        /// <item>does not contain a colon outside the volume identifier,</item>
+        /// <item>does not contain an invalid path character (<seealso cref="Path.GetInvalidPathChars()"/>),</item>
+        /// <item>provides the caller with sufficient access rights,</item>
+        /// <item>does not end with a directory or path separator (empty file name),</item>
+        /// <item>does not have a file name that contains an invalid file name character (<seealso cref="Path.GetInvalidFileNameChars()"/>).</item>
+        /// </list>
+        /// </remarks>
+        public static void ValidateFilePath(string path)
+        {
+            string fileName = Path.GetFileName(GetFullPath(path));
+
+            string errorMessage = path switch
+            {
+                _ when string.IsNullOrEmpty(fileName) => Resources.Error_Path_must_not_point_to_empty_file_name,
+                _ when fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0 => Resources.Error_Path_cannot_contain_invalid_characters,
+                _ => null
+            };
+
+            if (errorMessage != null)
+            {
+                throw new ArgumentException(DecorateErrorMessage(errorMessage, path));
+            }
         }
 
         /// <summary>
@@ -175,7 +165,7 @@ namespace Core.Common.Util
         /// Creates a file at <paramref name="path"/> if it does not exist already.
         /// </summary>
         /// <param name="path">The file path to be created.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid or an unexpected error occurred.</exception>
         /// <remarks>See <see cref="ValidateFilePath"/> for the conditions that make a file path valid.</remarks>
         public static void CreateFileIfNotExists(string path)
         {
@@ -216,21 +206,7 @@ namespace Core.Common.Util
         /// </remarks>
         public static string GetFullPath(string path)
         {
-            ValidatePath(path);
-
-            try
-            {
-                return Path.GetFullPath(path);
-            }
-            catch (SecurityException exception)
-            {
-                throw new ArgumentException(Resources.IOUtils_No_access_rights_to_path, exception);
-            }
-        }
-
-        private static void ValidatePath(string path, Func<string, string> decorateMessageFunc = null)
-        {
-            string message = path switch
+            string errorMessage = path switch
             {
                 _ when string.IsNullOrWhiteSpace(path) => Resources.Error_Path_must_be_specified,
                 _ when path.Length > maxPath => Resources.IOUtils_Path_too_long,
@@ -239,17 +215,19 @@ namespace Core.Common.Util
                 _ => null
             };
 
-            if (message == null)
+            if (errorMessage != null)
             {
-                return;
+                throw new ArgumentException(DecorateErrorMessage(errorMessage, path));
             }
 
-            if (decorateMessageFunc != null)
+            try
             {
-                message = decorateMessageFunc(message);
+                return Path.GetFullPath(path);
             }
-
-            throw new ArgumentException(message);
+            catch (SecurityException)
+            {
+                throw new ArgumentException(DecorateErrorMessage(Resources.IOUtils_No_access_rights_to_path, path));
+            }
         }
 
         private static bool ContainsInvalidColonOutsideVolumeIdentifier(string path)
@@ -262,6 +240,11 @@ namespace Core.Common.Util
 
             bool hasSingleDriveSeparator = colonIndex == 1 && char.IsLetter(path[0]) && path.IndexOf(':', colonIndex + 1) < 0;
             return !hasSingleDriveSeparator;
+        }
+
+        private static string DecorateErrorMessage(string errorMessage, string invalidPath)
+        {
+            return string.Format(Resources.IOUtils_Location_0_is_invalid_1_, invalidPath, errorMessage.ToLower());
         }
     }
 }

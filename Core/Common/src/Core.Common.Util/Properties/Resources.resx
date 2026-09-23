@@ -186,4 +186,7 @@
   <data name="FileFilterGenerator_File_filter_format" xml:space="preserve">
     <value>{0} (*.{1})|*.{1}</value>
   </data>
+  <data name="IOUtils_Location_0_is_invalid_1_" xml:space="preserve">
+    <value>De locatie '{0}' is ongeldig: {1}</value>
+  </data>
 </root>
