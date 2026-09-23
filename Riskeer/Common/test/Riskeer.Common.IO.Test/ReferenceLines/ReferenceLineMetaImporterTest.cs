@@ -50,7 +50,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             Action call = () => new ReferenceLineMetaImporter(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"De locatie '{invalidFilePath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

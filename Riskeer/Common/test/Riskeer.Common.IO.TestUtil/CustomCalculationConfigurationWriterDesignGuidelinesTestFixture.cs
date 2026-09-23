@@ -106,7 +106,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Constructor_ExpectedValues()
         {
             // Call
-            TWriter writer = CreateWriterInstance("//validpath//filename.txt");
+            TWriter writer = CreateWriterInstance("\\validpath\\filename.txt");
 
             // Assert
             AssertDefaultConstructedInstance(writer);
@@ -116,7 +116,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Write_ConfigurationNull_ThrowArgumentNullException()
         {
             // Setup
-            TWriter writer = CreateWriterInstance("//validpath//filename.txt");
+            TWriter writer = CreateWriterInstance("\\validpath\\filename.txt");
 
             // Call
             Action test = () => writer.Write(null);
