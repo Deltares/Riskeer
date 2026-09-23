@@ -91,8 +91,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             Action call = () => reader.ReadDikeProfileData(invalidFilePath);
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
-                                     + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+            var expectedMessage = $"De locatie '{invalidFilePath}' is ongeldig: er zitten ongeldige tekens in het bestandspad.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

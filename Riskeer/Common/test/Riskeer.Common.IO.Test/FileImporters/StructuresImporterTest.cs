@@ -213,8 +213,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                string expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
-                    .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
+                var expectedMessage = $"De locatie '{invalidPath}' is ongeldig: er zitten ongeldige tekens in het bestandspad.";
                 StringAssert.StartsWith(expectedMessage, messages.First());
             });
             Assert.IsFalse(importResult);

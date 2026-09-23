@@ -123,8 +123,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 Action call = () => writer.SaveAs(filePath);
 
                 // Assert
-                string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': "
-                                         + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
+                var expectedMessage = $"De locatie '{filePath}' is ongeldig: er zitten ongeldige tekens in het bestandspad.";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             }
         }

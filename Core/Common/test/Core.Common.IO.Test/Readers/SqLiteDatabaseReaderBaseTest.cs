@@ -85,8 +85,7 @@ namespace Core.Common.IO.Test.Readers
             Action test = () => new TestReader(corruptPath).Dispose();
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
+            var expectedMessage = $"De locatie '{corruptPath}' is ongeldig: er zitten ongeldige tekens in het bestandspad.";
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

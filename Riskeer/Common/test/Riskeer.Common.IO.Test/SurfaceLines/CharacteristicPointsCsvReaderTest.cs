@@ -64,8 +64,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             Action call = () => new CharacteristicPointsCsvReader(corruptPath);
 
             // Assert
-            const string innerErrorMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
-            string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerErrorMessage);
+            var expectedMessage = $"De locatie '{corruptPath}' is ongeldig: er zitten ongeldige tekens in het bestandspad.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

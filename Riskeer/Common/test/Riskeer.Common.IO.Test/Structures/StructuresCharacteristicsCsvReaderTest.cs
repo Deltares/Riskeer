@@ -63,8 +63,7 @@ namespace Riskeer.Common.IO.Test.Structures
             Action call = () => new StructuresCharacteristicsCsvReader(corruptPath);
 
             // Assert
-            const string innerExpectedMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
-            string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerExpectedMessage);
+            var expectedMessage = $"De locatie '{corruptPath}' is ongeldig: er zitten ongeldige tekens in het bestandspad.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
