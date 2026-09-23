@@ -68,7 +68,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             Action call = () => new ReferenceLineMetaImporter(invalidFilePath);
 
             // Assert
-            var expectedMessage = $"De locatie '{invalidFilePath}' is ongeldig: er zitten ongeldige tekens in het bestandspad.";
+            var expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': er zitten ongeldige tekens in het bestandspad.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

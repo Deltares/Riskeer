@@ -135,7 +135,7 @@ namespace Riskeer.Storage.Core.Test
                 var exception = Assert.Throws<ArgumentException>(() => new SafeFileWriter(targetFilePath, temporaryFileExtension));
 
                 // Assert
-                Assert.AreEqual($"Fout bij het lezen van bestand '{targetFilePath}': het bestandspad is te lang.", exception.Message);
+                Assert.AreEqual($"De locatie '{targetFilePath}' is ongeldig: het bestandspad is te lang.", exception.Message);
             }
         }
 

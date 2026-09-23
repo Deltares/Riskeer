@@ -75,7 +75,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(validHlcdFilePath, hrdFilePath, false);
 
             // Assert
-            StringAssert.StartsWith($"Fout bij het lezen van bestand '{hrdFilePath}':", result);
+            StringAssert.StartsWith($"De locatie '{hrdFilePath}' is ongeldig:", result);
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(validHlcdFilePath, hrdFilePath, false);
 
             // Assert
-            StringAssert.StartsWith($"Fout bij het lezen van bestand '{hrdFilePath}':", result);
+            StringAssert.StartsWith($"De locatie '{hrdFilePath}' is ongeldig:", result);
         }
 
         [Test]
@@ -142,7 +142,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             string result = HydraulicBoundaryDataHelper.ValidateFilesForCalculation(validHlcdFilePath, hrdFilePath, false);
 
             // Assert
-            Assert.AreEqual($"Fout bij het lezen van bestand '{hrdFilePath}': het bestandspad is te lang.", result);
+            Assert.AreEqual($"De locatie '{hrdFilePath}' is ongeldig: het bestandspad is te lang.", result);
         }
 
         [Test]
