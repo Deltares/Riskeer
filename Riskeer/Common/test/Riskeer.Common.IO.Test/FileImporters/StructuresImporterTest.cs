@@ -237,7 +237,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            var expectedMessage = $"De locatie '{folderPath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
+            var expectedMessage = $"De locatie '{folderPath}' is ongeldig: het bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importResult);
         }

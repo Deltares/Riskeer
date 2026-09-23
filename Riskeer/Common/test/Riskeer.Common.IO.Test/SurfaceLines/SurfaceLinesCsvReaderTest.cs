@@ -77,7 +77,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = $"De locatie '{testDataPath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.";
+            var expectedMessage = $"De locatie '{testDataPath}' is ongeldig: het bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
