@@ -69,8 +69,7 @@ namespace Riskeer.Storage.Core.Test
             // Assert
             var exception = Assert.Throws<ArgumentException>(Call);
             Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual($"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet leeg of ongedefinieerd zijn.",
-                            exception.Message);
+            Assert.AreEqual($"De locatie '{invalidPath}' is ongeldig: het bestandspad mag niet leeg of ongedefinieerd zijn.", exception.Message);
         }
 
         [Test]
