@@ -187,7 +187,7 @@ namespace Riskeer.Common.IO.TestUtil
         protected virtual void AssertTooLongPath(ArgumentException exception, string filePath)
         {
             Assert.IsNotNull(exception);
-            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': het bestandspad is te lang.", exception.Message);
+            Assert.AreEqual($"De locatie '{filePath}' is ongeldig: het bestandspad is te lang.", exception.Message);
         }
 
         protected virtual void AssertInvalidDirectoryRights(CriticalFileWriteException exception, string filePath)

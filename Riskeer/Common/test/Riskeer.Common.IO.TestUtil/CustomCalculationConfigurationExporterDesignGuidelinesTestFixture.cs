@@ -114,7 +114,7 @@ namespace Riskeer.Common.IO.TestUtil
             }, filePath);
 
             var exception = Assert.Throws<ArgumentException>(Call);
-            Assert.AreEqual($"Fout bij het lezen van bestand '{filePath}': het bestandspad is te lang.", exception.Message);
+            Assert.AreEqual($"De locatie '{filePath}' is ongeldig: het bestandspad is te lang.", exception.Message);
         }
 
         private static IEnumerable<Tuple<string, LogLevelConstant>> GetExpectedExportFailedLogMessages(string filePath)
