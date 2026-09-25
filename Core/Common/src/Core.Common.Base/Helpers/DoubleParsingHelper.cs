@@ -55,14 +55,7 @@ namespace Core.Common.Base.Helpers
         {
             try
             {
-                double parsed = Convert.ToDouble(value, culture);
-                // To maintain consistent net framework 481 behaviour, we throw positive infinity and negative infinity values as an exception 
-                if (double.IsPositiveInfinity(parsed) || double.IsNegativeInfinity(parsed))
-                {
-                    throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double, new OverflowException());
-                }
-
-                return parsed;
+                return DoubleHelper.ConvertToDouble(value, culture);
             }
             catch (FormatException exception)
             {
@@ -72,6 +65,10 @@ namespace Core.Common.Base.Helpers
                 }
 
                 throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_must_represent_number, exception);
+            }
+            catch (OverflowException exception)
+            {
+                throw new DoubleParsingException(Resources.DoubleParsingHelper_Parse_String_too_small_or_too_big_to_represent_as_double, exception);
             }
         }
     }
