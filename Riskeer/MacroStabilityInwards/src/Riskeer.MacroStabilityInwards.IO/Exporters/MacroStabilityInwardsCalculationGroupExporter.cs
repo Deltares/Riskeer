@@ -67,13 +67,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationGroup"/>, <paramref name="generalInput"/>,
         /// <paramref name="persistenceFactory"/>, or <paramref name="getNormativeAssessmentLevelFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        /// <remarks>A valid path:<list type="bullet">
-        /// <item>is not empty or <c>null</c>,</item>
-        /// <item>does not consist out of only whitespace characters,</item>
-        /// <item>does not contain an invalid character,</item>
-        /// <item>is not too long.</item>
-        /// </list>
-        /// </remarks>
+        /// <remarks>See <see cref="IOUtils.ValidateFilePath"/> for the conditions that make a file path valid.</remarks>
         public MacroStabilityInwardsCalculationGroupExporter(CalculationGroup calculationGroup, GeneralMacroStabilityInwardsInput generalInput,
                                                              IPersistenceFactory persistenceFactory, string filePath,
                                                              string fileExtension, Func<MacroStabilityInwardsCalculation, RoundedDouble> getNormativeAssessmentLevelFunc)
