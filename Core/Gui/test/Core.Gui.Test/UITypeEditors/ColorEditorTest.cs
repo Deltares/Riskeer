@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Drawing.Design;
-using Core.Gui.UITypeEditors;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using ColorEditor = Core.Gui.UITypeEditors.ColorEditor;
 
 namespace Core.Gui.Test.UITypeEditors
 {
@@ -33,7 +33,7 @@ namespace Core.Gui.Test.UITypeEditors
         public void DefaultConstructor_ReturnsNewInstance()
         {
             // Call
-            var editor = new Core.Gui.UITypeEditors.ColorEditor();
+            var editor = new ColorEditor();
 
             // Assert
             Assert.IsInstanceOf<UITypeEditor>(editor);
@@ -43,7 +43,7 @@ namespace Core.Gui.Test.UITypeEditors
         public void GetEditStyle_Always_ReturnUITypeEditorEditStyleModal()
         {
             // Setup
-            var editor = new Core.Gui.UITypeEditors.ColorEditor();
+            var editor = new ColorEditor();
 
             // Call
             UITypeEditorEditStyle editStyle = editor.GetEditStyle(null);
@@ -56,7 +56,7 @@ namespace Core.Gui.Test.UITypeEditors
         public void EditValue_WithOtherValue_ReturnSameValue()
         {
             // Setup
-            var editor = new Core.Gui.UITypeEditors.ColorEditor();
+            var editor = new ColorEditor();
             var value = new object();
 
             // Call
@@ -70,7 +70,7 @@ namespace Core.Gui.Test.UITypeEditors
         public void GetPaintValueSupported_Always_ReturnTrue()
         {
             // Setup
-            var editor = new Core.Gui.UITypeEditors.ColorEditor();
+            var editor = new ColorEditor();
 
             // Call
             bool paintValueSupported = editor.GetPaintValueSupported();

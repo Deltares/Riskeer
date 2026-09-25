@@ -27,7 +27,6 @@ using Core.Components.Chart.Data;
 using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.Properties;
-using Core.Gui.UITypeEditors;
 
 namespace Core.Gui.PropertyClasses.Chart
 {
@@ -49,7 +48,7 @@ namespace Core.Gui.PropertyClasses.Chart
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartAreaData_FillColor_Description))]
-        [Editor(typeof(Core.Gui.UITypeEditors.ColorEditor), typeof(UITypeEditor))]
+        [Editor(typeof(UITypeEditors.ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color FillColor
         {
@@ -69,7 +68,7 @@ namespace Core.Gui.PropertyClasses.Chart
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeColor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartAreaData_StrokeColor_Description))]
-        [Editor(typeof(Core.Gui.UITypeEditors.ColorEditor), typeof(UITypeEditor))]
+        [Editor(typeof(UITypeEditors.ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color StrokeColor
         {
