@@ -32,7 +32,7 @@ namespace Core.Common.Base.Helpers
     public static class DoubleParsingHelper
     {
         /// <summary>
-        /// Parses a string value to a <see cref="double"/> using <see cref="CultureInfo.CurrentCulture"/>. 
+        /// Parses a string value to a <see cref="double"/>. 
         /// </summary>
         /// <param name="value">The value to be parsed.</param>
         /// <returns>A <see cref="double"/>.</returns>
@@ -40,22 +40,9 @@ namespace Core.Common.Base.Helpers
         /// parsed as a <see cref="double"/>.</exception>
         public static double Parse(string value)
         {
-            return Parse(value, CultureInfo.CurrentCulture);
-        }
-
-        /// <summary>
-        /// Parses a string value to a <see cref="double"/> using the specified <see cref="CultureInfo"/>.
-        /// </summary>
-        /// <param name="value">The value to be parsed.</param>
-        /// <param name="culture">The culture to use for parsing.</param>
-        /// <returns>A <see cref="double"/>.</returns>
-        /// <exception cref="DoubleParsingException">Thrown when <paramref name="value"/> could not be successfully
-        /// parsed as a <see cref="double"/>.</exception>
-        public static double Parse(string value, CultureInfo culture)
-        {
             try
             {
-                return DoubleHelper.ConvertToDouble(value, culture);
+                return DoubleHelper.ConvertToDouble(value, CultureInfo.CurrentCulture);
             }
             catch (FormatException exception)
             {
