@@ -38,7 +38,7 @@ namespace Core.Common.Base.Helpers
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         /// <exception cref="FormatException">Thrown when <paramref name="value"/> does not represent a number in a valid format.</exception>
         /// <exception cref="OverflowException">Thrown when the parsed value equals <see cref="double.PositiveInfinity"/> or <see cref="double.NegativeInfinity"/>.</exception>
-        public static double Parse(string value, CultureInfo culture)
+        public static double Parse(string value, CultureInfo culture = null)
         {
             double parsedDouble = double.Parse(value, culture);
 
@@ -56,7 +56,7 @@ namespace Core.Common.Base.Helpers
         /// <exception cref="FormatException">Thrown when <paramref name="value"/> is not in an appropriate format for a double type.</exception>
         /// <exception cref="InvalidCastException">Thrown when <paramref name="value"/> does not implement the <see cref="IConvertible"/> interface.</exception>
         /// <exception cref="OverflowException">Thrown when the converted value equals <see cref="double.PositiveInfinity"/> or <see cref="double.NegativeInfinity"/>.</exception>
-        public static double ConvertToDouble(object? value, CultureInfo culture)
+        public static double ConvertToDouble(object? value, CultureInfo culture = null)
         {
             var convertedDouble = Convert.ToDouble(value, culture);
 

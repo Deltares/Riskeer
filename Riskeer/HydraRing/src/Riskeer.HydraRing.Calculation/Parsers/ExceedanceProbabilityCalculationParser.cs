@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Helpers;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.Properties;
 
@@ -65,7 +66,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers
         {
             try
             {
-                Output = Convert.ToDouble(result[betaColumnName]);
+                Output = DoubleHelper.ConvertToDouble(result[betaColumnName]);
             }
             catch (InvalidCastException e)
             {

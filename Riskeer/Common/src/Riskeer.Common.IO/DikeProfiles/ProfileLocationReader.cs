@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Helpers;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
@@ -174,8 +175,7 @@ namespace Riskeer.Common.IO.DikeProfiles
 
             try
             {
-                double val = Convert.ToDouble(value);
-                return double.IsInfinity(val) ? throw new LineParseException(Resources.ProfileLocationReader_GetProfileLocations_Invalid_X0, new OverflowException()) : val;
+                return DoubleHelper.ConvertToDouble(value);
             }
             catch (Exception e) when (e is FormatException || e is InvalidCastException || e is OverflowException)
             {

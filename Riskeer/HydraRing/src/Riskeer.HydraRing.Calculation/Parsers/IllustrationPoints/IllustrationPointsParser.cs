@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
+using Core.Common.Base.Helpers;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.Properties;
@@ -474,7 +475,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
         /// <returns>The converted double.</returns>
         /// <exception cref="HydraRingFileParserException">Thrown when <paramref name="doubleValue"/> 
         /// is <see cref="DBNull"/>.</exception>
-        /// <seealso cref="Convert.ToDouble(object)"/>
+        /// <seealso cref="DoubleHelper.ConvertToDouble"/>
         private static double ConvertToDouble(object doubleValue, string identifier)
         {
             if (doubleValue.Equals(DBNull.Value))
@@ -482,7 +483,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
                 throw new HydraRingFileParserException(string.Format(Resources.IllustrationPointsParser_Parse_Column_0_is_Null, identifier));
             }
 
-            return Convert.ToDouble(doubleValue);
+            return DoubleHelper.ConvertToDouble(doubleValue);
         }
 
         /// <summary>

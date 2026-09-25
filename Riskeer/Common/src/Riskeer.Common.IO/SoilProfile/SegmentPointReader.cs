@@ -25,6 +25,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Helpers;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
@@ -168,8 +169,8 @@ namespace Riskeer.Common.IO.SoilProfile
                                   ReadStochasticSoilModelSegmentName()));
             }
 
-            double coordinateXValue = Convert.ToDouble(coordinateX);
-            double coordinateYValue = Convert.ToDouble(coordinateY);
+            double coordinateXValue = DoubleHelper.ConvertToDouble(coordinateX);
+            double coordinateYValue = DoubleHelper.ConvertToDouble(coordinateY);
             return new Point2D(coordinateXValue, coordinateYValue);
         }
 

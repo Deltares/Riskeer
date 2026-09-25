@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Helpers;
 using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Properties;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -51,18 +52,12 @@ namespace Riskeer.Common.Forms.Helpers
                 string trimmedString = value.Trim();
                 if (!trimmedString.StartsWith(returnPeriodNotation))
                 {
-                  double doubleVal = Convert.ToDouble(value);
-                  if (double.IsInfinity(doubleVal))
-                  {
-                      throw new OverflowException();
-                  }
-
-                  return doubleVal;
+                    return DoubleHelper.ConvertToDouble(value);
                 }
 
                 string returnPeriodValue = trimmedString.Substring(2).ToLower();
                 return returnPeriodValue != CommonBaseResources.RoundedDouble_ToString_PositiveInfinity.ToLower()
-                           ? 1 / Convert.ToDouble(returnPeriodValue)
+                           ? 1 / DoubleHelper.ConvertToDouble(returnPeriodValue)
                            : 0.0;
             }
             catch (FormatException exception)

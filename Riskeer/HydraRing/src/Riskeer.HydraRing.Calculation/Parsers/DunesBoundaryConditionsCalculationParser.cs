@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Helpers;
 using Riskeer.HydraRing.Calculation.Data.Output;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.Properties;
@@ -78,12 +79,12 @@ namespace Riskeer.HydraRing.Calculation.Parsers
         {
             try
             {
-                double waveHeight = Convert.ToDouble(result[waveHeightColumnName]);
-                double wavePeriod = Convert.ToDouble(result[wavePeriodColumnName]);
-                double waterLevel = Convert.ToDouble(result[waterLevelColumnName]);
-                double meanTidalAmplitude = Convert.ToDouble(result[meanTidalAmplitudeColumnName]);
-                double waveDirectionalSpread = Convert.ToDouble(result[waveDirectionalSpreadColumnName]);
-                double tideSurgePhaseDifference = Convert.ToDouble(result[tideSurgePhaseDifferenceColumnName]);
+                double waveHeight = DoubleHelper.ConvertToDouble(result[waveHeightColumnName]);
+                double wavePeriod = DoubleHelper.ConvertToDouble(result[wavePeriodColumnName]);
+                double waterLevel = DoubleHelper.ConvertToDouble(result[waterLevelColumnName]);
+                double meanTidalAmplitude = DoubleHelper.ConvertToDouble(result[meanTidalAmplitudeColumnName]);
+                double waveDirectionalSpread = DoubleHelper.ConvertToDouble(result[waveDirectionalSpreadColumnName]);
+                double tideSurgePhaseDifference = DoubleHelper.ConvertToDouble(result[tideSurgePhaseDifferenceColumnName]);
 
                 Output = new DunesBoundaryConditionsCalculationOutput(
                     waterLevel, waveHeight, wavePeriod, meanTidalAmplitude, waveDirectionalSpread, tideSurgePhaseDifference);

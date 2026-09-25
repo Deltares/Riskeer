@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using Core.Common.Base.Helpers;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
@@ -407,7 +408,7 @@ namespace Riskeer.Common.IO.SoilProfile
             object probability = dataReader[StochasticSoilProfileTableDefinitions.Probability];
             return probability == Convert.DBNull
                        ? (double?) null
-                       : Convert.ToDouble(probability);
+                       : DoubleHelper.ConvertToDouble(probability);
         }
 
         /// <summary>
