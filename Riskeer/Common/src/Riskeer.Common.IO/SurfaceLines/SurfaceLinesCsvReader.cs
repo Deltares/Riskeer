@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Core.Common.Base.Exceptions;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Helpers;
 using Core.Common.Base.IO;
@@ -308,16 +307,15 @@ namespace Riskeer.Common.IO.SurfaceLines
             try
             {
                 return tokenizedString.Skip(startGeometryColumnIndex)
-                                      .Select(ts => DoubleParsingHelper.Parse(ts, CultureInfo.InvariantCulture)).ToArray();
+                                      .Select(ts => DoubleHelper.Parse(ts, CultureInfo.InvariantCulture)).ToArray();
             }
-            catch (DoubleParsingException e) when (e.InnerException is FormatException)
+            catch (FormatException e)
             {
                 throw CreateLineParseException(lineNumber, surfaceLineName, Resources.Error_SurfaceLine_has_not_double, e);
             }
-            catch (DoubleParsingException e) when (e.InnerException is OverflowException)
+            catch (OverflowException e)
             {
-                throw CreateLineParseException(lineNumber, surfaceLineName, Resources.Error_SurfaceLine_parsing_causes_overflow, 
-                                               e);
+                throw CreateLineParseException(lineNumber, surfaceLineName, Resources.Error_SurfaceLine_parsing_causes_overflow, e);
             }
         }
 

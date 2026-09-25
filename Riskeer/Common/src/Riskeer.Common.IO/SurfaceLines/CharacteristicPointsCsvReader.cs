@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Core.Common.Base.Exceptions;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Helpers;
 using Core.Common.Base.IO;
@@ -430,9 +429,9 @@ namespace Riskeer.Common.IO.SurfaceLines
                     int zColumnIndex = columnsInFile[zPrefix + typeKey];
 
                     point = new Point3D(
-                        DoubleParsingHelper.Parse(valuesRead[xColumnIndex], CultureInfo.InvariantCulture),
-                        DoubleParsingHelper.Parse(valuesRead[yColumnIndex], CultureInfo.InvariantCulture),
-                        DoubleParsingHelper.Parse(valuesRead[zColumnIndex], CultureInfo.InvariantCulture)
+                        DoubleHelper.Parse(valuesRead[xColumnIndex], CultureInfo.InvariantCulture),
+                        DoubleHelper.Parse(valuesRead[yColumnIndex], CultureInfo.InvariantCulture),
+                        DoubleHelper.Parse(valuesRead[zColumnIndex], CultureInfo.InvariantCulture)
                     );
 
                     if (point.Equals(undefinedPoint))
@@ -443,13 +442,13 @@ namespace Riskeer.Common.IO.SurfaceLines
 
                 return point;
             }
-            catch (DoubleParsingException e) when (e.InnerException is FormatException)
+            catch (FormatException e)
             {
-                throw CreateLineParseException(lineNumber, locationName, Resources.Error_CharacteristicPoint_has_not_double, e.InnerException);
+                throw CreateLineParseException(lineNumber, locationName, Resources.Error_CharacteristicPoint_has_not_double, e);
             }
-            catch (DoubleParsingException e) when (e.InnerException is OverflowException)
+            catch (OverflowException e)
             {
-                throw CreateLineParseException(lineNumber, locationName, Resources.Error_CharacteristicPoint_parsing_causes_overflow, e.InnerException);
+                throw CreateLineParseException(lineNumber, locationName, Resources.Error_CharacteristicPoint_parsing_causes_overflow, e);
             }
         }
 

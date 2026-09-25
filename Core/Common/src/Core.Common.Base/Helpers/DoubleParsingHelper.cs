@@ -32,7 +32,7 @@ namespace Core.Common.Base.Helpers
     public static class DoubleParsingHelper
     {
         /// <summary>
-        /// Parses a string value to a <see cref="double"/>. 
+        /// Parses a string value to a <see cref="double"/>.
         /// </summary>
         /// <param name="value">The value to be parsed.</param>
         /// <returns>A <see cref="double"/>.</returns>
