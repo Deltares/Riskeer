@@ -30,19 +30,10 @@ namespace Riskeer.Common.IO.Configurations.Export
     public abstract class StructureCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T>
         where T : StructuresCalculationConfiguration
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationConfigurationWriter{T}"/>.
+        /// Creates a new instance of <see cref="StructureCalculationConfigurationWriter{T}"/>.
         /// </summary>
-        /// <param name="filePath">The path of the file to write to.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        /// <remarks>A valid path:
-        /// <list type="bullet">
-        /// <item>is not empty or <c>null</c>,</item>
-        /// <item>does not consist out of only whitespace characters,</item>
-        /// <item>does not contain an invalid character,</item>
-        /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list>
-        /// </remarks>
         protected StructureCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
         protected override void WriteCalculation(T configuration, XmlWriter writer)

@@ -35,19 +35,10 @@ namespace Riskeer.Revetment.IO.Configurations
     public abstract class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T>
         where T : WaveConditionsCalculationConfiguration
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationWriter{T}"/>.
         /// </summary>
-        /// <param name="filePath">The path of the file to write to.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        /// <remarks>A valid path:
-        /// <list type="bullet">
-        /// <item>is not empty or <c>null</c>,</item>
-        /// <item>does not consist out of only whitespace characters,</item>
-        /// <item>does not contain an invalid character,</item>
-        /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list>
-        /// </remarks>
         protected WaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
 
