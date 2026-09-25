@@ -47,14 +47,7 @@ namespace Riskeer.AssemblyTool.IO
         /// </summary>
         /// <param name="filePath">The path of the file to write to.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        /// <remarks>A valid path:
-        /// <list type="bullet">
-        /// <item>is not empty or <c>null</c>,</item>
-        /// <item>does not consist out of only whitespace characters,</item>
-        /// <item>does not contain an invalid character,</item>
-        /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list>
-        /// </remarks>
+        /// <remarks>See <see cref="IOUtils.ValidateFilePath"/> for the conditions that make a file path valid.</remarks>
         public AssemblyGmlWriter(string filePath)
         {
             IOUtils.ValidateFilePath(filePath);

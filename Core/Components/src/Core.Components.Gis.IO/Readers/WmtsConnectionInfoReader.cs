@@ -48,14 +48,7 @@ namespace Core.Components.Gis.IO.Readers
         /// <returns>The read <see cref="WmtsConnectionInfo"/> information.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when <paramref name="path"/> could not successfully be read.</exception>
-        /// <remarks>A valid path:
-        /// <list type="bullet">
-        /// <item>is not empty or <c>null</c>,</item>
-        /// <item>does not consist out of only whitespace characters,</item>
-        /// <item>does not contain an invalid character,</item>
-        /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list>
-        /// </remarks>
+        /// <remarks>See <see cref="IOUtils.ValidateFilePath"/> for the conditions that make a file path valid.</remarks>
         public ReadOnlyCollection<WmtsConnectionInfo> ReadWmtsConnectionInfos(string path)
         {
             IOUtils.ValidateFilePath(path);
