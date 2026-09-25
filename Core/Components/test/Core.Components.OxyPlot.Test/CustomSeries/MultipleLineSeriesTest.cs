@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Components.OxyPlot.CustomSeries;
 using NSubstitute;
 using NUnit.Framework;
@@ -33,7 +32,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
     public class MultipleLineSeriesTest
     {
         [Test]
-        public void DefaultConstructor_RetunsDefaultValues()
+        public void DefaultConstructor_ReturnsDefaultValues()
         {
             // Call
             var series = new MultipleLineSeries();

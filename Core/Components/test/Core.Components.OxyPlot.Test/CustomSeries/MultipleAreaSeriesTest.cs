@@ -32,7 +32,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
     public class MultipleAreaSeriesTest
     {
         [Test]
-        public void DefaultConstructor_RetunsDefaultValues()
+        public void DefaultConstructor_ReturnsDefaultValues()
         {
             // Call
             var series = new MultipleAreaSeries();

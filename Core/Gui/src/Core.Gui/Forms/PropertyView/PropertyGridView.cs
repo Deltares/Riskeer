@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Security.Permissions;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
