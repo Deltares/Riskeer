@@ -190,15 +190,6 @@ namespace Core.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het schrijven naar bestandsmap &apos;{0}&apos;: {1}.
-        /// </summary>
-        public static string Error_Writing_to_Directory_0_CustomMessage_1_ {
-            get {
-                return ResourceManager.GetString("Error_Writing_to_Directory_0_CustomMessage_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Fout bij het schrijven naar bestand &apos;{0}&apos;: {1}.
         /// </summary>
         public static string Error_Writing_to_File_0_CustomMessage_1_ {

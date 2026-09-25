@@ -25,7 +25,6 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using Core.Common.Base.Geometry;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;

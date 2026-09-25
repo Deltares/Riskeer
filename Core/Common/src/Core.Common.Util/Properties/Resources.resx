@@ -162,9 +162,6 @@
   <data name="FileReaderErrorMessageBuilder_Build_Error_while_reading_file_0_location_1_subject_2_errorMessage_3" xml:space="preserve">
     <value>Fout bij het lezen van bestand '{0}'{1}{2}: {3}</value>
   </data>
-  <data name="Error_Writing_to_Directory_0_CustomMessage_1_" xml:space="preserve">
-    <value>Fout bij het schrijven naar bestandsmap '{0}': {1}</value>
-  </data>
   <data name="IOUtils_No_access_rights_to_path" xml:space="preserve">
     <value>Geen toegangsrechten tot bestandspad.</value>
   </data>

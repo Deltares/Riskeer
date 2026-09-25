@@ -24,7 +24,6 @@ using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Riskeer.Common.IO.Structures;
 
