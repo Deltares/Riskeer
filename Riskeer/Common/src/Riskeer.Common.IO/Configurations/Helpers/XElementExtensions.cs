@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using Core.Common.Base.Helpers;
 
 namespace Riskeer.Common.IO.Configurations.Helpers
 {
@@ -46,19 +47,10 @@ namespace Riskeer.Common.IO.Configurations.Helpers
         public static double? GetDoubleValueFromDescendantElement(this XElement parentElement, string descendantElementName)
         {
             XElement descendantElement = parentElement.GetDescendantElement(descendantElementName);
-            if (descendantElement == null)
-            {
-                return null;
-            }
 
-            string value = descendantElement.Value;
-            double parsedValue = XmlConvert.ToDouble(value);
-            if (double.IsInfinity(parsedValue) && !IsXmlInfinityLiteral(value))
-            {
-                throw new OverflowException();
-            }
-
-            return parsedValue;
+            return descendantElement != null
+                       ? DoubleHelper.XmlConvertToDouble(descendantElement.Value)
+                       : null;
         }
 
         /// <summary>
@@ -213,15 +205,6 @@ namespace Riskeer.Common.IO.Configurations.Helpers
             }
 
             return parentElement.Descendants(descendantElementName).FirstOrDefault();
-        }
-
-        private static bool IsXmlInfinityLiteral(string value)
-        {
-            string trimmedValue = value.Trim();
-
-            return string.Equals(trimmedValue, "INF", StringComparison.OrdinalIgnoreCase)
-                   || string.Equals(trimmedValue, "+INF", StringComparison.OrdinalIgnoreCase)
-                   || string.Equals(trimmedValue, "-INF", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>

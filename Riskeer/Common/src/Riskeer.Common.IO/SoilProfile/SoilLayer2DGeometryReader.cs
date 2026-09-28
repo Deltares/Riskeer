@@ -28,6 +28,7 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.XPath;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Helpers;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.Properties;
 
@@ -228,8 +229,8 @@ namespace Riskeer.Common.IO.SoilProfile
 
             try
             {
-                double x = XmlConvert.ToDouble(xElement.Value);
-                double y = XmlConvert.ToDouble(yElement.Value);
+                double x = DoubleHelper.XmlConvertToDouble(xElement.Value);
+                double y = DoubleHelper.XmlConvertToDouble(yElement.Value);
                 return new Point2D(x, y);
             }
             catch (SystemException e) when (e is ArgumentNullException
