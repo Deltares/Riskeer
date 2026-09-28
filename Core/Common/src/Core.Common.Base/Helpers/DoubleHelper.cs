@@ -73,14 +73,22 @@ namespace Core.Common.Base.Helpers
         /// <returns>The converted <see cref="double"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         /// <exception cref="FormatException">Thrown when <paramref name="value"/> does not represent a number in a valid format.</exception>
-        /// <exception cref="OverflowException">Thrown when the converted value equals <see cref="double.PositiveInfinity"/> or <see cref="double.NegativeInfinity"/>.</exception>
+        /// <exception cref="OverflowException">Thrown when the converted value represents a number less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
         public static double XmlConvertToDouble(string value)
         {
             var convertedDouble = XmlConvert.ToDouble(value);
 
-            return double.IsInfinity(convertedDouble)
+            return double.IsInfinity(convertedDouble) && !IsXmlInfinityLiteral(value)
                        ? throw new OverflowException()
                        : convertedDouble;
+        }
+
+        private static bool IsXmlInfinityLiteral(string value)
+        {
+            string trimmedValue = value.Trim();
+
+            return string.Equals(trimmedValue, XmlConvert.ToString(double.PositiveInfinity))
+                   || string.Equals(trimmedValue, XmlConvert.ToString(double.NegativeInfinity));
         }
     }
 }
