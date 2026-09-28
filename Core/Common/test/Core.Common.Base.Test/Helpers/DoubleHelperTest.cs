@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Xml;
 using Core.Common.Base.Helpers;
 using NUnit.Framework;
 
@@ -216,6 +217,49 @@ namespace Core.Common.Base.Test.Helpers
 
             // Assert
             Assert.AreEqual(expectedValue, convertedValue);
+        }
+
+        [Test]
+        public void XmlConvertToDouble_StringValueNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => DoubleHelper.XmlConvertToDouble(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(Call);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("  ")]
+        [TestCase("text")]
+        public void XmlConvertToDouble_StringValueInvalid_ThrowsFormatException(string value)
+        {
+            // Call
+            void Call() => DoubleHelper.XmlConvertToDouble(value);
+
+            // Assert
+            Assert.Throws<FormatException>(Call);
+        }
+
+        [Test]
+        public void XmlConvertToDouble_StringRepresentingValueLessThanMinValue_ThrowsOverflowException()
+        {
+            // Call
+            void Call() => DoubleHelper.XmlConvertToDouble("-1" + XmlConvert.ToString(double.MaxValue));
+
+            // Assert
+            Assert.Throws<OverflowException>(Call);
+        }
+
+        [Test]
+        public void XmlConvertToDouble_StringRepresentingValueGreaterThanMaxValue_ThrowsOverflowException()
+        {
+            // Call
+            void Call() => DoubleHelper.XmlConvertToDouble("1" + XmlConvert.ToString(double.MaxValue));
+
+            // Assert
+            Assert.Throws<OverflowException>(Call);
         }
 
         private static IEnumerable<TestCaseData> ValidTestCasesInDutchCulture()
