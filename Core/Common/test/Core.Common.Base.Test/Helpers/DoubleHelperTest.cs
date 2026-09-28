@@ -76,8 +76,8 @@ namespace Core.Common.Base.Test.Helpers
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCaseSource(nameof(ValidTestCasesInDutchCulture))]
-        public void ParseBasedOnCurrentCultureBeingDutch_ValidStringValueInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        [TestCaseSource(nameof(ValidTestCasesForDutchCulture))]
+        public void ParseBasedOnCurrentCultureBeingDutch_StringValueValidInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
             double parsedValue = DoubleHelper.Parse(value);
@@ -87,8 +87,8 @@ namespace Core.Common.Base.Test.Helpers
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidTestCasesInDutchCulture))]
-        public void ParseBasedOnProvidedCultureBeingDutch_ValidStringValueInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        [TestCaseSource(nameof(ValidTestCasesForDutchCulture))]
+        public void ParseBasedOnProvidedCultureBeingDutch_StringValueValidInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
             double parsedValue = DoubleHelper.Parse(value, new CultureInfo("nl-NL"));
@@ -99,8 +99,8 @@ namespace Core.Common.Base.Test.Helpers
 
         [Test]
         [SetCulture("en-US")]
-        [TestCaseSource(nameof(ValidTestCasesInEnglishCulture))]
-        public void ParseBasedOnCurrentCultureBeingEnglish_ValidStringValueInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        [TestCaseSource(nameof(ValidTestCasesForEnglishCulture))]
+        public void ParseBasedOnCurrentCultureBeingEnglish_StringValueValidInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
             double parsedValue = DoubleHelper.Parse(value);
@@ -110,8 +110,8 @@ namespace Core.Common.Base.Test.Helpers
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidTestCasesInEnglishCulture))]
-        public void ParseBasedOnProvidedCultureBeingEnglish_ValidStringValueInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        [TestCaseSource(nameof(ValidTestCasesForEnglishCulture))]
+        public void ParseBasedOnProvidedCultureBeingEnglish_StringValueValidInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
             double parsedValue = DoubleHelper.Parse(value, new CultureInfo("en-US"));
@@ -175,8 +175,8 @@ namespace Core.Common.Base.Test.Helpers
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCaseSource(nameof(ValidTestCasesInDutchCulture))]
-        public void ConvertToDoubleBasedOnCurrentCultureBeingDutch_ValidObjectValueInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        [TestCaseSource(nameof(ValidTestCasesForDutchCulture))]
+        public void ConvertToDoubleBasedOnCurrentCultureBeingDutch_ObjectValueValidInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
             double convertedValue = DoubleHelper.ConvertToDouble(value);
@@ -186,8 +186,8 @@ namespace Core.Common.Base.Test.Helpers
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidTestCasesInDutchCulture))]
-        public void ConvertToDoubleBasedOnProvidedCultureBeingDutch_ValidObjectValueInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        [TestCaseSource(nameof(ValidTestCasesForDutchCulture))]
+        public void ConvertToDoubleBasedOnProvidedCultureBeingDutch_ObjectValueValidInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
             double convertedValue = DoubleHelper.ConvertToDouble(value, new CultureInfo("nl-NL"));
@@ -198,8 +198,8 @@ namespace Core.Common.Base.Test.Helpers
 
         [Test]
         [SetCulture("en-US")]
-        [TestCaseSource(nameof(ValidTestCasesInEnglishCulture))]
-        public void ConvertToDoubleBasedOnCurrentCultureBeingEnglish_ValidObjectValueInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        [TestCaseSource(nameof(ValidTestCasesForEnglishCulture))]
+        public void ConvertToDoubleBasedOnCurrentCultureBeingEnglish_ObjectValueValidInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
             double convertedValue = DoubleHelper.ConvertToDouble(value);
@@ -209,8 +209,8 @@ namespace Core.Common.Base.Test.Helpers
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidTestCasesInEnglishCulture))]
-        public void ConvertToDoubleBasedOnProvidedCultureBeingEnglish_ValidObjectValueInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        [TestCaseSource(nameof(ValidTestCasesForEnglishCulture))]
+        public void ConvertToDoubleBasedOnProvidedCultureBeingEnglish_ObjectValueValidInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
             double convertedValue = DoubleHelper.ConvertToDouble(value, new CultureInfo("en-US"));
@@ -220,7 +220,7 @@ namespace Core.Common.Base.Test.Helpers
         }
 
         [Test]
-        public void XmlConvertToDouble_StringValueNull_ThrowsArgumentNullException()
+        public void XmlConvertToDouble_XmlStringValueNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => DoubleHelper.XmlConvertToDouble(null);
@@ -233,7 +233,8 @@ namespace Core.Common.Base.Test.Helpers
         [TestCase("")]
         [TestCase("  ")]
         [TestCase("text")]
-        public void XmlConvertToDouble_StringValueInvalid_ThrowsFormatException(string value)
+        [TestCase("123,456")]
+        public void XmlConvertToDouble_XmlStringValueInvalid_ThrowsFormatException(string value)
         {
             // Call
             void Call() => DoubleHelper.XmlConvertToDouble(value);
@@ -243,7 +244,7 @@ namespace Core.Common.Base.Test.Helpers
         }
 
         [Test]
-        public void XmlConvertToDouble_StringRepresentingValueLessThanMinValue_ThrowsOverflowException()
+        public void XmlConvertToDouble_XmlStringRepresentingValueLessThanMinValue_ThrowsOverflowException()
         {
             // Call
             void Call() => DoubleHelper.XmlConvertToDouble("-1" + XmlConvert.ToString(double.MaxValue));
@@ -253,7 +254,7 @@ namespace Core.Common.Base.Test.Helpers
         }
 
         [Test]
-        public void XmlConvertToDouble_StringRepresentingValueGreaterThanMaxValue_ThrowsOverflowException()
+        public void XmlConvertToDouble_XmlStringRepresentingValueGreaterThanMaxValue_ThrowsOverflowException()
         {
             // Call
             void Call() => DoubleHelper.XmlConvertToDouble("1" + XmlConvert.ToString(double.MaxValue));
@@ -262,7 +263,18 @@ namespace Core.Common.Base.Test.Helpers
             Assert.Throws<OverflowException>(Call);
         }
 
-        private static IEnumerable<TestCaseData> ValidTestCasesInDutchCulture()
+        [Test]
+        [TestCaseSource(nameof(ValidTestCasesForXml))]
+        public void XmlConvertToDouble_XmlStringValueValid_ReturnsExpectedOutput(string value, double expectedValue)
+        {
+            // Call
+            double convertedValue = DoubleHelper.XmlConvertToDouble(value);
+
+            // Assert
+            Assert.AreEqual(expectedValue, convertedValue);
+        }
+
+        private static IEnumerable<TestCaseData> ValidTestCasesForDutchCulture()
         {
             var formatProvider = new CultureInfo("nl-NL");
 
@@ -282,7 +294,7 @@ namespace Core.Common.Base.Test.Helpers
             yield return new TestCaseData(Convert.ToString(double.NegativeInfinity, formatProvider), double.NegativeInfinity);
         }
 
-        private static IEnumerable<TestCaseData> ValidTestCasesInEnglishCulture()
+        private static IEnumerable<TestCaseData> ValidTestCasesForEnglishCulture()
         {
             var formatProvider = new CultureInfo("en-US");
 
@@ -300,6 +312,24 @@ namespace Core.Common.Base.Test.Helpers
             yield return new TestCaseData(Convert.ToString(double.MaxValue, formatProvider), double.MaxValue);
             yield return new TestCaseData(Convert.ToString(double.PositiveInfinity, formatProvider), double.PositiveInfinity);
             yield return new TestCaseData(Convert.ToString(double.NegativeInfinity, formatProvider), double.NegativeInfinity);
+        }
+
+        private static IEnumerable<TestCaseData> ValidTestCasesForXml()
+        {
+            yield return new TestCaseData("13137.371446", 13137.371446);
+            yield return new TestCaseData("13.3701231", 13.3701231);
+            yield return new TestCaseData("1.000000001", 1.000000001);
+            yield return new TestCaseData("1e-2", 0.01);
+            yield return new TestCaseData("0.003", 0.003);
+            yield return new TestCaseData("-0.003", -0.003);
+            yield return new TestCaseData("-1e-2", -0.01);
+            yield return new TestCaseData("-1.000000001", -1.000000001);
+            yield return new TestCaseData("-13.3701231", -13.3701231);
+            yield return new TestCaseData("-13137.37446", -13137.37446);
+            yield return new TestCaseData(XmlConvert.ToString(double.MinValue), double.MinValue);
+            yield return new TestCaseData(XmlConvert.ToString(double.MaxValue), double.MaxValue);
+            yield return new TestCaseData(XmlConvert.ToString(double.PositiveInfinity), double.PositiveInfinity);
+            yield return new TestCaseData(XmlConvert.ToString(double.NegativeInfinity), double.NegativeInfinity);
         }
     }
 }
