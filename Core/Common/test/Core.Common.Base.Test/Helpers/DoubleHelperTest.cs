@@ -119,6 +119,105 @@ namespace Core.Common.Base.Test.Helpers
             Assert.AreEqual(expectedValue, parsedValue);
         }
 
+        [Test]
+        public void ConvertToDouble_ObjectValueNull_ReturnsExpectedOutput()
+        {
+            // Call
+            double convertedValue = DoubleHelper.ConvertToDouble(null);
+
+            // Assert
+            Assert.AreEqual(0, convertedValue);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("  ")]
+        [TestCase("text")]
+        public void ConvertToDouble_ObjectValueInvalid_ThrowsFormatException(string value)
+        {
+            // Call
+            void Call() => DoubleHelper.ConvertToDouble(value);
+
+            // Assert
+            Assert.Throws<FormatException>(Call);
+        }
+
+        [Test]
+        public void ConvertToDouble_ObjectValueOfIncorrectType_ThrowsInvalidCastException()
+        {
+            // Call
+            void Call() => DoubleHelper.ConvertToDouble(new object());
+
+            // Assert
+            Assert.Throws<InvalidCastException>(Call);
+        }
+
+        [Test]
+        public void ConvertToDouble_ObjectRepresentingValueLessThanMinValue_ThrowsOverflowException()
+        {
+            // Call
+            void Call() => DoubleHelper.ConvertToDouble("-1" + double.MaxValue);
+
+            // Assert
+            Assert.Throws<OverflowException>(Call);
+        }
+
+        [Test]
+        public void ConvertToDouble_ObjectRepresentingValueGreaterThanMaxValue_ThrowsOverflowException()
+        {
+            // Call
+            void Call() => DoubleHelper.ConvertToDouble("1" + double.MaxValue);
+
+            // Assert
+            Assert.Throws<OverflowException>(Call);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCaseSource(nameof(ValidTestCasesInDutchCulture))]
+        public void ConvertToDoubleBasedOnCurrentCultureBeingDutch_ValidObjectValueInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        {
+            // Call
+            double convertedValue = DoubleHelper.ConvertToDouble(value);
+
+            // Assert
+            Assert.AreEqual(expectedValue, convertedValue);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ValidTestCasesInDutchCulture))]
+        public void ConvertToDoubleBasedOnProvidedCultureBeingDutch_ValidObjectValueInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        {
+            // Call
+            double convertedValue = DoubleHelper.ConvertToDouble(value, new CultureInfo("nl-NL"));
+
+            // Assert
+            Assert.AreEqual(expectedValue, convertedValue);
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        [TestCaseSource(nameof(ValidTestCasesInEnglishCulture))]
+        public void ConvertToDoubleBasedOnCurrentCultureBeingEnglish_ValidObjectValueInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        {
+            // Call
+            double convertedValue = DoubleHelper.ConvertToDouble(value);
+
+            // Assert
+            Assert.AreEqual(expectedValue, convertedValue);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ValidTestCasesInEnglishCulture))]
+        public void ConvertToDoubleBasedOnProvidedCultureBeingEnglish_ValidObjectValueInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
+        {
+            // Call
+            double convertedValue = DoubleHelper.ConvertToDouble(value, new CultureInfo("en-US"));
+
+            // Assert
+            Assert.AreEqual(expectedValue, convertedValue);
+        }
+
         private static IEnumerable<TestCaseData> ValidTestCasesInDutchCulture()
         {
             var formatProvider = new CultureInfo("nl-NL");
