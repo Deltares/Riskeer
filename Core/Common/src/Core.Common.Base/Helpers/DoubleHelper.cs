@@ -21,6 +21,7 @@
 
 using System;
 using System.Globalization;
+using System.Xml;
 
 namespace Core.Common.Base.Helpers
 {
@@ -59,6 +60,23 @@ namespace Core.Common.Base.Helpers
         public static double ConvertToDouble(object? value, CultureInfo culture = null)
         {
             var convertedDouble = Convert.ToDouble(value, culture);
+
+            return double.IsInfinity(convertedDouble)
+                       ? throw new OverflowException()
+                       : convertedDouble;
+        }
+
+        /// <summary>
+        /// Converts an Xml <see cref="string"/> to a <see cref="double"/>. 
+        /// </summary>
+        /// <param name="value">The Xml <see cref="string"/> to convert.</param>
+        /// <returns>The converted <see cref="double"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
+        /// <exception cref="FormatException">Thrown when <paramref name="value"/> does not represent a number in a valid format.</exception>
+        /// <exception cref="OverflowException">Thrown when the converted value equals <see cref="double.PositiveInfinity"/> or <see cref="double.NegativeInfinity"/>.</exception>
+        public static double XmlConvertToDouble(string value)
+        {
+            var convertedDouble = XmlConvert.ToDouble(value);
 
             return double.IsInfinity(convertedDouble)
                        ? throw new OverflowException()
