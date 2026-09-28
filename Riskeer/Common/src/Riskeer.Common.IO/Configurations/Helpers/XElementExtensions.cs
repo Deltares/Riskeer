@@ -69,7 +69,7 @@ namespace Riskeer.Common.IO.Configurations.Helpers
             XElement descendantElement = parentElement.GetDescendantElement(descendantElementName);
 
             return descendantElement != null
-                       ? (int?) XmlConvert.ToInt32(descendantElement.Value)
+                       ? XmlConvert.ToInt32(descendantElement.Value)
                        : null;
         }
 
@@ -102,7 +102,7 @@ namespace Riskeer.Common.IO.Configurations.Helpers
             XElement descendantElement = parentElement.GetDescendantElement(descendantElementName);
 
             return descendantElement != null
-                       ? (bool?) XmlConvert.ToBoolean(descendantElement.Value)
+                       ? XmlConvert.ToBoolean(descendantElement.Value)
                        : null;
         }
 
