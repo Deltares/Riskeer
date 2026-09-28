@@ -38,12 +38,12 @@ namespace Core.Common.Base.Helpers
         /// <returns>The parsed <see cref="double"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         /// <exception cref="FormatException">Thrown when <paramref name="value"/> does not represent a number in a valid format.</exception>
-        /// <exception cref="OverflowException">Thrown when the parsed value equals <see cref="double.PositiveInfinity"/> or <see cref="double.NegativeInfinity"/>.</exception>
+        /// <exception cref="OverflowException">Thrown when the parsed value represents a number less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
         public static double Parse(string value, CultureInfo culture = null)
         {
             double parsedDouble = double.Parse(value, culture);
 
-            return double.IsInfinity(parsedDouble)
+            return double.IsInfinity(parsedDouble) && !IsInfinityLiteral(value, culture)
                        ? throw new OverflowException()
                        : parsedDouble;
         }
@@ -56,12 +56,12 @@ namespace Core.Common.Base.Helpers
         /// <returns>The converted <see cref="double"/>.</returns>
         /// <exception cref="FormatException">Thrown when <paramref name="value"/> is not in an appropriate format for a double type.</exception>
         /// <exception cref="InvalidCastException">Thrown when <paramref name="value"/> does not implement the <see cref="IConvertible"/> interface.</exception>
-        /// <exception cref="OverflowException">Thrown when the converted value equals <see cref="double.PositiveInfinity"/> or <see cref="double.NegativeInfinity"/>.</exception>
+        /// <exception cref="OverflowException">Thrown when the converted value represents a number less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
         public static double ConvertToDouble(object? value, CultureInfo culture = null)
         {
             var convertedDouble = Convert.ToDouble(value, culture);
 
-            return double.IsInfinity(convertedDouble)
+            return double.IsInfinity(convertedDouble) && !IsInfinityLiteral(value?.ToString(), culture)
                        ? throw new OverflowException()
                        : convertedDouble;
         }
@@ -81,6 +81,14 @@ namespace Core.Common.Base.Helpers
             return double.IsInfinity(convertedDouble) && !IsXmlInfinityLiteral(value)
                        ? throw new OverflowException()
                        : convertedDouble;
+        }
+
+        private static bool IsInfinityLiteral(string value, CultureInfo culture)
+        {
+            string trimmedValue = value.Trim();
+
+            return string.Equals(trimmedValue, Convert.ToString(double.PositiveInfinity, culture))
+                   || string.Equals(trimmedValue, Convert.ToString(double.NegativeInfinity, culture));
         }
 
         private static bool IsXmlInfinityLiteral(string value)
