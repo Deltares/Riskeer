@@ -481,6 +481,24 @@ namespace Core.Common.Util.Test
         }
 
         [Test]
+        public void DeleteOldFiles_PathContainingInvalidPathCharacters_ThrowsIOException()
+        {
+            // Setup
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util);
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+            string invalidPath = path.Replace('d', invalidPathChars[0]);
+
+            // Call
+            Action call = () => IOUtils.DeleteOldFiles(invalidPath, "*", 0);
+
+            // Assert
+            var exception = Assert.Throws<IOException>(call);
+            var expectedMessage = $"Er is een fout opgetreden bij het verwijderen van bestanden in de map '{invalidPath}'.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
+
+        [Test]
         public void DeleteOldFiles_PathDoesNotExist_ThrowsIOException()
         {
             // Setup

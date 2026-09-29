@@ -127,8 +127,8 @@ namespace Core.Common.Util
         /// <param name="path">The directory to search.</param>
         /// <param name="searchPattern">The search string to match against the names of files in path.</param>
         /// <param name="numberOfDaysToKeepFiles">The maximum number days since the file was created.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> or <paramref name="searchPattern"/> is <c>null</c>, is a zero-length string, 
-        /// contains only white space, or contains one or more invalid characters.</exception>
+        /// <exception cref="ArgumentException">Thrown when either <paramref name="path"/> or <paramref name="searchPattern"/> is <c>null</c>, is a zero-length string or
+        /// contains only white spaces.</exception>
         /// <exception cref="IOException">Thrown when an error occurred while trying to search and delete files in <paramref name="path"/>.</exception>
         public static void DeleteOldFiles(string path, string searchPattern, int numberOfDaysToKeepFiles)
         {
@@ -144,6 +144,11 @@ namespace Core.Common.Util
 
             try
             {
+                if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+                {
+                    throw new ArgumentException(Resources.Error_Path_cannot_contain_invalid_characters);
+                }
+
                 foreach (string logFile in Directory.GetFiles(path, searchPattern).Where(l => (DateTime.Now - File.GetCreationTime(l)).TotalDays > numberOfDaysToKeepFiles))
                 {
                     File.Delete(logFile);
