@@ -88,7 +88,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers
 
                 double waveHeight = waveHeightResult is DBNull
                                         ? double.NaN
-                                        : DoubleHelper.ConvertToDouble(waveHeightResult);
+                                        : DoubleConversionHelper.ConvertToDouble(waveHeightResult);
 
                 var isOvertoppingDominant = Convert.ToBoolean(result[isOvertoppingDominantColumn]);
 

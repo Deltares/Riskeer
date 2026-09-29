@@ -486,7 +486,7 @@ namespace Riskeer.Common.IO.Structures
 
             try
             {
-                return DoubleHelper.Parse(doubleValueText, CultureInfo.InvariantCulture);
+                return DoubleConversionHelper.Parse(doubleValueText, CultureInfo.InvariantCulture);
             }
             catch (FormatException e)
             {

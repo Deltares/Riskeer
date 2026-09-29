@@ -307,7 +307,7 @@ namespace Riskeer.Common.IO.SurfaceLines
             try
             {
                 return tokenizedString.Skip(startGeometryColumnIndex)
-                                      .Select(ts => DoubleHelper.Parse(ts, CultureInfo.InvariantCulture)).ToArray();
+                                      .Select(ts => DoubleConversionHelper.Parse(ts, CultureInfo.InvariantCulture)).ToArray();
             }
             catch (FormatException e)
             {

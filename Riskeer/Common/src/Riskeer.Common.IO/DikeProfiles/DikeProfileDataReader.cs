@@ -368,7 +368,7 @@ namespace Riskeer.Common.IO.DikeProfiles
         {
             try
             {
-                return DoubleHelper.Parse(readOrientationText, CultureInfo.InvariantCulture);
+                return DoubleConversionHelper.Parse(readOrientationText, CultureInfo.InvariantCulture);
             }
             catch (FormatException e)
             {
@@ -577,7 +577,7 @@ namespace Riskeer.Common.IO.DikeProfiles
         {
             try
             {
-                return DoubleHelper.Parse(readDamHeightText, CultureInfo.InvariantCulture);
+                return DoubleConversionHelper.Parse(readDamHeightText, CultureInfo.InvariantCulture);
             }
             catch (FormatException e)
             {
@@ -634,7 +634,7 @@ namespace Riskeer.Common.IO.DikeProfiles
         {
             try
             {
-                return DoubleHelper.Parse(readDikeHeightText, CultureInfo.InvariantCulture);
+                return DoubleConversionHelper.Parse(readDikeHeightText, CultureInfo.InvariantCulture);
             }
             catch (FormatException e)
             {
@@ -816,7 +816,7 @@ namespace Riskeer.Common.IO.DikeProfiles
         {
             try
             {
-                return DoubleHelper.Parse(readParameterText, CultureInfo.InvariantCulture);
+                return DoubleConversionHelper.Parse(readParameterText, CultureInfo.InvariantCulture);
             }
             catch (FormatException e)
             {

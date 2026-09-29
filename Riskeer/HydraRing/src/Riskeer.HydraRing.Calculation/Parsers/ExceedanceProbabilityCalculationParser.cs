@@ -66,7 +66,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers
         {
             try
             {
-                Output = DoubleHelper.ConvertToDouble(result[betaColumnName]);
+                Output = DoubleConversionHelper.ConvertToDouble(result[betaColumnName]);
             }
             catch (InvalidCastException e)
             {

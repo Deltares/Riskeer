@@ -29,13 +29,13 @@ using NUnit.Framework;
 namespace Core.Common.Base.Test.Helpers
 {
     [TestFixture]
-    public class DoubleHelperTest
+    public class DoubleConversionHelperTest
     {
         [Test]
         public void Parse_StringValueNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => DoubleHelper.Parse(null);
+            void Call() => DoubleConversionHelper.Parse(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(Call);
@@ -48,7 +48,7 @@ namespace Core.Common.Base.Test.Helpers
         public void Parse_StringValueInvalid_ThrowsFormatException(string value)
         {
             // Call
-            void Call() => DoubleHelper.Parse(value);
+            void Call() => DoubleConversionHelper.Parse(value);
 
             // Assert
             Assert.Throws<FormatException>(Call);
@@ -58,7 +58,7 @@ namespace Core.Common.Base.Test.Helpers
         public void Parse_StringRepresentingValueLessThanMinValue_ThrowsOverflowException()
         {
             // Call
-            void Call() => DoubleHelper.Parse("-1" + double.MaxValue);
+            void Call() => DoubleConversionHelper.Parse("-1" + double.MaxValue);
 
             // Assert
             Assert.Throws<OverflowException>(Call);
@@ -68,7 +68,7 @@ namespace Core.Common.Base.Test.Helpers
         public void Parse_StringRepresentingValueGreaterThanMaxValue_ThrowsOverflowException()
         {
             // Call
-            void Call() => DoubleHelper.Parse("1" + double.MaxValue);
+            void Call() => DoubleConversionHelper.Parse("1" + double.MaxValue);
 
             // Assert
             Assert.Throws<OverflowException>(Call);
@@ -80,7 +80,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ParseBasedOnCurrentCultureBeingDutch_StringValueValidInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
-            double parsedValue = DoubleHelper.Parse(value);
+            double parsedValue = DoubleConversionHelper.Parse(value);
 
             // Assert
             Assert.AreEqual(expectedValue, parsedValue);
@@ -91,7 +91,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ParseBasedOnProvidedCultureBeingDutch_StringValueValidInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
-            double parsedValue = DoubleHelper.Parse(value, new CultureInfo("nl-NL"));
+            double parsedValue = DoubleConversionHelper.Parse(value, new CultureInfo("nl-NL"));
 
             // Assert
             Assert.AreEqual(expectedValue, parsedValue);
@@ -103,7 +103,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ParseBasedOnCurrentCultureBeingEnglish_StringValueValidInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
-            double parsedValue = DoubleHelper.Parse(value);
+            double parsedValue = DoubleConversionHelper.Parse(value);
 
             // Assert
             Assert.AreEqual(expectedValue, parsedValue);
@@ -114,7 +114,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ParseBasedOnProvidedCultureBeingEnglish_StringValueValidInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
-            double parsedValue = DoubleHelper.Parse(value, new CultureInfo("en-US"));
+            double parsedValue = DoubleConversionHelper.Parse(value, new CultureInfo("en-US"));
 
             // Assert
             Assert.AreEqual(expectedValue, parsedValue);
@@ -124,7 +124,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ConvertToDouble_ObjectValueNull_ReturnsExpectedOutput()
         {
             // Call
-            double convertedValue = DoubleHelper.ConvertToDouble(null);
+            double convertedValue = DoubleConversionHelper.ConvertToDouble(null);
 
             // Assert
             Assert.AreEqual(0, convertedValue);
@@ -137,7 +137,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ConvertToDouble_ObjectValueInvalid_ThrowsFormatException(string value)
         {
             // Call
-            void Call() => DoubleHelper.ConvertToDouble(value);
+            void Call() => DoubleConversionHelper.ConvertToDouble(value);
 
             // Assert
             Assert.Throws<FormatException>(Call);
@@ -147,7 +147,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ConvertToDouble_ObjectValueOfIncorrectType_ThrowsInvalidCastException()
         {
             // Call
-            void Call() => DoubleHelper.ConvertToDouble(new object());
+            void Call() => DoubleConversionHelper.ConvertToDouble(new object());
 
             // Assert
             Assert.Throws<InvalidCastException>(Call);
@@ -157,7 +157,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ConvertToDouble_ObjectRepresentingValueLessThanMinValue_ThrowsOverflowException()
         {
             // Call
-            void Call() => DoubleHelper.ConvertToDouble("-1" + double.MaxValue);
+            void Call() => DoubleConversionHelper.ConvertToDouble("-1" + double.MaxValue);
 
             // Assert
             Assert.Throws<OverflowException>(Call);
@@ -167,7 +167,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ConvertToDouble_ObjectRepresentingValueGreaterThanMaxValue_ThrowsOverflowException()
         {
             // Call
-            void Call() => DoubleHelper.ConvertToDouble("1" + double.MaxValue);
+            void Call() => DoubleConversionHelper.ConvertToDouble("1" + double.MaxValue);
 
             // Assert
             Assert.Throws<OverflowException>(Call);
@@ -179,7 +179,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ConvertToDoubleBasedOnCurrentCultureBeingDutch_ObjectValueValidInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
-            double convertedValue = DoubleHelper.ConvertToDouble(value);
+            double convertedValue = DoubleConversionHelper.ConvertToDouble(value);
 
             // Assert
             Assert.AreEqual(expectedValue, convertedValue);
@@ -190,7 +190,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ConvertToDoubleBasedOnProvidedCultureBeingDutch_ObjectValueValidInDutchCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
-            double convertedValue = DoubleHelper.ConvertToDouble(value, new CultureInfo("nl-NL"));
+            double convertedValue = DoubleConversionHelper.ConvertToDouble(value, new CultureInfo("nl-NL"));
 
             // Assert
             Assert.AreEqual(expectedValue, convertedValue);
@@ -202,7 +202,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ConvertToDoubleBasedOnCurrentCultureBeingEnglish_ObjectValueValidInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
-            double convertedValue = DoubleHelper.ConvertToDouble(value);
+            double convertedValue = DoubleConversionHelper.ConvertToDouble(value);
 
             // Assert
             Assert.AreEqual(expectedValue, convertedValue);
@@ -213,7 +213,7 @@ namespace Core.Common.Base.Test.Helpers
         public void ConvertToDoubleBasedOnProvidedCultureBeingEnglish_ObjectValueValidInEnglishCulture_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
-            double convertedValue = DoubleHelper.ConvertToDouble(value, new CultureInfo("en-US"));
+            double convertedValue = DoubleConversionHelper.ConvertToDouble(value, new CultureInfo("en-US"));
 
             // Assert
             Assert.AreEqual(expectedValue, convertedValue);
@@ -223,7 +223,7 @@ namespace Core.Common.Base.Test.Helpers
         public void XmlConvertToDouble_XmlStringValueNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => DoubleHelper.XmlConvertToDouble(null);
+            void Call() => DoubleConversionHelper.XmlConvertToDouble(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(Call);
@@ -237,7 +237,7 @@ namespace Core.Common.Base.Test.Helpers
         public void XmlConvertToDouble_XmlStringValueInvalid_ThrowsFormatException(string value)
         {
             // Call
-            void Call() => DoubleHelper.XmlConvertToDouble(value);
+            void Call() => DoubleConversionHelper.XmlConvertToDouble(value);
 
             // Assert
             Assert.Throws<FormatException>(Call);
@@ -247,7 +247,7 @@ namespace Core.Common.Base.Test.Helpers
         public void XmlConvertToDouble_XmlStringRepresentingValueLessThanMinValue_ThrowsOverflowException()
         {
             // Call
-            void Call() => DoubleHelper.XmlConvertToDouble("-1" + XmlConvert.ToString(double.MaxValue));
+            void Call() => DoubleConversionHelper.XmlConvertToDouble("-1" + XmlConvert.ToString(double.MaxValue));
 
             // Assert
             Assert.Throws<OverflowException>(Call);
@@ -257,7 +257,7 @@ namespace Core.Common.Base.Test.Helpers
         public void XmlConvertToDouble_XmlStringRepresentingValueGreaterThanMaxValue_ThrowsOverflowException()
         {
             // Call
-            void Call() => DoubleHelper.XmlConvertToDouble("1" + XmlConvert.ToString(double.MaxValue));
+            void Call() => DoubleConversionHelper.XmlConvertToDouble("1" + XmlConvert.ToString(double.MaxValue));
 
             // Assert
             Assert.Throws<OverflowException>(Call);
@@ -268,7 +268,7 @@ namespace Core.Common.Base.Test.Helpers
         public void XmlConvertToDouble_XmlStringValueValid_ReturnsExpectedOutput(string value, double expectedValue)
         {
             // Call
-            double convertedValue = DoubleHelper.XmlConvertToDouble(value);
+            double convertedValue = DoubleConversionHelper.XmlConvertToDouble(value);
 
             // Assert
             Assert.AreEqual(expectedValue, convertedValue);

@@ -475,7 +475,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
         /// <returns>The converted double.</returns>
         /// <exception cref="HydraRingFileParserException">Thrown when <paramref name="doubleValue"/> 
         /// is <see cref="DBNull"/>.</exception>
-        /// <seealso cref="DoubleHelper.ConvertToDouble"/>
+        /// <seealso cref="DoubleConversionHelper.ConvertToDouble"/>
         private static double ConvertToDouble(object doubleValue, string identifier)
         {
             if (doubleValue.Equals(DBNull.Value))
@@ -483,7 +483,7 @@ namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
                 throw new HydraRingFileParserException(string.Format(Resources.IllustrationPointsParser_Parse_Column_0_is_Null, identifier));
             }
 
-            return DoubleHelper.ConvertToDouble(doubleValue);
+            return DoubleConversionHelper.ConvertToDouble(doubleValue);
         }
 
         /// <summary>

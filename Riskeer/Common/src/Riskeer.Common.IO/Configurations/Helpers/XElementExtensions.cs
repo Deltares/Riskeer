@@ -49,7 +49,7 @@ namespace Riskeer.Common.IO.Configurations.Helpers
             XElement descendantElement = parentElement.GetDescendantElement(descendantElementName);
 
             return descendantElement != null
-                       ? DoubleHelper.XmlConvertToDouble(descendantElement.Value)
+                       ? DoubleConversionHelper.XmlConvertToDouble(descendantElement.Value)
                        : null;
         }
 

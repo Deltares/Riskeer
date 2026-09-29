@@ -169,8 +169,8 @@ namespace Riskeer.Common.IO.SoilProfile
                                   ReadStochasticSoilModelSegmentName()));
             }
 
-            double coordinateXValue = DoubleHelper.ConvertToDouble(coordinateX);
-            double coordinateYValue = DoubleHelper.ConvertToDouble(coordinateY);
+            double coordinateXValue = DoubleConversionHelper.ConvertToDouble(coordinateX);
+            double coordinateYValue = DoubleConversionHelper.ConvertToDouble(coordinateY);
             return new Point2D(coordinateXValue, coordinateYValue);
         }
 

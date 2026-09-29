@@ -69,8 +69,8 @@ namespace Riskeer.HydraRing.Calculation.Parsers
             try
             {
                 Output = new ReliabilityIndexCalculationOutput(
-                    DoubleHelper.ConvertToDouble(result[valueColumnName]),
-                    DoubleHelper.ConvertToDouble(result[betaColumnName]));
+                    DoubleConversionHelper.ConvertToDouble(result[valueColumnName]),
+                    DoubleConversionHelper.ConvertToDouble(result[betaColumnName]));
             }
             catch (InvalidCastException e)
             {

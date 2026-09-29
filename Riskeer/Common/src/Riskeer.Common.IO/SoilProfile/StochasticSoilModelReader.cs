@@ -408,7 +408,7 @@ namespace Riskeer.Common.IO.SoilProfile
             object probability = dataReader[StochasticSoilProfileTableDefinitions.Probability];
             return probability == Convert.DBNull
                        ? (double?) null
-                       : DoubleHelper.ConvertToDouble(probability);
+                       : DoubleConversionHelper.ConvertToDouble(probability);
         }
 
         /// <summary>

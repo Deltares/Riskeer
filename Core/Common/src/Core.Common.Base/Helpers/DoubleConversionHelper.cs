@@ -28,7 +28,7 @@ namespace Core.Common.Base.Helpers
     /// <summary>
     /// Helper class for parsing and converting values to a <see cref="double"/>.
     /// </summary>
-    public static class DoubleHelper
+    public static class DoubleConversionHelper
     {
         /// <summary>
         /// Parses a <see cref="string"/> to a <see cref="double"/> using the specified culture-specific format. 

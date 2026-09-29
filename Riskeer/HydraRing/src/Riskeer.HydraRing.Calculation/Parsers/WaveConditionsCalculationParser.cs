@@ -69,11 +69,11 @@ namespace Riskeer.HydraRing.Calculation.Parsers
         {
             try
             {
-                double waveHeight = DoubleHelper.ConvertToDouble(result[waveHeightColumnName]);
-                double wavePeriod = DoubleHelper.ConvertToDouble(result[wavePeriodColumnName]);
-                double waveAngle = DoubleHelper.ConvertToDouble(result[waveAngleColumnName]);
-                double waveDirection = DoubleHelper.ConvertToDouble(result[waveDirectionColumnName]);
-                double resistance = DoubleHelper.ConvertToDouble(result[resistanceColumnName]);
+                double waveHeight = DoubleConversionHelper.ConvertToDouble(result[waveHeightColumnName]);
+                double wavePeriod = DoubleConversionHelper.ConvertToDouble(result[wavePeriodColumnName]);
+                double waveAngle = DoubleConversionHelper.ConvertToDouble(result[waveAngleColumnName]);
+                double waveDirection = DoubleConversionHelper.ConvertToDouble(result[waveDirectionColumnName]);
+                double resistance = DoubleConversionHelper.ConvertToDouble(result[resistanceColumnName]);
 
                 Output = new WaveConditionsCalculationOutput(waveHeight, wavePeriod, waveAngle, waveDirection, resistance);
             }

@@ -52,12 +52,12 @@ namespace Riskeer.Common.Forms.Helpers
                 string trimmedString = value.Trim();
                 if (!trimmedString.StartsWith(returnPeriodNotation))
                 {
-                    return DoubleHelper.ConvertToDouble(value);
+                    return DoubleConversionHelper.ConvertToDouble(value);
                 }
 
                 string returnPeriodValue = trimmedString.Substring(2).ToLower();
                 return returnPeriodValue != CommonBaseResources.RoundedDouble_ToString_PositiveInfinity.ToLower()
-                           ? 1 / DoubleHelper.ConvertToDouble(returnPeriodValue)
+                           ? 1 / DoubleConversionHelper.ConvertToDouble(returnPeriodValue)
                            : 0.0;
             }
             catch (FormatException exception)

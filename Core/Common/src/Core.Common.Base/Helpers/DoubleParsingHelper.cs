@@ -42,7 +42,7 @@ namespace Core.Common.Base.Helpers
         {
             try
             {
-                return DoubleHelper.ConvertToDouble(value, CultureInfo.CurrentCulture);
+                return DoubleConversionHelper.ConvertToDouble(value, CultureInfo.CurrentCulture);
             }
             catch (FormatException exception)
             {

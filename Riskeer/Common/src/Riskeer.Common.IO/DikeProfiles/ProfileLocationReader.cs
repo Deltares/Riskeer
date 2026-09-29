@@ -175,7 +175,7 @@ namespace Riskeer.Common.IO.DikeProfiles
 
             try
             {
-                return DoubleHelper.ConvertToDouble(value);
+                return DoubleConversionHelper.ConvertToDouble(value);
             }
             catch (Exception e) when (e is FormatException || e is InvalidCastException || e is OverflowException)
             {

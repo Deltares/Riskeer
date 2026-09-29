@@ -429,9 +429,9 @@ namespace Riskeer.Common.IO.SurfaceLines
                     int zColumnIndex = columnsInFile[zPrefix + typeKey];
 
                     point = new Point3D(
-                        DoubleHelper.Parse(valuesRead[xColumnIndex], CultureInfo.InvariantCulture),
-                        DoubleHelper.Parse(valuesRead[yColumnIndex], CultureInfo.InvariantCulture),
-                        DoubleHelper.Parse(valuesRead[zColumnIndex], CultureInfo.InvariantCulture)
+                        DoubleConversionHelper.Parse(valuesRead[xColumnIndex], CultureInfo.InvariantCulture),
+                        DoubleConversionHelper.Parse(valuesRead[yColumnIndex], CultureInfo.InvariantCulture),
+                        DoubleConversionHelper.Parse(valuesRead[zColumnIndex], CultureInfo.InvariantCulture)
                     );
 
                     if (point.Equals(undefinedPoint))

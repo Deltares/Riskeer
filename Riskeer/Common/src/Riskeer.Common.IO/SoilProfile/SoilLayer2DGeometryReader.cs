@@ -229,8 +229,8 @@ namespace Riskeer.Common.IO.SoilProfile
 
             try
             {
-                double x = DoubleHelper.XmlConvertToDouble(xElement.Value);
-                double y = DoubleHelper.XmlConvertToDouble(yElement.Value);
+                double x = DoubleConversionHelper.XmlConvertToDouble(xElement.Value);
+                double y = DoubleConversionHelper.XmlConvertToDouble(yElement.Value);
                 return new Point2D(x, y);
             }
             catch (SystemException e) when (e is ArgumentNullException
