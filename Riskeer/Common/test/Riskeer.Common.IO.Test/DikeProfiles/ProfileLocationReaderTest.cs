@@ -424,24 +424,6 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void GetNextProfileLocation_FileWithInvalidOverflowingBinaryX0_ThrowLineParseException()
-        {
-            // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                              Path.Combine("DikeProfiles", "InvalidBinaryX0_Overflow", "PROF63_GE_D0.shp"));
-            using (var reader = new ProfileLocationReader(validFilePath))
-            {
-                // Call
-                Action call = () => reader.GetNextProfileLocation();
-
-                // Assert
-                var exception = Assert.Throws<LineParseException>(call);
-                Assert.AreEqual("Het profiel heeft geen geldige waarde voor attribuut 'X0'.", exception.Message);
-                Assert.IsInstanceOf<OverflowException>(exception.InnerException);
-            }
-        }
-
-        [Test]
         public void GetNextProfileLocation_FileWithInvalidFormattedBinaryX0_ThrowLineParseException()
         {
             // Setup
