@@ -61,6 +61,20 @@ namespace Riskeer.AssemblyTool.IO.Test
         }
 
         [Test]
+        public void Constructor_FilePathTooLong_ThrowsArgumentException()
+        {
+            // Setup
+            string filePath = InvalidPathHelper.TooLongPathPart;
+
+            // Call
+            void Call() => new AssemblyGmlWriter(filePath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"De locatie '{filePath}' is ongeldig: het bestandspad is te lang.", exception.Message);
+        }
+        
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
@@ -83,21 +97,6 @@ namespace Riskeer.AssemblyTool.IO.Test
                 var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("assembly", exception.ParamName);
             }
-        }
-
-        [Test]
-        public void Write_FilePathTooLong_ThrowsArgumentException()
-        {
-            // Setup
-            ExportableAssembly assembly = CreateExportableAssembly();
-            string filePath = InvalidPathHelper.TooLongPathPart;
-
-            // Call
-            void Call() => new AssemblyGmlWriter(filePath);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(Call);
-            Assert.AreEqual($"De locatie '{filePath}' is ongeldig: het bestandspad is te lang.", exception.Message);
         }
 
         [Test]
