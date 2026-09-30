@@ -51,6 +51,20 @@ namespace Riskeer.Storage.Core.Test
         }
 
         [Test]
+        public void Constructor_TargetFilePathTooLong_ThrowsArgumentException()
+        {
+            // Setup
+            string targetFilePath = InvalidPathHelper.TooLongPathPart;
+
+            // Call
+            void Call() => new SafeFileWriter(targetFilePath, temporaryFileExtension);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"De locatie '{targetFilePath}' is ongeldig: het bestandspad is te lang.", exception.Message);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Perform_ValidTargetFileContext_ExpectedTemporaryFileCreatedAndTargetFileContextRestoredAfterwards(bool performWithExistingTargetFile)
@@ -119,23 +133,6 @@ namespace Riskeer.Storage.Core.Test
                 {
                     Assert.IsFalse(File.Exists(targetFilePath));
                 }
-            }
-        }
-
-        [Test]
-        public void Perform_TargetFilePathTooLong_ExpectedExceptionThrown()
-        {
-            // Setup
-            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_TargetFilePathTooLong_ExpectedExceptionThrown));
-            string targetFilePath = Path.Combine(writableDirectory, $"{InvalidPathHelper.TooLongPathPart}.txt");
-
-            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TargetFilePathTooLong_ExpectedExceptionThrown)))
-            {
-                // Call
-                var exception = Assert.Throws<ArgumentException>(() => new SafeFileWriter(targetFilePath, temporaryFileExtension));
-
-                // Assert
-                Assert.AreEqual($"De locatie '{targetFilePath}' is ongeldig: het bestandspad is te lang.", exception.Message);
             }
         }
 
