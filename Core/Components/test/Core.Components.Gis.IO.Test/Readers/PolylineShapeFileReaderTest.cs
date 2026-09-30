@@ -57,7 +57,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         [TestCase("Multiple_Point_with_ID.shp")]
         [TestCase("Single_Multi-Polygon_with_ID.shp")]
         [TestCase("Multiple_Polygon_with_ID.shp")]
-        public void ParameteredConstructor_ShapeFileIsNotLinesShapesfile_ThrowCriticalFileReadException(string shapeFileName)
+        public void ParameteredConstructor_ShapeFileIsNotLinesShapeFile_ThrowCriticalFileReadException(string shapeFileName)
         {
             // Setup
             string nonLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
@@ -68,6 +68,54 @@ namespace Core.Components.Gis.IO.Test.Readers
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{nonLineShapeFile}': kon geen lijnen vinden in dit bestand.";
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void ParameteredConstructor_InvalidFilePath_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string nonExistingPolylineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                             "NonExistingFile");
+
+            // Call 
+            Action call = () => new PolylineShapeFileReader(nonExistingPolylineShapeFile);
+
+            // Assert 
+            string expectedMessage = $"Fout bij het lezen van bestand '{nonExistingPolylineShapeFile}': het bestand bestaat niet.";
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void ParameteredConstructor_ShapeFileIsEmptyFile_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string emptyPolylineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                       "EmptyFile.shp");
+
+            // Call
+            Action call = () => new PolylineShapeFileReader(emptyPolylineShapeFile);
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{emptyPolylineShapeFile}': kon geen lijnen vinden in dit bestand.";
+            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void ParameteredConstructor_ShapeFileIsCorruptFile_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string corruptPolylineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                         "CorruptFile.shp");
+
+            // Call
+            Action call = () => new PolylineShapeFileReader(corruptPolylineShapeFile);
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{corruptPolylineShapeFile}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }

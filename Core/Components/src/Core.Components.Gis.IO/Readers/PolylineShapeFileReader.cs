@@ -61,13 +61,13 @@ namespace Core.Components.Gis.IO.Readers
             {
                 ShapeFile = new LineShapefile(shapeFilePath);
             }
-            catch (ArgumentException exception)
+            catch (ApplicationException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
                     .Build(GisIOResources.PolylineShapeFileReader_File_contains_geometries_not_line);
                 throw new CriticalFileReadException(message, exception);
             }
-            catch (ApplicationException exception)
+            catch (ArgumentException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
                     .Build(GisIOResources.PolylineShapeFileReader_File_contains_geometries_not_line);

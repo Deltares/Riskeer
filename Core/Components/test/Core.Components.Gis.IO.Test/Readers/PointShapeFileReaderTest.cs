@@ -58,7 +58,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         [TestCase("traject_10-1.shp")]
         [TestCase("Single_Multi-Polygon_with_ID.shp")]
         [TestCase("Multiple_Polygon_with_ID.shp")]
-        public void ParameteredConstructor_ShapeFileIsNotPointShapesfile_ThrowCriticalFileReadException(string shapeFileName)
+        public void ParameteredConstructor_ShapeFileIsNotPointShapeFile_ThrowCriticalFileReadException(string shapeFileName)
         {
             // Setup
             string nonPointShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
