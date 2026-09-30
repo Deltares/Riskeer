@@ -184,15 +184,6 @@ namespace Riskeer.Storage.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het pad van het doelbestand is te lang..
-        /// </summary>
-        public static string SafeFileWriter_Path_too_long {
-            get {
-                return ResourceManager.GetString("SafeFileWriter_Path_too_long", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het doelbestand is momenteel in gebruik..
         /// </summary>
         public static string SafeFileWriter_Target_file_currently_in_use {

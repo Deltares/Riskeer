@@ -135,9 +135,6 @@
   <data name="SafeFileWriter_Insufficient_access_rights" xml:space="preserve">
     <value>Onvoldoende rechten voor het schrijven van het doelbestand.</value>
   </data>
-  <data name="SafeFileWriter_Path_too_long" xml:space="preserve">
-    <value>Het pad van het doelbestand is te lang.</value>
-  </data>
   <data name="SafeFileWriter_Target_file_currently_in_use" xml:space="preserve">
     <value>Het doelbestand is momenteel in gebruik.</value>
   </data>

@@ -129,10 +129,6 @@ namespace Riskeer.Storage.Core
             {
                 throw new IOException(string.Format(Resources.SafeFileWriter_Insufficient_access_rights));
             }
-            catch (PathTooLongException)
-            {
-                throw new IOException(string.Format(Resources.SafeFileWriter_Path_too_long));
-            }
             catch (IOException)
             {
                 throw new IOException(string.Format(Resources.SafeFileWriter_Target_file_currently_in_use));

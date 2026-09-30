@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
@@ -61,15 +60,7 @@ namespace Riskeer.Common.IO.HydraRing
                 return e.Message;
             }
 
-            try
-            {
-                Path.GetDirectoryName(hrdFilePath);
-            }
-            catch (PathTooLongException)
-            {
-                return string.Format(CultureInfo.CurrentCulture, Resources.HydraulicBoundaryDataHelper_ValidatePathForCalculation_Invalid_path_0_,
-                                     hrdFilePath);
-            }
+            Path.GetDirectoryName(hrdFilePath);
 
             try
             {
