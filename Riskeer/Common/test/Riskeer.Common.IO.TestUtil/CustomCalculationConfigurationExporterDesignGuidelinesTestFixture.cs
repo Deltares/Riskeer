@@ -64,6 +64,20 @@ namespace Riskeer.Common.IO.TestUtil
         }
 
         [Test]
+        public void Constructor_PathTooLong_ThrowArgumentError()
+        {
+            // Setup
+            string filePath = InvalidPathHelper.CreateTooLongFilePath("test.xml");
+
+            // Call
+            void Call() => CallConfigurationFilePathConstructor(Enumerable.Empty<ICalculationBase>(), filePath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"De locatie '{filePath}' is ongeldig: het bestandspad is te lang.", exception.Message);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
@@ -99,22 +113,6 @@ namespace Riskeer.Common.IO.TestUtil
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, logMessages);
                 Assert.IsFalse(isExported);
             }
-        }
-
-        [Test]
-        public void Export_PathTooLong_ThrowArgumentError()
-        {
-            // Setup
-            string filePath = InvalidPathHelper.CreateTooLongFilePath("test.xml");
-
-            // Call
-            void Call() => CallConfigurationFilePathConstructor(new[]
-            {
-                CreateCalculation()
-            }, filePath);
-
-            var exception = Assert.Throws<ArgumentException>(Call);
-            Assert.AreEqual($"De locatie '{filePath}' is ongeldig: het bestandspad is te lang.", exception.Message);
         }
 
         private static IEnumerable<Tuple<string, LogLevelConstant>> GetExpectedExportFailedLogMessages(string filePath)
