@@ -109,6 +109,19 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new GeneralResultSubMechanismIllustrationPointView(Substitute.For<ICalculation>(), () => null);
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedAndPropagatedAccordingly()
         {
             // Given

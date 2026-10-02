@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Windows.Threading;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using Core.Common.Util.Reflection;
 using Core.Components.GraphShape.Data;
 using Core.Components.GraphShape.Forms;
@@ -121,6 +121,19 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
             AssertIllustrationPointControlItems(generalResult, illustrationPointsControl);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new GeneralResultFaultTreeIllustrationPointView(Substitute.For<ICalculation>(), () => null);
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
