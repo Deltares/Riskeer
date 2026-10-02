@@ -43,5 +43,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
         }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(new GrassCoverErosionInwardsCalculation(),
+                                                                                            () => new TestGeneralResultFaultTreeIllustrationPoint());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
     }
 }
