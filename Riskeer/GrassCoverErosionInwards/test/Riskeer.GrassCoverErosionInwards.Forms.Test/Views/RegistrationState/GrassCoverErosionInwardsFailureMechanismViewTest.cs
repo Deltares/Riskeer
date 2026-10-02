@@ -331,8 +331,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.RegistrationState
         public void Dispose_ViewNotLoaded_DoesNotThrow()
         {
             // Setup
-            var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                        new AssessmentSectionStub());
+            var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), new AssessmentSectionStub());
 
             // Call
             void Call() => view.Dispose();

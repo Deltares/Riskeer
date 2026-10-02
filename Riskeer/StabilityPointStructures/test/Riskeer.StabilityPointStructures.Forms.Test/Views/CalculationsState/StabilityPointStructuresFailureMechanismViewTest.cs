@@ -152,8 +152,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views.CalculationsState
         public void Dispose_ViewNotLoaded_DoesNotThrow()
         {
             // Setup
-            var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(),
-                                                                        new AssessmentSectionStub());
+            var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(), new AssessmentSectionStub());
 
             // Call
             void Call() => view.Dispose();

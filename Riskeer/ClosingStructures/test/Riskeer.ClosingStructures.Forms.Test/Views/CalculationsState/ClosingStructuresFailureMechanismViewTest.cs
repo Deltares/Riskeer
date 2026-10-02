@@ -149,6 +149,19 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {

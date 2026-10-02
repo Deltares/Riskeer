@@ -163,6 +163,19 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new PipingFailureMechanismView(new PipingFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {

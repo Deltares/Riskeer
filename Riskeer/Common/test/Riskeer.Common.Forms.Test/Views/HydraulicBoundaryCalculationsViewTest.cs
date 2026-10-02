@@ -96,8 +96,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Dispose_ViewNotLoaded_DoesNotThrow()
         {
             // Setup
-            var view = new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                 new AssessmentSectionStub());
+            var view = new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(), new AssessmentSectionStub());
 
             // Call
             void Call() => view.Dispose();
