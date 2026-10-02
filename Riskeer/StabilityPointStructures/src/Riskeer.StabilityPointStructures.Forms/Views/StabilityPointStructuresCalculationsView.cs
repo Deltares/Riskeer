@@ -64,10 +64,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && Loaded)
+            if (disposing)
             {
-                foreshoreProfilesObserver.Dispose();
-                stabilityPointStructuresObserver.Dispose();
+                foreshoreProfilesObserver?.Dispose();
+                stabilityPointStructuresObserver?.Dispose();
             }
 
             base.Dispose(disposing);

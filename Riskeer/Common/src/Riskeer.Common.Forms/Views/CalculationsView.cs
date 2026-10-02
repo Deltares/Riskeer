@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -126,11 +126,6 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         protected IAssessmentSection AssessmentSection { get; }
 
-        /// <summary>
-        /// Gets an indicator whether the view is loaded.
-        /// </summary>
-        protected bool Loaded { get; private set; }
-
         protected override void OnLoad(EventArgs e)
         {
             InitializeObservers();
@@ -141,25 +136,18 @@ namespace Riskeer.Common.Forms.Views
             base.OnLoad(e);
 
             UpdateGenerateCalculationsButtonState();
-
-            Loaded = true;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                if (Loaded)
-                {
-                    inputObserver.Dispose();
-                    calculationObserver.Dispose();
-                    calculationGroupObserver.Dispose();
-                    hydraulicBoundaryDatabasesObserver.Dispose();
-                }
+                inputObserver?.Dispose();
+                calculationObserver?.Dispose();
+                calculationGroupObserver?.Dispose();
+                hydraulicBoundaryDatabasesObserver?.Dispose();
 
                 components?.Dispose();
-
-                Loaded = false;
             }
 
             base.Dispose(disposing);

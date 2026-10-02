@@ -64,10 +64,10 @@ namespace Riskeer.HeightStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && Loaded)
+            if (disposing)
             {
-                foreshoreProfilesObserver.Dispose();
-                heightStructuresObserver.Dispose();
+                foreshoreProfilesObserver?.Dispose();
+                heightStructuresObserver?.Dispose();
             }
 
             base.Dispose(disposing);

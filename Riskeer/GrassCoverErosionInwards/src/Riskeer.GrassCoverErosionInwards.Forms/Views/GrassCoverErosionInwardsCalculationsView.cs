@@ -62,9 +62,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && Loaded)
+            if (disposing)
             {
-                dikeProfilesObserver.Dispose();
+                dikeProfilesObserver?.Dispose();
             }
 
             base.Dispose(disposing);
