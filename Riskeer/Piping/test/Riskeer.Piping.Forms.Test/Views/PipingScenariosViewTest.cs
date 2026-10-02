@@ -425,6 +425,19 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new PipingScenariosView(new CalculationGroup(), new PipingFailureMechanism(), Substitute.For<IAssessmentSection>());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+        
+        [Test]
         public void PipingScenarioView_SemiProbabilisticCalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Call
