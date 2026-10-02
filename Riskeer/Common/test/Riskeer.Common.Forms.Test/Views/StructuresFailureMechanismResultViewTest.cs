@@ -87,6 +87,22 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var failureMechanism = new TestStructuresFailureMechanism();
+            var view = new StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput>(
+                failureMechanism.SectionResults, failureMechanism, Substitute.For<IAssessmentSection>(),
+                (fm, section) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1));
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup

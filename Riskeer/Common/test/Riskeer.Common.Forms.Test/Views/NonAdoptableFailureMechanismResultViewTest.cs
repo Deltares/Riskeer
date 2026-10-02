@@ -82,6 +82,22 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var failureMechanism = new TestNonAdoptableFailureMechanism();
+            var view = new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, Substitute.For<IAssessmentSection>(),
+                (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual));
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         public void GivenFormWithNonAdoptableFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given

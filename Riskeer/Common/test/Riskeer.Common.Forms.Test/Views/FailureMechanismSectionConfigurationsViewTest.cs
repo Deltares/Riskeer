@@ -128,6 +128,21 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new FailureMechanismSectionConfigurationsView<FailureMechanismSectionConfiguration, FailureMechanismSectionConfigurationRow>(
+                new ObservableList<FailureMechanismSectionConfiguration>(), Substitute.For<IFailureMechanism>(),
+                (configuration, start, end) => null);
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         public void Constructor_WithSectionConfigurations_CreatesViewWithDataGridViewCorrectlyFilled()
         {
             // Setup

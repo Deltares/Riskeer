@@ -107,6 +107,19 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new PipingFailureMechanismSectionConfigurationsView(new PipingFailureMechanism());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         public void Constructor_WithSectionConfigurations_CreatesViewWithDataGridViewCorrectlyFilled()
         {
             // Setup
