@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
@@ -175,7 +174,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Dispose_ViewNotLoaded_DoesNotThrow()
         {
             // Setup

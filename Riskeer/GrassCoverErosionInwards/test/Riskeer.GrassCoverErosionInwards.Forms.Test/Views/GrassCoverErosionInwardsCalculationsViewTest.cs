@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -78,7 +77,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Dispose_ViewNotLoaded_DoesNotThrow()
         {
             // Setup

@@ -151,7 +151,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Dispose_ViewNotLoaded_DoesNotThrow()
         {
             // Setup
