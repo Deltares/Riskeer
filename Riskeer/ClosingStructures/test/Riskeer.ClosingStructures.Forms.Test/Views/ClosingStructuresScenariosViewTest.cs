@@ -90,19 +90,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         public void ClosingStructuresScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Call
@@ -127,6 +114,19 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5), cells[failureProbabilityColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private void ShowFullyConfiguredClosingStructuresScenariosView()

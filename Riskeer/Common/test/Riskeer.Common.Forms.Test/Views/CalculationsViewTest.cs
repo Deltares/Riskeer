@@ -115,19 +115,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new TestCalculationsView(new CalculationGroup(), new TestCalculatableFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void CalculationsView_ChangingSubscribedRow_ListenerCorrectlyNotified()
         {
@@ -751,5 +738,18 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         #endregion
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new TestCalculationsView(new CalculationGroup(), new TestCalculatableFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
     }
 }

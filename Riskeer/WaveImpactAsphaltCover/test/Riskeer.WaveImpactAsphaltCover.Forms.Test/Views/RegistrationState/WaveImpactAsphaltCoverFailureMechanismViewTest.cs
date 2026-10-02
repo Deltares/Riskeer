@@ -109,19 +109,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views.RegistrationState
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new WaveImpactAsphaltCoverFailureMechanismView(new WaveImpactAsphaltCoverFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
@@ -338,6 +325,19 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views.RegistrationState
 
             var actualCalculationsData = (MapLineData) mapDataCollection.ElementAt(updatedCalculationsIndex);
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new WaveImpactAsphaltCoverFailureMechanismView(new WaveImpactAsphaltCoverFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private WaveImpactAsphaltCoverFailureMechanismView CreateView(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)

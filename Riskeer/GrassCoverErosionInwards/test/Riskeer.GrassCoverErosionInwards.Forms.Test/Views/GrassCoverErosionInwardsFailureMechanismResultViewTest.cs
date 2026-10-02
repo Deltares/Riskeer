@@ -88,20 +88,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, Substitute.For<IAssessmentSection>());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         [SetCulture("nl-NL")]
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
@@ -324,6 +310,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                                                                                                                               .ToArray();
                 CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, Substitute.For<IAssessmentSection>());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private static DataGridView GetDataGridView()

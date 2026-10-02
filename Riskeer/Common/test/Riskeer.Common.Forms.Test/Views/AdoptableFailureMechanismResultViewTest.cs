@@ -109,22 +109,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var failureMechanism = new TestAdoptableFailureMechanism();
-            var view = new TestAdoptableFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, Substitute.For<IAssessmentSection>(),
-                                                                   (fm, ass) => CreateFailureMechanismAssemblyResult(),
-                                                                   (sr, fm, ass) => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
@@ -334,6 +318,22 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsTrue(rowsChanged);
                 Assert.AreEqual(2, nrOfAssemblyCalls);
             }
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var failureMechanism = new TestAdoptableFailureMechanism();
+            var view = new TestAdoptableFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, Substitute.For<IAssessmentSection>(),
+                                                                   (fm, ass) => CreateFailureMechanismAssemblyResult(),
+                                                                   (sr, fm, ass) => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private static FailureMechanismAssemblyResultWrapper CreateFailureMechanismAssemblyResult()

@@ -70,19 +70,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new MacroStabilityInwardsCalculationsView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
@@ -664,6 +651,19 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
             Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new MacroStabilityInwardsCalculationsView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         public override void Setup()

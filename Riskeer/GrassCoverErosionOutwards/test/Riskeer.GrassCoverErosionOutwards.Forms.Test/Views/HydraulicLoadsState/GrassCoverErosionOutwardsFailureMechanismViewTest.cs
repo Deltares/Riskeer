@@ -146,19 +146,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new GrassCoverErosionOutwardsFailureMechanismView(new GrassCoverErosionOutwardsFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
@@ -600,6 +587,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 
             var actualCalculationsData = (MapLineData) mapDataCollection.ElementAt(updatedCalculationsIndex);
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new GrassCoverErosionOutwardsFailureMechanismView(new GrassCoverErosionOutwardsFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private GrassCoverErosionOutwardsFailureMechanismView CreateView(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)

@@ -100,22 +100,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                            AssessmentSectionTestHelper.CreateAssessmentSectionStub(),
-                                                            () => 0.01,
-                                                            () => "1/100");
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -364,6 +348,22 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
             guiService.Received().CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>());
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                            AssessmentSectionTestHelper.CreateAssessmentSectionStub(),
+                                                            () => 0.01,
+                                                            () => "1/100");
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private DataGridView GetCalculationsDataGridView()

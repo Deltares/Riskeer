@@ -149,19 +149,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
@@ -658,6 +645,19 @@ namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 
             var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private HeightStructuresFailureMechanismView CreateView(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)

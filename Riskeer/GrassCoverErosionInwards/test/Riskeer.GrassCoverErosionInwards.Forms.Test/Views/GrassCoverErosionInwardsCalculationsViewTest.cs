@@ -77,19 +77,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new GrassCoverErosionInwardsCalculationsView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup
@@ -687,6 +674,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(2, dataGridView.RowCount);
             Assert.AreEqual("Location 1 (4 m)", dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual("Location 2 (5 m)", dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new GrassCoverErosionInwardsCalculationsView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         public override void Setup()

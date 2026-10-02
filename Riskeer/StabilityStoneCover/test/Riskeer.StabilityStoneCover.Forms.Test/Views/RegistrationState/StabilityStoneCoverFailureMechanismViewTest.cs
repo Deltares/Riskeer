@@ -110,19 +110,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views.RegistrationState
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
@@ -339,6 +326,19 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views.RegistrationState
 
             var actualCalculationsData = (MapLineData) mapDataCollection.ElementAt(updatedCalculationsIndex);
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private StabilityStoneCoverFailureMechanismView CreateView(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)

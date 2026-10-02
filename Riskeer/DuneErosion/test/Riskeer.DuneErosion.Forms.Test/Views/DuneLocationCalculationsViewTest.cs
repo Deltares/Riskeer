@@ -172,23 +172,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             Assert.AreEqual("getCalculationIdentifierFunc", exception.ParamName);
         }
 
-
-        [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
-                                                        new DuneErosionFailureMechanism(),
-                                                        new AssessmentSectionStub(),
-                                                        () => 0.01,
-                                                        () => "1/100");
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -946,6 +929,23 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             // Then
             Assert.IsTrue(hydraulicBoundaryDatabaseFileNameColumn.Visible);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
+                                                        new DuneErosionFailureMechanism(),
+                                                        new AssessmentSectionStub(),
+                                                        () => 0.01,
+                                                        () => "1/100");
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private static ErrorProvider GetErrorProvider(DuneLocationCalculationsView view)

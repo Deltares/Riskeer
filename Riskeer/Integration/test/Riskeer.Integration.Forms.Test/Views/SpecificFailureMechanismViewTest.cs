@@ -117,19 +117,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new SpecificFailureMechanismView(new SpecificFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
@@ -348,6 +335,19 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             MapData actualHydraulicBoundaryLocationsData = mapDataCollection.ElementAt(updatedHydraulicBoundaryLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", actualHydraulicBoundaryLocationsData.Name);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new SpecificFailureMechanismView(new SpecificFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private SpecificFailureMechanismView CreateView(SpecificFailureMechanism failureMechanism, IAssessmentSection assessmentSection)

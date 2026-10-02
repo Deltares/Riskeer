@@ -139,19 +139,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.HydraulicLoadsState
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new DuneErosionFailureMechanismView(new DuneErosionFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
@@ -322,6 +309,19 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.HydraulicLoadsState
 
             var actualDuneLocationsData = (MapPointData) mapDataList[updatedDuneLocationsLayerIndex];
             Assert.AreEqual("Hydraulische belastingen", actualDuneLocationsData.Name);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new DuneErosionFailureMechanismView(new DuneErosionFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private DuneErosionFailureMechanismView CreateView(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)

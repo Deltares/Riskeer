@@ -80,19 +80,6 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new PipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
@@ -931,6 +918,19 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsFalse(dataGridView.Rows[0].ReadOnly);
             var selectableHydraulicLocationCell = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
             Assert.AreEqual(useAssessmentLevelManualInput, selectableHydraulicLocationCell.ReadOnly);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new PipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         public override void Setup()

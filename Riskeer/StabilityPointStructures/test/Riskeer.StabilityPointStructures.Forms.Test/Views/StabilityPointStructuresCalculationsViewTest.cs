@@ -81,19 +81,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new StabilityPointStructuresCalculationsView(new CalculationGroup(), new StabilityPointStructuresFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup
@@ -649,6 +636,19 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             observer.DidNotReceive().UpdateObserver();
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new StabilityPointStructuresCalculationsView(new CalculationGroup(), new StabilityPointStructuresFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         public override void Setup()

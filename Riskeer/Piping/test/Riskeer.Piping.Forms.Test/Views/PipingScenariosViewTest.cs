@@ -423,19 +423,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
             Assert.IsFalse(totalScenarioContributionLabel.Visible);
         }
-
-        [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new PipingScenariosView(new CalculationGroup(), new PipingFailureMechanism(), Substitute.For<IAssessmentSection>());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
         
         [Test]
         public void PipingScenarioView_SemiProbabilisticCalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
@@ -1596,6 +1583,19 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.IsFalse(totalScenarioContributionLabel.Visible);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new PipingScenariosView(new CalculationGroup(), new PipingFailureMechanism(), Substitute.For<IAssessmentSection>());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private static void ConfigureFailureMechanism(PipingFailureMechanism failureMechanism)

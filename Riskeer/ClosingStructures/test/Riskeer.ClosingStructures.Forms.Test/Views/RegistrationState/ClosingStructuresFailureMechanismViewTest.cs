@@ -113,19 +113,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
@@ -349,6 +336,19 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
 
             var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private ClosingStructuresFailureMechanismView CreateView(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)

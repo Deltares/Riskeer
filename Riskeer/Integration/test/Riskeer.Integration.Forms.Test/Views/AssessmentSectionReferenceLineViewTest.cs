@@ -124,19 +124,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new AssessmentSectionReferenceLineView(new AssessmentSectionStub());
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
         {
             // Setup
@@ -210,6 +197,19 @@ namespace Riskeer.Integration.Forms.Test.Views
             MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
             Assert.IsTrue(referenceLineMapData.IsVisible);
             observer.Received().UpdateObserver();
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new AssessmentSectionReferenceLineView(new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)

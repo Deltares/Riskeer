@@ -148,19 +148,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Dispose_ViewNotLoaded_DoesNotThrow()
-        {
-            // Setup
-            var view = new AssemblyResultTotalView(new AssessmentSection(AssessmentSectionComposition.Dike));
-
-            // Call
-            void Call() => view.Dispose();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
         public void GivenFormWithAssemblyResultTotalViewAndAllCorrelatedFailureMechanismsInAssemblyTrue_ThenCheckboxVisible()
         {
             // Given
@@ -760,6 +747,19 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreNotSame(dataSource, dataGridView.DataSource);
                 AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResultOutput.AssemblyResult, rows);
             }
+        }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new AssemblyResultTotalView(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         private static AssessmentSection CreateAssessmentSection()
