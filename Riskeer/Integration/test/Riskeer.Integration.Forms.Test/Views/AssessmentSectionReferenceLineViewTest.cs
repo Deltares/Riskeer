@@ -124,6 +124,19 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new AssessmentSectionReferenceLineView(new AssessmentSectionStub());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
         {
             // Setup

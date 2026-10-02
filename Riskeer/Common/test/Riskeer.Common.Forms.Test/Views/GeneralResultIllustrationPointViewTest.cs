@@ -173,6 +173,19 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new TestGeneralResultIllustrationPointView(Substitute.For<ICalculation>(), GetGeneralResultWithoutTopLevelIllustrationPoints);
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void GivenFullyConfiguredView_WhenOutputChangesAndNotifyObserver_ThenSelectionChangedAndPropagated(bool withInitialOutput)

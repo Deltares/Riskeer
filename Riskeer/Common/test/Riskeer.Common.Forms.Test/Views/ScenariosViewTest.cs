@@ -258,6 +258,19 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new TestScenariosView(new CalculationGroup(), new TestCalculatableFailureMechanism());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
         public void ScenariosView_ContributionValueInvalid_ShowsErrorTooltip()
         {
             // Setup
