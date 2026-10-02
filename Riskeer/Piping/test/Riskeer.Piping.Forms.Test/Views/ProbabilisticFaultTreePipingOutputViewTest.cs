@@ -44,5 +44,19 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
             }
         }
+
+        [Test]
+        public void Dispose_ViewNotLoaded_DoesNotThrow()
+        {
+            // Setup
+            var view = new ProbabilisticFaultTreePipingOutputView(new ProbabilisticPipingCalculationScenario(),
+                                                                  () => new TestGeneralResultFaultTreeIllustrationPoint());
+
+            // Call
+            void Call() => view.Dispose();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
+        }
     }
 }
