@@ -101,11 +101,11 @@ namespace Core.Common.Data.TestUtil
             Assert.IsNotNull(original);
             Assert.IsInstanceOf<IEnumerable<T>>(clone);
 
-            if (ReferenceEquals(original, Array.Empty<T>()) 
-                && ReferenceEquals((IEnumerable<T>) clone, Array.Empty<T>()))
+            if (ReferenceIsSameDueToFrameworkOptimization(original, clone))
             {
                 return;
             }
+
             Assert.AreNotSame(original, clone);
 
             var observable = original as IObservable;
@@ -115,6 +115,12 @@ namespace Core.Common.Data.TestUtil
             }
 
             CollectionAssert.AreEqual(original, (IEnumerable<T>) clone, new AreClonesComparer<T>(typeSpecificAsserts));
+        }
+
+        private static bool ReferenceIsSameDueToFrameworkOptimization<T>(IEnumerable<T> original, object clone)
+        {
+            return ReferenceEquals(original, Array.Empty<T>())
+                   && ReferenceEquals((IEnumerable<T>) clone, Array.Empty<T>());
         }
 
         private class AreClonesComparer<T> : IComparer
