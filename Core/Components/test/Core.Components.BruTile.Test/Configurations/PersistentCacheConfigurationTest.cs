@@ -131,8 +131,6 @@ namespace Core.Components.BruTile.Test.Configurations
         public void InitializeFromTileSource_ValidTileSource_InitializeConfiguration()
         {
             // Setup
-            var tileSchema = Substitute.For<ITileSchema>();
-
             string rootPath = TestHelper.GetScratchPadPath("InitializeFromTileSource_ValidTileSource_InitializeConfiguration");
 
             DoAndCleanupAfter(
@@ -140,7 +138,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 {
                     using (var configuration = new SimplePersistentCacheConfiguration(rootPath))
                     {
-                        var tileSource = CreateTileSource(tileSchema);
+                        var tileSource = CreateTileSource();
 
                         // Call
                         configuration.TestInitializeFromTileSource(tileSource);
@@ -158,9 +156,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void TestInitializeFromTileSource_CreationOfDirectoryNotAllowed_ThrowCannotCreateTileCacheException()
         {
             // Setup
-            var tileSchema = Substitute.For<ITileSchema>();
-
-            var tileSource = CreateTileSource(tileSchema);
+            var tileSource = CreateTileSource();
 
             string rootPath = TestHelper.GetScratchPadPath("TestInitializeFromTileSource_CreationOfDirectoryNotAllowed_ThrowCannotCreateTileCacheException");
 
@@ -186,14 +182,12 @@ namespace Core.Components.BruTile.Test.Configurations
         public void InitializeFromTileSource_ConfigurationDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var tileSchema = Substitute.For<ITileSchema>();
-
             string rootPath = TestHelper.GetScratchPadPath("InitializeFromTileSource_ConfigurationDisposed_ThrownObjectDisposedException");
 
             var configuration = new SimplePersistentCacheConfiguration(rootPath);
             configuration.Dispose();
 
-            var tileSource = CreateTileSource(tileSchema);
+            var tileSource = CreateTileSource();
 
             DoAndCleanupAfter(
                 () =>
@@ -245,10 +239,10 @@ namespace Core.Components.BruTile.Test.Configurations
             }
         }
 
-        private static IHttpTileSource CreateTileSource(ITileSchema tileSchema)
+        private static IHttpTileSource CreateTileSource()
         {
             var tileSource = Substitute.For<IHttpTileSource>();
-            tileSource.Schema.Returns(tileSchema);
+            tileSource.Schema.Returns(Substitute.For<ITileSchema>());
             return tileSource;
         }
 

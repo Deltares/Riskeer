@@ -65,8 +65,8 @@ namespace Core.Components.BruTile.IO
         /// <param name="tileSource">The tile source.</param>
         /// <param name="minTiles">Minimum number of tiles in memory cache.</param>
         /// <param name="maxTiles">Maximum number of tiles in memory cache.</param>
-        /// <param name="permaCache">Optional: the persistent cache. When null, no tiles
-        /// will be cached outside of the volatile memory cache.</param>
+        /// <param name="permaCache">Optional: the persistent cache. When <c>null</c>, no tiles
+        /// will be cached outside the volatile memory cache.</param>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="tileSource"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when either <paramref name="minTiles"/>
@@ -291,7 +291,7 @@ namespace Core.Components.BruTile.IO
                 // Result should stay null
             }
 
-            //Try at least once again
+            // Try at least once again
             if (result == null)
             {
                 try
@@ -312,13 +312,13 @@ namespace Core.Components.BruTile.IO
         {
             if (!activeTileRequests.TryRemove(tileInfo.Index, out _))
             {
-                //try again
+                // Try again
                 activeTileRequests.TryRemove(tileInfo.Index, out _);
             }
 
             if (!openTileRequests.TryRemove(tileInfo.Index, out _))
             {
-                //try again
+                // Try again
                 openTileRequests.TryRemove(tileInfo.Index, out _);
             }
         }

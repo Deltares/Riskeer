@@ -44,9 +44,6 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Gets the singleton instance of <see cref="ITileSourceFactory"/>.
         /// </summary>
-        /// <remarks>
-        /// Also performs some one time setup logic (adding support for all security protocols).
-        /// </remarks>
         public static ITileSourceFactory Instance
         {
             get
