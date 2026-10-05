@@ -45,10 +45,10 @@ namespace Core.Components.BruTile.IO.Test
         public void Constructor_ValidArguments_ExpectedValues()
         {
             // Setup
-            var tileProvider = Substitute.For<IHttpTileSource>();
+            var tileSource = Substitute.For<IHttpTileSource>();
 
             // Call
-            using (var tileFetcher = new AsyncTileFetcher(tileProvider, 100, 200))
+            using (var tileFetcher = new AsyncTileFetcher(tileSource, 100, 200))
             {
                 // Assert
                 Assert.IsInstanceOf<ITileFetcher>(tileFetcher);
@@ -56,7 +56,7 @@ namespace Core.Components.BruTile.IO.Test
         }
 
         [Test]
-        public void Constructor_TileProviderNull_ThrowArgumentNullException()
+        public void Constructor_TileSourceNull_ThrowArgumentNullException()
         {
             // Call
             Action call = () => new AsyncTileFetcher(null, 100, 200);
@@ -72,10 +72,10 @@ namespace Core.Components.BruTile.IO.Test
         public void Constructor_NegativeNumberOfTilesForMemoryCacheSettings_ThrowArgumentException(int min, int max)
         {
             // Setup
-            var tileProvider = Substitute.For<IHttpTileSource>();
+            var tileSource = Substitute.For<IHttpTileSource>();
 
             // Call
-            Action call = () => new AsyncTileFetcher(tileProvider, min, max);
+            Action call = () => new AsyncTileFetcher(tileSource, min, max);
 
             // Assert
             const string message = "Het aantal kaart tegels voor de geheugen cache moeten positief zijn.";
@@ -89,10 +89,10 @@ namespace Core.Components.BruTile.IO.Test
         public void Constructor_InvalidInMemoryCacheSettings_ThrowArgumentException(int min, int max)
         {
             // Setup
-            var tileProvider = Substitute.For<IHttpTileSource>();
+            var tileSource = Substitute.For<IHttpTileSource>();
 
             // Call
-            Action call = () => new AsyncTileFetcher(tileProvider, min, max);
+            Action call = () => new AsyncTileFetcher(tileSource, min, max);
 
             // Assert
             const string message = "Het minimale aantal kaart tegels voor de geheugen cache moet kleiner zijn dan het maximale aantal kaart tegels.";
@@ -100,21 +100,21 @@ namespace Core.Components.BruTile.IO.Test
         }
 
         [Test]
-        public void GetTile_TileNotCachedAnywhere_GetTileAsynchronouslyFromTileProvider()
+        public void GetTile_TileNotCachedAnywhere_GetTileAsynchronouslyFromTileSource()
         {
             // Setup
             var info = new TileInfo();
             var data = new byte[0];
 
-            var tileProvider = Substitute.For<IHttpTileSource>();
-            tileProvider.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>())
-                        .Returns(Task.FromResult(data));
+            var tileSource = Substitute.For<IHttpTileSource>();
+            tileSource.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>())
+                      .Returns(Task.FromResult(data));
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
             persistentCache.Find(info.Index).Returns((byte[]) null);
 
             using (var fetcherIsDoneEvent = new AutoResetEvent(false))
-            using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
+            using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200, persistentCache))
             {
                 TileReceivedEventArgs receivedArguments = null;
                 var tileReceivedCounter = 0;
@@ -162,15 +162,15 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var tileProvider = Substitute.For<IHttpTileSource>();
-            tileProvider.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>())
-                        .Returns(Task.FromResult(data));
+            var tileSource = Substitute.For<IHttpTileSource>();
+            tileSource.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>())
+                      .Returns(Task.FromResult(data));
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
             persistentCache.Find(info.Index).Returns((byte[]) null);
 
             using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
-            using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
+            using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200, persistentCache))
             {
                 fetcher.QueueEmpty += (sender, args) => fetcherFiredAsyncEvent.Set();
 
@@ -204,14 +204,14 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var tileProvider = Substitute.For<IHttpTileSource>();
-            tileProvider.GetTileAsync(Arg.Any<HttpClient>(), info).Returns(Task.FromResult(data));
+            var tileSource = Substitute.For<IHttpTileSource>();
+            tileSource.GetTileAsync(Arg.Any<HttpClient>(), info).Returns(Task.FromResult(data));
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
             persistentCache.Find(info.Index).Returns(data);
 
             using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
-            using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
+            using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200, persistentCache))
             {
                 fetcher.TileReceived += (sender, args) => fetcherFiredAsyncEvent.Set();
                 fetcher.QueueEmpty += (sender, args) => fetcherFiredAsyncEvent.Set();
@@ -235,14 +235,14 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var tileProvider = Substitute.For<IHttpTileSource>();
-            tileProvider.GetTileAsync(Arg.Any<HttpClient>(), info).Returns(Task.FromResult(data));
+            var tileSource = Substitute.For<IHttpTileSource>();
+            tileSource.GetTileAsync(Arg.Any<HttpClient>(), info).Returns(Task.FromResult(data));
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
             persistentCache.Find(info.Index).Returns(_ => throw new IOException());
 
             using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
-            using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
+            using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200, persistentCache))
             {
                 fetcher.TileReceived += (sender, args) => fetcherFiredAsyncEvent.Set();
                 fetcher.QueueEmpty += (sender, args) => fetcherFiredAsyncEvent.Set();
@@ -263,9 +263,9 @@ namespace Core.Components.BruTile.IO.Test
         public void GetTile_TileFetcherDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var tileProvider = Substitute.For<IHttpTileSource>();
+            var tileSource = Substitute.For<IHttpTileSource>();
 
-            var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
+            var tileFetcher = new AsyncTileFetcher(tileSource, 1, 2);
             tileFetcher.Dispose();
 
             var tileInfo = new TileInfo();
@@ -287,13 +287,13 @@ namespace Core.Components.BruTile.IO.Test
 
             using (var allRequestsDoneEvent = new ManualResetEvent(false))
             {
-                var tileProvider = new TileProviderStub(allRequestsDoneEvent)
+                var tileSource = new TileSourceStub(allRequestsDoneEvent)
                 {
                     TileDataToReturn = data
                 };
 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
-                using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200))
+                using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200))
                 {
                     TileReceivedEventArgs receivedArguments = null;
                     var tileReceivedCounter = 0;
@@ -320,7 +320,7 @@ namespace Core.Components.BruTile.IO.Test
                     // Assert
                     if (fetcherIsDoneEvent.WaitOne(allowedTileFetchTime))
                     {
-                        Assert.AreEqual(1, tileProvider.GetTileCallCount);
+                        Assert.AreEqual(1, tileSource.GetTileCallCount);
 
                         Assert.AreEqual(1, tileReceivedCounter);
                         Assert.AreSame(data, receivedArguments.Tile);
@@ -348,24 +348,24 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var tileProvider = Substitute.For<IHttpTileSource>();
+            var tileSource = Substitute.For<IHttpTileSource>();
             var callCount = 0;
-            tileProvider.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>())
-                        .Returns(_ =>
-                        {
-                            if (++callCount == 1)
-                            {
-                                throw new Exception("1st attempt fails.");
-                            }
+            tileSource.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>())
+                      .Returns(_ =>
+                      {
+                          if (++callCount == 1)
+                          {
+                              throw new Exception("1st attempt fails.");
+                          }
 
-                            return Task.FromResult(data);
-                        });
+                          return Task.FromResult(data);
+                      });
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
             persistentCache.Find(info.Index).Returns((byte[]) null);
 
             using (var fetcherIsDoneEvent = new AutoResetEvent(false))
-            using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
+            using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200, persistentCache))
             {
                 TileReceivedEventArgs receivedArguments = null;
                 var tileReceivedCounter = 0;
@@ -415,13 +415,13 @@ namespace Core.Components.BruTile.IO.Test
 
             using (var blockingEvent = new ManualResetEvent(false))
             {
-                var blockingTileProvider = new TileProviderStub(blockingEvent)
+                var blockingTileSource = new TileSourceStub(blockingEvent)
                 {
                     TileDataToReturn = data
                 };
 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
-                using (var fetcher = new AsyncTileFetcher(blockingTileProvider, 100, 200))
+                using (var fetcher = new AsyncTileFetcher(blockingTileSource, 100, 200))
                 {
                     fetcher.TileReceived += (sender, args) => fetcherIsDoneEvent.Set();
                     fetcher.QueueEmpty += (sender, args) => fetcherIsDoneEvent.Set();
@@ -444,9 +444,9 @@ namespace Core.Components.BruTile.IO.Test
         public void DropAllPendingTileRequests_TileFetcherDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var tileProvider = Substitute.For<IHttpTileSource>();
+            var tileSource = Substitute.For<IHttpTileSource>();
 
-            var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
+            var tileFetcher = new AsyncTileFetcher(tileSource, 1, 2);
             tileFetcher.Dispose();
 
             // Call
@@ -461,9 +461,9 @@ namespace Core.Components.BruTile.IO.Test
         public void IsReady_TileFetcherIdle_ReturnTrue()
         {
             // Setup
-            var tileProvider = Substitute.For<IHttpTileSource>();
+            var tileSource = Substitute.For<IHttpTileSource>();
 
-            using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200))
+            using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200))
             {
                 // Call
                 bool fetcherIsReady = fetcher.IsReady();
@@ -480,15 +480,15 @@ namespace Core.Components.BruTile.IO.Test
             using (var isReadyCalledEvent = new AutoResetEvent(false))
             {
                 var tileInfo = new TileInfo();
-                var tileProvider = Substitute.For<IHttpTileSource>();
-                tileProvider.GetTileAsync(Arg.Any<HttpClient>(), tileInfo)
-                            .Returns(_ =>
-                            {
-                                isReadyCalledEvent.WaitOne(100);
-                                return Task.FromResult<byte[]>(null);
-                            });
+                var tileSource = Substitute.For<IHttpTileSource>();
+                tileSource.GetTileAsync(Arg.Any<HttpClient>(), tileInfo)
+                          .Returns(_ =>
+                          {
+                              isReadyCalledEvent.WaitOne(100);
+                              return Task.FromResult<byte[]>(null);
+                          });
 
-                using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200))
+                using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200))
                 {
                     fetcher.GetTile(tileInfo);
 
@@ -507,9 +507,9 @@ namespace Core.Components.BruTile.IO.Test
         public void IsRead_TileFetcherDisposed_ThrowObjetDisposedException()
         {
             // Setup
-            var tileProvider = Substitute.For<IHttpTileSource>();
+            var tileSource = Substitute.For<IHttpTileSource>();
 
-            var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
+            var tileFetcher = new AsyncTileFetcher(tileSource, 1, 2);
             tileFetcher.Dispose();
 
             // Call
@@ -524,9 +524,9 @@ namespace Core.Components.BruTile.IO.Test
         public void Dispose_CalledMultipleTimes_DoesNotThrow()
         {
             // Setup
-            var tileProvider = Substitute.For<IHttpTileSource>();
+            var tileSource = Substitute.For<IHttpTileSource>();
 
-            var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
+            var tileFetcher = new AsyncTileFetcher(tileSource, 1, 2);
 
             // Call
             Action call = () =>
@@ -544,11 +544,11 @@ namespace Core.Components.BruTile.IO.Test
         /// on its methods until a signal is given from another thread.
         /// </summary>
         /// <remarks>Mocking this behavior in Rhinomocks leads to deadlocks.</remarks>
-        private class TileProviderStub : IHttpTileSource
+        private class TileSourceStub : IHttpTileSource
         {
             private readonly EventWaitHandle getTileShouldReturnEvent;
 
-            public TileProviderStub(EventWaitHandle getTileShouldReturnEvent)
+            public TileSourceStub(EventWaitHandle getTileShouldReturnEvent)
             {
                 this.getTileShouldReturnEvent = getTileShouldReturnEvent;
             }

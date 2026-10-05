@@ -44,7 +44,7 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Creates an instance of <see cref="WellKnownTileSourceLayerConfiguration"/>.
         /// </summary>
-        /// <param name="knownTileSource">The built-in tile provider to be used.</param>
+        /// <param name="knownTileSource">The built-in tile source to be used.</param>
         /// <param name="persistentCacheDirectoryPath">The directory path to the persistent tile cache.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="persistentCacheDirectoryPath"/>
         /// is an invalid folder path.</exception>
@@ -64,7 +64,7 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Creates a new initialized instance of <see cref="WellKnownTileSourceLayerConfiguration"/>.
         /// </summary>
-        /// <param name="knownTileSource">The built-in tile provider to be used.</param>
+        /// <param name="knownTileSource">The built-in tile source to be used.</param>
         /// <param name="tileSource">The tile source corresponding to <paramref name="knownTileSource"/>.</param>
         /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
         /// cache failed.</exception>
@@ -79,7 +79,7 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Creates a fully initialized instance of <see cref="WellKnownTileSourceLayerConfiguration"/>.
         /// </summary>
-        /// <param name="wellKnownTileSource">The tile provider to be used.</param>
+        /// <param name="wellKnownTileSource">The tile source to be used.</param>
         /// <returns>The new <see cref="WellKnownTileSourceLayerConfiguration"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="wellKnownTileSource"/>
         /// isn't a supported member.</exception>
@@ -106,7 +106,7 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Returns the <see cref="KnownTileSource"/> equivalent of <see cref="WellKnownTileSource"/>.
         /// </summary>
-        /// <param name="wellKnownTileSource">The tile provider to be used.</param>
+        /// <param name="wellKnownTileSource">The tile source to be used.</param>
         /// <returns>The <see cref="KnownTileSource"/> equivalent of the <paramref name="wellKnownTileSource"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="wellKnownTileSource"/>
         /// is not a valid enum value of <see cref="WellKnownTileSource"/>.</exception>
