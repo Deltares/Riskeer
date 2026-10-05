@@ -95,8 +95,7 @@ namespace Core.Components.BruTile.Configurations
                 using (Stream s = httpClient.GetStreamAsync(capabilitiesUrl).GetAwaiter().GetResult())
                 {
                     return WmtsCapabilitiesParser.Parse(s,
-                                                        BoundingBoxAxisOrderInterpretation.CRS,
-                                                        ConfigureHttpRequestMessage);
+                                                        configureHttpRequestMessage: ConfigureHttpRequestMessage);
                 }
             }
             catch (Exception e)
