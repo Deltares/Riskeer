@@ -66,10 +66,6 @@ All rights reserved.
       <Version>1.0.119</Version>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Data.SqlClient">
-      <Version>4.8.6</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(ProjectDir)UnusedResourceSearcher&quot; &quot;$(OutDir)UnusedResourceSearcher\*&quot; /D /S /Y"/>
