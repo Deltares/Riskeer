@@ -41,7 +41,7 @@ namespace Core.Components.BruTile.Configurations
     public abstract class PersistentCacheConfiguration : IConfiguration
     {
         private FileCache fileCache;
-        private ITileSource tileSource;
+        private IHttpTileSource tileSource;
 
         /// <summary>
         /// Initializes a new instance of <see cref="PersistentCacheConfiguration"/>.
@@ -111,11 +111,11 @@ namespace Core.Components.BruTile.Configurations
         /// Properly initialize the configuration, making it ready for tile fetching.
         /// </summary>
         /// <exception cref="CannotFindTileSourceException">Thrown when the configured
-        /// <see cref="ITileSource"/> cannot be found.</exception>
+        /// <see cref="IHttpTileSource"/> cannot be found.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when the configured
         /// tile cache cannot be created.</exception>
-        /// <exception cref="CannotReceiveTilesException">Thrown when <see cref="TileSource"/>
-        /// doesn't allow for tiles to be received.</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when the configured
+        /// <see cref="IHttpTileSource"/> doesn't allow for tiles to be received.</exception>
         protected abstract void OnInitialize();
 
         protected virtual void Dispose(bool disposing)
@@ -140,14 +140,14 @@ namespace Core.Components.BruTile.Configurations
         }
 
         /// <summary>
-        /// Initializes the configuration based on the given <see cref="ITileSource"/>.
+        /// Initializes the configuration based on the given <see cref="IHttpTileSource"/>.
         /// </summary>
         /// <param name="newTileSource">The tile source to initialize for.</param>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when calling this method while
         /// this instance is disposed.</exception>
-        protected void InitializeFromTileSource(ITileSource newTileSource)
+        protected void InitializeFromTileSource(IHttpTileSource newTileSource)
         {
             ThrowExceptionIfDisposed();
 

@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using BruTile;
@@ -44,7 +45,7 @@ namespace Core.Components.BruTile.IO.Test
         public void Constructor_ValidArguments_ExpectedValues()
         {
             // Setup
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+            var tileProvider = Substitute.For<IHttpTileSource>();
 
             // Call
             using (var tileFetcher = new AsyncTileFetcher(tileProvider, 100, 200))
@@ -71,7 +72,7 @@ namespace Core.Components.BruTile.IO.Test
         public void Constructor_NegativeNumberOfTilesForMemoryCacheSettings_ThrowArgumentException(int min, int max)
         {
             // Setup
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+            var tileProvider = Substitute.For<IHttpTileSource>();
 
             // Call
             Action call = () => new AsyncTileFetcher(tileProvider, min, max);
@@ -88,7 +89,7 @@ namespace Core.Components.BruTile.IO.Test
         public void Constructor_InvalidInMemoryCacheSettings_ThrowArgumentException(int min, int max)
         {
             // Setup
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+            var tileProvider = Substitute.For<IHttpTileSource>();
 
             // Call
             Action call = () => new AsyncTileFetcher(tileProvider, min, max);
@@ -105,8 +106,9 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
-            ((ILocalTileSource) tileProvider).GetTileAsync(info).Returns(Task.FromResult(data));
+            var tileProvider = Substitute.For<IHttpTileSource>();
+            tileProvider.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>())
+                        .Returns(Task.FromResult(data));
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
             persistentCache.Find(info.Index).Returns((byte[]) null);
@@ -160,8 +162,9 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
-            ((ILocalTileSource) tileProvider).GetTileAsync(info).Returns(Task.FromResult(data));
+            var tileProvider = Substitute.For<IHttpTileSource>();
+            tileProvider.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>())
+                        .Returns(Task.FromResult(data));
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
             persistentCache.Find(info.Index).Returns((byte[]) null);
@@ -201,8 +204,8 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
-            ((ILocalTileSource) tileProvider).GetTileAsync(info).Returns(Task.FromResult(data));
+            var tileProvider = Substitute.For<IHttpTileSource>();
+            tileProvider.GetTileAsync(Arg.Any<HttpClient>(), info).Returns(Task.FromResult(data));
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
             persistentCache.Find(info.Index).Returns(data);
@@ -232,8 +235,8 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
-            ((ILocalTileSource) tileProvider).GetTileAsync(info).Returns(Task.FromResult(data));
+            var tileProvider = Substitute.For<IHttpTileSource>();
+            tileProvider.GetTileAsync(Arg.Any<HttpClient>(), info).Returns(Task.FromResult(data));
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
             persistentCache.Find(info.Index).Returns(_ => throw new IOException());
@@ -260,7 +263,7 @@ namespace Core.Components.BruTile.IO.Test
         public void GetTile_TileFetcherDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+            var tileProvider = Substitute.For<IHttpTileSource>();
 
             var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
             tileFetcher.Dispose();
@@ -345,9 +348,9 @@ namespace Core.Components.BruTile.IO.Test
             var info = new TileInfo();
             var data = new byte[0];
 
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+            var tileProvider = Substitute.For<IHttpTileSource>();
             var callCount = 0;
-            ((ILocalTileSource) tileProvider).GetTileAsync(info)
+            tileProvider.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>())
                         .Returns(_ =>
                         {
                             if (++callCount == 1)
@@ -441,7 +444,7 @@ namespace Core.Components.BruTile.IO.Test
         public void DropAllPendingTileRequests_TileFetcherDisposed_ThrowObjectDisposedException()
         {
             // Setup
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+            var tileProvider = Substitute.For<IHttpTileSource>();
 
             var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
             tileFetcher.Dispose();
@@ -458,7 +461,7 @@ namespace Core.Components.BruTile.IO.Test
         public void IsReady_TileFetcherIdle_ReturnTrue()
         {
             // Setup
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+            var tileProvider = Substitute.For<IHttpTileSource>();
 
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200))
             {
@@ -477,8 +480,8 @@ namespace Core.Components.BruTile.IO.Test
             using (var isReadyCalledEvent = new AutoResetEvent(false))
             {
                 var tileInfo = new TileInfo();
-                var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
-                ((ILocalTileSource) tileProvider).GetTileAsync(tileInfo)
+                var tileProvider = Substitute.For<IHttpTileSource>();
+                tileProvider.GetTileAsync(Arg.Any<HttpClient>(), tileInfo)
                             .Returns(_ =>
                             {
                                 isReadyCalledEvent.WaitOne(100);
@@ -504,7 +507,7 @@ namespace Core.Components.BruTile.IO.Test
         public void IsRead_TileFetcherDisposed_ThrowObjetDisposedException()
         {
             // Setup
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+            var tileProvider = Substitute.For<IHttpTileSource>();
 
             var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
             tileFetcher.Dispose();
@@ -521,7 +524,7 @@ namespace Core.Components.BruTile.IO.Test
         public void Dispose_CalledMultipleTimes_DoesNotThrow()
         {
             // Setup
-            var tileProvider = Substitute.For<ITileSource, ILocalTileSource>();
+            var tileProvider = Substitute.For<IHttpTileSource>();
 
             var tileFetcher = new AsyncTileFetcher(tileProvider, 1, 2);
 
@@ -537,11 +540,11 @@ namespace Core.Components.BruTile.IO.Test
         }
 
         /// <summary>
-        /// A stub implementation of <see cref="ILocalTileSource"/> that can wait to return
-        /// on its methods until an signal is given from another thread.
+        /// A stub implementation of <see cref="IHttpTileSource"/> that can wait to return
+        /// on its methods until a signal is given from another thread.
         /// </summary>
         /// <remarks>Mocking this behavior in Rhinomocks leads to deadlocks.</remarks>
-        private class TileProviderStub : ITileSource, ILocalTileSource
+        private class TileProviderStub : IHttpTileSource
         {
             private readonly EventWaitHandle getTileShouldReturnEvent;
 
@@ -560,7 +563,7 @@ namespace Core.Components.BruTile.IO.Test
 
             public Attribution Attribution => default(Attribution);
 
-            public Task<byte[]> GetTileAsync(TileInfo tileInfo)
+            public Task<byte[]> GetTileAsync(HttpClient httpClient, TileInfo tileInfo, CancellationToken? cancellation = null)
             {
                 getTileShouldReturnEvent.WaitOne();
                 GetTileCallCount++;

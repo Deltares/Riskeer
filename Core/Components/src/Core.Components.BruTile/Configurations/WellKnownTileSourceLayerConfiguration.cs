@@ -57,7 +57,7 @@ namespace Core.Components.BruTile.Configurations
         {
             this.knownTileSource = knownTileSource;
 
-            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSource(knownTileSource);
+            IHttpTileSource tileSource = TileSourceFactory.Instance.GetKnownTileSource(knownTileSource);
             InitializeFromTileSource(tileSource);
         }
 
@@ -68,7 +68,7 @@ namespace Core.Components.BruTile.Configurations
         /// <param name="tileSource">The tile source corresponding to <paramref name="knownTileSource"/>.</param>
         /// <exception cref="CannotCreateTileCacheException">Thrown when creating the file
         /// cache failed.</exception>
-        private WellKnownTileSourceLayerConfiguration(KnownTileSource knownTileSource, ITileSource tileSource)
+        private WellKnownTileSourceLayerConfiguration(KnownTileSource knownTileSource, IHttpTileSource tileSource)
             : base(SuggestTileCachePath(tileSource, knownTileSource))
         {
             this.knownTileSource = knownTileSource;
@@ -89,7 +89,7 @@ namespace Core.Components.BruTile.Configurations
         {
             KnownTileSource knownTileSourceEquivalent = WellKnownTileSourceToKnownTileSource(wellKnownTileSource);
 
-            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSource(knownTileSourceEquivalent);
+            IHttpTileSource tileSource = TileSourceFactory.Instance.GetKnownTileSource(knownTileSourceEquivalent);
             return new WellKnownTileSourceLayerConfiguration(knownTileSourceEquivalent, tileSource);
         }
 
@@ -140,7 +140,7 @@ namespace Core.Components.BruTile.Configurations
             }
         }
 
-        private static string SuggestTileCachePath(ITileSource tileSource, KnownTileSource knownTileSource)
+        private static string SuggestTileCachePath(IHttpTileSource tileSource, KnownTileSource knownTileSource)
         {
             ITileSchema tileSchema = tileSource.Schema;
             string host = knownTileSource.ToString();

@@ -77,7 +77,7 @@ namespace Core.Components.BruTile.Configurations
         /// does not allow for tiles to be retrieved.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
-        private WmtsLayerConfiguration(string wmtsCapabilitiesUrl, ITileSource tileSource)
+        private WmtsLayerConfiguration(string wmtsCapabilitiesUrl, IHttpTileSource tileSource)
             : base(SuggestTileCachePath(ValidateTileSource(tileSource)))
         {
             capabilitiesUri = wmtsCapabilitiesUrl;
@@ -98,9 +98,9 @@ namespace Core.Components.BruTile.Configurations
         /// <exception cref="ArgumentException">Thrown when <paramref name="preferredFormat"/>
         /// is not an image MIME-type.</exception>
         /// <exception cref="CannotFindTileSourceException">Thrown when it has become impossible
-        /// to create an <see cref="ITileSource"/> based on the given information (for example:
+        /// to create an <see cref="IHttpTileSource"/> based on the given information (for example:
         /// unable to connect to server).</exception>
-        /// <exception cref="CannotReceiveTilesException">Thrown when the configured <see cref="ITileSource"/>
+        /// <exception cref="CannotReceiveTilesException">Thrown when the configured <see cref="IHttpTileSource"/>
         /// does not allow for tiles to be retrieved.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
@@ -108,7 +108,7 @@ namespace Core.Components.BruTile.Configurations
         {
             ValidateConfigurationParameters(wmtsCapabilitiesUrl, capabilityIdentifier, preferredFormat);
 
-            ITileSource tileSource = GetConfiguredTileSource(wmtsCapabilitiesUrl, capabilityIdentifier, preferredFormat);
+            IHttpTileSource tileSource = GetConfiguredTileSource(wmtsCapabilitiesUrl, capabilityIdentifier, preferredFormat);
             return new WmtsLayerConfiguration(wmtsCapabilitiesUrl, tileSource);
         }
 
@@ -124,19 +124,19 @@ namespace Core.Components.BruTile.Configurations
                 return;
             }
 
-            ITileSource tileSource = GetConfiguredTileSource(capabilitiesUri, capabilityIdentifier, preferredFormat);
+            IHttpTileSource tileSource = GetConfiguredTileSource(capabilitiesUri, capabilityIdentifier, preferredFormat);
 
             InitializeFromTileSource(tileSource);
         }
 
         /// <summary>
-        /// Validates an <see cref="ITileSource"/>.
+        /// Validates an <see cref="IHttpTileSource"/>.
         /// </summary>
         /// <param name="tileSource">The source to be validated.</param>
         /// <returns>Returns <paramref name="tileSource"/>.</returns>
         /// <exception cref="CannotCreateTileCacheException">Thrown when <paramref name="tileSource"/>
         /// doesn't contain a <see cref="WmtsTileSchema"/>.</exception>
-        private static ITileSource ValidateTileSource(ITileSource tileSource)
+        private static IHttpTileSource ValidateTileSource(IHttpTileSource tileSource)
         {
             if (!(tileSource.Schema is WmtsTileSchema))
             {
@@ -188,10 +188,10 @@ namespace Core.Components.BruTile.Configurations
         /// <returns>The tile source with <see cref="WmtsTileSchema"/>.</returns>
         /// <exception cref="CannotFindTileSourceException">Thrown when unable to retrieve
         /// the configured tile source.</exception>
-        private static ITileSource GetConfiguredTileSource(string capabilitiesUri, string capabilityIdentifier, string preferredFormat)
+        private static IHttpTileSource GetConfiguredTileSource(string capabilitiesUri, string capabilityIdentifier, string preferredFormat)
         {
-            IEnumerable<ITileSource> tileSources = TileSourceFactory.Instance.GetWmtsTileSources(capabilitiesUri);
-            ITileSource tileSource = tileSources.FirstOrDefault(ts => IsMatch(ts, capabilityIdentifier, preferredFormat));
+            IEnumerable<IHttpTileSource> tileSources = TileSourceFactory.Instance.GetWmtsTileSources(capabilitiesUri);
+            IHttpTileSource tileSource = tileSources.FirstOrDefault(ts => IsMatch(ts, capabilityIdentifier, preferredFormat));
             if (tileSource == null)
             {
                 string message = string.Format(Resources.WmtsLayerConfiguration_GetConfiguredTileSource_Cannot_find_LayerId_0_at_WmtsUrl_1_,
@@ -202,14 +202,14 @@ namespace Core.Components.BruTile.Configurations
             return tileSource;
         }
 
-        private static bool IsMatch(ITileSource wmtsTileSource, string capabilityIdentifier, string preferredFormat)
+        private static bool IsMatch(IHttpTileSource wmtsTileSource, string capabilityIdentifier, string preferredFormat)
         {
             var schema = (WmtsTileSchema) wmtsTileSource.Schema;
             return schema.Identifier.Equals(capabilityIdentifier)
                    && schema.Format.Equals(preferredFormat);
         }
 
-        private static string SuggestTileCachePath(ITileSource tileSource)
+        private static string SuggestTileCachePath(IHttpTileSource tileSource)
         {
             var tileSchema = (WmtsTileSchema) tileSource.Schema;
             string host = tileSchema.Title;

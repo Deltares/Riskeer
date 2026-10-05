@@ -34,7 +34,7 @@ using Core.Components.Gis.Data;
 namespace Core.Components.BruTile.TestUtil
 {
     /// <summary>
-    /// Defines an <see cref="ITileSource"/> suitable to most unit test cases related to
+    /// Defines an <see cref="IHttpTileSource"/> suitable to most unit test cases related to
     /// dealing with <see cref="WmtsMapData"/>.
     /// </summary>
     public class TestWmtsTileSource : HttpTileSource

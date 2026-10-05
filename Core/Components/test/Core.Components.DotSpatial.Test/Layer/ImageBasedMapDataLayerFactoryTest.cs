@@ -175,7 +175,7 @@ namespace Core.Components.DotSpatial.Test.Layer
         {
             var factoryWithoutRequiredTileSource = Substitute.For<ITileSourceFactory>();
             factoryWithoutRequiredTileSource.GetWmtsTileSources(Arg.Any<string>())
-                                            .Returns(Enumerable.Empty<ITileSource>());
+                                            .Returns(Enumerable.Empty<IHttpTileSource>());
 
             var factoryThrowingCannotFindTileSourceException = Substitute.For<ITileSourceFactory>();
             factoryThrowingCannotFindTileSourceException.GetWmtsTileSources(Arg.Any<string>())

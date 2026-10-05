@@ -33,7 +33,7 @@ using Core.Components.Gis.Exceptions;
 namespace Core.Components.BruTile.Configurations
 {
     /// <summary>
-    /// Class responsible for creating <see cref="ITileSource"/> instances for a given
+    /// Class responsible for creating <see cref="IHttpTileSource"/> instances for a given
     /// source.
     /// </summary>
     public class TileSourceFactory : ITileSourceFactory
@@ -64,9 +64,9 @@ namespace Core.Components.BruTile.Configurations
             }
         }
 
-        public IEnumerable<ITileSource> GetWmtsTileSources(string capabilitiesUrl)
+        public IEnumerable<IHttpTileSource> GetWmtsTileSources(string capabilitiesUrl)
         {
-            ITileSource[] wmtsTileSources = ParseWmtsTileSources(capabilitiesUrl).ToArray();
+            IHttpTileSource[] wmtsTileSources = ParseWmtsTileSources(capabilitiesUrl).ToArray();
             if (wmtsTileSources.Any(ts => !(ts.Schema is WmtsTileSchema)))
             {
                 throw new CannotFindTileSourceException(Resources.TileSourceFactory_GetWmtsTileSources_TileSource_without_WmtsTileSchema_error);
@@ -75,7 +75,7 @@ namespace Core.Components.BruTile.Configurations
             return wmtsTileSources;
         }
 
-        public ITileSource GetKnownTileSource(KnownTileSource knownTileSource)
+        public IHttpTileSource GetKnownTileSource(KnownTileSource knownTileSource)
         {
             return KnownTileSources.Create(knownTileSource,
                                            configureHttpRequestMessage: ConfigureHttpRequestMessage);
@@ -88,7 +88,7 @@ namespace Core.Components.BruTile.Configurations
         /// <returns>The tile sources offered by the service.</returns>
         /// <exception cref="CannotFindTileSourceException">Thrown when unable to connect
         /// to the WMTS and parse the response.</exception>
-        private static IEnumerable<ITileSource> ParseWmtsTileSources(string capabilitiesUrl)
+        private static IEnumerable<IHttpTileSource> ParseWmtsTileSources(string capabilitiesUrl)
         {
             try
             {

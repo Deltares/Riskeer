@@ -847,7 +847,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             base.TearDown();
         }
 
-        private static WmtsCapability CreateWmtsCapability(ITileSource tileSource)
+        private static WmtsCapability CreateWmtsCapability(IHttpTileSource tileSource)
         {
             var wmtsTileSchema = (WmtsTileSchema) tileSource.Schema;
             return new WmtsCapability(wmtsTileSchema.Identifier, wmtsTileSchema.Format,

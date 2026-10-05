@@ -67,11 +67,11 @@ namespace Core.Components.BruTile.Configurations
         /// Properly initialize the configuration, making it ready for tile fetching.
         /// </summary>
         /// <exception cref="CannotFindTileSourceException">Thrown when the configured
-        /// <see cref="ITileSource"/> cannot be found.</exception>
+        /// <see cref="IHttpTileSource"/> cannot be found.</exception>
         /// <exception cref="CannotCreateTileCacheException">Thrown when the configured
         /// tile cache cannot be created.</exception>
-        /// <exception cref="CannotReceiveTilesException">Thrown when <see cref="TileSource"/>
-        /// doesn't allow for tiles to be received.</exception>
+        /// <exception cref="CannotReceiveTilesException">Thrown when the configured
+        /// <see cref="IHttpTileSource"/> doesn't allow for tiles to be received.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when calling this method while
         /// this instance is disposed.</exception>
         void Initialize();

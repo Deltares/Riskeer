@@ -58,7 +58,7 @@ namespace Core.Components.BruTile.TestUtil
             }
         }
 
-        public IEnumerable<ITileSource> GetWmtsTileSources(string capabilitiesUrl)
+        public IEnumerable<IHttpTileSource> GetWmtsTileSources(string capabilitiesUrl)
         {
             if (wmtsTileSource != null)
             {
@@ -66,7 +66,7 @@ namespace Core.Components.BruTile.TestUtil
             }
         }
 
-        public ITileSource GetKnownTileSource(KnownTileSource knownTileSource)
+        public IHttpTileSource GetKnownTileSource(KnownTileSource knownTileSource)
         {
             if (wellKnownTileSource == null)
             {

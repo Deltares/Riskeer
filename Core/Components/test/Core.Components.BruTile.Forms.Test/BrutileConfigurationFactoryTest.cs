@@ -190,7 +190,7 @@ namespace Core.Components.BruTile.Forms.Test
         {
             var factoryWithoutRequiredTileSource = Substitute.For<ITileSourceFactory>();
             factoryWithoutRequiredTileSource.GetWmtsTileSources(Arg.Any<string>())
-                                            .Returns(Enumerable.Empty<ITileSource>());
+                                            .Returns(Enumerable.Empty<IHttpTileSource>());
 
             var factoryThrowingCannotFindTileSourceException = Substitute.For<ITileSourceFactory>();
             factoryThrowingCannotFindTileSourceException.GetWmtsTileSources(Arg.Any<string>())

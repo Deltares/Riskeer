@@ -95,7 +95,7 @@ namespace Core.Components.BruTile.Test.Configurations
             const string url = "url";
             const string id = "id";
             var factory = Substitute.For<ITileSourceFactory>();
-            factory.GetWmtsTileSources(url).Returns(Enumerable.Empty<ITileSource>());
+            factory.GetWmtsTileSources(url).Returns(Enumerable.Empty<IHttpTileSource>());
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))
@@ -133,8 +133,8 @@ namespace Core.Components.BruTile.Test.Configurations
 
                 // Call
                 Action call = () => WmtsLayerConfiguration.CreateInitializedConfiguration(targetMapData.SourceCapabilitiesUrl,
-                                                                                                targetMapData.SelectedCapabilityIdentifier,
-                                                                                                targetMapData.PreferredFormat);
+                                                                                          targetMapData.SelectedCapabilityIdentifier,
+                                                                                          targetMapData.PreferredFormat);
 
                 try
                 {
@@ -160,7 +160,7 @@ namespace Core.Components.BruTile.Test.Configurations
                                                  (IUrlBuilder) null);
             var tileSource2 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
                                                  (IUrlBuilder) null);
-            var tileSources = new ITileSource[]
+            var tileSources = new IHttpTileSource[]
             {
                 tileSource1,
                 tileSource2
@@ -193,7 +193,7 @@ namespace Core.Components.BruTile.Test.Configurations
 
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
                                                 (IUrlBuilder) null);
-            var tileSources = new ITileSource[]
+            var tileSources = new IHttpTileSource[]
             {
                 tileSource
             };
@@ -228,7 +228,7 @@ namespace Core.Components.BruTile.Test.Configurations
 
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
                                                 (IUrlBuilder) null);
-            var tileSources = new ITileSource[]
+            var tileSources = new IHttpTileSource[]
             {
                 tileSource
             };
@@ -261,7 +261,7 @@ namespace Core.Components.BruTile.Test.Configurations
 
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
                                                 (IUrlBuilder) null);
-            var tileSources = new ITileSource[]
+            var tileSources = new IHttpTileSource[]
             {
                 tileSource
             };
@@ -294,7 +294,7 @@ namespace Core.Components.BruTile.Test.Configurations
 
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
                                                 (IUrlBuilder) null);
-            var tileSources = new ITileSource[]
+            var tileSources = new IHttpTileSource[]
             {
                 tileSource
             };

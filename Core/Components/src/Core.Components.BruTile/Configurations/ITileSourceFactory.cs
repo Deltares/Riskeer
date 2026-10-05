@@ -29,7 +29,7 @@ using Core.Components.Gis.Exceptions;
 namespace Core.Components.BruTile.Configurations
 {
     /// <summary>
-    /// Interface for objects responsible for creating <see cref="ITileSource"/> from a
+    /// Interface for objects responsible for creating <see cref="IHttpTileSource"/> from a
     /// given URL.
     /// </summary>
     public interface ITileSourceFactory
@@ -38,11 +38,11 @@ namespace Core.Components.BruTile.Configurations
         /// Returns all tile sources based on the capabilities of a Web Map Tile Service.
         /// </summary>
         /// <param name="capabilitiesUrl">The URL to the 'GetCapabilities' part of the service.</param>
-        /// <returns>The tile sources with <see cref="ITileSource.Schema"/> initialized
+        /// <returns>The tile sources with <see cref="IHttpTileSource.Schema"/> initialized
         /// with an instance of <see cref="WmtsTileSchema"/>.</returns>
         /// <exception cref="CannotFindTileSourceException">Thrown when unable to retrieve
         /// tile sources from the given service.</exception>
-        IEnumerable<ITileSource> GetWmtsTileSources(string capabilitiesUrl);
+        IEnumerable<IHttpTileSource> GetWmtsTileSources(string capabilitiesUrl);
 
         /// <summary>
         /// Returns the tile source for <paramref name="knownTileSource"/>.
@@ -50,6 +50,6 @@ namespace Core.Components.BruTile.Configurations
         /// <param name="knownTileSource">The known tile service to get the tile source for.</param>
         /// <returns>The tile source for <paramref name="knownTileSource"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="knownTileSource"/> is not supported.</exception>
-        ITileSource GetKnownTileSource(KnownTileSource knownTileSource);
+        IHttpTileSource GetKnownTileSource(KnownTileSource knownTileSource);
     }
 }

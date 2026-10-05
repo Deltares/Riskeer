@@ -43,9 +43,9 @@ namespace Core.Components.BruTile.Forms
         /// tile sources from the given service.</exception>
         public IEnumerable<WmtsCapability> GetWmtsCapabilities(string capabilitiesUrl)
         {
-            IEnumerable<ITileSource> tileSources = TileSourceFactory.Instance.GetWmtsTileSources(capabilitiesUrl);
+            IEnumerable<IHttpTileSource> tileSources = TileSourceFactory.Instance.GetWmtsTileSources(capabilitiesUrl);
 
-            foreach (ITileSource tileSource in tileSources)
+            foreach (IHttpTileSource tileSource in tileSources)
             {
                 var wmtsTileSchema = (WmtsTileSchema) tileSource.Schema;
                 yield return new WmtsCapability(wmtsTileSchema.Identifier, wmtsTileSchema.Format,

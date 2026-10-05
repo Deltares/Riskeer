@@ -245,9 +245,9 @@ namespace Core.Components.BruTile.Test.Configurations
             }
         }
 
-        private static ITileSource CreateTileSource(ITileSchema tileSchema)
+        private static IHttpTileSource CreateTileSource(ITileSchema tileSchema)
         {
-            var tileSource = Substitute.For<ITileSource, ILocalTileSource>();
+            var tileSource = Substitute.For<IHttpTileSource>();
             tileSource.Schema.Returns(tileSchema);
             return tileSource;
         }
@@ -261,7 +261,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 return CreateTileCache();
             }
 
-            public void TestInitializeFromTileSource(ITileSource tileSource)
+            public void TestInitializeFromTileSource(IHttpTileSource tileSource)
             {
                 InitializeFromTileSource(tileSource);
             }
