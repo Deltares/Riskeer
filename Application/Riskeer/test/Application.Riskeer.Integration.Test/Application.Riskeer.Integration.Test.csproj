@@ -50,10 +50,6 @@ All rights reserved.
       <Version>2.4.11</Version>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
-      <Version>1.0.119</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(ProjectDir)UnusedResourceSearcher&quot; &quot;$(OutDir)UnusedResourceSearcher\*&quot; /D /S /Y"/>
