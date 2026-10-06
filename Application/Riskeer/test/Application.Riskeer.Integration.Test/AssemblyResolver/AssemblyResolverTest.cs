@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Reflection;
 using NUnit.Framework;
 
@@ -54,27 +53,6 @@ namespace Application.Riskeer.Integration.Test.AssemblyResolver
         public void ResolveAssembly_WhenAssemblyIsNative_ReturnsNull()
         {
             var assemblyName = new AssemblyName("SQLite.Interop");
-
-            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(assemblyName);
-
-            Assert.That(result, Is.Null);
-        }
-
-        [Test]
-        public void ResolveAssembly_WhenVersionIsWildcard_ReturnsHighestMatchingAssembly()
-        {
-            var assemblyName = new AssemblyName("log4net, Version=0.0.0.0");
-
-            Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(assemblyName);
-
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetName().Version, Is.EqualTo(new Version(3, 3, 2, 0)));
-        }
-
-        [Test]
-        public void ResolveAssembly_WhenVersionIsWildcardAndPublicKeyTokenDiffers_ReturnsNull()
-        {
-            var assemblyName = new AssemblyName("log4net, Version=0.0.0.0, Culture=neutral, PublicKeyToken=0123456789abcdef");
 
             Assembly result = global::AssemblyResolver.AssemblyResolver.ResolveAssembly(assemblyName);
 

@@ -37,7 +37,6 @@ namespace AssemblyResolver
         private const string dllPattern = "*.dll";
 
         private static readonly Dictionary<string, string> assemblyPaths = CreateAssemblyPaths();
-        private static readonly Dictionary<string, List<AssemblyPath>> assemblyPathsBySimpleName = CreateAssemblyPathsBySimpleName();
 
         /// <summary>
         /// Resolves an assembly.
@@ -51,31 +50,9 @@ namespace AssemblyResolver
 
         private static System.Reflection.Assembly ResolveAssembly(string name)
         {
-            if (assemblyPaths.TryGetValue(name, out string assemblyPath))
-            {
-                return System.Reflection.Assembly.LoadFrom(assemblyPath);
-            }
-
-            System.Reflection.AssemblyName requestedAssemblyName;
-            try
-            {
-                requestedAssemblyName = new System.Reflection.AssemblyName(name);
-            }
-            catch (ArgumentException)
-            {
-                return null;
-            }
-
-            if (requestedAssemblyName.Version == new Version(0, 0, 0, 0) && assemblyPathsBySimpleName.TryGetValue(requestedAssemblyName.Name, out List<AssemblyPath> candidates))
-            {
-                AssemblyPath candidate = candidates.Where(ap => PublicKeyTokensMatch(ap.AssemblyName.GetPublicKeyToken(), requestedAssemblyName.GetPublicKeyToken())).OrderByDescending(ap => ap.AssemblyName.Version).FirstOrDefault();
-                if (candidate != null)
-                {
-                    return System.Reflection.Assembly.LoadFrom(candidate.Path);
-                }
-            }
-
-            return null;
+            return assemblyPaths.TryGetValue(name, out string assemblyPath)
+                       ? System.Reflection.Assembly.LoadFrom(assemblyPath)
+                       : null;
         }
 
         /// <summary>
@@ -102,48 +79,7 @@ namespace AssemblyResolver
 
             return result;
         }
-
-        private static Dictionary<string, List<AssemblyPath>> CreateAssemblyPathsBySimpleName()
-        {
-            var result = new Dictionary<string, List<AssemblyPath>>(StringComparer.OrdinalIgnoreCase);
-            foreach (KeyValuePair<string, string> kvp in assemblyPaths)
-            {
-                var assemblyName = new System.Reflection.AssemblyName(kvp.Key);
-                if (!result.TryGetValue(assemblyName.Name, out List<AssemblyPath> items))
-                {
-                    items = new List<AssemblyPath>();
-                    result[assemblyName.Name] = items;
-                }
-
-                items.Add(new AssemblyPath(assemblyName, kvp.Value));
-            }
-
-            return result;
-        }
-
-        private static bool PublicKeyTokensMatch(byte[] leftToken, byte[] rightToken)
-        {
-            if (leftToken == null || leftToken.Length == 0 || rightToken == null || rightToken.Length == 0)
-            {
-                return true;
-            }
-
-            if (leftToken.Length != rightToken.Length)
-            {
-                return false;
-            }
-
-            for (var i = 0; i < leftToken.Length; i++)
-            {
-                if (leftToken[i] != rightToken[i])
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
+        
         private static AssemblyPath TryCreateAssemblyPath(string file)
         {
             try
