@@ -50,18 +50,6 @@ All rights reserved.
       <Version>2.4.11</Version>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="runtime.native.System.Data.SqlClient.sni">
-      <Version>4.7.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="runtime.win-x64.runtime.native.System.Data.SqlClient.sni">
-      <Version>4.4.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="runtime.win-x86.runtime.native.System.Data.SqlClient.sni">
-      <Version>4.4.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
       <Version>1.0.119</Version>
       <PrivateAssets>all</PrivateAssets>
