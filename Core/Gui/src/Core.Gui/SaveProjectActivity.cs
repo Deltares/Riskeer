@@ -149,12 +149,6 @@ namespace Core.Gui
                 State = ActivityState.Failed;
                 return;
             }
-            catch (Exception e)
-            {
-                log.Error(e.Message, e);
-                State = ActivityState.Failed;
-                return;
-            }
 
             // Override State (might be Cancelled) due to cancelling not possible
             State = ActivityState.Executed;
