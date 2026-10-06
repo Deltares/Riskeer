@@ -70,18 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
         [TearDown]
         public void TearDown()
         {
-            if (testForm == null)
-            {
-                return;
-            }
-
-            if (!testForm.IsDisposed && testForm.IsHandleCreated && testForm.Visible)
-            {
-                testForm.Close();
-            }
-
             testForm.Dispose();
-            testForm = null;
         }
 
         [Test]
@@ -632,10 +621,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 
             testForm.Controls.Add(view);
             testForm.Show();
-            testForm.CreateControl();
-            view.CreateControl();
-            _ = testForm.Handle;
-            _ = view.Handle;
 
             return view;
         }
