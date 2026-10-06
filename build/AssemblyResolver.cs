@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace AssemblyResolver
 {
@@ -43,14 +44,9 @@ namespace AssemblyResolver
         /// </summary>
         /// <param name="assemblyName">The name of the assembly to resolve.</param>
         /// <returns>The resolved assembly, or <c>null</c> if not found.</returns>
-        internal static System.Reflection.Assembly ResolveAssembly(System.Reflection.AssemblyName assemblyName)
+        internal static System.Reflection.Assembly ResolveAssembly(AssemblyName assemblyName)
         {
-            return ResolveAssembly(assemblyName.FullName);
-        }
-
-        private static System.Reflection.Assembly ResolveAssembly(string name)
-        {
-            return assemblyPaths.TryGetValue(name, out string assemblyPath)
+            return assemblyPaths.TryGetValue(assemblyName.FullName, out string assemblyPath)
                        ? System.Reflection.Assembly.LoadFrom(assemblyPath)
                        : null;
         }
@@ -65,7 +61,10 @@ namespace AssemblyResolver
         private static Dictionary<string, string> CreateAssemblyPaths()
         {
             var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            foreach (AssemblyPath ap in Directory.EnumerateFiles(GetAssembliesDirectory(), dllPattern, SearchOption.AllDirectories).Where(file => !file.EndsWith(resourcesDllPattern, StringComparison.OrdinalIgnoreCase)).Select(TryCreateAssemblyPath).Where(ap => ap != null))
+            foreach (AssemblyPath ap in Directory.EnumerateFiles(GetAssembliesDirectory(), dllPattern, SearchOption.AllDirectories)
+                                                 .Where(file => !file.EndsWith(resourcesDllPattern, StringComparison.OrdinalIgnoreCase))
+                                                 .Select(TryCreateAssemblyPath)
+                                                 .Where(ap => ap != null))
             {
                 if (!result.TryGetValue(ap.AssemblyName.FullName, out string existingPath))
                 {
@@ -84,7 +83,7 @@ namespace AssemblyResolver
         {
             try
             {
-                return new AssemblyPath(System.Reflection.AssemblyName.GetAssemblyName(file), file);
+                return new AssemblyPath(AssemblyName.GetAssemblyName(file), file);
             }
             catch (BadImageFormatException)
             {
@@ -121,13 +120,13 @@ namespace AssemblyResolver
 
         private sealed class AssemblyPath
         {
-            public AssemblyPath(System.Reflection.AssemblyName assemblyName, string path)
+            public AssemblyPath(AssemblyName assemblyName, string path)
             {
                 AssemblyName = assemblyName;
                 Path = path;
             }
 
-            public System.Reflection.AssemblyName AssemblyName { get; }
+            public AssemblyName AssemblyName { get; }
 
             public string Path { get; }
         }
