@@ -25,110 +25,107 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace AssemblyResolver
+/// <summary>
+/// Resolves assemblies from a prebuilt lookup of assembly names to their paths. Can be invoked by the AppDomain assembly
+/// resolution mechanism when normal probing fails due to assemblies not being next to the executable. Loads the matching
+/// assembly from disk using its full assembly name.
+/// </summary>
+internal static class AssemblyResolver
 {
+    private const string resourcesDllPattern = ".resources.dll";
+    private const string dllPattern = "*.dll";
+
+    private static readonly Dictionary<string, string> assemblyPaths = CreateAssemblyPaths();
+
     /// <summary>
-    /// Resolves assemblies from a prebuilt lookup of assembly names to their paths. Can be invoked by the AppDomain assembly
-    /// resolution mechanism when normal probing fails due to assemblies not being next to the executable. Loads the matching
-    /// assembly from disk using its full assembly name.
+    /// Resolves an assembly.
     /// </summary>
-    internal static class AssemblyResolver
+    /// <param name="assemblyName">The name of the assembly to resolve.</param>
+    /// <returns>The resolved assembly, or <c>null</c> if not found.</returns>
+    internal static System.Reflection.Assembly ResolveAssembly(AssemblyName assemblyName)
     {
-        private const string resourcesDllPattern = ".resources.dll";
-        private const string dllPattern = "*.dll";
+        return assemblyPaths.TryGetValue(assemblyName.FullName, out string assemblyPath)
+                   ? System.Reflection.Assembly.LoadFrom(assemblyPath)
+                   : null;
+    }
 
-        private static readonly Dictionary<string, string> assemblyPaths = CreateAssemblyPaths();
-
-        /// <summary>
-        /// Resolves an assembly.
-        /// </summary>
-        /// <param name="assemblyName">The name of the assembly to resolve.</param>
-        /// <returns>The resolved assembly, or <c>null</c> if not found.</returns>
-        internal static System.Reflection.Assembly ResolveAssembly(AssemblyName assemblyName)
+    /// <summary>
+    /// Builds a lookup of managed assemblies discovered under the configured root directory.
+    /// </summary>
+    /// <remarks>
+    /// Recursively scans for assemblies, ignores resource assemblies, and indexes assemblies by their full assembly identity.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown if multiple files expose the same assembly name.</exception>
+    private static Dictionary<string, string> CreateAssemblyPaths()
+    {
+        var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (AssemblyPath ap in Directory.EnumerateFiles(GetAssembliesDirectory(), dllPattern, SearchOption.AllDirectories)
+                                             .Where(file => !file.EndsWith(resourcesDllPattern, StringComparison.OrdinalIgnoreCase))
+                                             .Select(TryCreateAssemblyPath)
+                                             .Where(ap => ap != null))
         {
-            return assemblyPaths.TryGetValue(assemblyName.FullName, out string assemblyPath)
-                       ? System.Reflection.Assembly.LoadFrom(assemblyPath)
-                       : null;
-        }
-
-        /// <summary>
-        /// Builds a lookup of managed assemblies discovered under the configured root directory.
-        /// </summary>
-        /// <remarks>
-        /// Recursively scans for assemblies, ignores resource assemblies, and indexes assemblies by their full assembly identity.
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">Thrown if multiple files expose the same assembly name.</exception>
-        private static Dictionary<string, string> CreateAssemblyPaths()
-        {
-            var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            foreach (AssemblyPath ap in Directory.EnumerateFiles(GetAssembliesDirectory(), dllPattern, SearchOption.AllDirectories)
-                                                 .Where(file => !file.EndsWith(resourcesDllPattern, StringComparison.OrdinalIgnoreCase))
-                                                 .Select(TryCreateAssemblyPath)
-                                                 .Where(ap => ap != null))
+            if (!result.TryGetValue(ap.AssemblyName.FullName, out string existingPath))
             {
-                if (!result.TryGetValue(ap.AssemblyName.FullName, out string existingPath))
-                {
-                    result.Add(ap.AssemblyName.FullName, ap.Path);
-                }
-                else
-                {
-                    throw new InvalidOperationException($"Duplicate assembly name '{ap.AssemblyName.FullName}' found at '{ap.Path}' and '{existingPath}'.");
-                }
+                result.Add(ap.AssemblyName.FullName, ap.Path);
             }
-
-            return result;
-        }
-
-        private static AssemblyPath TryCreateAssemblyPath(string file)
-        {
-            try
+            else
             {
-                return new AssemblyPath(AssemblyName.GetAssemblyName(file), file);
-            }
-            catch (BadImageFormatException)
-            {
-                return null;
-            }
-            catch (FileLoadException)
-            {
-                return null;
+                throw new InvalidOperationException($"Duplicate assembly name '{ap.AssemblyName.FullName}' found at '{ap.Path}' and '{existingPath}'.");
             }
         }
 
-        private static string GetAssembliesDirectory()
+        return result;
+    }
+
+    private static AssemblyPath TryCreateAssemblyPath(string file)
+    {
+        try
         {
-            return Path.Combine(GetApplicationDirectory(), "Built-in", "Managed");
+            return new AssemblyPath(AssemblyName.GetAssemblyName(file), file);
+        }
+        catch (BadImageFormatException)
+        {
+            return null;
+        }
+        catch (FileLoadException)
+        {
+            return null;
+        }
+    }
+
+    private static string GetAssembliesDirectory()
+    {
+        return Path.Combine(GetApplicationDirectory(), "Built-in", "Managed");
+    }
+
+    private static string GetApplicationDirectory()
+    {
+        string executingAssemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        DirectoryInfo rootDirectoryInfo = Directory.GetParent(executingAssemblyLocation);
+
+        while (rootDirectoryInfo != null && rootDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
+        {
+            rootDirectoryInfo = Directory.GetParent(rootDirectoryInfo.FullName);
         }
 
-        private static string GetApplicationDirectory()
+        if (rootDirectoryInfo == null)
         {
-            string executingAssemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            DirectoryInfo rootDirectoryInfo = Directory.GetParent(executingAssemblyLocation);
-
-            while (rootDirectoryInfo != null && rootDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
-            {
-                rootDirectoryInfo = Directory.GetParent(rootDirectoryInfo.FullName);
-            }
-
-            if (rootDirectoryInfo == null)
-            {
-                throw new DirectoryNotFoundException($"No 'Application' directory found in '{executingAssemblyLocation}' or any of its parent directories.");
-            }
-
-            return Path.Combine(rootDirectoryInfo.FullName, "Application");
+            throw new DirectoryNotFoundException($"No 'Application' directory found in '{executingAssemblyLocation}' or any of its parent directories.");
         }
 
-        private sealed class AssemblyPath
+        return Path.Combine(rootDirectoryInfo.FullName, "Application");
+    }
+
+    private sealed class AssemblyPath
+    {
+        public AssemblyPath(AssemblyName assemblyName, string path)
         {
-            public AssemblyPath(AssemblyName assemblyName, string path)
-            {
-                AssemblyName = assemblyName;
-                Path = path;
-            }
-
-            public AssemblyName AssemblyName { get; }
-
-            public string Path { get; }
+            AssemblyName = assemblyName;
+            Path = path;
         }
+
+        public AssemblyName AssemblyName { get; }
+
+        public string Path { get; }
     }
 }

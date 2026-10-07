@@ -21,19 +21,16 @@
 
 using System.Runtime.Loader;
 
-namespace AssemblyResolver
+/// <summary>
+/// Subscribes <see cref="AssemblyResolver"/> to the assembly resolution events of the running process.
+/// </summary>
+internal static class AssemblyResolverInstaller
 {
     /// <summary>
-    /// Subscribes <see cref="AssemblyResolver"/> to the assembly resolution events of the running process.
+    /// Installs the <see cref="AssemblyResolver"/>.
     /// </summary>
-    internal static class AssemblyResolverInstaller
+    internal static void Install()
     {
-        /// <summary>
-        /// Installs the <see cref="AssemblyResolver"/>.
-        /// </summary>
-        internal static void Install()
-        {
-            AssemblyLoadContext.Default.Resolving += (context, assemblyName) => AssemblyResolver.ResolveAssembly(assemblyName);
-        }
+        AssemblyLoadContext.Default.Resolving += (context, assemblyName) => AssemblyResolver.ResolveAssembly(assemblyName);
     }
 }

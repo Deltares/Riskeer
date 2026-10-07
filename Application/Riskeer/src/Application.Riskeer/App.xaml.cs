@@ -80,7 +80,7 @@ namespace Application.Riskeer
 
         static App()
         {
-            AssemblyResolver.AssemblyResolverInstaller.Install();
+            AssemblyResolverInstaller.Install();
         }
 
         private readonly ILog log;

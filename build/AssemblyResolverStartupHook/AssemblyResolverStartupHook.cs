@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using AssemblyResolverInstaller = AssemblyResolver.AssemblyResolverInstaller;
-
 /// <summary>
 /// Startup hook that installs <see cref="AssemblyResolver"/> before the entry assembly is loaded.
 /// </summary>

@@ -39,7 +39,7 @@ namespace Application.Riskeer.Migration.Console
 
         static RiskeerMigrationConsole()
         {
-            AssemblyResolver.AssemblyResolverInstaller.Install();
+            AssemblyResolverInstaller.Install();
         }
 
         /// <summary>
