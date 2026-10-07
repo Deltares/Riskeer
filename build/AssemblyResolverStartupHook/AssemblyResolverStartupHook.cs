@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using AssemblyResolverInstaller = AssemblyResolver.AssemblyResolverInstaller;
+
 /// <summary>
-/// Startup hook that installs the Riskeer assembly resolver before the entry assembly is loaded.
+/// Startup hook that installs <see cref="AssemblyResolver"/> before the entry assembly is loaded.
 /// </summary>
 /// <remarks>
 /// The runtime requires this type to be named <c>AssemblyResolverStartupHook</c>, to reside in the global namespace and to expose a
@@ -35,6 +37,6 @@ internal static class StartupHook
 {
     public static void Initialize()
     {
-        AssemblyResolver.AssemblyResolverInstaller.Install();
+        AssemblyResolverInstaller.Install();
     }
 }

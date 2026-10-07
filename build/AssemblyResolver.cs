@@ -78,7 +78,7 @@ namespace AssemblyResolver
 
             return result;
         }
-        
+
         private static AssemblyPath TryCreateAssemblyPath(string file)
         {
             try
