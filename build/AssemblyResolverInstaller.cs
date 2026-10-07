@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Runtime.Loader;
 
 namespace AssemblyResolver
@@ -27,27 +26,13 @@ namespace AssemblyResolver
     /// <summary>
     /// Subscribes <see cref="AssemblyResolver"/> to the assembly resolution events of the running process.
     /// </summary>
-    /// <remarks>
-    /// This type is compiled into multiple assemblies (the startup hook as well as every test assembly), each with
-    /// their own copy of the static state. The installation is therefore guarded by a process-wide flag so that
-    /// whichever copy runs first wins and the assembly lookup is only built once.
-    /// </remarks>
     internal static class AssemblyResolverInstaller
     {
-        private const string installedDataKey = "Riskeer.AssemblyResolverInstalled";
-
         /// <summary>
-        /// Installs the assembly resolver, unless it was already installed in this process.
+        /// Installs the <see cref="AssemblyResolver"/>.
         /// </summary>
         internal static void Install()
         {
-            if (AppDomain.CurrentDomain.GetData(installedDataKey) != null)
-            {
-                return;
-            }
-
-            AppDomain.CurrentDomain.SetData(installedDataKey, bool.TrueString);
-
             AssemblyLoadContext.Default.Resolving += (context, assemblyName) => AssemblyResolver.ResolveAssembly(assemblyName);
         }
     }
