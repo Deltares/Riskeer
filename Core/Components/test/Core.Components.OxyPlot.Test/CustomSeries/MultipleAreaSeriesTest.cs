@@ -126,7 +126,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<OxyColor>(c => c == series.Fill),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Is<EdgeRenderingMode>(m => m == EdgeRenderingMode.PreferSpeed));
+                Arg.Is<EdgeRenderingMode>(m => m == series.EdgeRenderingMode));
         }
 
         [Test]
@@ -159,7 +159,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<OxyColor>(c => c == series.Fill),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Is<EdgeRenderingMode>(m => m == EdgeRenderingMode.PreferSpeed));
+                Arg.Is<EdgeRenderingMode>(m => m == series.EdgeRenderingMode));
         }
     }
 }

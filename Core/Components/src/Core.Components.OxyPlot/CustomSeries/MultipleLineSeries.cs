@@ -106,7 +106,7 @@ namespace Core.Components.OxyPlot.CustomSeries
                     var pts0 = new ScreenPoint[n0];
                     TransformToScreenCoordinates(n0, pts0, line);
 
-                    rc.DrawLine(pts0, Color, StrokeThickness, EdgeRenderingMode.PreferSpeed, Dashes?.ToArray() ?? LineStyle.GetDashArray());
+                    rc.DrawLine(pts0, Color, StrokeThickness, EdgeRenderingMode, Dashes?.ToArray() ?? LineStyle.GetDashArray());
                 }
             }
             finally

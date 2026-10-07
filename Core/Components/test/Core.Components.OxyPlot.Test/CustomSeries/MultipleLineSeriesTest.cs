@@ -142,7 +142,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<ScreenPoint[]>(sp => sp.Length == pointCount),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Is<EdgeRenderingMode>(m => m == EdgeRenderingMode.PreferSpeed),
+                Arg.Is<EdgeRenderingMode>(m => m == series.EdgeRenderingMode),
                 Arg.Is<double[]>(d => d == expectedDashes ||
                                       (d != null &&
                                        expectedDashes != null &&
@@ -196,7 +196,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<ScreenPoint[]>(sp => sp.Length == 1),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Is<EdgeRenderingMode>(m => m == EdgeRenderingMode.PreferSpeed),
+                Arg.Is<EdgeRenderingMode>(m => m == series.EdgeRenderingMode),
                 Arg.Is<double[]>(d => d == expectedDashes ||
                                       (d != null &&
                                        expectedDashes != null &&
