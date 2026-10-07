@@ -27,11 +27,6 @@
 /// parameterless, non-generic <c>Initialize</c> method. It is activated by pointing <c>DOTNET_STARTUP_HOOKS</c> at
 /// the absolute path of this assembly.
 /// <para>
-/// This runs earlier than the module initializer in <c>AssemblyResolverSetup</c>, which only executes on first member
-/// access on its module and is therefore too late for test discovery: the test host loads the test assembly and the
-/// adapter immediately reflects over its types, which needs the resolver to be in place already.
-/// </para>
-/// <para>
 /// If this install command fails, the runtime will throw an exception and terminate the process. This is desired behavior, 
 /// as it prevents the test host from running without the resolver in place.
 /// </para>

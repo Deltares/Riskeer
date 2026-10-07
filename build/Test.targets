@@ -79,9 +79,6 @@
     <Compile Include="$(SolutionDir)build\AssemblyResolver.cs">
       <Link>AssemblyResolver\AssemblyResolver.cs</Link>
     </Compile>
-    <Compile Include="$(SolutionDir)build\AssemblyResolverSetup.cs">
-      <Link>AssemblyResolver\AssemblyResolverSetup.cs</Link>
-    </Compile>
     <Compile Include="$(SolutionDir)build\AssemblyResolverInstaller.cs">
       <Link>AssemblyResolver\AssemblyResolverInstaller.cs</Link>
     </Compile>
