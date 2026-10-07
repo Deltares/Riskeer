@@ -63,7 +63,7 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
         }
 
         [Test]
-        public void ConvertSeriesData_DataWithValues_ColumnItemsAddedToSeries()
+        public void ConvertSeriesData_DataWithValues_BarItemsAddedToSeries()
         {
             // Setup
             var values = new[]

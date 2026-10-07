@@ -70,7 +70,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default, default, null, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, 0, default);
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, default, default, null, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawPolygon(null, default, default, 0, default);
         }
 
         [Test]
@@ -126,9 +126,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<OxyColor>(c => c == series.Fill),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Any<EdgeRenderingMode>(),
-                Arg.Any<double[]>(),
-                Arg.Any<LineJoin>());
+                Arg.Is<EdgeRenderingMode>(m => m == EdgeRenderingMode.PreferSpeed));
         }
 
         [Test]
@@ -161,9 +159,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<OxyColor>(c => c == series.Fill),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Any<EdgeRenderingMode>(),
-                Arg.Any<double[]>(),
-                Arg.Any<LineJoin>());
+                Arg.Is<EdgeRenderingMode>(m => m == EdgeRenderingMode.PreferSpeed));
         }
     }
 }

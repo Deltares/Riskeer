@@ -112,7 +112,7 @@ namespace Core.Components.OxyPlot.CustomSeries
                     var pts0 = new ScreenPoint[n0];
                     TransformToScreenCoordinates(n0, pts0, area);
 
-                    rc.DrawPolygon(pts0, GetSelectableFillColor(Fill), Color, StrokeThickness, EdgeRenderingMode.PreferSpeed, null, LineJoin.Miter);
+                    rc.DrawPolygon(pts0, GetSelectableFillColor(Fill), Color, StrokeThickness, EdgeRenderingMode.PreferSpeed);
                 }
             }
             finally

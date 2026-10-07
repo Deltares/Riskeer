@@ -69,7 +69,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, default, default, null, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, 0, default);
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             series.Render(renderContext);
 
             // Assert
-            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, default, default, null, default);
+            renderContext.DidNotReceiveWithAnyArgs().DrawLine(null, default, 0, default);
         }
 
         [Test]
@@ -142,13 +142,11 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<ScreenPoint[]>(sp => sp.Length == pointCount),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Any<EdgeRenderingMode>(),
-                Arg.Is<double[]>(d =>
-                                     d == expectedDashes ||
-                                     (d != null &&
-                                      expectedDashes != null &&
-                                      d.SequenceEqual(expectedDashes))),
-                Arg.Any<LineJoin>());
+                Arg.Is<EdgeRenderingMode>(m => m == EdgeRenderingMode.PreferSpeed),
+                Arg.Is<double[]>(d => d == expectedDashes ||
+                                      (d != null &&
+                                       expectedDashes != null &&
+                                       d.SequenceEqual(expectedDashes))));
         }
 
         [Test]
@@ -198,12 +196,11 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg.Is<ScreenPoint[]>(sp => sp.Length == 1),
                 Arg.Is<OxyColor>(c => c == series.Color),
                 Arg.Is<double>(d => d == series.StrokeThickness),
-                Arg.Any<EdgeRenderingMode>(),
+                Arg.Is<EdgeRenderingMode>(m => m == EdgeRenderingMode.PreferSpeed),
                 Arg.Is<double[]>(d => d == expectedDashes ||
                                       (d != null &&
                                        expectedDashes != null &&
-                                       d.SequenceEqual(expectedDashes))),
-                Arg.Any<LineJoin>());
+                                       d.SequenceEqual(expectedDashes))));
         }
     }
 }
