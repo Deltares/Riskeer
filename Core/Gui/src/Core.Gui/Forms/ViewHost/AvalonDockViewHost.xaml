@@ -25,7 +25,7 @@ All rights reserved.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:xcad="https://github.com/Dirkster99/AvalonDock"
+             xmlns:ad="https://github.com/Dirkster99/AvalonDock"
              xmlns:viewHost="clr-namespace:Core.Gui.Forms.ViewHost"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -38,11 +38,11 @@ All rights reserved.
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <xcad:DockingManager x:Name="DockingManager" AllowMixedOrientation="True">
-            <xcad:DockingManager.Theme>
-                <xcad:GenericTheme/>
-            </xcad:DockingManager.Theme>
-            <xcad:DockingManager.IconContentTemplate>
+    <ad:DockingManager x:Name="DockingManager" AllowMixedOrientation="True">
+            <ad:DockingManager.Theme>
+                <ad:GenericTheme/>
+            </ad:DockingManager.Theme>
+            <ad:DockingManager.IconContentTemplate>
                 <DataTemplate d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
                     <TextBlock Style="{StaticResource ButtonIconStyle}"
                                Text="{Binding Symbol}"
@@ -50,15 +50,15 @@ All rights reserved.
                                Margin="0,0,4,0"
                                FontSize="24"/>
                 </DataTemplate>
-            </xcad:DockingManager.IconContentTemplate>
-            <xcad:DockingManager.DocumentPaneMenuItemHeaderTemplate>
+            </ad:DockingManager.IconContentTemplate>
+            <ad:DockingManager.DocumentPaneMenuItemHeaderTemplate>
                 <DataTemplate d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
                     <DockPanel>
                         <TextBlock Text="{Binding Title}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
                     </DockPanel>
                 </DataTemplate>
-            </xcad:DockingManager.DocumentPaneMenuItemHeaderTemplate>
-            <xcad:DockingManager.DocumentHeaderTemplate>
+            </ad:DockingManager.DocumentPaneMenuItemHeaderTemplate>
+            <ad:DockingManager.DocumentHeaderTemplate>
                 <DataTemplate d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
                     <DockPanel>
                         <TextBlock Style="{StaticResource ButtonIconStyle}"
@@ -69,8 +69,8 @@ All rights reserved.
                         <TextBlock Text="{Binding Title}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
                     </DockPanel>
                 </DataTemplate>
-            </xcad:DockingManager.DocumentHeaderTemplate>
-            <xcad:DockingManager.AnchorableHeaderTemplate>
+            </ad:DockingManager.DocumentHeaderTemplate>
+            <ad:DockingManager.AnchorableHeaderTemplate>
                 <DataTemplate d:DataContext="{d:DesignInstance viewHost:CustomLayoutAnchorable}">
                     <DockPanel>
                         <TextBlock Style="{StaticResource ButtonIconStyle}"
@@ -81,35 +81,35 @@ All rights reserved.
                         <TextBlock Text="{Binding Title}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
                     </DockPanel>
                 </DataTemplate>
-            </xcad:DockingManager.AnchorableHeaderTemplate>
-            <xcad:LayoutRoot>
-                <xcad:LayoutPanel Orientation="Horizontal" x:Name="LeftRightLayoutTarget">
-                    <xcad:LayoutAnchorablePaneGroup x:Name="LeftLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="400">
-                        <xcad:LayoutAnchorablePane />
-                    </xcad:LayoutAnchorablePaneGroup>
-                    <xcad:LayoutPanel Orientation="Vertical" x:Name="BottomLayoutTarget">
-                        <xcad:LayoutDocumentPaneGroup x:Name="LayoutDocumentPaneGroup">
-                        <xcad:LayoutDocumentPane />
-                        </xcad:LayoutDocumentPaneGroup>
-                        <xcad:LayoutAnchorablePaneGroup>
-                        <xcad:LayoutAnchorablePane>
-                            <xcad:LayoutAnchorable x:Name="DummyPanelA"/> <!-- Don't remove: dummy panel in order to prevent garbage collection by AvalonDock -->
-                        </xcad:LayoutAnchorablePane>
-                        </xcad:LayoutAnchorablePaneGroup>
-                        <xcad:LayoutAnchorablePaneGroup x:Name="BottomLayoutAnchorablePaneGroup" DockHeight="200">
-                            <xcad:LayoutAnchorablePane />
-                        </xcad:LayoutAnchorablePaneGroup>
-                    </xcad:LayoutPanel>
-                    <xcad:LayoutAnchorablePaneGroup>
-                        <xcad:LayoutAnchorablePane>
-                            <xcad:LayoutAnchorable x:Name="DummyPanelB"/> <!-- Don't remove: dummy panel in order to prevent garbage collection by AvalonDock -->
-                        </xcad:LayoutAnchorablePane>
-                    </xcad:LayoutAnchorablePaneGroup>
-                    <xcad:LayoutAnchorablePaneGroup x:Name="RightLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="400">
-                        <xcad:LayoutAnchorablePane />
-                    </xcad:LayoutAnchorablePaneGroup>
-                </xcad:LayoutPanel>
-            </xcad:LayoutRoot>
-        </xcad:DockingManager>
+            </ad:DockingManager.AnchorableHeaderTemplate>
+            <ad:LayoutRoot>
+                <ad:LayoutPanel Orientation="Horizontal" x:Name="LeftRightLayoutTarget">
+                    <ad:LayoutAnchorablePaneGroup x:Name="LeftLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="400">
+                        <ad:LayoutAnchorablePane />
+                    </ad:LayoutAnchorablePaneGroup>
+                    <ad:LayoutPanel Orientation="Vertical" x:Name="BottomLayoutTarget">
+                        <ad:LayoutDocumentPaneGroup x:Name="LayoutDocumentPaneGroup">
+                        <ad:LayoutDocumentPane />
+                        </ad:LayoutDocumentPaneGroup>
+                        <ad:LayoutAnchorablePaneGroup>
+                        <ad:LayoutAnchorablePane>
+                            <ad:LayoutAnchorable x:Name="DummyPanelA"/> <!-- Don't remove: dummy panel in order to prevent garbage collection by AvalonDock -->
+                        </ad:LayoutAnchorablePane>
+                        </ad:LayoutAnchorablePaneGroup>
+                        <ad:LayoutAnchorablePaneGroup x:Name="BottomLayoutAnchorablePaneGroup" DockHeight="200">
+                            <ad:LayoutAnchorablePane />
+                        </ad:LayoutAnchorablePaneGroup>
+                    </ad:LayoutPanel>
+                    <ad:LayoutAnchorablePaneGroup>
+                        <ad:LayoutAnchorablePane>
+                            <ad:LayoutAnchorable x:Name="DummyPanelB"/> <!-- Don't remove: dummy panel in order to prevent garbage collection by AvalonDock -->
+                        </ad:LayoutAnchorablePane>
+                    </ad:LayoutAnchorablePaneGroup>
+                    <ad:LayoutAnchorablePaneGroup x:Name="RightLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="400">
+                        <ad:LayoutAnchorablePane />
+                    </ad:LayoutAnchorablePaneGroup>
+                </ad:LayoutPanel>
+            </ad:LayoutRoot>
+        </ad:DockingManager>
 
 </UserControl>
