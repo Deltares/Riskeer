@@ -76,14 +76,6 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(SolutionDir)build\AssemblyResolver.cs">
-      <Link>AssemblyResolver\AssemblyResolver.cs</Link>
-    </Compile>
-    <Compile Include="$(SolutionDir)build\AssemblyResolverInstaller.cs">
-      <Link>AssemblyResolver\AssemblyResolverInstaller.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="$(SolutionDir)build\AssemblyResolverStartupHook\AssemblyResolverStartupHook.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <Private>false</Private>
