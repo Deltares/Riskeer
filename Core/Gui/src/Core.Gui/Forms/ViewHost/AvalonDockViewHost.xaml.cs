@@ -40,8 +40,8 @@ namespace Core.Gui.Forms.ViewHost
         private readonly List<IView> documentViews;
         private readonly List<WindowsFormsHost> hostControls;
 
-        private IContainerControl activeViewContainerControl;
         private IView activeDocumentView;
+        private IContainerControl activeContainerControl;
 
         public event EventHandler<EventArgs> ActiveDocumentViewChanging;
         public event EventHandler<EventArgs> ActiveDocumentViewChanged;
@@ -309,7 +309,8 @@ namespace Core.Gui.Forms.ViewHost
             UnfocusActiveView();
 
             IView activeView = GetView(DockingManager.ActiveContent);
-            activeViewContainerControl = activeView as IContainerControl;
+
+            activeContainerControl = activeView as IContainerControl;
 
             if (documentViews.Contains(activeView))
             {
@@ -332,11 +333,12 @@ namespace Core.Gui.Forms.ViewHost
         ///</remarks>
         private void UnfocusActiveView()
         {
-            IContainerControl containerControl = activeViewContainerControl;
-            if (containerControl == null)
+            if (activeContainerControl == null)
             {
                 return;
             }
+
+            IContainerControl containerControl = activeContainerControl;
 
             while (containerControl.ActiveControl is IContainerControl)
             {

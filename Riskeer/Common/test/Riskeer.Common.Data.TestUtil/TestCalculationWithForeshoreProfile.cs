@@ -121,7 +121,7 @@ namespace Riskeer.Common.Data.TestUtil
             {
                 get
                 {
-                    Assert.IsFalse(true, "Not implemented, test stub");
+                    Assert.Fail("Not implemented, test stub");
                     return null;
                 }
             }

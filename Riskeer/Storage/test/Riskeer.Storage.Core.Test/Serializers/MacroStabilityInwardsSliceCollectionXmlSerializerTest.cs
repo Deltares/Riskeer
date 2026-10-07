@@ -147,7 +147,7 @@ namespace Riskeer.Storage.Core.Test.Serializers
 
             public int GetHashCode(MacroStabilityInwardsSlice obj)
             {
-                Assert.IsTrue(false, "Not implemented, test stub");
+                Assert.Fail("Not implemented, test stub");
                 return 0;
             }
         }
