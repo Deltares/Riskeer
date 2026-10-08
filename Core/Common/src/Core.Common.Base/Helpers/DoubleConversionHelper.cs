@@ -57,7 +57,7 @@ namespace Core.Common.Base.Helpers
         /// <exception cref="FormatException">Thrown when <paramref name="value"/> is not in an appropriate format for a double type.</exception>
         /// <exception cref="InvalidCastException">Thrown when <paramref name="value"/> does not implement the <see cref="IConvertible"/> interface.</exception>
         /// <exception cref="OverflowException">Thrown when the converted value represents a number less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
-        public static double ConvertToDouble(object? value, CultureInfo culture = null)
+        public static double ConvertToDouble(object value, CultureInfo culture = null)
         {
             var convertedDouble = Convert.ToDouble(value, culture);
 

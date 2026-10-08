@@ -167,8 +167,7 @@ namespace Core.Gui.Forms.PropertyView
         #region Tab key navigation
 
         /// <summary>
-        /// Do special processing for Tab key. 
-        /// http://www.codeproject.com/csharp/wdzPropertyGridUtils.asp
+        /// Do special processing for Tab key.
         /// </summary>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
