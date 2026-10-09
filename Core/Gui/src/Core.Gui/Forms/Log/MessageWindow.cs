@@ -158,7 +158,6 @@ namespace Core.Gui.Forms.Log
             {
                 Font = font
             };
-
         }
 
         private void PopulateMessages()
@@ -266,12 +265,11 @@ namespace Core.Gui.Forms.Log
                 return;
             }
 
-            using Bitmap detailsImage = font.FontFamily.ToBitmap(0xE90C, 512);
-            using (var messageWindowDialog = new MessageWindowDialog(
-                       dialogParent, detailsImage, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value))
-            {
-                messageWindowDialog.ShowDialog();
-            }
+            using var detailsImage = font.FontFamily.ToBitmap(0xE90C, 512);
+            using var messageWindowDialog = new MessageWindowDialog(
+                dialogParent, detailsImage, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
+
+            messageWindowDialog.ShowDialog();
         }
 
         /// <summary>
