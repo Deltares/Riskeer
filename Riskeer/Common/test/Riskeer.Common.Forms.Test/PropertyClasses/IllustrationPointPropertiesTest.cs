@@ -49,8 +49,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Call
             Action test = () => new IllustrationPointProperties(null,
-                                                                      "Point name A",
-                                                                      "Closing Situation");
+                                                                "Point name A",
+                                                                "Closing Situation");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -62,8 +62,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Call
             Action test = () => new IllustrationPointProperties(new TestIllustrationPoint(),
-                                                                      null,
-                                                                      "Closing Situation");
+                                                                null,
+                                                                "Closing Situation");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -75,8 +75,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Call
             Action test = () => new IllustrationPointProperties(new TestIllustrationPoint(),
-                                                                      "SE",
-                                                                      null);
+                                                                "SE",
+                                                                null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

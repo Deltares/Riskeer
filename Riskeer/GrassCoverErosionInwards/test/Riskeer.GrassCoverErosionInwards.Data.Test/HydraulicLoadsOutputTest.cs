@@ -50,11 +50,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
             // Call
             Action call = () => new TestHydraulicLoadsOutput(targetProbability,
-                                                                   targetReliability,
-                                                                   calculatedProbability,
-                                                                   calculatedReliability,
-                                                                   convergence,
-                                                                   null);
+                                                             targetReliability,
+                                                             calculatedProbability,
+                                                             calculatedReliability,
+                                                             convergence,
+                                                             null);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -77,11 +77,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
             // Call
             Action call = () => new TestHydraulicLoadsOutput(targetProbability,
-                                                                   targetReliability,
-                                                                   calculatedProbability,
-                                                                   calculatedReliability,
-                                                                   convergence,
-                                                                   null);
+                                                             targetReliability,
+                                                             calculatedProbability,
+                                                             calculatedReliability,
+                                                             convergence,
+                                                             null);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);

@@ -87,8 +87,8 @@ namespace Riskeer.Revetment.Data.Test
         {
             // Call 
             Action call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                               double.NaN, targetProbability, double.NaN, double.NaN, double.NaN,
-                                                               CalculationConvergence.NotCalculated);
+                                                         double.NaN, targetProbability, double.NaN, double.NaN, double.NaN,
+                                                         CalculationConvergence.NotCalculated);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
@@ -107,8 +107,8 @@ namespace Riskeer.Revetment.Data.Test
         {
             // Call 
             Action call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                               double.NaN, double.NaN, double.NaN, calculatedProbability,
-                                                               double.NaN, CalculationConvergence.NotCalculated);
+                                                         double.NaN, double.NaN, double.NaN, calculatedProbability,
+                                                         double.NaN, CalculationConvergence.NotCalculated);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
@@ -123,8 +123,8 @@ namespace Riskeer.Revetment.Data.Test
 
             // Call
             Action call = () => new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                               double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
-                                                               invalidEnumValue);
+                                                         double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
+                                                         invalidEnumValue);
 
             // Assert
             const string expectedMessage = "The value of argument 'value' (9001) is invalid for Enum type 'CalculationConvergence'.";

@@ -83,8 +83,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             Action test = () => new SemiProbabilisticPipingInputContextProperties(null,
-                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                                        handler);
+                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                                  handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -132,8 +132,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             // Call
             Action test = () => new SemiProbabilisticPipingInputContextProperties(context,
-                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                                        null);
+                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                                  null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

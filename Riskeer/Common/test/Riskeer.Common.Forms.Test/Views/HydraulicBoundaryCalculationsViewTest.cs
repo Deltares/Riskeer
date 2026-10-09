@@ -73,7 +73,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Call
             Action call = () => new TestHydraulicBoundaryCalculationsView(null,
-                                                                                new AssessmentSectionStub());
+                                                                          new AssessmentSectionStub());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Call
             Action call = () => new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                null);
+                                                                          null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

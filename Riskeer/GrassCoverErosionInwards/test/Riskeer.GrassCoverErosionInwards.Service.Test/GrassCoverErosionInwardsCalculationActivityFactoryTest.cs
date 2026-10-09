@@ -56,8 +56,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action test = () => GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(null,
-                                                                                                                   new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                   assessmentSection);
+                                                                                                             new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                             assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -119,8 +119,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action test = () => GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(null,
-                                                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                     assessmentSection);
+                                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                               assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -134,8 +134,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action test = () => GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                                     null,
-                                                                                                                     assessmentSection);
+                                                                                                               null,
+                                                                                                               assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -147,8 +147,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Call
             Action test = () => GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                     null);
+                                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                               null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

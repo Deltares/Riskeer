@@ -232,7 +232,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
 
             // Call
             Action call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
-                                                                                  sourceFilePath);
+                                                                            sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);

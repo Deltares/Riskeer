@@ -81,10 +81,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             // Call
             Action call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
-                                                                                               null,
-                                                                                               Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
+                                                                                         null,
+                                                                                         Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                                                                                         failureMechanism,
+                                                                                         assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -98,10 +98,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
-                                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                               null,
-                                                                                               new MacroStabilityInwardsFailureMechanism(),
-                                                                                               assessmentSection);
+                                                                                         Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                                                                                         null,
+                                                                                         new MacroStabilityInwardsFailureMechanism(),
+                                                                                         assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -115,10 +115,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
-                                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                               Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                                               null,
-                                                                                               assessmentSection);
+                                                                                         Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                                                                                         Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                                                                                         null,
+                                                                                         assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -130,10 +130,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
         {
             // Call
             Action call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
-                                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                               Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                                               new MacroStabilityInwardsFailureMechanism(),
-                                                                                               null);
+                                                                                         Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                                                                                         Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                                                                                         new MacroStabilityInwardsFailureMechanism(),
+                                                                                         null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

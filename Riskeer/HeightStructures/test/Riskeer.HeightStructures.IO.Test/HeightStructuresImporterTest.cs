@@ -56,8 +56,8 @@ namespace Riskeer.HeightStructures.IO.Test
 
             // Call
             Action call = () => new HeightStructuresImporter(testImportTarget, testReferenceLine,
-                                                                   testFilePath, messageProvider,
-                                                                   null);
+                                                             testFilePath, messageProvider,
+                                                             null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

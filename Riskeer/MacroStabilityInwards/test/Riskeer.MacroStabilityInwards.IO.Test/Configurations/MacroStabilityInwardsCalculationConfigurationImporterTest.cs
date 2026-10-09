@@ -63,9 +63,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         {
             // Call
             Action test = () => new MacroStabilityInwardsCalculationConfigurationImporter("",
-                                                                                                new CalculationGroup(),
-                                                                                                null,
-                                                                                                new MacroStabilityInwardsFailureMechanism());
+                                                                                          new CalculationGroup(),
+                                                                                          null,
+                                                                                          new MacroStabilityInwardsFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -77,9 +77,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         {
             // Call
             Action test = () => new MacroStabilityInwardsCalculationConfigurationImporter("",
-                                                                                                new CalculationGroup(),
-                                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                                null);
+                                                                                          new CalculationGroup(),
+                                                                                          Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                          null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

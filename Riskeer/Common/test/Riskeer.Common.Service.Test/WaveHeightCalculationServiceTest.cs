@@ -66,9 +66,9 @@ namespace Riskeer.Common.Service.Test
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             // Call
             Action test = () => new WaveHeightCalculationService().Calculate(null,
-                                                                                   CreateCalculationSettings(),
-                                                                                   1,
-                                                                                   calculationMessageProvider);
+                                                                             CreateCalculationSettings(),
+                                                                             1,
+                                                                             calculationMessageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -82,9 +82,9 @@ namespace Riskeer.Common.Service.Test
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             // Call
             Action call = () => new WaveHeightCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                                                                                   null,
-                                                                                   1,
-                                                                                   calculationMessageProvider);
+                                                                             null,
+                                                                             1,
+                                                                             calculationMessageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -96,9 +96,9 @@ namespace Riskeer.Common.Service.Test
         {
             // Call
             Action test = () => new WaveHeightCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                                                                                   CreateCalculationSettings(),
-                                                                                   1,
-                                                                                   null);
+                                                                             CreateCalculationSettings(),
+                                                                             1,
+                                                                             null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -391,9 +391,9 @@ namespace Riskeer.Common.Service.Test
             {
                 // Call
                 Action call = () => new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocationCalculation,
-                                                                                       CreateCalculationSettings(),
-                                                                                       1.0 / 30,
-                                                                                       calculationMessageProvider);
+                                                                                 CreateCalculationSettings(),
+                                                                                 1.0 / 30,
+                                                                                 calculationMessageProvider);
 
                 // Assert
                 var thrownException = Assert.Throws<HydraRingFileParserException>(call);

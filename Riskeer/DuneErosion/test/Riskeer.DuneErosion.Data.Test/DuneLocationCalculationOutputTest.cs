@@ -63,19 +63,19 @@ namespace Riskeer.DuneErosion.Data.Test
 
             // Call
             Action call = () => new DuneLocationCalculationOutput(convergence,
-                                                                        new DuneLocationCalculationOutput.ConstructionProperties
-                                                                        {
-                                                                            WaterLevel = waterLevel,
-                                                                            WaveHeight = waveHeight,
-                                                                            WavePeriod = wavePeriod,
-                                                                            MeanTidalAmplitude = meanTidalAmplitude,
-                                                                            WaveDirectionalSpread = waveDirectionalSpread,
-                                                                            TideSurgePhaseDifference = tideSurgePhaseDifference,
-                                                                            TargetProbability = targetProbability,
-                                                                            TargetReliability = targetReliability,
-                                                                            CalculatedProbability = calculatedProbability,
-                                                                            CalculatedReliability = calculatedReliability
-                                                                        });
+                                                                  new DuneLocationCalculationOutput.ConstructionProperties
+                                                                  {
+                                                                      WaterLevel = waterLevel,
+                                                                      WaveHeight = waveHeight,
+                                                                      WavePeriod = wavePeriod,
+                                                                      MeanTidalAmplitude = meanTidalAmplitude,
+                                                                      WaveDirectionalSpread = waveDirectionalSpread,
+                                                                      TideSurgePhaseDifference = tideSurgePhaseDifference,
+                                                                      TargetProbability = targetProbability,
+                                                                      TargetReliability = targetReliability,
+                                                                      CalculatedProbability = calculatedProbability,
+                                                                      CalculatedReliability = calculatedReliability
+                                                                  });
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -104,19 +104,19 @@ namespace Riskeer.DuneErosion.Data.Test
 
             // Call
             Action call = () => new DuneLocationCalculationOutput(convergence,
-                                                                        new DuneLocationCalculationOutput.ConstructionProperties
-                                                                        {
-                                                                            WaterLevel = waterLevel,
-                                                                            WaveHeight = waveHeight,
-                                                                            WavePeriod = wavePeriod,
-                                                                            MeanTidalAmplitude = meanTidalAmplitude,
-                                                                            WaveDirectionalSpread = waveDirectionalSpread,
-                                                                            TideSurgePhaseDifference = tideSurgePhaseDifference,
-                                                                            TargetProbability = targetProbability,
-                                                                            TargetReliability = targetReliability,
-                                                                            CalculatedProbability = calculatedProbability,
-                                                                            CalculatedReliability = calculatedReliability
-                                                                        });
+                                                                  new DuneLocationCalculationOutput.ConstructionProperties
+                                                                  {
+                                                                      WaterLevel = waterLevel,
+                                                                      WaveHeight = waveHeight,
+                                                                      WavePeriod = wavePeriod,
+                                                                      MeanTidalAmplitude = meanTidalAmplitude,
+                                                                      WaveDirectionalSpread = waveDirectionalSpread,
+                                                                      TideSurgePhaseDifference = tideSurgePhaseDifference,
+                                                                      TargetProbability = targetProbability,
+                                                                      TargetReliability = targetReliability,
+                                                                      CalculatedProbability = calculatedProbability,
+                                                                      CalculatedReliability = calculatedReliability
+                                                                  });
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);

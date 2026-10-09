@@ -42,13 +42,13 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
         {
             // Call
             Action test = () => new PipingStochasticSoilModel(null, new[]
-                                                                    {
-                                                                        new Point2D(1, 1)
-                                                                    },
-                                                                    new[]
-                                                                    {
-                                                                        CreateStochasticSoilProfile()
-                                                                    });
+                                                              {
+                                                                  new Point2D(1, 1)
+                                                              },
+                                                              new[]
+                                                              {
+                                                                  CreateStochasticSoilProfile()
+                                                              });
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -144,8 +144,8 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
 
             // Call
             Action call = () => new PipingStochasticSoilModel(name,
-                                                                    geometry,
-                                                                    Enumerable.Empty<PipingStochasticSoilProfile>());
+                                                              geometry,
+                                                              Enumerable.Empty<PipingStochasticSoilProfile>());
 
             // Assert
             string expectedMessage = $"Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '{name}'.";

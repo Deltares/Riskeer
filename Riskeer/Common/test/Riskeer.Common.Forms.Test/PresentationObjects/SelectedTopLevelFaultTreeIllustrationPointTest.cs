@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Call
             Action call = () => new SelectedTopLevelFaultTreeIllustrationPoint(null,
-                                                                                     Enumerable.Empty<string>());
+                                                                               Enumerable.Empty<string>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Call
             Action call = () => new SelectedTopLevelFaultTreeIllustrationPoint(CreateTopLevelFaultTreeIllustrationPoint(),
-                                                                                     null);
+                                                                               null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

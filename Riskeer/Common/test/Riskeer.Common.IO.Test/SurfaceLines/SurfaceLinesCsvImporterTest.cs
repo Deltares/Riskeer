@@ -70,9 +70,9 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             // Call
             Action call = () => new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(null,
-                                                                                         string.Empty,
-                                                                                         messageProvider,
-                                                                                         configuration);
+                                                                                   string.Empty,
+                                                                                   messageProvider,
+                                                                                   configuration);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -88,9 +88,9 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             // Call
             Action call = () => new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(new TestSurfaceLineCollection(),
-                                                                                         string.Empty,
-                                                                                         null,
-                                                                                         configuration);
+                                                                                   string.Empty,
+                                                                                   null,
+                                                                                   configuration);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -106,9 +106,9 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             // Call
             Action call = () => new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(collection,
-                                                                                         string.Empty,
-                                                                                         messageProvider,
-                                                                                         null);
+                                                                                   string.Empty,
+                                                                                   messageProvider,
+                                                                                   null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;

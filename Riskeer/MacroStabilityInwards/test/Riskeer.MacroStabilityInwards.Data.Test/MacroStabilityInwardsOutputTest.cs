@@ -58,7 +58,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                                                                      new MacroStabilityInwardsSlice[0], 0, 0);
             // Call
             Action call = () => new MacroStabilityInwardsOutput(slidingCurve, null,
-                                                                      new MacroStabilityInwardsOutput.ConstructionProperties());
+                                                                new MacroStabilityInwardsOutput.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

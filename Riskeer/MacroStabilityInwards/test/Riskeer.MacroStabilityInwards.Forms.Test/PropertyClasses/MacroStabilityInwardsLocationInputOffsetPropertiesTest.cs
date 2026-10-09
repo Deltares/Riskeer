@@ -79,7 +79,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Call
             Action call = () => new MacroStabilityInwardsLocationInputOffsetProperties(new TestMacroStabilityInwardsLocationInput(),
-                                                                                             null);
+                                                                                       null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

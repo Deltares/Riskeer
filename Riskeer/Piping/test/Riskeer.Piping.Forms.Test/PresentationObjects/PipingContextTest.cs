@@ -81,10 +81,10 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
 
             // Call
             Action call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
-                                                                                null,
-                                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                failureMechanism,
-                                                                                assessmentSection);
+                                                                          null,
+                                                                          Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                          failureMechanism,
+                                                                          assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -98,10 +98,10 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
-                                                                                Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                null,
-                                                                                new PipingFailureMechanism(),
-                                                                                assessmentSection);
+                                                                          Enumerable.Empty<PipingSurfaceLine>(),
+                                                                          null,
+                                                                          new PipingFailureMechanism(),
+                                                                          assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -115,10 +115,10 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
-                                                                                Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                null,
-                                                                                assessmentSection);
+                                                                          Enumerable.Empty<PipingSurfaceLine>(),
+                                                                          Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                          null,
+                                                                          assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -130,10 +130,10 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         {
             // Call
             Action call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
-                                                                                Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                new PipingFailureMechanism(),
-                                                                                null);
+                                                                          Enumerable.Empty<PipingSurfaceLine>(),
+                                                                          Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                          new PipingFailureMechanism(),
+                                                                          null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

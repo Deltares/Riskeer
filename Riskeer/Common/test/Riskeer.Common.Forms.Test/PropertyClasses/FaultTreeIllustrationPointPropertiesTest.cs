@@ -51,9 +51,9 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Call
             Action test = () => new FaultTreeIllustrationPointProperties(new TestFaultTreeIllustrationPoint(),
-                                                                               null,
-                                                                               "NNE",
-                                                                               "Closing Situation");
+                                                                         null,
+                                                                         "NNE",
+                                                                         "Closing Situation");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

@@ -94,11 +94,11 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
 
             // Call
             Action call = () => new ProbabilisticPipingCalculationScenarioContext(calculation,
-                                                                                        null,
-                                                                                        surfaceLines,
-                                                                                        soilModels,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                                  null,
+                                                                                  surfaceLines,
+                                                                                  soilModels,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

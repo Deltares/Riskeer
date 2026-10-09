@@ -62,8 +62,8 @@ namespace Riskeer.Revetment.Forms.Test.Views
         {
             // Call
             Action test = () => new WaveConditionsInputView(CreateTestCalculation(),
-                                                                  GetHydraulicBoundaryLocationCalculation,
-                                                                  null);
+                                                            GetHydraulicBoundaryLocationCalculation,
+                                                            null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -75,8 +75,8 @@ namespace Riskeer.Revetment.Forms.Test.Views
         {
             // Call
             Action test = () => new WaveConditionsInputView(CreateTestCalculation(),
-                                                                  null,
-                                                                  new TestWaveConditionsInputViewStyle());
+                                                            null,
+                                                            new TestWaveConditionsInputViewStyle());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -88,8 +88,8 @@ namespace Riskeer.Revetment.Forms.Test.Views
         {
             // Call
             Action test = () => new WaveConditionsInputView(null,
-                                                                  GetHydraulicBoundaryLocationCalculation,
-                                                                  new TestWaveConditionsInputViewStyle());
+                                                            GetHydraulicBoundaryLocationCalculation,
+                                                            new TestWaveConditionsInputViewStyle());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

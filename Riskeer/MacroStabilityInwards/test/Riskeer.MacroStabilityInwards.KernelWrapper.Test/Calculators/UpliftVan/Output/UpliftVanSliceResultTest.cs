@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         {
             // Call
             Action call = () => new UpliftVanSliceResult(null, new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
-                                                               new UpliftVanSliceResult.ConstructionProperties());
+                                                         new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -46,7 +46,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         {
             // Call
             Action call = () => new UpliftVanSliceResult(new Point2D(0, 0), null, new Point2D(0, 0), new Point2D(0, 0),
-                                                               new UpliftVanSliceResult.ConstructionProperties());
+                                                         new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -58,7 +58,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         {
             // Call
             Action call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), null, new Point2D(0, 0),
-                                                               new UpliftVanSliceResult.ConstructionProperties());
+                                                         new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -70,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         {
             // Call
             Action call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null,
-                                                               new UpliftVanSliceResult.ConstructionProperties());
+                                                         new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

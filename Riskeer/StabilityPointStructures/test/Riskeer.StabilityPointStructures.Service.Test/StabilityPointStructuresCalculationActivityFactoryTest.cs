@@ -58,8 +58,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             // Call
             Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(null,
-                                                                                                                   new StabilityPointStructuresFailureMechanism(),
-                                                                                                                   assessmentSection);
+                                                                                                             new StabilityPointStructuresFailureMechanism(),
+                                                                                                             assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -74,8 +74,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             // Call
             Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<StabilityPointStructuresInput>(),
-                                                                                                                   null,
-                                                                                                                   assessmentSection);
+                                                                                                             null,
+                                                                                                             assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -124,8 +124,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             // Call
             Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(null,
-                                                                                                                     new StabilityPointStructuresFailureMechanism(),
-                                                                                                                     assessmentSection);
+                                                                                                               new StabilityPointStructuresFailureMechanism(),
+                                                                                                               assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -140,8 +140,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             // Call
             Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                                     null,
-                                                                                                                     assessmentSection);
+                                                                                                               null,
+                                                                                                               assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -153,8 +153,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         {
             // Call
             Action test = () => StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                                     new StabilityPointStructuresFailureMechanism(),
-                                                                                                                     null);
+                                                                                                               new StabilityPointStructuresFailureMechanism(),
+                                                                                                               null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

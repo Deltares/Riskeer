@@ -118,7 +118,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
 
             VariationCoefficientLogNormalDistribution abovePhreaticLevelDistribution = data.AbovePhreaticLevel;
             NullableDoubleAssert.AreEqual(abovePhreaticLevelDistribution.Mean, entity.AbovePhreaticLevelMean,
-                            abovePhreaticLevelDistribution.GetAccuracy());
+                                          abovePhreaticLevelDistribution.GetAccuracy());
             NullableDoubleAssert.AreEqual(abovePhreaticLevelDistribution.CoefficientOfVariation, entity.AbovePhreaticLevelCoefficientOfVariation,
                                           abovePhreaticLevelDistribution.GetAccuracy());
             NullableDoubleAssert.AreEqual(abovePhreaticLevelDistribution.Shift, entity.AbovePhreaticLevelShift,

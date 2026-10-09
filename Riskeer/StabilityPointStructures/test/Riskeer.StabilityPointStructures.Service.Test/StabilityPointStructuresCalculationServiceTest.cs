@@ -440,7 +440,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             // Call
             Action call = () => StabilityPointStructuresCalculationService.Validate(calculation,
-                                                                                          assessmentSection);
+                                                                                    assessmentSection);
             // Assert
             const string expectedMessage = "The value of argument 'input' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
@@ -470,7 +470,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             // Call
             Action call = () => StabilityPointStructuresCalculationService.Validate(calculation,
-                                                                                          assessmentSection);
+                                                                                    assessmentSection);
             // Assert
             const string expectedMessage = "The value of argument 'input' (100) is invalid for Enum type 'LoadSchematizationType'.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
@@ -500,8 +500,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 // Call
                 Action call = () => service.Calculate(calculation,
-                                                            failureMechanism.GeneralInput,
-                                                            CreateCalculationSettings());
+                                                      failureMechanism.GeneralInput,
+                                                      CreateCalculationSettings());
 
                 // Assert
                 const string expectedMessage = "The value of argument 'structureInput' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
@@ -536,8 +536,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 // Call
                 Action call = () => service.Calculate(calculation,
-                                                            failureMechanism.GeneralInput,
-                                                            CreateCalculationSettings());
+                                                      failureMechanism.GeneralInput,
+                                                      CreateCalculationSettings());
 
                 // Assert
                 const string expectedMessage = "The value of argument 'structureInput' (100) is invalid for Enum type 'LoadSchematizationType'.";

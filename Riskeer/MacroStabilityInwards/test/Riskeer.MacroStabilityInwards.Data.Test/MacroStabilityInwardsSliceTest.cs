@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Call
             Action call = () => new MacroStabilityInwardsSlice(null, new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
-                                                                     new MacroStabilityInwardsSlice.ConstructionProperties());
+                                                               new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Call
             Action call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), null, new Point2D(0, 0), new Point2D(0, 0),
-                                                                     new MacroStabilityInwardsSlice.ConstructionProperties());
+                                                               new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -60,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Call
             Action call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), null, new Point2D(0, 0),
-                                                                     new MacroStabilityInwardsSlice.ConstructionProperties());
+                                                               new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -72,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Call
             Action call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null,
-                                                                     new MacroStabilityInwardsSlice.ConstructionProperties());
+                                                               new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

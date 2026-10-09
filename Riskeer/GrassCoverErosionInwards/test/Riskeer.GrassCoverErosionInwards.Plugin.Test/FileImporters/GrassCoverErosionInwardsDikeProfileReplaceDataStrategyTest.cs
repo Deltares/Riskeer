@@ -71,7 +71,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
 
             // Call
             Action call = () => strategy.UpdateDikeProfilesWithImportedData(null,
-                                                                                  string.Empty);
+                                                                            string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -86,7 +86,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
 
             // Call
             Action call = () => strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(),
-                                                                                  null);
+                                                                            null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -189,7 +189,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
 
             // Call
             Action call = () => strategy.UpdateDikeProfilesWithImportedData(importedSurfaceLines,
-                                                                                  sourceFilePath);
+                                                                            sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);

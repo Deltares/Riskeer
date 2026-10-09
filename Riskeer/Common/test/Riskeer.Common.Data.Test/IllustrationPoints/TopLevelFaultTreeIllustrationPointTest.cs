@@ -39,8 +39,8 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
 
             // Call
             Action call = () => new TopLevelFaultTreeIllustrationPoint(null,
-                                                                             "closing situation",
-                                                                             faultTreeNode);
+                                                                       "closing situation",
+                                                                       faultTreeNode);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -56,8 +56,8 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
 
             // Call
             Action call = () => new TopLevelFaultTreeIllustrationPoint(windDirection,
-                                                                             null,
-                                                                             faultTreeNode);
+                                                                       null,
+                                                                       faultTreeNode);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -72,8 +72,8 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
 
             // Call
             Action call = () => new TopLevelFaultTreeIllustrationPoint(windDirection,
-                                                                             "closingSituation",
-                                                                             null);
+                                                                       "closingSituation",
+                                                                       null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

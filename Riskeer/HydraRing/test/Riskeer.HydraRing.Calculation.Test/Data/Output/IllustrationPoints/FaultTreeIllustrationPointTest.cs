@@ -40,9 +40,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 
             // Call
             Action call = () => new FaultTreeIllustrationPoint(null,
-                                                                     random.NextDouble(),
-                                                                     Enumerable.Empty<Stochast>(),
-                                                                     random.NextEnumValue<CombinationType>());
+                                                               random.NextDouble(),
+                                                               Enumerable.Empty<Stochast>(),
+                                                               random.NextEnumValue<CombinationType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -57,9 +57,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 
             // Call
             Action call = () => new FaultTreeIllustrationPoint("name",
-                                                                     random.NextDouble(),
-                                                                     null,
-                                                                     random.NextEnumValue<CombinationType>());
+                                                               random.NextDouble(),
+                                                               null,
+                                                               random.NextEnumValue<CombinationType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

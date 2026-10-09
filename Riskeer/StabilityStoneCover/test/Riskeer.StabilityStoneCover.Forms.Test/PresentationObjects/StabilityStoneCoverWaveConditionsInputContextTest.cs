@@ -68,9 +68,9 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
 
             // Call
             Action test = () => new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
-                                                                                        calculation,
-                                                                                        assessmentSection,
-                                                                                        null);
+                                                                                  calculation,
+                                                                                  assessmentSection,
+                                                                                  null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

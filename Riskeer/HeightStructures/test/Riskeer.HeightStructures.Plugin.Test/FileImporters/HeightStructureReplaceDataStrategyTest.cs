@@ -73,7 +73,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
 
             // Call
             Action test = () => strategy.UpdateStructuresWithImportedData(null,
-                                                                                string.Empty);
+                                                                          string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -304,7 +304,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
 
             // Call
             Action call = () => strategy.UpdateStructuresWithImportedData(importedHeightStructures,
-                                                                                sourceFilePath);
+                                                                          sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);

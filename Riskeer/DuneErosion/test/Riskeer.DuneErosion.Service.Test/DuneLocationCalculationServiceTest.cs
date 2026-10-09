@@ -67,9 +67,9 @@ namespace Riskeer.DuneErosion.Service.Test
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             // Call
             Action test = () => new DuneLocationCalculationService().Calculate(null,
-                                                                                     1,
-                                                                                     CreateCalculationSettings(),
-                                                                                     calculationMessageProvider);
+                                                                               1,
+                                                                               CreateCalculationSettings(),
+                                                                               calculationMessageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -81,9 +81,9 @@ namespace Riskeer.DuneErosion.Service.Test
         {
             // Call
             Action test = () => new DuneLocationCalculationService().Calculate(new DuneLocationCalculation(new TestDuneLocation()),
-                                                                                     1,
-                                                                                     CreateCalculationSettings(),
-                                                                                     null);
+                                                                               1,
+                                                                               CreateCalculationSettings(),
+                                                                               null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -97,9 +97,9 @@ namespace Riskeer.DuneErosion.Service.Test
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             // Call
             Action call = () => new DuneLocationCalculationService().Calculate(new DuneLocationCalculation(new TestDuneLocation()),
-                                                                                     1,
-                                                                                     null,
-                                                                                     calculationMessageProvider);
+                                                                               1,
+                                                                               null,
+                                                                               calculationMessageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

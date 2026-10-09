@@ -65,8 +65,8 @@ namespace Riskeer.Integration.Service.Test.Merge
             var service = Substitute.For<ILoadAssessmentSectionService>();
             // Call
             Action call = () => new LoadAssessmentSectionActivity(new AssessmentSectionOwner(),
-                                                                        service,
-                                                                        null);
+                                                                  service,
+                                                                  null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

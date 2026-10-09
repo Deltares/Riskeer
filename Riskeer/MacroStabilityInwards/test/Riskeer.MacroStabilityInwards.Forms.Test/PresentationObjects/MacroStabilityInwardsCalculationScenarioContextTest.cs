@@ -92,11 +92,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             // Call
             Action call = () => new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                                          null,
-                                                                                          surfaceLines,
-                                                                                          soilModels,
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+                                                                                    null,
+                                                                                    surfaceLines,
+                                                                                    soilModels,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -76,12 +76,12 @@ namespace Riskeer.Common.Data.Test.Hydraulics
 
             // Call
             Action call = () => new HydraulicBoundaryLocationCalculationOutput(random.NextDouble(),
-                                                                                     random.NextDouble(),
-                                                                                     random.NextDouble(),
-                                                                                     calculatedProbability,
-                                                                                     random.NextDouble(),
-                                                                                     random.NextEnumValue<CalculationConvergence>(),
-                                                                                     generalResult);
+                                                                               random.NextDouble(),
+                                                                               random.NextDouble(),
+                                                                               calculatedProbability,
+                                                                               random.NextDouble(),
+                                                                               random.NextEnumValue<CalculationConvergence>(),
+                                                                               generalResult);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);

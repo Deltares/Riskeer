@@ -38,8 +38,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             Action test = () => new SimpleDesignVariableProperties(DistributionReadOnlyProperties.None,
-                                                                         null,
-                                                                         handler);
+                                                                   null,
+                                                                   handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

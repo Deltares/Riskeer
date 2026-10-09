@@ -72,7 +72,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             NullableDoubleAssert.AreEqual(preconsolidationStressDistribution.Mean, entity.PreconsolidationStressMean,
                                           preconsolidationStressDistribution.GetAccuracy());
             NullableDoubleAssert.AreEqual(preconsolidationStressDistribution.CoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation,
-                                        preconsolidationStressDistribution.GetAccuracy());
+                                          preconsolidationStressDistribution.GetAccuracy());
             Assert.AreEqual(order, entity.Order);
         }
 

@@ -70,8 +70,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             Action test = () => new LogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
-                                                                                        null,
-                                                                                        handler);
+                                                                                  null,
+                                                                                  handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

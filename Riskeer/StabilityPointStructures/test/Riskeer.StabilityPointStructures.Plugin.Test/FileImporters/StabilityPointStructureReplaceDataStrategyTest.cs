@@ -157,7 +157,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Call
             Action call = () => strategy.UpdateStructuresWithImportedData(importedClosingStructures,
-                                                                                sourcePath);
+                                                                          sourcePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);

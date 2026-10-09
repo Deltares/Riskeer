@@ -45,7 +45,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Call
             Action call = () => new GrassCoverErosionOutwardsWaveConditionsOutputProperties(null,
-                                                                                                  new GrassCoverErosionOutwardsWaveConditionsInput());
+                                                                                            new GrassCoverErosionOutwardsWaveConditionsInput());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

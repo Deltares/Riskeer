@@ -44,13 +44,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
 
             // Call
             Action test = () => new MacroStabilityInwardsStochasticSoilModel(null, new[]
-                                                                                   {
-                                                                                       new Point2D(random.NextDouble(), random.NextDouble())
-                                                                                   },
-                                                                                   new[]
-                                                                                   {
-                                                                                       CreateStochasticSoilProfile()
-                                                                                   });
+                                                                             {
+                                                                                 new Point2D(random.NextDouble(), random.NextDouble())
+                                                                             },
+                                                                             new[]
+                                                                             {
+                                                                                 CreateStochasticSoilProfile()
+                                                                             });
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -120,8 +120,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
 
             // Call
             Action call = () => new MacroStabilityInwardsStochasticSoilModel(name,
-                                                                                   geometry,
-                                                                                   Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>());
+                                                                             geometry,
+                                                                             Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>());
 
             // Assert
             string expectedMessage = $"Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '{name}'.";

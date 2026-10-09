@@ -76,7 +76,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
 
             // Call
             Action test = () => new HeightStructuresContext(failureMechanism.HeightStructures,
-                                                                  failureMechanism, null);
+                                                            failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

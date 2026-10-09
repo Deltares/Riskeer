@@ -35,11 +35,11 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Call
             Action call = () => new GeneralResult(0,
-                                                        null,
-                                                        Enumerable.Empty<Stochast>(),
-                                                        new Dictionary<
-                                                            WindDirectionClosingSituation,
-                                                            IllustrationPointTreeNode>());
+                                                  null,
+                                                  Enumerable.Empty<Stochast>(),
+                                                  new Dictionary<
+                                                      WindDirectionClosingSituation,
+                                                      IllustrationPointTreeNode>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -51,11 +51,11 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Call
             Action call = () => new GeneralResult(0,
-                                                        WindDirectionTestFactory.CreateWindDirection(),
-                                                        null,
-                                                        new Dictionary<
-                                                            WindDirectionClosingSituation,
-                                                            IllustrationPointTreeNode>());
+                                                  WindDirectionTestFactory.CreateWindDirection(),
+                                                  null,
+                                                  new Dictionary<
+                                                      WindDirectionClosingSituation,
+                                                      IllustrationPointTreeNode>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -67,9 +67,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Call
             Action call = () => new GeneralResult(0,
-                                                        WindDirectionTestFactory.CreateWindDirection(),
-                                                        Enumerable.Empty<Stochast>(),
-                                                        null);
+                                                  WindDirectionTestFactory.CreateWindDirection(),
+                                                  Enumerable.Empty<Stochast>(),
+                                                  null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

@@ -38,9 +38,9 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         {
             // Call
             Action call = () => new FaultTreeIllustrationPoint(null,
-                                                                     12.3,
-                                                                     Enumerable.Empty<Stochast>(),
-                                                                     CombinationType.And);
+                                                               12.3,
+                                                               Enumerable.Empty<Stochast>(),
+                                                               CombinationType.And);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,9 +52,9 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
         {
             // Call
             Action call = () => new FaultTreeIllustrationPoint("Test",
-                                                                     12.3,
-                                                                     null,
-                                                                     CombinationType.And);
+                                                               12.3,
+                                                               null,
+                                                               CombinationType.And);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -101,9 +101,9 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
 
             // Call
             Action test = () => new FaultTreeIllustrationPoint("Point A",
-                                                                     random.NextDouble(),
-                                                                     stochasts,
-                                                                     CombinationType.And);
+                                                               random.NextDouble(),
+                                                               stochasts,
+                                                               CombinationType.And);
 
             // Assert
             const string expectedMessage = "Een of meerdere stochasten hebben dezelfde naam.";

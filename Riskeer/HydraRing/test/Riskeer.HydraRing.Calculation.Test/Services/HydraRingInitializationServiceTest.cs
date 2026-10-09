@@ -45,9 +45,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
 
             // Call
             Action call = () => new HydraRingInitializationService(random.NextEnumValue<HydraRingFailureMechanismType>(),
-                                                                         random.Next(),
-                                                                         "D:\\work",
-                                                                         null);
+                                                                   random.Next(),
+                                                                   "D:\\work",
+                                                                   null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

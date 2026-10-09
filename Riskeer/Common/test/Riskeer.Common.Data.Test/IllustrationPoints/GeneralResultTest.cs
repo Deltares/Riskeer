@@ -122,8 +122,8 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
 
             // Call
             Action test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
-                                                                                       stochasts,
-                                                                                       topLevelIllustrationPoints);
+                                                                                 stochasts,
+                                                                                 topLevelIllustrationPoints);
 
             // Assert
             const string expectedMessage = "Een of meerdere stochasten hebben dezelfde naam.";
@@ -145,8 +145,8 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
 
             // Call
             Action test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
-                                                                                       stochasts,
-                                                                                       topLevelIllustrationPoints);
+                                                                                 stochasts,
+                                                                                 topLevelIllustrationPoints);
 
             // Assert
             const string expectedMessage = "Een of meerdere illustratiepunten hebben dezelfde combinatie van keringsituatie en windrichting.";
@@ -176,8 +176,8 @@ namespace Riskeer.Common.Data.Test.IllustrationPoints
 
             // Call
             Action test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
-                                                                                       stochasts,
-                                                                                       topLevelIllustrationPoints);
+                                                                                 stochasts,
+                                                                                 topLevelIllustrationPoints);
 
             // Assert
             const string expectedMessage = "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten.";

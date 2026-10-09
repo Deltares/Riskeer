@@ -69,9 +69,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             // Call
             Action test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(calculation.InputParameters,
-                                                                                           calculation,
-                                                                                           assessmentSection,
-                                                                                           null);
+                                                                                     calculation,
+                                                                                     assessmentSection,
+                                                                                     null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

@@ -58,8 +58,8 @@ namespace Riskeer.HeightStructures.Service.Test
 
             // Call
             Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivity(null,
-                                                                                                           new HeightStructuresFailureMechanism(),
-                                                                                                           assessmentSection);
+                                                                                                     new HeightStructuresFailureMechanism(),
+                                                                                                     assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -74,8 +74,8 @@ namespace Riskeer.HeightStructures.Service.Test
 
             // Call
             Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<HeightStructuresInput>(),
-                                                                                                           null,
-                                                                                                           assessmentSection);
+                                                                                                     null,
+                                                                                                     assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -125,8 +125,8 @@ namespace Riskeer.HeightStructures.Service.Test
 
             // Call
             Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(null,
-                                                                                                             new HeightStructuresFailureMechanism(),
-                                                                                                             assessmentSection);
+                                                                                                       new HeightStructuresFailureMechanism(),
+                                                                                                       assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -141,8 +141,8 @@ namespace Riskeer.HeightStructures.Service.Test
 
             // Call
             Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                             null,
-                                                                                                             assessmentSection);
+                                                                                                       null,
+                                                                                                       assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -154,8 +154,8 @@ namespace Riskeer.HeightStructures.Service.Test
         {
             // Call
             Action test = () => HeightStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                             new HeightStructuresFailureMechanism(),
-                                                                                                             null);
+                                                                                                       new HeightStructuresFailureMechanism(),
+                                                                                                       null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

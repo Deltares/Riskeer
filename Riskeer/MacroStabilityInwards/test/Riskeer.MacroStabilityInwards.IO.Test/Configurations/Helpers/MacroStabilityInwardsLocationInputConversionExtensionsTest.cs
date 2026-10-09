@@ -120,7 +120,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = phreaticLineOffsetBelowDikeToeAtPolder;
             // Call
             MacroStabilityInwardsLocationInputExtremeConfiguration configuration = inputExtreme.ToMacroStabilityInwardsLocationInputExtremeConfiguration();
-            
+
             // Assert
             Assert.AreEqual(useDefaultOffsets, configuration.UseDefaultOffsets);
             NullableDoubleAssert.AreEqual(penetrationLength,
@@ -136,8 +136,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
                                           configuration.PhreaticLineOffsetBelowShoulderBaseInside,
                                           phreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
             NullableDoubleAssert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder,
-                            configuration.PhreaticLineOffsetBelowDikeToeAtPolder,
-                            phreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
+                                          configuration.PhreaticLineOffsetBelowDikeToeAtPolder,
+                                          phreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
         }
     }
 }
