@@ -32,7 +32,9 @@ namespace Core.Common.Base
     /// </remarks>
     /// <typeparam name="TContainer">The type of the item containers that specify the object hierarchy.</typeparam>
     /// <typeparam name="TObservable">The type of items (in the containers) that should be observed.</typeparam>
-    public class RecursiveObserver<TContainer, TObservable> : IObserver, IDisposable where TContainer : class, IObservable where TObservable : class, IObservable
+    public class RecursiveObserver<TContainer, TObservable> : IObserver, IDisposable
+        where TContainer : class, IObservable
+        where TObservable : class, IObservable
     {
         private readonly Action updateObserverAction;
         private readonly Func<TContainer, IEnumerable<object>> getChildren;

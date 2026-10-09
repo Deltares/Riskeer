@@ -39,7 +39,6 @@ namespace Core.Gui.ContextMenu
         private readonly GuiContextMenuItemFactory guiItemsFactory;
         private readonly TreeViewContextMenuItemFactory treeViewItemsFactory;
         private readonly ContextMenuStrip contextMenu;
-        private bool isDisposed;
 
         /// <summary>
         /// Creates a new instance of <see cref="ContextMenuBuilder"/>.
@@ -151,8 +150,6 @@ namespace Core.Gui.ContextMenu
 
         public IContextMenuBuilder AddSeparator()
         {
-            ThrowExceptionIfDisposed();
-
             if (MayAddSeparator())
             {
                 AddItem(new ToolStripSeparator());
@@ -169,8 +166,6 @@ namespace Core.Gui.ContextMenu
 
         public ContextMenuStrip Build()
         {
-            ThrowExceptionIfDisposed();
-
             if (contextMenu.Items.Count > 0)
             {
                 int lastIndex = contextMenu.Items.Count - 1;
@@ -191,17 +186,10 @@ namespace Core.Gui.ContextMenu
 
         protected virtual void Dispose(bool disposing)
         {
-            if (isDisposed)
-            {
-                return;
-            }
-
             if (disposing)
             {
                 contextMenu.Dispose();
             }
-
-            isDisposed = true;
         }
 
         private bool MayAddSeparator()
@@ -216,19 +204,9 @@ namespace Core.Gui.ContextMenu
 
         private void AddItem(ToolStripItem item)
         {
-            ThrowExceptionIfDisposed();
-
             if (item != null)
             {
                 contextMenu.Items.Add(item);
-            }
-        }
-
-        private void ThrowExceptionIfDisposed()
-        {
-            if (isDisposed)
-            {
-                throw new ObjectDisposedException(GetType().Name);
             }
         }
     }

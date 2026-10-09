@@ -45,6 +45,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             var mapFunction = new MapFunctionSelectionZoom(map);
 
             // Assert
+            Assert.IsInstanceOf<IDisposable>(mapFunction);
             Assert.IsInstanceOf<MapFunctionZoom>(mapFunction);
             const YieldStyles expectedYieldStyle = YieldStyles.LeftButton | YieldStyles.RightButton | YieldStyles.Scroll;
             Assert.AreEqual(expectedYieldStyle, mapFunction.YieldStyle);
