@@ -90,8 +90,7 @@ namespace Riskeer.Common.Forms.Views
         {
             if (disposing)
             {
-                illustrationPointsFaultTreeControl?.SelectionChanged -= IllustrationPointsFaultTreeControlOnSelectionChanged;
-                illustrationPointsFaultTreeControl?.Dispose();
+                illustrationPointsFaultTreeControl.Dispose();
             }
 
             base.Dispose(disposing);
