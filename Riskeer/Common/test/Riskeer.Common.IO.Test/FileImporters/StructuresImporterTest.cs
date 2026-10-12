@@ -79,10 +79,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
             Action call = () => new TestStructuresImporter(null,
-                                                                 testReferenceLine,
-                                                                 testFilePath,
-                                                                 updateStrategy,
-                                                                 messageProvider);
+                                                           testReferenceLine,
+                                                           testFilePath,
+                                                           updateStrategy,
+                                                           messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -97,10 +97,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
             Action call = () => new TestStructuresImporter(testImportTarget,
-                                                                 null,
-                                                                 testFilePath,
-                                                                 updateStrategy,
-                                                                 messageProvider);
+                                                           null,
+                                                           testFilePath,
+                                                           updateStrategy,
+                                                           messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -115,10 +115,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
             Action call = () => new TestStructuresImporter(testImportTarget,
-                                                                 testReferenceLine,
-                                                                 null,
-                                                                 updateStrategy,
-                                                                 messageProvider);
+                                                           testReferenceLine,
+                                                           null,
+                                                           updateStrategy,
+                                                           messageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -132,10 +132,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             // Call
             Action call = () => new TestStructuresImporter(testImportTarget,
-                                                                 testReferenceLine,
-                                                                 testFilePath,
-                                                                 null,
-                                                                 messageProvider);
+                                                           testReferenceLine,
+                                                           testFilePath,
+                                                           null,
+                                                           messageProvider);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -149,10 +149,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<TestStructure>>();
             // Call
             Action call = () => new TestStructuresImporter(testImportTarget,
-                                                                 testReferenceLine,
-                                                                 testFilePath,
-                                                                 updateStrategy,
-                                                                 null);
+                                                           testReferenceLine,
+                                                           testFilePath,
+                                                           updateStrategy,
+                                                           null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

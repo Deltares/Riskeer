@@ -346,9 +346,9 @@ namespace Riskeer.Common.IO.Test.Configurations
 
             // Call
             Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition(null,
-                                                                                                                                                                                      null,
-                                                                                                                                                                                      getter,
-                                                                                                                                                                                      setter);
+                                                                                                                                                                                null,
+                                                                                                                                                                                getter,
+                                                                                                                                                                                setter);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -365,9 +365,9 @@ namespace Riskeer.Common.IO.Test.Configurations
 
             // Call
             Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition(stochastName,
-                                                                                                                                                                                      configuration,
-                                                                                                                                                                                      null,
-                                                                                                                                                                                      setter);
+                                                                                                                                                                                configuration,
+                                                                                                                                                                                null,
+                                                                                                                                                                                setter);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -383,9 +383,9 @@ namespace Riskeer.Common.IO.Test.Configurations
 
             // Call
             Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.StandardDeviationDefinition(stochastName,
-                                                                                                                                                                                      null,
-                                                                                                                                                                                      getter,
-                                                                                                                                                                                      null);
+                                                                                                                                                                                null,
+                                                                                                                                                                                getter,
+                                                                                                                                                                                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -435,9 +435,9 @@ namespace Riskeer.Common.IO.Test.Configurations
 
             // Call
             Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition(null,
-                                                                                                                                                                                         null,
-                                                                                                                                                                                         getter,
-                                                                                                                                                                                         setter);
+                                                                                                                                                                                   null,
+                                                                                                                                                                                   getter,
+                                                                                                                                                                                   setter);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -453,9 +453,9 @@ namespace Riskeer.Common.IO.Test.Configurations
 
             // Call
             Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition(stochastName,
-                                                                                                                                                                                         null,
-                                                                                                                                                                                         null,
-                                                                                                                                                                                         setter);
+                                                                                                                                                                                   null,
+                                                                                                                                                                                   null,
+                                                                                                                                                                                   setter);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -471,9 +471,9 @@ namespace Riskeer.Common.IO.Test.Configurations
 
             // Call
             Action test = () => new StructuresCalculationStochastAssigner<StructuresCalculationConfiguration, SimpleStructuresInput, StructureBase>.VariationCoefficientDefinition(stochastName,
-                                                                                                                                                                                         null,
-                                                                                                                                                                                         getter,
-                                                                                                                                                                                         null);
+                                                                                                                                                                                   null,
+                                                                                                                                                                                   getter,
+                                                                                                                                                                                   null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

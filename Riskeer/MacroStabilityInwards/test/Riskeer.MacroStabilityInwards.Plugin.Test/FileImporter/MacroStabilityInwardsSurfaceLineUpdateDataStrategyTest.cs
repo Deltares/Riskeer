@@ -73,7 +73,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 
             // Call
             Action test = () => strategy.UpdateSurfaceLinesWithImportedData(null,
-                                                                                  string.Empty);
+                                                                            string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -88,7 +88,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 
             // Call
             Action test = () => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                  null);
+                                                                            null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -159,7 +159,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 
             // Call
             Action call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
-                                                                                  sourceFilePath);
+                                                                            sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
@@ -202,7 +202,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 
             // Call
             Action call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
-                                                                                  sourceFilePath);
+                                                                            sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);

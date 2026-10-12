@@ -57,8 +57,8 @@ namespace Riskeer.ClosingStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(null,
-                                                                                                            new ClosingStructuresFailureMechanism(),
-                                                                                                            assessmentSection);
+                                                                                                      new ClosingStructuresFailureMechanism(),
+                                                                                                      assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -72,8 +72,8 @@ namespace Riskeer.ClosingStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(new StructuresCalculation<ClosingStructuresInput>(),
-                                                                                                            null,
-                                                                                                            assessmentSection);
+                                                                                                      null,
+                                                                                                      assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -121,8 +121,8 @@ namespace Riskeer.ClosingStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(null,
-                                                                                                              new ClosingStructuresFailureMechanism(),
-                                                                                                              assessmentSection);
+                                                                                                        new ClosingStructuresFailureMechanism(),
+                                                                                                        assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -136,8 +136,8 @@ namespace Riskeer.ClosingStructures.Service.Test
             var assessmentSection = Substitute.For<IAssessmentSection>();
             // Call
             Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                              null,
-                                                                                                              assessmentSection);
+                                                                                                        null,
+                                                                                                        assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -149,8 +149,8 @@ namespace Riskeer.ClosingStructures.Service.Test
         {
             // Call
             Action test = () => ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                              new ClosingStructuresFailureMechanism(),
-                                                                                                              null);
+                                                                                                        new ClosingStructuresFailureMechanism(),
+                                                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

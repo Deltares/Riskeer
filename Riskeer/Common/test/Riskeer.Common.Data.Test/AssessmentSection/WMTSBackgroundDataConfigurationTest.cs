@@ -90,9 +90,9 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         {
             // Call
             Action call = () => new WmtsBackgroundDataConfiguration(true,
-                                                                          null,
-                                                                          string.Empty,
-                                                                          string.Empty);
+                                                                    null,
+                                                                    string.Empty,
+                                                                    string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -104,9 +104,9 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         {
             // Call
             Action call = () => new WmtsBackgroundDataConfiguration(true,
-                                                                          string.Empty,
-                                                                          null,
-                                                                          string.Empty);
+                                                                    string.Empty,
+                                                                    null,
+                                                                    string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -118,9 +118,9 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         {
             // Call
             Action call = () => new WmtsBackgroundDataConfiguration(true,
-                                                                          string.Empty,
-                                                                          string.Empty,
-                                                                          null);
+                                                                    string.Empty,
+                                                                    string.Empty,
+                                                                    null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -132,9 +132,9 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         {
             // Call
             Action call = () => new WmtsBackgroundDataConfiguration(false,
-                                                                          string.Empty,
-                                                                          null,
-                                                                          null);
+                                                                    string.Empty,
+                                                                    null,
+                                                                    null);
 
             // Assert
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
@@ -147,9 +147,9 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         {
             // Call
             Action call = () => new WmtsBackgroundDataConfiguration(false,
-                                                                          null,
-                                                                          string.Empty,
-                                                                          null);
+                                                                    null,
+                                                                    string.Empty,
+                                                                    null);
 
             // Assert
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
@@ -162,9 +162,9 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         {
             // Call
             Action call = () => new WmtsBackgroundDataConfiguration(false,
-                                                                          null,
-                                                                          null,
-                                                                          string.Empty);
+                                                                    null,
+                                                                    null,
+                                                                    string.Empty);
 
             // Assert
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(

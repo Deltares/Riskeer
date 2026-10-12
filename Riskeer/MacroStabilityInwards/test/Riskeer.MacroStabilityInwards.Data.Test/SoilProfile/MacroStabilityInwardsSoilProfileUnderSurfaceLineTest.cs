@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Call
             Action test = () => new MacroStabilityInwardsSoilProfileUnderSurfaceLine(null,
-                                                                                           Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+                                                                                     Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Call
             Action call = () => new MacroStabilityInwardsSoilProfileUnderSurfaceLine(Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>(),
-                                                                                           null);
+                                                                                     null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

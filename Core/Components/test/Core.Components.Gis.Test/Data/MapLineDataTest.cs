@@ -123,12 +123,12 @@ namespace Core.Components.Gis.Test.Data
         {
             // Call
             Action call = () => new MapLineData("test data",
-                                                      null,
-                                                      new MapTheme<LineCategoryTheme>("attribute", new[]
-                                                      {
-                                                          new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
-                                                                                new LineStyle())
-                                                      }));
+                                                null,
+                                                new MapTheme<LineCategoryTheme>("attribute", new[]
+                                                {
+                                                    new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                                                          new LineStyle())
+                                                }));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

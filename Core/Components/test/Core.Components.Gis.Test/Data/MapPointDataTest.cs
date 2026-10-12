@@ -128,12 +128,12 @@ namespace Core.Components.Gis.Test.Data
         {
             // Call
             Action call = () => new MapPointData("test data",
-                                                       null,
-                                                       new MapTheme<PointCategoryTheme>("attribute", new[]
-                                                       {
-                                                           new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
-                                                                                  new PointStyle())
-                                                       }));
+                                                 null,
+                                                 new MapTheme<PointCategoryTheme>("attribute", new[]
+                                                 {
+                                                     new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                                                            new PointStyle())
+                                                 }));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

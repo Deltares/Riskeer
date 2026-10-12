@@ -64,7 +64,7 @@ namespace Core.Components.Gis.Test.Theme
         {
             // Call
             Action call = () => new MapTheme<CategoryTheme>("Arbitrary attribute",
-                                                                  Enumerable.Empty<CategoryTheme>());
+                                                            Enumerable.Empty<CategoryTheme>());
 
             // Assert
             const string expectedMessage = "categoryThemes is empty.";

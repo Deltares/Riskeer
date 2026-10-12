@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Call
             Action call = () => entity.Read(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                  null);
+                                            null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

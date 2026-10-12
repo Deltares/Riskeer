@@ -71,7 +71,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             {
                 // Call
                 Action test = () => designTablesSettingsProvider.GetDesignTablesSetting(0,
-                                                                                              (HydraRingFailureMechanismType) 4000);
+                                                                                        (HydraRingFailureMechanismType) 4000);
 
                 // Assert
                 Assert.Throws<InvalidEnumArgumentException>(test);

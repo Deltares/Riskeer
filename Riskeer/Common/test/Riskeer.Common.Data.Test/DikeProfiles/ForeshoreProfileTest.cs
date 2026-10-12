@@ -132,14 +132,14 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         {
             // Call
             Action call = () => new ForeshoreProfile(new Point2D(0.0, 0.0),
-                                                           new Point2D[]
-                                                           {
-                                                               null
-                                                           },
-                                                           null, new ForeshoreProfile.ConstructionProperties
-                                                           {
-                                                               Id = "id"
-                                                           });
+                                                     new Point2D[]
+                                                     {
+                                                         null
+                                                     },
+                                                     null, new ForeshoreProfile.ConstructionProperties
+                                                     {
+                                                         Id = "id"
+                                                     });
 
             // Assert
             const string expectedMessage = "Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.";

@@ -52,8 +52,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Call
             Action test = () => new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
-                                                                   string.Empty,
-                                                                   null);
+                                                             string.Empty,
+                                                             null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -67,8 +67,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var inquiryHandler = Substitute.For<IInquiryHelper>();
             // Call
             Action test = () => new CalculationChangeHandler(Enumerable.Empty<ICalculation>(),
-                                                                   null,
-                                                                   inquiryHandler);
+                                                             null,
+                                                             inquiryHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

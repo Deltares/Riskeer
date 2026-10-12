@@ -40,7 +40,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             // Call
             Action call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
-                                                                                       shift);
+                                                                                 shift);
 
             // Assert
             var exception = Assert.Throws<DistributionValidationException>(call);
@@ -58,7 +58,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             // Call
             Action call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
-                                                                                       shift);
+                                                                                 shift);
 
             // Assert
             var exception = Assert.Throws<DistributionValidationException>(call);

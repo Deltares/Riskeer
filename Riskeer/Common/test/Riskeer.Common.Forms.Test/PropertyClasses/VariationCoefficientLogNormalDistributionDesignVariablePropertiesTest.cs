@@ -69,8 +69,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             // Call
             Action test = () => new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.None,
-                                                                                                            null,
-                                                                                                            handler);
+                                                                                                      null,
+                                                                                                      handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

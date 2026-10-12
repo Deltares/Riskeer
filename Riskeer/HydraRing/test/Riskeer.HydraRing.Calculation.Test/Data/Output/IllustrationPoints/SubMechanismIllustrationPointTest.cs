@@ -35,9 +35,9 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Call
             Action call = () => new SubMechanismIllustrationPoint(null,
-                                                                        Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                        Enumerable.Empty<IllustrationPointResult>(),
-                                                                        123);
+                                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                  Enumerable.Empty<IllustrationPointResult>(),
+                                                                  123);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

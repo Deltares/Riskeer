@@ -119,7 +119,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Call
             Action call = () => new DikeProfilesImporter(new DikeProfileCollection(), new ReferenceLine(), string.Empty,
-                                                               new TestDikeProfileUpdateStrategy(), null);
+                                                         new TestDikeProfileUpdateStrategy(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
