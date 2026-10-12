@@ -38,6 +38,21 @@ namespace Core.Components.GraphShape.Forms.Test
     [Apartment(ApartmentState.STA)]
     public class PointedTreeGraphControlTest
     {
+        private SynchronizationContext originalSynchronizationContext;
+
+        [SetUp]
+        public void Setup()
+        {
+            originalSynchronizationContext = SynchronizationContext.Current;
+            SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            SynchronizationContext.SetSynchronizationContext(originalSynchronizationContext);
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -72,9 +87,6 @@ namespace Core.Components.GraphShape.Forms.Test
         [Test]
         public void GivenGraphControlWithoutData_WhenDataSet_ThenGraphControlUpdated()
         {
-            var originalSynchronizationContext = SynchronizationContext.Current;
-            SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
-
             // Given
             using (var graphControl = new PointedTreeGraphControl())
             {
@@ -103,8 +115,6 @@ namespace Core.Components.GraphShape.Forms.Test
                 Assert.AreEqual(5, newGraph.VertexCount);
                 Assert.AreEqual(4, newGraph.EdgeCount);
             }
-
-            SynchronizationContext.SetSynchronizationContext(originalSynchronizationContext);
         }
 
         [Test]
