@@ -63,6 +63,12 @@ namespace Core.Components.DotSpatial.MapFunctions
             YieldStyle = YieldStyles.LeftButton | YieldStyles.RightButton | YieldStyles.Scroll;
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         protected override void OnDraw(MapDrawArgs e)
         {
             if (isDragging)
@@ -158,12 +164,6 @@ namespace Core.Components.DotSpatial.MapFunctions
 
             base.OnMouseUp(e);
             Map.IsBusy = false;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)

@@ -157,7 +157,7 @@ namespace Core.Components.DotSpatial.Forms
                 backGroundMapDataObserver.Dispose();
                 backgroundLayerStatus.Dispose();
                 map.Dispose();
-                
+
                 components?.Dispose();
             }
 

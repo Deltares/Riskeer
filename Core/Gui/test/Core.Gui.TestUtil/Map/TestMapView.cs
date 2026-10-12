@@ -79,6 +79,11 @@ namespace Core.Gui.TestUtil.Map
             Controls.Add(mapControl);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public object Data { get; set; }
+
+        public IMapControl Map => mapControl;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -88,10 +93,5 @@ namespace Core.Gui.TestUtil.Map
 
             base.Dispose(disposing);
         }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public object Data { get; set; }
-
-        public IMapControl Map => mapControl;
     }
 }

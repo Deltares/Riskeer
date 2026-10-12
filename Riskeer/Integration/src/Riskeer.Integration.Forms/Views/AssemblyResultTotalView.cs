@@ -111,7 +111,7 @@ namespace Riskeer.Integration.Forms.Views
             {
                 assessmentSectionObserver.Dispose();
                 assessmentSectionResultObserver.Dispose();
-                
+
                 components?.Dispose();
             }
 

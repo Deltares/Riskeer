@@ -51,13 +51,13 @@ namespace Riskeer.Common.Forms.PresentationObjects
         protected LocationCalculationsContext(TWrappedData wrappedData)
             : base(wrappedData) {}
 
+        public IEnumerable<IObserver> Observers => observers;
+
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        public IEnumerable<IObserver> Observers => observers;
 
         public virtual void Attach(IObserver observer)
         {
@@ -110,6 +110,11 @@ namespace Riskeer.Common.Forms.PresentationObjects
             }
         }
 
+        /// <summary>
+        /// Gets the enumeration of instances that effect the unique identification.
+        /// </summary>
+        protected abstract IObservableEnumerable<TObservable> LocationCalculationsEnumerationToObserve { get; }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposing)
@@ -125,10 +130,5 @@ namespace Riskeer.Common.Forms.PresentationObjects
             locationCalculationsObserver?.Dispose();
             observers.Clear();
         }
-
-        /// <summary>
-        /// Gets the enumeration of instances that effect the unique identification.
-        /// </summary>
-        protected abstract IObservableEnumerable<TObservable> LocationCalculationsEnumerationToObserve { get; }
     }
 }
