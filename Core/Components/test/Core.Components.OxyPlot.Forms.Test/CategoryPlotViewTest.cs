@@ -22,13 +22,13 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Components.OxyPlot.DataSeries.Stack;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
 using OxyPlot.WindowsForms;
-using Core.Components.OxyPlot.DataSeries.Stack;
 
 namespace Core.Components.OxyPlot.Forms.Test
 {

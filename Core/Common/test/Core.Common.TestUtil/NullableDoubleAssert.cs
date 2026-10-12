@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NUnit.Framework;
+
 namespace Core.Common.TestUtil
 {
     /// <summary>
@@ -35,8 +37,8 @@ namespace Core.Common.TestUtil
         /// <param name="delta">The tolerated difference.</param>
         public static void AreEqual(double expected, double? actual, double delta)
         {
-            NUnit.Framework.Legacy.ClassicAssert.IsNotNull(actual);
-            NUnit.Framework.Legacy.ClassicAssert.AreEqual(expected, actual.Value, delta);
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected, actual.Value, delta);
         }
     }
 }

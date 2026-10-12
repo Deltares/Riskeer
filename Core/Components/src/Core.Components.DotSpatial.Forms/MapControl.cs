@@ -38,8 +38,8 @@ using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using NetTopologySuite.Geometries;
 using log4net;
+using NetTopologySuite.Geometries;
 using Timer = System.Timers.Timer;
 
 namespace Core.Components.DotSpatial.Forms

@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Windows.Media;
+using AvalonDock.Layout;
 using Core.Gui.Forms.ViewHost;
 using NUnit.Framework;
-using AvalonDock.Layout;
 
 namespace Core.Gui.Test.Forms.ViewHost
 {

@@ -28,6 +28,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using AvalonDock.Layout;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -52,7 +53,6 @@ using log4net.Repository.Hierarchy;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
-using AvalonDock.Layout;
 using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test

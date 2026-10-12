@@ -29,6 +29,8 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
+using AvalonDock;
+using AvalonDock.Layout;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -55,8 +57,6 @@ using NSubstitute;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
-using AvalonDock;
-using AvalonDock.Layout;
 using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test.Forms.Main

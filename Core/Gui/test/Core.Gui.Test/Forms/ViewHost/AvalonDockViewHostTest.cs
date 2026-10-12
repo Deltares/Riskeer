@@ -27,6 +27,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Media;
+using AvalonDock.Layout;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
@@ -35,7 +36,6 @@ using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
-using AvalonDock.Layout;
 
 namespace Core.Gui.Test.Forms.ViewHost
 {

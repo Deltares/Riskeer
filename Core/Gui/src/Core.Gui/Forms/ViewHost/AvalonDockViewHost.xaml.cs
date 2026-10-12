@@ -26,8 +26,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Media;
-using Core.Common.Controls.Views;
 using AvalonDock.Layout;
+using Core.Common.Controls.Views;
 
 namespace Core.Gui.Forms.ViewHost
 {

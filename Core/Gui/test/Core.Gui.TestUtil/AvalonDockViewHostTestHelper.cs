@@ -21,9 +21,9 @@
 
 using System.Linq;
 using System.Windows.Forms.Integration;
+using AvalonDock.Layout;
 using Core.Common.Controls.Views;
 using Core.Gui.Forms.ViewHost;
-using AvalonDock.Layout;
 
 namespace Core.Gui.TestUtil
 {
