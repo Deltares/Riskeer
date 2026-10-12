@@ -73,7 +73,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             var exception = Assert.Throws<ArgumentException>(Call);
             Assert.AreEqual($"De locatie '{filePath}' is ongeldig: het bestandspad is te lang.", exception.Message);
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {

@@ -52,6 +52,11 @@ namespace Core.Components.BruTile.TestUtil
                    new BasicUrlBuilder("https://www.stub.org/tiles/{z}/{x}/{y}.png"),
                    "Stub schema") {}
 
+        public override Task<byte[]> GetTileAsync(HttpClient httpClient, TileInfo tileInfo, CancellationToken? cancellationToken = null)
+        {
+            return Task.FromResult(GetStubTileData());
+        }
+
         /// <summary>
         /// Create a new tile schema.
         /// </summary>
@@ -66,11 +71,6 @@ namespace Core.Components.BruTile.TestUtil
             }
 
             return new GlobalSphericalMercator(YAxis.TMS, 0, 19, mapData.Name);
-        }
-
-        public override Task<byte[]> GetTileAsync(HttpClient httpClient, TileInfo tileInfo, CancellationToken? cancellationToken = null)
-        {
-            return Task.FromResult(GetStubTileData());
         }
 
         private static byte[] GetStubTileData()

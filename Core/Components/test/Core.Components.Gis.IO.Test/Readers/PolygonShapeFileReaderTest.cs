@@ -127,7 +127,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
-        
+
         [Test]
         public void ParameteredConstructor_ShapeFileIsInUse_ThrowsCriticalFileReadException()
         {

@@ -95,7 +95,7 @@ namespace Core.Common.Util.Test.Reflection
             Assert.AreEqual(assemblyInfo.Title, executingAssemblyInfo.Title);
             Assert.AreEqual(assemblyInfo.Version, executingAssemblyInfo.Version);
         }
-        
+
         [Test]
         public void GetAssemblyResourceStream_AssemblyNull_ThrowArgumentNullException()
         {

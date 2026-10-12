@@ -99,7 +99,7 @@ namespace Core.Common.Util.Reflection
         {
             return GetAssemblyInfo(Assembly.GetExecutingAssembly());
         }
-        
+
         /// <summary>
         /// Gets a <see cref="Stream"/> to an embedded resource of an assembly.
         /// </summary>

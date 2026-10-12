@@ -60,14 +60,14 @@ namespace Core.Components.BruTile.TestUtil
             }
         }
 
-        private static WmtsTileSchema CreateWmtsTileSchema(WmtsMapData mapData)
-        {
-            return TileSchemaFactory.CreateWmtsTileSchema(mapData);
-        }
-
         public override Task<byte[]> GetTileAsync(HttpClient httpClient, TileInfo tileInfo, CancellationToken? cancellationToken = null)
         {
             return Task.FromResult(GetStubTileData());
+        }
+
+        private static WmtsTileSchema CreateWmtsTileSchema(WmtsMapData mapData)
+        {
+            return TileSchemaFactory.CreateWmtsTileSchema(mapData);
         }
 
         private static byte[] GetStubTileData()

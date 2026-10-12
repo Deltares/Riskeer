@@ -423,7 +423,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var totalScenarioContributionLabel = (Label) new ControlTester("labelTotalScenarioContribution").TheObject;
             Assert.IsFalse(totalScenarioContributionLabel.Visible);
         }
-        
+
         [Test]
         public void PipingScenarioView_SemiProbabilisticCalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
