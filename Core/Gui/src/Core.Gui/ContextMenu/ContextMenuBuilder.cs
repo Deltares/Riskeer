@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -34,7 +35,10 @@ namespace Core.Gui.ContextMenu
     /// This class represents a builder which can be used to create a context menu, which's items require information
     /// on the <see cref="IGui"/> in order to render or perform actions.
     /// </summary>
-    public class ContextMenuBuilder : IContextMenuBuilder, IDisposable
+    [SuppressMessage("Design",
+                     "CA1001:Types that own disposable fields should be disposable",
+                     Justification = "Dispose of the contextMenu field is covered by TreeViewControl.")]
+    public class ContextMenuBuilder : IContextMenuBuilder
     {
         private readonly GuiContextMenuItemFactory guiItemsFactory;
         private readonly TreeViewContextMenuItemFactory treeViewItemsFactory;
@@ -176,20 +180,6 @@ namespace Core.Gui.ContextMenu
             }
 
             return contextMenu;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                contextMenu.Dispose();
-            }
         }
 
         private bool MayAddSeparator()

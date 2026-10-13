@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Diagnostics.CodeAnalysis;
 using Core.Components.DotSpatial.Layer.BruTile;
 using Core.Components.Gis.Data;
 
@@ -30,6 +31,9 @@ namespace Core.Components.DotSpatial.Forms
     /// </summary>
     internal class MapControlBackgroundLayerStatus : BackgroundLayerStatus
     {
+        [SuppressMessage("Usage",
+                         "CA2213:Disposable fields should be disposed",
+                         Justification = "Dispose of this field is covered by the Dispose implementation of the base class.")]
         private BackgroundLayerStatus backgroundLayerStatus;
 
         public override BruTileLayer BackgroundLayer
@@ -67,16 +71,6 @@ namespace Core.Components.DotSpatial.Forms
         protected override bool OnHasSameConfiguration(ImageBasedMapData mapData)
         {
             return backgroundLayerStatus?.HasSameConfiguration(mapData) ?? false;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                backgroundLayerStatus?.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

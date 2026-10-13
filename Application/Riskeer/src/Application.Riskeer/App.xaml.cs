@@ -158,7 +158,6 @@ namespace Application.Riskeer
             AppDomain.CurrentDomain.UnhandledException -= AppDomain_UnhandledException;
 
             gui?.Dispose();
-            gui = null;
 
             base.OnExit(e);
         }

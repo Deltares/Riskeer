@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Util.Extensions;
@@ -36,6 +37,9 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     public class GeneralResultFaultTreeIllustrationPointView : GeneralResultIllustrationPointView<TopLevelFaultTreeIllustrationPoint>
     {
+        [SuppressMessage("Usage",
+                         "CA2213:Disposable fields should be disposed",
+                         Justification = "Dispose of this field is covered by adding the instance to the control collection of the UserControl.")]
         private IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl;
 
         /// <summary>
@@ -84,16 +88,6 @@ namespace Riskeer.Common.Forms.Views
         protected override void UpdateSpecificIllustrationPointsControl()
         {
             illustrationPointsFaultTreeControl.Data = (TopLevelFaultTreeIllustrationPoint) (IllustrationPointsControl.Selection as IllustrationPointControlItem)?.Source;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                illustrationPointsFaultTreeControl.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
 
         /// <inheritdoc />

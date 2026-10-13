@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>$(NoWarn);CA1001</NoWarn> <!-- "Types that own disposable fields should be disposable" -->
+    <NoWarn>$(NoWarn);CA2213</NoWarn> <!-- "Disposable fields should be disposed" -->
   </PropertyGroup>
   <PropertyGroup>
     <OutputPath>$(SolutionDir)bin\$(Configuration)\Test</OutputPath>

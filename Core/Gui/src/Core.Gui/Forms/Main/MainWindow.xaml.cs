@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO.Packaging;
 using System.Linq;
@@ -76,7 +77,11 @@ namespace Core.Gui.Forms.Main
 
         private IGui gui;
 
+        [SuppressMessage("Usage",
+                         "CA2213:Disposable fields should be disposed",
+                         Justification = "Dispose of this field is covered by AvalonDockViewHost.")]
         private PropertyGridView propertyGrid;
+
         private IMapView currentMapView;
         private IChartView currentChartView;
 
@@ -274,8 +279,6 @@ namespace Core.Gui.Forms.Main
             IsWindowDisposed = true;
 
             Close();
-
-            propertyGrid?.Dispose();
 
             gui = null;
             viewController = null;

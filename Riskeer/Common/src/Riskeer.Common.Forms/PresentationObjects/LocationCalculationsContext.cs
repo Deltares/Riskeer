@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
@@ -33,7 +34,10 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// </summary>
     /// <typeparam name="TWrappedData">The object type of the wrapped instance.</typeparam>
     /// <typeparam name="TObservable">The object type of the instances that effect the unique identification.</typeparam>
-    public abstract class LocationCalculationsContext<TWrappedData, TObservable> : WrappedObjectContextBase<TWrappedData>, IObservable, IDisposable
+    [SuppressMessage("Design",
+                     "CA1001:Types that own disposable fields should be disposable",
+                     Justification = "Dispose of the disposable fields is covered by TreeViewControl (which eventually follows each Attach call by a corresponding Detach call).")]
+    public abstract class LocationCalculationsContext<TWrappedData, TObservable> : WrappedObjectContextBase<TWrappedData>, IObservable
         where TWrappedData : class
         where TObservable : class, IObservable
     {
@@ -52,12 +56,6 @@ namespace Riskeer.Common.Forms.PresentationObjects
             : base(wrappedData) {}
 
         public IEnumerable<IObserver> Observers => observers;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
 
         public virtual void Attach(IObserver observer)
         {
@@ -114,21 +112,5 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// Gets the enumeration of instances that effect the unique identification.
         /// </summary>
         protected abstract IObservableEnumerable<TObservable> LocationCalculationsEnumerationToObserve { get; }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposing)
-            {
-                return;
-            }
-
-            if (!(LocationCalculationsEnumerationToObserve is TObservable))
-            {
-                locationCalculationsEnumerationObserver?.Dispose();
-            }
-
-            locationCalculationsObserver?.Dispose();
-            observers.Clear();
-        }
     }
 }
