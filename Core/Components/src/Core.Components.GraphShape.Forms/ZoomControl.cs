@@ -45,16 +45,6 @@ namespace Core.Components.GraphShape.Forms
 
     public class ZoomControl : ContentControl
     {
-        private const string presenterPartName = "PART_Presenter";
-
-        private ZoomContentPresenter presenter;
-        private bool isPanPending;
-        private bool isPanning;
-        private Point panStartPosition;
-        private Cursor originalCursor;
-        private readonly ScaleTransform scaleTransform = new ScaleTransform(1, 1);
-        private readonly TranslateTransform translateTransform = new TranslateTransform();
-
         public static readonly DependencyProperty ModeProperty =
             DependencyProperty.Register(nameof(Mode), typeof(ZoomControlModes), typeof(ZoomControl),
                                         new FrameworkPropertyMetadata(ZoomControlModes.Original));
@@ -114,6 +104,25 @@ namespace Core.Components.GraphShape.Forms
         public static readonly DependencyProperty ZoomBoxBackgroundProperty =
             DependencyProperty.Register(nameof(ZoomBoxBackground), typeof(Brush), typeof(ZoomControl),
                                         new FrameworkPropertyMetadata(Brushes.Transparent));
+
+        private const string presenterPartName = "PART_Presenter";
+        private readonly ScaleTransform scaleTransform = new ScaleTransform(1, 1);
+        private readonly TranslateTransform translateTransform = new TranslateTransform();
+
+        private ZoomContentPresenter presenter;
+        private bool isPanPending;
+        private bool isPanning;
+        private Point panStartPosition;
+        private Cursor originalCursor;
+
+        public ZoomControl()
+        {
+            PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
+            PreviewMouseMove += OnPreviewMouseMove;
+            PreviewMouseLeftButtonUp += OnPreviewMouseLeftButtonUp;
+            LostMouseCapture += OnLostMouseCapture;
+            SizeChanged += (sender, args) => ApplyTransform();
+        }
 
         public ZoomControlModes Mode
         {
@@ -205,13 +214,6 @@ namespace Core.Components.GraphShape.Forms
             set => SetValue(ZoomBoxBackgroundProperty, value);
         }
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            presenter = GetTemplateChild(presenterPartName) as ZoomContentPresenter;
-            ApplyTransform();
-        }
-
         public void ZoomTo(Rect zoomToRectangle)
         {
             if (zoomToRectangle.IsEmpty
@@ -246,6 +248,13 @@ namespace Core.Components.GraphShape.Forms
             }
 
             ZoomTo(new Rect(new Point(0, 0), presenter.ContentSize));
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            presenter = GetTemplateChild(presenterPartName) as ZoomContentPresenter;
+            ApplyTransform();
         }
 
         internal void StartPanning(Point startPosition)
@@ -394,15 +403,6 @@ namespace Core.Components.GraphShape.Forms
             {
                 ReleaseMouseCapture();
             }
-        }
-
-        public ZoomControl()
-        {
-            PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
-            PreviewMouseMove += OnPreviewMouseMove;
-            PreviewMouseLeftButtonUp += OnPreviewMouseLeftButtonUp;
-            LostMouseCapture += OnLostMouseCapture;
-            SizeChanged += (sender, args) => ApplyTransform();
         }
     }
 }
