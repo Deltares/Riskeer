@@ -35,6 +35,9 @@ namespace Core.Components.OxyPlot.Forms
     /// </summary>
     public class StackChartControl : Control, IStackChartControl
     {
+        private const string valueAxisKey = "stack-value-axis";
+        private const string categoryAxisKey = "stack-category-axis";
+        
         private readonly CategoryPlotView plotView;
         private readonly Observer stackChartDataObserver;
 
@@ -147,7 +150,7 @@ namespace Core.Components.OxyPlot.Forms
 
         private void DrawColumns()
         {
-            IEnumerable<RowChartDataSeries> series = RowChartDataSeriesFactory.Create(data);
+            IEnumerable<RowChartDataSeries> series = RowChartDataSeriesFactory.Create(data, valueAxisKey, categoryAxisKey);
 
             foreach (RowChartDataSeries rowChartDataSeries in series)
             {

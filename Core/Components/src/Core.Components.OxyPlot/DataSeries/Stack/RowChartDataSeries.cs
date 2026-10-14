@@ -35,8 +35,10 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
         /// Creates a new instance of <see cref="RowChartDataSeries"/>.
         /// </summary>
         /// <param name="rowChartData">The <see cref="RowChartData"/> which the series is based upon.</param>
+        /// <param name="xAxisKey">The x-axis key to set to the series.</param>
+        /// <param name="yAxisKey">the y-axis key to set to the series.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="rowChartData"/> is <c>null</c>.</exception>
-        public RowChartDataSeries(RowChartData rowChartData)
+        public RowChartDataSeries(RowChartData rowChartData, string xAxisKey, string yAxisKey)
         {
             if (rowChartData == null)
             {
@@ -45,8 +47,8 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
 
             IsStacked = true;
             StrokeThickness = 1;
-            XAxisKey = StackChartAxisKeys.ValueAxisKey;
-            YAxisKey = StackChartAxisKeys.CategoryAxisKey;
+            XAxisKey = xAxisKey;
+            YAxisKey = yAxisKey;
 
             RowChartDataConverter.ConvertSeriesData(rowChartData, this);
             RowChartDataConverter.ConvertSeriesProperties(rowChartData, this);

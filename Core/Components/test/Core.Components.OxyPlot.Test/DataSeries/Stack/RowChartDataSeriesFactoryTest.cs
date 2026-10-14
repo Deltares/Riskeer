@@ -36,7 +36,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
         public void Create_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            Action test = () => RowChartDataSeriesFactory.Create(null).ToList();
+            Action test = () => RowChartDataSeriesFactory.Create(null, string.Empty, string.Empty).ToList();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -47,7 +47,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
         public void Create_EmptyStackChartData_ReturnEmptyEnumerable()
         {
             // Call
-            IEnumerable<RowChartDataSeries> series = RowChartDataSeriesFactory.Create(new StackChartData());
+            IEnumerable<RowChartDataSeries> series = RowChartDataSeriesFactory.Create(new StackChartData(), string.Empty, string.Empty);
 
             // Assert
             CollectionAssert.IsEmpty(series);
@@ -67,11 +67,15 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
                 0.9
             });
 
+            const string xAxisKey = "x-axis";
+            const string yAxisKey = "y-axis";
+
             // Call
-            IEnumerable<RowChartDataSeries> series = RowChartDataSeriesFactory.Create(data);
+            IEnumerable<RowChartDataSeries> series = RowChartDataSeriesFactory.Create(data, xAxisKey, yAxisKey);
 
             // Assert
             Assert.AreEqual(data.Rows.Count(), series.Count());
+            Assert.IsTrue(series.All(s => s.XAxisKey == xAxisKey && s.YAxisKey == yAxisKey));
         }
     }
 }

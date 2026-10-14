@@ -35,16 +35,18 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
         /// Creates a <see cref="RowChartDataSeries"/> based on <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The <see cref="StackChartData"/> to create <see cref="RowChartDataSeries"/> from.</param>
+        /// <param name="xAxisKey">The x-axis key to set to all series.</param>
+        /// <param name="yAxisKey">The y-axis key to set to all series.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="RowChartDataSeries"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public static IEnumerable<RowChartDataSeries> Create(StackChartData data)
+        public static IEnumerable<RowChartDataSeries> Create(StackChartData data, string xAxisKey, string yAxisKey)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            return data.Rows.Select(row => new RowChartDataSeries(row));
+            return data.Rows.Select(row => new RowChartDataSeries(row, xAxisKey, yAxisKey));
         }
     }
 }

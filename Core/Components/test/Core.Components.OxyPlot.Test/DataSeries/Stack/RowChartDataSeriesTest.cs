@@ -38,7 +38,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
         public void Constructor_RowChartDataNull_ThrowsArgumentNullException()
         {
             // Call
-            Action test = () => new RowChartDataSeries(null);
+            Action test = () => new RowChartDataSeries(null, string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -58,16 +58,19 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Stack
                 0.2
             };
 
+            const string xAxisKey = "x-axis";
+            const string yAxisKey = "y-axis";
+
             // Call
-            var series = new RowChartDataSeries(new RowChartData(name, values, color));
+            var series = new RowChartDataSeries(new RowChartData(name, values, color), xAxisKey, yAxisKey);
 
             // Assert
             Assert.IsInstanceOf<BarSeries>(series);
             Assert.AreEqual(name, series.Title);
             Assert.IsTrue(series.IsStacked);
             Assert.AreEqual(1, series.StrokeThickness);
-            Assert.AreEqual(StackChartAxisKeys.ValueAxisKey, series.XAxisKey);
-            Assert.AreEqual(StackChartAxisKeys.CategoryAxisKey, series.YAxisKey);
+            Assert.AreEqual(xAxisKey, series.XAxisKey);
+            Assert.AreEqual(yAxisKey, series.YAxisKey);
             Assert.AreEqual(OxyColor.FromArgb(color.A, color.R, color.G, color.B), series.FillColor);
             CollectionAssert.AreEqual(values, series.Items.Select(i => i.Value));
         }
