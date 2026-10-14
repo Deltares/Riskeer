@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Core.Components.OxyPlot.DataSeries.Stack;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
@@ -42,14 +41,16 @@ namespace Core.Components.OxyPlot.Forms
         /// <summary>
         /// Creates a new <see cref="CategoryPlotView"/>.
         /// </summary>
-        public CategoryPlotView()
+        /// <param name="valueAxisKey">The key to set to the value-axis.</param>
+        /// <param name="categoryAxisKey">The key to set to the category-axis.</param>
+        public CategoryPlotView(string valueAxisKey, string categoryAxisKey)
         {
             Dock = DockStyle.Fill;
 
             categoryAxis = new CategoryAxis
             {
                 Position = AxisPosition.Bottom,
-                Key = StackChartAxisKeys.CategoryAxisKey,
+                Key = categoryAxisKey,
                 MinorStep = 1,
                 Angle = 90,
                 AbsoluteMinimum = -0.5,
@@ -60,7 +61,7 @@ namespace Core.Components.OxyPlot.Forms
             linearAxis = new LinearAxis
             {
                 Position = AxisPosition.Left,
-                Key = StackChartAxisKeys.ValueAxisKey,
+                Key = valueAxisKey,
                 AbsoluteMinimum = 0,
                 AbsoluteMaximum = 1,
                 MaximumPadding = 0.06,

@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Components.OxyPlot.DataSeries.Stack;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using OxyPlot;
@@ -38,8 +37,12 @@ namespace Core.Components.OxyPlot.Forms.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            const string valueAxisKey = "value-axis";
+            const string categoryAxisKey = "category-axis";
+
             // Call
-            var plotView = new CategoryPlotView();
+            var plotView = new CategoryPlotView(valueAxisKey, categoryAxisKey);
 
             // Assert
             Assert.IsInstanceOf<PlotView>(plotView);
@@ -55,7 +58,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             Axis categoryAxis = axes.First(ax => ax.GetType() == typeof(CategoryAxis));
             Assert.AreEqual(AxisPosition.Bottom, categoryAxis.Position);
-            Assert.AreEqual(StackChartAxisKeys.CategoryAxisKey, categoryAxis.Key);
+            Assert.AreEqual(categoryAxisKey, categoryAxis.Key);
             Assert.AreEqual(1, categoryAxis.MinorStep);
             Assert.AreEqual(90, categoryAxis.Angle);
 
@@ -65,7 +68,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             Axis linearAxis = axes.First(ax => ax.GetType() == typeof(LinearAxis));
             Assert.AreEqual(AxisPosition.Left, linearAxis.Position);
-            Assert.AreEqual(StackChartAxisKeys.ValueAxisKey, linearAxis.Key);
+            Assert.AreEqual(valueAxisKey, linearAxis.Key);
             Assert.AreEqual(0, linearAxis.MinimumPadding);
             Assert.IsFalse(linearAxis.IsPanEnabled);
             Assert.IsFalse(linearAxis.IsZoomEnabled);
@@ -88,7 +91,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             using (var form = new Form())
-            using (var view = new CategoryPlotView())
+            using (var view = new CategoryPlotView(string.Empty, string.Empty))
             {
                 form.Controls.Add(view);
                 var invalidated = 0;
@@ -114,7 +117,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup 
             using (var form = new Form())
-            using (var view = new CategoryPlotView())
+            using (var view = new CategoryPlotView(string.Empty, string.Empty))
             {
                 form.Controls.Add(view);
                 var invalidated = 0;
@@ -139,7 +142,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void AddLabels_LabelsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var plotView = new CategoryPlotView();
+            var plotView = new CategoryPlotView(string.Empty, string.Empty);
 
             // Call
             Action test = () => plotView.AddLabels(null);
@@ -154,7 +157,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             const string label = "Test";
-            var plotView = new CategoryPlotView();
+            var plotView = new CategoryPlotView(string.Empty, string.Empty);
 
             // Call
             plotView.AddLabels(new[]
@@ -173,7 +176,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void AddLabel_EmptyLabels_AbsoluteMaximumSet()
         {
             // Setup
-            var plotView = new CategoryPlotView();
+            var plotView = new CategoryPlotView(string.Empty, string.Empty);
 
             // Call
             plotView.AddLabels(Enumerable.Empty<string>());
@@ -188,7 +191,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void ClearLabels_Always_LabelsCleared()
         {
             // Setup
-            var plotView = new CategoryPlotView();
+            var plotView = new CategoryPlotView(string.Empty, string.Empty);
             plotView.AddLabels(new[]
             {
                 "Test"

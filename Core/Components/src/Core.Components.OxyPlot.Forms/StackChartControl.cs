@@ -37,7 +37,7 @@ namespace Core.Components.OxyPlot.Forms
     {
         private const string valueAxisKey = "stack-value-axis";
         private const string categoryAxisKey = "stack-category-axis";
-        
+
         private readonly CategoryPlotView plotView;
         private readonly Observer stackChartDataObserver;
 
@@ -48,7 +48,7 @@ namespace Core.Components.OxyPlot.Forms
         /// </summary>
         public StackChartControl()
         {
-            plotView = new CategoryPlotView
+            plotView = new CategoryPlotView(valueAxisKey, categoryAxisKey)
             {
                 BackColor = Color.White,
                 Model =
