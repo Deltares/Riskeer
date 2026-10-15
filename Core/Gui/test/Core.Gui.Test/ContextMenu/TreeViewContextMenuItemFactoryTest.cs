@@ -42,11 +42,10 @@ namespace Core.Gui.Test.ContextMenu
             // Call
             Action test = () => new TreeViewContextMenuItemFactory(null, treeViewCommands);
 
-                // Assert
-                const string expectedMessage = "Kan geen element in het contextmenu creëren zonder dat de data bekend is.";
-                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-                Assert.AreEqual("dataObject", exception.ParamName);
-            }
+            // Assert
+            const string expectedMessage = "Kan geen element in het contextmenu creëren zonder dat de data bekend is.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            Assert.AreEqual("dataObject", exception.ParamName);
         }
 
         [Test]
