@@ -34,6 +34,4 @@ All rights reserved.
     <ProjectReference Include="..\..\src\Core.Components.Chart\Core.Components.Chart.csproj"/>
     <ProjectReference Include="..\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj"/>
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
 </Project>

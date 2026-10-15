@@ -107,6 +107,16 @@ namespace Application.Riskeer
                            userDisplay);
         }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            System.Windows.Forms.Application.ThreadException -= Application_ThreadException;
+            AppDomain.CurrentDomain.UnhandledException -= AppDomain_UnhandledException;
+
+            gui?.Dispose();
+
+            base.OnExit(e);
+        }
+
         private void OnStartup(object sender, StartupEventArgs e)
         {
             ParseArguments(e.Args);
@@ -151,16 +161,6 @@ namespace Application.Riskeer
             };
 
             RunRiskeer();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            System.Windows.Forms.Application.ThreadException -= Application_ThreadException;
-            AppDomain.CurrentDomain.UnhandledException -= AppDomain_UnhandledException;
-
-            gui?.Dispose();
-
-            base.OnExit(e);
         }
 
         private void RunRiskeer()
