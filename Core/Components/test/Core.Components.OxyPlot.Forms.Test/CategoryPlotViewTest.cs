@@ -191,7 +191,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void Constructor_EmptyCategoryLabels_LabelFormatterReturnsEmptyString()
         {
             // Setup
-            var plotView = new CategoryPlotView();
+            var plotView = new CategoryPlotView(string.Empty, string.Empty);
 
             // Call
             CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
@@ -205,7 +205,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             const string label = "Test";
-            var plotView = new CategoryPlotView();
+            var plotView = new CategoryPlotView(string.Empty, string.Empty);
             plotView.AddLabels(new[]
             {
                 label
