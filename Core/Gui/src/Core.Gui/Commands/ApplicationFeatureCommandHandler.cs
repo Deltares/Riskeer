@@ -83,7 +83,10 @@ namespace Core.Gui.Commands
 
             try
             {
-                Process.Start(new ProcessStartInfo(logFile) { UseShellExecute = true });
+                Process.Start(new ProcessStartInfo(logFile)
+                {
+                    UseShellExecute = true
+                });
             }
             catch (Exception e)
             {
@@ -91,7 +94,12 @@ namespace Core.Gui.Commands
                 {
                     MessageBox.Show(Resources.ApplicationFeatureiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead,
                                     Resources.ApplicationFeatureCommandHandler_OpenLogFileExternal_Unable_to_open_log_file);
-                    Process.Start(new ProcessStartInfo(logFolderPath) { UseShellExecute = true });
+
+                    Process.Start(new ProcessStartInfo(logFolderPath)
+                    {
+                        UseShellExecute = true
+                    });
+
                     return;
                 }
 
