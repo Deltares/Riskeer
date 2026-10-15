@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.DirectoryServices.AccountManagement;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.IO.Packaging;
@@ -82,6 +83,7 @@ namespace Application.Riskeer
         static App()
         {
             AssemblyResolverInstaller.Install();
+            System.Windows.Forms.Application.SetDefaultFont(new Font(new FontFamily("Microsoft Sans Serif"), 8.25f));
         }
 
         private readonly ILog log;
