@@ -40,7 +40,6 @@ using DotSpatial.Data;
 using DotSpatial.Projections;
 using log4net;
 using NetTopologySuite.Geometries;
-using Timer = System.Timers.Timer;
 
 namespace Core.Components.DotSpatial.Forms
 {
@@ -649,11 +648,10 @@ namespace Core.Components.DotSpatial.Forms
         {
             updateTimer = new Timer
             {
-                Interval = updateTimerInterval,
-                SynchronizingObject = this
+                Interval = updateTimerInterval
             };
 
-            updateTimer.Elapsed += (sender, args) =>
+            updateTimer.Tick += (sender, args) =>
             {
                 updateTimer.Stop();
                 UpdateMapDataLayers();

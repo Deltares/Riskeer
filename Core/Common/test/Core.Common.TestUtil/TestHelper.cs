@@ -36,7 +36,6 @@ using log4net.Config;
 using log4net.Core;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
-using Timer = System.Timers.Timer;
 
 namespace Core.Common.TestUtil
 {
@@ -543,24 +542,17 @@ namespace Core.Common.TestUtil
         /// <paramref name="assertAction"/> failed.</exception>
         public static void PerformActionWithDelayedAssert(Action callAction, Action assertAction, int delay)
         {
-            var timer = new Timer
-            {
-                Interval = delay
-            };
-
-            var timerEnded = false;
-            timer.Elapsed += (sender, args) =>
-            {
-                timerEnded = true;
-            };
-
             callAction();
-            timer.Start();
 
-            while (!timerEnded)
+            var stopwatch = Stopwatch.StartNew();
+
+            while (stopwatch.ElapsedMilliseconds < delay)
             {
-                Thread.Sleep(delay + 1);
+                Application.DoEvents();
+                Thread.Sleep(1);
             }
+
+            Application.DoEvents();
 
             assertAction();
         }

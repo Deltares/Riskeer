@@ -1590,7 +1590,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     Assert.AreEqual(5323789.7111355662, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6, "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=12345.6789000&y=9876.5432100).");
                 }
 
-                TestHelper.PerformActionWithDelayedAssert(Call, AssertAction, 20);
+                TestHelper.PerformActionWithDelayedAssert(Call, AssertAction, 35);
             }
         }
 
