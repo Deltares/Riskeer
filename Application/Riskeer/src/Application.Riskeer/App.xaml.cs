@@ -71,9 +71,6 @@ namespace Application.Riskeer
                      Justification = "The WPF Application lifetime is managed by the framework. GuiCore is disposed explicitly from OnExit.")]
     public partial class App
     {
-        // Start application after this process will exit (used during restart)
-        private const string argumentWaitForProcess = "--wait-for-process=";
-
         private const string language = "nl";
 
         private const int numberOfDaysToKeepLogFiles = 30;
@@ -240,7 +237,11 @@ namespace Application.Riskeer
 
         private static void Restart()
         {
-            Process.Start(typeof(App).Assembly.Location, argumentWaitForProcess + Process.GetCurrentProcess().Id);
+            Process.Start(new ProcessStartInfo(Environment.ProcessPath)
+            {
+                UseShellExecute = true
+            });
+
             Environment.Exit(1);
         }
 
