@@ -27,7 +27,6 @@
             <ComponentGroupRef Id="RiskeerExecutableDll"/>
             <ComponentGroupRef Id="RiskeerExecutableDepsJson"/>
             <ComponentGroupRef Id="RiskeerExecutableRuntimeConfigJson"/>
-            <ComponentGroupRef Id="RiskeerExecutableConfig"/>
             <ComponentGroupRef Id="MigrationExecutable"/>
             <ComponentGroupRef Id="MigrationExecutableDll"/>
             <ComponentGroupRef Id="MigrationExecutableDepsJson"/>

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.DirectoryServices.AccountManagement;
@@ -73,6 +72,8 @@ namespace Application.Riskeer
     {
         // Start application after this process will exit (used during restart)
         private const string argumentWaitForProcess = "--wait-for-process=";
+
+        private const string language = "nl";
 
         private const int numberOfDaysToKeepLogFiles = 30;
 
@@ -297,25 +298,21 @@ namespace Application.Riskeer
 
         private static void SetLanguage()
         {
-            string language = ConfigurationManager.AppSettings["language"];
-            if (language != null)
+            var localMachineDateTimeFormat = (DateTimeFormatInfo) Thread.CurrentThread.CurrentCulture.DateTimeFormat.Clone();
+            localMachineDateTimeFormat.DayNames = CultureInfo.InvariantCulture.DateTimeFormat.DayNames;
+            localMachineDateTimeFormat.MonthNames = CultureInfo.InvariantCulture.DateTimeFormat.MonthNames;
+            localMachineDateTimeFormat.AbbreviatedDayNames = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedDayNames;
+            localMachineDateTimeFormat.AbbreviatedMonthGenitiveNames = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedMonthGenitiveNames;
+            localMachineDateTimeFormat.AbbreviatedMonthNames = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedMonthNames;
+
+            var cultureInfo = new CultureInfo(language)
             {
-                var localMachineDateTimeFormat = (DateTimeFormatInfo) Thread.CurrentThread.CurrentCulture.DateTimeFormat.Clone();
-                localMachineDateTimeFormat.DayNames = CultureInfo.InvariantCulture.DateTimeFormat.DayNames;
-                localMachineDateTimeFormat.MonthNames = CultureInfo.InvariantCulture.DateTimeFormat.MonthNames;
-                localMachineDateTimeFormat.AbbreviatedDayNames = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedDayNames;
-                localMachineDateTimeFormat.AbbreviatedMonthGenitiveNames = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedMonthGenitiveNames;
-                localMachineDateTimeFormat.AbbreviatedMonthNames = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedMonthNames;
+                NumberFormat = Thread.CurrentThread.CurrentCulture.NumberFormat,
+                DateTimeFormat = localMachineDateTimeFormat
+            };
 
-                var cultureInfo = new CultureInfo(language)
-                {
-                    NumberFormat = Thread.CurrentThread.CurrentCulture.NumberFormat,
-                    DateTimeFormat = localMachineDateTimeFormat
-                };
-
-                Thread.CurrentThread.CurrentUICulture = cultureInfo;
-                Thread.CurrentThread.CurrentCulture = cultureInfo;
-            }
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
         }
 
         private static string UserDisplay()
