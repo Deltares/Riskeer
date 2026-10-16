@@ -82,7 +82,6 @@ namespace Riskeer.Integration.Forms.Test.Controls
                 Assert.AreEqual(new Padding(4, 3, 4, 3), probabilityLabel.Margin);
 
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
-                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
 
                 Assert.IsEmpty(errorProvider.GetError(groupLabel));

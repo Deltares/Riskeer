@@ -156,7 +156,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, textBox.Dock);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
 
                 Assert.IsInstanceOf<UserControl>(view);

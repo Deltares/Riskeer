@@ -148,7 +148,6 @@ namespace Riskeer.Common.Forms.Views
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
-            this.errorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
             // 
             // ScenariosView
             // 
