@@ -61,10 +61,11 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.AreEqual(categoryAxisKey, categoryAxis.Key);
             Assert.AreEqual(1, categoryAxis.MinorStep);
             Assert.AreEqual(90, categoryAxis.Angle);
-
             Assert.AreEqual(-0.5, categoryAxis.AbsoluteMinimum);
+            Assert.AreEqual(0, categoryAxis.AbsoluteMaximum);
             Assert.IsFalse(categoryAxis.IsPanEnabled);
             Assert.IsFalse(categoryAxis.IsZoomEnabled);
+            Assert.IsFalse(categoryAxis.IsAxisVisible);
 
             Axis linearAxis = axes.First(ax => ax.GetType() == typeof(LinearAxis));
             Assert.AreEqual(AxisPosition.Left, linearAxis.Position);
@@ -153,27 +154,51 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void AddLabel_WithLabel_LabelAddedAndAbsoluteMaximumSet()
+        public void AddLabels_OneLabel_CategoryAxisStateUpdated()
         {
             // Setup
-            const string label = "Test";
+            string[] labels =
+            [
+                "label 1"
+            ];
+
             var plotView = new CategoryPlotView(string.Empty, string.Empty);
 
             // Call
-            plotView.AddLabels(new[]
-            {
-                label
-            });
+            plotView.AddLabels(labels);
 
             // Assert
             CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
-            Assert.AreEqual(1, axis.Labels.Count);
-            Assert.AreEqual(label, axis.Labels[0]);
+            CollectionAssert.AreEqual(labels, axis.Labels);
             Assert.AreEqual(0.5, axis.AbsoluteMaximum);
+            Assert.IsTrue(axis.IsAxisVisible);
         }
 
         [Test]
-        public void AddLabel_EmptyLabels_AbsoluteMaximumSet()
+        public void AddLabels_MultipleLabels_CategoryAxisStateUpdated()
+        {
+            // Setup
+            string[] labels =
+            [
+                "label 1",
+                "label 2",
+                "label 3"
+            ];
+
+            var plotView = new CategoryPlotView(string.Empty, string.Empty);
+
+            // Call
+            plotView.AddLabels(labels);
+
+            // Assert
+            CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
+            CollectionAssert.AreEqual(labels, axis.Labels);
+            Assert.AreEqual(2.5, axis.AbsoluteMaximum);
+            Assert.IsTrue(axis.IsAxisVisible);
+        }
+
+        [Test]
+        public void AddLabels_EmptyLabels_CategoryAxisStateUpdated()
         {
             // Setup
             var plotView = new CategoryPlotView(string.Empty, string.Empty);
@@ -185,53 +210,26 @@ namespace Core.Components.OxyPlot.Forms.Test
             CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
             Assert.AreEqual(0, axis.Labels.Count);
             Assert.AreEqual(0, axis.AbsoluteMaximum);
+            Assert.IsFalse(axis.IsAxisVisible);
         }
 
         [Test]
-        public void Constructor_EmptyCategoryLabels_LabelFormatterReturnsEmptyString()
+        public void ClearLabels_Always_CategoryAxisStateUpdated()
         {
             // Setup
             var plotView = new CategoryPlotView(string.Empty, string.Empty);
 
-            // Call
-            CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
-
-            // Assert
-            Assert.AreEqual(string.Empty, axis.LabelFormatter(0));
-        }
-
-        [Test]
-        public void AddLabel_WithLabel_LabelFormatterReturnsCategoryLabel()
-        {
-            // Setup
-            const string label = "Test";
-            var plotView = new CategoryPlotView(string.Empty, string.Empty);
-            plotView.AddLabels(new[]
-            {
-                label
-            });
-
-            // Call
-            CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
-
-            // Assert
-            Assert.AreEqual(label, axis.LabelFormatter(0));
-            Assert.AreEqual(string.Empty, axis.LabelFormatter(1));
-        }
-
-        [Test]
-        public void ClearLabels_Always_LabelsCleared()
-        {
-            // Setup
-            var plotView = new CategoryPlotView(string.Empty, string.Empty);
-            plotView.AddLabels(new[]
-            {
-                "Test"
-            });
+            plotView.AddLabels([
+                "label 1",
+                "label 2",
+                "label 3"
+            ]);
 
             // Precondition
             CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
-            Assert.AreEqual(1, axis.Labels.Count);
+            Assert.AreEqual(3, axis.Labels.Count);
+            Assert.AreEqual(2.5, axis.AbsoluteMaximum);
+            Assert.IsTrue(axis.IsAxisVisible);
 
             // Call
             plotView.ClearLabels();
@@ -239,6 +237,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Assert
             CollectionAssert.IsEmpty(axis.Labels);
             Assert.AreEqual(0, axis.AbsoluteMaximum);
+            Assert.IsFalse(axis.IsAxisVisible);
         }
     }
 }

@@ -54,16 +54,10 @@ namespace Core.Components.OxyPlot.Forms
                 MinorStep = 1,
                 Angle = 90,
                 AbsoluteMinimum = -0.5,
+                AbsoluteMaximum = 0,
                 IsPanEnabled = false,
-                IsZoomEnabled = false
-            };
-
-            categoryAxis.LabelFormatter = value =>
-            {
-                int index = (int) value;
-                return index >= 0 && index < categoryAxis.Labels.Count
-                           ? categoryAxis.Labels[index]
-                           : string.Empty;
+                IsZoomEnabled = false,
+                IsAxisVisible = false
             };
 
             linearAxis = new LinearAxis
@@ -147,9 +141,7 @@ namespace Core.Components.OxyPlot.Forms
 
             categoryAxis.Labels.AddRange(labels);
 
-            categoryAxis.AbsoluteMaximum = categoryAxis.Labels.Count > 0
-                                               ? categoryAxis.Labels.Count - 0.5
-                                               : 0;
+            UpdateCategoryAxisState();
         }
 
         /// <summary>
@@ -158,7 +150,16 @@ namespace Core.Components.OxyPlot.Forms
         public void ClearLabels()
         {
             categoryAxis.Labels.Clear();
-            categoryAxis.AbsoluteMaximum = 0;
+
+            UpdateCategoryAxisState();
+        }
+
+        private void UpdateCategoryAxisState()
+        {
+            bool hasLabels = categoryAxis.Labels.Count > 0;
+
+            categoryAxis.AbsoluteMaximum = hasLabels ? categoryAxis.Labels.Count - 0.5 : 0;
+            categoryAxis.IsAxisVisible = hasLabels;
         }
     }
 }
