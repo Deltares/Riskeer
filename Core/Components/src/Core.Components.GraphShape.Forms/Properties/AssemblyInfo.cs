@@ -24,4 +24,3 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Core.Components.GraphShape.Forms")]
 [assembly: AssemblyProduct("Core.Components.GraphShape.Forms")]
-[assembly: InternalsVisibleTo("Core.Components.GraphShape.Forms.Test")]

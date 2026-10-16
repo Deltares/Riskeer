@@ -70,11 +70,6 @@ namespace Core.Components.GraphShape.Forms.Test
 
                 ZoomControl zoomControl = PointedTreeGraphControlHelper.GetZoomControl(graphControl);
 
-                Assert.AreEqual(300, zoomControl.ZoomDeltaMultiplier);
-                Assert.AreEqual(ZoomControlModes.Original, zoomControl.Mode);
-                Assert.AreEqual(ZoomViewModifierMode.None, zoomControl.ModifierMode);
-                Assert.AreEqual(new TimeSpan(0), zoomControl.AnimationLength);
-
                 Assert.AreEqual(1, zoomControl.Resources.MergedDictionaries.Count);
                 ResourceDictionary templateDictionary = zoomControl.Resources.MergedDictionaries.First();
                 Assert.AreEqual("/Core.Components.GraphShape.Forms;component/Templates/PointedTreeGraphTemplate.xaml", templateDictionary.Source.AbsolutePath);

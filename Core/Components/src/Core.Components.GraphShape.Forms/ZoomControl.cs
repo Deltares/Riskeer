@@ -24,225 +24,108 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Core.Components.GraphShape.Forms
 {
-    public enum ZoomControlModes
-    {
-        Fill,
-        Original,
-        Custom
-    }
-
-    public enum ZoomViewModifierMode
-    {
-        None,
-        Pan,
-        ZoomIn,
-        ZoomOut,
-        ZoomBox
-    }
-
+    /// <summary>
+    /// Control that supports zooming and panning its content.
+    /// </summary>
     public class ZoomControl : ContentControl
     {
-        public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register(nameof(Mode), typeof(ZoomControlModes), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(ZoomControlModes.Original));
-
-        public static readonly DependencyProperty ModifierModeProperty =
-            DependencyProperty.Register(nameof(ModifierMode), typeof(ZoomViewModifierMode), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(ZoomViewModifierMode.None));
-
-        public static readonly DependencyProperty ZoomDeltaMultiplierProperty =
-            DependencyProperty.Register(nameof(ZoomDeltaMultiplier), typeof(double), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(300d));
-
-        public static readonly DependencyProperty MinZoomProperty =
-            DependencyProperty.Register(nameof(MinZoom), typeof(double), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(0.2d));
-
-        public static readonly DependencyProperty MaxZoomProperty =
-            DependencyProperty.Register(nameof(MaxZoom), typeof(double), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(5d));
-
-        public static readonly DependencyProperty ZoomProperty =
-            DependencyProperty.Register(nameof(Zoom), typeof(double), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(1d, OnViewTransformPropertyChanged));
-
-        public static readonly DependencyProperty TranslateXProperty =
-            DependencyProperty.Register(nameof(TranslateX), typeof(double), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(0d, OnViewTransformPropertyChanged));
-
-        public static readonly DependencyProperty TranslateYProperty =
-            DependencyProperty.Register(nameof(TranslateY), typeof(double), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(0d, OnViewTransformPropertyChanged));
-
-        public static readonly DependencyProperty MaxZoomDeltaProperty =
-            DependencyProperty.Register(nameof(MaxZoomDelta), typeof(double), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(5d));
-
-        public static readonly DependencyProperty AnimationLengthProperty =
-            DependencyProperty.Register(nameof(AnimationLength), typeof(TimeSpan), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(TimeSpan.Zero));
-
-        public static readonly DependencyProperty ZoomBoxProperty =
-            DependencyProperty.Register(nameof(ZoomBox), typeof(Rect), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(Rect.Empty));
-
-        public static readonly DependencyProperty ZoomBoxBorderBrushProperty =
-            DependencyProperty.Register(nameof(ZoomBoxBorderBrush), typeof(Brush), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(Brushes.Silver));
-
-        public static readonly DependencyProperty ZoomBoxBorderThicknessProperty =
-            DependencyProperty.Register(nameof(ZoomBoxBorderThickness), typeof(Thickness), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(new Thickness(1)));
-
-        public static readonly DependencyProperty ZoomBoxOpacityProperty =
-            DependencyProperty.Register(nameof(ZoomBoxOpacity), typeof(double), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(0d));
-
-        public static readonly DependencyProperty ZoomBoxBackgroundProperty =
-            DependencyProperty.Register(nameof(ZoomBoxBackground), typeof(Brush), typeof(ZoomControl),
-                                        new FrameworkPropertyMetadata(Brushes.Transparent));
-
         private const string presenterPartName = "PART_Presenter";
-        private readonly ScaleTransform scaleTransform = new ScaleTransform(1, 1);
-        private readonly TranslateTransform translateTransform = new TranslateTransform();
+        private const double zoomTolerance = 1e-10;
+        private const double minZoom = 0.25;
+        private const double maxZoom = 4;
+        private const double zoomDeltaMultiplier = 300;
+        private const double maxZoomDelta = 4;
+        private readonly ScaleTransform scaleTransform = new(1, 1);
+        private readonly TranslateTransform translateTransform = new();
+        private readonly TransformGroup transformGroup = new();
 
         private ZoomContentPresenter presenter;
         private bool isPanPending;
         private bool isPanning;
         private Point panStartPosition;
         private Cursor originalCursor;
+        private bool isInitialViewSet;
+        private bool isInitialZoomToFillQueued;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="ZoomControl"/>.
+        /// </summary>
         public ZoomControl()
         {
+            transformGroup.Children.Add(scaleTransform);
+            transformGroup.Children.Add(translateTransform);
+
             PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
             PreviewMouseMove += OnPreviewMouseMove;
             PreviewMouseLeftButtonUp += OnPreviewMouseLeftButtonUp;
             LostMouseCapture += OnLostMouseCapture;
-            SizeChanged += (sender, args) => ApplyTransform();
+            PreviewMouseWheel += OnPreviewMouseWheel;
         }
 
-        public ZoomControlModes Mode
+        private double ZoomFactor => scaleTransform.ScaleX;
+        private double TranslateX => translateTransform.X;
+        private double TranslateY => translateTransform.Y;
+        private Rect ZoomBox
         {
-            get => (ZoomControlModes) GetValue(ModeProperty);
-            set => SetValue(ModeProperty, value);
+            get
+            {
+                if (ActualWidth <= 0 || ActualHeight <= 0)
+                {
+                    return Rect.Empty;
+                }
+
+                return new Rect(-TranslateX / ZoomFactor, -TranslateY / ZoomFactor, ActualWidth / ZoomFactor, ActualHeight / ZoomFactor);
+            }
         }
 
-        public ZoomViewModifierMode ModifierMode
+        private void ZoomTo(Rect zoomToRectangle)
         {
-            get => (ZoomViewModifierMode) GetValue(ModifierModeProperty);
-            set => SetValue(ModifierModeProperty, value);
-        }
-
-        public double ZoomDeltaMultiplier
-        {
-            get => (double) GetValue(ZoomDeltaMultiplierProperty);
-            set => SetValue(ZoomDeltaMultiplierProperty, value);
-        }
-
-        public double MinZoom
-        {
-            get => (double) GetValue(MinZoomProperty);
-            set => SetValue(MinZoomProperty, value);
-        }
-
-        public double MaxZoom
-        {
-            get => (double) GetValue(MaxZoomProperty);
-            set => SetValue(MaxZoomProperty, value);
-        }
-
-        public double Zoom
-        {
-            get => (double) GetValue(ZoomProperty);
-            set => SetValue(ZoomProperty, value);
-        }
-
-        public double TranslateX
-        {
-            get => (double) GetValue(TranslateXProperty);
-            set => SetValue(TranslateXProperty, value);
-        }
-
-        public double TranslateY
-        {
-            get => (double) GetValue(TranslateYProperty);
-            set => SetValue(TranslateYProperty, value);
-        }
-
-        public double MaxZoomDelta
-        {
-            get => (double) GetValue(MaxZoomDeltaProperty);
-            set => SetValue(MaxZoomDeltaProperty, value);
-        }
-
-        public TimeSpan AnimationLength
-        {
-            get => (TimeSpan) GetValue(AnimationLengthProperty);
-            set => SetValue(AnimationLengthProperty, value);
-        }
-
-        public Rect ZoomBox
-        {
-            get => (Rect) GetValue(ZoomBoxProperty);
-            private set => SetValue(ZoomBoxProperty, value);
-        }
-
-        public Brush ZoomBoxBorderBrush
-        {
-            get => (Brush) GetValue(ZoomBoxBorderBrushProperty);
-            set => SetValue(ZoomBoxBorderBrushProperty, value);
-        }
-
-        public Thickness ZoomBoxBorderThickness
-        {
-            get => (Thickness) GetValue(ZoomBoxBorderThicknessProperty);
-            set => SetValue(ZoomBoxBorderThicknessProperty, value);
-        }
-
-        public double ZoomBoxOpacity
-        {
-            get => (double) GetValue(ZoomBoxOpacityProperty);
-            set => SetValue(ZoomBoxOpacityProperty, value);
-        }
-
-        public Brush ZoomBoxBackground
-        {
-            get => (Brush) GetValue(ZoomBoxBackgroundProperty);
-            set => SetValue(ZoomBoxBackgroundProperty, value);
-        }
-
-        public void ZoomTo(Rect zoomToRectangle)
-        {
-            if (zoomToRectangle.IsEmpty
-                || zoomToRectangle.Width <= 0
-                || zoomToRectangle.Height <= 0
-                || ActualWidth <= 0
-                || ActualHeight <= 0)
+            if (zoomToRectangle.IsEmpty || zoomToRectangle.Width <= 0 || zoomToRectangle.Height <= 0 || ActualWidth <= 0 || ActualHeight <= 0)
             {
                 return;
             }
 
-            var maxZoom = GetMaximumZoom();
-            var minZoom = GetMinimumZoom(maxZoom);
-            var scale = Math.Min(ActualWidth / zoomToRectangle.Width, ActualHeight / zoomToRectangle.Height);
-            scale = Math.Max(minZoom, Math.Min(maxZoom, scale));
+            double scale = ClampZoom(Math.Min(ActualWidth / zoomToRectangle.Width, ActualHeight / zoomToRectangle.Height));
 
-            SetViewTransform(scale, -zoomToRectangle.X * scale, -zoomToRectangle.Y * scale);
+            double offsetX = (ActualWidth - zoomToRectangle.Width * scale) / 2d;
+            double offsetY = (ActualHeight - zoomToRectangle.Height * scale) / 2d;
+
+            SetViewTransform(scale, offsetX - zoomToRectangle.X * scale, offsetY - zoomToRectangle.Y * scale);
         }
 
-        public void ZoomToOriginal()
+        private void ZoomBy(double zoomFactor, Point anchorPosition)
         {
-            SetViewTransform(1d, 0d, 0d);
+            double currentZoom = ZoomFactor;
+
+            if (zoomFactor <= 0 || double.IsNaN(zoomFactor) || double.IsInfinity(zoomFactor))
+            {
+                return;
+            }
+
+            double newZoom = ClampZoom(currentZoom * zoomFactor);
+
+            if (Math.Abs(newZoom - currentZoom) < zoomTolerance)
+            {
+                return;
+            }
+
+            double contentX = (anchorPosition.X - TranslateX) / currentZoom;
+            double contentY = (anchorPosition.Y - TranslateY) / currentZoom;
+            SetViewTransform(newZoom, anchorPosition.X - contentX * newZoom, anchorPosition.Y - contentY * newZoom);
         }
 
+        /// <summary>
+        /// Zooms to and centers the entire measured content within the control, subject to the zoom limits.
+        /// </summary>
+        /// <remarks>This is done automatically once, as soon as both the content and the control
+        /// have a size, unless the view has been changed before.</remarks>
         public void ZoomToFill()
         {
-            if (presenter == null
-                || presenter.ContentSize.Width <= 0
-                || presenter.ContentSize.Height <= 0)
+            if (presenter == null || presenter.ContentSize.Width <= 0 || presenter.ContentSize.Height <= 0)
             {
                 return;
             }
@@ -250,20 +133,28 @@ namespace Core.Components.GraphShape.Forms
             ZoomTo(new Rect(new Point(0, 0), presenter.ContentSize));
         }
 
+        /// <inheritdoc/>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+
+            presenter?.ContentSizeChanged -= OnContentSizeChanged;
+
             presenter = GetTemplateChild(presenterPartName) as ZoomContentPresenter;
-            ApplyTransform();
+            if (presenter == null) { return; }
+
+            presenter.RenderTransform = transformGroup;
+            presenter.RenderTransformOrigin = new Point(0, 0);
+            presenter.ContentSizeChanged += OnContentSizeChanged;
         }
 
-        internal void StartPanning(Point startPosition)
+        private void StartPanning(Point startPosition)
         {
             panStartPosition = startPosition;
             isPanning = true;
         }
 
-        internal void PanTo(Point position)
+        private void PanTo(Point position)
         {
             if (!isPanning)
             {
@@ -271,73 +162,63 @@ namespace Core.Components.GraphShape.Forms
             }
 
             Vector delta = position - panStartPosition;
-            SetViewTransform(Zoom, TranslateX + delta.X, TranslateY + delta.Y);
+            SetViewTransform(ZoomFactor, TranslateX + delta.X, TranslateY + delta.Y);
             panStartPosition = position;
         }
 
-        internal void StopPanning()
+        private void StopPanning()
         {
             isPanning = false;
         }
 
-        private static void OnViewTransformPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        private static double ClampZoom(double zoom)
         {
-            ((ZoomControl) dependencyObject).ApplyTransform();
-        }
-
-        private void ApplyTransform()
-        {
-            scaleTransform.ScaleX = Zoom;
-            scaleTransform.ScaleY = Zoom;
-
-            translateTransform.X = TranslateX;
-            translateTransform.Y = TranslateY;
-
-            if (presenter != null)
-            {
-                var transformGroup = new TransformGroup();
-                transformGroup.Children.Add(scaleTransform);
-                transformGroup.Children.Add(translateTransform);
-                presenter.RenderTransform = transformGroup;
-                presenter.RenderTransformOrigin = new Point(0, 0);
-            }
-
-            ZoomBox = GetViewport();
+            return Math.Max(minZoom, Math.Min(maxZoom, zoom));
         }
 
         private void SetViewTransform(double zoom, double translateX, double translateY)
         {
-            var maximumZoom = GetMaximumZoom();
-            var minimumZoom = GetMinimumZoom(maximumZoom);
+            isInitialViewSet = true;
 
-            Zoom = Math.Max(minimumZoom, Math.Min(maximumZoom, zoom));
-            TranslateX = translateX;
-            TranslateY = translateY;
+            scaleTransform.ScaleX = zoom;
+            scaleTransform.ScaleY = zoom;
+            translateTransform.X = translateX;
+            translateTransform.Y = translateY;
         }
 
-        private double GetMaximumZoom()
+        private void OnContentSizeChanged(object sender, EventArgs e)
         {
-            return Math.Max(1d, MaxZoom);
+            QueueInitialZoomToFill();
         }
 
-        private double GetMinimumZoom(double maximumZoom)
+        private void QueueInitialZoomToFill()
         {
-            return Math.Max(1d / Math.Max(1d, MaxZoomDelta), Math.Min(MinZoom, maximumZoom));
-        }
-
-        private Rect GetViewport()
-        {
-            if (ActualWidth <= 0
-                || ActualHeight <= 0
-                || Zoom <= 0)
+            if (isInitialViewSet || isInitialZoomToFillQueued)
             {
-                return Rect.Empty;
+                return;
             }
 
-            return new Rect(-TranslateX / Zoom,
-                            -TranslateY / Zoom,
-                            ActualWidth / Zoom,
-                            ActualHeight / Zoom);
+            isInitialZoomToFillQueued = true;
+            Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() =>
+            {
+                isInitialZoomToFillQueued = false;
+                if (!isInitialViewSet)
+                {
+                    ZoomToFill();
+                }
+            }));
+        }
+
+        private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ZoomBy(GetMouseWheelZoomFactor(e.Delta), e.GetPosition(this));
+            e.Handled = true;
+        }
+
+        private static double GetMouseWheelZoomFactor(int delta)
+        {
+            double viewportFactor = Math.Max(1d / maxZoomDelta, Math.Min(maxZoomDelta, 1d - delta / zoomDeltaMultiplier));
+            return 1d / viewportFactor;
         }
 
         private void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -356,8 +237,7 @@ namespace Core.Components.GraphShape.Forms
             Point currentPosition = e.GetPosition(this);
             if (!isPanning)
             {
-                if (Math.Abs(currentPosition.X - panStartPosition.X) < SystemParameters.MinimumHorizontalDragDistance
-                    && Math.Abs(currentPosition.Y - panStartPosition.Y) < SystemParameters.MinimumVerticalDragDistance)
+                if (Math.Abs(currentPosition.X - panStartPosition.X) < SystemParameters.MinimumHorizontalDragDistance && Math.Abs(currentPosition.Y - panStartPosition.Y) < SystemParameters.MinimumVerticalDragDistance)
                 {
                     return;
                 }

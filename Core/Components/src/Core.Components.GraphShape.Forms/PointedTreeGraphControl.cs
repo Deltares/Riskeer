@@ -26,7 +26,6 @@ using System.Drawing.Text;
 using System.IO.Packaging;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
 using Core.Common.Util.Drawing;
 using Core.Common.Util.Extensions;
 using Core.Components.GraphShape.Converters;
@@ -101,15 +100,7 @@ namespace Core.Components.GraphShape.Forms
 
         private void InitializeZoomControl()
         {
-            zoomControl = new ZoomControl
-            {
-                Mode = ZoomControlModes.Original,
-                ModifierMode = ZoomViewModifierMode.None,
-                ZoomDeltaMultiplier = 300,
-                AnimationLength = new TimeSpan(0)
-            };
-
-            zoomControl.PreviewMouseWheel += ZoomControl_MouseWheel;
+            zoomControl = new ZoomControl();
 
             var myResourceDictionary = new ResourceDictionary
             {
@@ -212,46 +203,9 @@ namespace Core.Components.GraphShape.Forms
             public PointedTreeElementVertex Vertex { get; set; }
         }
 
-        #region Zooming
-
-        private void ZoomControl_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            double deltaZoom = GetZoomDelta(e.Delta);
-            Rect currentViewport = zoomControl.ZoomBox.IsEmpty
-                                       ? new Rect(0, 0, zoomControl.ActualWidth, zoomControl.ActualHeight)
-                                       : zoomControl.ZoomBox;
-
-            double width = currentViewport.Width * deltaZoom;
-            double height = currentViewport.Height * deltaZoom;
-
-            Point cursorPosition = e.GetPosition(zoomControl);
-            double currentRelativeLeft = cursorPosition.X / zoomControl.ActualWidth;
-            double currentRelativeTop = cursorPosition.Y / zoomControl.ActualHeight;
-            var contentPosition = new Point(currentViewport.X + currentViewport.Width * currentRelativeLeft,
-                                            currentViewport.Y + currentViewport.Height * currentRelativeTop);
-
-            var topLeftCorner = new Point(
-                contentPosition.X - width * currentRelativeLeft,
-                contentPosition.Y - height * currentRelativeTop);
-
-            var newSize = new Size(width, height);
-            var zoomTo = new Rect(topLeftCorner, newSize);
-
-            zoomControl.ZoomTo(zoomTo);
-            e.Handled = true;
-        }
-
-        private double GetZoomDelta(int delta)
-        {
-            return Math.Max(1.0 / zoomControl.MaxZoomDelta,
-                            Math.Min(zoomControl.MaxZoomDelta, delta / -zoomControl.ZoomDeltaMultiplier + 1.0));
-        }
-
         private void ZoomToGraphExtentsToolStripButtonClick(object sender, EventArgs e)
         {
             zoomControl.ZoomToFill();
         }
-
-        #endregion
     }
 }
