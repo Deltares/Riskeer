@@ -141,8 +141,7 @@ namespace Core.Gui.Forms.Log
                 ShortMessage = shortMessage,
                 FullMessage = message
             });
-
-            PopulateMessagesSafe();
+            Invalidate();
         }
 
         #endregion
@@ -193,31 +192,6 @@ namespace Core.Gui.Forms.Log
             {
                 messagesDataGridView.CurrentCell = messagesDataGridView.Rows[0].Cells[2];
             }
-        }
-
-        private void PopulateMessagesSafe()
-        {
-            if (IsDisposed || Disposing)
-            {
-                return;
-            }
-
-            if (InvokeRequired)
-            {
-                try
-                {
-                    BeginInvoke((MethodInvoker) PopulateMessagesSafe);
-                }
-                catch (InvalidOperationException)
-                {
-                    // The control handle is no longer valid; queued messages remain available for the next window instance.
-                }
-
-                return;
-            }
-
-            PopulateMessages();
-            Invalidate();
         }
 
         private void AutoSizeRow(DataGridViewRow row)
