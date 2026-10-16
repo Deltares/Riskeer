@@ -24,12 +24,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Media;
+using AvalonDock.Controls;
 using AvalonDock.Layout;
 using Core.Common.Controls.Views;
-using AvalonDock.Controls;
+using Control = System.Windows.Forms.Control;
 
 namespace Core.Gui.Forms.ViewHost
 {
@@ -38,6 +40,12 @@ namespace Core.Gui.Forms.ViewHost
     /// </summary>
     public partial class AvalonDockViewHost : IViewHost
     {
+        static AvalonDockViewHost()
+        {
+            EventManager.RegisterClassHandler(typeof(LayoutDocumentPaneControl), LoadedEvent,
+                                              new RoutedEventHandler(OnLayoutDocumentPaneControlLoaded));
+        }
+
         private readonly List<IView> toolViews;
         private readonly List<IView> documentViews;
         private readonly List<WindowsFormsHost> hostControls;
@@ -51,12 +59,6 @@ namespace Core.Gui.Forms.ViewHost
         public event EventHandler<ViewChangeEventArgs> ViewOpened;
         public event EventHandler<ViewChangeEventArgs> ViewBroughtToFront;
         public event EventHandler<ViewChangeEventArgs> ViewClosed;
-
-        static AvalonDockViewHost()
-        {
-            EventManager.RegisterClassHandler(typeof(LayoutDocumentPaneControl), LoadedEvent,
-                                              new RoutedEventHandler(OnLayoutDocumentPaneControlLoaded));
-        }
 
         /// <summary>
         /// Creates a new instance of the <see cref="AvalonDockViewHost"/> class.
@@ -505,7 +507,7 @@ namespace Core.Gui.Forms.ViewHost
             var documentPaneControl = (LayoutDocumentPaneControl) sender;
             if (documentPaneControl.Template?.FindName("MenuDropDownButton", documentPaneControl) is DropDownButton
             {
-                Content: System.Windows.Controls.Border iconBorder
+                Content: Border iconBorder
             })
             {
                 iconBorder.Background = Brushes.Transparent;
