@@ -26,19 +26,16 @@ using System.Windows.Media;
 
 namespace Core.Components.GraphShape.Forms
 {
-    public class ZoomContentPresenter : ContentPresenter
+    internal class ZoomContentPresenter : ContentPresenter
     {
-        public event EventHandler ContentSizeChanged;
-
-        public Size ContentSize { get; private set; }
+        internal event EventHandler ContentSizeChanged;
 
         protected override Size MeasureOverride(Size constraint)
         {
             Size contentSize = base.MeasureOverride(new Size(double.PositiveInfinity, double.PositiveInfinity));
             SetContentSize(contentSize);
 
-            return new Size(GetConstrainedLength(contentSize.Width, constraint.Width),
-                            GetConstrainedLength(contentSize.Height, constraint.Height));
+            return new Size(GetConstrainedLength(contentSize.Width, constraint.Width), GetConstrainedLength(contentSize.Height, constraint.Height));
         }
 
         protected override Size ArrangeOverride(Size arrangeBounds)
@@ -54,6 +51,8 @@ namespace Core.Components.GraphShape.Forms
             return arrangeBounds;
         }
 
+        internal Size ContentSize { get; private set; }
+
         private void SetContentSize(Size contentSize)
         {
             if (ContentSize.Equals(contentSize))
@@ -67,9 +66,7 @@ namespace Core.Components.GraphShape.Forms
 
         private static double GetConstrainedLength(double contentLength, double availableLength)
         {
-            return double.IsInfinity(availableLength)
-                       ? contentLength
-                       : Math.Min(contentLength, availableLength);
+            return double.IsInfinity(availableLength) ? contentLength : Math.Min(contentLength, availableLength);
         }
     }
 }

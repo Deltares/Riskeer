@@ -103,19 +103,6 @@ namespace Core.Components.GraphShape.Forms
         private double TranslateX => translateTransform.X;
         private double TranslateY => translateTransform.Y;
 
-        private Rect ZoomBox
-        {
-            get
-            {
-                if (ActualWidth <= 0 || ActualHeight <= 0)
-                {
-                    return Rect.Empty;
-                }
-
-                return new Rect(-TranslateX / ZoomFactor, -TranslateY / ZoomFactor, ActualWidth / ZoomFactor, ActualHeight / ZoomFactor);
-            }
-        }
-
         private void ZoomTo(Rect zoomToRectangle)
         {
             if (zoomToRectangle.IsEmpty || zoomToRectangle.Width <= 0 || zoomToRectangle.Height <= 0 || ActualWidth <= 0 || ActualHeight <= 0)
