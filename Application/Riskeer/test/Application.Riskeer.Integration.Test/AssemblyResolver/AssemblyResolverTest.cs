@@ -30,21 +30,27 @@ namespace Application.Riskeer.Integration.Test.AssemblyResolver
         [Test]
         public void ResolveAssembly_WhenAssemblyDoesNotExist_ReturnsNull()
         {
+            // Setup
             var assemblyName = new AssemblyName("NonExistingAssembly");
 
+            // Call
             Assembly result = global::AssemblyResolver.ResolveAssembly(assemblyName);
 
+            // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
         public void ResolveAssembly_WhenAssemblyExists_ReturnsAssembly()
         {
+            // Setup
             const string assemblyFullName = "log4net, Version=3.3.2.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a";
-
             var assemblyName = new AssemblyName(assemblyFullName);
+
+            // Call
             Assembly result = global::AssemblyResolver.ResolveAssembly(assemblyName);
 
+            // Assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result.GetName().FullName, Is.EqualTo(assemblyFullName));
         }
@@ -52,20 +58,26 @@ namespace Application.Riskeer.Integration.Test.AssemblyResolver
         [Test]
         public void ResolveAssembly_WhenAssemblyIsNative_ReturnsNull()
         {
+            // Setup
             var assemblyName = new AssemblyName("SQLite.Interop");
 
+            // Call
             Assembly result = global::AssemblyResolver.ResolveAssembly(assemblyName);
 
+            // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
         public void ResolveAssembly_WhenAssemblyIsSatelliteResourceAssembly_ReturnsNull()
         {
+            // Setup
             var assemblyName = new AssemblyName("AvalonDock.resources, Version=4.74.1.0, Culture=de, PublicKeyToken=3e4669d2f30244f4");
 
+            // Call
             Assembly result = global::AssemblyResolver.ResolveAssembly(assemblyName);
 
+            // Assert
             Assert.That(result, Is.Null);
         }
     }

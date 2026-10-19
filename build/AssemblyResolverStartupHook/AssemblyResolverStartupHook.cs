@@ -23,7 +23,7 @@
 /// Startup hook that installs <see cref="AssemblyResolver"/> before the entry assembly is loaded.
 /// </summary>
 /// <remarks>
-/// The runtime requires this type to be named <c>AssemblyResolverStartupHook</c>, to reside in the global namespace and to expose a
+/// The runtime requires this type to be named <c>StartupHook</c>, to reside in the global namespace and to expose a
 /// parameterless, non-generic <c>Initialize</c> method. It is activated by pointing <c>DOTNET_STARTUP_HOOKS</c> at
 /// the absolute path of this assembly.
 /// <para>

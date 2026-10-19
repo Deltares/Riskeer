@@ -26,8 +26,8 @@ using System.Linq;
 using System.Reflection;
 
 /// <summary>
-/// Resolves assemblies from a prebuilt lookup of assembly names to their paths. Can be invoked by the AppDomain assembly
-/// resolution mechanism when normal probing fails due to assemblies not being next to the executable. Loads the matching
+/// Resolves assemblies from a prebuilt lookup of assembly names to their paths. Can be invoked by the AssemblyLoadContext
+/// resolving mechanism when normal probing fails due to assemblies not being next to the executable. Loads the matching
 /// assembly from disk using its full assembly name.
 /// </summary>
 internal static class AssemblyResolver
@@ -35,17 +35,17 @@ internal static class AssemblyResolver
     private const string resourcesDllPattern = ".resources.dll";
     private const string dllPattern = "*.dll";
 
-    private static readonly Dictionary<string, string> assemblyPaths = CreateAssemblyPaths();
+    private static readonly Dictionary<string, string> assemblyLookup = CreateAssemblyPaths();
 
     /// <summary>
     /// Resolves an assembly.
     /// </summary>
     /// <param name="assemblyName">The name of the assembly to resolve.</param>
     /// <returns>The resolved assembly, or <c>null</c> if not found.</returns>
-    internal static System.Reflection.Assembly ResolveAssembly(AssemblyName assemblyName)
+    internal static Assembly ResolveAssembly(AssemblyName assemblyName)
     {
-        return assemblyPaths.TryGetValue(assemblyName.FullName, out string assemblyPath)
-                   ? System.Reflection.Assembly.LoadFrom(assemblyPath)
+        return assemblyLookup.TryGetValue(assemblyName.FullName, out string assemblyPath)
+                   ? Assembly.LoadFrom(assemblyPath)
                    : null;
     }
 
@@ -58,19 +58,22 @@ internal static class AssemblyResolver
     /// <exception cref="InvalidOperationException">Thrown if multiple files expose the same assembly name.</exception>
     private static Dictionary<string, string> CreateAssemblyPaths()
     {
+        IEnumerable<AssemblyPath> assemblyPaths = Directory.EnumerateFiles(GetAssembliesDirectory(), dllPattern, SearchOption.AllDirectories)
+                                                           .Where(file => !file.EndsWith(resourcesDllPattern, StringComparison.OrdinalIgnoreCase))
+                                                           .Select(TryCreateAssemblyPath)
+                                                           .Where(ap => ap != null);
+
         var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        foreach (AssemblyPath ap in Directory.EnumerateFiles(GetAssembliesDirectory(), dllPattern, SearchOption.AllDirectories)
-                                             .Where(file => !file.EndsWith(resourcesDllPattern, StringComparison.OrdinalIgnoreCase))
-                                             .Select(TryCreateAssemblyPath)
-                                             .Where(ap => ap != null))
+
+        foreach (AssemblyPath assemblyPath in assemblyPaths)
         {
-            if (!result.TryGetValue(ap.AssemblyName.FullName, out string existingPath))
+            if (!result.TryGetValue(assemblyPath.AssemblyName.FullName, out string existingPath))
             {
-                result.Add(ap.AssemblyName.FullName, ap.Path);
+                result.Add(assemblyPath.AssemblyName.FullName, assemblyPath.Path);
             }
             else
             {
-                throw new InvalidOperationException($"Duplicate assembly name '{ap.AssemblyName.FullName}' found at '{ap.Path}' and '{existingPath}'.");
+                throw new InvalidOperationException($"Duplicate assembly name '{assemblyPath.AssemblyName.FullName}' found at '{assemblyPath.Path}' and '{existingPath}'.");
             }
         }
 
@@ -87,10 +90,6 @@ internal static class AssemblyResolver
         {
             return null;
         }
-        catch (FileLoadException)
-        {
-            return null;
-        }
     }
 
     private static string GetAssembliesDirectory()
@@ -100,7 +99,7 @@ internal static class AssemblyResolver
 
     private static string GetApplicationDirectory()
     {
-        string executingAssemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        string executingAssemblyLocation = Assembly.GetExecutingAssembly().Location;
         DirectoryInfo rootDirectoryInfo = Directory.GetParent(executingAssemblyLocation);
 
         while (rootDirectoryInfo != null && rootDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
