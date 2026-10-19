@@ -187,6 +187,11 @@ namespace Core.Components.GraphShape.Forms
             SelectionChanged?.Invoke(this, e);
         }
 
+        private void ZoomToGraphExtentsToolStripButtonClick(object sender, EventArgs e)
+        {
+            zoomControl.ZoomToFill();
+        }
+
         /// <summary>
         /// Lookup class for administration related to drawn vertices.
         /// </summary>
@@ -201,11 +206,6 @@ namespace Core.Components.GraphShape.Forms
             /// The drawn vertex.
             /// </summary>
             public PointedTreeElementVertex Vertex { get; set; }
-        }
-
-        private void ZoomToGraphExtentsToolStripButtonClick(object sender, EventArgs e)
-        {
-            zoomControl.ZoomToFill();
         }
     }
 }

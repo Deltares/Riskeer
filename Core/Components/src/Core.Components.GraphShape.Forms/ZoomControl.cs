@@ -66,9 +66,43 @@ namespace Core.Components.GraphShape.Forms
             PreviewMouseWheel += OnPreviewMouseWheel;
         }
 
+        /// <summary>
+        /// Zooms to and centers the entire measured content within the control, subject to the zoom limits.
+        /// </summary>
+        /// <remarks>This is done automatically once, as soon as both the content and the control
+        /// have a size, unless the view has been changed before.</remarks>
+        public void ZoomToFill()
+        {
+            if (presenter == null || presenter.ContentSize.Width <= 0 || presenter.ContentSize.Height <= 0)
+            {
+                return;
+            }
+
+            ZoomTo(new Rect(new Point(0, 0), presenter.ContentSize));
+        }
+
+        /// <inheritdoc/>
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            presenter?.ContentSizeChanged -= OnContentSizeChanged;
+
+            presenter = GetTemplateChild(presenterPartName) as ZoomContentPresenter;
+            if (presenter == null)
+            {
+                return;
+            }
+
+            presenter.RenderTransform = transformGroup;
+            presenter.RenderTransformOrigin = new Point(0, 0);
+            presenter.ContentSizeChanged += OnContentSizeChanged;
+        }
+
         private double ZoomFactor => scaleTransform.ScaleX;
         private double TranslateX => translateTransform.X;
         private double TranslateY => translateTransform.Y;
+
         private Rect ZoomBox
         {
             get
@@ -116,36 +150,6 @@ namespace Core.Components.GraphShape.Forms
             double contentX = (anchorPosition.X - TranslateX) / currentZoom;
             double contentY = (anchorPosition.Y - TranslateY) / currentZoom;
             SetViewTransform(newZoom, anchorPosition.X - contentX * newZoom, anchorPosition.Y - contentY * newZoom);
-        }
-
-        /// <summary>
-        /// Zooms to and centers the entire measured content within the control, subject to the zoom limits.
-        /// </summary>
-        /// <remarks>This is done automatically once, as soon as both the content and the control
-        /// have a size, unless the view has been changed before.</remarks>
-        public void ZoomToFill()
-        {
-            if (presenter == null || presenter.ContentSize.Width <= 0 || presenter.ContentSize.Height <= 0)
-            {
-                return;
-            }
-
-            ZoomTo(new Rect(new Point(0, 0), presenter.ContentSize));
-        }
-
-        /// <inheritdoc/>
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            presenter?.ContentSizeChanged -= OnContentSizeChanged;
-
-            presenter = GetTemplateChild(presenterPartName) as ZoomContentPresenter;
-            if (presenter == null) { return; }
-
-            presenter.RenderTransform = transformGroup;
-            presenter.RenderTransformOrigin = new Point(0, 0);
-            presenter.ContentSizeChanged += OnContentSizeChanged;
         }
 
         private void StartPanning(Point startPosition)
