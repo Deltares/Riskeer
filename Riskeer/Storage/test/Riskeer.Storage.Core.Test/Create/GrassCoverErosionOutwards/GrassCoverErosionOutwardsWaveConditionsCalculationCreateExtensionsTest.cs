@@ -97,14 +97,14 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
 
             // Assert
             GrassCoverErosionOutwardsWaveConditionsInput input = calculation.InputParameters;
-            NullableDoubleAssert.AreEqual(input.Orientation, entity.Orientation, input.Orientation.GetAccuracy());
+            Assert.AreEqual(input.Orientation, entity.Orientation, input.Orientation.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
-            NullableDoubleAssert.AreEqual(input.UpperBoundaryRevetment, entity.UpperBoundaryRevetment, input.UpperBoundaryRevetment.GetAccuracy());
-            NullableDoubleAssert.AreEqual(input.LowerBoundaryRevetment, entity.LowerBoundaryRevetment, input.LowerBoundaryRevetment.GetAccuracy());
-            NullableDoubleAssert.AreEqual(input.UpperBoundaryWaterLevels, entity.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
-            NullableDoubleAssert.AreEqual(input.LowerBoundaryWaterLevels, entity.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
-            NullableDoubleAssert.AreEqual(input.StepSize, entity.StepSize, input.StepSize.GetAccuracy());
+            Assert.AreEqual(input.UpperBoundaryRevetment, entity.UpperBoundaryRevetment, input.UpperBoundaryRevetment.GetAccuracy());
+            Assert.AreEqual(input.LowerBoundaryRevetment, entity.LowerBoundaryRevetment, input.LowerBoundaryRevetment.GetAccuracy());
+            Assert.AreEqual(input.UpperBoundaryWaterLevels, entity.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
+            Assert.AreEqual(input.LowerBoundaryWaterLevels, entity.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
+            Assert.AreEqual(input.StepSize, entity.StepSize, input.StepSize.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.CalculationType), entity.CalculationType);
             Assert.AreEqual(Convert.ToByte(input.WaterLevelType), entity.WaterLevelType);
 

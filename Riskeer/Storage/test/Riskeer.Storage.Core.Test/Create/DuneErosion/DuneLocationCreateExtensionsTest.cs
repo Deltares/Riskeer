@@ -91,7 +91,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             Assert.IsNotNull(entity);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(location.CoastalAreaId, entity.CoastalAreaId);
-            NullableDoubleAssert.AreEqual(location.Offset, entity.Offset, location.Offset.GetAccuracy());
+            Assert.AreEqual(location.Offset, entity.Offset, location.Offset.GetAccuracy());
             Assert.AreEqual(order, entity.Order);
         }
 

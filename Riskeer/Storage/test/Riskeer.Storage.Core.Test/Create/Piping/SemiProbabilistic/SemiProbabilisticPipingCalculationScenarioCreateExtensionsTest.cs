@@ -264,11 +264,11 @@ namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
             Assert.AreEqual(newOutput.HeaveFactorOfSafety, outputEntity.HeaveFactorOfSafety);
             Assert.AreEqual(newOutput.SellmeijerFactorOfSafety, outputEntity.SellmeijerFactorOfSafety);
             Assert.AreEqual(newOutput.UpliftFactorOfSafety, outputEntity.UpliftFactorOfSafety);
-            NullableDoubleAssert.AreEqual(newOutput.UpliftEffectiveStress, outputEntity.UpliftEffectiveStress, newOutput.UpliftEffectiveStress.GetAccuracy());
-            NullableDoubleAssert.AreEqual(newOutput.HeaveGradient, outputEntity.HeaveGradient, newOutput.HeaveGradient.GetAccuracy());
-            NullableDoubleAssert.AreEqual(newOutput.SellmeijerCreepCoefficient, outputEntity.SellmeijerCreepCoefficient, newOutput.SellmeijerCreepCoefficient.GetAccuracy());
-            NullableDoubleAssert.AreEqual(newOutput.SellmeijerCriticalFall, outputEntity.SellmeijerCriticalFall, newOutput.SellmeijerCriticalFall.GetAccuracy());
-            NullableDoubleAssert.AreEqual(newOutput.SellmeijerReducedFall, outputEntity.SellmeijerReducedFall, newOutput.SellmeijerReducedFall.GetAccuracy());
+            Assert.AreEqual(newOutput.UpliftEffectiveStress, outputEntity.UpliftEffectiveStress, newOutput.UpliftEffectiveStress.GetAccuracy());
+            Assert.AreEqual(newOutput.HeaveGradient, outputEntity.HeaveGradient, newOutput.HeaveGradient.GetAccuracy());
+            Assert.AreEqual(newOutput.SellmeijerCreepCoefficient, outputEntity.SellmeijerCreepCoefficient, newOutput.SellmeijerCreepCoefficient.GetAccuracy());
+            Assert.AreEqual(newOutput.SellmeijerCriticalFall, outputEntity.SellmeijerCriticalFall, newOutput.SellmeijerCriticalFall.GetAccuracy());
+            Assert.AreEqual(newOutput.SellmeijerReducedFall, outputEntity.SellmeijerReducedFall, newOutput.SellmeijerReducedFall.GetAccuracy());
         }
     }
 }

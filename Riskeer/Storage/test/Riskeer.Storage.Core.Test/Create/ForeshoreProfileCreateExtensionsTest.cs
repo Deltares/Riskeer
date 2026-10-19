@@ -77,7 +77,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(id, entity.Id);
             Assert.AreEqual(name, entity.Name);
-            NullableDoubleAssert.AreEqual(orientation, entity.Orientation, foreshoreProfile.Orientation.GetAccuracy());
+            Assert.AreEqual(orientation, entity.Orientation, foreshoreProfile.Orientation.GetAccuracy());
             Assert.AreEqual(x0, entity.X0);
             Assert.IsNull(entity.BreakWaterType);
             Assert.IsNull(entity.BreakWaterHeight);
@@ -146,7 +146,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((int) breakWaterType, entity.BreakWaterType);
-            NullableDoubleAssert.AreEqual(height, entity.BreakWaterHeight, foreshoreProfile.BreakWater.Height.GetAccuracy());
+            Assert.AreEqual(height, entity.BreakWaterHeight, foreshoreProfile.BreakWater.Height.GetAccuracy());
         }
 
         [Test]

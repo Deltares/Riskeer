@@ -140,7 +140,7 @@ namespace Riskeer.Storage.Core.TestUtil.MacroStabilityInwards
             }
             else
             {
-                NullableDoubleAssert.AreEqual(expectedDouble, actualDouble, expectedDouble.GetAccuracy());
+                Assert.AreEqual(expectedDouble, actualDouble, expectedDouble.GetAccuracy());
             }
         }
     }

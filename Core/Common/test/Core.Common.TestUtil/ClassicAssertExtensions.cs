@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
+﻿// Copyright (C) Stichting Deltares and State of the Netherlands 2026. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,21 +24,24 @@ using NUnit.Framework;
 namespace Core.Common.TestUtil
 {
     /// <summary>
-    /// Class with assertion helpers for nullable doubles.
+    /// Extensions to expose classic assert methods on <see cref="Assert"/>.
     /// </summary>
-    public static class NullableDoubleAssert
+    public static class ClassicAssertExtensions
     {
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is not <c>null</c> and within <paramref name="delta"/> of
-        /// <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The expected value.</param>
-        /// <param name="actual">The actual nullable value.</param>
-        /// <param name="delta">The tolerated difference.</param>
-        public static void AreEqual(double expected, double? actual, double delta)
+        extension(Assert)
         {
-            Assert.IsNotNull(actual);
-            Assert.AreEqual(expected, actual.Value, delta);
+            /// <summary>
+            /// Asserts whether <paramref name="actual"/> is not <c>null</c> and within <paramref name="delta"/> of
+            /// <paramref name="expected"/>.
+            /// </summary>
+            /// <param name="expected">The expected value.</param>
+            /// <param name="actual">The actual nullable value.</param>
+            /// <param name="delta">The tolerated difference.</param>
+            public static void AreEqual(double expected, double? actual, double delta)
+            {
+                Assert.IsNotNull(actual);
+                NUnit.Framework.ClassicAssertExtensions.AreEqual(expected, actual.Value, delta);
+            }
         }
     }
 }

@@ -62,10 +62,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
             MacroStabilityInwardsGridConfiguration configuration = grid.ToMacroStabilityInwardsGridConfiguration();
 
             // Assert
-            NullableDoubleAssert.AreEqual(grid.XLeft, configuration.XLeft, grid.XLeft.GetAccuracy());
-            NullableDoubleAssert.AreEqual(grid.XRight, configuration.XRight, grid.XRight.GetAccuracy());
-            NullableDoubleAssert.AreEqual(grid.ZTop, configuration.ZTop, grid.ZTop.GetAccuracy());
-            NullableDoubleAssert.AreEqual(grid.ZBottom, configuration.ZBottom, grid.ZBottom.GetAccuracy());
+            Assert.AreEqual(grid.XLeft, configuration.XLeft, grid.XLeft.GetAccuracy());
+            Assert.AreEqual(grid.XRight, configuration.XRight, grid.XRight.GetAccuracy());
+            Assert.AreEqual(grid.ZTop, configuration.ZTop, grid.ZTop.GetAccuracy());
+            Assert.AreEqual(grid.ZBottom, configuration.ZBottom, grid.ZBottom.GetAccuracy());
             Assert.AreEqual(grid.NumberOfHorizontalPoints, configuration.NumberOfHorizontalPoints);
             Assert.AreEqual(grid.NumberOfVerticalPoints, configuration.NumberOfVerticalPoints);
         }

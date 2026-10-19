@@ -60,11 +60,11 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            NullableDoubleAssert.AreEqual(output.DikeHeight, entity.DikeHeight, output.DikeHeight.GetAccuracy());
+            Assert.AreEqual(output.DikeHeight, entity.DikeHeight, output.DikeHeight.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
-            NullableDoubleAssert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
-            NullableDoubleAssert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
             Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
         }

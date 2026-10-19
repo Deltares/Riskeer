@@ -130,10 +130,10 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(preconsolidationStress.Location.Y, entity.CoordinateZ);
 
             VariationCoefficientLogNormalDistribution preconsolidationDistribution = preconsolidationStress.Stress;
-            NullableDoubleAssert.AreEqual(preconsolidationDistribution.Mean, entity.PreconsolidationStressMean,
-                                          preconsolidationDistribution.GetAccuracy());
-            NullableDoubleAssert.AreEqual(preconsolidationDistribution.CoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation,
-                                          preconsolidationDistribution.GetAccuracy());
+            Assert.AreEqual(preconsolidationDistribution.Mean, entity.PreconsolidationStressMean,
+                            preconsolidationDistribution.GetAccuracy());
+            Assert.AreEqual(preconsolidationDistribution.CoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation,
+                            preconsolidationDistribution.GetAccuracy());
         }
 
         private static MacroStabilityInwardsSoilProfile2D CreateMacroStabilityInwardsSoilProfile2D()

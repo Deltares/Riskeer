@@ -249,48 +249,48 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(Convert.ToByte(data.ShearStrengthModel), entity.ShearStrengthModel);
 
             VariationCoefficientLogNormalDistribution abovePhreaticLevelDistribution = data.AbovePhreaticLevel;
-            NullableDoubleAssert.AreEqual(abovePhreaticLevelDistribution.Mean, entity.AbovePhreaticLevelMean,
-                                          abovePhreaticLevelDistribution.GetAccuracy());
-            NullableDoubleAssert.AreEqual(abovePhreaticLevelDistribution.CoefficientOfVariation, entity.AbovePhreaticLevelCoefficientOfVariation,
-                                          abovePhreaticLevelDistribution.GetAccuracy());
-            NullableDoubleAssert.AreEqual(abovePhreaticLevelDistribution.Shift, entity.AbovePhreaticLevelShift,
-                                          abovePhreaticLevelDistribution.GetAccuracy());
+            Assert.AreEqual(abovePhreaticLevelDistribution.Mean, entity.AbovePhreaticLevelMean,
+                            abovePhreaticLevelDistribution.GetAccuracy());
+            Assert.AreEqual(abovePhreaticLevelDistribution.CoefficientOfVariation, entity.AbovePhreaticLevelCoefficientOfVariation,
+                            abovePhreaticLevelDistribution.GetAccuracy());
+            Assert.AreEqual(abovePhreaticLevelDistribution.Shift, entity.AbovePhreaticLevelShift,
+                            abovePhreaticLevelDistribution.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution belowPhreaticLevelDistribution = data.BelowPhreaticLevel;
-            NullableDoubleAssert.AreEqual(belowPhreaticLevelDistribution.Mean, entity.BelowPhreaticLevelMean,
-                                          belowPhreaticLevelDistribution.GetAccuracy());
-            NullableDoubleAssert.AreEqual(belowPhreaticLevelDistribution.CoefficientOfVariation, entity.BelowPhreaticLevelCoefficientOfVariation,
-                                          belowPhreaticLevelDistribution.GetAccuracy());
-            NullableDoubleAssert.AreEqual(belowPhreaticLevelDistribution.Shift, entity.BelowPhreaticLevelShift,
-                                          belowPhreaticLevelDistribution.GetAccuracy());
+            Assert.AreEqual(belowPhreaticLevelDistribution.Mean, entity.BelowPhreaticLevelMean,
+                            belowPhreaticLevelDistribution.GetAccuracy());
+            Assert.AreEqual(belowPhreaticLevelDistribution.CoefficientOfVariation, entity.BelowPhreaticLevelCoefficientOfVariation,
+                            belowPhreaticLevelDistribution.GetAccuracy());
+            Assert.AreEqual(belowPhreaticLevelDistribution.Shift, entity.BelowPhreaticLevelShift,
+                            belowPhreaticLevelDistribution.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution cohesionDistribution = data.Cohesion;
-            NullableDoubleAssert.AreEqual(cohesionDistribution.Mean, entity.CohesionMean,
-                                          cohesionDistribution.GetAccuracy());
-            NullableDoubleAssert.AreEqual(cohesionDistribution.CoefficientOfVariation, entity.CohesionCoefficientOfVariation,
-                                          cohesionDistribution.GetAccuracy());
+            Assert.AreEqual(cohesionDistribution.Mean, entity.CohesionMean,
+                            cohesionDistribution.GetAccuracy());
+            Assert.AreEqual(cohesionDistribution.CoefficientOfVariation, entity.CohesionCoefficientOfVariation,
+                            cohesionDistribution.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution frictionAngleDistribution = data.FrictionAngle;
-            NullableDoubleAssert.AreEqual(frictionAngleDistribution.Mean, entity.FrictionAngleMean,
-                                          frictionAngleDistribution.GetAccuracy());
-            NullableDoubleAssert.AreEqual(frictionAngleDistribution.CoefficientOfVariation, entity.FrictionAngleCoefficientOfVariation,
-                                          frictionAngleDistribution.GetAccuracy());
+            Assert.AreEqual(frictionAngleDistribution.Mean, entity.FrictionAngleMean,
+                            frictionAngleDistribution.GetAccuracy());
+            Assert.AreEqual(frictionAngleDistribution.CoefficientOfVariation, entity.FrictionAngleCoefficientOfVariation,
+                            frictionAngleDistribution.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution shearStrengthRatioDistribution = data.ShearStrengthRatio;
-            NullableDoubleAssert.AreEqual(shearStrengthRatioDistribution.Mean, entity.ShearStrengthRatioMean,
-                                          shearStrengthRatioDistribution.GetAccuracy());
-            NullableDoubleAssert.AreEqual(shearStrengthRatioDistribution.CoefficientOfVariation, entity.ShearStrengthRatioCoefficientOfVariation,
-                                          shearStrengthRatioDistribution.GetAccuracy());
+            Assert.AreEqual(shearStrengthRatioDistribution.Mean, entity.ShearStrengthRatioMean,
+                            shearStrengthRatioDistribution.GetAccuracy());
+            Assert.AreEqual(shearStrengthRatioDistribution.CoefficientOfVariation, entity.ShearStrengthRatioCoefficientOfVariation,
+                            shearStrengthRatioDistribution.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution strengthIncreaseExponentDistribution = data.StrengthIncreaseExponent;
-            NullableDoubleAssert.AreEqual(strengthIncreaseExponentDistribution.Mean, entity.StrengthIncreaseExponentMean,
-                                          strengthIncreaseExponentDistribution.GetAccuracy());
-            NullableDoubleAssert.AreEqual(strengthIncreaseExponentDistribution.CoefficientOfVariation, entity.StrengthIncreaseExponentCoefficientOfVariation,
-                                          strengthIncreaseExponentDistribution.GetAccuracy());
+            Assert.AreEqual(strengthIncreaseExponentDistribution.Mean, entity.StrengthIncreaseExponentMean,
+                            strengthIncreaseExponentDistribution.GetAccuracy());
+            Assert.AreEqual(strengthIncreaseExponentDistribution.CoefficientOfVariation, entity.StrengthIncreaseExponentCoefficientOfVariation,
+                            strengthIncreaseExponentDistribution.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution popDistribution = data.Pop;
-            NullableDoubleAssert.AreEqual(popDistribution.Mean, entity.PopMean, popDistribution.GetAccuracy());
-            NullableDoubleAssert.AreEqual(popDistribution.CoefficientOfVariation, entity.PopCoefficientOfVariation, popDistribution.GetAccuracy());
+            Assert.AreEqual(popDistribution.Mean, entity.PopMean, popDistribution.GetAccuracy());
+            Assert.AreEqual(popDistribution.CoefficientOfVariation, entity.PopCoefficientOfVariation, popDistribution.GetAccuracy());
 
             Assert.AreEqual(order, entity.Order);
 
