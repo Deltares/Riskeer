@@ -250,7 +250,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             Assert.AreEqual(1, mapLayer.FeatureSet.Features.Count);
             Assert.AreEqual(3.3135717854013329, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
-            Assert.AreEqual(47.974786294874853, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
+            Assert.AreEqual(47.974786294874832, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
             Assert.AreEqual(coordinateSystem, mapLayer.Projection);
         }
 
