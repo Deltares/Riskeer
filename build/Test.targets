@@ -99,7 +99,13 @@
     <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_Testing_Platform)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
     <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_Testing_Platform_MSBuild)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
     <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_TestPlatform_ObjectModel)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_TestPlatform_TestHost)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
+    <ItemGroup>
+      <TestHostFiles Include="$(PkgMicrosoft_TestPlatform_TestHost)\lib\net8.0\**\*"
+                     Exclude="$(PkgMicrosoft_TestPlatform_TestHost)\lib\net8.0\x86\**\*;$(PkgMicrosoft_TestPlatform_TestHost)\lib\net8.0\arm64\**\*"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(TestHostFiles)"
+          DestinationFiles="@(TestHostFiles->'$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true"/>
     <Exec Command="xcopy /d/s/y &quot;$(PkgNUnit3TestAdapter)\build\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
   </Target>
 </Project>
