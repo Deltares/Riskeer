@@ -34,11 +34,13 @@ All rights reserved.
         <OutputName>Riskeer Setup ($(ReleaseVersion))</OutputName>
         <Name>RiskeerSetup</Name>
         <RunWixToolsOutOfProc>true</RunWixToolsOutOfProc>
+        <Platforms>x64</Platforms>
+        <Platform>x64</Platform>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DefineConstants>Debug</DefineConstants>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <SuppressPdbOutput>True</SuppressPdbOutput>
         <Cultures>nl-NL</Cultures>
         <SuppressAllWarnings>True</SuppressAllWarnings>
