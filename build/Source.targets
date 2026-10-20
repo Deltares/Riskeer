@@ -1,11 +1,5 @@
 <Project>
   <Import Project="$(SolutionDir)build\Base.targets" />
-  <PropertyGroup>
-    <ContentSQLiteInteropFiles>false</ContentSQLiteInteropFiles>
-    <CopySQLiteInteropFiles>false</CopySQLiteInteropFiles>
-    <CleanSQLiteInteropFiles>false</CleanSQLiteInteropFiles>
-    <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
-  </PropertyGroup>
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
     <Exec Command=":loop
       xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;
