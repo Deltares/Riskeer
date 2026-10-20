@@ -27,6 +27,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using System.Windows.Input;
 using System.Windows.Media;
 using AvalonDock.Controls;
 using AvalonDock.Layout;
@@ -44,6 +45,8 @@ namespace Core.Gui.Forms.ViewHost
         {
             EventManager.RegisterClassHandler(typeof(LayoutDocumentPaneControl), LoadedEvent,
                                               new RoutedEventHandler(OnLayoutDocumentPaneControlLoaded));
+            EventManager.RegisterClassHandler(typeof(LayoutDocumentControl), PreviewGotKeyboardFocusEvent,
+                                              new KeyboardFocusChangedEventHandler(OnLayoutDocumentControlPreviewGotKeyboardFocus));
         }
 
         private readonly List<IView> toolViews;
@@ -511,6 +514,15 @@ namespace Core.Gui.Forms.ViewHost
             })
             {
                 iconBorder.Background = Brushes.Transparent;
+            }
+        }
+
+        private static void OnLayoutDocumentControlPreviewGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            LayoutContent model = ((LayoutDocumentControl) sender).Model;
+            if (model != null && !model.IsActive)
+            {
+                model.IsActive = true;
             }
         }
     }
