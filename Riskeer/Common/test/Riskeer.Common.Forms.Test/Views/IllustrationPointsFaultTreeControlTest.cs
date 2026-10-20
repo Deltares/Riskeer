@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
 using Core.Components.GraphShape.Data;
@@ -39,6 +40,21 @@ namespace Riskeer.Common.Forms.Test.Views
     [Apartment(ApartmentState.STA)]
     public class IllustrationPointsFaultTreeControlTest
     {
+        private SynchronizationContext originalSynchronizationContext;
+
+        [SetUp]
+        public void Setup()
+        {
+            originalSynchronizationContext = SynchronizationContext.Current;
+            SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            SynchronizationContext.SetSynchronizationContext(originalSynchronizationContext);
+        }
+        
         [Test]
         public void Constructor_ExpectedValues()
         {
