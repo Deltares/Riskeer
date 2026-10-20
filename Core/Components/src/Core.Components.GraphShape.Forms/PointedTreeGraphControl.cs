@@ -26,6 +26,7 @@ using System.Drawing.Text;
 using System.IO.Packaging;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
 using Core.Common.Util.Drawing;
 using Core.Common.Util.Extensions;
 using Core.Components.GraphShape.Converters;
