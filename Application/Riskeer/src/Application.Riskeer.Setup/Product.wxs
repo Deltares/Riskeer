@@ -45,7 +45,7 @@
         </Feature>
         <Icon Id="Riskeer.ico" SourceFile="Riskeer.ico"/>
         <Icon Id="Manual.ico" SourceFile="Manual.ico"/>
-        <StandardDirectory Id="ProgramFilesFolder">
+        <StandardDirectory Id="ProgramFiles64Folder">
             <Directory Id="BOIDIR" Name="!(loc.ApplicationGroupShortName)">
                 <Directory Id="INSTALLDIR" Name="$(var.ApplicationFullName)">
                     <Component Id="FileAssociation" Guid="1117D79E-521C-48C3-9E23-549833F7BA09">
