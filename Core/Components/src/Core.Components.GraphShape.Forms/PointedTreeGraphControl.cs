@@ -101,6 +101,7 @@ namespace Core.Components.GraphShape.Forms
         private void InitializeZoomControl()
         {
             zoomControl = new ZoomControl();
+            zoomControl.PreviewMouseDown += ZoomControlOnPreviewMouseDown;
 
             var myResourceDictionary = new ResourceDictionary
             {
@@ -185,6 +186,14 @@ namespace Core.Components.GraphShape.Forms
         private void OnSelectionChanged(PropertyChangedEventArgs e)
         {
             SelectionChanged?.Invoke(this, e);
+        }
+
+        private void ZoomControlOnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!wpfElementHost.ContainsFocus)
+            {
+                wpfElementHost.Focus();
+            }
         }
 
         private void ZoomToGraphExtentsToolStripButtonClick(object sender, EventArgs e)
