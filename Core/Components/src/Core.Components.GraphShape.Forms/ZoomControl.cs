@@ -81,7 +81,6 @@ namespace Core.Components.GraphShape.Forms
             ZoomTo(new Rect(new Point(0, 0), presenter.ContentSize));
         }
 
-        /// <inheritdoc/>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
