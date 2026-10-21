@@ -60,8 +60,6 @@ namespace Riskeer.Common.IO.HydraRing
                 return e.Message;
             }
 
-            Path.GetDirectoryName(hrdFilePath);
-
             try
             {
                 using (new HydraulicBoundaryDatabaseReader(hrdFilePath))
