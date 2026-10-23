@@ -43,7 +43,7 @@ namespace Riskeer.Common.IO.TestUtil
             // Setup
             var calculation = Substitute.For<IConfigurationItem>();
 
-            string filePath = TestHelper.GetScratchPadPath("test.xml");
+            string filePath = TestHelper.GetScratchPadPath($"{GetType().Name}.test.xml");
 
             try
             {
@@ -130,8 +130,9 @@ namespace Riskeer.Common.IO.TestUtil
         public void Write_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException));
-            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
+            string folderName = $"{GetType().Name}.{nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException)}";
+            string directoryPath = TestHelper.GetScratchPadPath(folderName);
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");
                 disposeHelper.LockDirectory(FileSystemRights.Write);
@@ -150,7 +151,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Write_FileInUse_ThrowCriticalFileWriteException()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath(nameof(Write_FileInUse_ThrowCriticalFileWriteException));
+            string path = TestHelper.GetScratchPadPath($"{GetType().Name}.{nameof(Write_FileInUse_ThrowCriticalFileWriteException)}");
 
             using (var fileDisposeHelper = new FileDisposeHelper(path))
             {
