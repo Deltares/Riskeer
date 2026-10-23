@@ -114,7 +114,6 @@ namespace Core.Components.BruTile
                 foreach (RegisteredFileCache fileCacheToRemove in fileCachesToRemove)
                 {
                     registeredFileCaches.Remove(fileCacheToRemove);
-                    fileCacheToRemove.Dispose();
                 }
             }
         }
@@ -122,7 +121,7 @@ namespace Core.Components.BruTile
         /// <summary>
         /// Lookup class for administration related to file caches that are used.
         /// </summary>
-        private class RegisteredFileCache : IDisposable
+        private class RegisteredFileCache
         {
             /// <summary>
             /// Creates a new <see cref="RegisteredFileCache"/>.
@@ -144,26 +143,12 @@ namespace Core.Components.BruTile
             /// <summary>
             /// Gets the <see cref="FileCache"/>.
             /// </summary>
-            public FileCache FileCache { get; private set; }
+            public FileCache FileCache { get; }
 
             /// <summary>
             /// Gets the directory path used by the <see cref="FileCache"/>.
             /// </summary>
             public string CacheDirectoryPath { get; }
-
-            public void Dispose()
-            {
-                Dispose(true);
-                GC.SuppressFinalize(this);
-            }
-
-            protected virtual void Dispose(bool disposing)
-            {
-                if (disposing)
-                {
-                    FileCache = null;
-                }
-            }
         }
     }
 }
