@@ -28,8 +28,12 @@ function Get-ProjectNameFromSourcePath {
     $fileName = [System.IO.Path]::GetFileName($SourcePath)
     $extension = [System.IO.Path]::GetExtension($SourcePath).ToLowerInvariant()
 
-    if ($extension -eq ".csproj") {
+    if ($extension -eq ".csproj" -or $extension -eq ".wixproj") {
         return [System.IO.Path]::GetFileNameWithoutExtension($SourcePath)
+    }
+
+    if ($extension -eq ".targets" -or $extension -eq ".props") {
+        return $fileName
     }
 
     if ($fileName.ToLowerInvariant() -eq "packages.config") {
@@ -37,6 +41,15 @@ function Get-ProjectNameFromSourcePath {
     }
 
     return ""
+}
+
+function Get-MsBuildFiles {
+    param([string]$RepositoryRoot)
+
+    $ignoredFolderPattern = '\\(bin|obj|packages|TestResults)\\'
+
+    return @(Get-ChildItem $RepositoryRoot -Recurse -File -Include *.csproj, *.wixproj, *.targets, *.props |
+        Where-Object { $_.FullName -notmatch $ignoredFolderPattern })
 }
 
 function Get-DependenciesFromMarkdown {
@@ -141,12 +154,44 @@ function Get-PackageReferences {
 
     $result = @()
 
-    foreach ($project in Get-ChildItem $RepositoryRoot -Recurse -Filter *.csproj) {
+    foreach ($project in Get-MsBuildFiles $RepositoryRoot) {
 
         [xml]$xml = Get-Content $project.FullName -Raw
 
+        # Versioned MSBuild SDKs (e.g. <Project Sdk="WixToolset.Sdk/5.0.2">) are NuGet packages as well.
+        $sdkNodes = $xml.SelectNodes(
+            "/*[local-name()='Project' and @Sdk] | //*[local-name()='Sdk' and @Name] | //*[local-name()='Import' and @Sdk]"
+        )
+
+        foreach ($sdkNode in $sdkNodes) {
+            $sdkValues = @()
+
+            if ($sdkNode.LocalName -eq "Sdk") {
+                $sdkVersion = $sdkNode.GetAttribute("Version")
+                if (-not [string]::IsNullOrWhiteSpace($sdkVersion)) {
+                    $sdkValues += "$($sdkNode.GetAttribute("Name"))/$sdkVersion"
+                }
+            } else {
+                $sdkValues += ($sdkNode.GetAttribute("Sdk") -split ';')
+            }
+
+            foreach ($sdkValue in $sdkValues) {
+                $sdkParts = $sdkValue.Trim() -split '/'
+
+                if ($sdkParts.Count -ne 2 -or [string]::IsNullOrWhiteSpace($sdkParts[1])) {
+                    continue
+                }
+
+                $result += [PSCustomObject]@{
+                    Package = $sdkParts[0].Trim()
+                    Version = $sdkParts[1].Trim()
+                    Source  = $project.FullName
+                }
+            }
+        }
+
         $packageReferences = $xml.SelectNodes(
-            "//*[local-name()='PackageReference']"
+            "//*[local-name()='PackageReference' and @Include]"
         )
 
         foreach ($reference in $packageReferences) {
@@ -460,7 +505,7 @@ function Get-UnusedDependencies {
         }
     }
 
-    foreach ($project in Get-ChildItem $RepositoryRoot -Recurse -Filter *.csproj) {
+    foreach ($project in Get-MsBuildFiles $RepositoryRoot) {
         [xml]$xml = Get-Content $project.FullName -Raw
 
         $referenceNodes = $xml.SelectNodes(
@@ -473,7 +518,7 @@ function Get-UnusedDependencies {
             if ($node.LocalName -eq "HintPath") {
                 $value = $node.InnerText
             } else {
-                $value = $node.Include
+                $value = $node.GetAttribute("Include")
             }
 
             if ([string]::IsNullOrWhiteSpace($value)) {
