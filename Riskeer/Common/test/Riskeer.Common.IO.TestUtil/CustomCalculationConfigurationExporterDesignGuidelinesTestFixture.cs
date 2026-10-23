@@ -91,7 +91,7 @@ namespace Riskeer.Common.IO.TestUtil
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
-            const string folderName = nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse);
+            string folderName = $"{GetType().Name}.{nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
@@ -127,7 +127,7 @@ namespace Riskeer.Common.IO.TestUtil
 
         protected void WriteAndValidate(IEnumerable<ICalculationBase> configuration, string expectedXmlFilePath)
         {
-            string filePath = TestHelper.GetScratchPadPath($"{nameof(TCalculationConfigurationExporter)}.{nameof(WriteAndValidate)}.xml");
+            string filePath = TestHelper.GetScratchPadPath($"{GetType().Name}.{nameof(WriteAndValidate)}.xml");
             TCalculationConfigurationExporter exporter = CallConfigurationFilePathConstructor(configuration, filePath);
 
             try
