@@ -49,11 +49,11 @@ namespace Core.Components.BruTile.IO
 
         private readonly IHttpTileSource tileSource;
         private readonly SemaphoreSlim semaphore;
-        private CancellationTokenSource cancellationTokenSource;
+        private readonly HttpClient httpClient;
+        private readonly MemoryCache<byte[]> volatileCache;
+        private readonly ITileCache<byte[]> persistentCache;
 
-        private HttpClient httpClient;
-        private MemoryCache<byte[]> volatileCache;
-        private ITileCache<byte[]> persistentCache;
+        private CancellationTokenSource cancellationTokenSource;
 
         public event EventHandler<TileReceivedEventArgs> TileReceived;
 
@@ -175,9 +175,6 @@ namespace Core.Components.BruTile.IO
                 semaphore.Dispose();
                 volatileCache.Dispose();
                 httpClient.Dispose();
-                volatileCache = null;
-                httpClient = null;
-                persistentCache = null;
             }
 
             IsDisposed = true;

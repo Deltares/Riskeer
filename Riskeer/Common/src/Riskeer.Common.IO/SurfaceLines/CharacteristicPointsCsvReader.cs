@@ -163,10 +163,9 @@ namespace Riskeer.Common.IO.SurfaceLines
 
         protected virtual void Dispose(bool disposing)
         {
-            if (fileReader != null && disposing)
+            if (disposing)
             {
-                fileReader.Dispose();
-                fileReader = null;
+                fileReader?.Dispose();
             }
         }
 

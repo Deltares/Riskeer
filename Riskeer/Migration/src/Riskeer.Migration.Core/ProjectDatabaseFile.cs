@@ -103,7 +103,6 @@ namespace Riskeer.Migration.Core
             if (disposing)
             {
                 connection?.Dispose();
-                connection = null;
             }
 
             disposed = true;

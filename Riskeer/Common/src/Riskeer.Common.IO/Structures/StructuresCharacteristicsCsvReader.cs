@@ -149,10 +149,9 @@ namespace Riskeer.Common.IO.Structures
 
         protected virtual void Dispose(bool disposing)
         {
-            if (fileReader != null && disposing)
+            if (disposing)
             {
-                fileReader.Dispose();
-                fileReader = null;
+                fileReader?.Dispose();
             }
         }
 
