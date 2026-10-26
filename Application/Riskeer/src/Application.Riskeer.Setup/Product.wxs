@@ -1,4 +1,6 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
+     xmlns:netfx="http://wixtoolset.org/schemas/v4/wxs/netfx">
     <!-- Static variables. -->
     <?include Variables.wxi ?>
     <Package Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)"
@@ -15,10 +17,11 @@
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
         <WixVariable Id="WixUIBannerBmp" Value="Banner_493x77.jpg"/>
         <WixVariable Id="WixUIDialogBmp" Value="Start_493x312.jpg"/>
-        <!-- Requirement: .Net framework 4.8.1 installed on machine -->
-        <PropertyRef Id="WIX_IS_NETFRAMEWORK_481_OR_LATER_INSTALLED"/>
-        <Launch Condition="Installed OR WIX_IS_NETFRAMEWORK_481_OR_LATER_INSTALLED"
-                Message="!(loc.NetFramework481Required)"/>
+        <!-- Requirement: .NET 10 Desktop Runtime (x64) installed on machine (property is set to "0" when compatible) -->
+        <netfx:DotNetCompatibilityCheck Property="DOTNET_DESKTOP_RUNTIME_10_X64_CHECK" RuntimeType="desktop"
+                                        Platform="x64" Version="10.0.0" RollForward="minor"/>
+        <Launch Condition="Installed OR DOTNET_DESKTOP_RUNTIME_10_X64_CHECK = &quot;0&quot;"
+                Message="!(loc.DotNetDesktopRuntime10Required)"/>
         <!-- Request the common documents folder path -->
         <util:QueryWindowsDirectories/>
         <Feature Id="CompleteInstallation" Title="$(var.ApplicationFullName)" Level="1"

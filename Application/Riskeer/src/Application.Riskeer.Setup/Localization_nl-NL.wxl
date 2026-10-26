@@ -3,8 +3,8 @@
     <String Id="ApplicationShortName" Value="Riskeer"/>
     <String Id="ApplicationGroupShortName" Value="BOI"/>
     <String Id="Manufacturer" Value="Deltares"/>
-    <String Id="NetFramework481Required"
-            Value="De installatie vereist dat Microsoft .NET Framework 4.8.1 geïnstalleerd is om verder te gaan."/>
+    <String Id="DotNetDesktopRuntime10Required"
+            Value="De installatie vereist dat Microsoft .NET Desktop Runtime 10 (x64) geïnstalleerd is om verder te gaan."/>
     <String Id="DowngradeErrorMessage" Value="Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd."/>
     <String Id="StartApplicationDescription"
             Value="Bereken hydraulische randvoorwaarden, toets resultaten en registreer toetsoordelen met !(loc.ApplicationLongName)."/>
