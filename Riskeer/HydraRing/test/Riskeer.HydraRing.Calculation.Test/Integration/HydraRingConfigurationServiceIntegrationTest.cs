@@ -41,7 +41,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
     {
         private static readonly string hydraRingDirectory = Path.Combine(
             AssemblyHelper.GetApplicationDirectory(), "Standalone",
-            "Deltares", $"HydraRing-{HydraRingFileConstants.HydraRingVersionNumber}");
+            "Deltares", $"Hydra-Ring-{HydraRingFileConstants.HydraRingVersionNumber}");
 
         [Test]
         public void WriteDatabaseCreationScript_HydraRingConfigurationForAssessmentLevelCalculationInput_WritesExpectedCreationScript()
