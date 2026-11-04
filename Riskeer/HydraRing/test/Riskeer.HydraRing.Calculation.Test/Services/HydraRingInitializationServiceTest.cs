@@ -35,7 +35,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
     {
         private static readonly string hydraRingDirectory = Path.Combine(
             AssemblyHelper.GetApplicationDirectory(), "Standalone",
-            "Deltares", $"HydraRing-{HydraRingFileConstants.HydraRingVersionNumber}");
+            "Deltares", $"Hydra-Ring-{HydraRingFileConstants.HydraRingVersionNumber}");
 
         [Test]
         public void Constructor_SettingsNull_ThrowsArgumentNullException()
