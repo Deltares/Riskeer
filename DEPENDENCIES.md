@@ -28,7 +28,7 @@ For each library the version and used license is shown. For the full license tex
 | GraphShape.Controls                                      | 1.2.2    | MIT           | https://github.com/KeRNeLith/GraphShape                                                 |
 | Hydra-Ring                                               | 25.2.2   | AGPL-3.0      | https://github.com/Deltares/Hydra-Ring                                                  |
 | log4net                                                  | 3.3.2    | Apache-2.0    | https://github.com/apache/logging-log4net                                               |
-| MacroStability                                           | 23.2.1.6 | AGPL-3.0      | https://github.com/Deltares/D-GEO-Suite-Stability-Kernel-Wrapper                        |
+| MacroStability                                           | 23.2.1.6 | AGPL-3.0      | https://github.com/Deltares/Macrostability-CSharpWrapper                                |
 | MahApps.Metro                                            | 2.4.11   | MIT           | https://github.com/MahApps/MahApps.Metro                                                |
 | MathNet.Numerics                                         | 5.0.0    | MIT           | https://github.com/mathnet/mathnet-numerics                                             |
 | MathNet.Spatial                                          | 0.6.0    | MIT           | https://github.com/mathnet/mathnet-spatial                                              |
@@ -53,10 +53,10 @@ For each library the version and used license is shown. For the full license tex
 | NUnit3TestAdapter                                        | 6.2.0    | MIT           | https://github.com/nunit/nunit3-vs-adapter                                              |
 | OxyPlot.Core                                             | 2.2.0    | MIT           | https://github.com/oxyplot/oxyplot                                                      |
 | OxyPlot.WindowsForms                                     | 2.2.0    | MIT           | https://github.com/oxyplot/oxyplot                                                      |
-| Piping                                                   | 23.1.1.7 | AGPL-3.0      | https://repos.deltares.nl/repos/FailureMechanisms/FailureMechanisms/DikesPiping         |
+| Piping                                                   | 23.1.1.7 | AGPL-3.0      | https://github.com/Deltares/DikesPiping                                                 |
 | QuikGraph                                                | 2.3.0    | MS-PL         | https://github.com/KeRNeLith/QuikGraph                                                  |
-| Ranorex.AutomationHelpers                                | 1.6.6    | MIT           | https://github.com/ranorex/Ranorex-Automation-Helpers                                   |
-| Ranorex.ReportToPDF                                      | 1.0.17   | Proprietary   | https://www.ranorex.com/terms-of-use/                                                   |
+| Ranorex.AutomationHelpers                                | 1.6.6    | MIT           | https://github.com/ranorex/Packages                                                     |
+| Ranorex.ReportToPDF                                      | 1.0.17   | Proprietary   | https://www.nuget.org/packages/Ranorex.ReportToPDF                                      |
 | runtime.native.System.Data.SqlClient.sni                 | 4.7.0    | MIT           | https://github.com/dotnet/corefx                                                        |
 | runtime.win-x64.runtime.native.System.Data.SqlClient.sni | 4.4.0    | MS-.NET-Lib   | https://www.nuget.org/packages/runtime.win-x64.runtime.native.System.Data.SqlClient.sni |
 | Stub.System.Data.SQLite.Core.NetStandard                 | 1.0.119  | Public domain | https://system.data.sqlite.org/                                                         |
