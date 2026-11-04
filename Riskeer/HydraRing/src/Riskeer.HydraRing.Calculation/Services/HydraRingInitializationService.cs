@@ -42,7 +42,7 @@ namespace Riskeer.HydraRing.Calculation.Services
     /// </summary>
     internal class HydraRingInitializationService
     {
-        private const string hydraRingBinariesSubDirectory = "HydraRing";
+        private const string hydraRingBinariesSubDirectory = "Hydra-Ring";
 
         private const string iniFileExtension = ".ini";
         private const string databaseFileExtension = ".sql";
