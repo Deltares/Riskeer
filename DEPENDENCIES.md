@@ -21,7 +21,7 @@ For each library the version and used license is shown. For the full license tex
 | DotSpatial.Serialization                                 | 4.0.656  | MIT           | https://github.com/DotSpatial/DotSpatial                                                |
 | DotSpatial.Symbology                                     | 4.0.656  | MIT           | https://github.com/DotSpatial/DotSpatial                                                |
 | DotSpatial.Symbology.Forms                               | 4.0.656  | MIT           | https://github.com/DotSpatial/DotSpatial                                                |
-| D-Stability                                              | 2026.1.1 | LGPL-3.0      | https://github.com/Deltares/D-GEO-Suite-Stability                                       |
+| D-Stability                                              | 2026.1.1 | GPL-3.0       | https://github.com/Deltares/D-GEO-Suite-Stability                                       |
 | EntityFramework                                          | 6.5.2    | MIT           | https://github.com/dotnet/ef6                                                           |
 | FontAwesome.Sharp                                        | 5.15.3   | Apache-2.0    | https://github.com/awesome-inc/FontAwesome.Sharp                                        |
 | GraphShape                                               | 1.2.1    | MIT           | https://github.com/KeRNeLith/GraphShape                                                 |
