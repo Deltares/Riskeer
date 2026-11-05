@@ -682,23 +682,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 LastErrorFileContent = lastErrorFileContent
             };
 
-            const int successfulCalculationsBeforeFailureCount = 3;
-            const int failingCalculationCount = 1;
-            const int successfulCalculationsAfterFailureCount = 5;
-            const int totalCalculationCount = successfulCalculationsBeforeFailureCount + failingCalculationCount + successfulCalculationsAfterFailureCount;
-
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            var createdCalculatorCount = 0;
             calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(_ =>
-                             {
-                                 createdCalculatorCount++;
-                                 if (createdCalculatorCount > successfulCalculationsBeforeFailureCount && createdCalculatorCount <= successfulCalculationsBeforeFailureCount + failingCalculationCount)
-                                 {
-                                     return calculatorThatFails;
-                                 }
-                                 return new TestWaveConditionsCosineCalculator();
-                             });
+                             .Returns(_ => new TestWaveConditionsCosineCalculator(),
+                                      _ => new TestWaveConditionsCosineCalculator(),
+                                      _ => new TestWaveConditionsCosineCalculator(),
+                                      _ => calculatorThatFails,
+                                      _ => new TestWaveConditionsCosineCalculator());
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -760,7 +750,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                   waveImpactOutputs[0]);
             }
 
-            calculatorFactory.Received(totalCalculationCount)
+            calculatorFactory.Received(9)
                              .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
