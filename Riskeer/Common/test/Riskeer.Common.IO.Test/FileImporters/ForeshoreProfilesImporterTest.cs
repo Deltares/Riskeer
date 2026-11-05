@@ -515,15 +515,14 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
-            strategy.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>())
-                    .Returns(callInfo =>
+            strategy.When(s => s.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>()))
+                    .Do(callInfo =>
                     {
-                        Assert.AreSame(filePath, callInfo.Args()[1]);
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) callInfo.Args()[0];
-                        Assert.AreEqual(5, readForeshoreProfiles.Count());
-                        return new IObservable[]
-                            {};
+                        Assert.AreSame(filePath, callInfo.Arg<string>());
+                        Assert.AreEqual(5, callInfo.Arg<IEnumerable<ForeshoreProfile>>().Count());
                     });
+            strategy.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>())
+                    .Returns([]);
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath,
