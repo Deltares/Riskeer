@@ -986,22 +986,13 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
         private static void TileFetcherGetsImageOnSecondAttempt(ITileFetcher tileFetcher, IDictionary<TileInfo, Bitmap> tileInfoImageLookup)
         {
-            Dictionary<TileInfo, bool> getTileCalledForTileInfoLookup = tileInfoImageLookup.ToDictionary(kvp => kvp.Key, kvp => false);
             foreach (KeyValuePair<TileInfo, Bitmap> tileInfoImagePair in tileInfoImageLookup)
             {
                 // Configure persistent cache in such a way that first retrieve returns null for that tile
                 // and then second retrieve does return the data (simulating tile having been
                 // retrieved asynchronously):
                 tileFetcher.GetTile(tileInfoImagePair.Key)
-                           .Returns(_ =>
-                           {
-                               if (getTileCalledForTileInfoLookup[tileInfoImagePair.Key])
-                               {
-                                   return ToByteArray(tileInfoImagePair.Value);
-                               }
-                               getTileCalledForTileInfoLookup[tileInfoImagePair.Key] = true;
-                               return null;
-                           });
+                           .Returns(null, ToByteArray(tileInfoImagePair.Value));
             }
         }
 
