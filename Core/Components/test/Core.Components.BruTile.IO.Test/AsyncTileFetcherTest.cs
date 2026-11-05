@@ -351,17 +351,9 @@ namespace Core.Components.BruTile.IO.Test
             var data = new byte[0];
 
             var tileSource = Substitute.For<IHttpTileSource>();
-            var callCount = 0;
-            tileSource.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>())
-                      .Returns(_ =>
-                      {
-                          if (++callCount == 1)
-                          {
-                              throw new Exception("1st attempt fails.");
-                          }
-
-                          return Task.FromResult(data);
-                      });
+            tileSource.When(t => t.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>()))
+                      .Do(Callback.FirstThrow(new Exception("1st attempt fails.")));
+            tileSource.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>()).Returns(Task.FromResult(data));
 
             var persistentCache = Substitute.For<ITileCache<byte[]>>();
             persistentCache.Find(info.Index).Returns((byte[]) null);
@@ -418,11 +410,9 @@ namespace Core.Components.BruTile.IO.Test
             using (var blockingEvent = new ManualResetEvent(false))
             {
                 var blockingTileSource = Substitute.For<IHttpTileSource>();
-                blockingTileSource.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>()).Returns(_ =>
-                {
-                    blockingEvent.WaitOne();
-                    return Task.FromResult(data);
-                });
+                blockingTileSource.When(t => t.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>()))
+                                  .Do(_ => blockingEvent.WaitOne());
+                blockingTileSource.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>()).Returns(Task.FromResult(data));
 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
                 using (var fetcher = new AsyncTileFetcher(blockingTileSource, 100, 200))
