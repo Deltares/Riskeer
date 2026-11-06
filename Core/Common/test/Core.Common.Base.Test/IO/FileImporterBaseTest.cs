@@ -145,7 +145,7 @@ namespace Core.Common.Base.Test.IO
         [Test]
         public void Import_CancelGivesSuccessfulImport_LogsMessage()
         {
-            //  Setup
+            // Setup
             var importTarget = new object();
             var simpleImporter = new SimpleFileImporter<object>(importTarget)
             {
@@ -166,7 +166,7 @@ namespace Core.Common.Base.Test.IO
         [Test]
         public void Import_CancelGivesUnsuccessfulImport_CallsLogImportCanceledMessage()
         {
-            //  Setup
+            // Setup
             var importTarget = new object();
             var simpleImporter = new SimpleFileImporter<object>(importTarget)
             {

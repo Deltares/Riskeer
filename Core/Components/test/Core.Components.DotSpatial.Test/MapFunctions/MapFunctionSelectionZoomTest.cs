@@ -196,7 +196,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             // Call
             mapFunction.Draw(new MapDrawArgs(graphics, clipRectangle, mapFrame));
 
-            // Assert unchanged colors on edges
+            // Assert
             Assert.AreEqual(Color.Magenta.ToArgb(),
                             bitmap.GetPixel(rectangle.Left, rectangle.Top).ToArgb());
             Assert.AreEqual(Color.Magenta.ToArgb(),
@@ -238,7 +238,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             // Call
             mapFunction.Draw(new MapDrawArgs(graphics, clipRectangle, mapFrame));
 
-            // Assert changed color on edges
+            // Assert
             Assert.AreNotEqual(Color.Magenta.ToArgb(),
                                bitmap.GetPixel(rectangle.Left, rectangle.Top).ToArgb());
             Assert.AreNotEqual(Color.Magenta.ToArgb(),

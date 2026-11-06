@@ -79,10 +79,10 @@ namespace Core.Components.Gis.IO.Test.Readers
             string nonExistingPolylineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                              "NonExistingFile");
 
-            // Call 
+            // Call
             Action call = () => new PolylineShapeFileReader(nonExistingPolylineShapeFile);
 
-            // Assert 
+            // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{nonExistingPolylineShapeFile}': het bestand bestaat niet.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
