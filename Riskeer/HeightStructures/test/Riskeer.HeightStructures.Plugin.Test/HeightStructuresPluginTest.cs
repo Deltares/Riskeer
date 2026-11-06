@@ -132,7 +132,6 @@ namespace Riskeer.HeightStructures.Plugin.Test
             var gui = Substitute.For<IGui>();
             gui.ActiveStateInfo.Returns(new StateInfo(string.Empty, symbol, fontFamily, p => p));
 
-            // Setup
             using (var plugin = new HeightStructuresPlugin
             {
                 Gui = gui

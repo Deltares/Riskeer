@@ -156,7 +156,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, "missingStochasticSoilProfileProbability.soil");
 
-            // Call
             using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
             {
                 // Call

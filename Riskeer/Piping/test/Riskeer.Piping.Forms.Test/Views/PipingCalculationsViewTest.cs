@@ -266,7 +266,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             ConfigureHydraulicBoundaryData(assessmentSection);
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-            // Call
             ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
                                        failureMechanism, assessmentSection);
 

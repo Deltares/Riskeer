@@ -497,7 +497,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             var service = new StabilityPointStructuresCalculationService();
 
-            // Call
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call

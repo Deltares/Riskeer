@@ -52,7 +52,6 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             using (new PipingSubCalculatorFactoryConfig())
             {
-                // Setup
                 var assessmentLevel = (RoundedDouble) 1.1;
 
                 // Call

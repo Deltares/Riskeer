@@ -302,7 +302,6 @@ namespace Core.Gui.Test.Commands
                 });
             }
 
-            // Assert
             Assert.IsTrue(isCreateFileImporterCalled);
             Assert.IsTrue(isVerifyUpdatedCalled);
         }

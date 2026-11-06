@@ -117,7 +117,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 InAssembly = random.NextBoolean()
             };
 
-            // Call
             var properties = new SpecificFailureMechanismProperties(failureMechanism);
 
             failureMechanism.Attach(observer);

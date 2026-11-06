@@ -808,7 +808,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                              {
                                                  List<string> messageList = messages.ToList();
 
-                                                 // Assert
                                                  Assert.AreEqual(8, messageList.Count);
                                                  Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{expectedDuneLocationName}' (1/100) is gestart.", messageList[0]);
                                                  CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);

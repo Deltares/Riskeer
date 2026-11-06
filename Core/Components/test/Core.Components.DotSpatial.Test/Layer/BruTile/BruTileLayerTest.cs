@@ -454,7 +454,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             IConfiguration configuration = CreateStubConfiguration();
 
-            // Call
             using (var layer = new BruTileLayer(configuration))
             {
                 ProjectionInfo originalProjection = layer.Projection;
@@ -475,7 +474,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             IConfiguration configuration = CreateStubConfiguration();
 
-            // Call
             using (var layer = new BruTileLayer(configuration))
             {
                 ProjectionInfo originalProjection = layer.Projection;
@@ -499,7 +497,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             IConfiguration configuration = CreateStubConfiguration();
 
-            // Call
             using (var layer = new BruTileLayer(configuration))
             {
                 ProjectionInfo originalProjection = layer.Projection;

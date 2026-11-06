@@ -78,7 +78,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             };
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
-            // Call
             var properties = new SimpleDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                 designVariable,
                                                                 handler);

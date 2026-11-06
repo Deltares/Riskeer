@@ -189,7 +189,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             };
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
-            // Call
             var properties = new ShiftedLogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                                       designVariable,
                                                                                       handler);

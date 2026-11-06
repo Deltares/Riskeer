@@ -78,7 +78,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             var designVariable = new SimpleVariationCoefficientDesignVariableProperties(distribution, new RoundedDouble(numberOfDecimalPlaces, 0.45));
 
-            // Call
             var properties = new SimpleDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.None,
                                                                 designVariable,
                                                                 handler);

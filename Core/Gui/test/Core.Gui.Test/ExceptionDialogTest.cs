@@ -232,7 +232,6 @@ namespace Core.Gui.Test
             var messageBoxTitle = "";
             var messageBoxText = "";
 
-            // Setup
             DialogBoxHandler = (name, wnd) =>
             {
                 var openedDialog = new MessageBoxTester(wnd);
@@ -271,7 +270,6 @@ namespace Core.Gui.Test
             var messageBoxTitle = "";
             var messageBoxText = "";
 
-            // Setup
             DialogBoxHandler = (name, wnd) =>
             {
                 var openedDialog = new MessageBoxTester(wnd);

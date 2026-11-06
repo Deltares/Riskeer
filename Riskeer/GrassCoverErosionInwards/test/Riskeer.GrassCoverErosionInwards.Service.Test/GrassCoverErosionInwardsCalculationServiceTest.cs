@@ -645,7 +645,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             var service = new GrassCoverErosionInwardsCalculationService();
 
-            // Call
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 if (cancelBeforeDikeHeightCalculationStarts)
@@ -701,7 +700,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             var service = new GrassCoverErosionInwardsCalculationService();
 
-            // Call
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 if (cancelBeforeOvertoppingRateCalculationStarts)

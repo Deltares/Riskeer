@@ -485,7 +485,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(17, menu.Items.Count);
 
-                // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
                                                               "D&upliceren",
                                                               "Dupliceer dit element.",

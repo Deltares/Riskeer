@@ -213,13 +213,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Call
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-            var button = (Button) new ControlTester("generateButton").TheObject;
-
-            // Call
-            bool state = button.Enabled;
-
             // Assert
-            Assert.IsTrue(state);
+            var button = (Button) new ControlTester("generateButton").TheObject;
+            Assert.IsTrue(button.Enabled);
         }
 
         [Test]
@@ -275,7 +271,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             ConfigureHydraulicBoundaryData(assessmentSection);
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-            // Call
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -335,7 +330,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
 
-            // Call
             ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children.First();
