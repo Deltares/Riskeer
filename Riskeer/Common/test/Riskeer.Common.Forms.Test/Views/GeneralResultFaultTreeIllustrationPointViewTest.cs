@@ -308,7 +308,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // When
             void Call() => calculation.NotifyObservers();
 
-            // Assert
+            // Then
             var exception = Assert.Throws<NotSupportedException>(Call);
             Assert.AreEqual($"IllustrationPointNode of type {nameof(TestIllustrationPoint)} is not supported. " +
                             $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}", exception.Message);

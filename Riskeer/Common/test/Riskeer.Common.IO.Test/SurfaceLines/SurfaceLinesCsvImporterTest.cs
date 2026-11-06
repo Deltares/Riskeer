@@ -1445,7 +1445,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Call
             Action call = () => importResult = importer.Import();
 
-            // Then
+            // Assert
             const string expectedMessage = "error Exception message";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(importResult);

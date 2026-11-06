@@ -513,11 +513,11 @@ namespace Riskeer.Common.Forms.Test.Views
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
             var output = new TestHydraulicBoundaryLocationCalculationOutput(generalResult);
 
-            // Call
+            // When
             calculation.Output = output;
             calculation.NotifyObservers();
 
-            // Assert
+            // Then
             IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
             CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
         }

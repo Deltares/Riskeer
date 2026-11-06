@@ -321,7 +321,7 @@ namespace Core.Components.BruTile.IO.Test
                     byte[] fetchedData4 = fetcher.GetTile(info);
                     Assert.IsTrue(allRequestsDoneEvent.Set());
 
-                    // Assert
+                    // Then
                     if (fetcherIsDoneEvent.WaitOne(allowedTileFetchTime))
                     {
                         Assert.AreEqual(1, callCount);

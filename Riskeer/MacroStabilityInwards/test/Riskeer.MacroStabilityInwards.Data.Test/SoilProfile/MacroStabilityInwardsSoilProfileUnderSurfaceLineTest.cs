@@ -58,11 +58,11 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         [Test]
         public void Constructor_WithValidParameters_NewInstanceWithPropertiesSet()
         {
-            // Call
+            // Setup
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>();
             IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses = Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>();
 
-            // Setup
+            // Call
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layers, preconsolidationStresses);
 
             // Assert

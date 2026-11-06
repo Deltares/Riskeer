@@ -2067,7 +2067,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         [Test]
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateEntryAndExitPointsClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
-            // Setup
+            // Given
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var calculation1Observer = Substitute.For<IObserver>();
             var calculation1InputObserver = Substitute.For<IObserver>();
@@ -2156,7 +2156,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         [Test]
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointsClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
-            // Setup
+            // Given
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var calculation1Observer = Substitute.For<IObserver>();
             var calculation1InputObserver = Substitute.For<IObserver>();
@@ -2259,7 +2259,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         [Test]
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointsClickedAndContinued_ThenInquiryAndCalculationUpdatedAndObserversNotified()
         {
-            // Setup
+            // Given
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var calculation1Observer = Substitute.For<IObserver>();
             var calculation1InputObserver = Substitute.For<IObserver>();

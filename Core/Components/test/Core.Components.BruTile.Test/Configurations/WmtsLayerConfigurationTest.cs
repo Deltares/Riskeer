@@ -278,7 +278,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 IConfiguration clone = configuration.Clone();
                 clone.Initialize();
 
-                // Assert
+                // Then
                 Assert.IsTrue(clone.Initialized);
                 Assert.IsTrue(clone.TileFetcher.IsReady());
                 Assert.AreSame(configuration.TileSchema, clone.TileSchema);

@@ -863,7 +863,7 @@ namespace Core.Gui.Test
         [TestCase(false)]
         public void GivenActivityMigratingAndOpeningProject_WhenCancellingDuringMigration_ThenDoNotLoadProject(bool migrationSuccessful)
         {
-            // Setup
+            // Given
             var projectFactory = Substitute.For<IProjectFactory>();
             var storeProject = Substitute.For<IStoreProject>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -889,7 +889,7 @@ namespace Core.Gui.Test
             activity.Run();
             activity.Finish();
 
-            // Assert
+            // Then
             Assert.AreEqual(ActivityState.Canceled, activity.State);
             storeProject.DidNotReceive().LoadProject(Arg.Any<string>());
         }
@@ -897,7 +897,7 @@ namespace Core.Gui.Test
         [Test]
         public void GivenActivityMigrationProject_WhenCancellingAndMigrationThrowsException_ThenDoNotLoadProject()
         {
-            // Setup
+            // Given
             var projectFactory = Substitute.For<IProjectFactory>();
             var storeProject = Substitute.For<IStoreProject>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -924,7 +924,7 @@ namespace Core.Gui.Test
             activity.Run();
             activity.Finish();
 
-            // Assert
+            // Then
             Assert.AreEqual(ActivityState.Canceled, activity.State);
             storeProject.DidNotReceive().LoadProject(Arg.Any<string>());
         }
@@ -934,7 +934,7 @@ namespace Core.Gui.Test
         [TestCase(false)]
         public void GivenActivityOpeningProject_WhenCancellingDuringLoadProject_ThenDoNotSetProject(bool loadProjectSuccessful)
         {
-            // Setup
+            // Given
             IProject project = loadProjectSuccessful ? Substitute.For<IProject>() : null;
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -953,7 +953,7 @@ namespace Core.Gui.Test
             activity.Run();
             activity.Finish();
 
-            // Assert
+            // Then
             Assert.AreEqual(ActivityState.Canceled, activity.State);
             projectOwner.DidNotReceive().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
         }
@@ -961,7 +961,7 @@ namespace Core.Gui.Test
         [Test]
         public void GivenActivityOpeningProject_WhenCancellingWhileLoadProjectThrowsStorageException_ThenDoNotSetProject()
         {
-            // Setup
+            // Given
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
@@ -980,7 +980,7 @@ namespace Core.Gui.Test
             activity.Run();
             activity.Finish();
 
-            // Assert
+            // Then
             Assert.AreEqual(ActivityState.Canceled, activity.State);
             projectOwner.DidNotReceive().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
         }

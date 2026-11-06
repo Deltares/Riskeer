@@ -740,7 +740,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
         public void GivenFailureMechanismResultViewWithAssemblyError_WhenPerformFailureMechanismAssemblySuccessfullyCalled_ThenErrorCleared(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
-            // Setup
+            // Given
             const string exceptionMessage = "Message";
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestFailureMechanism
@@ -787,7 +787,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
         public void GivenFailureMechanismResultViewWithAssemblyErrorAndProbabilityTypeNotManual_WhenProbabilityTypeSetToManual_ThenErrorCleared(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
-            // Setup
+            // Given
             const string exceptionMessage = "Message";
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new TestFailureMechanism
@@ -1289,7 +1289,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 });
                 failureMechanism.NotifyObservers();
 
-                // Assert
+                // Then
                 errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreNotEqual(initialErrorMessage, errorMessage);
 
@@ -1335,7 +1335,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismTestHelper.SetSections(failureMechanism, Enumerable.Empty<FailureMechanismSection>());
                 failureMechanism.NotifyObservers();
 
-                // Assert
+                // Then
                 errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual(expectedErrorMessage, errorMessage);
 
@@ -1377,7 +1377,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 });
                 failureMechanism.NotifyObservers();
 
-                // Assert
+                // Then
                 Assert.IsTrue(comboBox.Enabled);
                 Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
                 Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
@@ -1417,7 +1417,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismTestHelper.SetSections(failureMechanism, Enumerable.Empty<FailureMechanismSection>());
                 failureMechanism.NotifyObservers();
 
-                // Assert
+                // Then
                 Assert.IsFalse(comboBox.Enabled);
                 Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
                 Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);

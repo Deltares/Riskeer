@@ -628,7 +628,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Call
             Action call = () => importResult = importer.Import();
 
-            // Then
+            // Assert
             const string expectedMessage = "error Exception message";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
@@ -666,7 +666,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Call
             importer.DoPostImport();
 
-            // Then
+            // Assert
             observableA.Received(1).NotifyObservers();
             observableB.Received(1).NotifyObservers();
         }

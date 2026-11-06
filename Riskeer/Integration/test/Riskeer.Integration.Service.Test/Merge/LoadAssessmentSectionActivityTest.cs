@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             // When
             activity.Finish();
 
-            // Assert
+            // Then
             Assert.AreEqual(ActivityState.Canceled, activity.State);
             Assert.IsNull(owner.AssessmentSection);
         }

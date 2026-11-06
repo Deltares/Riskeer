@@ -363,7 +363,7 @@ namespace Core.Gui.Test
                 activity.Finish();
             };
 
-            // Assert
+            // Then
             Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Opslaan van bestaand project is gelukt.",
                                                                            LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);

@@ -141,7 +141,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             Coordinate worldCoordinate = worldFile.ToWorldCoordinates(x, y);
             Point screenCoordinate = worldFile.ToScreenCoordinates(worldCoordinate);
 
-            // Assert
+            // Then
             Assert.AreEqual(x, screenCoordinate.X);
             Assert.AreEqual(y, screenCoordinate.Y);
         }

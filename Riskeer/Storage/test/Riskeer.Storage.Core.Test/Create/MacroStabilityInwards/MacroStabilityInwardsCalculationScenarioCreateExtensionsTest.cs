@@ -114,7 +114,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             };
             var registry = new PersistenceRegistry();
 
-            // When
+            // Call
             MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
 
             // Assert
