@@ -70,7 +70,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
         private static void AssertPropertiesInState(TruncatedNormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)
         {
-            // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(5, dynamicProperties.Count);
 

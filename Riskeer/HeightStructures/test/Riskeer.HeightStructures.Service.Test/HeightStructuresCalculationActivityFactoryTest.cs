@@ -292,7 +292,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
             calculatorFactory.Received(1)
                              .CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
-            // Assert
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
                                                                            calculation.InputParameters.HydraulicBoundaryLocation),

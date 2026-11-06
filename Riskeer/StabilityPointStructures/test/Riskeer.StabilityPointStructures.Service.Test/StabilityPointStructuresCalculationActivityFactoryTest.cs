@@ -286,8 +286,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion,
                                 actualInput.Variables.Single(v => v.VariableId == 105).Value);
             }
-            
-            // Assert
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
                                                                            calculation.InputParameters.HydraulicBoundaryLocation), 
