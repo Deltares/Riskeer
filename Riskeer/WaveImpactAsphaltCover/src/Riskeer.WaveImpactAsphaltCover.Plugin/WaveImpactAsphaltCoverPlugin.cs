@@ -174,9 +174,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<WaveImpactAsphaltCoverCalculationGroupContext>(
@@ -195,29 +195,29 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 Text = emptyOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 Image = emptyOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsOutput>
             {
                 Text = emptyOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 Image = emptyOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsInputContext>
             {
                 Text = context => RiskeerCommonFormsResources.Calculation_Input,
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
         }
 
@@ -343,9 +343,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private ContextMenuStrip HydraulicLoadsStateFailureMechanismContextMenuStrip(HydraulicLoadsStateFailureMechanismContext context,
                                                                                      object parentData,
-                                                                                     ITreeViewCommands treeViewControl)
+                                                                                     ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -415,9 +415,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          ITreeViewCommands treeViewControl)
+                                                                                          ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -432,9 +432,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           ITreeViewCommands treeViewControl)
+                                                                                           ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -484,12 +484,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         }
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(WaveImpactAsphaltCoverCalculationGroupContext nodeData,
-                                                                         object parentData, ITreeViewCommands treeViewControl)
+                                                                         object parentData, ITreeViewCommands treeViewCommands)
         {
             CalculationGroup group = nodeData.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewCommands));
             bool isNestedGroup = parentData is WaveImpactAsphaltCoverCalculationGroupContext;
 
             WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = group
@@ -664,9 +664,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         }
 
         private ContextMenuStrip WaveConditionsCalculationContextContextMenuStrip(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData,
-                                                                                  object parentData, ITreeViewCommands treeViewControl)
+                                                                                  object parentData, ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewCommands));
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
 

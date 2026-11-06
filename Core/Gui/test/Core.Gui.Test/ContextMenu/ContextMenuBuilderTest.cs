@@ -176,7 +176,7 @@ namespace Core.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void Constructor_NoTreeViewControl_ThrowsContextMenuBuilderException()
+        public void Constructor_NoTreeViewCommands_ThrowsContextMenuBuilderException()
         {
             // Setup
             var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
@@ -349,15 +349,15 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            var treeViewControl = Substitute.For<ITreeViewCommands>();
-            treeViewControl.CanRemoveChildNodesOfData(dataObject).Returns(hasChildren);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            treeViewCommands.CanRemoveChildNodesOfData(dataObject).Returns(hasChildren);
             var builder = new ContextMenuBuilder(applicationFeatureCommands,
                                                  importCommandHandler,
                                                  exportCommandHandler,
                                                  updateCommandHandler,
                                                  viewCommands,
                                                  dataObject,
-                                                 treeViewControl);
+                                                 treeViewCommands);
 
             // Call
             ContextMenuStrip result = builder.AddDeleteChildrenItem().Build();
@@ -388,16 +388,15 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            var treeViewControl = Substitute.For<ITreeViewCommands>();
-
-            treeViewControl.CanExpandOrCollapseForData(dataObject).Returns(hasChildren);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            treeViewCommands.CanExpandOrCollapseForData(dataObject).Returns(hasChildren);
             var builder = new ContextMenuBuilder(applicationFeatureCommands,
                                                  importCommandHandler,
                                                  exportCommandHandler,
                                                  updateCommandHandler,
                                                  viewCommands,
                                                  dataObject,
-                                                 treeViewControl);
+                                                 treeViewCommands);
 
             // Call
             ContextMenuStrip result = builder.AddExpandAllItem().Build();
@@ -426,16 +425,15 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
-            var treeViewControl = Substitute.For<ITreeViewCommands>();
-
-            treeViewControl.CanExpandOrCollapseForData(dataObject).Returns(hasChildren);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            treeViewCommands.CanExpandOrCollapseForData(dataObject).Returns(hasChildren);
             var builder = new ContextMenuBuilder(applicationFeatureCommands,
                                                  importCommandHandler,
                                                  exportCommandHandler,
                                                  updateCommandHandler,
                                                  viewCommands,
                                                  dataObject,
-                                                 treeViewControl);
+                                                 treeViewCommands);
 
             // Call
             ContextMenuStrip result = builder.AddCollapseAllItem().Build();

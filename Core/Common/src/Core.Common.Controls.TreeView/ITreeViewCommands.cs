@@ -21,6 +21,9 @@
 
 namespace Core.Common.Controls.TreeView
 {
+    /// <summary>
+    /// Interface defining the commands that can be executed on a tree view control.
+    /// </summary>
     public interface ITreeViewCommands
     {
         /// <summary>
@@ -70,8 +73,9 @@ namespace Core.Common.Controls.TreeView
         bool CanRemoveChildNodesOfData(object dataObject);
 
         /// <summary>
-        /// This method tries to remove all child nodes of the tree node for  <paramref name="dataObject"/>
+        /// This method tries to remove all child nodes of the tree node corresponding to the <paramref name="dataObject"/>.
         /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
         void TryRemoveChildNodesOfData(object dataObject);
 
         /// <summary>
@@ -81,7 +85,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
         /// <returns>Whether or not the tree node can be collapsed/expanded or <c>false</c> when no corresponding tree node is found.</returns>
         bool CanExpandOrCollapseForData(object dataObject);
-        
+
         /// <summary>
         /// This method tries to expand all nodes of the tree node corresponding to the <paramref name="dataObject"/>
         /// (child nodes are taken into account recursively).

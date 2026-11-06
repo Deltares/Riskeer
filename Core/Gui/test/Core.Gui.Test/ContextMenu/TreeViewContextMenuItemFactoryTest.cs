@@ -49,15 +49,15 @@ namespace Core.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void Constructor_WithoutTreeViewControl_ThrowsArgumentNullException()
+        public void Constructor_WithoutTreeViewCommands_ThrowsArgumentNullException()
         {
             // Call
             Action test = () => new TreeViewContextMenuItemFactory(new object(), null);
 
             // Assert
-            const string expectedMessage = "Kan geen element in het contextmenu creëren zonder dat de boom bekend is.";
+            const string expectedMessage = "Kan geen element in het contextmenu creëren zonder dat de acties bekend zijn.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-            Assert.AreEqual("treeViewControl", exception.ParamName);
+            Assert.AreEqual("treeViewCommands", exception.ParamName);
         }
 
         [Test]
@@ -79,10 +79,10 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var nodeData = new object();
-            var treeViewControl = Substitute.For<ITreeViewCommands>();
-            treeViewControl.CanRemoveNodeForData(nodeData).Returns(canDelete);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            treeViewCommands.CanRemoveNodeForData(nodeData).Returns(canDelete);
 
-            var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControl);
+            var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewCommands);
 
             // Call
             ToolStripItem item = factory.CreateDeleteItem();
@@ -96,11 +96,11 @@ namespace Core.Gui.Test.ContextMenu
 
             if (canDelete)
             {
-                treeViewControl.Received(1).TryRemoveNodeForData(nodeData);
+                treeViewCommands.Received(1).TryRemoveNodeForData(nodeData);
             }
             else
             {
-                treeViewControl.DidNotReceive().TryRemoveNodeForData(nodeData);
+                treeViewCommands.DidNotReceive().TryRemoveNodeForData(nodeData);
             }
         }
 
@@ -111,10 +111,10 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var nodeData = new object();
-            var treeViewControl = Substitute.For<ITreeViewCommands>();
-            treeViewControl.CanRemoveChildNodesOfData(nodeData).Returns(canDelete);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            treeViewCommands.CanRemoveChildNodesOfData(nodeData).Returns(canDelete);
 
-            var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControl);
+            var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewCommands);
 
             // Call
             ToolStripItem item = factory.CreateDeleteChildrenItem();
@@ -131,11 +131,11 @@ namespace Core.Gui.Test.ContextMenu
 
             if (canDelete)
             {
-                treeViewControl.Received(1).TryRemoveChildNodesOfData(nodeData);
+                treeViewCommands.Received(1).TryRemoveChildNodesOfData(nodeData);
             }
             else
             {
-                treeViewControl.DidNotReceive().TryRemoveChildNodesOfData(nodeData);
+                treeViewCommands.DidNotReceive().TryRemoveChildNodesOfData(nodeData);
             }
         }
 
@@ -146,10 +146,10 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var dataObject = new object();
-            var treeViewControl = Substitute.For<ITreeViewCommands>();
-            treeViewControl.CanRenameNodeForData(dataObject).Returns(canRename);
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
+            treeViewCommands.CanRenameNodeForData(dataObject).Returns(canRename);
 
-            var factory = new TreeViewContextMenuItemFactory(dataObject, treeViewControl);
+            var factory = new TreeViewContextMenuItemFactory(dataObject, treeViewCommands);
 
             // Call
             ToolStripItem item = factory.CreateRenameItem();
@@ -163,11 +163,11 @@ namespace Core.Gui.Test.ContextMenu
 
             if (canRename)
             {
-                treeViewControl.Received(1).TryRenameNodeForData(dataObject);
+                treeViewCommands.Received(1).TryRenameNodeForData(dataObject);
             }
             else
             {
-                treeViewControl.DidNotReceive().TryRenameNodeForData(dataObject);
+                treeViewCommands.DidNotReceive().TryRenameNodeForData(dataObject);
             }
         }
 

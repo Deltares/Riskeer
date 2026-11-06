@@ -207,7 +207,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             exportHandler.CanExportFrom(nodeData).Returns(true);
             var updateHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommandsHandler = Substitute.For<IViewCommands>();
-            var treeViewControl = Substitute.For<ITreeViewCommands>();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importHandler,
@@ -215,18 +215,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                      updateHandler,
                                                      viewCommandsHandler,
                                                      nodeData,
-                                                     treeViewControl);
+                                                     treeViewCommands);
 
             var gui = Substitute.For<IGui>();
-            gui.Get(nodeData, treeViewControl).Returns(menuBuilder);
+            gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
-            treeViewControl.CanRemoveNodeForData(nodeData).Returns(true);
-            treeViewControl.CanRenameNodeForData(nodeData).Returns(true);
-            treeViewControl.CanExpandOrCollapseForData(nodeData).Returns(false);
+            treeViewCommands.CanRemoveNodeForData(nodeData).Returns(true);
+            treeViewCommands.CanRenameNodeForData(nodeData).Returns(true);
+            treeViewCommands.CanExpandOrCollapseForData(nodeData).Returns(false);
             plugin.Gui = gui;
 
             // Call
-            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
                 // Assert
                 Assert.AreEqual(20, menu.Items.Count);

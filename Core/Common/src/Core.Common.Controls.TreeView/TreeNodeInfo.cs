@@ -57,7 +57,7 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for obtaining the tree node context menu.
         /// The first <c>object</c> parameter represents the data of the tree node.
         /// The second <c>object</c> parameter represents the data of the parent tree node.
-        /// The <see cref="ITreeViewCommands"/> parameter represents the tree view control involved.
+        /// The <see cref="ITreeViewCommands"/> parameter represents the tree view commands involved.
         /// </summary>
         public Func<object, object, ITreeViewCommands, ContextMenuStrip> ContextMenuStrip { get; set; }
 
@@ -168,7 +168,7 @@ namespace Core.Common.Controls.TreeView
         /// The second <c>object</c> parameter represents the data of the new parent tree node (the current node).
         /// The third <c>object</c> parameter represents the data of the former parent tree node.
         /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
-        /// The <see cref="ITreeViewCommands"/> parameter represents the tree view control involved.
+        /// The <see cref="ITreeViewCommands"/> parameter represents the tree view commands involved.
         /// </summary>
         /// <remarks>After dropping a node, the <see cref="OnDrop"/> method of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Action<object, object, object, int, ITreeViewCommands> OnDrop { get; set; }
@@ -213,7 +213,7 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for obtaining the tree node context menu.
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// The <c>object</c> parameter represents the data of the parent tree node.
-        /// The <see cref="ITreeViewCommands"/> parameter represents the tree view control involved.
+        /// The <see cref="ITreeViewCommands"/> parameter represents the tree view commands involved.
         /// </summary>
         public Func<TData, object, ITreeViewCommands, ContextMenuStrip> ContextMenuStrip { get; set; }
 
@@ -324,7 +324,7 @@ namespace Core.Common.Controls.TreeView
         /// The second <c>object</c> parameter represents the data of the new parent tree node (the current node).
         /// The third <c>object</c> parameter represents the data of the former parent tree node.
         /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
-        /// The <see cref="ITreeViewCommands"/> parameter represents the tree view control involved.
+        /// The <see cref="ITreeViewCommands"/> parameter represents the tree view commands involved.
         /// </summary>
         /// <remarks>After dropping a node, the <see cref="OnDrop"/> method of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Action<object, object, object, int, ITreeViewCommands> OnDrop { get; set; }
@@ -349,7 +349,7 @@ namespace Core.Common.Controls.TreeView
                             ? tag => treeNodeInfo.Image((TData) tag)
                             : (Func<object, Image>) null,
                 ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                       ? (tag, parentTag, treeViewControl) => treeNodeInfo.ContextMenuStrip((TData) tag, parentTag, treeViewControl)
+                                       ? (tag, parentTag, treeViewCommands) => treeNodeInfo.ContextMenuStrip((TData) tag, parentTag, treeViewCommands)
                                        : (Func<object, object, ITreeViewCommands, ContextMenuStrip>) null,
                 EnsureVisibleOnCreate = treeNodeInfo.EnsureVisibleOnCreate != null
                                             ? (tag, parentTag) => treeNodeInfo.EnsureVisibleOnCreate((TData) tag, parentTag)
@@ -397,7 +397,7 @@ namespace Core.Common.Controls.TreeView
                                 ? (draggedTag, targetTag) => treeNodeInfo.CanInsert(draggedTag, targetTag)
                                 : (Func<object, object, bool>) null,
                 OnDrop = treeNodeInfo.OnDrop != null
-                             ? (droppedTag, newParentTag, oldParentTag, index, treeViewControl) => treeNodeInfo.OnDrop(droppedTag, newParentTag, oldParentTag, index, treeViewControl)
+                             ? (droppedTag, newParentTag, oldParentTag, index, treeViewCommands) => treeNodeInfo.OnDrop(droppedTag, newParentTag, oldParentTag, index, treeViewCommands)
                              : (Action<object, object, object, int, ITreeViewCommands>) null
             };
         }

@@ -240,7 +240,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             exportHandler.CanExportFrom(nodeData).Returns(true);
             var updateHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommandsHandler = Substitute.For<IViewCommands>();
-            var treeViewControl = Substitute.For<ITreeViewCommands>();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importHandler,
@@ -248,19 +248,19 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                      updateHandler,
                                                      viewCommandsHandler,
                                                      nodeData,
-                                                     treeViewControl);
+                                                     treeViewCommands);
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, Arg.Any<ITreeViewCommands>()).Returns(menuBuilder);
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
-            treeViewControl.CanRemoveNodeForData(nodeData).Returns(true);
-            treeViewControl.CanRenameNodeForData(nodeData).Returns(true);
-            treeViewControl.CanExpandOrCollapseForData(nodeData).Returns(false, false);
+            treeViewCommands.CanRemoveNodeForData(nodeData).Returns(true);
+            treeViewCommands.CanRenameNodeForData(nodeData).Returns(true);
+            treeViewCommands.CanExpandOrCollapseForData(nodeData).Returns(false, false);
             plugin.Gui = gui;
 
             // Call
-            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
                 // Assert
                 Assert.AreEqual(23, menu.Items.Count);

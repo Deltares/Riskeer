@@ -50,7 +50,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             Func<TestCalculationGroupContext, object[]> childNodeObjects = context => new object[0];
-            Func<TestCalculationGroupContext, object, ITreeViewCommands, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
+            Func<TestCalculationGroupContext, object, ITreeViewCommands, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewCommands) => new ContextMenuStrip();
             Action<TestCalculationGroupContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call
@@ -434,7 +434,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             CalculationItemType draggedItemType)
         {
             // Setup
-            var treeViewControl = Substitute.For<ITreeViewCommands>();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var failureMechanism = Substitute.For<ICalculatableFailureMechanism>();
 
             ICalculationBase draggedItem;
@@ -471,7 +471,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                       "Name of the dragged item should already exist in new owner.");
 
             // Call
-            treeNodeInfo.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControl);
+            treeNodeInfo.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewCommands);
 
             // Assert
             CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
@@ -490,7 +490,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             newOwnerObserver.UpdateObserver();
             originalOwnerObserver.UpdateObserver();
-            treeViewControl.Received(1).TryRenameNodeForData(draggedItemContext);
+            treeViewCommands.Received(1).TryRenameNodeForData(draggedItemContext);
         }
 
         /// <summary>
@@ -554,7 +554,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
-            Func<TestCalculationContext, object, ITreeViewCommands, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
+            Func<TestCalculationContext, object, ITreeViewCommands, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewCommands) => new ContextMenuStrip();
             Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call
@@ -915,19 +915,19 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(
                         null,
                         null,
-                        (mechanismContext, parent, treeViewControl) =>
+                        (mechanismContext, parent, commands) =>
                         {
                             Assert.AreEqual(context, mechanismContext);
                             Assert.AreEqual(assessmentSection, parent);
-                            Assert.AreEqual(treeViewCommands, treeViewControl);
+                            Assert.AreEqual(treeViewCommands, commands);
 
                             return contextMenuStripInAssembly;
                         },
-                        (mechanismContext, parent, treeViewControl) =>
+                        (mechanismContext, parent, commands) =>
                         {
                             Assert.AreEqual(context, mechanismContext);
                             Assert.AreEqual(assessmentSection, parent);
-                            Assert.AreEqual(treeViewCommands, treeViewControl);
+                            Assert.AreEqual(treeViewCommands, commands);
 
                             return contextMenuStripNotInAssembly;
                         });
@@ -960,19 +960,19 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(
                         null,
                         null,
-                        (mechanismContext, parent, treeViewControl) =>
+                        (mechanismContext, parent, commands) =>
                         {
                             Assert.AreEqual(context, mechanismContext);
                             Assert.AreEqual(assessmentSection, parent);
-                            Assert.AreEqual(treeViewCommands, treeViewControl);
+                            Assert.AreEqual(treeViewCommands, commands);
 
                             return contextMenuStripInAssembly;
                         },
-                        (mechanismContext, parent, treeViewControl) =>
+                        (mechanismContext, parent, commands) =>
                         {
                             Assert.AreEqual(context, mechanismContext);
                             Assert.AreEqual(assessmentSection, parent);
-                            Assert.AreEqual(treeViewCommands, treeViewControl);
+                            Assert.AreEqual(treeViewCommands, commands);
 
                             return contextMenuStripNotInAssembly;
                         });
@@ -996,7 +996,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Call
             TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo =
                 RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
-                    context => null, (context, o, treeViewControl) => null);
+                    context => null, (context, o, treeViewCommands) => null);
 
             // Assert
             Assert.AreEqual(typeof(FailureMechanismContext<IFailureMechanism>), treeNodeInfo.TagType);
@@ -1107,11 +1107,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo =
                     RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<TestFailureMechanismContext>(
                         null,
-                        (mechanismContext, parent, treeViewControl) =>
+                        (mechanismContext, parent, commands) =>
                         {
                             Assert.AreEqual(context, mechanismContext);
                             Assert.AreEqual(assessmentSection, parent);
-                            Assert.AreEqual(treeViewCommands, treeViewControl);
+                            Assert.AreEqual(treeViewCommands, commands);
 
                             return contextMenuStripRelevant;
                         });

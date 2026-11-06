@@ -175,9 +175,9 @@ namespace Riskeer.ClosingStructures.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<ClosingStructuresContext>
@@ -186,42 +186,42 @@ namespace Riskeer.ClosingStructures.Plugin
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddImportItem()
-                                                                                 .AddUpdateItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddImportItem()
+                                                                                  .AddUpdateItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddCollapseAllItem()
+                                                                                  .AddExpandAllItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<ClosingStructure>
             {
                 Text = structure => structure.Name,
                 Image = structure => RiskeerCommonFormsResources.StructuresIcon,
-                ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
-                                                                                  .AddPropertiesItem()
-                                                                                  .Build()
+                ContextMenuStrip = (structure, parentData, treeViewCommands) => Gui.Get(structure, treeViewCommands)
+                                                                                   .AddPropertiesItem()
+                                                                                   .Build()
             };
 
             yield return new TreeNodeInfo<ClosingStructuresInputContext>
             {
                 Text = inputContext => RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                 Image = inputContext => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<ClosingStructuresScenariosContext>
             {
                 Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = context => RiskeerCommonFormsResources.ScenariosIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
         }
 
@@ -392,14 +392,14 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   ITreeViewCommands treeViewControl)
+                                                                                   ITreeViewCommands treeViewCommands)
         {
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = context.WrappedData
                                                                                              .Calculations
                                                                                              .Cast<StructuresCalculation<ClosingStructuresInput>>();
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -481,9 +481,9 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          ITreeViewCommands treeViewControl)
+                                                                                          ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -498,9 +498,9 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           ITreeViewCommands treeViewControl)
+                                                                                           ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -551,11 +551,11 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(ClosingStructuresCalculationGroupContext context,
                                                                          object parentData,
-                                                                         ITreeViewCommands treeViewControl)
+                                                                         ITreeViewCommands treeViewCommands)
         {
             CalculationGroup group = context.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
             bool isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
 
             StructuresCalculation<ClosingStructuresInput>[] calculations = group
@@ -745,12 +745,12 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ContextMenuStrip CalculationContextContextMenuStrip(ClosingStructuresCalculationScenarioContext context,
                                                                     object parentData,
-                                                                    ITreeViewCommands treeViewControl)
+                                                                    ITreeViewCommands treeViewCommands)
         {
             StructuresCalculation<ClosingStructuresInput> calculation = context.WrappedData;
             var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(GetInquiryHelper(), calculation);
 
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddDuplicateCalculationItem(calculation, context)

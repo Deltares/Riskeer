@@ -162,9 +162,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<StabilityPointStructuresContext>
@@ -173,33 +173,33 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddImportItem()
-                                                                                 .AddUpdateItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddImportItem()
+                                                                                  .AddUpdateItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddCollapseAllItem()
+                                                                                  .AddExpandAllItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<StabilityPointStructure>
             {
                 Text = structure => structure.Name,
                 Image = structure => RiskeerCommonFormsResources.StructuresIcon,
-                ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
-                                                                                  .AddPropertiesItem()
-                                                                                  .Build()
+                ContextMenuStrip = (structure, parentData, treeViewCommands) => Gui.Get(structure, treeViewCommands)
+                                                                                   .AddPropertiesItem()
+                                                                                   .Build()
             };
 
             yield return new TreeNodeInfo<StabilityPointStructuresScenariosContext>
             {
                 Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = context => RiskeerCommonFormsResources.ScenariosIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityPointStructuresCalculationGroupContext>(
@@ -217,9 +217,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
             {
                 Text = inputContext => RiskeerCommonFormsResources.Calculation_Input,
                 Image = inputContext => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
         }
 
@@ -391,13 +391,13 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   ITreeViewCommands treeViewControl)
+                                                                                   ITreeViewCommands treeViewCommands)
         {
             IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations = context.WrappedData
                                                                                                     .Calculations
                                                                                                     .Cast<StructuresCalculation<StabilityPointStructuresInput>>();
             IInquiryHelper inquiryHelper = GetInquiryHelper();
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
             return builder.AddOpenItem()
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
@@ -478,9 +478,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          ITreeViewCommands treeViewControl)
+                                                                                          ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -495,9 +495,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           ITreeViewCommands treeViewControl)
+                                                                                           ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -548,12 +548,12 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(StabilityPointStructuresCalculationGroupContext context,
                                                                          object parentData,
-                                                                         ITreeViewCommands treeViewControl)
+                                                                         ITreeViewCommands treeViewCommands)
         {
             CalculationGroup group = context.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
             bool isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
 
             StructuresCalculation<StabilityPointStructuresInput>[] calculations = group
@@ -747,12 +747,12 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private ContextMenuStrip CalculationContextContextMenuStrip(StabilityPointStructuresCalculationScenarioContext context,
                                                                     object parentData,
-                                                                    ITreeViewCommands treeViewControl)
+                                                                    ITreeViewCommands treeViewCommands)
         {
             StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
             var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(GetInquiryHelper(), calculation);
 
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddDuplicateCalculationItem(calculation, context)

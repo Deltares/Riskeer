@@ -273,9 +273,9 @@ namespace Core.Gui.Forms.Map
             }
         }
 
-        private ContextMenuStrip FeatureBasedMapDataContextContextMenuStrip(FeatureBasedMapDataContext mapDataContext, object parentData, ITreeViewCommands treeView)
+        private ContextMenuStrip FeatureBasedMapDataContextContextMenuStrip(FeatureBasedMapDataContext mapDataContext, object parentData, ITreeViewCommands treeViewCommands)
         {
-            return contextMenuBuilderProvider.Get(mapDataContext, treeView)
+            return contextMenuBuilderProvider.Get(mapDataContext, treeViewCommands)
                                              .AddCustomItem(CreateZoomToExtentsItem(mapDataContext))
                                              .AddSeparator()
                                              .AddDeleteItem()
@@ -379,7 +379,7 @@ namespace Core.Gui.Forms.Map
             return draggedDataContext.ParentMapData.WrappedData.Equals(targetDataObject);
         }
 
-        private static void MapDataCollectionOnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewCommands control)
+        private static void MapDataCollectionOnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewCommands treeViewCommands)
         {
             var mapDataContext = (MapDataContext) droppedData;
             MapData mapData = mapDataContext.WrappedData;
@@ -392,9 +392,9 @@ namespace Core.Gui.Forms.Map
             parent.NotifyObservers();
         }
 
-        private ContextMenuStrip MapDataCollectionContextMenuStrip(MapDataCollectionContext context, object parentData, ITreeViewCommands treeView)
+        private ContextMenuStrip MapDataCollectionContextMenuStrip(MapDataCollectionContext context, object parentData, ITreeViewCommands treeViewCommands)
         {
-            return contextMenuBuilderProvider.Get(context, treeView)
+            return contextMenuBuilderProvider.Get(context, treeViewCommands)
                                              .AddImportItem(
                                                  GuiResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer,
                                                  GuiResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,

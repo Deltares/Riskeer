@@ -134,9 +134,9 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                 ChildNodeObjects = context => context.WrappedData.InAssembly
                                                   ? enabledChildNodeObjects(context)
                                                   : disabledChildNodeObjects(context),
-                ContextMenuStrip = (context, parentData, treeViewControl) => context.WrappedData.InAssembly
-                                                                                 ? enabledContextMenuStrip(context, parentData, treeViewControl)
-                                                                                 : disabledContextMenuStrip(context, parentData, treeViewControl)
+                ContextMenuStrip = (context, parentData, treeViewCommands) => context.WrappedData.InAssembly
+                                                                                  ? enabledContextMenuStrip(context, parentData, treeViewCommands)
+                                                                                  : disabledContextMenuStrip(context, parentData, treeViewCommands)
             };
         }
 
@@ -185,7 +185,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                    && ReferenceEquals(calculationContext.FailureMechanism, ((ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>) targetData).FailureMechanism);
         }
 
-        private static void CalculationGroupOnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewCommands treeViewControl)
+        private static void CalculationGroupOnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewCommands treeViewCommands)
         {
             ICalculationBase calculationItem = ((ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>) droppedData).WrappedData;
 
@@ -198,7 +198,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                 bool isMoveWithinSameContainer = ReferenceEquals(sourceCalculationGroup, targetCalculationGroup);
 
                 DroppingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, sourceCalculationGroup, targetCalculationGroup);
-                dropHandler.Execute(droppedData, calculationItem, position, treeViewControl);
+                dropHandler.Execute(droppedData, calculationItem, position, treeViewCommands);
             }
         }
 
@@ -239,8 +239,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             /// <param name="draggedData">The dragged data.</param>
             /// <param name="calculationBase">The calculation item wrapped by <see cref="draggedData"/>.</param>
             /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
-            /// <param name="treeViewControl">The tree view control in which the drag and drop operation is performed.</param>
-            public virtual void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, ITreeViewCommands treeViewControl)
+            /// <param name="treeViewCommands">The tree view commands needed for performing the drag and drop operation.</param>
+            public virtual void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, ITreeViewCommands treeViewCommands)
             {
                 MoveCalculationItemToNewOwner(calculationBase, newPosition);
 
@@ -302,7 +302,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             public DroppingCalculationToNewContainer(CalculationGroup sourceCalculationGroup, CalculationGroup targetCalculationGroup) :
                 base(sourceCalculationGroup, targetCalculationGroup) {}
 
-            public override void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, ITreeViewCommands treeViewControl)
+            public override void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, ITreeViewCommands treeViewCommands)
             {
                 MoveCalculationItemToNewOwner(calculationBase, newPosition);
 
@@ -314,7 +314,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                     calculationBase
                 }).Any(c => c.Name.Equals(calculationBase.Name)))
                 {
-                    treeViewControl.TryRenameNodeForData(draggedData);
+                    treeViewCommands.TryRenameNodeForData(draggedData);
                 }
             }
 

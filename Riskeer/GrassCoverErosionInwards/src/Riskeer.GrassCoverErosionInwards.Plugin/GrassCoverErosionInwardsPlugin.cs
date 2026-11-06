@@ -286,15 +286,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 ChildNodeObjects = context => context.WrappedData
                                                      .Cast<object>()
                                                      .ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddImportItem()
-                                                                                 .AddUpdateItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddImportItem()
+                                                                                  .AddUpdateItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddCollapseAllItem()
+                                                                                  .AddExpandAllItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(
@@ -312,29 +312,29 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = context => RiskeerCommonFormsResources.ScenariosIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsInputContext>
             {
                 Text = inputContext => RiskeerCommonFormsResources.Calculation_Input,
                 Image = inputContext => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsOutputContext>
@@ -345,9 +345,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = OutputChildNodeObjects,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<OvertoppingOutputContext>
@@ -357,11 +357,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 ForeColor = context => context.WrappedData.Output?.OvertoppingOutput != null
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<DikeHeightOutputContext>
@@ -371,11 +371,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 ForeColor = context => context.WrappedData.Output?.DikeHeightOutput != null
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<OvertoppingRateOutputContext>
@@ -385,11 +385,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 ForeColor = context => context.WrappedData.Output?.OvertoppingRateOutput != null
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
         }
 
@@ -532,14 +532,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   ITreeViewCommands treeViewControl)
+                                                                                   ITreeViewCommands treeViewCommands)
         {
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations = context.WrappedData
                                                                                    .Calculations
                                                                                    .Cast<GrassCoverErosionInwardsCalculation>();
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
             return builder
                    .AddOpenItem()
                    .AddSeparator()
@@ -624,9 +624,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          ITreeViewCommands treeViewControl)
+                                                                                          ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -641,9 +641,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           ITreeViewCommands treeViewControl)
+                                                                                           ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -692,7 +692,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext context, object parentData, ITreeViewCommands treeViewControl)
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext context, object parentData, ITreeViewCommands treeViewCommands)
         {
             CalculationGroup group = context.WrappedData;
             bool isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
@@ -707,7 +707,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             if (!isNestedGroup)
             {
@@ -899,7 +899,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationScenarioContext context, object parentData, ITreeViewCommands treeViewControl)
+        private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationScenarioContext context, object parentData, ITreeViewCommands treeViewCommands)
         {
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
             var changeHandler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(GetInquiryHelper(),
@@ -907,7 +907,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             StrictContextMenuItem updateDikeProfile = CreateUpdateDikeProfileItem(context);
 
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddDuplicateCalculationItem(calculation, context)

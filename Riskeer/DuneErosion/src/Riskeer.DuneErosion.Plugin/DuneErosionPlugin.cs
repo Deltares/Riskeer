@@ -139,9 +139,9 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext>
@@ -405,9 +405,9 @@ namespace Riskeer.DuneErosion.Plugin
 
         private ContextMenuStrip HydraulicLoadsStateFailureMechanismContextMenuStrip(HydraulicLoadsStateFailureMechanismContext context,
                                                                                      object parentData,
-                                                                                     ITreeViewCommands treeViewControl)
+                                                                                     ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -466,9 +466,9 @@ namespace Riskeer.DuneErosion.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          ITreeViewCommands treeViewControl)
+                                                                                          ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -483,9 +483,9 @@ namespace Riskeer.DuneErosion.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           ITreeViewCommands treeViewControl)
+                                                                                           ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -508,7 +508,7 @@ namespace Riskeer.DuneErosion.Plugin
         private ContextMenuStrip DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip(
             DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData,
             object parentData,
-            ITreeViewCommands treeViewControl)
+            ITreeViewCommands treeViewCommands)
         {
             var addTargetProbabilityItem = new StrictContextMenuItem(
                 RiskeerCommonPluginResources.ContextMenuStrip_Add_TargetProbability,
@@ -527,7 +527,7 @@ namespace Riskeer.DuneErosion.Plugin
                 addTargetProbabilityItem.Enabled = false;
             }
 
-            return Gui.Get(nodeData, treeViewControl)
+            return Gui.Get(nodeData, treeViewCommands)
                       .AddCustomItem(addTargetProbabilityItem)
                       .AddSeparator()
                       .AddExportItem()
@@ -575,7 +575,7 @@ namespace Riskeer.DuneErosion.Plugin
                    && duneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext.WrappedData.Contains(duneLocationCalculationsForUserDefinedTargetProbabilityContext.WrappedData);
         }
 
-        private static void DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewCommands treeViewControl)
+        private static void DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, ITreeViewCommands treeViewCommands)
         {
             var duneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext = (DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext) newParentData;
             var duneLocationCalculationsForUserDefinedTargetProbabilityContext = (DuneLocationCalculationsForUserDefinedTargetProbabilityContext) droppedData;
@@ -600,7 +600,7 @@ namespace Riskeer.DuneErosion.Plugin
             parent.NotifyObservers();
         }
 
-        private ContextMenuStrip DuneLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip(DuneLocationCalculationsForUserDefinedTargetProbabilityContext context, object parent, ITreeViewCommands treeViewControl)
+        private ContextMenuStrip DuneLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip(DuneLocationCalculationsForUserDefinedTargetProbabilityContext context, object parent, ITreeViewCommands treeViewCommands)
         {
             var calculateAllItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
@@ -621,7 +621,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                                                                                                                    probability => probability.TargetProbability));
                 });
 
-            return Gui.Get(context, treeViewControl)
+            return Gui.Get(context, treeViewCommands)
                       .AddOpenItem()
                       .AddSeparator()
                       .AddExportItem()

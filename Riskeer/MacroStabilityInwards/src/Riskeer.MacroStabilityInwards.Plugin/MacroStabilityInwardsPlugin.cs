@@ -356,20 +356,20 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<MacroStabilityInwardsInputContext>
             {
                 Text = context => RiskeerCommonFormsResources.Calculation_Input,
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<MacroStabilityInwardsSurfaceLinesContext>
@@ -385,10 +385,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 Text = surfaceLine => surfaceLine.Name,
                 Image = surfaceLine => MacroStabilityInwardsFormsResources.SurfaceLineIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<MacroStabilityInwardsStochasticSoilModelCollectionContext>
@@ -407,21 +407,21 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 Text = stochasticSoilModel => stochasticSoilModel.Name,
                 Image = stochasticSoilModel => MacroStabilityInwardsFormsResources.StochasticSoilModelIcon,
                 ChildNodeObjects = stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddCollapseAllItem()
+                                                                                  .AddExpandAllItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<MacroStabilityInwardsStochasticSoilProfile>
             {
                 Text = stochasticSoilProfile => stochasticSoilProfile.SoilProfile != null ? stochasticSoilProfile.SoilProfile.Name : "Profile",
                 Image = stochasticSoilProfile => MacroStabilityInwardsFormsResources.SoilProfileIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<MacroStabilityInwardsOutputContext>
@@ -431,20 +431,20 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<MacroStabilityInwardsScenariosContext>
             {
                 Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = context => RiskeerCommonFormsResources.ScenariosIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<MacroStabilityInwardsFailureMechanismSectionsContext>
@@ -586,9 +586,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region MacroStabilityInwardsFailureMechanismSectionsContext TreeNodeInfo
 
-        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(MacroStabilityInwardsFailureMechanismSectionsContext nodeData, object parentData, ITreeViewCommands treeViewControl)
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(MacroStabilityInwardsFailureMechanismSectionsContext nodeData, object parentData, ITreeViewCommands treeViewCommands)
         {
-            return Gui.Get(nodeData, treeViewControl)
+            return Gui.Get(nodeData, treeViewCommands)
                       .AddOpenItem()
                       .AddSeparator()
                       .AddImportItem(new ImportInfo[]
@@ -605,9 +605,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region MacroStabilityInwardsSurfaceLinesContext TreeNodeInfo
 
-        private ContextMenuStrip MacroStabilityInwardsSurfaceLinesContextContextMenuStrip(MacroStabilityInwardsSurfaceLinesContext nodeData, object parentData, ITreeViewCommands treeViewControl)
+        private ContextMenuStrip MacroStabilityInwardsSurfaceLinesContextContextMenuStrip(MacroStabilityInwardsSurfaceLinesContext nodeData, object parentData, ITreeViewCommands treeViewCommands)
         {
-            return Gui.Get(nodeData, treeViewControl)
+            return Gui.Get(nodeData, treeViewCommands)
                       .AddImportItem()
                       .AddUpdateItem()
                       .AddSeparator()
@@ -622,9 +622,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region MacroStabilityInwardsStochasticSoilModelCollectionContext TreeNodeInfo
 
-        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(MacroStabilityInwardsStochasticSoilModelCollectionContext nodeData, object parentData, ITreeViewCommands treeViewControl)
+        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(MacroStabilityInwardsStochasticSoilModelCollectionContext nodeData, object parentData, ITreeViewCommands treeViewCommands)
         {
-            return Gui.Get(nodeData, treeViewControl)
+            return Gui.Get(nodeData, treeViewCommands)
                       .AddImportItem()
                       .AddUpdateItem()
                       .AddSeparator()
@@ -665,9 +665,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   ITreeViewCommands treeViewControl)
+                                                                                   ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -747,9 +747,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          ITreeViewCommands treeViewControl)
+                                                                                          ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -764,9 +764,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           ITreeViewCommands treeViewControl)
+                                                                                           ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -821,10 +821,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(MacroStabilityInwardsCalculationGroupContext nodeData,
                                                                          object parentData,
-                                                                         ITreeViewCommands treeViewControl)
+                                                                         ITreeViewCommands treeViewCommands)
         {
             CalculationGroup group = nodeData.WrappedData;
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewCommands));
             bool isNestedGroup = parentData is MacroStabilityInwardsCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateMacroStabilityInwardsCalculationsItem(nodeData);
@@ -982,9 +982,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(MacroStabilityInwardsCalculationScenarioContext nodeData, object parentData, ITreeViewCommands treeViewControl)
+        private ContextMenuStrip CalculationContextContextMenuStrip(MacroStabilityInwardsCalculationScenarioContext nodeData, object parentData, ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewCommands));
 
             MacroStabilityInwardsCalculationScenario calculation = nodeData.WrappedData;
 

@@ -404,31 +404,31 @@ namespace Riskeer.Piping.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<SemiProbabilisticPipingInputContext>
             {
                 Text = pipingInputContext => RiskeerCommonFormsResources.Calculation_Input,
                 Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<ProbabilisticPipingInputContext>
             {
                 Text = pipingInputContext => RiskeerCommonFormsResources.Calculation_Input,
                 Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<PipingSurfaceLinesContext>
@@ -446,10 +446,10 @@ namespace Riskeer.Piping.Plugin
             {
                 Text = pipingSurfaceLine => pipingSurfaceLine.Name,
                 Image = pipingSurfaceLine => PipingFormsResources.PipingSurfaceLineIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<PipingStochasticSoilModelCollectionContext>
@@ -468,39 +468,39 @@ namespace Riskeer.Piping.Plugin
                 Text = stochasticSoilModel => stochasticSoilModel.Name,
                 Image = stochasticSoilModel => PipingFormsResources.StochasticSoilModelIcon,
                 ChildNodeObjects = stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddCollapseAllItem()
+                                                                                  .AddExpandAllItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<PipingStochasticSoilProfile>
             {
                 Text = pipingSoilProfile => pipingSoilProfile.SoilProfile.Name,
                 Image = pipingSoilProfile => PipingFormsResources.PipingSoilProfileIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<SemiProbabilisticPipingOutputContext>
             {
                 Text = pipingOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 Image = pipingOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<PipingScenariosContext>
             {
                 Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = context => RiskeerCommonFormsResources.ScenariosIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<EmptySemiProbabilisticPipingOutput>
@@ -508,9 +508,9 @@ namespace Riskeer.Piping.Plugin
                 Text = emptyPipingOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 Image = emptyPipingOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<ProbabilisticPipingOutputContext>
@@ -530,11 +530,11 @@ namespace Riskeer.Piping.Plugin
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<ProbabilisticPipingSectionSpecificOutputContext>
@@ -544,11 +544,11 @@ namespace Riskeer.Piping.Plugin
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
+                ContextMenuStrip = (nodeData, parentData, treeViewCommands) => Gui.Get(nodeData, treeViewCommands)
+                                                                                  .AddOpenItem()
+                                                                                  .AddSeparator()
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return new TreeNodeInfo<PipingFailureMechanismSectionsContext>
@@ -704,11 +704,11 @@ namespace Riskeer.Piping.Plugin
 
         #region PipingFailureMechanismSectionsContext TreeNodeInfo
 
-        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(PipingFailureMechanismSectionsContext nodeData, object parentData, ITreeViewCommands treeViewControl)
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(PipingFailureMechanismSectionsContext nodeData, object parentData, ITreeViewCommands treeViewCommands)
         {
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
-            return Gui.Get(nodeData, treeViewControl)
+            return Gui.Get(nodeData, treeViewCommands)
                       .AddOpenItem()
                       .AddSeparator()
                       .AddImportItem(new ImportInfo[]
@@ -725,9 +725,9 @@ namespace Riskeer.Piping.Plugin
 
         #region PipingSurfaceLinesContext TreeNodeInfo
 
-        private ContextMenuStrip PipingSurfaceLinesContextContextMenuStrip(PipingSurfaceLinesContext nodeData, object parentData, ITreeViewCommands treeViewControl)
+        private ContextMenuStrip PipingSurfaceLinesContextContextMenuStrip(PipingSurfaceLinesContext nodeData, object parentData, ITreeViewCommands treeViewCommands)
         {
-            return Gui.Get(nodeData, treeViewControl)
+            return Gui.Get(nodeData, treeViewCommands)
                       .AddImportItem()
                       .AddUpdateItem()
                       .AddSeparator()
@@ -742,9 +742,9 @@ namespace Riskeer.Piping.Plugin
 
         #region StochasticSoilModelCollectionContext TreeNodeInfo
 
-        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(PipingStochasticSoilModelCollectionContext nodeData, object parentData, ITreeViewCommands treeViewControl)
+        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(PipingStochasticSoilModelCollectionContext nodeData, object parentData, ITreeViewCommands treeViewCommands)
         {
-            return Gui.Get(nodeData, treeViewControl)
+            return Gui.Get(nodeData, treeViewCommands)
                       .AddImportItem()
                       .AddUpdateItem()
                       .AddSeparator()
@@ -792,14 +792,14 @@ namespace Riskeer.Piping.Plugin
 
         private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                    object parentData,
-                                                                                   ITreeViewCommands treeViewControl)
+                                                                                   ITreeViewCommands treeViewCommands)
         {
             IEnumerable<ProbabilisticPipingCalculationScenario> calculations = context.WrappedData
                                                                                       .Calculations
                                                                                       .OfType<ProbabilisticPipingCalculationScenario>();
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -895,9 +895,9 @@ namespace Riskeer.Piping.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                           object parentData,
-                                                                                          ITreeViewCommands treeViewControl)
+                                                                                          ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -912,9 +912,9 @@ namespace Riskeer.Piping.Plugin
 
         private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                                            object parentData,
-                                                                                           ITreeViewCommands treeViewControl)
+                                                                                           ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewCommands));
 
             return builder.AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -977,10 +977,10 @@ namespace Riskeer.Piping.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData,
                                                                          object parentData,
-                                                                         ITreeViewCommands treeViewControl)
+                                                                         ITreeViewCommands treeViewCommands)
         {
             CalculationGroup group = nodeData.WrappedData;
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewCommands));
             bool isNestedGroup = parentData is PipingCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
@@ -1234,9 +1234,9 @@ namespace Riskeer.Piping.Plugin
         }
 
         private ContextMenuStrip SemiProbabilisticPipingCalculationScenarioContextContextMenuStrip(SemiProbabilisticPipingCalculationScenarioContext nodeData,
-                                                                                                   object parentData, ITreeViewCommands treeViewControl)
+                                                                                                   object parentData, ITreeViewCommands treeViewCommands)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewCommands));
 
             SemiProbabilisticPipingCalculationScenario calculation = nodeData.WrappedData;
 
@@ -1310,12 +1310,12 @@ namespace Riskeer.Piping.Plugin
         }
 
         private ContextMenuStrip ProbabilisticPipingCalculationScenarioContextContextMenuStrip(ProbabilisticPipingCalculationScenarioContext nodeData,
-                                                                                               object parentData, ITreeViewCommands treeViewControl)
+                                                                                               object parentData, ITreeViewCommands treeViewCommands)
         {
             ProbabilisticPipingCalculationScenario calculation = nodeData.WrappedData;
             var changeHandler = new ClearIllustrationPointsOfProbabilisticPipingCalculationChangeHandler(GetInquiryHelper(),
                                                                                                          calculation);
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewCommands));
 
             StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(calculation);
 

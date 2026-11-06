@@ -210,7 +210,7 @@ namespace Core.Gui
 
         #region Implementation: IContextMenuBuilderProvider
 
-        public IContextMenuBuilder Get(object value, ITreeViewCommands treeViewControl)
+        public IContextMenuBuilder Get(object value, ITreeViewCommands treeViewCommands)
         {
             if (applicationFeatureCommands == null)
             {
@@ -223,7 +223,7 @@ namespace Core.Gui
                                           updateCommandHandler,
                                           ViewCommands,
                                           value,
-                                          treeViewControl);
+                                          treeViewCommands);
         }
 
         #endregion

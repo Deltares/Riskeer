@@ -652,12 +652,12 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen element in het contextmenu creëren zonder dat de boom bekend is..
+        ///   Looks up a localized string similar to Kan geen element in het contextmenu creëren zonder dat de acties bekend zijn..
         /// </summary>
-        public static string ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_control {
+        public static string ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_commands {
             get {
-                return ResourceManager.GetString("ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_contro" +
-                        "l", resourceCulture);
+                return ResourceManager.GetString(("ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_comman" +
+                        "ds"), resourceCulture);
             }
         }
         
