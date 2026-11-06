@@ -278,7 +278,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithWhiteLine.csv");
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(File.Exists(path));
 
             using (var reader = new SurfaceLinesCsvReader(path))
@@ -326,7 +326,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithOptionalHeaders.csv");
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(File.Exists(path));
 
             using (var reader = new SurfaceLinesCsvReader(path))
@@ -376,7 +376,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // File: First 3 points are identical
             string path = Path.Combine(testDataPath, "ValidSurfaceLine_HasConsecutiveDuplicatePoints.csv");
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(File.Exists(path));
 
             using (var reader = new SurfaceLinesCsvReader(path))
@@ -796,7 +796,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(File.Exists(path));
 
             // Call
@@ -815,7 +815,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(File.Exists(path));
 
             using (var reader = new SurfaceLinesCsvReader(path))

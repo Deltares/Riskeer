@@ -195,7 +195,7 @@ namespace Core.Common.Base.Test.IO
             // Call
             Action call = () => simpleImporter.Import();
 
-            // Asset
+            // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(
                                                                 $"Gegevens zijn geïmporteerd vanuit bestand '{string.Empty}'.",
                                                                 LogLevelConstant.Info));

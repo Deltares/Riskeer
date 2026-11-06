@@ -408,7 +408,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble1 = new RoundedDouble(2, 1.23);
             var roundedDouble2 = new RoundedDouble(1, 1.2);
 
-            // Precondition:
+            // Precondition
             Assert.IsFalse(roundedDouble1.Equals(roundedDouble2));
 
             // Call
@@ -427,7 +427,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble1 = new RoundedDouble(2, 1.20);
             var roundedDouble2 = new RoundedDouble(1, 1.2);
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(roundedDouble1.Equals(roundedDouble2));
 
             // Call
@@ -498,7 +498,7 @@ namespace Core.Common.Base.Test.Data
             const double otherValue = 4.56;
             var roundedDouble = new RoundedDouble(2, otherValue);
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(otherValue.Equals(roundedDouble));
 
             // Call

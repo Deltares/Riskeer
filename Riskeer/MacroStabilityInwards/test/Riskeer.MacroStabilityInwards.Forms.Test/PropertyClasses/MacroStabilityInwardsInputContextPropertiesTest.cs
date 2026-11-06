@@ -863,7 +863,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
-            // Precondition:
+            // Precondition
             Assert.IsNull(calculation.InputParameters.SurfaceLine);
 
             // Call
@@ -931,7 +931,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
-            // Precondition:
+            // Precondition
             Assert.IsNotNull(calculation.InputParameters.SurfaceLine);
 
             // Call

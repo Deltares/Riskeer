@@ -1427,7 +1427,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               failureMechanism, assessmentSection);
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
-                // Precondition:
+                // Precondition
                 Assert.IsNull(calculation.InputParameters.SurfaceLine);
 
                 // Call
@@ -1491,7 +1491,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               failureMechanism, assessmentSection);
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
-                // Precondition:
+                // Precondition
                 Assert.IsNotNull(calculation.InputParameters.SurfaceLine);
 
                 // Call

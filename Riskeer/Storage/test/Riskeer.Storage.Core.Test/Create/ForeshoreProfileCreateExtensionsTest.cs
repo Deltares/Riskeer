@@ -186,7 +186,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             ForeshoreProfileEntity entity1 = foreshoreProfile.Create(registry, 0);
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(registry.Contains(foreshoreProfile));
 
             // Call

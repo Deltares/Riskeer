@@ -626,7 +626,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "2locations.krp.csv");
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(File.Exists(path));
 
             // Call
@@ -645,7 +645,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, fileName);
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(File.Exists(path));
 
             using (var reader = new CharacteristicPointsCsvReader(path))

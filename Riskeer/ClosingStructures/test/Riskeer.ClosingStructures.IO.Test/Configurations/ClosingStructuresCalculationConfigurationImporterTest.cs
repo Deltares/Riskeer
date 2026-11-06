@@ -216,7 +216,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<ForeshoreProfile>(), Enumerable.Empty<ClosingStructure>());
 
-            // AssertTC
+            // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<ClosingStructuresCalculationConfigurationReader, ClosingStructuresCalculationConfiguration>>(importer);
         }
 

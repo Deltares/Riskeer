@@ -256,7 +256,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 }
             };
 
-            // Preconditions
+            // Precondition
             Assert.IsFalse(hydraulicBoundaryDatabase1.UsePreprocessorClosure);
             Assert.IsFalse(hydraulicBoundaryDatabase2.UsePreprocessorClosure);
             Assert.IsFalse(hydraulicBoundaryDatabase3.UsePreprocessorClosure);

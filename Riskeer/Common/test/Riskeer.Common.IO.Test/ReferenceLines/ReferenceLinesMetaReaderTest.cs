@@ -112,7 +112,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
 
             Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
-            // Assert .
+            // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': kon geen lijnen vinden in dit bestand.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);

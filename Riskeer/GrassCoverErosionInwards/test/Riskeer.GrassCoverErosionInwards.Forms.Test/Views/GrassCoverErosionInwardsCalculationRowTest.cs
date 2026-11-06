@@ -60,7 +60,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Call
             var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, handler);
 
-            // Asserts
+            // Assert
             Assert.IsInstanceOf<CalculationRow<GrassCoverErosionInwardsCalculationScenario>>(row);
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
             Assert.AreSame(calculationScenario, row.Calculation);

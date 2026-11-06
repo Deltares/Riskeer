@@ -184,7 +184,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             var registry = new PersistenceRegistry();
             DikeProfileEntity entity1 = dikeProfile.Create(registry, 0);
 
-            // Precondition:
+            // Precondition
             Assert.IsTrue(registry.Contains(dikeProfile));
 
             // Call

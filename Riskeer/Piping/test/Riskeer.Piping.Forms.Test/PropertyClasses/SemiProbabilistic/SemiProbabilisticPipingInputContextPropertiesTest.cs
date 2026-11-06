@@ -1275,7 +1275,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                                                AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                handler);
 
-            // Precondition:
+            // Precondition
             Assert.IsNull(calculation.InputParameters.SurfaceLine);
 
             // Call
@@ -1340,7 +1340,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                                                AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                handler);
 
-            // Precondition:
+            // Precondition
             Assert.IsNotNull(calculation.InputParameters.SurfaceLine);
 
             // Call
