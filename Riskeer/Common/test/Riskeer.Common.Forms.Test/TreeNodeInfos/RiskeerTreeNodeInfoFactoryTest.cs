@@ -267,24 +267,28 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             switch (methodToTest)
             {
                 case DragDropTestMethod.CanDrop:
-
+                {
                     // Call
                     bool canDrop = treeNodeInfo.CanDrop(draggedItemContext, targetGroupContext);
 
                     // Assert
                     Assert.IsTrue(canDrop);
                     break;
+                }
                 case DragDropTestMethod.CanInsert:
-
+                {
                     // Call
                     bool canInsert = treeNodeInfo.CanInsert(draggedItemContext, targetGroupContext);
 
                     // Assert
                     Assert.IsTrue(canInsert);
                     break;
+                }
                 default:
+                {
                     Assert.Fail(methodToTest + " not supported.");
                     break;
+                }
             }
         }
 
@@ -312,24 +316,28 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             switch (methodToTest)
             {
                 case DragDropTestMethod.CanDrop:
-
+                {
                     // Call
                     bool canDrop = treeNodeInfo.CanDrop(draggedItemContext, targetGroupContext);
 
                     // Assert
                     Assert.IsFalse(canDrop);
                     break;
+                }
                 case DragDropTestMethod.CanInsert:
-
+                {
                     // Call
                     bool canInsert = treeNodeInfo.CanInsert(draggedItemContext, targetGroupContext);
 
                     // Assert
                     Assert.IsFalse(canInsert);
                     break;
+                }
                 default:
+                {
                     Assert.Fail(methodToTest + " not supported.");
                     break;
+                }
             }
         }
 
@@ -366,6 +374,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             treeNodeInfo.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewCommands);
 
@@ -412,6 +421,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             treeNodeInfo.OnDrop(draggedItemContext, originalOwnerGroupContext, originalOwnerGroupContext, newIndex, treeViewCommands);
 

@@ -39,6 +39,7 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             Action test = () => new TreeViewContextMenuItemFactory(null, treeViewCommands);
 
@@ -65,6 +66,7 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             Action test = () => new TreeViewContextMenuItemFactory(new object(), treeViewCommands);
 

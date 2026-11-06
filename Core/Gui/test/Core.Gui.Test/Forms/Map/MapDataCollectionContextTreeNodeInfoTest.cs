@@ -438,6 +438,7 @@ namespace Core.Gui.Test.Forms.Map
             parentMapDataCollection.Attach(observer);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             info.OnDrop(context, parentContext, parentContext, position, treeViewCommands);
 
@@ -474,6 +475,7 @@ namespace Core.Gui.Test.Forms.Map
             parentMapDataCollection.Attach(observer);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             Action test = () => info.OnDrop(context, parentContext, parentContext, position, treeViewCommands);
 

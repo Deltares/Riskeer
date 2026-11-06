@@ -248,6 +248,7 @@ namespace Core.Gui.Test.Forms.Chart
             chartDataCollection.Attach(observer);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewCommands);
 
@@ -286,6 +287,7 @@ namespace Core.Gui.Test.Forms.Chart
             chartDataCollection.Attach(observer);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             void Call() => info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewCommands);
 

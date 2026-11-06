@@ -45,6 +45,7 @@ namespace Core.Gui.Test.ContextMenu
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             void Call() => new ContextMenuBuilder(null,
                                                   importCommandHandler,
@@ -68,6 +69,7 @@ namespace Core.Gui.Test.ContextMenu
             var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
             var viewCommands = Substitute.For<IViewCommands>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             void Call() => new ContextMenuBuilder(applicationFeatureCommands,
                                                   null,
@@ -91,6 +93,7 @@ namespace Core.Gui.Test.ContextMenu
             var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
             var viewCommands = Substitute.For<IViewCommands>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             void Call() => new ContextMenuBuilder(applicationFeatureCommands,
                                                   importCommandHandler,
@@ -114,6 +117,7 @@ namespace Core.Gui.Test.ContextMenu
             var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
             var viewCommands = Substitute.For<IViewCommands>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             void Call() => new ContextMenuBuilder(applicationFeatureCommands,
                                                   importCommandHandler,
@@ -137,6 +141,7 @@ namespace Core.Gui.Test.ContextMenu
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             void Call() => new ContextMenuBuilder(applicationFeatureCommands,
                                                   importCommandHandler,
@@ -161,6 +166,7 @@ namespace Core.Gui.Test.ContextMenu
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             void Call() => new ContextMenuBuilder(applicationFeatureCommands,
                                                   importCommandHandler,
@@ -209,6 +215,7 @@ namespace Core.Gui.Test.ContextMenu
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             // Call
             void Call() => new ContextMenuBuilder(applicationFeatureCommands,
                                                   importCommandHandler,
