@@ -217,6 +217,7 @@ namespace Core.Components.BruTile.IO.Test
                 fetcher.TileReceived += (sender, args) => fetcherFiredAsyncEvent.Set();
                 fetcher.QueueEmpty += (sender, args) => fetcherFiredAsyncEvent.Set();
 
+                // Call
                 byte[] fetchedData = fetcher.GetTile(info);
 
                 // Assert
@@ -248,6 +249,7 @@ namespace Core.Components.BruTile.IO.Test
                 fetcher.TileReceived += (sender, args) => fetcherFiredAsyncEvent.Set();
                 fetcher.QueueEmpty += (sender, args) => fetcherFiredAsyncEvent.Set();
 
+                // Call
                 byte[] fetchedData = fetcher.GetTile(info);
 
                 // Assert

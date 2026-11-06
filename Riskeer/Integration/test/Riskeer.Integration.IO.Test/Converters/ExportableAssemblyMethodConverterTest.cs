@@ -37,7 +37,7 @@ namespace Riskeer.Integration.IO.Test.Converters
             // Setup
             const AssemblyMethod assemblyMethod = (AssemblyMethod) 999;
 
-            // ExportableAssemblyMethodFactory
+            // Call
             void Call() => ExportableAssemblyMethodConverter.ConvertTo(assemblyMethod);
 
             // Assert

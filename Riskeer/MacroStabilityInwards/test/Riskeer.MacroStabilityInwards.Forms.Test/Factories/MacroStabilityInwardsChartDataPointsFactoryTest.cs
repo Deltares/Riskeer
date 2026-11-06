@@ -867,6 +867,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
                 new Point3D(10, 7, 7)
             });
 
+            // Call
             IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert

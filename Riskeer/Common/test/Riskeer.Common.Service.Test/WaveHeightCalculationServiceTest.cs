@@ -136,6 +136,7 @@ namespace Riskeer.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
+                // Call
                 new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocationCalculation,
                                                              calculationSettings,
                                                              targetProbability,
@@ -177,6 +178,7 @@ namespace Riskeer.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
+                // Call
                 Action call = () => new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocationCalculation,
                                                                                  CreateCalculationSettings(),
                                                                                  1.0 / 30,
@@ -231,6 +233,7 @@ namespace Riskeer.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
+                // Call
                 Action call = () =>
                 {
                     new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocationCalculation,

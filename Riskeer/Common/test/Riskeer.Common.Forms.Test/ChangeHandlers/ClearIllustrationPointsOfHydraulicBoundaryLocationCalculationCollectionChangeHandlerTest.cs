@@ -68,7 +68,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var inquiryHelper = Substitute.For<IInquiryHelper>();
-            // Cal
+
+            // Call
             var handler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper, string.Empty, Enumerable.Empty<IObservable>);
 

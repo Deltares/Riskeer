@@ -149,6 +149,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             using (var view = new HeightStructuresCalculationsView(new CalculationGroup(), new HeightStructuresFailureMechanism(), assessmentSection))
             {
+                // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert

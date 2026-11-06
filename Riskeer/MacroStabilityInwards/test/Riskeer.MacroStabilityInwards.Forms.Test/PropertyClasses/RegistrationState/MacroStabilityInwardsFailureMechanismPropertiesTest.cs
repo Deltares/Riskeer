@@ -161,7 +161,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.RegistrationS
 
             var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
 
-            // Assert
+            // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));

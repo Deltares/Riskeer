@@ -34,6 +34,8 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         {
             // Setup
             var referencePoint = new Point2D(2.2, 3.3);
+
+            // Call
             var profileLocation = new ProfileLocation("id", "name", 1.1, referencePoint);
 
             // Assert
@@ -48,6 +50,8 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         {
             // Setup
             var referencePoint = new Point2D(2.2, 3.3);
+
+            // Call
             var profileLocation = new ProfileLocation("id", null, 1.1, referencePoint);
 
             // Assert

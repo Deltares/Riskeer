@@ -152,6 +152,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (var calculationsView = new GrassCoverErosionInwardsCalculationsView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
             {
+                // Call
                 bool closeForData = info.CloseForData(calculationsView, assessmentSection);
 
                 // Assert
@@ -167,6 +168,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (var calculationsView = new GrassCoverErosionInwardsCalculationsView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
             {
+                // Call
                 bool closeForData = info.CloseForData(calculationsView, assessmentSection);
 
                 // Assert

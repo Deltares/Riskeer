@@ -865,6 +865,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
+            // Call
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             // Assert
@@ -913,6 +914,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
+            // Call
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children.First();

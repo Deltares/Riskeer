@@ -110,6 +110,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, shapeFileName);
 
+            // Call
             Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
@@ -143,6 +144,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             string validFilePath = Path.Combine(testDataPath, shapeFileName);
 
+            // Call
             Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert
@@ -161,6 +163,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             string validFilePath = Path.Combine(testDataPath, shapeFileName);
 
+            // Call
             Action call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert

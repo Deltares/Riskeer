@@ -79,6 +79,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             ValueCriterion valueCriterion = ValueCriterionTestFactory.CreateValueCriterion();
             var categoryTheme = new PointCategoryTheme(valueCriterion, new PointStyle());
 
+            // Call
             var properties = new PointCategoryThemeProperties(categoryTheme, attributeName, new MapPointData("Name"));
 
             // Assert

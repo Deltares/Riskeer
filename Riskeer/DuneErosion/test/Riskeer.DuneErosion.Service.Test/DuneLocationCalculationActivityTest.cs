@@ -324,6 +324,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
+                // Call
                 void Call() => activity.Run();
 
                 // Assert

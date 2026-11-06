@@ -72,6 +72,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
             ValueCriterion valueCriterion = ValueCriterionTestFactory.CreateValueCriterion();
             var categoryTheme = new PolygonCategoryTheme(valueCriterion, new PolygonStyle());
 
+            // Call
             var properties = new PolygonCategoryThemeProperties(categoryTheme, attributeName, new MapPolygonData("Name"));
 
             // Assert
