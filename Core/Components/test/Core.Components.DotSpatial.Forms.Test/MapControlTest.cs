@@ -2087,9 +2087,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Test]
         public void GivenMapControlWithBackgroundData_WhenMapDataNotifiesChange_ThenAllLayersReused()
         {
+            // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
-            // Given
             using (var mapControl = new MapControl
             {
                 BackgroundMapData = backgroundMapData
@@ -2120,9 +2120,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Test]
         public void GivenMapControlWithBackgroundData_WhenMapDataRemoved_ThenCorrespondingLayerRemovedAndOtherLayersReused()
         {
+            // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
-            // Given
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var mapControl = new MapControl
@@ -2162,9 +2162,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Test]
         public void GivenMapControlWithBackgroundData_WhenMapDataAdded_ThenCorrespondingLayerAddedAndOtherLayersReused()
         {
+            // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
-            // Given
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var mapControl = new MapControl
@@ -2203,9 +2203,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Test]
         public void GivenMapControlWithBackgroundData_WhenMapDataMoved_ThenCorrespondingLayerMovedAndAllLayersReused()
         {
+            // Given
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
-            // Given
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var mapControl = new MapControl

@@ -613,7 +613,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         [Test]
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateEntryAndExitPointClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
-            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             // Given
             CreateCalculationWithSurfaceLine(out ProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
 
@@ -634,6 +633,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
@@ -656,7 +656,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         [Test]
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
-            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             // Given
             CreateCalculationWithSurfaceLine(out ProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
             calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
@@ -677,6 +676,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             calculation.Attach(calculationObserver);
 
             var gui = Substitute.For<IGui>();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             plugin.Gui = gui;
 
@@ -711,7 +711,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         [Test]
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateEntryAndExitPointClickedAndContinued_ThenInquiryAndCalculationUpdatedAndObserversNotified()
         {
-            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             // Given
             CreateCalculationWithSurfaceLine(out ProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine);
             calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints();
@@ -732,6 +731,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             calculation.Attach(calculationObserver);
 
             var gui = Substitute.For<IGui>();
+            var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             plugin.Gui = gui;
 

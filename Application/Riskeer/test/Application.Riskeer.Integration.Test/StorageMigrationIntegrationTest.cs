@@ -50,10 +50,10 @@ namespace Application.Riskeer.Integration.Test
         [Apartment(ApartmentState.STA)]
         public void GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_ThenMigratedProjectSet(string sourceFilePath)
         {
+            // Given
             string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_ThenMigratedProjectSet));
             MigrateFile(sourceFilePath, targetFilePath);
 
-            // Given
             var projectStore = new StorageSqLite();
             var inquiryHelper = Substitute.For<IInquiryHelper>();
 

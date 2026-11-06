@@ -663,10 +663,11 @@ namespace Core.Gui.Test
         [Test]
         public void Run_WithPlugins_SetGuiAndActivatePlugins()
         {
+            // Setup
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
-            // Setup
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 var plugin = new TestPlugin();
@@ -683,13 +684,13 @@ namespace Core.Gui.Test
         [Test]
         public void Run_WithPluginThatThrowsExceptionWhenActivated_PluginDeactivatedAndDisposed()
         {
+            // Setup
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var plugin = Substitute.For<PluginBase>();
             plugin.When(p => p.Activate()).Throw(new Exception("ERROR!"));
-            
-            // Setup
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin);
@@ -706,6 +707,7 @@ namespace Core.Gui.Test
         [Test]
         public void Run_WithPluginThatThrowsExceptionWhenActivatedAndDeactivated_LogsErrorForDeactivatingThenDisposed()
         {
+            // Setup
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var plugin = Substitute.For<PluginBase>();
@@ -713,7 +715,6 @@ namespace Core.Gui.Test
             plugin.When(p => p.Deactivate()).Throw(new Exception("MORE ERROR!"));
             var projectFactory = Substitute.For<IProjectFactory>();
 
-            // Setup
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin);
