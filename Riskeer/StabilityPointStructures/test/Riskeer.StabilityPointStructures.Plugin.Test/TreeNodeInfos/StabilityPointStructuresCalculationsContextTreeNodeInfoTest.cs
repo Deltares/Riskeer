@@ -782,8 +782,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             unaffectedCalculationObserver.DidNotReceive().UpdateObserver();
         }
 
-        public override void Setup() {}
-
         private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresFailureMechanismContext));

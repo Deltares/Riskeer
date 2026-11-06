@@ -871,8 +871,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 .SetName("MaximumAllowableFloodingProbabilityCalculationsProbabilitiesDifferent");
         }
 
-        public override void Setup() {}
-
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaterLevelCalculationsForNormTargetProbabilityContext));
