@@ -111,6 +111,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         [TestCase(11, false)]
         public void Read_ValidFileWithUsePreprocessClosureColumn_ExpectedValues(int trackId, bool expectedUsePreprocessorClosure)
         {
+            // Setup
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithPreprocessorClosureColumn.sqlite");
 
             using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
@@ -126,6 +127,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         [Test]
         public void Read_InvalidFileWithUsePreprocessClosureColumn_ThrowsLineParseException()
         {
+            // Setup
             string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithInvalidPreprocessorClosureColumn.sqlite");
 
             using (var hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))

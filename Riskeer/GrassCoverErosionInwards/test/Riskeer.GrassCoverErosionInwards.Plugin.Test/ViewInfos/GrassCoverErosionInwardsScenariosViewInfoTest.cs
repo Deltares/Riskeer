@@ -151,6 +151,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
         {
+            // Setup
             using (var view = new GrassCoverErosionInwardsScenariosView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism()))
             {
                 // Call

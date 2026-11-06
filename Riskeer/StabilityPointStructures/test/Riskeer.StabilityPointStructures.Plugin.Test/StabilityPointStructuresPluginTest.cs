@@ -198,6 +198,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
         [Test]
         public void GetUpdateInfos_ReturnSupportedUpdateInfos()
         {
+            // Setup
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 // Call

@@ -83,6 +83,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
+            // Setup
             var hydraulicBoundaryData = new HydraulicBoundaryData();
 
             // Call

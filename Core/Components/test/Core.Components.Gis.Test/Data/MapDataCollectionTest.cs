@@ -267,6 +267,7 @@ namespace Core.Components.Gis.Test.Data
         [Test]
         public void GetVisibility_WithMixedCollectionAsChild_ReturnsMixed()
         {
+            // Setup
             var nestedCollection = new MapDataCollection("test");
             nestedCollection.Add(new TestMapData());
             nestedCollection.Add(new TestMapData

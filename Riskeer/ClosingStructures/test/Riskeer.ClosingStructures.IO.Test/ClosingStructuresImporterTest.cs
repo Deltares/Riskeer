@@ -440,6 +440,7 @@ namespace Riskeer.ClosingStructures.IO.Test
         [Test]
         public void DoPostImport_UpdateStrategyReturningObservables_AllObservablesNotified()
         {
+            // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var observableA = Substitute.For<IObservable>();
             var observableB = Substitute.For<IObservable>();

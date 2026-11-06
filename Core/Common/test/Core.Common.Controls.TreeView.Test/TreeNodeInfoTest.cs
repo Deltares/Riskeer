@@ -239,6 +239,7 @@ namespace Core.Common.Controls.TreeView.Test
         [Test]
         public void ImplicitOperator_WithNoMethodsSet_InfoFullyConverted()
         {
+            // Setup
             var genericTreeNodeInfo = new TreeNodeInfo<int>();
 
             // Precondition

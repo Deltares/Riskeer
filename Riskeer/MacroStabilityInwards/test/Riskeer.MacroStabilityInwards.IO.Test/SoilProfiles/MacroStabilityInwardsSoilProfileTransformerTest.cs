@@ -171,6 +171,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
         [Test]
         public void Transform_SoilProfile2DWithInvalidPreconsolidationStress_ThrowsImportedDataException()
         {
+            // Setup
             var random = new Random(21);
             var preconsolidationStress = new PreconsolidationStress
             {

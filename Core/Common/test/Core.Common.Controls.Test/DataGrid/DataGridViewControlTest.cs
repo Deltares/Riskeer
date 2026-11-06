@@ -423,6 +423,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void AddComboBoxColumn_DataSourceValueMemberAndDisplayMemberNull_AddsColumnToDataGridViewWithoutDataSourceValueMemberAndDisplayMember()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -457,6 +458,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void AddComboBoxColumn_DataSourceValueMemberAndDisplayMemberSet_AddsColumnToDataGridViewWithDataSourceValueMemberAndDisplayMember()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -626,6 +628,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void RefreshDataGridView_ShouldAutoResizeTrueAndLongerText_IncreasesColumnWidth()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -657,6 +660,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void RefreshDataGridView_ShouldAutoResizeTrueAndShorterText_DecreasesColumnWidth()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -688,6 +692,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void RefreshDataGridView_ShouldAutoResizeFalseAndLongerText_SameColumnWidth()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -777,6 +782,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void AutoResizeColumns_AddLongerText_IncreasesColumnWidth()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -808,6 +814,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void AutoResizeColumns_AddShorterText_DecreasesColumnWidth()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -839,6 +846,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void AutoResizeColumn_AddLongerText_IncreasesColumnWidth()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -873,6 +881,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void AutoResizeColumn_AddShorterText_DecreasesColumnWidth()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {

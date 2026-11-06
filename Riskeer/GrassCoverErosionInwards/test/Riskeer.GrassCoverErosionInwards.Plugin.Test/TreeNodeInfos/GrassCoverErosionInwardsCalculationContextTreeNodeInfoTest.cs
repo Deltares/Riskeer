@@ -112,6 +112,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         [TestCase(false)]
         public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
         {
+            // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculationScenario

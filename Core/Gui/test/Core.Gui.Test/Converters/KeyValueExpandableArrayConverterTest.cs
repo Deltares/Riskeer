@@ -103,6 +103,7 @@ namespace Core.Gui.Test.Converters
         [Test]
         public void GetProperties_WithoutContext_ThrowsArgumentException()
         {
+            // Setup
             var converter = new KeyValueExpandableArrayConverter();
 
             // Call
@@ -116,6 +117,7 @@ namespace Core.Gui.Test.Converters
         [Test]
         public void GetProperties_WithoutPropertyDescriptor_ThrowsArgumentException()
         {
+            // Setup
             var context = Substitute.For<ITypeDescriptorContext>();
 
             var converter = new KeyValueExpandableArrayConverter();
@@ -131,6 +133,7 @@ namespace Core.Gui.Test.Converters
         [Test]
         public void GetProperties_WithoutKeyValueElementAttribute_ThrowsArgumentException()
         {
+            // Setup
             var context = Substitute.For<ITypeDescriptorContext>();
 
             var converter = new KeyValueExpandableArrayConverter();

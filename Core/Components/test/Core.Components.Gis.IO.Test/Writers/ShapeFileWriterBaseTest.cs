@@ -131,6 +131,7 @@ namespace Core.Components.Gis.IO.Test.Writers
         [Test]
         public void SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
+            // Setup
             string directoryPath = TestHelper.GetScratchPadPath(nameof(SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException));
             string filePath = Path.Combine(directoryPath, "test.shp");
 

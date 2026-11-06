@@ -58,6 +58,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.SetDuneLocations(new[]
             {

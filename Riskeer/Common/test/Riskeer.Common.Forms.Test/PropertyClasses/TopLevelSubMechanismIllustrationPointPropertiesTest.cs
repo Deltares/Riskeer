@@ -152,6 +152,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
+            // Setup
             var random = new Random(21);
             double beta = random.NextDouble();
             var stochasts = new[]

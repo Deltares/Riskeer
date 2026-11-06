@@ -68,6 +68,7 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         public void ReadAsPipingSurfaceLine_PointsXmlEmpty_ThrowsArgumentException()
         {
+            // Setup
             var entity = new SurfaceLineEntity
             {
                 Name = "surface line",
@@ -383,6 +384,7 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         public void ReadAsMacroStabilityInwardsSurfaceLine_PointsXmlEmpty_ThrowsArgumentException()
         {
+            // Setup
             var entity = new SurfaceLineEntity
             {
                 Name = "surface line",

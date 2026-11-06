@@ -42,6 +42,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         [Test]
         public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
+            // Setup
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
 
             // Call

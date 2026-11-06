@@ -183,6 +183,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         public void CreateClearAllCalculationOutputInGroupItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
         {
+            // Setup
             var messageBoxText = "";
             var messageBoxTitle = "";
             var calculationWithOutput1 = Substitute.For<ICalculation>();
@@ -237,6 +238,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         public void CreateClearAllCalculationOutputInGroupItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
+            // Setup
             var calculationWithOutput1 = Substitute.For<ICalculation>();
             var calculationWithOutput2 = Substitute.For<ICalculation>();
             var calculationWithoutOutput = Substitute.For<ICalculation>();
@@ -487,6 +489,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         public void CreateClearCalculationOutputItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
         {
+            // Setup
             var messageBoxText = "";
             var messageBoxTitle = "";
             var calculationWithOutput = Substitute.For<ICalculation>();
@@ -516,6 +519,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         public void CreateClearCalculationOutputItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
+            // Setup
             var calculationWithOutput = Substitute.For<ICalculation>();
 
             calculationWithOutput.HasOutput.Returns(true);

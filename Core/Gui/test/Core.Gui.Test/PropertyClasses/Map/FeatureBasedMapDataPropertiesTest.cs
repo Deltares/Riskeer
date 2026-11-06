@@ -384,6 +384,7 @@ namespace Core.Gui.Test.PropertyClasses.Map
         [Test]
         public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsTrue()
         {
+            // Setup
             var mapData = new TestFeatureBasedMapData
             {
                 Features = new[]

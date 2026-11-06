@@ -1094,6 +1094,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCaseSource(nameof(GetPerformFailureMechanismAssemblyTestCases))]
         public void GivenFailureMechanismResultViewWithAssemblyErrorAndProbabilityTypeManual_WhenProbabilityTypeSetToNotManual_ThenErrorCleared(FailureMechanismAssemblyProbabilityResultType failureMechanismAssemblyProbabilityResultType)
         {
+            // Given
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =

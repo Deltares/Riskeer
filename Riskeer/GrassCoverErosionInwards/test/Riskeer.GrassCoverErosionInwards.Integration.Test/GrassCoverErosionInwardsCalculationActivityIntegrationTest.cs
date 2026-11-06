@@ -93,6 +93,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         public void Run_CombinationOfCalculations_ProgressTextSetAccordingly([Values(true, false)] bool shouldDikeHeightBeCalculated,
                                                                              [Values(true, false)] bool shouldOvertoppingRateBeCalculated)
         {
+            // Setup
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestOvertoppingCalculator());
             calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(new TestHydraulicLoadsCalculator());

@@ -113,6 +113,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         [TestCase(false)]
         public void ChildNodeObjects_Always_ReturnsChildrenOfData(bool hasOutput)
         {
+            // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var parent = new CalculationGroup();

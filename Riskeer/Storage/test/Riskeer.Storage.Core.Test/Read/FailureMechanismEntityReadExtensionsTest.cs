@@ -1615,6 +1615,7 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         public void ReadAsMacroStabilityInwardsFailureMechanism_WithCalculationsAndGroups_ReturnFailureMechanismWithCalculationAndGroups()
         {
+            // Setup
             var entity = new FailureMechanismEntity
             {
                 MacroStabilityInwardsFailureMechanismMetaEntities =

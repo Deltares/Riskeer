@@ -56,6 +56,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         [Test]
         public void LowerBoundary_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces()
         {
+            // Setup
             const double value = 1.23456789;
             const int numberOfDecimalPlaces = 4;
             var distribution = new TruncatedNormalDistribution(numberOfDecimalPlaces);
@@ -71,6 +72,7 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         [Test]
         public void UpperBoundary_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces()
         {
+            // Setup
             const double value = 1.23456789;
             const int numberOfDecimalPlaces = 4;
             var distribution = new TruncatedNormalDistribution(numberOfDecimalPlaces);

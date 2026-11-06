@@ -98,6 +98,7 @@ namespace Core.Gui.Test.UITypeEditors
         [Test]
         public void EditValue_NullItem_ReturnsNull()
         {
+            // Setup
             var nullItem = new object();
             var editor = new TestSelectionEditor(nullItem);
 

@@ -122,6 +122,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
+            // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
             var calculation = new ProbabilisticPipingCalculationScenario();

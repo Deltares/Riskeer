@@ -206,6 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [Test]
         public void AddHydraulicBoundaryDatabaseWithReadData_HrdLocationIdsNotInHlcdLocationIds_ThenLocationsNotAdded()
         {
+            // Setup
             var duneLocationsUpdateHandler = Substitute.For<IDuneLocationsUpdateHandler>();
             const string hrdFilePath = "some/file/path";
             AssessmentSection assessmentSection = CreateAssessmentSection();

@@ -137,6 +137,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
         {
+            // Setup
             using (var view = new HeightStructuresScenariosView(new CalculationGroup(), new HeightStructuresFailureMechanism()))
             {
                 // Call

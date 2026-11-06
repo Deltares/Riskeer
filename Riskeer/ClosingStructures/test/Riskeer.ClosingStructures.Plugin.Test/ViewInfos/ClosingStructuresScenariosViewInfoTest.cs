@@ -89,6 +89,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
         {
+            // Setup
             using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism()))
             {
                 // Call

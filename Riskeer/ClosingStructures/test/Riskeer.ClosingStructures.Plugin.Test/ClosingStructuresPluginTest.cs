@@ -198,6 +198,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
         [Test]
         public void GetUpdateInfos_ReturnSupportedUpdateInfos()
         {
+            // Setup
             using (var plugin = new ClosingStructuresPlugin())
             {
                 // Call

@@ -47,6 +47,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
         [Test]
         public void Render_NoContext_ThrowsArgumentNullException()
         {
+            // Setup
             var series = new MultipleLineSeries();
 
             // Call

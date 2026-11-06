@@ -198,6 +198,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         [Test]
         public void CreateRows_WithAllData_RowsAddedToStackChartData()
         {
+            // Setup
             var stackChartData = new StackChartData();
 
             const string windDirectionName = "SSE";

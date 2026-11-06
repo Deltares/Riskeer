@@ -82,6 +82,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Apartment(ApartmentState.STA)]
         public void Constructor_MapCorrectlyInitialized()
         {
+            // Setup
             using (var form = new Form())
             {
                 // Call

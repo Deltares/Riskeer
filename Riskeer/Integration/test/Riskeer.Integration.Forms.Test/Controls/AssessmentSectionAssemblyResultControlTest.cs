@@ -91,6 +91,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
         [Test]
         public void SetAssemblyResult_ResultNull_ThrowsArgumentNullException()
         {
+            // Setup
             using (var resultControl = new AssessmentSectionAssemblyResultControl())
             {
                 // Call

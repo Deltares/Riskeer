@@ -137,6 +137,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
         {
+            // Setup
             using (var view = new StabilityPointStructuresScenariosView(new CalculationGroup(), new StabilityPointStructuresFailureMechanism()))
             {
                 // Call

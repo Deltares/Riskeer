@@ -90,6 +90,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
         [TestCaseSource(nameof(GetInvalidDoubleValues))]
         public void GetMacroStabilityInwardsLocationInputConfiguration_DescendantElementNoValidDouble_ThrowException(string doubleValue, Type exceptionType)
         {
+            // Setup
             var element = new XElement("Root", new XElement("dagelijks", new XElement("polderpeil", doubleValue)));
 
             // Call
@@ -103,6 +104,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
         [TestCaseSource(nameof(GetInvalidBoolValues))]
         public void GetMacroStabilityInwardsLocationInputConfiguration_DescendantElementNoValidBool_ThrowException(string boolValue, Type exceptionType)
         {
+            // Setup
             var element = new XElement("Root", new XElement("dagelijks", new XElement("gebruikdefaults", boolValue)));
 
             // Call
@@ -329,6 +331,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
         [TestCaseSource(nameof(GetInvalidDoubleValues))]
         public void GetMacroStabilityInwardsLocationInputExtremeConfiguration_DescendantElementNoValidDouble_ThrowException(string doubleValue, Type exceptionType)
         {
+            // Setup
             var element = new XElement("Root", new XElement("extreem", new XElement("polderpeil", doubleValue)));
 
             // Call
@@ -342,6 +345,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
         [TestCaseSource(nameof(GetInvalidBoolValues))]
         public void GetMacroStabilityInwardsLocationInputExtremeConfiguration_DescendantElementNoValidBool_ThrowException(string boolValue, Type exceptionType)
         {
+            // Setup
             var element = new XElement("Root", new XElement("extreem", new XElement("gebruikdefaults", boolValue)));
 
             // Call
