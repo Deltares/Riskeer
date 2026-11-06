@@ -294,7 +294,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             // Setup
             const string urnCode = "urn:ogc:def:crs:EPSG:6.18.3:3857";
             IConfiguration configuration = CreateStubConfiguration(urnCode);
- 
+
             // Call
             using (var layer = new BruTileLayer(configuration))
             {

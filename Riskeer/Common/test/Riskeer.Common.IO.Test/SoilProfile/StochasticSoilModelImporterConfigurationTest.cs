@@ -68,7 +68,8 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Setup
             var transformer = Substitute.For<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
             var strategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            // Setup
+
+            // Call
             Action test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, null, strategy);
 
             // Assert
