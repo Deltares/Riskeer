@@ -100,6 +100,7 @@ namespace Riskeer.Migration.Integration.Test
                 // When
                 migrator.Migrate(fromVersionedFile, latestVersion, targetFilePath);
 
+                // Then
                 using (var reader = new MigrationLogDatabaseReader(logFilePath))
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();

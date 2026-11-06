@@ -119,6 +119,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewCommands);
             }
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddOpenItem();

@@ -44,6 +44,7 @@ namespace Core.Gui.Test.PropertyClasses.Chart
             // Call
             var properties = new TestChartDataProperties();
 
+            // Assert
             Assert.IsInstanceOf<ObjectProperties<ChartData>>(properties);
             Assert.IsNull(properties.Data);
         }

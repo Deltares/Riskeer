@@ -239,6 +239,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.RegistrationState
             // Call
             info.ContextMenuStrip(context, null, treeViewCommands);
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());

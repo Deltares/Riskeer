@@ -558,6 +558,7 @@ namespace Riskeer.Common.Data.Test.UpdateDataStrategies
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(importedItems,
                                                                                    "path");
 
+            // Assert
             IEnumerable<IObservable> expectedAffectedObjects = new IObservable[]
             {
                 collection,

@@ -190,6 +190,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.RegistrationStat
             // Call
             info.ContextMenuStrip(context, null, treeViewCommands);
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddOpenItem();
@@ -231,6 +232,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.RegistrationStat
             // Call
             info.ContextMenuStrip(context, null, treeViewCommands);
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>());

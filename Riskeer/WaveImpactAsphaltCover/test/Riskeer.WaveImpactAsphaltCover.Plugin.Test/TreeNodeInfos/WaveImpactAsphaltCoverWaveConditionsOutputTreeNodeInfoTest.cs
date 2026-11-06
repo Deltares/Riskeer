@@ -124,6 +124,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(output, null, treeViewCommands);
             }
 
+            // Assert
             Received.InOrder(() =>
             {
                 menuBuilder.AddPropertiesItem();

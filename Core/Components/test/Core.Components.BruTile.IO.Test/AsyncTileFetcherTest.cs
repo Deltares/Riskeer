@@ -428,6 +428,7 @@ namespace Core.Components.BruTile.IO.Test
                     // Call
                     fetcher.DropAllPendingTileRequests();
 
+                    // Assert
                     Assert.IsFalse(fetcherIsDoneEvent.WaitOne(allowedTileFetchTime),
                                    "TileFetcher should have dropped request.");
                 }
