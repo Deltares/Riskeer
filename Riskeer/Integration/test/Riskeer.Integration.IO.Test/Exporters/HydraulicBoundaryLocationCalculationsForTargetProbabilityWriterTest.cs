@@ -130,6 +130,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     }
                 }
             });
+
             // Precondition
             FileTestHelper.AssertEssentialShapefilesExist(directoryPath, fileName, false);
 

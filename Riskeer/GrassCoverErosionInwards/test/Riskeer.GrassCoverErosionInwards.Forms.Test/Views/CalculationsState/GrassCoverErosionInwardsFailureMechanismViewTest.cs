@@ -249,6 +249,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // Precondition
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
 
@@ -285,6 +286,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // Precondition
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
@@ -319,6 +321,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             MapData dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // Precondition
             AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
 
@@ -354,6 +357,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             MapData dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // Precondition
             AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
 
@@ -391,6 +395,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.CalculationsState
 
             MapData dikeProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
             IObserver[] observers = AttachMapDataObservers(map.Data.Collection);
+
             // Precondition
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
 
