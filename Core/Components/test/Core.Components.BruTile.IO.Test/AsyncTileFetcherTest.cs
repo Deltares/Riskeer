@@ -187,8 +187,10 @@ namespace Core.Components.BruTile.IO.Test
 
                 fetcherFiredAsyncEvent.Reset();
 
-                // Assert
+                // Call
                 fetchedData = fetcher.GetTile(info);
+
+                // Assert
                 Assert.AreSame(data, fetchedData);
 
                 if (fetcherFiredAsyncEvent.WaitOne(allowedTileFetchTime))
