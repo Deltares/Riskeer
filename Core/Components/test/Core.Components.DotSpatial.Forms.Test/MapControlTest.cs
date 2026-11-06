@@ -2594,9 +2594,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Apartment(ApartmentState.STA)]
         public void SelectionZoom_MouseUp_DefaultCursorSet()
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
@@ -2618,9 +2618,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Apartment(ApartmentState.STA)]
         public void SelectionZoom_LeftMouseDown_SizeNWSECursorSet()
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
@@ -2644,9 +2644,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [TestCase(MouseButtons.Middle)]
         public void SelectionZoom_OtherThanMouseLeftDownAndMapNotBusy_DefaultCursorSet(MouseButtons mouseButton)
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
@@ -2668,9 +2668,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Apartment(ApartmentState.STA)]
         public void SelectionZoom_Activated_DefaultCursorSet()
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
@@ -2694,9 +2694,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [TestCase(MouseButtons.Middle)]
         public void SelectionZoom_OtherThanMouseLeftDownAndMapBusy_SizeNWSECursorSet(MouseButtons mouseButton)
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
@@ -2723,9 +2723,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Apartment(ApartmentState.STA)]
         public void Panning_MouseUp_DefaultCursorSet()
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
@@ -2747,9 +2747,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Apartment(ApartmentState.STA)]
         public void Panning_Activated_DefaultCursorSet()
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
@@ -2771,9 +2771,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Apartment(ApartmentState.STA)]
         public void Panning_LeftMouseDown_HandCursorSet()
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
@@ -2795,9 +2795,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Apartment(ApartmentState.STA)]
         public void Panning_MiddleMouseDown_HandCursorSet()
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
@@ -2819,9 +2819,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Apartment(ApartmentState.STA)]
         public void Panning_RightMouseDown_DefaultCursorSet()
         {
+            // Setup
             using (var form = new Form())
             {
-                // Setup
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
