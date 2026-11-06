@@ -145,7 +145,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             };
 
             // Call
-
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel(segmentSoilModelName, geometry, stochasticSoilProfiles);
 
             // Assert

@@ -108,7 +108,6 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
                 var isExported = true;
 
                 // Call
-
                 Action call = () => isExported = exporter.Export();
 
                 // Assert
