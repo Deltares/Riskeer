@@ -251,9 +251,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
+                // Assert
                 Assert.AreEqual(18, contextMenu.Items.Count);
 
-                // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                               contextMenuDuplicateIndex,
                                                               "D&upliceren",
