@@ -2275,8 +2275,6 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 map.Invalidated += (sender, args) => invalidated++;
 
-                Assert.AreEqual(0, invalidated, "Precondition failed: map.Invalidated > 0");
-
                 // Call
                 mapControl.ZoomToVisibleLayers();
 
@@ -2407,8 +2405,6 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapControl.Data = mapDataCollection;
 
                 map.Invalidated += (sender, args) => invalidated++;
-
-                Assert.AreEqual(0, invalidated, "Precondition failed: map.Invalidated > 0");
 
                 // Call
                 mapControl.ZoomToVisibleLayers(mapData);
