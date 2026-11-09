@@ -525,6 +525,10 @@ namespace Riskeer.Piping.Forms.Test.Views
                 var dikeToeAtPolderData = (ChartPointData) chartDataList[updatedDikeToeAtPolderIndex];
                 var dikeToeAtRiverData = (ChartPointData) chartDataList[updatedDikeToeAtRiverIndex];
 
+                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                calculation.InputParameters.SurfaceLine = surfaceLine;
+
+                // Precondition
                 Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
                 Assert.AreEqual("Profielschematisatie", surfaceLineData.Name);
                 Assert.AreEqual("Intredepunt", entryPointData.Name);
@@ -535,9 +539,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual("Slootbodem polderzijde", bottomDitchPolderSideData.Name);
                 Assert.AreEqual("Teen dijk binnenwaarts", dikeToeAtPolderData.Name);
                 Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
-
-                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                calculation.InputParameters.SurfaceLine = surfaceLine;
 
                 // Call
                 calculation.InputParameters.NotifyObservers();

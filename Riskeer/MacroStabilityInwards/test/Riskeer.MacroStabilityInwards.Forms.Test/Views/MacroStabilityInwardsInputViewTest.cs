@@ -531,6 +531,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var waternetZonesExtremeData = (ChartDataCollection) chartDataList[updatedWaternetZonesExtremeIndex];
                 var waternetZonesDailyData = (ChartDataCollection) chartDataList[updatedWaternetZonesDailyIndex];
 
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                calculation.InputParameters.SurfaceLine = surfaceLine;
+
+                // Precondition
                 Assert.AreEqual("Profielschematisatie", surfaceLineData.Name);
                 Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
                 Assert.AreEqual("Maaiveld binnenwaarts", surfaceLevelInsideData.Name);
@@ -550,9 +554,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Rechter grid", rightGridData.Name);
                 Assert.AreEqual("Zones extreem", waternetZonesExtremeData.Name);
                 Assert.AreEqual("Zones dagelijks", waternetZonesDailyData.Name);
-
-                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                calculation.InputParameters.SurfaceLine = surfaceLine;
 
                 // Call
                 calculation.InputParameters.NotifyObservers();
