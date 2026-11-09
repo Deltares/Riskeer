@@ -79,6 +79,11 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             SetActiveView(avalonDockViewHost, testView1);
 
+            avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
+            avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
+            avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
+
+            // Precondition
             CollectionAssert.AreEqual(
                 new[]
                 {
@@ -86,10 +91,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                     testView4
                 },
                 avalonDockViewHost.ToolViews);
-
-            avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
-            avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
-            avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
 
             // Call
             avalonDockViewHost.Dispose();
@@ -204,6 +205,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                 var viewOpenedCounter = 0;
                 avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
 
+                // Precondition
                 CollectionAssert.AreEqual(
                     new[]
                     {

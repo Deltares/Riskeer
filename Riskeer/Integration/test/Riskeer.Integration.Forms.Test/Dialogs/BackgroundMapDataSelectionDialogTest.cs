@@ -319,6 +319,8 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 wellKnownDataGridViewControl.ClearCurrentCell();
 
                 var button = (Button) new ButtonTester("selectButton", dialog).TheObject;
+
+                // Precondition
                 Assert.IsFalse(button.Enabled);
 
                 // When

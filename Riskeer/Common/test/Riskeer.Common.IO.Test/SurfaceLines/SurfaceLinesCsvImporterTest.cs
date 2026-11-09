@@ -443,9 +443,10 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
             bool importResult = importer.Import();
-            Assert.IsFalse(importResult);
-
             importer.SetProgressChanged(null);
+
+            // Precondition
+            Assert.IsFalse(importResult);
 
             // Call
             importResult = importer.Import();

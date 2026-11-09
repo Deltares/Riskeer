@@ -593,8 +593,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
-            Assert.IsFalse(importer.Import());
+            bool importResult = importer.Import();
             importer.SetProgressChanged(null);
+
+            // Precondition
+            Assert.IsFalse(importResult);
 
             // Call
             var importSuccessful = false;
