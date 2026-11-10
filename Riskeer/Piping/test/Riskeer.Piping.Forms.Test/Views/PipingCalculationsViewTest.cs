@@ -610,8 +610,6 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
             ConfigureHydraulicBoundaryData(assessmentSection);
-            assessmentSection.Attach(Arg.Any<IObserver>());
-            assessmentSection.Detach(Arg.Any<IObserver>());
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 

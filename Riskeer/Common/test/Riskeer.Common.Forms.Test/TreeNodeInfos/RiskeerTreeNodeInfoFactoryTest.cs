@@ -498,8 +498,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                     break;
             }
 
-            newOwnerObserver.UpdateObserver();
-            originalOwnerObserver.UpdateObserver();
+            newOwnerObserver.Received(1).UpdateObserver();
+            originalOwnerObserver.Received(1).UpdateObserver();
             treeViewCommands.Received(1).TryRenameNodeForData(draggedItemContext);
         }
 

@@ -1753,7 +1753,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Then
-            observable.NotifyObservers();
+            observable.Received(1).NotifyObservers();
             handler.Received(1).ClearIllustrationPoints();
         }
 
