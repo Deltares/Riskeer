@@ -733,7 +733,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             }, calculationScenario);
 
             // Assert
-            Assert.AreEqual(calculationScenario.Contribution, (RoundedDouble) (contribution / 100));
+            Assert.AreEqual((RoundedDouble) (contribution / 100), calculationScenario.Contribution);
             Assert.IsTrue(successful);
         }
 
@@ -755,7 +755,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             // Assert
             Assert.IsTrue(successful);
-            Assert.AreEqual(calculationScenario.IsRelevant, isRelevant);
+            Assert.AreEqual(isRelevant, calculationScenario.IsRelevant);
         }
 
         private class CalculationConfigurationImporter : CalculationConfigurationImporter<CalculationConfigurationReader, ReadCalculation>

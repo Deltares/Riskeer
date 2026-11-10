@@ -446,7 +446,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, actionCounter);
 
-            Assert.AreEqual(failureMechanism.InAssembly, !inAssembly);
+            Assert.AreEqual(!inAssembly, failureMechanism.InAssembly);
             failureMechanism.Received(1).NotifyObservers();
         }
 
