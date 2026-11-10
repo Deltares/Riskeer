@@ -127,7 +127,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(xmlWriter, name, configuration);
             
             // Assert
-            xmlWriter.Received().WriteDistribution(name, configuration);
+            xmlWriter.Received(1).WriteDistribution(name, configuration);
         }
 
         [Test]
@@ -189,7 +189,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(xmlWriter, name, value);
 
             // Assert
-            xmlWriter.Received().WriteElementString(name, value);
+            xmlWriter.Received(1).WriteElementString(name, value);
         }
 
         [Test]
@@ -251,7 +251,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(xmlWriter, name, value);
 
             // Assert
-            xmlWriter.Received().WriteElementString(name, XmlConvert.ToString(value));
+            xmlWriter.Received(1).WriteElementString(name, XmlConvert.ToString(value));
         }
 
         [Test]

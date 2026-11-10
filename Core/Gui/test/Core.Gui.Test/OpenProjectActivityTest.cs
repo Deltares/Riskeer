@@ -599,8 +599,8 @@ namespace Core.Gui.Test
             Assert.AreEqual(ActivityState.Finished, activity.State);
 
             Assert.AreEqual(Path.GetFileNameWithoutExtension(someFilePath), project.Name);
-            project.Received().NotifyObservers();
-            projectOwner.Received().SetProject(project, someFilePath);
+            project.Received(1).NotifyObservers();
+            projectOwner.Received(1).SetProject(project, someFilePath);
         }
 
         [Test]
@@ -641,7 +641,7 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            projectOwner.Received().SetProject(null, null);
+            projectOwner.Received(1).SetProject(null, null);
         }
 
         [Test]
@@ -683,7 +683,7 @@ namespace Core.Gui.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            projectOwner.Received().SetProject(null, null);
+            projectOwner.Received(1).SetProject(null, null);
         }
 
         [Test]

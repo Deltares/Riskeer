@@ -254,7 +254,7 @@ namespace Core.Gui.Test
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.", 1);
             CollectionAssert.IsEmpty(gui.Plugins);
-            plugin.Received().Dispose();
+            plugin.Received(1).Dispose();
         }
 
         [Test]

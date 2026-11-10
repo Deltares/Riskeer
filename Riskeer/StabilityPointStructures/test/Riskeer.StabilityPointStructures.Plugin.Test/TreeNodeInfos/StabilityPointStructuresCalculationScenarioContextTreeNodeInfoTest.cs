@@ -489,8 +489,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             
             if (continuation)
             {
-                calculationObserver.Received().UpdateObserver();
-                calculationInputObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
+                calculationInputObserver.Received(1).UpdateObserver();
             }
             else
             {
@@ -777,8 +777,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             
             if (continuation)
             {
-                calculationObserver.Received().UpdateObserver();
-                calculationInputObserver.Received().UpdateObserver();
+                calculationObserver.Received(1).UpdateObserver();
+                calculationInputObserver.Received(1).UpdateObserver();
             }
             else
             {

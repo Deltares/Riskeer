@@ -565,7 +565,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             riskeerContextMenuBuilder.AddCustomItem(contextMenuItem);
 
             // Assert
-            contextMenuBuilder.Received().AddCustomItem(contextMenuItem);
+            contextMenuBuilder.Received(1).AddCustomItem(contextMenuItem);
         }
 
         [Test]

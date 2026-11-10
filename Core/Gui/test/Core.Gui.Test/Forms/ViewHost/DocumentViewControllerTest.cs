@@ -631,7 +631,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
 
             // Assert
-            viewHost.Received().BringToFront(viewList.First());
+            viewHost.Received(1).BringToFront(viewList.First());
         }
 
         [Test]

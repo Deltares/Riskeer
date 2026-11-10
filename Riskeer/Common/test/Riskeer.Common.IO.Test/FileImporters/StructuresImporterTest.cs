@@ -577,7 +577,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importer.CreateStructuresCalled);
-            updateStrategy.Received().UpdateStructuresWithImportedData(createdStructures, filePath);
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(createdStructures, filePath);
         }
 
         [Test]

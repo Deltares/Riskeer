@@ -130,8 +130,8 @@ namespace Core.Gui.Test.Forms.Log
 
             // Assert
             messageWindow.Received(1).AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
-                                                Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 5)),
-                                                Arg.Is<string>(actualText => actualText == expectedText));
+                                                 Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 5)),
+                                                 Arg.Is<string>(actualText => actualText == expectedText));
         }
 
         [Test]
@@ -161,8 +161,8 @@ namespace Core.Gui.Test.Forms.Log
 
             // Assert
             messageWindow.Received(1).AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
-                                                Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
-                                                Arg.Is<string>(actualText => actualText == messageText));
+                                                 Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
+                                                 Arg.Is<string>(actualText => actualText == messageText));
         }
 
         [Test]
@@ -191,8 +191,8 @@ namespace Core.Gui.Test.Forms.Log
 
             // Assert
             messageWindow.Received(1).AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
-                                                Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
-                                                Arg.Is<string>(actualText => actualText == messageText));
+                                                 Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
+                                                 Arg.Is<string>(actualText => actualText == messageText));
         }
 
         [Test]
@@ -221,8 +221,8 @@ namespace Core.Gui.Test.Forms.Log
 
             // Assert
             messageWindow.Received(1).AddMessage(Arg.Is<Level>(actualLevel => actualLevel == level),
-                                                Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
-                                                Arg.Is<string>(actualText => actualText == expectedText));
+                                                 Arg.Is<DateTime>(time => time - dataTime <= new TimeSpan(0, 0, 0, 0, 2)),
+                                                 Arg.Is<string>(actualText => actualText == expectedText));
         }
 
         [Test]
