@@ -52,10 +52,43 @@ function Get-MsBuildFiles {
         Where-Object { $_.FullName -notmatch $ignoredFolderPattern })
 }
 
-function Get-DependenciesFromMarkdown {
+# Output folders that are not named after the package that provides their content.
+$outputFolderAliases = @{
+    "System.Data.SQLite" = "Stub.System.Data.SQLite.Core.NetStandard"
+}
+
+# Version constants in source code that must match the version in the dependencies file.
+$sourceVersionConstants = @(
+    [PSCustomObject]@{
+        Library  = "Hydra-Ring"
+        Path     = "Riskeer\HydraRing\src\Riskeer.HydraRing.Calculation\HydraRingFileConstants.cs"
+        Constant = "HydraRingVersionNumber"
+    }
+)
+
+# Text that must be present in the license file for each license in the dependencies file.
+# GNU licenses are identified separately, because their texts refer to each other.
+$licenseTextPatterns = @{
+    "Apache-2.0"     = 'Apache License'
+    "BSD-3-Clause"   = 'Neither the name'
+    "MIT"            = 'Permission is hereby granted, free of charge'
+    "MS-NET-Library" = 'MICROSOFT \.NET LIBRARY'
+    "MS-PL"          = 'Microsoft Public License'
+    "MS-RL"          = 'Microsoft Reciprocal License'
+    "Proprietary"    = ''
+    "Public domain"  = 'public domain'
+}
+
+$gnuLicenses = @{
+    ""       = "GPL-3.0"
+    "lesser" = "LGPL-3.0"
+    "affero" = "AGPL-3.0"
+}
+
+function Get-DependencyRowsFromMarkdown {
     param([string]$Path)
 
-    $dependencies = @{}
+    $rows = @()
 
     foreach ($line in Get-Content $Path) {
 
@@ -81,10 +114,40 @@ function Get-DependenciesFromMarkdown {
             continue
         }
 
-        $dependencies[$name.ToLowerInvariant()] = $version
+        $rows += [PSCustomObject]@{
+            Name    = $name
+            Version = $version
+            License = $columns[3]
+        }
+    }
+
+    return $rows
+}
+
+function Get-DependenciesFromMarkdown {
+    param([string]$Path)
+
+    # Keys keep the casing of the dependencies file; lookups are case-insensitive.
+    $dependencies = @{}
+
+    foreach ($row in Get-DependencyRowsFromMarkdown $Path) {
+        $dependencies[$row.Name] = $row.Version
     }
 
     return $dependencies
+}
+
+function Get-LicenseFilesByName {
+    param([string]$LicensesFolder)
+
+    # Case-insensitive lookup that keeps the actual file so its casing can be verified.
+    $licenseFiles = @{}
+
+    Get-ChildItem $LicensesFolder -Recurse -File | ForEach-Object {
+        $licenseFiles[$_.Name] = $_
+    }
+
+    return $licenseFiles
 }
 
 function Get-MissingLicenseFiles {
@@ -93,24 +156,206 @@ function Get-MissingLicenseFiles {
         [string]$LicensesFolder
     )
 
-    $licenseFiles = @{}
-
-    Get-ChildItem $LicensesFolder -Recurse -File | ForEach-Object {
-        $licenseFiles[$_.Name.ToLowerInvariant()] = $true
-    }
+    $licenseFiles = Get-LicenseFilesByName $LicensesFolder
 
     $issues = @()
 
     foreach ($packageName in $Dependencies.Keys) {
         $expectedFile = "$packageName.LICENSE"
 
-        if (-not $licenseFiles.ContainsKey($expectedFile.ToLowerInvariant())) {
+        if (-not $licenseFiles.ContainsKey($expectedFile)) {
             $issues += [PSCustomObject]@{
                 Type     = "MissingLicense"
                 Package  = $packageName
                 Expected = $expectedFile
                 Actual   = ""
                 Source   = $LicensesFolder
+            }
+            continue
+        }
+
+        $actualFile = $licenseFiles[$expectedFile]
+
+        if ($actualFile.Name -cne $expectedFile) {
+            $issues += [PSCustomObject]@{
+                Type     = "LicenseFileNameCase"
+                Package  = $packageName
+                Expected = $expectedFile
+                Actual   = $actualFile.Name
+                Source   = $actualFile.FullName
+            }
+        }
+    }
+
+    return $issues
+}
+
+function Get-LicenseTextIssues {
+    param(
+        [object[]]$DependencyRows,
+        [string]$LicensesFolder,
+        [string]$DependenciesFile
+    )
+
+    $licenseFiles = Get-LicenseFilesByName $LicensesFolder
+
+    $issues = @()
+
+    foreach ($row in $DependencyRows) {
+        $isGnuLicense = $gnuLicenses.Values -ccontains $row.License
+
+        if (-not $isGnuLicense -and -not $licenseTextPatterns.ContainsKey($row.License)) {
+            $issues += [PSCustomObject]@{
+                Type     = "UnknownLicense"
+                Package  = $row.Name
+                Expected = (@($licenseTextPatterns.Keys) + @($gnuLicenses.Values) | Sort-Object) -join ", "
+                Actual   = $row.License
+                Source   = $DependenciesFile
+            }
+            continue
+        }
+
+        $licenseFile = $licenseFiles["$($row.Name).LICENSE"]
+
+        # Missing license files are reported by Get-MissingLicenseFiles.
+        if (-not $licenseFile) {
+            continue
+        }
+
+        $licenseText = Get-Content $licenseFile.FullName -Raw
+
+        if ($isGnuLicense) {
+            # The first GNU license mentioned identifies the license; the full texts refer to the other GNU licenses.
+            $actualLicense = "Not a GNU version 3 license"
+            $gnuMatch = [regex]::Match($licenseText, 'GNU\s+(?:(Affero|Lesser)\s+)?General\s+Public\s+License', 'IgnoreCase')
+
+            if ($gnuMatch.Success -and $licenseText -match 'version\s+3') {
+                $actualLicense = $gnuLicenses[$gnuMatch.Groups[1].Value.ToLowerInvariant()]
+            }
+
+            if ($actualLicense -cne $row.License) {
+                $issues += [PSCustomObject]@{
+                    Type     = "LicenseTextMismatch"
+                    Package  = $row.Name
+                    Expected = $row.License
+                    Actual   = $actualLicense
+                    Source   = $licenseFile.FullName
+                }
+            }
+
+            continue
+        }
+
+        $pattern = $licenseTextPatterns[$row.License]
+
+        if (-not [string]::IsNullOrEmpty($pattern) -and $licenseText -notmatch $pattern) {
+            $issues += [PSCustomObject]@{
+                Type     = "LicenseTextMismatch"
+                Package  = $row.Name
+                Expected = $row.License
+                Actual   = "Text '$pattern' not found"
+                Source   = $licenseFile.FullName
+            }
+        }
+    }
+
+    return $issues
+}
+
+function Get-OutputFolderIssues {
+    param(
+        [hashtable]$Dependencies,
+        [string]$RepositoryRoot
+    )
+
+    # Matches versioned output folders like Application\Built-in\Managed\Third-party\<Library>-<Version>
+    # and Application\Standalone\Deltares\<Library>-<Version>.
+    $outputFolderPattern = '\\Application\\(?:Built-in\\[^\\&"]+\\[^\\&"]+|Standalone\\[^\\&"]+)\\(?<name>[^\\&"*]+?)-(?<version>\d+(?:\.\d+)+)(?=\\|&quot;|"|$)'
+
+    $issues = @()
+
+    foreach ($project in Get-MsBuildFiles $RepositoryRoot) {
+        $content = Get-Content $project.FullName -Raw
+        $outputFolders = @([regex]::Matches($content, $outputFolderPattern) |
+            ForEach-Object { [PSCustomObject]@{ Name = $_.Groups["name"].Value; Version = $_.Groups["version"].Value } } |
+            Sort-Object Name, Version -Unique)
+
+        foreach ($outputFolder in $outputFolders) {
+            $folderName = "$($outputFolder.Name)-$($outputFolder.Version)"
+            $dependencyName = $outputFolder.Name
+
+            if ($outputFolderAliases.ContainsKey($dependencyName)) {
+                $dependencyName = $outputFolderAliases[$dependencyName]
+            }
+
+            $matchingDependency = @($Dependencies.Keys | Where-Object { $_ -eq $dependencyName }) | Select-Object -First 1
+
+            if (-not $matchingDependency) {
+                $issues += [PSCustomObject]@{
+                    Type     = "UnknownOutputFolder"
+                    Package  = $outputFolder.Name
+                    Expected = "Library in $DependenciesFile"
+                    Actual   = $folderName
+                    Source   = $project.FullName
+                }
+                continue
+            }
+
+            if (-not $outputFolderAliases.ContainsKey($outputFolder.Name) -and $matchingDependency -cne $outputFolder.Name) {
+                $issues += [PSCustomObject]@{
+                    Type     = "OutputFolderNameCase"
+                    Package  = $matchingDependency
+                    Expected = "$matchingDependency-$($outputFolder.Version)"
+                    Actual   = $folderName
+                    Source   = $project.FullName
+                }
+            }
+
+            if ($Dependencies[$matchingDependency] -ne $outputFolder.Version) {
+                $issues += [PSCustomObject]@{
+                    Type     = "OutputFolderVersionMismatch"
+                    Package  = $matchingDependency
+                    Expected = $Dependencies[$matchingDependency]
+                    Actual   = $folderName
+                    Source   = $project.FullName
+                }
+            }
+        }
+    }
+
+    return $issues
+}
+
+function Get-SourceVersionConstantIssues {
+    param(
+        [hashtable]$Dependencies,
+        [string]$RepositoryRoot
+    )
+
+    $issues = @()
+
+    foreach ($sourceVersionConstant in $sourceVersionConstants) {
+        $path = Join-Path $RepositoryRoot $sourceVersionConstant.Path
+        $actualVersion = ""
+
+        if (Test-Path $path) {
+            $constantPattern = "const\s+string\s+$([regex]::Escape($sourceVersionConstant.Constant))\s*=\s*""([^""]*)"""
+            $constantMatch = [regex]::Match((Get-Content $path -Raw), $constantPattern)
+
+            if ($constantMatch.Success) {
+                $actualVersion = $constantMatch.Groups[1].Value
+            }
+        }
+
+        $expectedVersion = $Dependencies[$sourceVersionConstant.Library]
+
+        if ([string]::IsNullOrEmpty($actualVersion) -or $actualVersion -ne $expectedVersion) {
+            $issues += [PSCustomObject]@{
+                Type     = "SourceVersionMismatch"
+                Package  = $sourceVersionConstant.Library
+                Expected = $expectedVersion
+                Actual   = "$($sourceVersionConstant.Constant) = $actualVersion"
+                Source   = $path
             }
         }
     }
@@ -592,6 +837,7 @@ function Get-UnusedDependencies {
     return $issues
 }
 
+$dependencyRows = Get-DependencyRowsFromMarkdown $DependenciesFile
 $expected = Get-DependenciesFromMarkdown $DependenciesFile
 $packages = Get-PackageReferences $RepositoryRoot
 
@@ -629,6 +875,9 @@ foreach ($package in $packages) {
 $issues += Get-UnusedDependencies -Dependencies $expected -Packages $packages -RepositoryRoot $RepositoryRoot -DependenciesFile $DependenciesFile
 $issues += Get-MissingLicenseFiles -Dependencies $expected -LicensesFolder $LicensesFolder
 $issues += Get-UnusedLicenseFiles -Dependencies $expected -LicensesFolder $LicensesFolder
+$issues += Get-LicenseTextIssues -DependencyRows $dependencyRows -LicensesFolder $LicensesFolder -DependenciesFile $DependenciesFile
+$issues += Get-OutputFolderIssues -Dependencies $expected -RepositoryRoot $RepositoryRoot
+$issues += Get-SourceVersionConstantIssues -Dependencies $expected -RepositoryRoot $RepositoryRoot
 $issues += Get-ProjectLicenseHeaderIssues -RepositoryRoot $RepositoryRoot
 $issues += Get-PossiblyUnusedPackageReferences -RepositoryRoot $RepositoryRoot
 
