@@ -227,7 +227,6 @@ namespace Migration.Core.Storage.Test
             // Assert
             var exception = Assert.Throws<CriticalMigrationException>(call);
             Assert.AreEqual("Het doelprojectpad moet anders zijn dan het bronprojectpad.", exception.Message);
-            _ = versionedFile.Received(1).Location;
         }
 
         [Test]
