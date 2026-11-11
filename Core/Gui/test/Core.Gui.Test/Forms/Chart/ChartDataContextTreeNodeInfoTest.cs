@@ -481,8 +481,6 @@ namespace Core.Gui.Test.Forms.Chart
             ChartDataContext context = GetContext(chartData1);
             ChartDataContext collectionContext = GetContext(chartDataCollection);
 
-            chartDataCollection.Attach(observer);
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
             // Call
@@ -490,6 +488,7 @@ namespace Core.Gui.Test.Forms.Chart
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(Call);
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]

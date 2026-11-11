@@ -847,6 +847,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(output.OvertoppingOutput.HasGeneralResult);
                 Assert.IsTrue(output.DikeHeightOutput.HasGeneralResult);
                 Assert.IsTrue(output.OvertoppingRateOutput.HasGeneralResult);
+
+                calculationObserver.DidNotReceive().UpdateObserver();
             }
         }
 

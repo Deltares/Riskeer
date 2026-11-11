@@ -1299,6 +1299,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(0, group.Children.Count);
             Assert.NotNull(dialog);
             Assert.NotNull(grid);
+
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]

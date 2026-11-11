@@ -472,8 +472,6 @@ namespace Core.Gui.Test.Forms.Map
             MapDataCollectionContext parentContext = GetContext(parentMapDataCollection);
             MapDataCollectionContext context = GetContext(mapDataCollection1);
 
-            parentMapDataCollection.Attach(observer);
-
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
             // Call
@@ -481,6 +479,7 @@ namespace Core.Gui.Test.Forms.Map
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
+            observer.DidNotReceive().UpdateObserver();
         }
 
         [Test]
