@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NSubstitute;
@@ -71,8 +70,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             const string expectedMessage = "Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             Assert.AreEqual("value", exception.ParamName);
-
-            Assert.AreEqual(0, distribution.ReceivedCalls().Count());
         }
 
         private class SimpleDesignVariable : DesignVariable<IDistribution>

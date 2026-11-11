@@ -275,7 +275,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             handler.DoPostUpdateActions();
 
             // Assert
-            Assert.AreEqual(0, viewCommands.ReceivedCalls().Count());
+            Assert.IsFalse(viewCommands.ReceivedCalls().Any());
         }
 
         private static HydraulicBoundaryLocation CreateLocationThatIsDuneLocation(Random random)

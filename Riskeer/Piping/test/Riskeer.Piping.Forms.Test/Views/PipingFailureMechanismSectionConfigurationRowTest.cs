@@ -126,7 +126,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             sectionRow.A = originalValue;
 
             // Assert
-            Assert.AreEqual(0, changeHandler.ReceivedCalls().Count());
+            Assert.IsFalse(changeHandler.ReceivedCalls().Any());
         }
 
         private static void SetPropertyAndVerifyNotifications(
