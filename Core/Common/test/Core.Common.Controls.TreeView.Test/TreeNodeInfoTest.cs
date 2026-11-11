@@ -22,8 +22,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace Core.Common.Controls.TreeView.Test
 {

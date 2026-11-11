@@ -51,9 +51,9 @@ using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
-using NSubstitute.ExceptionExtensions;
 using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test

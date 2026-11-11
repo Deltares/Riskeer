@@ -28,6 +28,7 @@ using Components.Persistence.Stability.Version2.Data;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Util;
+using DGeoSuite.Components.Persistence;
 using log4net;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -35,7 +36,6 @@ using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.Helpers;
 using Riskeer.MacroStabilityInwards.IO.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
-using DGeoSuite.Components.Persistence;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Exporters

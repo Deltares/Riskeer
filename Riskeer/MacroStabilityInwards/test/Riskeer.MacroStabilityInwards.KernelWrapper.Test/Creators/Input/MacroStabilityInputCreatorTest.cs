@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.CSharpWrapper.Water;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.CSharpWrapper.Output;
+using Deltares.MacroStability.CSharpWrapper.Water;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
