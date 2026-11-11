@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base.Data;
 using NSubstitute;
 using NUnit.Framework;

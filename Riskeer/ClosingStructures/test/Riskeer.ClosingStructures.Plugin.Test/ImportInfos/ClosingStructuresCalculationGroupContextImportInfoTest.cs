@@ -24,7 +24,6 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Plugin;
-using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;

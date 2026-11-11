@@ -26,7 +26,6 @@ using Core.Gui.TestUtil;
 using NSubstitute;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses

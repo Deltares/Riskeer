@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using System.Security.AccessControl;
 using BruTile;
 using BruTile.Web;

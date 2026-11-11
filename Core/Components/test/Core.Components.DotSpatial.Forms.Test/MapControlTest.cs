@@ -26,7 +26,6 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Threading;
 using System.Windows.Forms;
-using BruTile;
 using BruTile.Predefined;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
