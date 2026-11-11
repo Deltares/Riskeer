@@ -467,7 +467,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
         private static void AssertSlipPlaneChartData(MacroStabilityInwardsSlidingCurve original, ChartLineData actual)
         {
             CollectionAssert.IsNotEmpty(original.Slices);
-            List<Point2D> expectedPoints = original.Slices.Select(slice => slice.BottomLeftPoint).OrderBy(x => x.X).ToList();
+            List<Point2D> expectedPoints = original.Slices.Select(slice => slice.BottomLeftPoint).OrderBy(p => p.X).ToList();
             expectedPoints.Add(original.Slices.Last().BottomRightPoint);
             CollectionAssert.AreEqual(expectedPoints, actual.Points);
         }

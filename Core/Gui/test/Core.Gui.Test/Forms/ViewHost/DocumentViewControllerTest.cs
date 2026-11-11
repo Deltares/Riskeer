@@ -856,7 +856,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                     {
                         documentViews.Add(callInfo.Arg<TestView>());
                     });
-            viewHost.When(x => x.Remove(Arg.Any<TestView>()))
+            viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
                     .Do(invocation =>
                     {
                         documentViews.Remove(invocation.Arg<TestView>());
