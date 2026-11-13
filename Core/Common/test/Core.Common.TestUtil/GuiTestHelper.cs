@@ -21,20 +21,14 @@
 
 using System;
 using System.Drawing;
-using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
 
 namespace Core.Common.TestUtil
 {
-    /// <summary>
-    /// Used by WindowsFormsTestHelper and WpfTestHelper
-    /// </summary>
-    public class GuiTestHelper
+    internal static class GuiTestHelper
     {
-        private static GuiTestHelper instance;
-
         private static Form synchronizationForm;
 
         private static bool unhandledThreadExceptionOccurred;
@@ -46,32 +40,10 @@ namespace Core.Common.TestUtil
             Control.CheckForIllegalCrossThreadCalls = true;
             Application.EnableVisualStyles();
 
-            InitializeSynchronizatonObject();
+            InitializeSynchronizationObject();
             Dispatcher.CurrentDispatcher.UnhandledException += CurrentDispatcher_UnhandledException;
             AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
             Application.ThreadException += Application_ThreadException;
-        }
-
-        public static GuiTestHelper Instance
-        {
-            get
-            {
-                return instance ?? (instance = new GuiTestHelper());
-            }
-        }
-
-        /// <summary>
-        /// Checks build_number environment variable to determine whether we run on the build server.
-        /// </summary>
-        public static bool IsBuildServer
-        {
-            get
-            {
-                return File.Exists("C:\\build.server")
-                       || File.Exists("D:\\build.server")
-                       || File.Exists("/tmp/build-server")
-                       || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILD_NUMBER"));
-            }
         }
 
         public static Exception Exception { get; private set; }
@@ -108,7 +80,7 @@ namespace Core.Common.TestUtil
             RethrowUnhandledException();
         }
 
-        private static void InitializeSynchronizatonObject()
+        private static void InitializeSynchronizationObject()
         {
             if (synchronizationForm == null)
             {
@@ -128,7 +100,6 @@ namespace Core.Common.TestUtil
         {
             appDomainExceptionOccurred = true;
             Exception = e.ExceptionObject as Exception;
-
             RethrowUnhandledException();
         }
 
