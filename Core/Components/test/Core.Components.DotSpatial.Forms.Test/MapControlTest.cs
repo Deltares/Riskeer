@@ -26,6 +26,7 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Threading;
 using System.Windows.Forms;
+using BruTile;
 using BruTile.Predefined;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -1606,10 +1607,10 @@ namespace Core.Components.DotSpatial.Forms.Test
         private static IEnumerable<TestCaseData> GetProblematicTileSourceFactoryTestCaseData(string prefix)
         {
             var factoryWithoutRequiredTileSource = Substitute.For<ITileSourceFactory>();
+            factoryWithoutRequiredTileSource.GetWmtsTileSources(Arg.Any<string>()).Returns(Enumerable.Empty<IHttpTileSource>());
 
             var factoryThrowingCannotFindTileSourceException = Substitute.For<ITileSourceFactory>();
-            factoryThrowingCannotFindTileSourceException.GetWmtsTileSources(Arg.Any<string>())
-                                                        .Throws(new CannotFindTileSourceException());
+            factoryThrowingCannotFindTileSourceException.GetWmtsTileSources(Arg.Any<string>()).Throws(new CannotFindTileSourceException());
 
             yield return new TestCaseData(factoryWithoutRequiredTileSource)
                 .SetName($"{prefix}: Required tile source not returned by factory.");

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Security.AccessControl;
 using BruTile;
 using BruTile.Web;
@@ -94,6 +95,7 @@ namespace Core.Components.BruTile.Test.Configurations
             const string url = "url";
             const string id = "id";
             var factory = Substitute.For<ITileSourceFactory>();
+            factory.GetWmtsTileSources(url).Returns(Enumerable.Empty<IHttpTileSource>());
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(factory))

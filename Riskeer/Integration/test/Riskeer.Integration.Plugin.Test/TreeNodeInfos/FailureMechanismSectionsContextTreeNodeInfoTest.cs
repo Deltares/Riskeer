@@ -149,6 +149,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = Substitute.For<IFailureMechanism<FailureMechanismSectionResult>>();
+            failureMechanism.Sections.Returns(Enumerable.Empty<FailureMechanismSection>());
 
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 

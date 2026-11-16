@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using NSubstitute;
 using NUnit.Framework;
@@ -62,6 +63,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             // Setup
             SetObservablePropertyValueDelegate setAction = () => {};
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
+            handler.SetPropertyValueAfterConfirmation(setAction).Returns(Enumerable.Empty<IObservable>());
 
             // Call
             PropertyChangeHelper.ChangePropertyAndNotify(setAction, handler);
