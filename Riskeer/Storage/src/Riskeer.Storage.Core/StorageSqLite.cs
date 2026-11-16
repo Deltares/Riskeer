@@ -155,7 +155,9 @@ namespace Riskeer.Storage.Core
                 byte[] originalHash;
 
                 using (var dbContext = new RiskeerEntities(connectionString))
+                {
                     originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
+                }
 
                 byte[] hash = FingerprintHelper.Get(stagedProject.Entity);
                 return !FingerprintHelper.AreEqual(originalHash, hash);

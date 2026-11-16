@@ -1188,7 +1188,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             // When
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
                 contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+            }
 
             // Then
             Assert.AreEqual(4, group.Children.Count);
@@ -1258,7 +1260,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             // When
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
+            {
                 contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+            }
 
             // Then
             Assert.AreEqual(0, group.Children.Count);
