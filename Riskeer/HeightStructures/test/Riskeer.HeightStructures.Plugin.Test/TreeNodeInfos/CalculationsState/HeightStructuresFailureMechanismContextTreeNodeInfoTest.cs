@@ -360,7 +360,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             };
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.Id.Returns(string.Empty);
             assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 

@@ -842,7 +842,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.Id.Returns(string.Empty);
             assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 
