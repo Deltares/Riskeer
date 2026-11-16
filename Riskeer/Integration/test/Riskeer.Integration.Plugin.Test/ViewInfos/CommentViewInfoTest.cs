@@ -423,6 +423,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 new SpecificFailureMechanism()
             });
             deletedAssessmentSection.Comments.Returns(new Comment());
+
             using (var view = new CommentView
             {
                 Data = viewDataComment.InAssemblyInputComments
@@ -449,6 +450,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 failureMechanism
             });
             assessmentSection.Comments.Returns(new Comment());
+
             using (var view = new CommentView
             {
                 Data = getCommentFunc(failureMechanism)
@@ -474,6 +476,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
 
             failureMechanismContext.WrappedData.Returns(failureMechanism);
+
             using (var view = new CommentView
             {
                 Data = affectedComment
@@ -500,6 +503,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
 
             failureMechanismContext.WrappedData.Returns(failureMechanism);
+
             using (var view = new CommentView
             {
                 Data = unaffectedComment
@@ -522,6 +526,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var deletedCalculationContext = Substitute.For<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
 
             deletedCalculationContext.WrappedData.Returns(viewDataCalculation);
+
             using (var view = new CommentView
             {
                 Data = viewDataCalculation.Comments
@@ -545,6 +550,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             viewDataCalculation.Comments.Returns(new Comment());
             var deletedCalculationContext = Substitute.For<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
             deletedCalculationContext.WrappedData.Returns(calculation);
+
             using (var view = new CommentView
             {
                 Data = viewDataCalculation.Comments
@@ -574,6 +580,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             };
 
             deletedGroupContext.WrappedData.Returns(deletedGroup);
+
             using (var view = new CommentView
             {
                 Data = viewDataCalculation.Comments
@@ -605,6 +612,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             };
 
             deletedGroupContext.WrappedData.Returns(deletedGroup);
+
             using (var view = new CommentView
             {
                 Data = viewDataCalculation.Comments

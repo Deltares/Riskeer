@@ -143,6 +143,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new NonAdoptableFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -163,6 +164,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
             failureMechanismContext.WrappedData.Returns(failureMechanism);
+
             using (var view = new NonAdoptableFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))

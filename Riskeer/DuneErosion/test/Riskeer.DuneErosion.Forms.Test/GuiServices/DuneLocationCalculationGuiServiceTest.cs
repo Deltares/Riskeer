@@ -143,6 +143,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
 
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
+
             using (var viewParent = new TestViewParentForm())
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

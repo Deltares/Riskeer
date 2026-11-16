@@ -119,6 +119,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
+
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -163,6 +164,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
+
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);

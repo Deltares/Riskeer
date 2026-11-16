@@ -133,6 +133,7 @@ namespace Core.Gui.Test.Forms.Map
             var mapControl = Substitute.For<IMapControl>();
 
             mapControl.Data.Returns(mapData);
+
             using (var view = new MapLegendView(contextMenuBuilderProvider)
             {
                 Data = new MapDataCollection("A")

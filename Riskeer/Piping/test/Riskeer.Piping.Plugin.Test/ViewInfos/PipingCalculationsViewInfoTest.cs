@@ -162,6 +162,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             {
                 new PipingFailureMechanism()
             });
+
             using (var view = new PipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection))
             {
                 // Call
@@ -183,6 +184,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new PipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
                 // Call
@@ -199,6 +201,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+
             using (var view = new PipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection))
             {
                 var context = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);

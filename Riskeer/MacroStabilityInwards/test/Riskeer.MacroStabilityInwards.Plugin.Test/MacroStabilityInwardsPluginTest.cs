@@ -163,6 +163,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
             var fontFamily = new FontFamily();
             var gui = Substitute.For<IGui>();
             gui.ActiveStateInfo.Returns(new StateInfo(string.Empty, symbol, fontFamily, p => p));
+
             using (var plugin = new MacroStabilityInwardsPlugin
             {
                 Gui = gui

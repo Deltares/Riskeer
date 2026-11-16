@@ -370,6 +370,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
             var mapFrame = Substitute.For<IFrame>();
             mapFrame.ViewExtents.Returns(mapFrameExtents);
+
             using (var layer = new BruTileLayer(configuration)
             {
                 MapFrame = mapFrame
@@ -680,6 +681,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                                                                  tileFetcher.GetTile(tileInfoImagePair.Key).Returns(tileData);
                                                                              }
                                                                          });
+
             using (var layer = new BruTileLayer(configuration))
             using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
             using (Graphics graphics = Graphics.FromImage(mapCanvas))

@@ -196,6 +196,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
+
             using (var plugin = new DuneErosionPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -239,6 +240,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             IGui gui = StubFactory.CreateGuiStub();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
             using (var plugin = new DuneErosionPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -356,6 +358,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             gui.Get(groupContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
+
             using (var plugin = new DuneErosionPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -394,6 +397,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             IGui gui = StubFactory.CreateGuiStub();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
+
             using (var plugin = new DuneErosionPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -429,6 +433,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             gui.Get(groupContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
+
             using (var plugin = new DuneErosionPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);

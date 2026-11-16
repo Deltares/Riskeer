@@ -138,6 +138,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call

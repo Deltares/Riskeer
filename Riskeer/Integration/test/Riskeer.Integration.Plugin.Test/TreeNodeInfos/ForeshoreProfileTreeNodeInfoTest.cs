@@ -112,6 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
+
             using (var p = new RiskeerPlugin())
             {
                 p.Gui = gui;

@@ -130,6 +130,7 @@ namespace Core.Gui.Test.Forms.Main
             // Setup
             var gui = Substitute.For<IGui>();
             gui.FixedSettings.Returns(new GuiCoreSettings());
+
             using (var mainWindow = new MainWindow())
             {
                 // Call
@@ -279,6 +280,7 @@ namespace Core.Gui.Test.Forms.Main
             var gui = Substitute.For<IGui>();
             gui.ViewHost.Returns(viewHost);
             gui.FixedSettings.Returns(new GuiCoreSettings());
+
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
@@ -329,6 +331,7 @@ namespace Core.Gui.Test.Forms.Main
             gui.Selection = selectedObject;
             gui.PropertyResolver.Returns(propertyResolver);
             gui.FixedSettings.Returns(new GuiCoreSettings());
+
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
@@ -358,6 +361,7 @@ namespace Core.Gui.Test.Forms.Main
             gui.Selection = selectedObject;
             gui.PropertyResolver.Returns(propertyResolver);
             gui.FixedSettings.Returns(new GuiCoreSettings());
+
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);

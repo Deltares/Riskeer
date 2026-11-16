@@ -360,6 +360,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
@@ -385,6 +386,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = new GrassCoverErosionInwardsCalculation()
@@ -413,6 +415,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
@@ -441,6 +444,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = new GrassCoverErosionInwardsCalculation()

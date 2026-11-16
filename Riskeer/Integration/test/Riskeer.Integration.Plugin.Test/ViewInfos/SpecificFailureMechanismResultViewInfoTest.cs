@@ -143,6 +143,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new NonAdoptableFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))

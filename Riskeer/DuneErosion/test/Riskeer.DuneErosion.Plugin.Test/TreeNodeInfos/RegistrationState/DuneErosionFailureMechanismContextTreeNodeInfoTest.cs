@@ -199,6 +199,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
+
             using (var plugin = new DuneErosionPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -246,6 +247,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
+
             using (var plugin = new DuneErosionPlugin())
             {
                 plugin.Gui = gui;

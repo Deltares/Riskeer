@@ -207,6 +207,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 failureMechanism
             });
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+
             using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                failureMechanism,
@@ -240,6 +241,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             {
                 new DuneErosionFailureMechanism()
             });
+
             using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
@@ -311,6 +313,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 new DuneErosionFailureMechanism()
             });
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+
             using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
@@ -334,6 +337,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+
             using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),

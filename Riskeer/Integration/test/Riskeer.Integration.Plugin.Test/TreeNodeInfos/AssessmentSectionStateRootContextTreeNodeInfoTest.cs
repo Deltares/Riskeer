@@ -201,6 +201,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             IGui gui = StubFactory.CreateGuiStub();
             gui.Get(assessmentSectionContext, treeViewCommands).Returns(menuBuilder);
+
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -237,6 +238,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             IGui gui = StubFactory.CreateGuiStub();
             gui.Get(assessmentSectionContext, treeViewCommands).Returns(menuBuilder);
+
             using (var plugin = new RiskeerPlugin())
             {
                 plugin.Gui = gui;

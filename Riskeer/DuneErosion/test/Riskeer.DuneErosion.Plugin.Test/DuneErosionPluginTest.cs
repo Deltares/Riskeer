@@ -143,6 +143,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
             var gui = Substitute.For<IGui>();
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
             gui.ActiveStateInfo.Returns(new StateInfo(string.Empty, symbol, fontFamily, p => p));
+
             using (var plugin = new DuneErosionPlugin
             {
                 Gui = gui
@@ -226,6 +227,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
             var project = Substitute.For<IProject>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.AddRange(new PluginBase[]
@@ -275,6 +277,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
             var project = Substitute.For<IProject>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.AddRange(new PluginBase[]
@@ -328,6 +331,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
             var project = Substitute.For<IProject>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.AddRange(new PluginBase[]
@@ -381,6 +385,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
             var project = Substitute.For<IProject>();
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.AddRange(new PluginBase[]

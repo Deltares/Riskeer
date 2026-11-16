@@ -251,6 +251,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                           performedCalculations = invocation.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>();
                           actualNormValue = invocation.Arg<double>();
                       });
+
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);

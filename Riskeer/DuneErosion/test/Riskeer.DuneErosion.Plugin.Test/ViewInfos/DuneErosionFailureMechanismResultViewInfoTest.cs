@@ -120,6 +120,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             {
                 otherFailureMechanism
             });
+
             using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -143,6 +144,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))

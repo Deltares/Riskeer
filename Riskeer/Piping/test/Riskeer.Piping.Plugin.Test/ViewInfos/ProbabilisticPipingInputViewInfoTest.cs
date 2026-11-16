@@ -376,6 +376,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new PipingInputView
             {
                 Data = calculation
@@ -401,6 +402,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new PipingInputView
             {
                 Data = new ProbabilisticPipingCalculationScenario()
@@ -429,6 +431,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new PipingInputView
             {
                 Data = calculation
@@ -457,6 +460,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
+
             using (var view = new PipingInputView
             {
                 Data = new ProbabilisticPipingCalculationScenario()

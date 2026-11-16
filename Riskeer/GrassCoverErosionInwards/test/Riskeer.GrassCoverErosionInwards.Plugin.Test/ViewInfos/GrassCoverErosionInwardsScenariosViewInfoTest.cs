@@ -96,6 +96,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             {
                 unrelatedFailureMechanism
             });
+
             using (var view = new GrassCoverErosionInwardsScenariosView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism()))
             {
                 // Precondition
@@ -119,6 +120,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             {
                 relatedFailureMechanism
             });
+
             using (var view = new GrassCoverErosionInwardsScenariosView(relatedFailureMechanism.CalculationsGroup, relatedFailureMechanism))
             {
                 // Precondition
@@ -138,6 +140,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[0]);
+
             using (var view = new GrassCoverErosionInwardsScenariosView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism()))
             {
                 // Call
