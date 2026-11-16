@@ -174,6 +174,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                     Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' ({calculationIdentifier}) is gelukt.", msgs[7]);
                 });
             }
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
                                                                            duneLocation.HydraulicBoundaryLocation), actualSettings);

@@ -414,6 +414,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Then
                 Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
             }
+
             calculationObserver.DidNotReceive().UpdateObserver();
             calculationInputObserver.Received(1).UpdateObserver();
         }
@@ -698,6 +699,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Then
                 Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
             }
+
             calculationObserver.DidNotReceive().UpdateObserver();
             calculationInputObserver.Received(1).UpdateObserver();
         }
@@ -955,6 +957,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                 });
             }
+
             observer.DidNotReceive().UpdateObserver();
         }
 

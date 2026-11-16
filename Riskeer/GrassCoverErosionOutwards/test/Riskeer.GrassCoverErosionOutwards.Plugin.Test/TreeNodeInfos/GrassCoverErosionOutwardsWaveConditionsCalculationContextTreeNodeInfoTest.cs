@@ -1017,6 +1017,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 Assert.AreEqual(3, calculation.Output.WaveRunUpOutput.Count());
             }
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
                                                                            hydraulicBoundaryLocation), actualSettings);

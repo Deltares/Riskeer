@@ -713,6 +713,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }
+
             calculationObserver.DidNotReceive().UpdateObserver();
         }
 
@@ -786,6 +787,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }
+
             affectedCalculationObserver.Received(1).UpdateObserver();
             unaffectedCalculationObserver.DidNotReceive().UpdateObserver();
         }

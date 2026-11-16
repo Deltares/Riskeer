@@ -158,6 +158,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 Assert.AreEqual(duneLocation.Id, calculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), calculationInput.Beta);
             }
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(calculationSettings, actualSettings);
         }
 

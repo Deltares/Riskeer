@@ -1002,6 +1002,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
                 Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());
             }
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
                                                                            hydraulicBoundaryLocation), actualSettings);

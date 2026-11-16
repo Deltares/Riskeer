@@ -597,6 +597,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
                     Assert.IsTrue(calculation.Output.HasGeneralResult);
                 }
+
                 calculationObserver.DidNotReceive().UpdateObserver();
             }
         }

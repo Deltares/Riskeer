@@ -602,6 +602,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation.Output.HasGeneralResult);
                 }
             }
+
             calculationObserver.DidNotReceive().UpdateObserver();
         }
 

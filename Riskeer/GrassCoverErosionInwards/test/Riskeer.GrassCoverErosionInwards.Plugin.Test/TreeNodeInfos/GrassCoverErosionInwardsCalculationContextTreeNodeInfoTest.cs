@@ -738,6 +738,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                 });
             }
+
             observer.DidNotReceive().UpdateObserver();
         }
 

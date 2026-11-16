@@ -341,6 +341,7 @@ namespace Riskeer.Common.Service.Test.Structures
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 calculationSettings, actualSettings);
         }

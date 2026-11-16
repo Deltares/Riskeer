@@ -945,6 +945,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
             }
+
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

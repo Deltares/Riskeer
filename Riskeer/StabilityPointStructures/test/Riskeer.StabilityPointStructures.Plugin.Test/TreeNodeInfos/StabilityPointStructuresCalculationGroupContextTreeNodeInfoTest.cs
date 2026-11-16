@@ -717,6 +717,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculation1.InputParameters.IsStructureInputSynchronized);
                 Assert.IsTrue(calculation2.InputParameters.IsStructureInputSynchronized);
             }
+
             calculation1InputObserver.Received(1).UpdateObserver();
             calculation2InputObserver.Received(1).UpdateObserver();
             calculation1Observer.DidNotReceive().UpdateObserver();
@@ -802,6 +803,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                          $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedMessage, textBoxMessage);
             }
+
             calculation1Observer.DidNotReceive().UpdateObserver();
             calculation1InputObserver.DidNotReceive().UpdateObserver();
             calculation2Observer.DidNotReceive().UpdateObserver();
@@ -989,6 +991,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Then
                 Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
             }
+
             calculationInputObserver.Received(1).UpdateObserver();
             calculationObserver.DidNotReceive().UpdateObserver();
         }
@@ -1137,6 +1140,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculationWithOutput.HasOutput);
                 Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
             }
+
             calculationObserver.DidNotReceive().UpdateObserver();
         }
 
@@ -1201,6 +1205,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculationWithOutput.HasOutput);
                 Assert.IsFalse(calculationWithIllustrationPoints.Output.HasGeneralResult);
             }
+
             affectedCalculationObserver.Received(1).UpdateObserver();
             unaffectedCalculationObserver.DidNotReceive().UpdateObserver();
         }
@@ -1246,6 +1251,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                 "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
+
             observer.Received(1).UpdateObserver();
         }
 
@@ -1290,6 +1296,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                 "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
+
             observer.Received(1).UpdateObserver();
         }
 

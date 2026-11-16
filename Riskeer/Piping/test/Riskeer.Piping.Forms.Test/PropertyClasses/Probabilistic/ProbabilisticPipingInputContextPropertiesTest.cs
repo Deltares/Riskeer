@@ -1041,6 +1041,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 Assert.AreEqual(seepageLength, properties.SeepageLength.Mean, 1e-6);
                 Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
             }
+
             inputObserver.Received(numberOfChangedProperties).UpdateObserver();
         }
 
@@ -1079,6 +1080,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 Assert.AreEqual(1.5, properties.SeepageLength.Mean.Value);
                 Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
             }
+
             inputObserver.Received(numberOfChangedProperties).UpdateObserver();
         }
 
@@ -1123,6 +1125,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             }
+
             observable.DidNotReceive().NotifyObservers();
         }
 
@@ -1169,6 +1172,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
                 Assert.IsTrue(handler.Called);
             }
+
             observable.DidNotReceive().NotifyObservers();
         }
 
@@ -1213,6 +1217,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             }
+
             observable.DidNotReceive().NotifyObservers();
         }
 
@@ -1256,6 +1261,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             }
+
             observable.DidNotReceive().NotifyObservers();
         }
 

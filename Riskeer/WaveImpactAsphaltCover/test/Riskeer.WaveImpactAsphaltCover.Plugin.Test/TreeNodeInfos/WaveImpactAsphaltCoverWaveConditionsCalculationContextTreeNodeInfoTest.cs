@@ -1003,6 +1003,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(3, calculation.Output.Items.Count());
                 observer.Received(1).UpdateObserver();
             }
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
                                                                            hydraulicBoundaryLocation), actualSettings);

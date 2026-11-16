@@ -411,6 +411,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 // Then
                 Assert.IsTrue(calculation.InputParameters.IsStructureInputSynchronized);
             }
+
             inputObserver.Received(1).UpdateObserver();
             calculationObserver.DidNotReceive().UpdateObserver();
         }
@@ -1010,6 +1011,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
                 });
             }
+
             observer.DidNotReceive().UpdateObserver();
         }
 
@@ -1120,6 +1122,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
                 Assert.IsTrue(calculation.Output.HasGeneralResult);
             }
+
             calculationObserver.DidNotReceive().UpdateObserver();
         }
 

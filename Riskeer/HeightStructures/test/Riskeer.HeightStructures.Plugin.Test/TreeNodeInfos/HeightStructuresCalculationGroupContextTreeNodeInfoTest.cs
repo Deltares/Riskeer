@@ -811,6 +811,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculationWithOutput.HasOutput);
                 Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
             }
+
             calculationObserver.DidNotReceive().UpdateObserver();
         }
 

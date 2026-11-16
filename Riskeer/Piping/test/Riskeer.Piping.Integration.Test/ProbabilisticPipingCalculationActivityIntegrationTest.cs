@@ -308,6 +308,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.AreEqual(ActivityState.Failed, activity.State);
                 Assert.IsNull(calculation.Output);
             }
+
             calculatorFactory.Received(2).CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
             observer.DidNotReceive().UpdateObserver();
         }
