@@ -94,7 +94,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(

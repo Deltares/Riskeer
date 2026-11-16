@@ -535,7 +535,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var updateStrategy = Substitute.For<IFailureMechanismSectionUpdateStrategy>();
 
-
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataToModelProgressText);
             string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,

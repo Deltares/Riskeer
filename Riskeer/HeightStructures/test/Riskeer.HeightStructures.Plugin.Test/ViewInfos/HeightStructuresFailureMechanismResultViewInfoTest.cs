@@ -96,7 +96,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
-
             var failureMechanism = new HeightStructuresFailureMechanism();
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection,

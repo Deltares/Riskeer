@@ -524,7 +524,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(waveHeightCalculator);
 
-
             DialogBoxHandler = (name, wnd) =>
             {
                 // Expect an activity dialog which is automatically closed

@@ -96,7 +96,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
 
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(

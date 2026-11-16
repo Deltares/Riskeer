@@ -338,7 +338,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
 
                 calculatorFactory.Received(6).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
 
-
                 foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

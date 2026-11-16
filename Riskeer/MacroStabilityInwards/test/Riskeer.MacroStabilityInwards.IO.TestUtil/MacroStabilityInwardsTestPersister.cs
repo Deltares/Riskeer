@@ -21,7 +21,6 @@
 
 using DGeoSuite.Components.Persistence;
 
-
 namespace Riskeer.MacroStabilityInwards.IO.TestUtil
 {
     /// <summary>
