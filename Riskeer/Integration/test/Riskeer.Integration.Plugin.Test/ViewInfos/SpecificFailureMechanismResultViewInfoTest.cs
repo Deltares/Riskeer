@@ -91,8 +91,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
+
             var failureMechanism = new SpecificFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<SpecificFailureMechanism>(

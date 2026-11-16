@@ -266,7 +266,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = Substitute.For<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             var expectedDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
             handler.InquireConfirmation().Returns(true);
-
             var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, handler,
                                                                               hydraulicBoundaryData, filePath);
 

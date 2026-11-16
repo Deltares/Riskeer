@@ -93,8 +93,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
+
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
@@ -120,6 +120,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 otherFailureMechanism
             });
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
+
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(

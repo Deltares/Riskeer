@@ -92,8 +92,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
+
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<MicrostabilityFailureMechanism>(
@@ -119,6 +119,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 otherFailureMechanism
             });
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
+
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<MicrostabilityFailureMechanism>(
