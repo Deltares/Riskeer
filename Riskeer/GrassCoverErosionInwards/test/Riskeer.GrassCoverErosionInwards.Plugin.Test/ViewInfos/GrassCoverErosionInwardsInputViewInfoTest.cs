@@ -151,6 +151,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                               null,
                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                                               assessmentSection);
+
             using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
@@ -177,6 +178,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                               null,
                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                                               assessmentSection);
+
             using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
@@ -205,6 +207,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                               null,
                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                                               assessmentSection);
+
             using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
@@ -233,6 +236,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                               null,
                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                                               assessmentSection);
+
             using (var view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation

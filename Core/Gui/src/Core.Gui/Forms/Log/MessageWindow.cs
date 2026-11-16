@@ -129,6 +129,7 @@ namespace Core.Gui.Forms.Log
             }
 
             string shortMessage;
+
             using (var reader = new StringReader(message))
             {
                 shortMessage = reader.ReadLine();

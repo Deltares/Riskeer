@@ -101,6 +101,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var context = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                     assessmentSection,
                                                                                     () => 0.01);
+
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);

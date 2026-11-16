@@ -155,6 +155,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                     "Empty_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
@@ -171,6 +172,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                     "Single_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
@@ -187,6 +189,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePolygonWithHoles = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                              "Single_Polygon_with_two_holes_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygonWithHoles))
             {
                 // Call
@@ -222,6 +225,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                     "Single_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
@@ -241,6 +245,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                     "Single_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
@@ -257,6 +262,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                     "Single_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
@@ -286,6 +292,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePolygonWithHoles = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                              "Single_Polygon_with_two_holes_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygonWithHoles))
             {
                 // Call
@@ -378,6 +385,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithMultiplePolygons = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                           "Multiple_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithMultiplePolygons))
             {
                 // Precondition
@@ -474,6 +482,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                     "Single_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
@@ -543,6 +552,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                     "Single_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
@@ -562,6 +572,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                     "Single_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
@@ -578,6 +589,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithMultiplePolygons = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                           "Multiple_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapeWithMultiplePolygons))
             {
                 // Precondition
@@ -679,6 +691,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                          fileName);
+
             using (var reader = new PolygonShapeFileReader(filePath))
             {
                 for (var i = 0; i < reader.GetNumberOfFeatures(); i++)
@@ -700,6 +713,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Single_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapefileFilePath))
             {
                 // Call
@@ -721,6 +735,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Single_Polygon_with_ID.shp");
+
             using (var reader = new PolygonShapeFileReader(shapefileFilePath))
             {
                 // Call

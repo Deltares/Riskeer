@@ -161,6 +161,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
                                                                             assessmentSection);
+
             using (var view = new PipingInputView
             {
                 Data = calculation
@@ -189,6 +190,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
                                                                             assessmentSection);
+
             using (var view = new PipingInputView
             {
                 Data = calculation
@@ -219,6 +221,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
                                                                             assessmentSection);
+
             using (var view = new PipingInputView
             {
                 Data = calculation
@@ -249,6 +252,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                                                                             Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
                                                                             assessmentSection);
+
             using (var view = new PipingInputView
             {
                 Data = calculation

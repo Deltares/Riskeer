@@ -429,6 +429,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "InvalidBinaryX0_InvalidFormat", "PROF63_GE_D0.shp"));
+
             using (var reader = new ProfileLocationReader(validFilePath))
             {
                 // Call

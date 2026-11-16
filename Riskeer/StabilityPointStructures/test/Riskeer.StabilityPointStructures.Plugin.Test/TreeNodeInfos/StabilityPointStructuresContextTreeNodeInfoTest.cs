@@ -131,6 +131,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
                                                               failureMechanism,
                                                               assessmentSection);
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -160,6 +161,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
                                                               failureMechanism,
                                                               assessmentSection);
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -187,6 +189,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
                                                               failureMechanism,
                                                               assessmentSection);
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);

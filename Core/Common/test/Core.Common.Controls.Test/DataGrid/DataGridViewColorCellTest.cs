@@ -54,6 +54,7 @@ namespace Core.Common.Controls.Test.DataGrid
                     new ColorRow(expectedColor)
                 }
             };
+
             using (var cell = new DataGridViewColorCell())
             {
                 view.Columns.Add(new DataGridViewColorColumn

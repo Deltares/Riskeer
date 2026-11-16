@@ -148,6 +148,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                  "Empty_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapeWithOneLine))
             {
                 // Call
@@ -164,6 +165,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Single_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
@@ -199,6 +201,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Single_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
@@ -218,6 +221,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Single_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
@@ -234,6 +238,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Single_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
@@ -262,6 +267,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithMultiplePoints = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                         "Multiple_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapeWithMultiplePoints))
             {
                 // Precondition
@@ -400,6 +406,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Single_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
@@ -419,6 +426,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Single_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
@@ -435,6 +443,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithMultiplePoints = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                         "Multiple_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapeWithMultiplePoints))
             {
                 // Precondition
@@ -573,6 +582,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                          fileName);
+
             using (var reader = new PointShapeFileReader(filePath))
             {
                 for (var i = 0; i < reader.GetNumberOfFeatures(); i++)
@@ -594,6 +604,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Single_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapefileFilePath))
             {
                 // Call
@@ -615,6 +626,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Single_Point_with_ID.shp");
+
             using (var reader = new PointShapeFileReader(shapefileFilePath))
             {
                 // Call

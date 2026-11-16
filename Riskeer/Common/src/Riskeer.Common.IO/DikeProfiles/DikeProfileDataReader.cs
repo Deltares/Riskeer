@@ -115,6 +115,7 @@ namespace Riskeer.Common.IO.DikeProfiles
 
             var data = new DikeProfileData();
             readKeywords = Keywords.None;
+
             using (var reader = new StreamReader(filePath))
             {
                 fileBeingRead = filePath;

@@ -147,6 +147,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                  "Empty_PolyLine_with_ID.shp");
+
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
@@ -163,6 +164,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                  "traject_10-1.shp");
+
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
@@ -198,6 +200,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                  "traject_10-1.shp");
+
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
@@ -217,6 +220,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                  "traject_10-1.shp");
+
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
@@ -233,6 +237,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                  "traject_10-1.shp");
+
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
@@ -271,6 +276,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithMultipleLines = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                        "Multiple_PolyLine_with_ID.shp");
+
             using (var reader = new PolylineShapeFileReader(shapeWithMultipleLines))
             {
                 // Precondition
@@ -377,6 +383,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                  "traject_10-1.shp");
+
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
@@ -396,6 +403,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                  "traject_10-1.shp");
+
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
@@ -412,6 +420,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                  "traject_10-1.shp");
+
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
@@ -451,6 +460,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapeWithMultipleLines = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                        "Multiple_PolyLine_with_ID.shp");
+
             using (var reader = new PolylineShapeFileReader(shapeWithMultipleLines))
             {
                 // Precondition
@@ -548,6 +558,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string linesShapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                        shapeFileName);
+
             using (var reader = new PolylineShapeFileReader(linesShapefileFilePath))
             {
                 for (var i = 0; i < reader.GetNumberOfFeatures(); i++)
@@ -569,6 +580,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Multiple_PolyLine_with_ID.shp");
+
             using (var reader = new PolylineShapeFileReader(shapefileFilePath))
             {
                 // Call
@@ -590,6 +602,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             // Setup
             string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                   "Multiple_PolyLine_with_ID.shp");
+
             using (var reader = new PolylineShapeFileReader(shapefileFilePath))
             {
                 // Call

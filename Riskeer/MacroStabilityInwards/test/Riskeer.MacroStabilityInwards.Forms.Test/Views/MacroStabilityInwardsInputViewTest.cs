@@ -335,6 +335,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      new GeneralMacroStabilityInwardsInput(),
                                                                      assessmentSection,
@@ -442,6 +443,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      new GeneralMacroStabilityInwardsInput(),
                                                                      assessmentSection,
@@ -715,6 +717,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      new GeneralMacroStabilityInwardsInput(),
                                                                      assessmentSection,
@@ -761,6 +764,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      new GeneralMacroStabilityInwardsInput(),
                                                                      assessmentSection,
@@ -818,6 +822,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      new GeneralMacroStabilityInwardsInput(),
                                                                      assessmentSection,
@@ -874,6 +879,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      new GeneralMacroStabilityInwardsInput(),
                                                                      assessmentSection,

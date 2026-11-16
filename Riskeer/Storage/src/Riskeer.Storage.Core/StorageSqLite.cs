@@ -100,6 +100,7 @@ namespace Riskeer.Storage.Core
             try
             {
                 RiskeerProject project;
+
                 using (var dbContext = new RiskeerEntities(connectionString))
                 {
                     ValidateDatabaseVersion(dbContext, databaseFilePath);
@@ -152,6 +153,7 @@ namespace Riskeer.Storage.Core
             try
             {
                 byte[] originalHash;
+
                 using (var dbContext = new RiskeerEntities(connectionString))
                     originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
 

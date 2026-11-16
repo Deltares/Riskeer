@@ -1405,6 +1405,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
+
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 // Call
@@ -1426,6 +1427,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
+
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 // Precondition
@@ -1490,6 +1492,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
+
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 // Precondition
@@ -1518,6 +1521,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
+
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 // Precondition
@@ -1553,6 +1557,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
+
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 // Precondition
@@ -1577,6 +1582,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
+
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
@@ -1672,6 +1678,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
+
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 // Call
@@ -1727,6 +1734,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
+
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 // Call
