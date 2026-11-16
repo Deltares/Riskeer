@@ -94,7 +94,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[0]);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 

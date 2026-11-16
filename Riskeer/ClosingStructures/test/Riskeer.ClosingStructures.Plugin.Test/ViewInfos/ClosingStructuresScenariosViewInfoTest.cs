@@ -30,7 +30,6 @@ using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 {
@@ -169,7 +168,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[0]);
 
             using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism()))
             {

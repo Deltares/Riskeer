@@ -26,7 +26,6 @@ using NSubstitute;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PresentationObjects.RegistrationState;
@@ -169,7 +168,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[0]);
 
             using (var view = new HeightStructuresScenariosView(new CalculationGroup(), new HeightStructuresFailureMechanism()))
             {

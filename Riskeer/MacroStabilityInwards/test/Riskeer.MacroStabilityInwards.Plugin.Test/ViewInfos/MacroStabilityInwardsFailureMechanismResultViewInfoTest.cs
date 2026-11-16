@@ -93,7 +93,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[0]);
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             using (var view = new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))

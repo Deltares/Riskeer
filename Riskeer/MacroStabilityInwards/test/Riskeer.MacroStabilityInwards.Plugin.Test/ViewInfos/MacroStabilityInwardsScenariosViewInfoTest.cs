@@ -26,7 +26,6 @@ using NSubstitute;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState;
@@ -92,7 +91,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Setup
             var calculationsGroup = new CalculationGroup();
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            assessmentSection.GetFailureMechanisms().Returns(new IFailureMechanism[0]);
 
             using (var view = new MacroStabilityInwardsScenariosView(calculationsGroup, new MacroStabilityInwardsFailureMechanism()))
             {
