@@ -176,7 +176,6 @@ namespace Core.Gui.Test.Forms.Main
         {
             // Setup
             var viewHost = Substitute.For<IViewHost>();
-            viewHost.ToolViews.Returns(new IView[0]);
 
             var gui = Substitute.For<IGui>();
             gui.FixedSettings.Returns(new GuiCoreSettings());
@@ -201,7 +200,6 @@ namespace Core.Gui.Test.Forms.Main
         {
             // Setup
             var viewHost = Substitute.For<IViewHost>();
-            viewHost.ToolViews.Returns(new IView[0]);
 
             var gui = Substitute.For<IGui>();
             gui.FixedSettings.Returns(new GuiCoreSettings());

@@ -111,7 +111,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             const string symbol = "<symbol>";
             var fontFamily = new FontFamily();
 
-            viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               title,
@@ -175,8 +174,6 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             const string viewName = "<cool view name>";
 
-            viewHost.DocumentViews.Returns(new IView[0]);
-
             viewHost.When(vh => vh.AddDocumentView(Arg.Any<TestView>(),
                                                  viewName, Arg.Any<string>(), Arg.Any<FontFamily>()))
                     .Do(invocation =>
@@ -227,7 +224,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             var dialogParent = Substitute.For<IWin32Window>();
             var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestViewDerivative>(),
                               Arg.Any<string>(),
@@ -265,7 +261,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             var dialogParent = Substitute.For<IWin32Window>();
             var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
@@ -303,7 +298,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             var dialogParent = Substitute.For<IWin32Window>();
             var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestViewDerivative>(),
                               Arg.Any<string>(),
@@ -346,7 +340,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             var dialogParent = Substitute.For<IWin32Window>();
             var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.DocumentViews.Returns(new IView[0]);
             var data = new object();
             var viewInfos = new ViewInfo[]
             {
@@ -379,7 +372,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             var dialogParent = Substitute.For<IWin32Window>();
             var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
@@ -424,7 +416,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             var dialogParent = Substitute.For<IWin32Window>();
             var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
@@ -476,7 +467,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             var dialogParent = Substitute.For<IWin32Window>();
             var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestView>(),
                               Arg.Any<string>(),
@@ -529,7 +519,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             var dialogParent = Substitute.For<IWin32Window>();
             var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.DocumentViews.Returns(new IView[0]);
             viewHost.When(vh => vh.AddDocumentView(
                               Arg.Any<TestViewDerivative>(),
                               Arg.Any<string>(),
@@ -570,7 +559,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             var dialogParent = Substitute.For<IWin32Window>();
             var viewHost = Substitute.For<IViewHost>();
 
-            viewHost.DocumentViews.Returns(new IView[0]);
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<object, TestView>()
