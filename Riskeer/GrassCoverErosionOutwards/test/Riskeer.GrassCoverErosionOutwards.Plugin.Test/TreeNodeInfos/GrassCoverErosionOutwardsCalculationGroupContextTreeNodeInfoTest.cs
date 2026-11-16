@@ -1266,7 +1266,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
             var importHandler = Substitute.For<IImportCommandHandler>();
-
             var exportHandler = Substitute.For<IExportCommandHandler>();
             var updateHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
@@ -1312,7 +1311,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var appFeatureCommandHandler = Substitute.For<IApplicationFeatureCommands>();
             var importHandler = Substitute.For<IImportCommandHandler>();
-
             var exportHandler = Substitute.For<IExportCommandHandler>();
             var updateHandler = Substitute.For<IUpdateCommandHandler>();
             var viewCommands = Substitute.For<IViewCommands>();
