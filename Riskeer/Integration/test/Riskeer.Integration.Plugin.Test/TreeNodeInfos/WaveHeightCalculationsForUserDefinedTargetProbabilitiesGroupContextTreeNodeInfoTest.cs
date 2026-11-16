@@ -494,7 +494,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             calculatorFactory
                 .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(waveHeightCalculator);
-            
+
             DialogBoxHandler = (name, wnd) =>
             {
                 // Expect an activity dialog which is automatically closed
@@ -534,7 +534,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             calculatorFactory.Received(2)
                              .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
-							 
+
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

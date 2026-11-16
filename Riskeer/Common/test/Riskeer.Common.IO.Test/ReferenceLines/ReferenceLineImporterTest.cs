@@ -325,7 +325,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
 
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             var importer = new ReferenceLineImporter(referenceLine, handler, path);
-            
+
             handler.When(h=>h.ConfirmUpdate()).Do(_ => importer.Cancel());
             handler.ConfirmUpdate().Returns(true);
             referenceLine.Attach(observer);

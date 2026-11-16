@@ -652,7 +652,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-         
+
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))

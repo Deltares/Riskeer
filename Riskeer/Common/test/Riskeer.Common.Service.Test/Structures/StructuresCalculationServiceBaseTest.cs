@@ -312,7 +312,7 @@ namespace Riskeer.Common.Service.Test.Structures
 			calculatorFactory
                 .CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(calculator);
-            
+
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = Substitute.For<IStructuresCalculationMessageProvider>();
             messageProvider.GetCalculationPerformedMessage(validHrdFilePath).Returns(performedCalculationMessage);

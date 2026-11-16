@@ -140,7 +140,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             HydraRingCalculationSettings actualSettings = null;
             calculatorFactory.When(c=> c.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-           
+
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
             using (var viewParent = new TestViewParentForm())

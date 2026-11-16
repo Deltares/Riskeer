@@ -283,7 +283,7 @@ namespace Core.Gui.Test.Forms.Main
             {
                 mainWindow.SetGui(gui);
                 mainWindow.SubscribeToGui();
-                
+
                 // Precondition
                 Assert.IsNotNull(opened);
                 Assert.IsNotNull(front);

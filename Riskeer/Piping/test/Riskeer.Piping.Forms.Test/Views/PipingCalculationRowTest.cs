@@ -405,7 +405,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var inputObserver = Substitute.For<IObserver>();
             var calculationObserver = Substitute.For<IObserver>();
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
-         
+
             IPipingCalculationScenario<PipingInput> calculation =
             PipingCalculationScenarioTestFactory.CreateCalculationWithValidInput(new TestHydraulicBoundaryLocation(), hasOutput);
 

@@ -122,10 +122,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             const string name = "some name";
             var configuration = new StochastConfiguration();
             var xmlWriter = Substitute.For<XmlWriter>();
- 
+
             // Call
             ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(xmlWriter, name, configuration);
-            
+
             // Assert
             xmlWriter.Received(1).WriteDistribution(name, configuration);
         }
@@ -184,7 +184,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             const string name = "someName";
             const string value = "some value";
             var xmlWriter = Substitute.For<XmlWriter>();
-            
+
             // Call
             ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(xmlWriter, name, value);
 
@@ -246,7 +246,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             const string name = "someName";
             const double value = 3.2;
             var xmlWriter = Substitute.For<XmlWriter>();
-            
+
             // Call
             ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(xmlWriter, name, value);
 
@@ -306,7 +306,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             const string name = "some name";
             const bool value = true;
             var xmlWriter = Substitute.For<XmlWriter>();
-            
+
             // Call
             ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(xmlWriter, name, value);
 
@@ -337,7 +337,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
                 xmlWriter,
                 null);
-            
+
             // Assert
             Assert.IsFalse(xmlWriter.ReceivedCalls().Any());
         }
@@ -351,7 +351,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
 
             // Call
             ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(xmlWriter, configuration);
-            
+
             // Assert
             xmlWriter.Received(1).WriteWaveReduction(configuration);
         }
@@ -388,7 +388,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             // Setup
             var configuration = new ScenarioConfiguration();
             var xmlWriter = Substitute.For<XmlWriter>();
-            
+
             // Call
             ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(xmlWriter, configuration);
 

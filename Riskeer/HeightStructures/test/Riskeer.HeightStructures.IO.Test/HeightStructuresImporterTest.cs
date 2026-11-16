@@ -510,7 +510,7 @@ namespace Riskeer.HeightStructures.IO.Test
             messageProvider.GetAddDataToModelProgressText().Returns(progressText);
 
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            
+
             ReferenceLine referenceLine = CreateReferenceLine();
             var importer = new HeightStructuresImporter(importTarget, referenceLine, validFilePath,
                                                         messageProvider, strategy);
@@ -542,7 +542,7 @@ namespace Riskeer.HeightStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var observableA = Substitute.For<IObservable>();
             var observableB = Substitute.For<IObservable>();
-            
+
             IObservable[] observables =
             {
                 observableA,

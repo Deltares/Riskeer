@@ -288,7 +288,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
                 Assert.AreEqual(calculation.InputParameters.BreakWater.Height, testCalculator.ReceivedInputs.Single().BreakWater.Height);
             }
-            
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
                                                                            calculation.InputParameters.HydraulicBoundaryLocation), 

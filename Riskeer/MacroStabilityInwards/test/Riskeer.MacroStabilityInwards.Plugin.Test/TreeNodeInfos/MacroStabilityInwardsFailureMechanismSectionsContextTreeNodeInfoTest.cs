@@ -148,7 +148,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             var gui = Substitute.For<IGui>();
             ImportInfo[] importInfos = null;
-                
+
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);

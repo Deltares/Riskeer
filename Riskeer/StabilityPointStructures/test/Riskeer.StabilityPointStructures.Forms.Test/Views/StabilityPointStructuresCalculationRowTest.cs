@@ -518,7 +518,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             {
                 new Point2D(0.0, 0.0)
             }));
-  
+
             calculation.Output = assignedOutput;
 
             var row = new StabilityPointStructuresCalculationRow(calculation, handler);

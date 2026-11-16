@@ -2242,14 +2242,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             calculatorFactory
                 .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(overtoppingCalculator);
-            
+
             calculatorFactory.When(c=> c
                              .CreateDikeHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
             calculatorFactory
                 .CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(dikeHeightCalculator);
-            
+
             calculatorFactory.When(c=> c
                              .CreateOvertoppingRateCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));

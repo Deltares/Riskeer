@@ -237,7 +237,7 @@ namespace Core.Common.Controls.TreeView
 
             return treeNode != null && CanRemove(treeNode);
         }
-        
+
         public void TryRemoveNodeForData(object dataObject)
         {
             TreeNode treeNode = GetNodeByTag(dataObject);
@@ -291,7 +291,7 @@ namespace Core.Common.Controls.TreeView
                 CollapseAll(treeNode);
             }
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

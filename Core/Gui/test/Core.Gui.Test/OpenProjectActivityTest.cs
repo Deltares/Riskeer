@@ -404,7 +404,7 @@ namespace Core.Gui.Test
 
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.Migrate(someFilePath, someMigrationFilePath).Returns(false);
-            
+
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = someFilePath,

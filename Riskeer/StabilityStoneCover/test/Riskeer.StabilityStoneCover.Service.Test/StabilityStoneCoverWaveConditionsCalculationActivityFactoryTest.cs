@@ -346,7 +346,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             calculatorFactory
                 .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(testCalculator);
-            
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();

@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
 
             // Call
             info.ContextMenuStrip(null, null, treeViewCommands);
-            
+
             // Assert
             Received.InOrder(() =>
             {

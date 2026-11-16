@@ -183,7 +183,7 @@ namespace Core.Gui.Test.Forms.PropertyView
 
                 // Precondition
                 observableDataObject.Received(1).Attach(Arg.Any<IObserver>());
-    
+
                 // When
                 propertyGridView.Data = newDataObject;
             }

@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             SynchronizationContext.SetSynchronizationContext(originalSynchronizationContext);
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {

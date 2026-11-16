@@ -352,7 +352,7 @@ namespace Riskeer.Piping.Integration.Test
 
                 AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, 0, profileSpecificInputs[0]);
                 AssertCalculatorInput(failureMechanism.GeneralInput, calculation.InputParameters, failureMechanismSensitiveSectionLength, sectionSpecificInputs[0]);
-                
+
                 calculatorFactory.Received(2).CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
         }

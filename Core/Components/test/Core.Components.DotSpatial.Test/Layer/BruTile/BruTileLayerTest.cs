@@ -531,7 +531,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 layer.LockDispose();
                 layer.Dispose();
                 layer.UnlockDispose();
-    
+
                 // Then
                 configuration.DidNotReceive().Dispose();
             }

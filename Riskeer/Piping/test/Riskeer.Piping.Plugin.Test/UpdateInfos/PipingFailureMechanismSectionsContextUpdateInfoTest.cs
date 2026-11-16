@@ -203,7 +203,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new ProbabilisticPipingCalculationScenario());
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
-            
+
             UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
             // Call

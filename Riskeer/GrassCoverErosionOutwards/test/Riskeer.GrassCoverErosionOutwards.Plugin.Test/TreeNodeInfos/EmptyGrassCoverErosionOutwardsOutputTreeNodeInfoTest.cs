@@ -139,7 +139,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(output, null, treeViewCommands);
             }
-            
+
             // Assert
             Received.InOrder(() =>
             {

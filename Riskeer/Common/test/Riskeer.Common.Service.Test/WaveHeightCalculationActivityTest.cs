@@ -154,7 +154,7 @@ namespace Riskeer.Common.Service.Test
             calculatorFactory
                 .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(calculator);
-            
+
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),

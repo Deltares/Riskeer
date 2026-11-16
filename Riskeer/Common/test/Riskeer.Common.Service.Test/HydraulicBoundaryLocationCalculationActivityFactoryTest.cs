@@ -216,7 +216,7 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
             }
-            
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
                                                                            hydraulicBoundaryLocation), actualSettings);

@@ -174,9 +174,9 @@ namespace Riskeer.Common.Service.Test
             }
 
             Assert.AreEqual(ActivityState.Executed, activity.State);
-            
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(calculationSettings, actualSettings);
-           
+
         }
 
         [Test]

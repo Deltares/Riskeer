@@ -486,7 +486,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             Assert.AreEqual(expectedMessageBoxText, messageBoxText);
-            
+
             if (continuation)
             {
                 calculationObserver.Received(1).UpdateObserver();
@@ -774,7 +774,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                             $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
 
             Assert.AreEqual(expectedMessageBoxText, messageBoxText);
-            
+
             if (continuation)
             {
                 calculationObserver.Received(1).UpdateObserver();
@@ -1112,7 +1112,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?", messageBoxText);
                 Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
-            
+
             calculationObserver.Received(1).UpdateObserver();
         }
 

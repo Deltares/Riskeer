@@ -840,7 +840,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(3, calculationB.Output.BlocksOutput.Count());
                 Assert.AreEqual(3, calculationB.Output.ColumnsOutput.Count());
             }		 
-          
+
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

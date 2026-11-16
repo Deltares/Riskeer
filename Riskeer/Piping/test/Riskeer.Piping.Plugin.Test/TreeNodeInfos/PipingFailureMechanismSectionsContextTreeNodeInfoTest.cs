@@ -111,14 +111,14 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            
+
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-            
+
             using (var plugin = new PipingPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -150,7 +150,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             var menuBuilder = Substitute.For<IContextMenuBuilder>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            ImportInfo[] importInfos = null; 
+            ImportInfo[] importInfos = null;
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
@@ -159,7 +159,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
-            
+
             using (var plugin = new PipingPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);

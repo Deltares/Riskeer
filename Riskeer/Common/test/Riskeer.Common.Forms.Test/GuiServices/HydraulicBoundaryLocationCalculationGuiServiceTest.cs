@@ -262,7 +262,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             HydraRingCalculationSettings actualSettings = null;
             calculatorFactory.When(c=> c.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            
+
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
             assessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(new HydraulicBoundaryDatabase
             {

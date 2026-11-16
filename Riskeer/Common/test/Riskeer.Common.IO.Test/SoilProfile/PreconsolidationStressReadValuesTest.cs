@@ -103,7 +103,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             reader.ReadOrDefault<double>(columnName).Throws(invalidCastException);
             reader.ReadOrDefault<long>(columnName).Throws(invalidCastException);
             reader.ReadOrDefault<string>(columnName).Throws(invalidCastException);
-           
+
             reader.Path.Returns(path);
 
             // Call

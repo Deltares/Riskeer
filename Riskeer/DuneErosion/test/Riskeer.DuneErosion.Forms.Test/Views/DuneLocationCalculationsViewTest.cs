@@ -853,7 +853,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     }
                 }
             };
-            
+
             HydraRingCalculationSettings actualSettings = null;
             HydraulicBoundaryCalculationSettings expectedSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
                 hydraulicBoundaryData, hydraulicBoundaryLocation);

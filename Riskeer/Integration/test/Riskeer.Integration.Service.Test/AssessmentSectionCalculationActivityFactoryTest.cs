@@ -157,7 +157,7 @@ namespace Riskeer.Integration.Service.Test
                 calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
                 calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
             });
-            
+
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedCalculationSettings, actualSettings);
@@ -251,7 +251,7 @@ namespace Riskeer.Integration.Service.Test
                 Enumerable.Range(1, 15).ToList().ForEach(_ => calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()));
                 calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>());
             });
-            
+
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedCalculationSettings, actualSettings);

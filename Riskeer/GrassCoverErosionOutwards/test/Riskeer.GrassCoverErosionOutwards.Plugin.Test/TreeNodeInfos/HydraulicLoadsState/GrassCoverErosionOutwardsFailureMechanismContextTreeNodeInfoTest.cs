@@ -306,7 +306,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
             var actualSettingsList = new List<HydraRingCalculationSettings>();
             calculatorFactory.When(c=>c.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-        
+
             plugin.Gui = gui;
             plugin.Activate();
 

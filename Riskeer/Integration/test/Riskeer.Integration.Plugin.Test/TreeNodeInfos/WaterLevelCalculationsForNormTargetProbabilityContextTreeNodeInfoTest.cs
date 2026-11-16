@@ -466,7 +466,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             calculatorFactory
                 .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(designWaterLevelCalculator);
-            
+
             DialogBoxHandler = (name, wnd) =>
             {
                 // Expect an activity dialog which is automatically closed

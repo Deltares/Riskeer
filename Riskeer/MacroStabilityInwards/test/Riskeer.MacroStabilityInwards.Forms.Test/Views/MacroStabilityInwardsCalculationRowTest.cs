@@ -190,7 +190,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var inputObserver = Substitute.For<IObserver>();
             var calculationObserver = Substitute.For<IObserver>();
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
-           
+
             MacroStabilityInwardsOutput assignedOutput = hasOutput ? MacroStabilityInwardsOutputTestFactory.CreateOutput() : null;
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 

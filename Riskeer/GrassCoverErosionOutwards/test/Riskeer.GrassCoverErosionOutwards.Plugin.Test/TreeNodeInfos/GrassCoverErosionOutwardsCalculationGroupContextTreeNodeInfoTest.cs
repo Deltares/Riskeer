@@ -871,7 +871,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             Assert.AreEqual(3, calculationA.Output.WaveRunUpOutput.Count());
             Assert.AreEqual(3, calculationB.Output.WaveRunUpOutput.Count());
-            
+
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

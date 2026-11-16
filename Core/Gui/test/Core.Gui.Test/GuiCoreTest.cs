@@ -727,7 +727,7 @@ namespace Core.Gui.Test
                 Tuple<string, LogLevelConstant> expectedMessageAndLogLevel = Tuple.Create(expectedMessage, LogLevelConstant.Error);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedMessageAndLogLevel);
             }
-            
+
             plugin.Received(1).Dispose();
         }
 

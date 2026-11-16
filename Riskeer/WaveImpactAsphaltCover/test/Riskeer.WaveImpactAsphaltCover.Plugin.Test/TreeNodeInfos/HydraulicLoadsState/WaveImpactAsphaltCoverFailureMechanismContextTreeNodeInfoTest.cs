@@ -291,7 +291,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.HydraulicLoad
                 Assert.AreEqual(3, calculationB.Output.Items.Count());
                 calculatorFactory.Received(6).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
             }
-     
+
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

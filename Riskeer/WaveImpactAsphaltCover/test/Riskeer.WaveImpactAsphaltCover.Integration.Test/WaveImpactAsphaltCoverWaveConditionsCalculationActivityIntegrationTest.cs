@@ -457,7 +457,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
             // Assert
             calculatorFactory.Received(GetWaterLevels(calculation, assessmentSection).Count())
                              .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-							 
+
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

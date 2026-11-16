@@ -989,7 +989,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual(expectedErrorMessage, errorMessage);
             }
-            
+
             observer.DidNotReceive().UpdateObserver();
         }
 

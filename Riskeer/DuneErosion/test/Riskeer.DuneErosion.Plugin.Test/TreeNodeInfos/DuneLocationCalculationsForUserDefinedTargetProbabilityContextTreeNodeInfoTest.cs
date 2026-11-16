@@ -490,16 +490,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
-	
+
             var actualSettingsList = new List<HydraRingCalculationSettings>();
             calculatorFactory.When(c=> c
                                        .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-							 
+
             calculatorFactory
                 .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(dunesBoundaryConditionsCalculator);
-            
+
             plugin.Gui = gui;
             plugin.Activate();
 
@@ -517,7 +517,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(duneLocationCalculationsForTargetProbability.TargetProbability),
                                 dunesBoundaryConditionsCalculationInput.Beta);
             }
-            
+
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

@@ -267,7 +267,7 @@ namespace Riskeer.DuneErosion.Service.Test
             DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = calculator.ReceivedInputs.Last();
             Assert.AreEqual(locationId, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), dunesBoundaryConditionsCalculationInput.Beta);
-            
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
                                                                            hydraulicBoundaryData.GetLocations().First()), actualSettings);

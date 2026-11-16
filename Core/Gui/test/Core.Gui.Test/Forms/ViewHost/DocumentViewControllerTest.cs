@@ -781,7 +781,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                 new ViewInfo<A, TestView>(),
                 new ViewInfo<InheritedFromA, TestViewDerivative>()
             };
-            
+
             using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
                 documentViewController.OpenViewForData(data1);
@@ -789,7 +789,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
                 // Precondition
                 Assert.AreEqual(2, documentViews.Count);
-    
+
                 // Call
                 documentViewController.CloseAllViews();
             }
@@ -986,7 +986,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
                 // Precondition
                 Assert.AreEqual(2, documentViews.Count);
-    
+
                 // Call
                 documentViewController.CloseAllViewsFor(unusedViewData);
             }

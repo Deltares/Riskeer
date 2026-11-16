@@ -534,7 +534,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Call
             toolStripItem.PerformClick();
-            
+
             // Assert
             calculationWithOutput.DidNotReceive().ClearOutput();
             calculationWithOutput.DidNotReceive().NotifyObservers();

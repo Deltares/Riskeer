@@ -304,7 +304,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var currentStep = 1;

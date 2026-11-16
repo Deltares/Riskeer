@@ -371,7 +371,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             calculatorFactory.When(c=>c.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
                                  Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-                             
+
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();

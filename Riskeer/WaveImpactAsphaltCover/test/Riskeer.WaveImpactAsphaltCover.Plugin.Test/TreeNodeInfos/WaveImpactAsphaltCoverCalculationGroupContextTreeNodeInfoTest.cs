@@ -846,7 +846,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             calculatorFactory.When(c=> c
                              .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {

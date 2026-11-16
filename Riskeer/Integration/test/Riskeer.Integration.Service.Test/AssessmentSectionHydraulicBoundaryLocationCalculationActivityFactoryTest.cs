@@ -459,7 +459,7 @@ namespace Riskeer.Integration.Service.Test
             calculatorFactory
                 .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(designWaterLevelCalculator);
-            
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = activity.Run;
@@ -471,7 +471,7 @@ namespace Riskeer.Integration.Service.Test
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), actualCalculationInput.Beta);
             }
-            
+
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
                                                                            hydraulicBoundaryLocation), actualSettings);
