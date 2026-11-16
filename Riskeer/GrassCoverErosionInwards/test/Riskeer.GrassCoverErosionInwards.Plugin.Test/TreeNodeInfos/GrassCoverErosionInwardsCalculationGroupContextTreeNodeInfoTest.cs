@@ -1007,6 +1007,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
                 // Call
@@ -1044,6 +1045,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.MainWindow.Returns(Substitute.For<IMainWindow>());
+
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
                 // Call

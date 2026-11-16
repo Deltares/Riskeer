@@ -367,6 +367,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             var logDirectory = $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates)}_log";
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -628,6 +629,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             var logDirectory = $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}_log";
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -670,6 +672,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             var logDirectory = $"{nameof(Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError)}_log";
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -706,6 +709,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = Substitute.For<IInquiryHelper>();
 
             var logDirectory = $"{nameof(Migrate_TargetFileSameAsSourceFile_MigrationFailsAndLogsError)}_log";
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {

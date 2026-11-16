@@ -122,6 +122,7 @@ namespace Core.Components.Gis.IO.Readers
                 }
 
                 WmtsConnectionInfo readWmtsConnectionElement;
+
                 using (XmlReader subtreeReader = reader.ReadSubtree())
                 {
                     XElement wmtsConnectionElement = XElement.Load(subtreeReader);

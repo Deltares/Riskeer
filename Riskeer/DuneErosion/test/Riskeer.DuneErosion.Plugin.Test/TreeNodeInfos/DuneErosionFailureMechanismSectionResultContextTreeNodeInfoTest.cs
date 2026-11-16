@@ -110,6 +110,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             menuBuilder.AddOpenItem().Returns(menuBuilder);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (plugin)
             {
                 IGui gui = StubFactory.CreateGuiStub();

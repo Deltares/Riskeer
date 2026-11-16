@@ -438,6 +438,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     SurfaceLine = surfaceLine
                 }
             };
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -1073,6 +1074,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             };
 
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetHydraulicBoundaryLocationCalculation();
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -1119,6 +1121,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     StochasticSoilProfile = stochasticSoilProfile
                 }
             };
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;

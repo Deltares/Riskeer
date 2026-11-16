@@ -142,6 +142,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         {
             // Setup
             var isValid = true;
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -172,6 +173,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         {
             // Setup
             var isValid = false;
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -202,6 +204,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         {
             // Setup
             var isValid = true;
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -234,6 +237,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         {
             // Setup
             var isValid = true;
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -266,6 +270,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         {
             // Setup
             var isValid = false;
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -298,6 +303,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         {
             // Setup
             var isValid = true;
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -366,6 +372,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             input.AssessmentLevel = (RoundedDouble) 2.2;
 
             input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
@@ -663,6 +670,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             input.AssessmentLevel = (RoundedDouble) 2.2;
 
             input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call

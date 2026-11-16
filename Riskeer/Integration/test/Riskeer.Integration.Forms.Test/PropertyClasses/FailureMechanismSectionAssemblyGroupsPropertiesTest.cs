@@ -91,6 +91,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call

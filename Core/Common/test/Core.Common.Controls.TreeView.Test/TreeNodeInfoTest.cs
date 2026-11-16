@@ -334,6 +334,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             // Assert
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(0, 1, treeViewCommands))
             {
                 Assert.AreEqual(1, contextMenuStrip.Items.Count);

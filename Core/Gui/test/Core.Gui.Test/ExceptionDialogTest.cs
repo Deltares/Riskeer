@@ -204,6 +204,7 @@ namespace Core.Gui.Test
         {
             // Setup
             var exception = new Exception("Test");
+
             using (new ClipboardConfig())
             using (var dialog = new ExceptionDialog(new UserControl(), null, exception))
             {

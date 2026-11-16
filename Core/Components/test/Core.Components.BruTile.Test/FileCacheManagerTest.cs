@@ -75,6 +75,7 @@ namespace Core.Components.BruTile.Test
             // Setup
             FileCacheManager manager = FileCacheManager.Instance;
             string path = TestHelper.GetScratchPadPath(nameof(GetFileCache_FileCacheAlreadyRegistered_ReturnSameFileCache));
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GetFileCache_FileCacheAlreadyRegistered_ReturnSameFileCache)))
             {
                 FileCache fileCache1 = manager.GetFileCache(path);
@@ -104,6 +105,7 @@ namespace Core.Components.BruTile.Test
             // Given
             FileCacheManager manager = FileCacheManager.Instance;
             string path = TestHelper.GetScratchPadPath(nameof(GivenFileCache_WhenUnsubscribingButFileCacheStillUsed_ThenFileCacheNotDisposed));
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GivenFileCache_WhenUnsubscribingButFileCacheStillUsed_ThenFileCacheNotDisposed)))
             {
                 FileCache fileCache1 = manager.GetFileCache(path);
@@ -124,6 +126,7 @@ namespace Core.Components.BruTile.Test
             // Given
             FileCacheManager manager = FileCacheManager.Instance;
             string path = TestHelper.GetScratchPadPath(nameof(GivenFileCache_WhenUnsubscribingAndFileCacheNotUsed_ThenFileCacheDisposed));
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GivenFileCache_WhenUnsubscribingAndFileCacheNotUsed_ThenFileCacheDisposed)))
             {
                 FileCache fileCache1 = manager.GetFileCache(path);

@@ -632,6 +632,7 @@ namespace Core.Gui.Test.Forms.Chart
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
             contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
+
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(lineData), null, null))
             {
                 // Call

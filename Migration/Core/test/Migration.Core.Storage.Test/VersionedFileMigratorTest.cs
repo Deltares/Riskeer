@@ -320,6 +320,7 @@ namespace Migration.Core.Storage.Test
 
             // Assert
             Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
+
             using (new FileDisposeHelper(toLocation)) {}
         }
 

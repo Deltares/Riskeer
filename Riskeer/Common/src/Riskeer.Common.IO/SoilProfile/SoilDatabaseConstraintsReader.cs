@@ -99,6 +99,7 @@ namespace Riskeer.Common.IO.SoilProfile
         private void ReadUniqueSegements()
         {
             string query = SoilDatabaseQueryBuilder.GetSoilModelNamesUniqueQuery();
+
             using (IDataReader dataReader = CreateDataReader(query))
             {
                 if (!dataReader.Read())
@@ -134,6 +135,7 @@ namespace Riskeer.Common.IO.SoilProfile
         private void ReadAllProbabilitiesValid()
         {
             string checkSegmentNameUniqueness = SoilDatabaseQueryBuilder.GetStochasticSoilProfileProbabilitiesValidQuery();
+
             using (IDataReader dataReader = CreateDataReader(checkSegmentNameUniqueness))
             {
                 if (!dataReader.Read())

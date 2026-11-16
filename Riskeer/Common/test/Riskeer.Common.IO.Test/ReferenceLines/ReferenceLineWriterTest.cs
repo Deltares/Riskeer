@@ -130,6 +130,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             });
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteReferenceLine_ValidData_WritesShapeFile));
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WriteReferenceLine_ValidData_WritesShapeFile)))
             {
                 Directory.CreateDirectory(directoryPath);

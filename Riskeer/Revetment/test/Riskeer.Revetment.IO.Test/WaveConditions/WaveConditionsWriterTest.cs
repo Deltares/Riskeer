@@ -164,6 +164,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             };
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteWaveConditions_ValidData_ValidFile));
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WriteWaveConditions_ValidData_ValidFile)))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");

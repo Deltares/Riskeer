@@ -73,6 +73,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             });
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_ValidData_ReturnTrue));
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_ValidData_ReturnTrue)))
             {
                 string filePath = Path.Combine(directoryPath, "test.shp");

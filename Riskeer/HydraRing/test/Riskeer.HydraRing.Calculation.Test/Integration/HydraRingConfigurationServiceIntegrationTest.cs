@@ -109,6 +109,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [Breakwaters];" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -186,6 +187,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [Breakwaters];" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -330,6 +332,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -473,6 +476,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -615,6 +619,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -769,6 +774,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                 "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -871,6 +877,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -975,6 +982,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -1089,6 +1097,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -1205,6 +1214,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -1323,6 +1333,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -1471,6 +1482,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -1619,6 +1631,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -1765,6 +1778,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -1911,6 +1925,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -1988,6 +2003,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [Breakwaters];" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -2133,6 +2149,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [Breakwaters];" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -2271,6 +2288,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [Breakwaters];" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call

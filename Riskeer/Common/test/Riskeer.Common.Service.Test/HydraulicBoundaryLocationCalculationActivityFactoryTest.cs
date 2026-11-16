@@ -236,6 +236,7 @@ namespace Riskeer.Common.Service.Test
             calculatorFactory
                 .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns(calculator);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = activity.Run;

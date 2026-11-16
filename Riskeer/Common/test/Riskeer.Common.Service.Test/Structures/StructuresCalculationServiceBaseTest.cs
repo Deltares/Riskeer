@@ -619,6 +619,7 @@ namespace Riskeer.Common.Service.Test.Structures
                              .Returns(calculator);
 
             var messageProvider = Substitute.For<IStructuresCalculationMessageProvider>();
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var service = new TestStructuresCalculationService(messageProvider);
@@ -678,6 +679,7 @@ namespace Riskeer.Common.Service.Test.Structures
             }
 
             messageProvider.GetCalculationPerformedMessage(calculator.OutputDirectory).Returns(calculationPerformedMessage);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var exceptionThrown = false;

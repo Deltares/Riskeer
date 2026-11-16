@@ -376,6 +376,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -496,6 +497,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();

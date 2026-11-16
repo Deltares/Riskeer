@@ -81,6 +81,7 @@ namespace Core.Components.BruTile.Test.Configurations
         {
             // Setup
             const WellKnownTileSource knownTileSource = WellKnownTileSource.BingAerial;
+
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new WellKnownTileSourceMapData(knownTileSource)))
             using (WellKnownTileSourceLayerConfiguration configuration = WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(knownTileSource))

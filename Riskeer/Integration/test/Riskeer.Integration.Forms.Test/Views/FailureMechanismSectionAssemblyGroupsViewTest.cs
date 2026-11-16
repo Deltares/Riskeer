@@ -89,6 +89,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyGroupBoundariesCalculator;
+
                 using (new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
                     // Assert
@@ -134,6 +135,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -161,6 +163,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;

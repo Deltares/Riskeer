@@ -287,6 +287,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         {
             // Setup
             UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create();
+
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
@@ -307,6 +308,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         {
             // Setup
             UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create();
+
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;

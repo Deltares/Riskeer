@@ -113,6 +113,7 @@ namespace Riskeer.Common.IO.Test.Helpers
 
                 // Precondition
                 Assert.IsTrue(File.Exists(destinationFilePath));
+
                 using (ZipArchive zipArchive = ZipFile.OpenRead(destinationFilePath))
                 {
                     var expectedFiles = new[]
@@ -133,6 +134,7 @@ namespace Riskeer.Common.IO.Test.Helpers
 
                 // Assert
                 Assert.IsTrue(File.Exists(destinationFilePath));
+
                 using (ZipArchive zipArchive = ZipFile.OpenRead(destinationFilePath))
                 {
                     var expectedFiles = new[]

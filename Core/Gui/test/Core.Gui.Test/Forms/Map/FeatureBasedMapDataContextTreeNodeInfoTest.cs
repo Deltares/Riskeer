@@ -455,6 +455,7 @@ namespace Core.Gui.Test.Forms.Map
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
             contextMenuBuilderProvider.Get(Arg.Any<object>(), Arg.Any<ITreeViewCommands>()).Returns(builder);
+
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Call

@@ -109,6 +109,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             // Setup
             ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
+
             using (IView view = GetView(failureMechanism.Calculations.First()))
             {
                 // Call
@@ -124,6 +125,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             // Setup
             ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
+
             using (IView view = GetView(GetCalculation()))
             {
                 // Call

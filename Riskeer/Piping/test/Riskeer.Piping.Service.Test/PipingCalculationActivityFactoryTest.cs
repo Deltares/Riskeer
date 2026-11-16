@@ -546,6 +546,7 @@ namespace Riskeer.Piping.Service.Test
             var sectionSpecificCalculator = new TestPipingCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(profileSpecificCalculator, sectionSpecificCalculator);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();

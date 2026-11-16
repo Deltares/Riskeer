@@ -215,6 +215,7 @@ namespace Riskeer.Common.IO.SurfaceLines
         private ReadResult<SurfaceLine> ReadSurfaceLines()
         {
             NotifyProgress(RiskeerCommonIOResources.SurfaceLinesCsvImporter_Reading_surface_line_file, 1, 1);
+
             using (SurfaceLinesCsvReader reader = CreateSurfaceLineReader())
             {
                 if (reader == null)

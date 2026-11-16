@@ -77,6 +77,7 @@ namespace Core.Common.Controls.Test.DataGrid
                         using (Bitmap expectedImage = CreateExpectedImage(cellDisplayRectangle, expectedColor, view.GridColor))
                         {
                             view.DrawToBitmap(viewDrawCanvas, new Rectangle(0, 0, view.Width, view.Height));
+
                             using (Bitmap actualImage = viewDrawCanvas.Clone(cellDisplayRectangle, viewDrawCanvas.PixelFormat))
                             {
                                 TestHelper.AssertImagesAreEqual(expectedImage, actualImage);

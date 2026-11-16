@@ -84,6 +84,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
             // Setup
             const string folderName = nameof(Export_CalculationsWithoutOutput_FileWithOnlyHeader);
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -113,6 +114,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
             // Setup
             const string folderName = nameof(Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader);
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -145,6 +147,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
             // Setup
             string folderName = $"{nameof(WaveImpactAsphaltCoverWaveConditionsExporterTest)}.{nameof(Export_ValidData_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");

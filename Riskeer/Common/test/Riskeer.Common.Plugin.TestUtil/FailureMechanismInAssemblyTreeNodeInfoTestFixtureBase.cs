@@ -74,6 +74,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             })
             {
                 TreeNodeInfo info = GetInfo(plugin);
+
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
                 {
                     // Call
@@ -112,6 +113,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             })
             {
                 TreeNodeInfo info = GetInfo(plugin);
+
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
                 {
                     // Call

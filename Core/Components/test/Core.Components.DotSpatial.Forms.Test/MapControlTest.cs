@@ -1285,6 +1285,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // When
                 WmtsMapData differentBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
+
                 using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
                 {
                     mapControl.BackgroundMapData = differentBackgroundMapData;

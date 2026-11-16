@@ -157,6 +157,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             string someValidFilePath = TestHelper.GetScratchPadPath(nameof(SaveProject_SavingProjectThrowsStorageException_AbortSaveAndReturnFalse));
+
             using (new FileDisposeHelper(someValidFilePath))
             {
                 var project = Substitute.For<IProject>();
@@ -215,6 +216,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             string someValidFilePath = TestHelper.GetScratchPadPath(nameof(SaveProject_SavingProjectIsSuccessful_LogSuccessAndReturnTrue));
+
             using (new FileDisposeHelper(someValidFilePath))
             {
                 var project = Substitute.For<IProject>();
@@ -791,6 +793,7 @@ namespace Core.Gui.Test.Commands
             var mainWindowController = Substitute.For<IMainWindowController>();
             string projectPath = TestHelper.GetScratchPadPath(
                 nameof(GetExistingProjectFilePath_FilePathSelectedAndOkClicked_ReturnsSelectedFilePath));
+
             using (new FileDisposeHelper(projectPath))
             {
                 var storageCommandHandler = new StorageCommandHandler(
@@ -988,6 +991,7 @@ namespace Core.Gui.Test.Commands
             // Setup
             const string projectName = "Project";
             string someValidFilePath = TestHelper.GetScratchPadPath(nameof(HandleUnsavedChanges_ProjectSetWithChangeYesPressed_ReturnsTrue));
+
             using (new FileDisposeHelper(someValidFilePath))
             {
                 var project = Substitute.For<IProject>();

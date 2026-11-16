@@ -136,6 +136,7 @@ namespace Riskeer.Common.Forms.Factories
         private static string GetGraphNodeContentXml(string content, string title = null)
         {
             var builder = new StringBuilder();
+
             using (XmlWriter writer = XmlWriter.Create(builder, xmlWriterSettings))
             {
                 writer.WriteStartDocument();

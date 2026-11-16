@@ -163,6 +163,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                              .Returns(new TestWaveConditionsCosineCalculator());
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -380,6 +381,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                             calculation.InputParameters.CalculationType);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -466,6 +468,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var grassCoverErosionOutwardsWaveConditionsCalculationService = new GrassCoverErosionOutwardsWaveConditionsCalculationService();
@@ -500,6 +503,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                              .Returns(waveConditionsCosineCalculator);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var grassCoverErosionOutwardsWaveConditionsCalculationService = new GrassCoverErosionOutwardsWaveConditionsCalculationService();
@@ -541,6 +545,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                              .Returns(new TestWaveConditionsCosineCalculator());
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -602,6 +607,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                              .Returns(calculatorThatFails);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 HydraRingCalculationException exception = null;
@@ -691,6 +697,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                       _ => new TestWaveConditionsCosineCalculator());
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -783,6 +790,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                              });
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -815,6 +823,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var currentStep = 1;

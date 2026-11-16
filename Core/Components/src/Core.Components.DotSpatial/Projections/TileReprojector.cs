@@ -104,6 +104,7 @@ namespace Core.Components.DotSpatial.Projections
             // Prepare the result tile
             targetTile = new Bitmap(targetTileExtentInPixelCoordinates.Size.Width, targetTileExtentInPixelCoordinates.Size.Height,
                                     PixelFormat.Format32bppArgb);
+
             using (Graphics g = Graphics.FromImage(targetTile))
             {
                 g.Clear(Color.Transparent);

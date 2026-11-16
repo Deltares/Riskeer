@@ -103,6 +103,7 @@ namespace Riskeer.DuneErosion.IO.Test
             };
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_ValidData_ReturnTrueAndWritesFile));
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_ValidData_ReturnTrueAndWritesFile)))
             {
                 string filePath = Path.Combine(directoryPath, "test.bnd");

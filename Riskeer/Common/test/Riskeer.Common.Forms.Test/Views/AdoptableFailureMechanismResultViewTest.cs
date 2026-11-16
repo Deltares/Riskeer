@@ -222,6 +222,7 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             int nrOfAssemblyCalls = 0;
+
             using (ShowFailureMechanismResultsView(failureMechanism, (fm, ass) =>
             {
                 nrOfAssemblyCalls++;
@@ -259,6 +260,7 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             int nrOfAssemblyCalls = 0;
+
             using (ShowFailureMechanismResultsView(failureMechanism, (fm, ass) =>
             {
                 nrOfAssemblyCalls++;
@@ -298,6 +300,7 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             int nrOfAssemblyCalls = 0;
+
             using (ShowFailureMechanismResultsView(failureMechanism, (fm, ass) =>
             {
                 nrOfAssemblyCalls++;

@@ -718,6 +718,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             {
                 CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData))
             });
+
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var form = new Form())
             using (ShowValidWmtsLocationControl(form, wmtsCapabilityFactory))
@@ -785,6 +786,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),
                 CreateWmtsCapability(new TestWmtsTileSource(selectedBackgroundMapData))
             });
+
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
             using (var form = new Form())
             using (var control = new WmtsLocationControl(null, wmtsCapabilityFactory))
@@ -817,6 +819,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 CreateWmtsCapability(new TestWmtsTileSource(backgroundMapData)),
                 CreateWmtsCapability(new TestWmtsTileSource(selectedBackgroundMapData))
             });
+
             using (new UseCustomTileSourceFactoryConfig(selectedBackgroundMapData))
             using (var form = new Form())
             using (var control = new WmtsLocationControl(selectedBackgroundMapData, wmtsCapabilityFactory))

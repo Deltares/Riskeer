@@ -217,6 +217,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -294,6 +295,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             };
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -341,6 +343,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -397,6 +400,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
@@ -435,6 +439,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
@@ -498,6 +503,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -742,6 +748,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -797,6 +804,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
@@ -838,6 +846,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
@@ -903,6 +912,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -1143,6 +1153,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -1201,6 +1212,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
@@ -1242,6 +1254,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          assessmentSection.GrassCoverErosionInwards,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();

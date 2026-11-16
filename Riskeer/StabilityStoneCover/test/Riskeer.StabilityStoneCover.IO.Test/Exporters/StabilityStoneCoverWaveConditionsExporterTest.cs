@@ -84,6 +84,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
             // Setup
             const string folderName = nameof(Export_CalculationsWithoutOutput_FileWithOnlyHeader);
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -113,6 +114,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
             // Setup
             const string folderName = nameof(Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader);
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -145,6 +147,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
             // Setup
             string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeBoth_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -192,6 +195,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
             // Setup
             string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeColumns_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -243,6 +247,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
             // Setup
             string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeBlocks_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");

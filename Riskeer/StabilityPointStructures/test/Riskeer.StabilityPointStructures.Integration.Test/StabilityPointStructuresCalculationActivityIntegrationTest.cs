@@ -324,6 +324,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          failureMechanism,
                                                                                                                          assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call

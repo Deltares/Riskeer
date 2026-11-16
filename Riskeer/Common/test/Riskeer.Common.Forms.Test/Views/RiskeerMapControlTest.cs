@@ -159,6 +159,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Given
             var observer = Substitute.For<IObserver>();
+
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new TestTileSourceFactory(BackgroundDataConverter.ConvertFrom(originalBackgroundData))))
             {

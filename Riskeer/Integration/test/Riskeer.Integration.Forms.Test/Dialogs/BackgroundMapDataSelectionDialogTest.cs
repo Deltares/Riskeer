@@ -54,6 +54,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             // Setup
             var dialogParent = Substitute.For<IWin32Window>();
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
+
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = settingsDirectory
@@ -117,6 +118,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             var mapData = new WellKnownTileSourceMapData(random.NextEnumValue<WellKnownTileSource>());
 
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
+
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = settingsDirectory
@@ -138,6 +140,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Setup
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
+
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = settingsDirectory
@@ -188,6 +191,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             };
 
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
+
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = settingsDirectory
@@ -220,6 +224,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             };
 
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
+
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = settingsDirectory
@@ -241,6 +246,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Given
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
+
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = settingsDirectory
@@ -292,6 +298,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             var wmtsLocationControlSelectedMapDataChanged = 0;
 
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
+
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = settingsDirectory
@@ -340,6 +347,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             var wellKnownSelectedMapDataChanged = 0;
 
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
+
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = settingsDirectory
@@ -374,6 +382,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Setup
             string settingsDirectory = Path.Combine(testPath, "EmptyWmtsConnectionInfo");
+
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
                 ApplicationLocalUserSettingsDirectory = settingsDirectory

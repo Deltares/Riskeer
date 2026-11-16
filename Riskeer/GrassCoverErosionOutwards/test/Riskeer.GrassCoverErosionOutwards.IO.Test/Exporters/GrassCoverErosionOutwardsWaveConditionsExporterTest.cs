@@ -77,6 +77,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
             // Setup
             const string folderName = nameof(Export_CalculationsWithoutOutput_FileWithOnlyHeader);
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -106,6 +107,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
             // Setup
             const string folderName = nameof(Export_CalculationsWithoutHydraulicBoundaryLocation_FileWithOnlyHeader);
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -138,6 +140,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
             // Setup
             string folderName = $"{nameof(GrassCoverErosionOutwardsWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeWaveRunUpAndWaveImpact_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -188,6 +191,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
             // Setup
             string folderName = $"{nameof(GrassCoverErosionOutwardsWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeWaveRunUp_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -243,6 +247,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
             // Setup
             string folderName = $"{nameof(GrassCoverErosionOutwardsWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeWaveImpact_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -298,6 +303,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
             // Setup
             string folderName = $"{nameof(GrassCoverErosionOutwardsWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeWaveImpact_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -353,6 +359,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
             // Setup
             string folderName = $"{nameof(GrassCoverErosionOutwardsWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeWaveImpact_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
@@ -409,6 +416,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
             // Setup
             string folderName = $"{nameof(GrassCoverErosionOutwardsWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeWaveImpact_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");

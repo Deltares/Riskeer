@@ -187,6 +187,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             expectedBreakWatersScript;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call
@@ -361,6 +362,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [Breakwaters] VALUES (3, 1, 99.9);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
+
             using (new FileDisposeHelper(databaseFilePath))
             {
                 // Call

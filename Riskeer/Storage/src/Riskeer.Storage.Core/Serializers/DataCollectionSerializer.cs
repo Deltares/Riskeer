@@ -94,6 +94,7 @@ namespace Riskeer.Storage.Core.Serializers
                 streamWriter.Flush();
 
                 stream.Seek(0, SeekOrigin.Begin);
+
                 using (XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(stream, XmlDictionaryReaderQuotas.Max))
                 {
                     var serializer = new DataContractSerializer(serializationRootType);

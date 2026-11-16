@@ -43,6 +43,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
 
             IFailureMechanism failureMechanism = GetFailureMechanism();
+
             using (IView view = GetView(failureMechanism))
             {
                 // Call

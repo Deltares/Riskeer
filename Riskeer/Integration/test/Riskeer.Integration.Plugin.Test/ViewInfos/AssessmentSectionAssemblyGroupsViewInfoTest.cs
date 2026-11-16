@@ -65,6 +65,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null);
             var context = new AssessmentSectionAssemblyGroupsContext(assessmentSection);
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
@@ -100,6 +101,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null);
+
             using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssessmentSectionAssemblyGroupsView(assessmentSection.FailureMechanismContribution))
             {
@@ -117,6 +119,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             IAssessmentSection assessmentSection1 = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null);
             IAssessmentSection assessmentSection2 = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null);
+
             using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssessmentSectionAssemblyGroupsView(assessmentSection1.FailureMechanismContribution))
             {

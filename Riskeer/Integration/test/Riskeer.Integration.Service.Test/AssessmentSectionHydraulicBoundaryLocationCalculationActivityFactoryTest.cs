@@ -493,6 +493,7 @@ namespace Riskeer.Integration.Service.Test
             calculatorFactory
                 .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
                 .Returns( waveHeightCalculator);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = activity.Run;

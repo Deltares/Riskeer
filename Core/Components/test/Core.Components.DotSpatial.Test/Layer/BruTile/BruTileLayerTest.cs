@@ -861,6 +861,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             var mapFrame = Substitute.For<IFrame>();
 
             IConfiguration configuration = CreateStubConfiguration();
+
             using (new BruTileLayer(configuration)
             {
                 MapFrame = mapFrame

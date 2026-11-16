@@ -162,6 +162,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                  failureMechanism,
                                                                                                                  assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -199,6 +200,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                  failureMechanism,
                                                                                                                  assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
@@ -250,6 +252,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                  failureMechanism,
                                                                                                                  assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
