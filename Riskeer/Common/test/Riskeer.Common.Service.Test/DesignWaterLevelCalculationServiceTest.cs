@@ -371,14 +371,10 @@ namespace Riskeer.Common.Service.Test
             var calculator = Substitute.For<IDesignWaterLevelCalculator>();
             calculator.When(c => c.Calculate(Arg.Any<AssessmentLevelCalculationInput>())).Throw(expectedException);
 
-            calculator.LastErrorFileContent.Returns(string.Empty);
-            calculator.OutputDirectory.Returns(string.Empty);
-
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
 
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
-            calculationMessageProvider.GetCalculatedNotConvergedMessage(locationName).Returns(string.Empty);
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

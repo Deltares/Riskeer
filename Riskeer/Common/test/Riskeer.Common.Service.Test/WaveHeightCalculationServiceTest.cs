@@ -374,15 +374,12 @@ namespace Riskeer.Common.Service.Test
             var expectedException = new HydraRingFileParserException();
             var calculator = Substitute.For<IWaveHeightCalculator>();
             calculator.When(c => c.Calculate(Arg.Any<WaveHeightCalculationInput>())).Throw(expectedException);
-            calculator.LastErrorFileContent.Returns(string.Empty);
-            calculator.OutputDirectory.Returns(string.Empty);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(calculator);
 
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
-            calculationMessageProvider.GetCalculatedNotConvergedMessage(locationName).Returns(string.Empty);
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

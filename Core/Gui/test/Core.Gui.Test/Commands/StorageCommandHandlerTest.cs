@@ -780,7 +780,6 @@ namespace Core.Gui.Test.Commands
             // Setup
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.HasStagedProjectChanges(Arg.Any<string>()).Returns(false);
-            projectStorage.OpenProjectFileFilter.Returns(string.Empty);
 
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();

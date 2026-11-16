@@ -566,8 +566,6 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
-            errorProvider.GetManualProbabilityValidationError( Arg.Any<double>())
-                         .Returns(string.Empty);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -603,8 +601,6 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
-            errorProvider.GetManualProbabilityValidationError(Arg.Any<double>())
-                         .Returns(string.Empty);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -633,8 +629,6 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var errorProvider = Substitute.For<IFailureMechanismSectionResultRowErrorProvider>();
-            errorProvider.GetManualProbabilityValidationError(Arg.Any<double>())
-                         .Returns(string.Empty);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {

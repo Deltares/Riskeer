@@ -188,7 +188,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Given
             var filePathProvider = Substitute.For<IAssessmentSectionMergeFilePathProvider>();
-            filePathProvider.GetFilePath().Returns(string.Empty);
             var assessmentSectionProvider = Substitute.For<IAssessmentSectionProvider>();
             assessmentSectionProvider.GetAssessmentSection(Arg.Any<string>()).Throws(new AssessmentSectionProviderException());
 
@@ -210,7 +209,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Given
             var filePathProvider = Substitute.For<IAssessmentSectionMergeFilePathProvider>();
-            filePathProvider.GetFilePath().Returns(string.Empty);
             var assessmentSectionProvider = Substitute.For<IAssessmentSectionProvider>();
             assessmentSectionProvider.GetAssessmentSection(Arg.Any<string>())
                                      .Returns(new AssessmentSection(AssessmentSectionComposition.Dike));
@@ -233,7 +231,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Given
             var filePathProvider = Substitute.For<IAssessmentSectionMergeFilePathProvider>();
-            filePathProvider.GetFilePath().Returns(string.Empty);
             var assessmentSectionProvider = Substitute.For<IAssessmentSectionProvider>();
             assessmentSectionProvider.GetAssessmentSection(Arg.Any<string>())
                                      .Returns(new AssessmentSection(AssessmentSectionComposition.Dike));
@@ -292,7 +289,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var assessmentSectionToMerge = new AssessmentSection(AssessmentSectionComposition.Dike);
             var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, CreateDefaultConstructionProperties());
             var filePathProvider = Substitute.For<IAssessmentSectionMergeFilePathProvider>();
-            filePathProvider.GetFilePath().Returns(string.Empty);
             var assessmentSectionProvider = Substitute.For<IAssessmentSectionProvider>();
             assessmentSectionProvider.GetAssessmentSection(Arg.Any<string>())
                                      .Returns(assessmentSectionToMerge);
