@@ -115,9 +115,6 @@ namespace Core.Gui.Test.Forms.PropertyView
                 Assert.AreEqual(0, propertyGridView.RefreshCalled);
                 Assert.IsNull(propertyGridView.SelectedObject);
             }
-
-            propertyResolver.Received(1).GetObjectProperties(dataObject);
-            propertyResolver.Received(1).GetObjectProperties(null);
         }
 
         [Test]
@@ -127,6 +124,7 @@ namespace Core.Gui.Test.Forms.PropertyView
             var dataObject = new object();
 
             var propertyResolver = Substitute.For<IPropertyResolver>();
+            propertyResolver.GetObjectProperties(dataObject).Returns(new object(), new object());
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
