@@ -88,6 +88,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var data = Substitute.For<IDataObject>();
+
             using (var treeView = CreateTreeViewWithTopLevelNodes(out TreeNode draggingNode, out TreeNode treeNode))
             {
                 data.GetData(typeof(TreeNode)).Returns(draggingNode);

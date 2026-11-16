@@ -100,6 +100,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         protected override void GenerateCalculations()
         {
             var calculationGroup = (CalculationGroup) Data;
+
             using (var dialog = new StructureSelectionDialog(Parent, FailureMechanism.HeightStructures))
             {
                 dialog.ShowDialog();

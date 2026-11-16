@@ -123,6 +123,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             });
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -164,6 +165,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -182,6 +184,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -223,6 +226,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))

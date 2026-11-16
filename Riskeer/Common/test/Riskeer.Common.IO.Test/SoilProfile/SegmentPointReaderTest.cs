@@ -193,6 +193,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Given
             string dbFile = Path.Combine(testDataPath, "missingStochasticSoilModel.soil");
+
             using (var reader = new SegmentPointReader(dbFile))
             {
                 reader.Initialize();
@@ -245,6 +246,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Given
             string dbFile = Path.Combine(testDataPath, "invalidSegmentPoint.soil");
+
             using (var reader = new SegmentPointReader(dbFile))
             {
                 reader.Initialize();

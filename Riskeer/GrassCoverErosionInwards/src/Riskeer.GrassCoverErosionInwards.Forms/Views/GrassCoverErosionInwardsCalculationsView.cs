@@ -97,6 +97,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         protected override void GenerateCalculations()
         {
             var calculationGroup = (CalculationGroup) Data;
+
             using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Parent, FailureMechanism.DikeProfiles))
             {
                 dialog.ShowDialog();

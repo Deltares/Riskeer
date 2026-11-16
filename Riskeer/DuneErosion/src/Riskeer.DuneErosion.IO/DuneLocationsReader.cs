@@ -58,6 +58,7 @@ namespace Riskeer.DuneErosion.IO
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "RSPstelsel.shp");
 
                 var readDuneLocations = new List<ReadDuneLocation>();
+
                 using (var pointShapeReader = new PointShapeFileReader(filePath))
                 {
                     FeatureBasedMapData locationsData = pointShapeReader.ReadShapeFile();

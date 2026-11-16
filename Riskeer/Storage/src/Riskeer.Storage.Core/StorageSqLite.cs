@@ -172,6 +172,7 @@ namespace Riskeer.Storage.Core
         private void SaveProjectInDatabase(string databaseFilePath)
         {
             string connectionString = GetConnectionToNewFile(databaseFilePath);
+
             using (var dbContext = new RiskeerEntities(connectionString))
             {
                 try

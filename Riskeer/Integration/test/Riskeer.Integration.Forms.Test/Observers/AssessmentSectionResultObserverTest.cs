@@ -261,6 +261,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
+
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
                 var observer = Substitute.For<IObserver>();
@@ -288,6 +289,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
+
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
                 var observer = Substitute.For<IObserver>();
@@ -315,6 +317,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
+
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
                 var observer = Substitute.For<IObserver>();
@@ -342,6 +345,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
+
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
                 var observer = Substitute.For<IObserver>();

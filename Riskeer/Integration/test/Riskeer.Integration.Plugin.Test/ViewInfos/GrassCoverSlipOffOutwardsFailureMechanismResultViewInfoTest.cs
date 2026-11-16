@@ -121,6 +121,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             });
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))

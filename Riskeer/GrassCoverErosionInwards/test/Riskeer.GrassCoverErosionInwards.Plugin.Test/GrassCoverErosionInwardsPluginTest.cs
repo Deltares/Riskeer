@@ -261,6 +261,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test
         {
             // Setup
             var gui = Substitute.For<IGui>();
+
             using (var plugin = new GrassCoverErosionInwardsPlugin
             {
                 Gui = gui

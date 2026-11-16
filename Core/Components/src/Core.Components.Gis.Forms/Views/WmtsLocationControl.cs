@@ -334,6 +334,7 @@ namespace Core.Components.Gis.Forms.Views
         private void OnAddLocationButtonClick(object sender, EventArgs eventArgs)
         {
             Form parentForm = FindForm();
+
             using (var dialog = new WmtsConnectionDialog(parentForm))
             {
                 if (dialog.ShowDialog() != DialogResult.OK)
@@ -354,6 +355,7 @@ namespace Core.Components.Gis.Forms.Views
             }
 
             Form parentForm = FindForm();
+
             using (var dialog = new WmtsConnectionDialog(parentForm, selectedWmtsConnectionInfo))
             {
                 if (dialog.ShowDialog() != DialogResult.OK)

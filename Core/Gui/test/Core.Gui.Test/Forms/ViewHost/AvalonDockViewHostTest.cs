@@ -118,6 +118,7 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             var testView = Substitute.For<IView>();
+
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 var viewOpenedCounter = 0;
@@ -504,6 +505,7 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             var testView = Substitute.For<IView>();
+
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 var viewOpenedCounter = 0;

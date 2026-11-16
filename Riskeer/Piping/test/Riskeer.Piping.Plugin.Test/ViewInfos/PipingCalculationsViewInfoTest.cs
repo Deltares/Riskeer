@@ -93,6 +93,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             };
 
             var failureMechanism = new PipingFailureMechanism();
+
             using (var calculationsView = new PipingCalculationsView(calculationGroup, failureMechanism, assessmentSection))
             {
                 var context = new PipingCalculationGroupContext(calculationGroup,
@@ -221,6 +222,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
             var failureMechanism = new PipingFailureMechanism();
+
             using (var view = new PipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
                 var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);

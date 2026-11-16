@@ -909,6 +909,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var contextMenuStripInAssembly = new ContextMenuStrip())
             using (var contextMenuStripNotInAssembly = new ContextMenuStrip())
             {
@@ -954,6 +955,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var contextMenuStripInAssembly = new ContextMenuStrip())
             using (var contextMenuStripNotInAssembly = new ContextMenuStrip())
             {
@@ -1105,6 +1107,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var contextMenuStripRelevant = new ContextMenuStrip())
             {
                 var failureMechanism = Substitute.For<IFailureMechanism>();

@@ -54,6 +54,7 @@ namespace Core.Gui.Helpers
         public string GetSourceFileLocation(string fileFilter)
         {
             string filePath = null;
+
             using (var dialog = new OpenFileDialog
             {
                 Multiselect = false,
@@ -74,6 +75,7 @@ namespace Core.Gui.Helpers
         public string GetTargetFileLocation(string fileFilter, string suggestedFileName)
         {
             string filePath = null;
+
             using (var dialog = new SaveFileDialog
             {
                 Title = Resources.SaveFileDialog_Title,
@@ -94,6 +96,7 @@ namespace Core.Gui.Helpers
         public string GetTargetFolderLocation()
         {
             string folderPath = null;
+
             using (var dialog = new FolderBrowserDialog
             {
                 ShowNewFolderButton = true,

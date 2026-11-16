@@ -142,6 +142,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             SoilProfileReadException exception = null;
             var readSoilProfiles = new List<SoilProfileWrapper<SoilProfile1D>>();
+
             using (var reader = new SoilProfile1DReader(dbFile))
             {
                 reader.Initialize();
@@ -217,6 +218,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "1dprofileWithEmpty1d.soil");
 
             var result = new Collection<SoilProfileWrapper<SoilProfile1D>>();
+
             using (var reader = new SoilProfile1DReader(dbFile))
             {
                 reader.Initialize();
@@ -316,6 +318,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "1dprofileNoLayers.soil");
+
             using (var reader = new SoilProfile1DReader(dbFile))
             {
                 reader.Initialize();
@@ -337,6 +340,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "1dprofile.soil");
+
             using (var reader = new SoilProfile1DReader(dbFile))
             {
                 reader.Initialize();
@@ -675,6 +679,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "1dprofileWithLayerWithNullValuesOnly.soil");
+
             using (var reader = new SoilProfile1DReader(dbFile))
             {
                 reader.Initialize();
@@ -753,6 +758,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "1dprofileWithSameProfileInMultipleSegmentsAndDifferentFailureMechanismTypes.soil");
 
             var readProfiles = new List<SoilProfileWrapper<SoilProfile1D>>();
+
             using (var reader = new SoilProfile1DReader(dbFile))
             {
                 reader.Initialize();

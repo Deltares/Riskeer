@@ -103,6 +103,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
         {
             // Setup
             string path = Path.Combine(testDataPath, fileName);
+
             using (var reader = new CharacteristicPointsCsvReader(path))
             {
                 // Call

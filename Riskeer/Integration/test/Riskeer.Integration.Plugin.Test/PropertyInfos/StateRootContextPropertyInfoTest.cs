@@ -56,6 +56,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             IGui gui = StubFactory.CreateGuiStub();
+
             using (var plugin = new RiskeerPlugin())
             {
                 plugin.Gui = gui;

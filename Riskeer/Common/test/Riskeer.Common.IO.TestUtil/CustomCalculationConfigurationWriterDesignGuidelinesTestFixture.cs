@@ -132,6 +132,7 @@ namespace Riskeer.Common.IO.TestUtil
             // Setup
             string folderName = $"{GetType().Name}.{nameof(Write_InvalidDirectoryRights_ThrowCriticalFileWriteException)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
+
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
                 string filePath = Path.Combine(directoryPath, "test.xml");

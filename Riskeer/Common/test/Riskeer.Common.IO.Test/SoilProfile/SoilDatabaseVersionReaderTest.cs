@@ -89,6 +89,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Setup
             string filePath = Path.Combine(testDataPath, "incorrectSchema.soil");
+
             using (var versionReader = new SoilDatabaseVersionReader(filePath))
             {
                 // Call
@@ -110,6 +111,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Setup
             string filePath = Path.Combine(testDataPath, "incorrectVersion.soil");
+
             using (var versionReader = new SoilDatabaseVersionReader(filePath))
             {
                 // Call
@@ -133,6 +135,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         {
             // Setup
             string filePath = Path.Combine(testDataPath, "correctVersion.soil");
+
             using (var versionReader = new SoilDatabaseVersionReader(filePath))
             {
                 // Call

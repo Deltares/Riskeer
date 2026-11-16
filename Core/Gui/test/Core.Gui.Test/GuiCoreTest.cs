@@ -204,6 +204,7 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var mainWindow = new MainWindow())
             {
                 // Call
@@ -283,6 +284,7 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var mainWindow = new MainWindow())
             {
                 var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
@@ -338,6 +340,7 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var toolView = new TestView())
             {
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
@@ -361,6 +364,7 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var documentView = new TestView())
             {
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
@@ -516,6 +520,7 @@ namespace Core.Gui.Test
             projectMigrator.ShouldMigrate(testFile).Returns(MigrationRequired.Yes);
             projectMigrator.DetermineMigrationLocation(testFile).Returns((string) null);
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -738,6 +743,7 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
@@ -765,6 +771,7 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 var rootData = new object();
@@ -796,6 +803,7 @@ namespace Core.Gui.Test
                 rootData
             });
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin1);
@@ -842,6 +850,7 @@ namespace Core.Gui.Test
                 rootChild
             });
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(plugin1);
@@ -867,6 +876,7 @@ namespace Core.Gui.Test
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
@@ -906,6 +916,7 @@ namespace Core.Gui.Test
             var pluginC = Substitute.For<PluginBase>();
             pluginC.GetTreeNodeInfos().Returns(nodesPluginC);
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(pluginA);
@@ -929,6 +940,7 @@ namespace Core.Gui.Test
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
@@ -948,6 +960,7 @@ namespace Core.Gui.Test
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -978,6 +991,7 @@ namespace Core.Gui.Test
             var projectMigrator = Substitute.For<IMigrateProject>();
             var newProject = Substitute.For<IProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 var openedCallCount = 0;
@@ -1009,6 +1023,7 @@ namespace Core.Gui.Test
             var storeProject = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
+
             using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 var openedCallCount = 0;
@@ -1041,6 +1056,7 @@ namespace Core.Gui.Test
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var originalProject = Substitute.For<IProject>();
+
             using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.SetProject(originalProject, null);

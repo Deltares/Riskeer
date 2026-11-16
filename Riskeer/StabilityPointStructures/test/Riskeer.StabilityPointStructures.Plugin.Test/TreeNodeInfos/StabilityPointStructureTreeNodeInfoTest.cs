@@ -109,6 +109,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var gui = Substitute.For<IGui>();

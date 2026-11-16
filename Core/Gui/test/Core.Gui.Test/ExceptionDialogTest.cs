@@ -85,6 +85,7 @@ namespace Core.Gui.Test
             // Setup
             var window = Substitute.For<IWin32Window>();
             var exception = new Exception("Test", new Exception("Test inner"));
+
             using (var dialog = new ExceptionDialog(window, null, exception))
             {
                 // Call
@@ -241,6 +242,7 @@ namespace Core.Gui.Test
             };
 
             var exception = new Exception("Test");
+
             using (var dialog = new ExceptionDialog(new UserControl(), commandsOwner, exception))
             {
                 dialog.Show();
@@ -279,6 +281,7 @@ namespace Core.Gui.Test
             };
 
             var exception = new Exception("Test");
+
             using (var dialog = new ExceptionDialog(new UserControl(), commandsOwner, exception))
             {
                 dialog.Show();

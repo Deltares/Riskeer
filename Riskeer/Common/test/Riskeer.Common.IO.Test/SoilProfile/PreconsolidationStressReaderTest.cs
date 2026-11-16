@@ -308,6 +308,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             SoilProfileReadException actualException = null;
             var readStresses = new List<PreconsolidationStress>();
+
             using (var reader = new PreconsolidationStressReader(dbFile))
             {
                 reader.Initialize();

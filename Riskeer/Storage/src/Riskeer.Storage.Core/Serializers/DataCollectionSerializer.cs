@@ -87,6 +87,7 @@ namespace Riskeer.Storage.Core.Serializers
             }
 
             var stream = new MemoryStream();
+
             using (var streamWriter = new StreamWriter(stream, encoding))
             {
                 streamWriter.Write(xml);

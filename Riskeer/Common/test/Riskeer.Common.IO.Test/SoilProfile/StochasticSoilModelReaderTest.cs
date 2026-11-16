@@ -309,6 +309,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "modelsWithAndWithoutGeometry.soil");
 
             var readModels = new List<StochasticSoilModel>();
+
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 reader.Validate();
@@ -397,6 +398,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "modelsWithAndWithoutStochasticSoilProfiles.soil");
 
             var readModels = new List<StochasticSoilModel>();
+
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 reader.Validate();
@@ -556,6 +558,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "complete.soil");
 
             var readModels = new List<StochasticSoilModel>();
+
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 reader.Validate();

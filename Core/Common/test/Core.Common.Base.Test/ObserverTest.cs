@@ -73,6 +73,7 @@ namespace Core.Common.Base.Test
             // Setup
             var counter = 0;
             var observable = new TestObservable();
+
             using (var observer = new Observer(() => counter++)
             {
                 Observable = observable

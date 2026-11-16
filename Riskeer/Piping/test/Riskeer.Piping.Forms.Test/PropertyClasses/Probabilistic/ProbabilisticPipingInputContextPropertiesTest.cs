@@ -786,6 +786,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             }, "path/to/sections");
 
             var handler = new ObservablePropertyChangeHandler(calculation, calculation.InputParameters);
+
             using (var properties = new ProbabilisticPipingInputContextProperties(context, handler))
             {
                 const double entryPointL = 0.12;

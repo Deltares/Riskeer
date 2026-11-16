@@ -96,6 +96,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -120,6 +121,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             });
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -161,6 +163,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -179,6 +182,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))

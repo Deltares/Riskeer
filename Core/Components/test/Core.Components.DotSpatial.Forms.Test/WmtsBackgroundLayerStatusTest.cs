@@ -107,6 +107,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var tileFetcher = Substitute.For<ITileFetcher>();
+
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
                 IConfiguration configuration = CreateStubConfiguration(tileFetcher);
@@ -134,6 +135,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var tileFetcher = Substitute.For<ITileFetcher>();
+
             using (var layerStatus = new WmtsBackgroundLayerStatus())
             {
                 IConfiguration configuration = CreateStubConfiguration(tileFetcher);

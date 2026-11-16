@@ -46,6 +46,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         {
             // Setup
             var gui = Substitute.For<IGui>();
+
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -65,6 +66,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         {
             // Setup
             var gui = Substitute.For<IGui>();
+
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -84,6 +86,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         {
             // Setup
             var gui = Substitute.For<IGui>();
+
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -137,6 +140,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
         {
             // Setup
             var gui = Substitute.For<IGui>();
+
             using (var plugin = new MacroStabilityInwardsPlugin())
             {
                 plugin.Gui = gui;

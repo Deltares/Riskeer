@@ -101,6 +101,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
         {
             // Call
             TestWaveConditionsCalculation<WaveConditionsInput> calculation = CreateTestCalculation();
+
             using (var view = new WaveConditionsInputView(calculation,
                                                           GetHydraulicBoundaryLocationCalculation,
                                                           new TestWaveConditionsInputViewStyle()))
@@ -502,6 +503,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
             };
 
             var assessmentLevel = (RoundedDouble) 6;
+
             using (var view = new WaveConditionsInputView(calculation,
                                                           () => GetHydraulicBoundaryLocationCalculation(assessmentLevel),
                                                           new TestWaveConditionsInputViewStyle()))

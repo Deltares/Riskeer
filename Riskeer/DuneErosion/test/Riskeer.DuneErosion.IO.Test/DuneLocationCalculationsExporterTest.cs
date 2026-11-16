@@ -133,6 +133,7 @@ namespace Riskeer.DuneErosion.IO.Test
         {
             // Setup
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
+
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
             {
                 string filePath = Path.Combine(directoryPath, "test.bnd");

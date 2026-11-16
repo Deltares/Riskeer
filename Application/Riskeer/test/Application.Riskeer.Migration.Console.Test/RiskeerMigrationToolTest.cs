@@ -99,6 +99,7 @@ namespace Application.Riskeer.Migration.Console.Test
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(testPath, file);
             string expectedVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
+
             using (var consoleOutput = new ConsoleOutput())
             {
                 // When

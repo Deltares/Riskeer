@@ -134,6 +134,7 @@ namespace Riskeer.Migration.Integration.Test
                 );
 
                 var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
+
                 using (var databaseFile = new ProjectDatabaseFile(sourceFilePath))
                 {
                     databaseFile.OpenDatabaseConnection();
@@ -219,6 +220,7 @@ namespace Riskeer.Migration.Integration.Test
                 );
 
                 var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
+
                 using (var databaseFile = new ProjectDatabaseFile(sourceFilePath))
                 {
                     databaseFile.OpenDatabaseConnection();

@@ -93,6 +93,7 @@ namespace Riskeer.DuneErosion.IO.Test
         {
             // Setup
             string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteDuneLocationCalculations_InvalidDirectoryRights_ThrowCriticalFileWriteException));
+
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WriteDuneLocationCalculations_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
             {
                 string filePath = Path.Combine(directoryPath, "test.bnd");

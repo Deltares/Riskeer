@@ -352,6 +352,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var observer = Substitute.For<IObserver>();
+
             using (var view = new PipingInputView())
             {
                 var characteristicPoint = new Point3D(1.2, 2.3, 4.0);
@@ -437,6 +438,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var observer = Substitute.For<IObserver>();
+
             using (var view = new PipingInputView())
             {
                 PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
@@ -575,6 +577,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var observer = Substitute.For<IObserver>();
+
             using (var view = new PipingInputView())
             {
                 var calculation = new TestPipingCalculationScenario(new TestPipingInput())

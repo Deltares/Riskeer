@@ -90,6 +90,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var comment = new Comment();
+
             using (var view = new CommentView
             {
                 Data = comment

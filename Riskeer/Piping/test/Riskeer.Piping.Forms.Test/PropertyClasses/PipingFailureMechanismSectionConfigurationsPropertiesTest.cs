@@ -149,6 +149,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Given
             var changeHandler = Substitute.For<IObservablePropertyChangeHandler>();
             var failureMechanism = new PipingFailureMechanism();
+
             using (var properties = new PipingFailureMechanismSectionConfigurationsProperties(failureMechanism, configuration => changeHandler))
             {
                 var refreshRequiredRaised = 0;
@@ -175,6 +176,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             });
 
             PipingFailureMechanismSectionConfiguration sectionConfiguration = failureMechanism.SectionConfigurations.First();
+
             using (var properties = new PipingFailureMechanismSectionConfigurationsProperties(failureMechanism, configuration => changeHandler))
             {
                 var refreshRequiredRaised = 0;

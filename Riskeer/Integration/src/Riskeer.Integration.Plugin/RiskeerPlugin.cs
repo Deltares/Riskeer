@@ -1625,6 +1625,7 @@ namespace Riskeer.Integration.Plugin
         private void SelectMapData(IAssessmentSection assessmentSection, BackgroundData backgroundData)
         {
             ImageBasedMapData currentData = BackgroundDataConverter.ConvertFrom(backgroundData);
+
             using (var dialog = new BackgroundMapDataSelectionDialog(Gui.MainWindow, currentData))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)

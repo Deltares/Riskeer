@@ -63,6 +63,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             // Given
             var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism();
+
             using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(
                        failureMechanism))
             {
@@ -82,6 +83,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             // Given
             var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism();
+
             using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(
                        failureMechanism))
             {
@@ -125,6 +127,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             // Given
             var observer = Substitute.For<IObserver>();
             var failureMechanism = new TestFailureMechanism();
+
             using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(
                        failureMechanism))
             {

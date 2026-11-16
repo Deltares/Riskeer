@@ -348,6 +348,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             IConfiguration configuration = CreateStubConfiguration();
+
             using (var layer = new BruTileLayer(configuration))
             {
                 // Call
@@ -419,6 +420,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
             var mapFrame = Substitute.For<IFrame>();
             const float transparency = 0.3f;
+
             using (var layer = new BruTileLayer(configuration)
             {
                 Transparency = transparency,
@@ -543,6 +545,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             IConfiguration configuration = CreateStubConfiguration();
+
             using (var layer = new BruTileLayer(configuration)
             {
                 IsVisible = false
@@ -568,6 +571,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             IConfiguration configuration = CreateStubConfiguration();
+
             using (var layer = new BruTileLayer(configuration)
             {
                 IsVisible = true
@@ -600,6 +604,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             // Setup
             IConfiguration configuration = CreateConfigurationForDrawingImmediately(testConfig);
+
             using (var layer = new BruTileLayer(configuration))
             using (var mapCanvas = (Bitmap) mapCanvasSource.Clone())
             using (Graphics graphics = Graphics.FromImage(mapCanvas))
@@ -641,6 +646,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                    6, 7, Resources.green_256x256)
             }, 4);
             IConfiguration configuration = CreateConfigurationForDrawingWhereFirstTileFetchNotInCacheButSecondFetchIs(testConfig);
+
             using (var layer = new BruTileLayer(configuration))
             using (var mapCanvas = (Bitmap) Resources.BackgroundLayerCanvas.Clone())
             using (Graphics graphics = Graphics.FromImage(mapCanvas))
@@ -818,6 +824,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             mapFrame.ViewExtents.Returns(mapExtent);
 
             IConfiguration configuration = CreateConfigurationForDrawingImmediately(testConfig);
+
             using (var layer = new BruTileLayer(configuration)
             {
                 MapFrame = mapFrame

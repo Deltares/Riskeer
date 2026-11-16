@@ -121,6 +121,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             });
             assessmentSection.SpecificFailureMechanisms.Returns(new ObservableList<SpecificFailureMechanism>());
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
@@ -185,6 +186,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanismContext = Substitute.For<IFailureMechanismContext<IFailureMechanism>>();
             failureMechanismContext.WrappedData.Returns(new WaterPressureAsphaltCoverFailureMechanism());
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+
             using (var view = new NonAdoptableFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))

@@ -75,6 +75,7 @@ namespace Riskeer.Integration.IO.Exporters
             try
             {
                 ExportableAssembly exportableAssembly = ExportableAssemblyFactory.CreateExportableAssembly(assessmentSection);
+
                 using (var writer = new AssemblyGmlWriter(filePath))
                 {
                     writer.Write(exportableAssembly);

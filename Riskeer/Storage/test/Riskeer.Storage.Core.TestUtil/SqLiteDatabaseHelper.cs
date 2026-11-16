@@ -164,6 +164,7 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void PerformCommandOnDatabase(string databaseFilePath, string commandText)
         {
             string connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath, false);
+
             using (var dbContext = new SQLiteConnection(connectionString, true))
             {
                 dbContext.Open();

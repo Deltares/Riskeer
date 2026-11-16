@@ -81,6 +81,7 @@ namespace Application.Riskeer.Integration.Test
             // Assert
             outputFilePath = Path.Combine(outputPath, "UnusedResources.txt");
             var lines = new List<string>();
+
             using (var reader = new StreamReader(outputFilePath))
             {
                 string line;

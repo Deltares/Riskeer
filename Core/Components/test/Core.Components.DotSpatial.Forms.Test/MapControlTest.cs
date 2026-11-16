@@ -2370,6 +2370,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var mapDataCollection = new MapDataCollection("Collection");
+
             using (var mapControl = new MapControl
             {
                 Data = mapDataCollection

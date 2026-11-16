@@ -195,6 +195,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var gui = Substitute.For<IGui>();
@@ -232,6 +233,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var assessmentSection = Substitute.For<IAssessmentSection>();
@@ -290,6 +292,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var gui = Substitute.For<IGui>();
@@ -383,6 +386,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
@@ -507,6 +511,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -570,6 +575,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var gui = Substitute.For<IGui>();
@@ -618,6 +624,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var gui = Substitute.For<IGui>();
@@ -684,6 +691,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var gui = Substitute.For<IGui>();
@@ -756,6 +764,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var gui = Substitute.For<IGui>();

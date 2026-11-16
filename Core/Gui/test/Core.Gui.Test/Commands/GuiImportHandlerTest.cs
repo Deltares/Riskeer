@@ -372,6 +372,7 @@ namespace Core.Gui.Test.Commands
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             inquiryHelper.GetSourceFileLocation(generator.Filter).Returns((string) null);
             var fileImporter = Substitute.For<IFileImporter>();
+
             using (var form = new TestViewParentForm())
             {
                 var supportedImportInfo = new ImportInfo<object>

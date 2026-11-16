@@ -160,6 +160,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var gui = Substitute.For<IGui>();
+
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
                 plugin.Gui = gui;
@@ -188,6 +189,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
             var gui = Substitute.For<IGui>();
+
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
                 plugin.Gui = gui;

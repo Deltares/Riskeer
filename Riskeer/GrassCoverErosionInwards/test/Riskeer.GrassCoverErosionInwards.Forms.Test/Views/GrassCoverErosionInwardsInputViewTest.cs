@@ -279,6 +279,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             var observer = Substitute.For<IObserver>();
+
             using (var view = new GrassCoverErosionInwardsInputView())
             {
                 DikeProfile dikeProfile = GetDikeProfileWithGeometry();
@@ -324,6 +325,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             var observer = Substitute.For<IObserver>();
+
             using (var view = new GrassCoverErosionInwardsInputView())
             {
                 var calculation = new GrassCoverErosionInwardsCalculation

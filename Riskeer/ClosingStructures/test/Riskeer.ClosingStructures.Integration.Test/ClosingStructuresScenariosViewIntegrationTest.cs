@@ -87,6 +87,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -146,6 +147,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -206,6 +208,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
+
             using (var form = new Form())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

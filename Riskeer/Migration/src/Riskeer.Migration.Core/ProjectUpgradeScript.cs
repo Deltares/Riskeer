@@ -70,6 +70,7 @@ namespace Riskeer.Migration.Core
             try
             {
                 string query = string.Format(upgradeQuery, sourceLocation, logDatabaseLocation);
+
                 using (var databaseFile = new ProjectDatabaseFile(targetLocation))
                 {
                     databaseFile.OpenDatabaseConnection();

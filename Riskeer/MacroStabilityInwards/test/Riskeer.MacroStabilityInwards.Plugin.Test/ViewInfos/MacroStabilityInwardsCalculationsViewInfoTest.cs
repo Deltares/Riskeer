@@ -93,6 +93,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             };
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
             using (var calculationsView = new MacroStabilityInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection))
             {
                 var context = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
@@ -221,6 +222,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryData.Returns(new HydraulicBoundaryData());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
             using (var view = new MacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
                 var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);

@@ -107,6 +107,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string tempProjectFile = TestHelper.GetScratchPadPath(nameof(CreateDatabaseStructure_ValidExistingFile_ThrowsStorageException));
+
             using (var disposeHelper = new FileDisposeHelper(tempProjectFile))
             {
                 disposeHelper.LockFiles();

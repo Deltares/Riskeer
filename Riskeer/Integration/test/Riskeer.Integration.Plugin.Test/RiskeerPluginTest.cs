@@ -506,6 +506,7 @@ namespace Riskeer.Integration.Plugin.Test
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             using (var plugin = new RiskeerPlugin())
             {
                 // Call
@@ -615,6 +616,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -677,6 +679,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -715,6 +718,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -772,6 +776,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -821,6 +826,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -870,6 +876,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -913,6 +920,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -958,6 +966,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1004,6 +1013,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1050,6 +1060,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1096,6 +1107,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1139,6 +1151,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1185,6 +1198,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
@@ -1231,6 +1245,7 @@ namespace Riskeer.Integration.Plugin.Test
             // Given
             var projectStore = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
+
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);

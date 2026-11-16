@@ -260,6 +260,7 @@ namespace Core.Gui.Test.ContextMenu
         {
             // Setup
             var dataObject = new object();
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();
@@ -301,6 +302,7 @@ namespace Core.Gui.Test.ContextMenu
             // Setup
             const string nodeData = "string";
             var parentData = new object();
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var applicationFeatureCommands = Substitute.For<IApplicationFeatureCommands>();

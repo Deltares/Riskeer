@@ -95,6 +95,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
+
             using (var viewParent = new TestViewParentForm())
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);

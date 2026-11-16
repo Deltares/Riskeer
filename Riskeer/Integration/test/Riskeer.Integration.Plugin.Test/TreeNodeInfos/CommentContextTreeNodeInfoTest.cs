@@ -108,6 +108,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
+
             using (var plugin = new RiskeerPlugin())
             {
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();

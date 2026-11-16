@@ -284,6 +284,7 @@ namespace Riskeer.Piping.Plugin.Test
         {
             // Setup
             var gui = Substitute.For<IGui>();
+
             using (var plugin = new PipingPlugin
             {
                 Gui = gui
@@ -322,6 +323,7 @@ namespace Riskeer.Piping.Plugin.Test
         {
             // Setup
             var gui = Substitute.For<IGui>();
+
             using (var plugin = new PipingPlugin
             {
                 Gui = gui

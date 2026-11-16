@@ -70,6 +70,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var tileFetcher = Substitute.For<ITileFetcher>();
+
             using (var layerStatus = new WellKnownBackgroundLayerStatus())
             {
                 IConfiguration configuration = CreateStubConfiguration(tileFetcher);

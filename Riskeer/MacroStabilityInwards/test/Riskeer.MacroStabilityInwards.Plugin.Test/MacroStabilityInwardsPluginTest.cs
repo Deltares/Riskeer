@@ -268,6 +268,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
         {
             // Setup
             var gui = Substitute.For<IGui>();
+
             using (var plugin = new MacroStabilityInwardsPlugin
             {
                 Gui = gui

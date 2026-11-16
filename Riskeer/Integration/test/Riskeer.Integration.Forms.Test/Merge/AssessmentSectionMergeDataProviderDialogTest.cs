@@ -182,6 +182,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         {
             // Setup
             var dialogParent = Substitute.For<IWin32Window>();
+
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
