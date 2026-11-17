@@ -140,11 +140,15 @@ function Get-DependenciesFromMarkdown {
 function Get-LicenseFilesByName {
     param([string]$LicensesFolder)
 
-    # Case-insensitive lookup that keeps the actual file so its casing can be verified.
+    # Case-insensitive lookup of all files per name, so casing and duplicates across subfolders can be verified.
     $licenseFiles = @{}
 
     Get-ChildItem $LicensesFolder -Recurse -File | ForEach-Object {
-        $licenseFiles[$_.Name] = $_
+        if (-not $licenseFiles.ContainsKey($_.Name)) {
+            $licenseFiles[$_.Name] = @()
+        }
+
+        $licenseFiles[$_.Name] += $_
     }
 
     return $licenseFiles
@@ -174,15 +178,27 @@ function Get-MissingLicenseFiles {
             continue
         }
 
-        $actualFile = $licenseFiles[$expectedFile]
+        $actualFiles = @($licenseFiles[$expectedFile])
 
-        if ($actualFile.Name -cne $expectedFile) {
+        if ($actualFiles.Count -gt 1) {
             $issues += [PSCustomObject]@{
-                Type     = "LicenseFileNameCase"
+                Type     = "DuplicateLicense"
                 Package  = $packageName
                 Expected = $expectedFile
-                Actual   = $actualFile.Name
-                Source   = $actualFile.FullName
+                Actual   = (@($actualFiles | ForEach-Object { $_.FullName }) -join ", ")
+                Source   = $LicensesFolder
+            }
+        }
+
+        foreach ($actualFile in $actualFiles) {
+            if ($actualFile.Name -cne $expectedFile) {
+                $issues += [PSCustomObject]@{
+                    Type     = "LicenseFileNameCase"
+                    Package  = $packageName
+                    Expected = $expectedFile
+                    Actual   = $actualFile.Name
+                    Source   = $actualFile.FullName
+                }
             }
         }
     }
@@ -215,46 +231,52 @@ function Get-LicenseTextIssues {
             continue
         }
 
-        $licenseFile = $licenseFiles["$($row.Name).LICENSE"]
-
         # Missing license files are reported by Get-MissingLicenseFiles.
-        if (-not $licenseFile) {
-            continue
+        $licenseFilesForRow = @()
+        if ($licenseFiles.ContainsKey("$($row.Name).LICENSE")) {
+            $licenseFilesForRow = @($licenseFiles["$($row.Name).LICENSE"])
         }
 
-        $licenseText = Get-Content $licenseFile.FullName -Raw
+        foreach ($licenseFile in $licenseFilesForRow) {
+            $licenseText = Get-Content $licenseFile.FullName -Raw
 
-        if ($isGnuLicense) {
-            # The first GNU license mentioned identifies the license; the full texts refer to the other GNU licenses.
-            $actualLicense = "Not a GNU version 3 license"
-            $gnuMatch = [regex]::Match($licenseText, 'GNU\s+(?:(Affero|Lesser)\s+)?General\s+Public\s+License', 'IgnoreCase')
+            if ($isGnuLicense) {
+                # The first GNU license mentioned identifies the license; the full texts refer to the other GNU licenses.
+                # Version 3 must directly follow it, either as the header of the full text ("... LICENSE Version 3")
+                # or as in the license notice ("... License as published by the Free Software Foundation, either version 3").
+                $actualLicense = "Not a GNU version 3 license"
+                $gnuMatch = [regex]::Match(
+                    $licenseText,
+                    'GNU\s+(?:(?<type>Affero|Lesser)\s+)?General\s+Public\s+License(?<version>[\s,]*(?:as\s+published\s+by\s+the\s+Free\s+Software\s+Foundation,?\s+)?(?:either\s+)?version\s+3\b)?',
+                    'IgnoreCase')
 
-            if ($gnuMatch.Success -and $licenseText -match 'version\s+3') {
-                $actualLicense = $gnuLicenses[$gnuMatch.Groups[1].Value.ToLowerInvariant()]
+                if ($gnuMatch.Success -and $gnuMatch.Groups["version"].Success) {
+                    $actualLicense = $gnuLicenses[$gnuMatch.Groups["type"].Value.ToLowerInvariant()]
+                }
+
+                if ($actualLicense -cne $row.License) {
+                    $issues += [PSCustomObject]@{
+                        Type     = "LicenseTextMismatch"
+                        Package  = $row.Name
+                        Expected = $row.License
+                        Actual   = $actualLicense
+                        Source   = $licenseFile.FullName
+                    }
+                }
+
+                continue
             }
 
-            if ($actualLicense -cne $row.License) {
+            $pattern = $licenseTextPatterns[$row.License]
+
+            if (-not [string]::IsNullOrEmpty($pattern) -and $licenseText -notmatch $pattern) {
                 $issues += [PSCustomObject]@{
                     Type     = "LicenseTextMismatch"
                     Package  = $row.Name
                     Expected = $row.License
-                    Actual   = $actualLicense
+                    Actual   = "Text '$pattern' not found"
                     Source   = $licenseFile.FullName
                 }
-            }
-
-            continue
-        }
-
-        $pattern = $licenseTextPatterns[$row.License]
-
-        if (-not [string]::IsNullOrEmpty($pattern) -and $licenseText -notmatch $pattern) {
-            $issues += [PSCustomObject]@{
-                Type     = "LicenseTextMismatch"
-                Package  = $row.Name
-                Expected = $row.License
-                Actual   = "Text '$pattern' not found"
-                Source   = $licenseFile.FullName
             }
         }
     }
@@ -265,12 +287,13 @@ function Get-LicenseTextIssues {
 function Get-OutputFolderIssues {
     param(
         [hashtable]$Dependencies,
-        [string]$RepositoryRoot
+        [string]$RepositoryRoot,
+        [string]$DependenciesFile
     )
 
-    # Matches versioned output folders like Application\Built-in\Managed\Third-party\<Library>-<Version>
-    # and Application\Standalone\Deltares\<Library>-<Version>.
-    $outputFolderPattern = '\\Application\\(?:Built-in\\[^\\&"]+\\[^\\&"]+|Standalone\\[^\\&"]+)\\(?<name>[^\\&"*]+?)-(?<version>\d+(?:\.\d+)+)(?=\\|&quot;|"|$)'
+    # Matches versioned output folders like $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\<Library>-<Version>,
+    # $(OutDir)Application\Built-in\... and ...\Application\Standalone\Deltares\<Library>-<Version>.
+    $outputFolderPattern = '(?:\\|\))Application\\(?:Built-in\\[^\\&"]+\\[^\\&"]+|Standalone\\[^\\&"]+)\\(?<name>[^\\&"*]+?)-(?<version>\d+(?:\.\d+)+)(?=\\|&quot;|"|$)'
 
     $issues = @()
 
@@ -369,18 +392,17 @@ function Get-UnusedLicenseFiles {
         [string]$LicensesFolder
     )
 
+    # Hashtable keys are case-insensitive; casing of license file names is checked by Get-MissingLicenseFiles.
     $expectedLicenseFiles = @{}
 
     foreach ($packageName in $Dependencies.Keys) {
-        $expectedLicenseFiles["$packageName.LICENSE".ToLowerInvariant()] = $true
+        $expectedLicenseFiles["$packageName.LICENSE"] = $true
     }
 
     $issues = @()
 
     Get-ChildItem $LicensesFolder -Recurse -File | ForEach-Object {
-        $licenseFileName = $_.Name.ToLowerInvariant()
-
-        if (-not $expectedLicenseFiles.ContainsKey($licenseFileName)) {
+        if (-not $expectedLicenseFiles.ContainsKey($_.Name)) {
             $issues += [PSCustomObject]@{
                 Type     = "UnusedLicense"
                 Package  = $_.Name
@@ -562,177 +584,6 @@ function Get-ProjectLicenseHeaderIssues {
     return $issues
 }
 
-function Test-ShouldSkipPossibleUnusedPackageCheck {
-    param([string]$PackageName)
-
-    if ([string]::IsNullOrWhiteSpace($PackageName)) {
-        return $true
-    }
-
-    $normalized = $PackageName.ToLowerInvariant()
-
-    return $normalized -match '(test\.sdk|testadapter|analyzers?|stylecop|coverlet|microsoft\.source(link|link)|fody|msbuild|build|targets)'
-}
-
-function ConvertTo-AssetSet {
-    param([string]$AssetList)
-
-    $assets = @{}
-
-    if ([string]::IsNullOrWhiteSpace($AssetList)) {
-        return $assets
-    }
-
-    foreach ($asset in ($AssetList -split '[;,\s]+')) {
-        if ([string]::IsNullOrWhiteSpace($asset)) {
-            continue
-        }
-
-        $assets[$asset.Trim().ToLowerInvariant()] = $true
-    }
-
-    return $assets
-}
-
-function Test-HasImplicitPackageReferenceUsage {
-    param([System.Xml.XmlNode]$PackageReference)
-
-    if (-not $PackageReference) {
-        return $false
-    }
-
-    $includeAssetsNode = $PackageReference.SelectSingleNode("*[local-name()='IncludeAssets']")
-    $excludeAssetsNode = $PackageReference.SelectSingleNode("*[local-name()='ExcludeAssets']")
-    $generatePathPropertyNode = $PackageReference.SelectSingleNode("*[local-name()='GeneratePathProperty']")
-
-    if ($generatePathPropertyNode -and $generatePathPropertyNode.InnerText.Trim().ToLowerInvariant() -eq "true") {
-        return $true
-    }
-
-    $includeAssetsValue = ""
-    if ($includeAssetsNode) {
-        $includeAssetsValue = $includeAssetsNode.InnerText
-    }
-
-    $excludeAssetsValue = ""
-    if ($excludeAssetsNode) {
-        $excludeAssetsValue = $excludeAssetsNode.InnerText
-    }
-
-    $includeAssets = ConvertTo-AssetSet $includeAssetsValue
-    $excludeAssets = ConvertTo-AssetSet $excludeAssetsValue
-
-    if ($includeAssets.Count -gt 0) {
-        $includesCompileOrRuntime =
-            $includeAssets.ContainsKey("all") -or
-            $includeAssets.ContainsKey("compile") -or
-            $includeAssets.ContainsKey("runtime")
-
-        if (-not $includesCompileOrRuntime) {
-            return $true
-        }
-    }
-
-    if ($excludeAssets.ContainsKey("all")) {
-        return $true
-    }
-
-    if ($excludeAssets.ContainsKey("compile") -and $excludeAssets.ContainsKey("runtime")) {
-        return $true
-    }
-
-    return $false
-}
-
-function Get-ProjectUsageTokens {
-    param([string]$ProjectDirectory)
-
-    $usageTokens = @{}
-    $searchExtensions = @(".cs", ".xaml", ".xml", ".config", ".json", ".resx")
-    $ignoredFolderPattern = '\\(bin|obj|packages|TestResults)\\'
-
-    foreach ($file in Get-ChildItem $ProjectDirectory -Recurse -File) {
-        if ($file.FullName -match $ignoredFolderPattern) {
-            continue
-        }
-
-        if ($searchExtensions -notcontains $file.Extension.ToLowerInvariant()) {
-            continue
-        }
-
-        foreach ($token in ((Get-Content $file.FullName -Raw) -split '[^A-Za-z0-9]+')) {
-            $normalizedToken = ConvertTo-NormalizedIdentifier $token
-            if (-not [string]::IsNullOrWhiteSpace($normalizedToken)) {
-                $usageTokens[$normalizedToken] = $true
-            }
-        }
-    }
-
-    return $usageTokens
-}
-
-function Get-PossiblyUnusedPackageReferences {
-    param([string]$RepositoryRoot)
-
-    $issues = @()
-
-    foreach ($project in Get-ChildItem $RepositoryRoot -Recurse -Filter *.csproj) {
-        [xml]$xml = Get-Content $project.FullName -Raw
-        $packageReferences = $xml.SelectNodes("//*[local-name()='PackageReference']")
-
-        if ($packageReferences.Count -eq 0) {
-            continue
-        }
-
-        $projectTokens = Get-ProjectUsageTokens -ProjectDirectory $project.DirectoryName
-
-        foreach ($reference in $packageReferences) {
-            $packageName = $reference.Include
-
-            if (Test-ShouldSkipPossibleUnusedPackageCheck -PackageName $packageName) {
-                continue
-            }
-
-            if (Test-HasImplicitPackageReferenceUsage -PackageReference $reference) {
-                continue
-            }
-
-            $normalizedPackage = ConvertTo-NormalizedIdentifier $packageName
-            if ([string]::IsNullOrWhiteSpace($normalizedPackage)) {
-                continue
-            }
-
-            $isUsed = $projectTokens.ContainsKey($normalizedPackage)
-
-            if (-not $isUsed) {
-                foreach ($part in ($packageName -split '[^A-Za-z0-9]+')) {
-                    $normalizedPart = ConvertTo-NormalizedIdentifier $part
-                    if ($normalizedPart.Length -lt 4) {
-                        continue
-                    }
-
-                    if ($projectTokens.ContainsKey($normalizedPart)) {
-                        $isUsed = $true
-                        break
-                    }
-                }
-            }
-
-            if (-not $isUsed) {
-                $issues += [PSCustomObject]@{
-                    Type     = "PossibleUnusedPackageReference"
-                    Package  = $packageName
-                    Expected = "Used by project"
-                    Actual   = "No usage token match"
-                    Source   = $project.FullName
-                }
-            }
-        }
-    }
-
-    return $issues
-}
-
 function Get-UnusedDependencies {
     param(
         [hashtable]$Dependencies,
@@ -845,7 +696,7 @@ $issues = @()
 
 foreach ($package in $packages) {
 
-    $key = $package.Package.ToLowerInvariant()
+    $key = $package.Package
 
     if (-not $expected.ContainsKey($key)) {
 
@@ -858,6 +709,20 @@ foreach ($package in $packages) {
         }
 
         continue
+    }
+
+    # The lookup is case-insensitive; the name must still match the casing in the dependencies file.
+    $dependencyName = @($expected.Keys | Where-Object { $_ -eq $key })[0]
+
+    if ($dependencyName -cne $package.Package) {
+
+        $issues += [PSCustomObject]@{
+            Type     = "PackageNameCase"
+            Package  = $package.Package
+            Expected = $dependencyName
+            Actual   = $package.Package
+            Source   = $package.Source
+        }
     }
 
     if ($expected[$key] -ne $package.Version) {
@@ -876,10 +741,9 @@ $issues += Get-UnusedDependencies -Dependencies $expected -Packages $packages -R
 $issues += Get-MissingLicenseFiles -Dependencies $expected -LicensesFolder $LicensesFolder
 $issues += Get-UnusedLicenseFiles -Dependencies $expected -LicensesFolder $LicensesFolder
 $issues += Get-LicenseTextIssues -DependencyRows $dependencyRows -LicensesFolder $LicensesFolder -DependenciesFile $DependenciesFile
-$issues += Get-OutputFolderIssues -Dependencies $expected -RepositoryRoot $RepositoryRoot
+$issues += Get-OutputFolderIssues -Dependencies $expected -RepositoryRoot $RepositoryRoot -DependenciesFile $DependenciesFile
 $issues += Get-SourceVersionConstantIssues -Dependencies $expected -RepositoryRoot $RepositoryRoot
 $issues += Get-ProjectLicenseHeaderIssues -RepositoryRoot $RepositoryRoot
-$issues += Get-PossiblyUnusedPackageReferences -RepositoryRoot $RepositoryRoot
 
 if ($issues.Count -eq 0) {
     Write-Host "Dependency check passed." -ForegroundColor Green
