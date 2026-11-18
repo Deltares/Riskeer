@@ -48,12 +48,17 @@ namespace Core.Gui.Test.Commands
             // Setup
             const string savedProjectPath = @"C:\savedProject.rtd";
 
+            var savedProject = Substitute.For<IProject>();
+            var newProject = Substitute.For<IProject>();
+            
             var projectStorage = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectOwner = Substitute.For<IProjectOwner>();
+            projectOwner.Project.Returns(savedProject);
             projectOwner.ProjectFilePath.Returns(savedProjectPath);
 
             var projectFactory = Substitute.For<IProjectFactory>();
+            projectFactory.CreateNewProject().Returns(newProject);
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
@@ -75,7 +80,7 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create("Nieuw project aanmaken is gelukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
-            projectOwner.Received(1).SetProject(Arg.Is<IProject>(p=>p!=null), null);
+            projectOwner.Received(1).SetProject(newProject, null);
         }
 
         [Test]
@@ -369,7 +374,6 @@ namespace Core.Gui.Test.Commands
             // Assert
             Assert.IsFalse(result);
             projectOwner.DidNotReceive().SetProject(Arg.Any<IProject>(), Arg.Any<string>());
-            projectFactory.DidNotReceive().CreateNewProject();
         }
 
         [Test]
@@ -402,7 +406,7 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             Assert.IsFalse(result);
-            projectFactory.DidNotReceive().CreateNewProject();
+            projectOwner.Received(1).SetProject(null, null);
         }
 
         [Test]
@@ -881,10 +885,12 @@ namespace Core.Gui.Test.Commands
         public void HandleUnsavedChanges_ProjectSetNoChange_ReturnsTrue()
         {
             // Setup
+            var project = Substitute.For<IProject>();
             var projectStorage = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
+            projectOwner.Project.Returns(project);
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
             var storageCommandHandler = new StorageCommandHandler(

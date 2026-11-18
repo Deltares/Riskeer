@@ -227,12 +227,14 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void Run_StoreProjectLoadProjectDoesNotThrow_ActivityExecutedWithoutAdditionalLogMessages()
+        public void Run_LoadProjectReturnsProject_ActivityExecutedWithoutAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
+            var project = Substitute.For<IProject>();
 
             var projectStorage = Substitute.For<IStoreProject>();
+            projectStorage.LoadProject(someFilePath).Returns(project);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -256,13 +258,12 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void Run_StoreProjectLoadProjectReturnsNull_ActivityFailedWithoutAdditionalLogMessages()
+        public void Run_LoadProjectReturnsNull_ActivityFailedWithoutAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someFilePath)
-                          .Returns((IProject) null);
+            projectStorage.LoadProject(someFilePath).Returns((IProject) null);
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -286,7 +287,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void Run_StoreProjectLoadProjectThrowsStorageException_ActivityFailedWithAdditionalLogMessages()
+        public void Run_LoadProjectThrowsStorageException_ActivityFailedWithAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
@@ -294,8 +295,7 @@ namespace Core.Gui.Test
             const string message = "<some exception message>";
             var innerException = new Exception("A");
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someFilePath)
-                          .Throws(new StorageException(message, innerException));
+            projectStorage.LoadProject(someFilePath).Throws(new StorageException(message, innerException));
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -323,13 +323,12 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void Run_StoreProjectLoadProjectThrowsArgumentException_ActivityFailedWithoutAdditionalLogMessages()
+        public void Run_LoadProjectThrowsArgumentException_ActivityFailedWithoutAdditionalLogMessages()
         {
             // Setup
             const string someFilePath = "<path to some file>";
             var projectStorage = Substitute.For<IStoreProject>();
-            projectStorage.LoadProject(someFilePath)
-                          .Throws(new ArgumentException());
+            projectStorage.LoadProject(someFilePath).Throws(new ArgumentException());
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
@@ -930,12 +929,9 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenActivityOpeningProject_WhenCancellingDuringLoadProject_ThenDoNotSetProject(bool loadProjectSuccessful)
+        public void GivenActivityOpeningProject_WhenCancellingDuringLoadProject_ThenDoNotSetProject()
         {
             // Given
-            IProject project = loadProjectSuccessful ? Substitute.For<IProject>() : null;
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
