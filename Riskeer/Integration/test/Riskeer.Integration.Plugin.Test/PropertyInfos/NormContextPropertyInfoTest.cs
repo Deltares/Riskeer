@@ -29,7 +29,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
@@ -57,7 +56,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
 
             using (var plugin = new RiskeerPlugin())
             {

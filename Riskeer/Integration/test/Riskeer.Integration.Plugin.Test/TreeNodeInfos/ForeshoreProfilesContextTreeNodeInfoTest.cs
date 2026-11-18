@@ -33,7 +33,6 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Plugin.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -190,7 +189,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             contextMenuBuilder.AddExpandAllItem().Returns(contextMenuBuilder);
             contextMenuBuilder.AddPropertiesItem().Returns(contextMenuBuilder);
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(contextMenuBuilder);
             plugin.Gui = gui;
 

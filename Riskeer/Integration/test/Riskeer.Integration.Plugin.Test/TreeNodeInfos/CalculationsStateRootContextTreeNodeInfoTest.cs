@@ -35,7 +35,6 @@ using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.CalculationsState;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -219,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -256,7 +255,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var context = new CalculationsStateRootContext(assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())

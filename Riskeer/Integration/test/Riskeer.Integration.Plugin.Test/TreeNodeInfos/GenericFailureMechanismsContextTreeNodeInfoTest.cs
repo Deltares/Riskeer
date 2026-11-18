@@ -29,7 +29,6 @@ using NSubstitute;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.RegistrationState;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.RegistrationState;
@@ -136,7 +135,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())

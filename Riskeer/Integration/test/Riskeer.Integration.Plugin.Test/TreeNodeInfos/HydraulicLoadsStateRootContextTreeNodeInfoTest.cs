@@ -32,7 +32,6 @@ using NSubstitute;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.Integration.Data;
@@ -217,7 +216,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -254,7 +253,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var context = new HydraulicLoadsStateRootContext(assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())

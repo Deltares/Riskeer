@@ -47,7 +47,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
@@ -293,7 +292,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -335,7 +334,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -375,7 +374,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -424,7 +423,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -470,7 +469,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -539,7 +538,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
@@ -628,7 +627,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
@@ -728,7 +727,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -809,7 +808,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())

@@ -40,7 +40,6 @@ using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
@@ -255,7 +254,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             plugin.Gui = gui;
 

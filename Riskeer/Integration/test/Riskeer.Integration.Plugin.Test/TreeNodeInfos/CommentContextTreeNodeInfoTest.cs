@@ -29,7 +29,6 @@ using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Framework;
 using Riskeer.Common.Data;
-using Riskeer.Common.Plugin.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -114,7 +113,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var menuBuilder = Substitute.For<IContextMenuBuilder>();
                 menuBuilder.AddOpenItem().Returns(menuBuilder);
 
-                IGui gui = StubFactory.CreateGuiStub();
+                IGui gui = Substitute.For<IGui>();
                 gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
 
                 TreeNodeInfo info = GetInfo(plugin);

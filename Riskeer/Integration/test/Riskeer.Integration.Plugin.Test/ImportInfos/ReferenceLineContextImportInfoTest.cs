@@ -31,7 +31,6 @@ using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.ReferenceLines;
-using Riskeer.Common.Plugin.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.ImportInfos
@@ -45,7 +44,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         [SetUp]
         public void SetUp()
         {
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             plugin = new RiskeerPlugin
             {
                 Gui = gui

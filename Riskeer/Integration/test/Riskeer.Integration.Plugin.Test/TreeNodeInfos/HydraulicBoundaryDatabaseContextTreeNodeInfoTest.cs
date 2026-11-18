@@ -33,7 +33,6 @@ using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -128,7 +127,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(null, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -219,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 hydraulicBoundaryDatabase2,
                 hydraulicBoundaryDatabase3
             });
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             var observer = Substitute.For<IObserver>();
             hydraulicBoundaryData.Attach(observer);
             var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase2, hydraulicBoundaryData, assessmentSection);

@@ -235,7 +235,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 new DuneErosionFailureMechanism(),
                 assessmentSection);
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new DuneErosionPlugin())
@@ -389,7 +389,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new DuneErosionPlugin())

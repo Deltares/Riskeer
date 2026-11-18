@@ -33,7 +33,6 @@ using NUnit.Framework;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using CoreGuiResources = Core.Gui.Properties.Resources;
@@ -199,7 +198,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var assessmentSectionContext = new AssessmentSectionStateRootContext(assessmentSection);
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(assessmentSectionContext, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -236,7 +235,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var assessmentSectionContext = new AssessmentSectionStateRootContext(assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(assessmentSectionContext, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())

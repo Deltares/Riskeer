@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                             assessmentSection);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(),
                                                                                             assessmentSection);
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -258,7 +258,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(),
                                                                                             assessmentSection);
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -293,7 +293,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(), assessmentSection);
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -324,7 +324,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var nodeData = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryDatabase>(), assessmentSection);
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -391,7 +391,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
@@ -477,7 +477,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var calculationObserver = Substitute.For<IObserver>();
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             calculation.Attach(calculationObserver);
 
@@ -530,7 +530,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var calculationObserver = Substitute.For<IObserver>();
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             calculation.Attach(calculationObserver);
 

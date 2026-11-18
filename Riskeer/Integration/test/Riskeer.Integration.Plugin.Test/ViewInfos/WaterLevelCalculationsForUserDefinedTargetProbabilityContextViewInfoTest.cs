@@ -37,7 +37,6 @@ using Riskeer.Common.Forms.GuiServices;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
-using Riskeer.Common.Plugin.TestUtil;
 
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
@@ -283,7 +282,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void AfterCreate_WithGuiSet_SetsSpecificPropertiesToView()
         {
             // Setup
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             const double targetProbability = 0.01;
 
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);

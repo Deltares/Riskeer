@@ -37,7 +37,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.FileImporters;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Plugin.Properties;
 
 namespace Riskeer.Integration.Plugin.Test.UpdateInfos
@@ -210,7 +209,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
 
             var calculationWithoutOutput = Substitute.For<ICalculation>();
             calculationWithoutOutput.HasOutput.Returns(false);
@@ -244,7 +243,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
         {
             // Setup
             var assessmentSection = Substitute.For<IAssessmentSection>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
 
             var calculationWithoutOutput = Substitute.For<ICalculation>();
             calculationWithoutOutput.HasOutput.Returns(true);

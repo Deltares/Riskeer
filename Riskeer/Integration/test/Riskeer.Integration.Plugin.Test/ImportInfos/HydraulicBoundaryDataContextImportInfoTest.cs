@@ -30,7 +30,6 @@ using NSubstitute;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.IO.Importers;
@@ -47,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         [SetUp]
         public void SetUp()
         {
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             plugin = new RiskeerPlugin
             {
                 Gui = gui

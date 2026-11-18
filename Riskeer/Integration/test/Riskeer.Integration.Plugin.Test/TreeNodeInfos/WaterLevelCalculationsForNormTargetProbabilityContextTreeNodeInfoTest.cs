@@ -45,7 +45,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
@@ -194,7 +193,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                      () => 0.01);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -239,7 +238,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                      () => 0.01);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -284,7 +283,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                      () => 0.01);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -336,7 +335,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                      () => 0.01);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -385,7 +384,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                      () => 0.01);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -450,7 +449,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
@@ -542,7 +541,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
@@ -639,7 +638,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
@@ -729,7 +728,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -796,7 +795,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())

@@ -41,7 +41,6 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Util.TypeConverters;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Dialogs;
@@ -208,7 +207,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.AddPropertiesItem().Returns(menuBuilder);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(Arg.Any<object>(), treeViewCommands).Returns(menuBuilder);
 
             using (var plugin = new RiskeerPlugin())
@@ -237,7 +236,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
             var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IGui gui = StubFactory.CreateGuiStub();
+            IGui gui = Substitute.For<IGui>();
             gui.Get(backgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new RiskeerPlugin())
@@ -285,7 +284,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
-                IGui gui = StubFactory.CreateGuiStub();
+                IGui gui = Substitute.For<IGui>();
                 gui.Get(backgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
@@ -338,7 +337,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
-                IGui gui = StubFactory.CreateGuiStub();
+                IGui gui = Substitute.For<IGui>();
                 gui.Get(backgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
@@ -394,7 +393,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
-                IGui gui = StubFactory.CreateGuiStub();
+                IGui gui = Substitute.For<IGui>();
                 gui.Get(newBackgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
                 SetBackgroundData(assessmentSection, mapData);
@@ -452,7 +451,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
-                IGui gui = StubFactory.CreateGuiStub();
+                IGui gui = Substitute.For<IGui>();
                 gui.Get(newBackgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
                 SetBackgroundData(assessmentSection, mapData);
@@ -509,7 +508,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
-                IGui gui = StubFactory.CreateGuiStub();
+                IGui gui = Substitute.For<IGui>();
                 gui.Get(newBackgroundData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
