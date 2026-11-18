@@ -253,14 +253,14 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.CalculationsState
             var importCommandHandler = Substitute.For<IImportCommandHandler>();
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
-            var viewCommandsHandler = Substitute.For<IViewCommands>();
+            var viewCommands = Substitute.For<IViewCommands>();
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importCommandHandler,
                                                      exportCommandHandler,
                                                      updateCommandHandler,
-                                                     viewCommandsHandler,
+                                                     viewCommands,
                                                      context,
                                                      treeViewCommands);
 

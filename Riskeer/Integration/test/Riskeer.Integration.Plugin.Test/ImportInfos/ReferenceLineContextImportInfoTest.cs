@@ -25,7 +25,6 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui;
-using Core.Gui.Commands;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Framework;
@@ -47,7 +46,6 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void SetUp()
         {
             IGui gui = StubFactory.CreateGuiStub();
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin = new RiskeerPlugin
             {
                 Gui = gui

@@ -234,7 +234,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
             // Call
             info.ContextMenuStrip(groupContext, null, treeViewCommands);
@@ -282,7 +281,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewCommands))
@@ -473,18 +471,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             exportCommandHandler.CanExportFrom(nodeData).Returns(true);
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
-            var viewCommandsHandler = Substitute.For<IViewCommands>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importCommandHandler,
                                                      exportCommandHandler,
                                                      updateCommandHandler,
-                                                     viewCommandsHandler,
+                                                     viewCommands,
                                                      nodeData,
                                                      treeViewCommands);
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
@@ -584,18 +581,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var exportCommandHandler = Substitute.For<IExportCommandHandler>();
             exportCommandHandler.CanExportFrom(nodeData).Returns(true);
             var updateCommandHandler = Substitute.For<IUpdateCommandHandler>();
-            var viewCommandsHandler = Substitute.For<IViewCommands>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importCommandHandler,
                                                      exportCommandHandler,
                                                      updateCommandHandler,
-                                                     viewCommandsHandler,
+                                                     viewCommands,
                                                      nodeData,
                                                      treeViewCommands);
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
@@ -1112,7 +1108,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
             group.Children.Add(calculationItem);
             nodeData.Attach(observer);

@@ -206,14 +206,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var exportHandler = Substitute.For<IExportCommandHandler>();
             exportHandler.CanExportFrom(nodeData).Returns(true);
             var updateHandler = Substitute.For<IUpdateCommandHandler>();
-            var viewCommandsHandler = Substitute.For<IViewCommands>();
+            var viewCommands = Substitute.For<IViewCommands>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importHandler,
                                                      exportHandler,
                                                      updateHandler,
-                                                     viewCommandsHandler,
+                                                     viewCommands,
                                                      nodeData,
                                                      treeViewCommands);
 
@@ -329,21 +329,20 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             exportHandler.CanExportFrom(nodeData).Returns(true);
             var updateHandler = Substitute.For<IUpdateCommandHandler>();
 
-            var viewCommandsHandler = Substitute.For<IViewCommands>();
-            viewCommandsHandler.CanOpenViewFor(nodeData).Returns(true);
+            var viewCommands = Substitute.For<IViewCommands>();
+            viewCommands.CanOpenViewFor(nodeData).Returns(true);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                      importHandler,
                                                      exportHandler,
                                                      updateHandler,
-                                                     viewCommandsHandler,
+                                                     viewCommands,
                                                      nodeData,
                                                      treeViewCommands);
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin.Gui = gui;
 
             // Call
@@ -434,7 +433,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin.Gui = gui;
 
             // Call
@@ -472,7 +470,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin.Gui = gui;
 
             // Call
@@ -513,7 +510,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin.Gui = gui;
 
             // Call
@@ -982,7 +978,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             plugin.Gui = gui;
 
             MacroStabilityInwardsSurfaceLineSelectionDialog selectionDialog = null;

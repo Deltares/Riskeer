@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using NSubstitute;
 using NUnit.Extensions.Forms;
@@ -221,7 +220,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 hydraulicBoundaryDatabase3
             });
             IGui gui = StubFactory.CreateGuiStub();
-            gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
             var observer = Substitute.For<IObserver>();
             hydraulicBoundaryData.Attach(observer);
             var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase2, hydraulicBoundaryData, assessmentSection);
