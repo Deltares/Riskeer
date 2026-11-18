@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using Core.Gui.Forms.Main;
 using NSubstitute;
@@ -40,7 +39,6 @@ namespace Core.Gui.TestUtil
             var mainWindow = Substitute.For<IMainWindow>();
 
             mainWindow.ApplicationIcon.Returns(SystemIcons.Application);
-            mainWindow.Handle.Returns(IntPtr.Zero);
 
             return mainWindow;
         }

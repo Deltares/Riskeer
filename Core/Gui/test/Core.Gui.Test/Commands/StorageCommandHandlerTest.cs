@@ -281,28 +281,20 @@ namespace Core.Gui.Test.Commands
             var projectStorage = Substitute.For<IStoreProject>();
             projectStorage.LoadProject(pathToMigratedFile).Returns(loadedProject);
 
-            var mainWindow = Substitute.For<IMainWindow>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
             var mainWindowController = Substitute.For<IMainWindowController>();
+            mainWindowController.MainWindow.Returns(mainWindow);
 
             var projectMigrator = Substitute.For<IMigrateProject>();
-
             projectMigrator.ShouldMigrate(pathToSomeValidFile)
                            .Returns(MigrationRequired.Yes);
-
             projectMigrator.DetermineMigrationLocation(pathToSomeValidFile)
                            .Returns(pathToMigratedFile);
-
-            mainWindowController.MainWindow.Returns(mainWindow);
-            mainWindow.ApplicationIcon.Returns(SystemIcons.Application);
-            mainWindow.Handle.Returns(IntPtr.Zero);
-
             projectMigrator.Migrate(pathToSomeValidFile, pathToMigratedFile)
                            .Returns(true);
 
             var projectOwner = Substitute.For<IProjectOwner>();
-
             var inquiryHelper = Substitute.For<IInquiryHelper>();
-
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
                 projectMigrator,
@@ -534,19 +526,17 @@ namespace Core.Gui.Test.Commands
 
             var projectStorage = Substitute.For<IStoreProject>();
 
-            var mainWindow = Substitute.For<IMainWindow>();
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
             var mainWindowController = Substitute.For<IMainWindowController>();
+            mainWindowController.MainWindow.Returns(mainWindow);
+
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(MigrationRequired.Yes);
             projectMigrator.DetermineMigrationLocation(pathToSomeValidFile).Returns(pathToMigratedFile);
-            mainWindowController.MainWindow.Returns(mainWindow);
-            mainWindow.ApplicationIcon.Returns(SystemIcons.Application);
-            mainWindow.Handle.Returns(IntPtr.Zero);
             projectMigrator.Migrate(pathToSomeValidFile, pathToMigratedFile).Throws(new ArgumentException(errorMessage));
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
-
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
