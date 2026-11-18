@@ -164,7 +164,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -211,7 +210,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -277,7 +275,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -315,7 +312,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -355,7 +351,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -400,7 +395,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -467,7 +461,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -513,7 +506,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -550,7 +542,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -591,7 +582,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -635,7 +625,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -682,7 +671,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -753,7 +741,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -939,7 +926,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(calculationContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -979,7 +965,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -1011,7 +996,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -1055,7 +1039,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -1102,7 +1085,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 

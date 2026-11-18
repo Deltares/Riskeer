@@ -172,7 +172,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -209,7 +208,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
 
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -257,7 +255,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -284,7 +281,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -477,7 +473,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
@@ -529,7 +524,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
@@ -571,7 +565,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
@@ -630,7 +623,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewCommands))
@@ -700,7 +692,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewCommands))

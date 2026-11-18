@@ -252,7 +252,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, Arg.Any<ITreeViewCommands>()).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             treeViewCommands.CanRemoveNodeForData(nodeData).Returns(true);
             treeViewCommands.CanRenameNodeForData(nodeData).Returns(true);
@@ -389,7 +388,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -496,7 +494,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -535,7 +532,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -577,7 +573,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -617,7 +612,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -654,7 +648,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -694,7 +687,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -743,7 +735,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -792,7 +783,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             ChangeSurfaceLine(calculation.InputParameters.SurfaceLine);
@@ -823,7 +813,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -869,7 +858,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -913,7 +901,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -955,7 +942,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             var observer = Substitute.For<IObserver>();
             plugin.Gui = gui;
@@ -1013,7 +999,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             var observer = Substitute.For<IObserver>();
             plugin.Gui = gui;
@@ -1069,7 +1054,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             var probabilisticCalculationScenario = new ProbabilisticPipingCalculationScenario
@@ -1120,7 +1104,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             var observer = Substitute.For<IObserver>();
             plugin.Gui = gui;
@@ -1177,7 +1160,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             var observer = Substitute.For<IObserver>();
             plugin.Gui = gui;
@@ -1278,7 +1260,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
@@ -1329,7 +1310,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
@@ -1558,7 +1538,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             string messageBoxTitle = null, messageBoxText = null;
@@ -1656,7 +1635,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             string messageBoxTitle = null, messageBoxText = null;

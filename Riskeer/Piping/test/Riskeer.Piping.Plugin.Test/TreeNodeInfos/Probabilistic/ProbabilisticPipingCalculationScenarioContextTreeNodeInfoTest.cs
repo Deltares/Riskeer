@@ -176,7 +176,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -208,7 +207,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -245,7 +243,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -321,7 +318,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -369,7 +365,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -414,7 +409,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -459,7 +453,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             ChangeSurfaceLine(surfaceLine);
@@ -496,7 +489,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -528,7 +520,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -561,7 +552,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -596,7 +586,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             // Call
@@ -631,11 +620,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             var calculationObserver = Substitute.For<IObserver>();
             calculation.Attach(calculationObserver);
 
-            var mainWindow = Substitute.For<IMainWindow>();
             var gui = Substitute.For<IGui>();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(mainWindow);
             plugin.Gui = gui;
 
             ChangeSurfaceLine(surfaceLine);
@@ -878,7 +865,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             gui.Get(pipingCalculationScenarioContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             var observer = Substitute.For<IObserver>();
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             plugin.Gui = gui;
 
             calculation.Attach(observer);
@@ -1000,7 +986,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var gui = Substitute.For<IGui>();
             gui.Get(pipingCalculationScenarioContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             var observer = Substitute.For<IObserver>();
 

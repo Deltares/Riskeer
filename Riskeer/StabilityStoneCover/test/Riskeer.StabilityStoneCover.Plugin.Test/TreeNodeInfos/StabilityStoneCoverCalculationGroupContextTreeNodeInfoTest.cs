@@ -230,7 +230,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             info.ContextMenuStrip(groupContext, null, treeViewCommands);
@@ -279,7 +278,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewCommands))
@@ -353,7 +351,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             info.ContextMenuStrip(groupContext, parentGroupContext, treeViewCommands);
@@ -406,7 +403,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewCommands))
@@ -483,7 +479,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
@@ -586,7 +581,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
@@ -664,7 +658,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
@@ -704,7 +697,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
@@ -748,7 +740,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewCommands))
             {
@@ -1033,7 +1024,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             var observer = Substitute.For<IObserver>();
 
@@ -1093,7 +1083,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             group.Children.Add(calculationItem);
             nodeData.Attach(observer);
@@ -1331,7 +1320,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             gui.ViewCommands.Returns(viewCommands);
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // When
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
@@ -1375,7 +1363,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             gui.ViewCommands.Returns(viewCommands);
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewCommands))
             {
@@ -1418,7 +1405,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             calculation.InputParameters.UseBreakWater = true;
 
@@ -1469,7 +1455,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             calculation.InputParameters.UseBreakWater = false;
 

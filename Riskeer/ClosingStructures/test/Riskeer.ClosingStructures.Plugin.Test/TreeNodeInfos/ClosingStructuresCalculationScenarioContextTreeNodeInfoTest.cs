@@ -167,7 +167,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             info.ContextMenuStrip(nodeData, null, treeViewCommands);
@@ -211,8 +210,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
@@ -276,8 +273,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
@@ -311,8 +306,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
@@ -349,8 +342,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
@@ -533,8 +524,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
@@ -567,8 +556,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -608,8 +595,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -652,8 +637,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -699,8 +682,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -770,8 +751,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -951,8 +930,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(calculationContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewCommands))
             {
                 // When
@@ -989,8 +966,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
                 // Call
@@ -1018,8 +993,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
@@ -1060,8 +1033,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {
@@ -1106,8 +1077,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewCommands))
             {

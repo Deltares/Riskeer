@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;

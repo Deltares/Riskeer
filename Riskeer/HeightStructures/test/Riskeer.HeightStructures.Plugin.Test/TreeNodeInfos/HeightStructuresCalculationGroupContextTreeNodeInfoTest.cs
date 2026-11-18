@@ -197,8 +197,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             // Call
             info.ContextMenuStrip(groupContext, null, treeViewCommands);
 
@@ -250,8 +248,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
 
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewCommands))
@@ -329,8 +325,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewCommands))
             {
@@ -371,8 +365,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             info.ContextMenuStrip(groupContext, parentGroupContext, treeViewCommands);
@@ -427,8 +419,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(groupContext, treeViewCommands).Returns(menuBuilder);
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewCommands))
@@ -509,8 +499,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
@@ -548,8 +536,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
@@ -590,8 +576,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -645,8 +629,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             plugin.Gui = gui;
 
             calculation.InputParameters.UseBreakWater = false;
@@ -697,8 +679,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             plugin.Gui = gui;
 
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
@@ -737,8 +717,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -795,8 +773,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -862,8 +838,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             plugin.Gui = gui;
 
@@ -1073,8 +1047,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewCommands))
             {
                 // Call
@@ -1115,8 +1087,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
 
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             group.Children.Add(calculationGroup);
             nodeData.Attach(observer);
@@ -1163,8 +1133,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             group.Children.Add(calculation);
             nodeData.Attach(observer);
 
@@ -1202,8 +1170,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
@@ -1237,8 +1203,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
@@ -1280,8 +1244,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
-
             // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewCommands))
             {
@@ -1322,8 +1284,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
 
             ChangeStructure(testHeightStructure);
 

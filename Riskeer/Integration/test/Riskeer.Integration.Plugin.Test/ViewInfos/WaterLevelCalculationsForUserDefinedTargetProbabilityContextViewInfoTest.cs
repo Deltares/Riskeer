@@ -28,7 +28,6 @@ using Core.Common.Base;
 using Core.Common.Base.Storage;
 using Core.Gui;
 using Core.Gui.Commands;
-using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using NSubstitute;
@@ -289,7 +288,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             IGui gui = StubFactory.CreateGuiStub();
             gui.ViewCommands.Returns(Substitute.For<IViewCommands>());
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
             gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
             const double targetProbability = 0.01;

@@ -259,7 +259,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IGui gui = StubFactory.CreateGuiStub();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.MainWindow.Returns(Substitute.For<IMainWindow>());
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
             plugin.Gui = gui;
 
