@@ -89,7 +89,6 @@ namespace Core.Gui.Test.Commands
             var projectStorage = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns(Substitute.For<IProject>());
             projectOwner.ProjectFilePath.Returns((string) null);
 
             var projectFactory = Substitute.For<IProjectFactory>();
@@ -127,7 +126,6 @@ namespace Core.Gui.Test.Commands
             var projectStorage = Substitute.For<IStoreProject>();
             var projectMigrator = Substitute.For<IMigrateProject>();
             var projectOwner = Substitute.For<IProjectOwner>();
-            projectOwner.Project.Returns(Substitute.For<IProject>());
             projectOwner.ProjectFilePath.Returns((string) null);
 
             var projectFactory = Substitute.For<IProjectFactory>();
@@ -154,6 +152,7 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create("Nieuw project aanmaken is mislukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 3);
+            projectOwner.Received(1).SetProject(null, null);
         }
 
         [Test]
