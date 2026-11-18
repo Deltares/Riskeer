@@ -175,11 +175,8 @@ namespace Core.Gui.Test.Forms.Main
         public void Visible_SetToTrue_ShowMainForm()
         {
             // Setup
-            var viewHost = Substitute.For<IViewHost>();
-
             var gui = Substitute.For<IGui>();
             gui.FixedSettings.Returns(new GuiCoreSettings());
-            gui.ViewHost.Returns(viewHost);
 
             using (var mainWindow = new MainWindow())
             {
@@ -199,11 +196,8 @@ namespace Core.Gui.Test.Forms.Main
         public void Visible_SetToFalse_HideMainForm()
         {
             // Setup
-            var viewHost = Substitute.For<IViewHost>();
-
             var gui = Substitute.For<IGui>();
             gui.FixedSettings.Returns(new GuiCoreSettings());
-            gui.ViewHost.Returns(viewHost);
 
             using (var mainWindow = new MainWindow())
             {
