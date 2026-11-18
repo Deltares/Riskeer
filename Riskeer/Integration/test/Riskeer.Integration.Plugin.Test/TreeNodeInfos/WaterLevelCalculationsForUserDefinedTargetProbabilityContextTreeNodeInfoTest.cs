@@ -27,7 +27,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -543,7 +542,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             IGui gui = StubFactory.CreateGuiStub();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
 
             var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
@@ -633,7 +631,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             IGui gui = StubFactory.CreateGuiStub();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
 
             var calculator = new TestDesignWaterLevelCalculator
             {

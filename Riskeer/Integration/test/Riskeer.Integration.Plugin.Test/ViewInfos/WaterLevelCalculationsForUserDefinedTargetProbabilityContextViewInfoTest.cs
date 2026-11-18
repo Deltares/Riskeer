@@ -25,7 +25,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Storage;
 using Core.Gui;
 using Core.Gui.Plugin;
 using NSubstitute;
@@ -285,7 +284,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             IGui gui = StubFactory.CreateGuiStub();
-            gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
             const double targetProbability = 0.01;
 
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
