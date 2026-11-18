@@ -244,7 +244,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();

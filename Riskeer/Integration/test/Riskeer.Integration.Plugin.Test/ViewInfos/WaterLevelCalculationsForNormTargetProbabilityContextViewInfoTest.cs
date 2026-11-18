@@ -27,7 +27,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Storage;
 using Core.Gui;
-using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using NSubstitute;
 using NUnit.Extensions.Forms;
@@ -283,7 +282,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             IGui gui = StubFactory.CreateGuiStub();
-            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
             gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
             double GetNormFunc() => 0.01;
             var assessmentSection = new AssessmentSectionStub();

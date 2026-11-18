@@ -500,7 +500,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(groupContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
             gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();

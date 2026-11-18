@@ -33,7 +33,6 @@ using Core.Common.Util;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
-using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
@@ -508,7 +507,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
-            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
 
             var waveHeightCalculator = new TestWaveHeightCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
@@ -604,7 +602,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
-            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
 
             var calculator = new TestWaveHeightCalculator
             {

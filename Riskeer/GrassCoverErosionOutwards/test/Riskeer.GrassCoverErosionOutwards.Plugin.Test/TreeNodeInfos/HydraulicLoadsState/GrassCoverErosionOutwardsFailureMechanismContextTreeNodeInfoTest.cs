@@ -31,7 +31,6 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
-using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
@@ -292,7 +291,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
             var gui = Substitute.For<IGui>();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var waveConditionsCalculator = new TestWaveConditionsCosineCalculator
