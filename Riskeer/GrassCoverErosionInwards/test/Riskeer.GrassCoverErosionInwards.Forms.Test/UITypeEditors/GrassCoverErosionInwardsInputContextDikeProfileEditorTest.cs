@@ -62,7 +62,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
 
             var serviceProvider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
             var descriptorContext = Substitute.For<ITypeDescriptorContext>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
             descriptorContext.Instance.Returns(propertyBag);
             var someValue = new object();
 

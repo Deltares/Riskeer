@@ -52,8 +52,9 @@ namespace Core.Gui.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new MetaDataAttributeEditor();
             var someValue = new object();
-
+            var service = Substitute.For<IWindowsFormsEditorService>();
             var serviceProvider = Substitute.For<IServiceProvider>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
             var descriptorContext = Substitute.For<ITypeDescriptorContext>();
             descriptorContext.Instance.Returns(propertyBag);
 

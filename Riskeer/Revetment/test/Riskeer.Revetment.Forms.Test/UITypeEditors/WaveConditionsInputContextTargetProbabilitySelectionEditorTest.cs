@@ -66,7 +66,9 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
             var someValue = new object();
 
             var serviceProvider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
             var descriptorContext = Substitute.For<ITypeDescriptorContext>();
+            serviceProvider.GetService(Arg.Any<Type>()).Returns(service);
             descriptorContext.Instance.Returns(propertyBag);
 
             // Call

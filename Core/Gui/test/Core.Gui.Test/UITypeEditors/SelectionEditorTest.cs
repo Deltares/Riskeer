@@ -47,14 +47,33 @@ namespace Core.Gui.Test.UITypeEditors
         }
 
         [Test]
-        public void EditValue_NoProviderNoContext_ReturnsOriginalValue()
+        public void EditValue_NoProvider_ReturnsOriginalValue()
         {
             // Setup
             var editor = new SelectionEditor<IObjectProperties, object>();
+            var context = Substitute.For<ITypeDescriptorContext>();
+
             var someValue = new object();
 
             // Call
-            object result = editor.EditValue(null, null, someValue);
+            object result = editor.EditValue(context, null, someValue);
+
+            // Assert
+            Assert.AreSame(someValue, result);
+        }
+
+        [Test]
+        public void EditValue_ProviderWithoutService_ReturnsOriginalValue()
+        {
+            // Setup
+            var editor = new SelectionEditor<IObjectProperties, object>();
+            var provider = Substitute.For<IServiceProvider>();
+            var context = Substitute.For<ITypeDescriptorContext>();
+
+            var someValue = new object();
+
+            // Call
+            object result = editor.EditValue(context, provider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -66,6 +85,8 @@ namespace Core.Gui.Test.UITypeEditors
             // Setup
             var editor = new SelectionEditor<IObjectProperties, object>();
             var provider = Substitute.For<IServiceProvider>();
+            var service = Substitute.For<IWindowsFormsEditorService>();
+            provider.GetService(Arg.Any<Type>()).Returns(service);
 
             var someValue = new object();
 
