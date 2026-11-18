@@ -391,10 +391,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             calculations.Attach(calculationsObserver);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
             IGui gui = StubFactory.CreateGuiStub();
-            gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             using (var plugin = new DuneErosionPlugin())

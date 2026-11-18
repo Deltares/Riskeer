@@ -304,10 +304,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             calculations.Attach(calculationsObserver);
 
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
-            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
 
             IGui gui = StubFactory.CreateGuiStub();
-            gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             gui.ProjectStore.Returns(Substitute.For<IStoreProject>());
             gui.DocumentViewController.Returns(Substitute.For<IDocumentViewController>());
