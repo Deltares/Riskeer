@@ -518,7 +518,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         public void Dispose_WhenDisposeLocked_DoNothing()
         {
             // Given
-            var tileFetcher = Substitute.For<ITileFetcher>();
             var schema = Substitute.For<ITileSchema>();
             schema.Srs.Returns("EPSG:28992");
             schema.Extent.Returns(new Extent());
@@ -526,7 +525,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             var configuration = Substitute.For<IConfiguration>();
             configuration.Initialized.Returns(true);
             configuration.TileSchema.Returns(schema);
-            configuration.TileFetcher.Returns(tileFetcher);
 
             using (var layer = new BruTileLayer(configuration))
             {
@@ -1031,12 +1029,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             schema.Srs.Returns(tileSchemaSrsString);
             schema.Extent.Returns(tileSourceExtent);
 
-            var tileFetcher = Substitute.For<ITileFetcher>();
-
             var configuration = Substitute.For<IConfiguration>();
             configuration.Initialized.Returns(true);
             configuration.TileSchema.Returns(schema);
-            configuration.TileFetcher.Returns(tileFetcher);
             return configuration;
         }
 
@@ -1046,12 +1041,9 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
             schema.Srs.Returns("EPSG:28992");
             schema.Extent.Returns(new Extent());
 
-            var tileFetcher = Substitute.For<ITileFetcher>();
-
             var configuration = Substitute.For<IConfiguration>();
             configuration.Initialized.Returns(false);
             configuration.TileSchema.Returns(schema);
-            configuration.TileFetcher.Returns(tileFetcher);
 
             return configuration;
         }

@@ -138,7 +138,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 {
                     using (var configuration = new SimplePersistentCacheConfiguration(rootPath))
                     {
-                        var tileSource = CreateTileSource();
+                        var tileSource = Substitute.For<IHttpTileSource>();
 
                         // Call
                         configuration.TestInitializeFromTileSource(tileSource);
@@ -156,7 +156,7 @@ namespace Core.Components.BruTile.Test.Configurations
         public void TestInitializeFromTileSource_CreationOfDirectoryNotAllowed_ThrowCannotCreateTileCacheException()
         {
             // Setup
-            var tileSource = CreateTileSource();
+            var tileSource = Substitute.For<IHttpTileSource>();
 
             string rootPath = TestHelper.GetScratchPadPath("TestInitializeFromTileSource_CreationOfDirectoryNotAllowed_ThrowCannotCreateTileCacheException");
 
@@ -187,7 +187,7 @@ namespace Core.Components.BruTile.Test.Configurations
             var configuration = new SimplePersistentCacheConfiguration(rootPath);
             configuration.Dispose();
 
-            var tileSource = CreateTileSource();
+            var tileSource = Substitute.For<IHttpTileSource>();
 
             DoAndCleanupAfter(
                 () =>
@@ -237,13 +237,6 @@ namespace Core.Components.BruTile.Test.Configurations
                     DirectoryHelper.TryDelete(rootPath);
                 }
             }
-        }
-
-        private static IHttpTileSource CreateTileSource()
-        {
-            var tileSource = Substitute.For<IHttpTileSource>();
-            tileSource.Schema.Returns(Substitute.For<ITileSchema>());
-            return tileSource;
         }
 
         private class SimplePersistentCacheConfiguration : PersistentCacheConfiguration
