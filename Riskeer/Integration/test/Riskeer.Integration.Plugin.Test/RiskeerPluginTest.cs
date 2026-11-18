@@ -279,7 +279,6 @@ namespace Riskeer.Integration.Plugin.Test
             const string symbol = "<symbol>";
             var fontFamily = new FontFamily();
             var gui = Substitute.For<IGui>();
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
             gui.ActiveStateInfo.Returns(new StateInfo(string.Empty, symbol, fontFamily, p => p));
 
             using (var plugin = new RiskeerPlugin

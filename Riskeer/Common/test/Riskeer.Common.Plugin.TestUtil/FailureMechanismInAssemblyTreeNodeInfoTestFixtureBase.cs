@@ -25,7 +25,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Commands;
-using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
@@ -66,7 +65,6 @@ namespace Riskeer.Common.Plugin.TestUtil
             var gui = Substitute.For<IGui>();
             gui.ViewCommands.Returns(viewCommands);
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             using (var plugin = new TPlugin
             {
@@ -105,7 +103,6 @@ namespace Riskeer.Common.Plugin.TestUtil
             var gui = Substitute.For<IGui>();
             gui.ViewCommands.Returns(viewCommands);
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             using (var plugin = new TPlugin
             {
@@ -138,7 +135,6 @@ namespace Riskeer.Common.Plugin.TestUtil
 
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             using (var plugin = new TPlugin
             {
@@ -175,7 +171,6 @@ namespace Riskeer.Common.Plugin.TestUtil
 
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             using (var plugin = new TPlugin
             {

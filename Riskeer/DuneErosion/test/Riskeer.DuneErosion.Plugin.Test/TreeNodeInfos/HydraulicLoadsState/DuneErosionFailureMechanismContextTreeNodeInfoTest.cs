@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
-using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
@@ -147,7 +146,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
             plugin.Gui = gui;
 
             // Call
@@ -179,7 +177,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
             plugin.Gui = gui;
 
             // Call
@@ -244,7 +241,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator

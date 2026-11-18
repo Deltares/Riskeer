@@ -32,7 +32,6 @@ using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
-using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
@@ -221,7 +220,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
             plugin.Gui = gui;
 
             // Call
@@ -259,7 +257,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             IGui gui = StubFactory.CreateGuiStub();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
             plugin.Gui = gui;
 
             // Call
@@ -288,7 +285,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var builder = new CustomItemsOnlyContextMenuBuilder();
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(builder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
             plugin.Gui = gui;
 
             // Call
@@ -373,7 +369,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(builder);
             gui.MainWindow.Returns(mainWindow);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
             var calculationObserver = Substitute.For<IObserver>();
             var calculationsObserver = Substitute.For<IObserver>();
 
@@ -484,7 +479,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             gui.MainWindow.Returns(mainWindow);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();

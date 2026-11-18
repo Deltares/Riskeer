@@ -30,7 +30,6 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
-using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NSubstitute;
@@ -195,7 +194,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(nodeData, treeViewCommands).Returns(menuBuilder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -356,7 +354,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(groupContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -429,7 +426,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var treeViewCommands = Substitute.For<ITreeViewCommands>();
             var gui = Substitute.For<IGui>();
             gui.Get(groupContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -500,7 +496,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var gui = Substitute.For<IGui>();
             gui.MainWindow.Returns(mainWindow);
             gui.Get(groupContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator

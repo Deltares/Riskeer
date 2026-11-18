@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Gui;
-using Core.Gui.Forms.ViewHost;
 using NSubstitute;
 
 namespace Riskeer.Common.Plugin.TestUtil
@@ -36,10 +35,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// <returns>The created <see cref="IGui"/> stub.</returns>
         public static IGui CreateGuiStub()
         {
-            var gui = Substitute.For<IGui>();
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
-
-            return gui;
+            return Substitute.For<IGui>();
         }
     }
 }

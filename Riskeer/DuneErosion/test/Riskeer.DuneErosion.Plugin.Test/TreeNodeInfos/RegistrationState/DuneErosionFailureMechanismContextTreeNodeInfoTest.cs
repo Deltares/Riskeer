@@ -25,7 +25,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.ViewHost;
 using NSubstitute;
 using NUnit.Framework;
 using Riskeer.Common.Data;
@@ -198,7 +197,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
 
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -246,7 +244,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
 
             var gui = Substitute.For<IGui>();
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
-            gui.ViewHost.Returns(Substitute.For<IViewHost>());
 
             using (var plugin = new DuneErosionPlugin())
             {
