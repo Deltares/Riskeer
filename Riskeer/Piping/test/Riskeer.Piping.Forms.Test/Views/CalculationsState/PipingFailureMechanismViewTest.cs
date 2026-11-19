@@ -585,7 +585,7 @@ namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
             // Then
             AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(), calculationMapData);
             observers[semiProbabilisticCalculationObserverIndex].Received(1).UpdateObserver();
-            observers.Where(o => o != observers[semiProbabilisticCalculationObserverIndex] && o != observers[probabilisticCalculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
+            observers.Where(o => o != observers[semiProbabilisticCalculationObserverIndex]).ToList().ForEach(o => o.DidNotReceive().UpdateObserver());
         }
 
         [Test]
