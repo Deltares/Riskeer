@@ -206,7 +206,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMapLayerWithDuneLocations_WhenCalculationsForRemovedUserDefinedTargetProbabilityUpdatedAndNotified_ThenMapDataUpdated()
+        public void GivenMapLayerWithDuneLocations_WhenCalculationsForRemovedUserDefinedTargetProbabilitiesUpdatedAndNotified_ThenMapDataNotUpdated()
         {
             // Given
             var observer = Substitute.For<IObserver>();
