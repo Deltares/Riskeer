@@ -41,7 +41,7 @@ namespace AutomatedSystemTests.Modules.Calculation
             double bValue = Double.Parse(param_b, currentCulture);
             double LTrajectValue = Double.Parse(L_traject, currentCulture);
             double calculatedNValue = 1 + aValue*LTrajectValue/bValue;
-            return calculatedNValue.ToString("N2", currentCulture).Replace(currentCulture.NumberFormat.NumberGroupSeparator, "");;
+            return calculatedNValue.ToString("N2", currentCulture).Replace(currentCulture.NumberFormat.NumberGroupSeparator, "");
         }
 
     }

@@ -40,7 +40,7 @@ namespace AutomatedSystemTests.Modules.Calculation
             double lengthValue = Double.Parse(lengthParameter, currentCulture);
             double deltaLValue = Double.Parse(deltaLParameter, currentCulture);
             double calculatedNValue = lengthValue/deltaLValue;
-            return calculatedNValue.ToString("N2", currentCulture).Replace(currentCulture.NumberFormat.NumberGroupSeparator, "");;
+            return calculatedNValue.ToString("N2", currentCulture).Replace(currentCulture.NumberFormat.NumberGroupSeparator, "");
         }
 
     }

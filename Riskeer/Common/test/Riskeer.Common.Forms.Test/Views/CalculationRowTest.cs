@@ -189,7 +189,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var calculationObserver = Substitute.For<IObserver>();
             var handler = Substitute.For<IObservablePropertyChangeHandler>();
 
-            object assignedOutput = hasOutput ? new object() : null;;
+            object assignedOutput = hasOutput ? new object() : null;
 
             var calculation = new TestCalculation
             {
