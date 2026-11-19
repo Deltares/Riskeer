@@ -89,6 +89,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.IsTrue(valid);
+            Assert.IsFalse(log.ReceivedCalls().Any());
         }
 
         [Test]

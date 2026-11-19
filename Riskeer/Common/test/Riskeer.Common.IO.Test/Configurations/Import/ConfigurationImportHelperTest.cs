@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using log4net;
 using NSubstitute;
@@ -79,6 +80,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                 setStandardDeviation ? standardDeviation : defaultLogNormal.StandardDeviation,
                 input.Distribution.StandardDeviation,
                 input.Distribution.StandardDeviation.GetAccuracy());
+            Assert.IsFalse(log.ReceivedCalls().Any());
         }
 
         [Test]
@@ -159,6 +161,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                 setVariationCoefficient ? variationCoefficient : defaultLogNormal.CoefficientOfVariation,
                 input.VariationCoefficientDistribution.CoefficientOfVariation,
                 input.VariationCoefficientDistribution.CoefficientOfVariation.GetAccuracy());
+            Assert.IsFalse(log.ReceivedCalls().Any());
         }
 
         [Test]
