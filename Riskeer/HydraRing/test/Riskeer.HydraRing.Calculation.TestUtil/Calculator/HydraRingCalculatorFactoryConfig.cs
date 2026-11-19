@@ -33,12 +33,14 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
     /// <example>
     /// The following is an example for how to use this class:
     /// <code>
-    /// var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory/>();
+    /// <![CDATA[
+    /// var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
     ///
     /// using(new HydraRingCalculatorFactoryConfig(calculatorFactory))
     /// {
     ///     // Perform test with mocked factory
     /// }
+    /// ]]>
     /// </code>
     /// </example>
     public class HydraRingCalculatorFactoryConfig : IDisposable
