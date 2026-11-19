@@ -1,5 +1,6 @@
 <Project>
   <Import Project="$(SolutionDir)build\Base.targets" />
+  <Import Project="$(SolutionDir)build\ApplicationPublish.targets" />
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
     <ItemGroup>
       <_CoreAssemblyFile Include="$(OutDir)$(AssemblyName).dll"/>

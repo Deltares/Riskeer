@@ -11,6 +11,7 @@ x64/
 bld/
 [Bb]in/
 [Oo]bj/
+/publish/
 
 .vs/
 *.VisualState.xml

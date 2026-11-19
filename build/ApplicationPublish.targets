@@ -1,0 +1,34 @@
+<Project>
+  <!--
+    Publishing support for the executables (Riskeer, Migratiehulpprogramma). Imported by Source.targets.
+
+    Only projects that set IsPublishable to true are published (Base.targets defaults it to false), so a
+    "dotnet publish Riskeer.sln" no longer creates publish folders for every library and test project.
+
+    The build assembles the application layout in $(ApplicationOutputDir) (bin\<Configuration>\Application):
+    the Core assemblies, third-party packages and Deltares kernels that AssemblyResolver loads at runtime.
+    That folder is not something the SDK knows about, so it is added to the publish output here, as
+    Application\... next to the executable, mirroring the build output that AssemblyResolver expects.
+
+    Publish output goes to <repository>\publish\ instead of the SDK default
+    bin\<Configuration>\<TargetFramework>\publish\. Override with -p:PublishDir=<folder>\.
+  -->
+  <PropertyGroup>
+    <PublishDir Condition="'$(PublishDir)' == ''">$(SolutionDir)publish\</PublishDir>
+    <ApplicationOutputDir Condition="'$(ApplicationOutputDir)' == ''">$(SolutionDir)bin\$(Configuration)\Application\</ApplicationOutputDir>
+  </PropertyGroup>
+
+  <Target Name="AddApplicationFolderToPublish"
+          AfterTargets="ComputeResolvedFilesToPublishList"
+          Condition="'$(IsPublishable)' == 'true'">
+    <Error Condition="!Exists('$(ApplicationOutputDir)')"
+           Text="Application folder '$(ApplicationOutputDir)' does not exist; build the solution before publishing."/>
+    <ItemGroup>
+      <_ApplicationFolderFile Include="$(ApplicationOutputDir)**\*"/>
+      <ResolvedFileToPublish Include="@(_ApplicationFolderFile)">
+        <RelativePath>Application\%(_ApplicationFolderFile.RecursiveDir)%(_ApplicationFolderFile.Filename)%(_ApplicationFolderFile.Extension)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+</Project>
