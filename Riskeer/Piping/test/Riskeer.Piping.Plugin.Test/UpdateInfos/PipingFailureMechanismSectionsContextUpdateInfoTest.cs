@@ -46,13 +46,11 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
     public class PipingFailureMechanismSectionsContextUpdateInfoTest : NUnitFormTest
     {
         private PipingPlugin plugin;
+        private UpdateInfo updateInfo;
 
         [Test]
         public void Name_Always_ReturnExpectedName()
         {
-            // Setup
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
-
             // Call
             string name = updateInfo.Name;
 
@@ -63,9 +61,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         [Test]
         public void Category_Always_ReturnExpectedCategory()
         {
-            // Setup
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
-
             // Call
             string category = updateInfo.Category;
 
@@ -76,9 +71,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         [Test]
         public void Image_Always_ReturnExpectedIcon()
         {
-            // Setup
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
-
             // Call
             Image image = updateInfo.Image;
 
@@ -97,8 +89,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
-
             // Call
             bool isEnabled = updateInfo.IsEnabled(context);
 
@@ -114,8 +104,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
-
             // Call
             bool isEnabled = updateInfo.IsEnabled(context);
 
@@ -126,9 +114,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
         [Test]
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
-            // Setup
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
-
             // Call
             FileFilterGenerator fileFilterGenerator = updateInfo.FileFilterGenerator;
 
@@ -144,8 +129,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             assessmentSection.ReferenceLine.Returns(new ReferenceLine());
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
-
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
             // Call
             IFileImporter importer = updateInfo.CreateFileImporter(context, string.Empty);
@@ -164,8 +147,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             string sourcePath = TestHelper.GetScratchPadPath();
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
-
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
             // Call
             string currentFilePath = updateInfo.CurrentPath(context);
@@ -186,8 +167,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             });
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
-
             // Call
             bool updatesVerified = updateInfo.VerifyUpdates(context);
 
@@ -203,8 +182,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new ProbabilisticPipingCalculationScenario());
             var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
-
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
             // Call
             bool updatesVerified = updateInfo.VerifyUpdates(context);
@@ -244,8 +221,6 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
                 }
             };
 
-            UpdateInfo updateInfo = GetUpdateInfo(plugin);
-
             // Call
             bool updatesVerified = updateInfo.VerifyUpdates(context);
 
@@ -258,18 +233,17 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 
         public override void Setup()
         {
-            plugin = new PipingPlugin();
-            plugin.Gui = Substitute.For<IGui>();
+            plugin = new PipingPlugin
+            {
+                Gui = Substitute.For<IGui>()
+            };
+            
+            updateInfo = plugin.GetUpdateInfos().First(ui => ui.DataType == typeof(PipingFailureMechanismSectionsContext));
         }
 
         public override void TearDown()
         {
             plugin.Dispose();
-        }
-
-        private static UpdateInfo GetUpdateInfo(PipingPlugin plugin)
-        {
-            return plugin.GetUpdateInfos().First(ui => ui.DataType == typeof(PipingFailureMechanismSectionsContext));
         }
     }
 }
