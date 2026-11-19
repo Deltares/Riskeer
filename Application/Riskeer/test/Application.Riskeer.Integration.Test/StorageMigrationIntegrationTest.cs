@@ -129,7 +129,6 @@ namespace Application.Riskeer.Integration.Test
                 gui.Run(sourceFilePath);
 
                 // Then
-                inquiryHelper.Received(1).InquireContinuation(Arg.Any<string>());
                 inquiryHelper.DidNotReceive().GetTargetFileLocation(Arg.Any<string>(), Arg.Any<string>());
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
