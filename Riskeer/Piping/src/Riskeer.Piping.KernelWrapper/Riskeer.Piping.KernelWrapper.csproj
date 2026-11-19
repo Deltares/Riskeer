@@ -37,8 +37,12 @@ All rights reserved.
       <Link>Copying.licenseheader</Link>
     </None>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\Wti\Deltares.WTIPiping.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Piping-23.1.1.7\*&quot;" />
-      <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\Wti\Deltares.Geo.Common.Standard.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Piping-23.1.1.7\*&quot;" />
-  </Target>
+  <ItemGroup>
+    <ThirdPartyFile Include="$(SolutionDir)lib\Plugins\Wti\Deltares.WTIPiping.dll">
+      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\Piping-23.1.1.7</ThirdPartyDestination>
+    </ThirdPartyFile>
+    <ThirdPartyFile Include="$(SolutionDir)lib\Plugins\Wti\Deltares.Geo.Common.Standard.dll">
+      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\Piping-23.1.1.7</ThirdPartyDestination>
+    </ThirdPartyFile>
+  </ItemGroup>
 </Project>

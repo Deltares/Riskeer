@@ -58,11 +58,13 @@ All rights reserved.
       <Version>1.2.1</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgGraphShape)\lib\net5.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="GraphShape.Controls">
       <Version>1.2.2</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgGraphShape_Controls)\lib\net5.0-windows7.0</ThirdPartySource>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -78,8 +80,4 @@ All rights reserved.
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgGraphShape)\lib\net5.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GraphShape-1.2.1\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgGraphShape_Controls)\lib\net5.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GraphShape.Controls-1.2.2\*&quot;"/>
-  </Target>
 </Project>

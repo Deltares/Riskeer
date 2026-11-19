@@ -50,7 +50,9 @@ All rights reserved.
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\Wti\Deltares.MacroStability.CSharpWrapper.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\MacroStability-23.2.1.6\*&quot;" />
-  </Target>
+  <ItemGroup>
+    <ThirdPartyFile Include="$(SolutionDir)lib\Plugins\Wti\Deltares.MacroStability.CSharpWrapper.dll">
+      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\Macrostability-23.2.1</ThirdPartyDestination>
+    </ThirdPartyFile>
+  </ItemGroup>
 </Project>
