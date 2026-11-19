@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup Condition="'$(SolutionDir)' == ''"> <!-- Fallback for direct project build/publish where SolutionDir is not set. -->
+    <SolutionDir>$([MSBuild]::NormalizeDirectory('$(MSBuildThisFileDirectory)'))</SolutionDir>
+  </PropertyGroup>
+</Project>
+
