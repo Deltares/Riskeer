@@ -38,7 +38,7 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
     ///
     /// using(new HydraRingCalculatorFactoryConfig(calculatorFactory))
     /// {
-    ///     // Perform test with mocked factory
+    ///     // Perform test with substituted factory
     /// }
     /// ]]>
     /// </code>

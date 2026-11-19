@@ -46,7 +46,7 @@ namespace Core.Common.Util.Test.Reflection
         public void GetAssemblyInfo_LocationIsEmpty_ReturnEmptyAssemblyInfo()
         {
             // Setup
-            var assemblyWithoutLocation = new MockedAssemblyWithoutLocation();
+            var assemblyWithoutLocation = new AssemblyWithoutLocation();
 
             // Call
             AssemblyUtils.AssemblyInfo assemblyInfo = AssemblyUtils.GetAssemblyInfo(assemblyWithoutLocation);
@@ -131,7 +131,7 @@ namespace Core.Common.Util.Test.Reflection
             Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
         }
 
-        private class MockedAssemblyWithoutLocation : Assembly
+        private class AssemblyWithoutLocation : Assembly
         {
             public override string Location => "";
         }
