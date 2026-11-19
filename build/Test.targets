@@ -16,16 +16,22 @@
       <Version>2.23.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMicrosoft_ApplicationInsights)\lib\netstandard2.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeCoverage">
       <Version>18.8.1</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMicrosoft_CodeCoverage)\lib\net8.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyModel">
       <Version>8.0.2</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMicrosoft_Extensions_DependencyModel)\lib\net8.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk">
       <Version>18.8.1</Version>
@@ -35,31 +41,43 @@
       <Version>2.1.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMicrosoft_Testing_Extensions_Telemetry)\lib\net9.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
     <PackageReference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions">
       <Version>2.1.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMicrosoft_Testing_Extensions_TrxReport_Abstractions)\lib\net9.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
     <PackageReference Include="Microsoft.Testing.Extensions.VSTestBridge">
       <Version>2.1.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMicrosoft_Testing_Extensions_VSTestBridge)\lib\net9.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
     <PackageReference Include="Microsoft.Testing.Platform">
       <Version>2.1.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMicrosoft_Testing_Platform)\lib\net9.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
     <PackageReference Include="Microsoft.Testing.Platform.MSBuild">
       <Version>2.1.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMicrosoft_Testing_Platform_MSBuild)\lib\net9.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
     <PackageReference Include="Microsoft.TestPlatform.ObjectModel">
       <Version>18.8.1</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMicrosoft_TestPlatform_ObjectModel)\lib\net8.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
     <PackageReference Include="Microsoft.TestPlatform.TestHost">
       <Version>18.8.1</Version>
@@ -70,6 +88,8 @@
       <Version>6.2.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgNUnit3TestAdapter)\build\net8.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Coverage|x64'">
@@ -95,15 +115,6 @@
           SkipUnchangedFiles="true"/>
   </Target>
   <Target Name="TestPostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_ApplicationInsights)\lib\netstandard2.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_CodeCoverage)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Extensions_DependencyModel)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_Testing_Extensions_Telemetry)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Testing_Extensions_TrxReport_Abstractions)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_Testing_Extensions_VSTestBridge)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_Testing_Platform)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_Testing_Platform_MSBuild)\lib\net9.0\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y/c &quot;$(PkgMicrosoft_TestPlatform_ObjectModel)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
     <ItemGroup>
       <TestHostFiles Include="$(PkgMicrosoft_TestPlatform_TestHost)\lib\net8.0\**\*"
                      Exclude="$(PkgMicrosoft_TestPlatform_TestHost)\lib\net8.0\x86\**\*;$(PkgMicrosoft_TestPlatform_TestHost)\lib\net8.0\arm64\**\*"/>
@@ -111,6 +122,5 @@
     <Copy SourceFiles="@(TestHostFiles)"
           DestinationFiles="@(TestHostFiles->'$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgNUnit3TestAdapter)\build\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
   </Target>
 </Project>

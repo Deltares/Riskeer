@@ -53,93 +53,91 @@ All rights reserved.
       <Version>10.0.10</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgSystem_Data_OleDb)\runtimes\win\lib\net10.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="BruTile">
       <Version>6.0.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgBruTile)\lib\net9.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.Controls">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_Controls)\lib\net6.0-windows7.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.Data">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_Data)\lib\net6.0-windows7.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.Data.Forms">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_Data_Forms)\lib\net6.0-windows7.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.Extensions">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_Extensions)\lib\net6.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.Modeling.Forms">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_Modeling_Forms)\lib\net6.0-windows7.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.NTSExtension">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_NTSExtension)\lib\net6.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.Projections">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_Projections)\lib\net6.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.Projections.Forms">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_Projections_Forms)\lib\net6.0-windows7.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.Serialization">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_Serialization)\lib\net6.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.Symbology">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_Symbology)\lib\net6.0-windows7.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="DotSpatial.Symbology.Forms">
       <Version>4.0.656</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgDotSpatial_Symbology_Forms)\lib\net6.0-windows7.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="NetTopologySuite">
       <Version>2.4.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgNetTopologySuite)\lib\netstandard2.0</ThirdPartySource>
     </PackageReference>
     <PackageReference Include="System.ComponentModel.Composition">
       <Version>10.0.10</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgSystem_ComponentModel_Composition)\lib\net10.0</ThirdPartySource>
     </PackageReference>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgBruTile)\lib\net9.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\BruTile-6.0.0\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Controls)\lib\net6.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Controls-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Data)\lib\net6.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Data-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Data_Forms)\lib\net6.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Data.Forms-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Extensions)\lib\net6.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Extensions-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Modeling_Forms)\lib\net6.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Modeling.Forms-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_NTSExtension)\lib\net6.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.NTSExtension-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Projections)\lib\net6.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Projections-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Projections_Forms)\lib\net6.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Projections.Forms-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Serialization)\lib\net6.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Serialization-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Symbology)\lib\net6.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Symbology-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgDotSpatial_Symbology_Forms)\lib\net6.0-windows7.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\DotSpatial.Symbology.Forms-4.0.656\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgNetTopologySuite)\lib\netstandard2.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\NetTopologySuite-2.4.0\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_ComponentModel_Composition)\lib\net10.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.ComponentModel.Composition-10.0.10\*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_OleDb)\runtimes\win\lib\net10.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.OleDb-10.0.10\*&quot;"/>
-  </Target>
 </Project>

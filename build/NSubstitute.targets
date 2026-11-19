@@ -4,15 +4,15 @@
       <Version>5.1.1</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgCastle_Core)\lib\netstandard2.1</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
     <PackageReference Include="NSubstitute">
       <Version>6.0.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgNSubstitute)\lib\net8.0</ThirdPartySource>
+      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
     </PackageReference>
   </ItemGroup>
-  <Target Name="NSubstitutePostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgCastle_Core)\lib\netstandard2.1\*&quot; &quot;$(OutDir)*&quot;"/>
-    <Exec Command="xcopy /d/s/y &quot;$(PkgNSubstitute)\lib\net8.0\*&quot; &quot;$(OutDir)*&quot;"/>
-  </Target>
 </Project>

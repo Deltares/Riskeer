@@ -56,7 +56,9 @@ All rights reserved.
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)UnusedResourceSearcher&quot; &quot;$(OutDir)UnusedResourceSearcher\*&quot; /D /S /Y"/>
-  </Target>
+  <ItemGroup>
+    <ThirdPartyDirectory Include="$(ProjectDir)UnusedResourceSearcher">
+      <ThirdPartyDestination>$(OutDir)UnusedResourceSearcher</ThirdPartyDestination>
+    </ThirdPartyDirectory>
+  </ItemGroup>
 </Project>

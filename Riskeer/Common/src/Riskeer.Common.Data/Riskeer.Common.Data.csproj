@@ -52,9 +52,7 @@ All rights reserved.
       <Version>5.0.0</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
+      <ThirdPartySource>$(PkgMathNet_Numerics)\lib\net6.0</ThirdPartySource>
     </PackageReference>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgMathNet_Numerics)\lib\net6.0\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MathNet.Numerics-5.0.0\*&quot;"/>
-  </Target>
 </Project>

@@ -49,7 +49,9 @@ All rights reserved.
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\AssemblyTool\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\AssemblyTool-26.1.1\*&quot;" />
-  </Target>
+  <ItemGroup>
+    <ThirdPartyDirectory Include="$(SolutionDir)lib\Plugins\AssemblyTool">
+      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\AssemblyTool-26.1.1</ThirdPartyDestination>
+    </ThirdPartyDirectory>
+  </ItemGroup>
 </Project>

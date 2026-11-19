@@ -1,0 +1,88 @@
+<Project>
+  <!--
+    Copies third-party (and other prebuilt) files into the application or test output folders, replacing
+    the former per-project "xcopy /d/s/y" post-build steps. Imported by Base.targets; it does nothing for
+    projects that do not opt in.
+
+    Every entry ends up in a destination folder, determined as follows:
+      - ThirdPartyDestination metadata (a full folder path), when set; otherwise
+      - $(ThirdPartyOutputDir)<ThirdPartyFolder>\, where ThirdPartyFolder may contain sub folders
+        (e.g. "System.Data.SQLite-1.0.119\x64").
+
+    Three ways to opt in:
+
+    1. A package: ThirdPartySource metadata on its PackageReference. The folder is copied recursively.
+       ThirdPartyFolder defaults to "<Id>-<Version>".
+
+         <PackageReference Include="MahApps.Metro">
+           <Version>2.4.11</Version>
+           <GeneratePathProperty>true</GeneratePathProperty>
+           <PrivateAssets>all</PrivateAssets>
+           <ThirdPartySource>$(PkgMahApps_Metro)\lib\net47</ThirdPartySource>
+         </PackageReference>
+
+    2. A folder (e.g. a second folder of a package, or a folder under lib\): a ThirdPartyDirectory item.
+       Its contents are collected recursively at build time, so package folders resolve after restore.
+
+         <ThirdPartyDirectory Include="$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native">
+           <ThirdPartyFolder>System.Data.SQLite-1.0.119\x64</ThirdPartyFolder>
+         </ThirdPartyDirectory>
+
+    3. Individual files in the repository: ThirdPartyFile items. With a wildcard Include, the
+       %(RecursiveDir) structure is kept.
+
+    A missing ThirdPartySource / ThirdPartyDirectory fails the build: that usually means a package or
+    target framework changed, and silently copying nothing would only surface at runtime.
+
+    NOTE: AssemblyResolver throws on duplicate assemblies under Built-in\Managed, so every project that
+    copies a given package must use the same destination folder.
+  -->
+  <PropertyGroup>
+    <BuiltInManagedOutputDir Condition="'$(BuiltInManagedOutputDir)' == ''">$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\</BuiltInManagedOutputDir>
+    <ThirdPartyOutputDir Condition="'$(ThirdPartyOutputDir)' == ''">$(BuiltInManagedOutputDir)Third-party\</ThirdPartyOutputDir>
+  </PropertyGroup>
+
+  <Target Name="CopyThirdPartyFiles" AfterTargets="PostBuildEvent">
+    <ItemGroup>
+      <!-- Packages and directories are both "source folders". -->
+      <_ThirdPartySourceDirectory Include="@(PackageReference->'%(ThirdPartySource)')" Condition="'%(PackageReference.ThirdPartySource)' != ''">
+        <_Owner>package '%(PackageReference.Identity)'</_Owner>
+        <_DefaultFolder>%(PackageReference.Identity)-%(PackageReference.Version)</_DefaultFolder>
+      </_ThirdPartySourceDirectory>
+      <_ThirdPartySourceDirectory Include="@(ThirdPartyDirectory)">
+        <_Owner>ThirdPartyDirectory</_Owner>
+      </_ThirdPartySourceDirectory>
+    </ItemGroup>
+
+    <Error Condition="'@(_ThirdPartySourceDirectory)' != '' And !Exists('%(_ThirdPartySourceDirectory.FullPath)')"
+           Text="Third-party source folder '%(_ThirdPartySourceDirectory.Identity)' of %(_ThirdPartySourceDirectory._Owner) does not exist."/>
+    <Error Condition="'@(_ThirdPartySourceDirectory)' != '' And '%(_ThirdPartySourceDirectory.ThirdPartyDestination)%(_ThirdPartySourceDirectory.ThirdPartyFolder)%(_ThirdPartySourceDirectory._DefaultFolder)' == ''"
+           Text="ThirdPartyDirectory '%(_ThirdPartySourceDirectory.Identity)' needs ThirdPartyFolder or ThirdPartyDestination metadata."/>
+    <Error Condition="'@(ThirdPartyFile)' != '' And '%(ThirdPartyFile.ThirdPartyDestination)%(ThirdPartyFile.ThirdPartyFolder)' == ''"
+           Text="ThirdPartyFile '%(ThirdPartyFile.Identity)' needs ThirdPartyFolder or ThirdPartyDestination metadata."/>
+
+    <ItemGroup>
+      <_ThirdPartySourceDirectory Condition="'%(_ThirdPartySourceDirectory.ThirdPartyFolder)' == ''">
+        <ThirdPartyFolder>%(_ThirdPartySourceDirectory._DefaultFolder)</ThirdPartyFolder>
+      </_ThirdPartySourceDirectory>
+
+      <!-- The condition matters: with no source folders, this would still run once with an empty path and glob the project folder. -->
+      <_ThirdPartyFile Include="$([MSBuild]::EnsureTrailingSlash('%(_ThirdPartySourceDirectory.FullPath)'))**\*" Condition="'@(_ThirdPartySourceDirectory)' != ''">
+        <ThirdPartyFolder>%(_ThirdPartySourceDirectory.ThirdPartyFolder)</ThirdPartyFolder>
+        <ThirdPartyDestination>%(_ThirdPartySourceDirectory.ThirdPartyDestination)</ThirdPartyDestination>
+      </_ThirdPartyFile>
+      <_ThirdPartyFile Include="@(ThirdPartyFile)"/>
+
+      <_ThirdPartyFile Condition="'%(_ThirdPartyFile.ThirdPartyDestination)' == ''">
+        <ThirdPartyDestination>$(ThirdPartyOutputDir)%(_ThirdPartyFile.ThirdPartyFolder)</ThirdPartyDestination>
+      </_ThirdPartyFile>
+      <_ThirdPartyFile>
+        <_Destination>$([MSBuild]::EnsureTrailingSlash('%(_ThirdPartyFile.ThirdPartyDestination)'))%(_ThirdPartyFile.RecursiveDir)%(_ThirdPartyFile.Filename)%(_ThirdPartyFile.Extension)</_Destination>
+      </_ThirdPartyFile>
+    </ItemGroup>
+
+    <Copy SourceFiles="@(_ThirdPartyFile)"
+          DestinationFiles="@(_ThirdPartyFile->'%(_Destination)')"
+          SkipUnchangedFiles="true"/>
+  </Target>
+</Project>

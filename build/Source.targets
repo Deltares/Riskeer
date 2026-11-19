@@ -1,11 +1,15 @@
 <Project>
   <Import Project="$(SolutionDir)build\Base.targets" />
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
-    <Exec Command=":loop
-      xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;
-      if ErrorLevel 1 goto loop"/>
-    <Exec Command=":loop
-      xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;
-      if ErrorLevel 1 goto loop" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('COVERAGE'))"/>
+    <ItemGroup>
+      <_CoreAssemblyFile Include="$(OutDir)$(AssemblyName).dll"/>
+      <_CoreAssemblyFile Include="$(OutDir)$(AssemblyName).pdb" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('COVERAGE'))"/>
+    </ItemGroup>
+    <!-- Retries replace the former endless "xcopy ... if ErrorLevel 1 goto loop" for transiently locked files. -->
+    <Copy SourceFiles="@(_CoreAssemblyFile)"
+          DestinationFolder="$(BuiltInManagedOutputDir)Core\"
+          SkipUnchangedFiles="true"
+          Retries="10"
+          RetryDelayMilliseconds="1000"/>
   </Target>
 </Project>
