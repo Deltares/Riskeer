@@ -162,7 +162,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Mean_ReadOnlyWithObserverable_ThrowsArgumentException()
+        public void Mean_ReadOnlyWithObservable_ThrowsArgumentException()
         {
             // Setup
             var distribution = Substitute.For<IDistribution>();
@@ -182,15 +182,15 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Mean_WithObserverable_ValueSetNotifyObservers()
+        public void Mean_WithObservable_ValueSetNotifyObservers()
         {
             // Setup
             var distribution = Substitute.For<IDistribution>();
-            var observerable = Substitute.For<IObservable>();
+            var observable = Substitute.For<IObservable>();
             var newMeanValue = new RoundedDouble(3, 20);
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
-                observerable
+                observable
             });
 
             var properties = new SimpleDistributionProperties(
@@ -203,13 +203,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newMeanValue, properties.Mean);
-            observerable.Received(1).NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         [Test]
         [TestCase(DistributionReadOnlyProperties.All)]
         [TestCase(DistributionReadOnlyProperties.StandardDeviation)]
-        public void StandardDeviation_ReadOnlyWithoutObserverable_ThrowsArgumentException(DistributionReadOnlyProperties readOnlyProperties)
+        public void StandardDeviation_ReadOnlyWithoutObservable_ThrowsArgumentException(DistributionReadOnlyProperties readOnlyProperties)
         {
             // Setup
             var distribution = Substitute.For<IDistribution>();
@@ -229,15 +229,15 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void StandardDeviation_WithObserverable_ValueSetNotifyObservers()
+        public void StandardDeviation_WithObservable_ValueSetNotifyObservers()
         {
             // Setup
             var distribution = Substitute.For<IDistribution>();
-            var observerable = Substitute.For<IObservable>();
+            var observable = Substitute.For<IObservable>();
             var newStandardDeviationValue = new RoundedDouble(3, 20);
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
-                observerable
+                observable
             });
 
             var properties = new SimpleDistributionProperties(
@@ -250,7 +250,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newStandardDeviationValue, properties.StandardDeviation);
-            observerable.Received(1).NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         private static void AssertPropertiesInState(SimpleDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)

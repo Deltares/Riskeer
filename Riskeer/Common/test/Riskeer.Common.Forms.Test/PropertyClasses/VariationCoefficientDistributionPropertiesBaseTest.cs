@@ -162,7 +162,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Mean_ReadOnlyWithObserverable_ThrowsArgumentException()
+        public void Mean_ReadOnlyWithObservable_ThrowsArgumentException()
         {
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
@@ -182,15 +182,15 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Mean_WithObserverable_ValueSetNotifyObservers()
+        public void Mean_WithObservable_ValueSetNotifyObservers()
         {
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
-            var observerable = Substitute.For<IObservable>();
+            var observable = Substitute.For<IObservable>();
             var newMeanValue = new RoundedDouble(3, 20);
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
-                observerable
+                observable
             });
 
             var properties = new SimpleDistributionProperties(
@@ -203,13 +203,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newMeanValue, properties.Mean);
-            observerable.Received(1).NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         [Test]
         [TestCase(VariationCoefficientDistributionReadOnlyProperties.All)]
         [TestCase(VariationCoefficientDistributionReadOnlyProperties.CoefficientOfVariation)]
-        public void CoefficientOfVariation_ReadOnlyWithoutObserverable_ThrowsArgumentException(VariationCoefficientDistributionReadOnlyProperties readOnlyProperties)
+        public void CoefficientOfVariation_ReadOnlyWithoutObservable_ThrowsArgumentException(VariationCoefficientDistributionReadOnlyProperties readOnlyProperties)
         {
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
@@ -226,15 +226,15 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void CoefficientOfVariation_WithObserverable_ValueSetNotifyObservers()
+        public void CoefficientOfVariation_WithObservable_ValueSetNotifyObservers()
         {
             // Setup
             var distribution = Substitute.For<IVariationCoefficientDistribution>();
-            var observerable = Substitute.For<IObservable>();
+            var observable = Substitute.For<IObservable>();
             var newCoefficientOfVariation = new RoundedDouble(3, 20);
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
-                observerable
+                observable
             });
 
             var properties = new SimpleDistributionProperties(VariationCoefficientDistributionReadOnlyProperties.None, distribution, handler)
@@ -247,7 +247,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newCoefficientOfVariation, properties.CoefficientOfVariation);
-            observerable.Received(1).NotifyObservers();
+            observable.Received(1).NotifyObservers();
         }
 
         private static void AssertPropertiesInState(SimpleDistributionProperties properties, bool meanReadOnly, bool variationCoefficientReadOnly)
