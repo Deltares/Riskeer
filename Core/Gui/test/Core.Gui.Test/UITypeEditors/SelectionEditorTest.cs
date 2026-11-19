@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using Core.Gui.PropertyBag;
 using Core.Gui.UITypeEditors;
@@ -114,6 +115,7 @@ namespace Core.Gui.Test.UITypeEditors
 
             // Assert
             Assert.AreSame(someValue, result);
+            service.Received(1).DropDownControl(Arg.Any<Control>());
         }
 
         [Test]
@@ -133,6 +135,7 @@ namespace Core.Gui.Test.UITypeEditors
 
             // Assert
             Assert.IsNull(result);
+            service.Received(1).CloseDropDown();
         }
 
         private class TestSelectionEditor : SelectionEditor<IObjectProperties, object>

@@ -110,6 +110,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             // Assert
             Assert.IsNull(map.ViewExtents);
             Assert.IsFalse(map.IsBusy);
+            map.Received(1).Invalidate();
         }
 
         [Test]
