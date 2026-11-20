@@ -865,10 +865,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
-            calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Do<HydraRingCalculationSettings>(
-                                                             s => actualSettings = s))
-                .Returns(dunesBoundaryConditionsCalculator);
+            calculatorFactory.When(c => c.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
+            calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dunesBoundaryConditionsCalculator);
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
