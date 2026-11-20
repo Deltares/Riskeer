@@ -26,6 +26,8 @@ All rights reserved.
     <AssemblyName>Riskeer</AssemblyName>
     <ApplicationIcon>Resources/Riskeer.ico</ApplicationIcon>
     <OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
+    <IsPublishable>true</IsPublishable>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>
   <Import Project="$(SolutionDir)build\Source.targets"/>
   <ItemGroup>

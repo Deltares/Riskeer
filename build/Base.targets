@@ -2,6 +2,8 @@
   <PropertyGroup>
     <OutputPath Condition="$(OutputPath) == ''">bin\$(Configuration)\</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
+    <!-- Only the executables publish; they set IsPublishable to true (see ApplicationPublish.targets). -->
+    <IsPublishable Condition="'$(IsPublishable)' == ''">false</IsPublishable>
     <Platforms>x64</Platforms>
     <PlatformTarget>x64</PlatformTarget>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
