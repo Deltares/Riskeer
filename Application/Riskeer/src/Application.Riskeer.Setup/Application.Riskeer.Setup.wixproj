@@ -36,6 +36,9 @@ All rights reserved.
         <RunWixToolsOutOfProc>true</RunWixToolsOutOfProc>
         <Platforms>x64</Platforms>
         <Platform>x64</Platform>
+        <PublishDir Condition="'$(PublishDir)' == ''">$(ProjectDir)..\..\..\..\publish</PublishDir>
+        <InstallerSourceDir>$(PublishDir)</InstallerSourceDir>
+        <InstallerApplicationDir>$(InstallerSourceDir)\Application</InstallerApplicationDir>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DefineConstants>Debug</DefineConstants>
@@ -281,12 +284,12 @@ All rights reserved.
         <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);</DefineConstants>
     </PropertyGroup>
     <ItemGroup>
-        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe">
+        <HarvestFile Include="$(InstallerSourceDir)\Riskeer.exe">
             <ComponentGroupName>RiskeerExecutable</ComponentGroupName>
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
         </HarvestFile>
-        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.dll">
+        <HarvestFile Include="$(InstallerSourceDir)\Riskeer.dll">
             <ComponentGroupName>RiskeerExecutableDll</ComponentGroupName>
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
@@ -296,12 +299,12 @@ All rights reserved.
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
         </HarvestFile>
-        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.exe">
+        <HarvestFile Include="$(InstallerSourceDir)\Migratiehulpprogramma.exe">
             <ComponentGroupName>MigrationExecutable</ComponentGroupName>
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
         </HarvestFile>
-        <HarvestFile Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Migratiehulpprogramma.dll">
+        <HarvestFile Include="$(InstallerSourceDir)\Migratiehulpprogramma.dll">
             <ComponentGroupName>MigrationExecutableDll</ComponentGroupName>
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
@@ -311,16 +314,16 @@ All rights reserved.
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>true</SuppressRootDirectory>
         </HarvestFile>
-        <BindPath Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)"/>
+        <BindPath Include="$(InstallerSourceDir)"/>
     </ItemGroup>
     <ItemGroup>
-        <HarvestDirectory Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Application">
+        <HarvestDirectory Include="$(InstallerApplicationDir)">
             <ComponentGroupName>RiskeerApplicationComponents</ComponentGroupName>
             <DirectoryRefId>INSTALLDIR</DirectoryRefId>
             <SuppressRootDirectory>false</SuppressRootDirectory>
             <SuppressRegistry>true</SuppressRegistry>
         </HarvestDirectory>
-        <BindPath Include="$(ProjectDir)..\..\..\..\bin\$(Configuration)\Application"/>
+        <BindPath Include="$(InstallerApplicationDir)"/>
     </ItemGroup>
     <ItemGroup>
         <HarvestDirectory Include="$(ProjectDir)Examples">
@@ -330,4 +333,10 @@ All rights reserved.
         </HarvestDirectory>
         <BindPath Include="$(ProjectDir)Examples"/>
     </ItemGroup>
+    <Target Name="ValidatePublishOutput" BeforeTargets="PrepareForBuild">
+        <Error Condition="!Exists('$(InstallerSourceDir)\Riskeer.exe')"
+               Text="Publish output '$(InstallerSourceDir)' is missing Riskeer.exe. Run dotnet publish Riskeer.sln before building the installer."/>
+        <Error Condition="!Exists('$(InstallerApplicationDir)')"
+               Text="Published application folder '$(InstallerApplicationDir)' does not exist. Run dotnet publish Riskeer.sln before building the installer."/>
+    </Target>
 </Project>
