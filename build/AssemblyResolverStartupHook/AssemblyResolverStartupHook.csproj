@@ -38,6 +38,7 @@ All rights reserved.
     <GenerateDependencyFile>false</GenerateDependencyFile>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <IsPublishable>false</IsPublishable>
     <OutputPath>$(MSBuildThisFileDirectory)..\..\bin\$(Configuration)\Test\</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
   </PropertyGroup>
