@@ -130,10 +130,10 @@ namespace Core.Components.OxyPlot.Test.Converter.Stack
             // Assert
             Assert.AreEqual(name, series.Title);
 
-            OxyColor actualColor = withColor
-                                       ? OxyColor.FromArgb(color.Value.A, color.Value.R, color.Value.G, color.Value.B)
-                                       : OxyColors.Automatic;
-            Assert.AreEqual(actualColor, series.FillColor);
+            OxyColor expectedColor = withColor
+                                         ? OxyColor.FromArgb(color.Value.A, color.Value.R, color.Value.G, color.Value.B)
+                                         : OxyColors.Automatic;
+            Assert.AreEqual(expectedColor, series.FillColor);
         }
     }
 }

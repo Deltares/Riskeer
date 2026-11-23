@@ -311,11 +311,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
                 Assert.AreEqual("Samenvoegen van trajectinformatie is gestart.", messages.ElementAt(0).Item1);
 
-                Tuple<string, Level, Exception> expectedLog = messages.ElementAt(1);
-                Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het samenvoegen van de trajecten.", expectedLog.Item1);
-                Assert.AreEqual(Level.Error, expectedLog.Item2);
-                Exception loggedException = expectedLog.Item3;
-                Assert.IsInstanceOf<Exception>(loggedException);
+                Tuple<string, Level, Exception> secondMessage = messages.ElementAt(1);
+                Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het samenvoegen van de trajecten.", secondMessage.Item1);
+                Assert.AreEqual(Level.Error, secondMessage.Item2);
+                Assert.IsInstanceOf<Exception>(secondMessage.Item3);
 
                 Assert.AreEqual("Samenvoegen van trajectinformatie is mislukt.", messages.ElementAt(2).Item1);
             });

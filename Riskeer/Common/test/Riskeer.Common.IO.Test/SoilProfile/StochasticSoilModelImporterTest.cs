@@ -172,13 +172,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
                 Assert.AreEqual(1, messages.Count());
-                Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
+                Tuple<string, Level, Exception> message = messages.ElementAt(0);
 
-                Assert.AreEqual(Level.Error, expectedLog.Item2);
+                Assert.AreEqual(Level.Error, message.Item2);
 
-                Exception loggedException = expectedLog.Item3;
+                Exception loggedException = message.Item3;
                 Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
-                Assert.AreEqual(loggedException.Message, expectedLog.Item1);
+                Assert.AreEqual(loggedException.Message, message.Item1);
             });
 
             Assert.AreEqual(1, progress);
@@ -217,13 +217,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
                 Assert.AreEqual(1, messages.Count());
-                Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
+                Tuple<string, Level, Exception> message = messages.ElementAt(0);
 
-                Assert.AreEqual(Level.Error, expectedLog.Item2);
+                Assert.AreEqual(Level.Error, message.Item2);
 
-                Exception loggedException = expectedLog.Item3;
+                Exception loggedException = message.Item3;
                 Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
-                Assert.AreEqual(loggedException.Message, expectedLog.Item1);
+                Assert.AreEqual(loggedException.Message, message.Item1);
             });
 
             Assert.AreEqual(1, progress);
@@ -637,13 +637,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
                 Assert.AreEqual(1, messages.Count());
-                Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
+                Tuple<string, Level, Exception> message = messages.ElementAt(0);
 
-                Assert.AreEqual(Level.Error, expectedLog.Item2);
+                Assert.AreEqual(Level.Error, message.Item2);
 
-                Exception loggedException = expectedLog.Item3;
+                Exception loggedException = message.Item3;
                 Assert.IsInstanceOf<ImportedDataTransformException>(loggedException);
-                Assert.AreEqual(loggedException.Message, expectedLog.Item1);
+                Assert.AreEqual(loggedException.Message, message.Item1);
             });
             Assert.IsFalse(importResult);
         }

@@ -758,7 +758,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Given
             string dbFile = Path.Combine(testDataPath, "2dprofileWithInvalidLayerProperty.soil");
 
-            SoilProfileReadException expectedException = null;
+            SoilProfileReadException exception = null;
             var readSoilProfiles = new List<SoilProfileWrapper<SoilProfile2D>>();
 
             using (var reader = new SoilProfile2DReader(dbFile))
@@ -772,15 +772,15 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 }
                 catch (SoilProfileReadException e)
                 {
-                    expectedException = e;
+                    exception = e;
                 }
 
                 // Then
                 readSoilProfiles.Add(reader.ReadSoilProfile());
             }
 
-            Assert.IsNotNull(expectedException);
-            Assert.AreEqual("Profile", expectedException.ProfileName);
+            Assert.IsNotNull(exception);
+            Assert.AreEqual("Profile", exception.ProfileName);
 
             Assert.AreEqual(1, readSoilProfiles.Count);
             Assert.AreEqual("Profile2", readSoilProfiles[0].SoilProfile.Name);
@@ -911,7 +911,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "2dProfilesWithAndWithoutPreconsolidationStressesUnparsableValues.soil");
 
             var readProfiles = new List<SoilProfileWrapper<SoilProfile2D>>();
-            SoilProfileReadException expectedException = null;
+            SoilProfileReadException exception = null;
 
             using (var reader = new SoilProfile2DReader(dbFile))
             {
@@ -926,7 +926,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                     }
                     catch (SoilProfileReadException e)
                     {
-                        expectedException = e;
+                        exception = e;
                     }
                 }
 
@@ -935,8 +935,8 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                 Assert.AreEqual(2, readProfiles.Count);
             }
 
-            Assert.IsNotNull(expectedException);
-            Assert.AreEqual("InvalidPreconsolidationStress1", expectedException.ProfileName);
+            Assert.IsNotNull(exception);
+            Assert.AreEqual("InvalidPreconsolidationStress1", exception.ProfileName);
 
             CollectionAssert.AreEqual(new[]
             {

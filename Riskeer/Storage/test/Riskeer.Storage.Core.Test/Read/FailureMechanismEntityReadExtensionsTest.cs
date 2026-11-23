@@ -1657,13 +1657,13 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
 
-            ICalculationBase expectedCalculation = failureMechanism.CalculationsGroup.Children[0];
-            Assert.AreEqual("B", expectedCalculation.Name);
-            Assert.IsInstanceOf<MacroStabilityInwardsCalculationScenario>(expectedCalculation);
+            ICalculationBase calculation = failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual("B", calculation.Name);
+            Assert.IsInstanceOf<MacroStabilityInwardsCalculationScenario>(calculation);
 
-            ICalculationBase expectedCalculationGroup = failureMechanism.CalculationsGroup.Children[1];
-            Assert.AreEqual("A", expectedCalculationGroup.Name);
-            Assert.IsInstanceOf<CalculationGroup>(expectedCalculationGroup);
+            ICalculationBase calculationGroup = failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual("A", calculationGroup.Name);
+            Assert.IsInstanceOf<CalculationGroup>(calculationGroup);
         }
 
         #endregion
@@ -3206,13 +3206,13 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
 
-            ICalculationBase expectedCalculation = failureMechanism.CalculationsGroup.Children[0];
-            Assert.AreEqual("B", expectedCalculation.Name);
-            Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(expectedCalculation);
+            ICalculationBase calculation = failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual("B", calculation.Name);
+            Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(calculation);
 
-            ICalculationBase expectedCalculationGroup = failureMechanism.CalculationsGroup.Children[1];
-            Assert.AreEqual("A", expectedCalculationGroup.Name);
-            Assert.IsInstanceOf<CalculationGroup>(expectedCalculationGroup);
+            ICalculationBase calculationGroup = failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual("A", calculationGroup.Name);
+            Assert.IsInstanceOf<CalculationGroup>(calculationGroup);
         }
 
         [Test]
@@ -3536,13 +3536,13 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
 
-            ICalculationBase expectedCalculation = failureMechanism.CalculationsGroup.Children[0];
-            Assert.AreEqual("B", expectedCalculation.Name);
-            Assert.IsInstanceOf<StructuresCalculation<StabilityPointStructuresInput>>(expectedCalculation);
+            ICalculationBase calculation = failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual("B", calculation.Name);
+            Assert.IsInstanceOf<StructuresCalculation<StabilityPointStructuresInput>>(calculation);
 
-            ICalculationBase expectedCalculationGroup = failureMechanism.CalculationsGroup.Children[1];
-            Assert.AreEqual("A", expectedCalculationGroup.Name);
-            Assert.IsInstanceOf<CalculationGroup>(expectedCalculationGroup);
+            ICalculationBase calculationGroup = failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual("A", calculationGroup.Name);
+            Assert.IsInstanceOf<CalculationGroup>(calculationGroup);
         }
 
         [Test]
