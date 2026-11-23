@@ -38,9 +38,6 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Dirkster.AvalonDock">
-      <Version>4.74.1</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Dirkster.AvalonDock"/>
   </ItemGroup>
 </Project>

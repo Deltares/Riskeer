@@ -11,28 +11,28 @@
 
     Three ways to opt in:
 
-    1. A package: ThirdPartySource metadata on its PackageReference. The folder is copied recursively.
-       ThirdPartyFolder defaults to "<Id>-<Version>".
+    1. A package: reference it by name in the project (<PackageReference Include="MahApps.Metro"/>). What is copied
+       is defined once, centrally, on its PackageVersion in Directory.Packages.props:
 
-         <PackageReference Include="MahApps.Metro">
-           <Version>2.4.11</Version>
-           <GeneratePathProperty>true</GeneratePathProperty>
-           <PrivateAssets>all</PrivateAssets>
-           <ThirdPartySource>$(PkgMahApps_Metro)\lib\net47</ThirdPartySource>
-         </PackageReference>
+         <PackageVersion Include="MahApps.Metro" Version="2.4.11" ThirdPartySource="$(PkgMahApps_Metro)\lib\net47"/>
 
-    2. A folder (e.g. a second folder of a package, or a folder under lib\): a ThirdPartyDirectory item.
-       Its contents are collected recursively at build time, so package folders resolve after restore.
+       ThirdPartyFolder defaults to "<Id>-<Version>". ThirdPartyInclude defaults to **\*.dll, so documentation
+       (.xml), symbols (.pdb) and MSBuild files from the package are not copied. A second folder of a package goes
+       in a ThirdPartyPackageContent item named after the package, also in Directory.Packages.props; it is copied
+       only by projects that reference the package.
 
-         <ThirdPartyDirectory Include="$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native">
-           <ThirdPartyFolder>System.Data.SQLite-1.0.119\x64</ThirdPartyFolder>
+    2. A folder in the repository (e.g. under lib\): a ThirdPartyDirectory item. Its contents are collected recursively
+       at build time. ThirdPartyInclude defaults to **\* here, because these folders hold exactly what must be shipped.
+
+         <ThirdPartyDirectory Include="$(SolutionDir)lib\HydraRing">
+           <ThirdPartyDestination>...</ThirdPartyDestination>
          </ThirdPartyDirectory>
 
     3. Individual files in the repository: ThirdPartyFile items. With a wildcard Include, the
        %(RecursiveDir) structure is kept.
 
-    A missing ThirdPartySource / ThirdPartyDirectory fails the build: that usually means a package or
-    target framework changed, and silently copying nothing would only surface at runtime.
+    A missing source folder fails the build: that usually means a package or target framework changed,
+    and silently copying nothing would only surface at runtime.
 
     NOTE: AssemblyResolver throws on duplicate assemblies under Built-in\Managed, so every project that
     copies a given package must use the same destination folder.
@@ -40,17 +40,24 @@
   <PropertyGroup>
     <BuiltInManagedOutputDir Condition="'$(BuiltInManagedOutputDir)' == ''">$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\</BuiltInManagedOutputDir>
     <ThirdPartyOutputDir Condition="'$(ThirdPartyOutputDir)' == ''">$(BuiltInManagedOutputDir)Third-party\</ThirdPartyOutputDir>
+    <ThirdPartyPackageInclude Condition="'$(ThirdPartyPackageInclude)' == ''">**\*.dll</ThirdPartyPackageInclude>
   </PropertyGroup>
 
   <Target Name="CopyThirdPartyFiles" AfterTargets="PostBuildEvent">
     <ItemGroup>
+      <!-- Central package definitions (Directory.Packages.props), limited to the packages this project references. -->
+      <_ThirdPartyUnreferencedPackage Include="@(PackageVersion);@(ThirdPartyPackageContent)" Exclude="@(PackageReference)"/>
+      <_ThirdPartyReferencedPackage Include="@(PackageVersion);@(ThirdPartyPackageContent)" Exclude="@(_ThirdPartyUnreferencedPackage)"/>
+
       <!-- Packages and directories are both "source folders". -->
-      <_ThirdPartySourceDirectory Include="@(PackageReference->'%(ThirdPartySource)')" Condition="'%(PackageReference.ThirdPartySource)' != ''">
-        <_Owner>package '%(PackageReference.Identity)'</_Owner>
-        <_DefaultFolder>%(PackageReference.Identity)-%(PackageReference.Version)</_DefaultFolder>
+      <_ThirdPartySourceDirectory Include="@(_ThirdPartyReferencedPackage->'%(ThirdPartySource)')" Condition="'%(_ThirdPartyReferencedPackage.ThirdPartySource)' != ''">
+        <_Owner>package '%(_ThirdPartyReferencedPackage.Identity)'</_Owner>
+        <_DefaultFolder>%(_ThirdPartyReferencedPackage.Identity)-%(_ThirdPartyReferencedPackage.Version)</_DefaultFolder>
+        <_DefaultInclude>$(ThirdPartyPackageInclude)</_DefaultInclude>
       </_ThirdPartySourceDirectory>
       <_ThirdPartySourceDirectory Include="@(ThirdPartyDirectory)">
         <_Owner>ThirdPartyDirectory</_Owner>
+        <_DefaultInclude>**\*</_DefaultInclude>
       </_ThirdPartySourceDirectory>
     </ItemGroup>
 
@@ -65,9 +72,12 @@
       <_ThirdPartySourceDirectory Condition="'%(_ThirdPartySourceDirectory.ThirdPartyFolder)' == ''">
         <ThirdPartyFolder>%(_ThirdPartySourceDirectory._DefaultFolder)</ThirdPartyFolder>
       </_ThirdPartySourceDirectory>
+      <_ThirdPartySourceDirectory Condition="'%(_ThirdPartySourceDirectory.ThirdPartyInclude)' == ''">
+        <ThirdPartyInclude>%(_ThirdPartySourceDirectory._DefaultInclude)</ThirdPartyInclude>
+      </_ThirdPartySourceDirectory>
 
       <!-- The condition matters: with no source folders, this would still run once with an empty path and glob the project folder. -->
-      <_ThirdPartyFile Include="$([MSBuild]::EnsureTrailingSlash('%(_ThirdPartySourceDirectory.FullPath)'))**\*" Condition="'@(_ThirdPartySourceDirectory)' != ''">
+      <_ThirdPartyFile Include="$([MSBuild]::EnsureTrailingSlash('%(_ThirdPartySourceDirectory.FullPath)'))%(_ThirdPartySourceDirectory.ThirdPartyInclude)" Condition="'@(_ThirdPartySourceDirectory)' != ''">
         <ThirdPartyFolder>%(_ThirdPartySourceDirectory.ThirdPartyFolder)</ThirdPartyFolder>
         <ThirdPartyDestination>%(_ThirdPartySourceDirectory.ThirdPartyDestination)</ThirdPartyDestination>
       </_ThirdPartyFile>

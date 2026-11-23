@@ -49,9 +49,6 @@ All rights reserved.
     <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BruTile">
-      <Version>6.0.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="BruTile"/>
   </ItemGroup>
 </Project>

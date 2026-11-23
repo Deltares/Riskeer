@@ -74,49 +74,14 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ControlzEx">
-      <Version>4.4.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgControlzEx)\lib\net462</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="System.DirectoryServices.Protocols">
-      <Version>10.0.10</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgSystem_DirectoryServices_Protocols)\runtimes\win\lib\net10.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>3.3.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(Pkglog4net)\lib\netstandard2.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.4.11</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMahApps_Metro)\lib\net47</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
-      <Version>1.1.142</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net8.0-windows7.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="System.DirectoryServices">
-      <Version>10.0.5</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <NoWarn>NU1510</NoWarn> <!-- NU1510 is suppressed because the System.DirectoryServices runtime is really needed by the System.DirectoryServices.AccountManagement runtime -->
-      <ThirdPartySource>$(PkgSystem_DirectoryServices)\runtimes\win\lib\net10.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="System.DirectoryServices.AccountManagement">
-      <Version>10.0.5</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgSystem_DirectoryServices_AccountManagement)\runtimes\win\lib\net10.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="ControlzEx"/>
+    <PackageReference Include="System.DirectoryServices.Protocols"/>
+    <PackageReference Include="log4net"/>
+    <PackageReference Include="MahApps.Metro"/>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf"/>
+    <!-- NU1510 is suppressed because the System.DirectoryServices runtime is really needed by the System.DirectoryServices.AccountManagement runtime -->
+    <PackageReference Include="System.DirectoryServices" NoWarn="NU1510"/>
+    <PackageReference Include="System.DirectoryServices.AccountManagement"/>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MadeBy.png"/>

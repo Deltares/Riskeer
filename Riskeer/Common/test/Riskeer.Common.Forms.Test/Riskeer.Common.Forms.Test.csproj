@@ -72,9 +72,6 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="QuikGraph">
-      <Version>2.3.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="QuikGraph"/>
   </ItemGroup>
 </Project>

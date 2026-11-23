@@ -60,21 +60,9 @@ All rights reserved.
     <None Include="Resources\abacus.png"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Dirkster.AvalonDock">
-      <Version>4.74.1</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>3.3.2</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.4.11</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="System.Management">
-      <Version>10.0.5</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Dirkster.AvalonDock"/>
+    <PackageReference Include="log4net"/>
+    <PackageReference Include="MahApps.Metro"/>
+    <PackageReference Include="System.Management"/>
   </ItemGroup>
 </Project>

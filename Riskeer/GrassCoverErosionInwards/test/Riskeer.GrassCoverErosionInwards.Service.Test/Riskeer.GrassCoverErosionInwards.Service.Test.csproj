@@ -43,9 +43,6 @@ All rights reserved.
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Service.TestUtil\Riskeer.GrassCoverErosionInwards.Service.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net">
-      <Version>3.3.2</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="log4net"/>
   </ItemGroup>
 </Project>

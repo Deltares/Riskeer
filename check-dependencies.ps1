@@ -457,19 +457,26 @@ function Get-PackageReferences {
             }
         }
 
+        # Versions come from PackageVersion items (central package management, Directory.Packages.props) or,
+        # for projects outside it, from a PackageReference with its own Version.
         $packageReferences = $xml.SelectNodes(
-            "//*[local-name()='PackageReference' and @Include]"
+            "//*[(local-name()='PackageReference' or local-name()='PackageVersion') and @Include]"
         )
 
         foreach ($reference in $packageReferences) {
 
-            $version = $reference.Version
+            $version = $reference.GetAttribute("Version")
 
             if (-not $version) {
                 $versionNode = $reference.SelectSingleNode("*[local-name()='Version']")
                 if ($versionNode) {
                     $version = $versionNode.InnerText
                 }
+            }
+
+            # A PackageReference without a version gets it from its PackageVersion, which is checked itself.
+            if (-not $version -and $reference.LocalName -eq "PackageReference") {
+                continue
             }
 
             $result += [PSCustomObject]@{
@@ -688,6 +695,36 @@ function Get-UnusedDependencies {
     return $issues
 }
 
+function Get-UnreferencedPackageVersions {
+    param([string]$RepositoryRoot)
+
+    # A PackageVersion that no project references is a leftover in Directory.Packages.props.
+    $referenced = @{}
+    $versions = @()
+
+    foreach ($project in Get-MsBuildFiles $RepositoryRoot) {
+        [xml]$xml = Get-Content $project.FullName -Raw
+
+        foreach ($node in $xml.SelectNodes("//*[local-name()='PackageReference' and @Include]")) {
+            $referenced[$node.GetAttribute("Include")] = $true
+        }
+
+        foreach ($node in $xml.SelectNodes("//*[local-name()='PackageVersion' and @Include]")) {
+            $versions += [PSCustomObject]@{ Package = $node.GetAttribute("Include"); Version = $node.GetAttribute("Version"); Source = $project.FullName }
+        }
+    }
+
+    return @($versions | Where-Object { -not $referenced.ContainsKey($_.Package) } | ForEach-Object {
+        [PSCustomObject]@{
+            Type     = "UnreferencedPackageVersion"
+            Package  = $_.Package
+            Expected = "PackageReference in a project"
+            Actual   = $_.Version
+            Source   = $_.Source
+        }
+    })
+}
+
 $dependencyRows = Get-DependencyRowsFromMarkdown $DependenciesFile
 $expected = Get-DependenciesFromMarkdown $DependenciesFile
 $packages = Get-PackageReferences $RepositoryRoot
@@ -744,6 +781,7 @@ $issues += Get-LicenseTextIssues -DependencyRows $dependencyRows -LicensesFolder
 $issues += Get-OutputFolderIssues -Dependencies $expected -RepositoryRoot $RepositoryRoot -DependenciesFile $DependenciesFile
 $issues += Get-SourceVersionConstantIssues -Dependencies $expected -RepositoryRoot $RepositoryRoot
 $issues += Get-ProjectLicenseHeaderIssues -RepositoryRoot $RepositoryRoot
+$issues += Get-UnreferencedPackageVersions -RepositoryRoot $RepositoryRoot
 
 if ($issues.Count -eq 0) {
     Write-Host "Dependency check passed." -ForegroundColor Green

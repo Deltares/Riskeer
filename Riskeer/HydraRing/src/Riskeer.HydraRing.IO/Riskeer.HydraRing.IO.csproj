@@ -46,23 +46,7 @@ All rights reserved.
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net">
-      <Version>3.3.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(Pkglog4net)\lib\netstandard2.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
-      <Version>1.0.119</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1</ThirdPartySource>
-      <ThirdPartyFolder>System.Data.SQLite-1.0.119</ThirdPartyFolder>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ThirdPartyDirectory Include="$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native">
-      <ThirdPartyFolder>System.Data.SQLite-1.0.119\x64</ThirdPartyFolder>
-    </ThirdPartyDirectory>
+    <PackageReference Include="log4net"/>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard"/>
   </ItemGroup>
 </Project>

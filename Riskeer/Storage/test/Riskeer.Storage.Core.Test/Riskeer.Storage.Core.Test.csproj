@@ -70,17 +70,8 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EntityFramework">
-      <Version>6.5.2</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.4.11</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
-      <Version>1.0.119</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="EntityFramework"/>
+    <PackageReference Include="MahApps.Metro"/>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard"/>
   </ItemGroup>
 </Project>

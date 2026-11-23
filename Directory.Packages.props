@@ -1,0 +1,88 @@
+<Project>
+  <!--
+    Central package management: the single place for package versions and for what gets copied from each package.
+    Projects only reference packages by name: <PackageReference Include="log4net"/>.
+
+    Copy metadata on PackageVersion (used by build\ThirdPartyCopy.targets, only for packages the project references):
+      ThirdPartySource       Package folder to copy from, e.g. $(PkgBruTile)\lib\net9.0 ($(Pkg...) is generated for every
+                             package, see Directory.Build.props).
+      ThirdPartyFolder       Folder under $(ThirdPartyOutputDir); defaults to "<Id>-<Version>".
+      ThirdPartyDestination  Full destination folder instead of ThirdPartyFolder (e.g. $(OutDir) for test packages).
+      ThirdPartyInclude      Files to copy, relative to ThirdPartySource; defaults to **\*.dll (no .xml/.pdb/.props).
+
+    A package that needs a second folder copied gets a ThirdPartyPackageContent item named after the package (same metadata).
+  -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup Label="Application">
+    <PackageVersion Include="BruTile" Version="6.0.0" ThirdPartySource="$(PkgBruTile)\lib\net9.0"/>
+    <PackageVersion Include="ControlzEx" Version="4.4.0" ThirdPartySource="$(PkgControlzEx)\lib\net462"/>
+    <PackageVersion Include="Dirkster.AvalonDock" Version="4.74.1" ThirdPartySource="$(PkgDirkster_AvalonDock)\lib\net10.0-windows7.0"/>
+    <PackageVersion Include="DotSpatial.Controls" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_Controls)\lib\net6.0-windows7.0"/>
+    <PackageVersion Include="DotSpatial.Data" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_Data)\lib\net6.0-windows7.0"/>
+    <PackageVersion Include="DotSpatial.Data.Forms" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_Data_Forms)\lib\net6.0-windows7.0"/>
+    <PackageVersion Include="DotSpatial.Extensions" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_Extensions)\lib\net6.0"/>
+    <PackageVersion Include="DotSpatial.Modeling.Forms" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_Modeling_Forms)\lib\net6.0-windows7.0"/>
+    <PackageVersion Include="DotSpatial.NTSExtension" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_NTSExtension)\lib\net6.0"/>
+    <PackageVersion Include="DotSpatial.Projections" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_Projections)\lib\net6.0"/>
+    <PackageVersion Include="DotSpatial.Projections.Forms" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_Projections_Forms)\lib\net6.0-windows7.0"/>
+    <PackageVersion Include="DotSpatial.Serialization" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_Serialization)\lib\net6.0"/>
+    <PackageVersion Include="DotSpatial.Symbology" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_Symbology)\lib\net6.0-windows7.0"/>
+    <PackageVersion Include="DotSpatial.Symbology.Forms" Version="4.0.656" ThirdPartySource="$(PkgDotSpatial_Symbology_Forms)\lib\net6.0-windows7.0"/>
+    <PackageVersion Include="EntityFramework" Version="6.5.2" ThirdPartySource="$(PkgEntityFramework)\lib\netstandard2.1"/>
+    <PackageVersion Include="FontAwesome.Sharp" Version="5.15.3" ThirdPartySource="$(PkgFontAwesome_Sharp)\lib\net45"/>
+    <PackageVersion Include="GraphShape" Version="1.2.1" ThirdPartySource="$(PkgGraphShape)\lib\net5.0"/>
+    <PackageVersion Include="GraphShape.Controls" Version="1.2.2" ThirdPartySource="$(PkgGraphShape_Controls)\lib\net5.0-windows7.0"/>
+    <PackageVersion Include="log4net" Version="3.3.2" ThirdPartySource="$(Pkglog4net)\lib\netstandard2.0"/>
+    <PackageVersion Include="MahApps.Metro" Version="2.4.11" ThirdPartySource="$(PkgMahApps_Metro)\lib\net47"/>
+    <PackageVersion Include="MathNet.Numerics" Version="5.0.0" ThirdPartySource="$(PkgMathNet_Numerics)\lib\net6.0"/>
+    <PackageVersion Include="MathNet.Spatial" Version="0.6.0" ThirdPartySource="$(PkgMathNet_Spatial)\lib\netstandard2.0"/>
+    <PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="10.0.10" ThirdPartySource="$(PkgMicrosoft_Extensions_ObjectPool)\lib\net10.0"/>
+    <PackageVersion Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" ThirdPartySource="$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net8.0-windows7.0"/>
+    <PackageVersion Include="NetTopologySuite" Version="2.4.0" ThirdPartySource="$(PkgNetTopologySuite)\lib\netstandard2.0"/>
+    <PackageVersion Include="OxyPlot.Core" Version="2.2.0" ThirdPartySource="$(PkgOxyPlot_Core)\lib\net8.0"/>
+    <PackageVersion Include="OxyPlot.WindowsForms" Version="2.2.0" ThirdPartySource="$(PkgOxyPlot_WindowsForms)\lib\net8.0-windows7.0"/>
+    <PackageVersion Include="QuikGraph" Version="2.3.0" ThirdPartySource="$(PkgQuikGraph)\lib\netstandard2.0"/>
+    <PackageVersion Include="runtime.native.System.Data.SqlClient.sni" Version="4.7.0"/>
+    <PackageVersion Include="runtime.win-x64.runtime.native.System.Data.SqlClient.sni" Version="4.4.0" ThirdPartySource="$(Pkgruntime_win-x64_runtime_native_System_Data_SqlClient_sni)\runtimes\win-x64\native" ThirdPartyFolder="System.Data.SqlClient-4.8.6\x64"/>
+    <PackageVersion Include="Stub.System.Data.SQLite.Core.NetStandard" Version="1.0.119" ThirdPartySource="$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1" ThirdPartyFolder="System.Data.SQLite-1.0.119"/>
+    <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" ThirdPartySource="$(PkgSystem_ComponentModel_Annotations)\lib\netstandard2.1"/>
+    <PackageVersion Include="System.ComponentModel.Composition" Version="10.0.10" ThirdPartySource="$(PkgSystem_ComponentModel_Composition)\lib\net10.0"/>
+    <PackageVersion Include="System.Data.OleDb" Version="10.0.10" ThirdPartySource="$(PkgSystem_Data_OleDb)\runtimes\win\lib\net10.0"/>
+    <PackageVersion Include="System.Data.SqlClient" Version="4.8.6" ThirdPartySource="$(PkgSystem_Data_SqlClient)\runtimes\win\lib\netcoreapp2.1"/>
+    <PackageVersion Include="System.Data.SQLite.EF6" Version="1.0.119" ThirdPartySource="$(PkgSystem_Data_SQLite_EF6)\lib\netstandard2.1"/>
+    <PackageVersion Include="System.DirectoryServices" Version="10.0.5" ThirdPartySource="$(PkgSystem_DirectoryServices)\runtimes\win\lib\net10.0"/>
+    <PackageVersion Include="System.DirectoryServices.AccountManagement" Version="10.0.5" ThirdPartySource="$(PkgSystem_DirectoryServices_AccountManagement)\runtimes\win\lib\net10.0"/>
+    <PackageVersion Include="System.DirectoryServices.Protocols" Version="10.0.10" ThirdPartySource="$(PkgSystem_DirectoryServices_Protocols)\runtimes\win\lib\net10.0"/>
+    <PackageVersion Include="System.Management" Version="10.0.5" ThirdPartySource="$(PkgSystem_Management)\runtimes\win\lib\net10.0"/>
+    <PackageVersion Include="System.ServiceModel.Primitives" Version="8.1.2" ThirdPartySource="$(PkgSystem_ServiceModel_Primitives)\lib\net8.0"/>
+  </ItemGroup>
+  <ItemGroup Label="Additional package content">
+    <ThirdPartyPackageContent Include="Stub.System.Data.SQLite.Core.NetStandard" ThirdPartySource="$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native" ThirdPartyFolder="System.Data.SQLite-1.0.119\x64"/>
+  </ItemGroup>
+  <ItemGroup Label="Tests">
+    <PackageVersion Include="Castle.Core" Version="5.1.1" ThirdPartySource="$(PkgCastle_Core)\lib\netstandard2.1" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="Microsoft.ApplicationInsights" Version="2.23.0" ThirdPartySource="$(PkgMicrosoft_ApplicationInsights)\lib\netstandard2.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="Microsoft.CodeCoverage" Version="18.8.1" ThirdPartySource="$(PkgMicrosoft_CodeCoverage)\lib\net8.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="8.0.2" ThirdPartySource="$(PkgMicrosoft_Extensions_DependencyModel)\lib\net8.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1"/>
+    <PackageVersion Include="Microsoft.Testing.Extensions.Telemetry" Version="2.1.0" ThirdPartySource="$(PkgMicrosoft_Testing_Extensions_Telemetry)\lib\net9.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport.Abstractions" Version="2.1.0" ThirdPartySource="$(PkgMicrosoft_Testing_Extensions_TrxReport_Abstractions)\lib\net9.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="Microsoft.Testing.Extensions.VSTestBridge" Version="2.1.0" ThirdPartySource="$(PkgMicrosoft_Testing_Extensions_VSTestBridge)\lib\net9.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="Microsoft.Testing.Platform" Version="2.1.0" ThirdPartySource="$(PkgMicrosoft_Testing_Platform)\lib\net9.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="Microsoft.Testing.Platform.MSBuild" Version="2.1.0" ThirdPartySource="$(PkgMicrosoft_Testing_Platform_MSBuild)\lib\net9.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="Microsoft.TestPlatform.ObjectModel" Version="18.8.1" ThirdPartySource="$(PkgMicrosoft_TestPlatform_ObjectModel)\lib\net8.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="Microsoft.TestPlatform.TestHost" Version="18.8.1"/>
+    <PackageVersion Include="NSubstitute" Version="6.0.0" ThirdPartySource="$(PkgNSubstitute)\lib\net8.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="NUnit" Version="4.6.1" ThirdPartySource="$(PkgNUnit)\lib\net8.0" ThirdPartyDestination="$(OutDir)"/>
+    <PackageVersion Include="NUnit3TestAdapter" Version="6.2.0" ThirdPartySource="$(PkgNUnit3TestAdapter)\build\net8.0" ThirdPartyDestination="$(OutDir)"/>
+  </ItemGroup>
+  <ItemGroup Label="Build and installer tooling">
+    <PackageVersion Include="MSBuildConfigurationDefaults" Version="1.0.1"/>
+    <PackageVersion Include="WixToolset.Heat" Version="5.0.2"/>
+    <PackageVersion Include="WixToolset.NetFx.wixext" Version="5.0.2"/>
+    <PackageVersion Include="WixToolset.UI.wixext" Version="5.0.2"/>
+    <PackageVersion Include="WixToolset.Util.wixext" Version="5.0.2"/>
+  </ItemGroup>
+</Project>

@@ -89,48 +89,13 @@ All rights reserved.
     <None Include="Resources\textfield_rename.png"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Dirkster.AvalonDock">
-      <Version>4.74.1</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDirkster_AvalonDock)\lib\net10.0-windows7.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="System.Management">
-      <Version>10.0.5</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgSystem_Management)\runtimes\win\lib\net10.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="ControlzEx">
-      <Version>4.4.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgControlzEx)\lib\net462</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="FontAwesome.Sharp">
-      <Version>5.15.3</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgFontAwesome_Sharp)\lib\net45</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>3.3.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(Pkglog4net)\lib\netstandard2.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.4.11</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMahApps_Metro)\lib\net47</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
-      <Version>1.1.142</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net8.0-windows7.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="Dirkster.AvalonDock"/>
+    <PackageReference Include="System.Management"/>
+    <PackageReference Include="ControlzEx"/>
+    <PackageReference Include="FontAwesome.Sharp"/>
+    <PackageReference Include="log4net"/>
+    <PackageReference Include="MahApps.Metro"/>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -176,8 +141,7 @@ All rights reserved.
   <ItemGroup>
     <!-- Dutch AvalonDock resources maintained in this project. -->
     <ThirdPartyFile Include="nl\**\*">
-      <ThirdPartyFolder>Dirkster.AvalonDock-4.74.1</ThirdPartyFolder>
-      <ThirdPartySubFolder>nl\%(RecursiveDir)</ThirdPartySubFolder>
+      <ThirdPartyFolder>Dirkster.AvalonDock-4.74.1\nl</ThirdPartyFolder> <!-- %(RecursiveDir) starts below nl\, so nl is part of the folder. -->
     </ThirdPartyFile>
   </ItemGroup>
 </Project>

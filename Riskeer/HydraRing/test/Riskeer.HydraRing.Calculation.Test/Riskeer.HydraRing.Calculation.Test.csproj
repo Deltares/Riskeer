@@ -41,9 +41,6 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
-      <Version>1.0.119</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard"/>
   </ItemGroup>
 </Project>

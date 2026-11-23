@@ -51,10 +51,7 @@ All rights reserved.
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.4.11</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="MahApps.Metro"/>
   </ItemGroup>
   <ItemGroup>
     <ThirdPartyDirectory Include="$(ProjectDir)UnusedResourceSearcher">

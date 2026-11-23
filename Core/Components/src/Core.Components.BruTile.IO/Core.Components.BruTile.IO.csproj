@@ -44,11 +44,6 @@ All rights reserved.
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BruTile">
-      <Version>6.0.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgBruTile)\lib\net9.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="BruTile"/>
   </ItemGroup>
 </Project>

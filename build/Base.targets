@@ -52,10 +52,7 @@
     </Reference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <PackageReference Include="MSBuildConfigurationDefaults">
-      <Version>1.0.1</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="MSBuildConfigurationDefaults"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(SolutionDir)build\GlobalAssembly.cs">

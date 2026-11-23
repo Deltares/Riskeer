@@ -33,11 +33,6 @@ All rights reserved.
     <ProjectReference Include="..\Core.Components.Stack\Core.Components.Stack.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="OxyPlot.Core">
-      <Version>2.2.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgOxyPlot_Core)\lib\net8.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="OxyPlot.Core"/>
   </ItemGroup>
 </Project>

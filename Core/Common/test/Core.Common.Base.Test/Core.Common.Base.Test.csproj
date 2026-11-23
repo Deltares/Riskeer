@@ -35,9 +35,6 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MathNet.Numerics">
-      <Version>5.0.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="MathNet.Numerics"/>
   </ItemGroup>
 </Project>

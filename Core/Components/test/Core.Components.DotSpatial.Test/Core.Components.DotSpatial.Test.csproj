@@ -81,61 +81,19 @@ All rights reserved.
     <None Include="Resources\BackgroundLayerAfterAddingHalfTransparentTestTiles.png"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BruTile">
-      <Version>6.0.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Controls">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Data">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Data.Forms">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Extensions">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Modeling.Forms">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.NTSExtension">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Projections">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Projections.Forms">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Serialization">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Symbology">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Symbology.Forms">
-      <Version>4.0.656</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="System.ComponentModel.Composition">
-      <Version>10.0.10</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="System.Data.OleDb">
-      <Version>10.0.10</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="BruTile"/>
+    <PackageReference Include="DotSpatial.Controls"/>
+    <PackageReference Include="DotSpatial.Data"/>
+    <PackageReference Include="DotSpatial.Data.Forms"/>
+    <PackageReference Include="DotSpatial.Extensions"/>
+    <PackageReference Include="DotSpatial.Modeling.Forms"/>
+    <PackageReference Include="DotSpatial.NTSExtension"/>
+    <PackageReference Include="DotSpatial.Projections"/>
+    <PackageReference Include="DotSpatial.Projections.Forms"/>
+    <PackageReference Include="DotSpatial.Serialization"/>
+    <PackageReference Include="DotSpatial.Symbology"/>
+    <PackageReference Include="DotSpatial.Symbology.Forms"/>
+    <PackageReference Include="System.ComponentModel.Composition"/>
+    <PackageReference Include="System.Data.OleDb"/>
   </ItemGroup>
 </Project>

@@ -40,9 +40,6 @@ All rights reserved.
     <ProjectReference Include="..\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BruTile">
-      <Version>6.0.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="BruTile"/>
   </ItemGroup>
 </Project>

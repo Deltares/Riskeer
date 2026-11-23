@@ -38,9 +38,6 @@ All rights reserved.
     <ProjectReference Include="..\..\src\Core.Components.Stack\Core.Components.Stack.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="OxyPlot.WindowsForms">
-      <Version>2.2.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="OxyPlot.WindowsForms"/>
   </ItemGroup>
 </Project>

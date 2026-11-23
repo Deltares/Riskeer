@@ -34,13 +34,7 @@ All rights reserved.
     <ProjectReference Include="..\..\src\Core.Components.GraphShape\Core.Components.GraphShape.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GraphShape">
-      <Version>1.2.1</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="GraphShape.Controls">
-      <Version>1.2.2</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="GraphShape"/>
+    <PackageReference Include="GraphShape.Controls"/>
   </ItemGroup>
 </Project>

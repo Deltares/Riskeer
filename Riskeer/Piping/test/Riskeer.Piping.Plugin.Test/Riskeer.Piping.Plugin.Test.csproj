@@ -61,9 +61,6 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net">
-      <Version>3.3.2</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="log4net"/>
   </ItemGroup>
 </Project>

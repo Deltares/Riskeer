@@ -31,11 +31,6 @@ All rights reserved.
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BruTile">
-      <Version>6.0.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgBruTile)\lib\net9.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="BruTile"/>
   </ItemGroup>
 </Project>

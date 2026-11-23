@@ -40,9 +40,6 @@ All rights reserved.
     <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
-      <Version>1.0.119</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard"/>
   </ItemGroup>
 </Project>

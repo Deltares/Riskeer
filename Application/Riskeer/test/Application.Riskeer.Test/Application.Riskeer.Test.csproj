@@ -37,17 +37,8 @@ All rights reserved.
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net">
-      <Version>3.3.2</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="System.DirectoryServices.AccountManagement">
-      <Version>10.0.5</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="System.DirectoryServices.Protocols">
-      <Version>10.0.10</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="log4net"/>
+    <PackageReference Include="System.DirectoryServices.AccountManagement"/>
+    <PackageReference Include="System.DirectoryServices.Protocols"/>
   </ItemGroup>
 </Project>

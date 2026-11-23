@@ -54,18 +54,8 @@ All rights reserved.
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GraphShape">
-      <Version>1.2.1</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgGraphShape)\lib\net5.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="GraphShape.Controls">
-      <Version>1.2.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgGraphShape_Controls)\lib\net5.0-windows7.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="GraphShape"/>
+    <PackageReference Include="GraphShape.Controls"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

@@ -1,11 +1,5 @@
 <Project>
   <ItemGroup>
-    <PackageReference Include="NUnit">
-      <Version>4.6.1</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgNUnit)\lib\net8.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
+    <PackageReference Include="NUnit"/>
   </ItemGroup>
 </Project>

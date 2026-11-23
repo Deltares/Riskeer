@@ -37,9 +37,6 @@ All rights reserved.
     <ProjectReference Include="..\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="OxyPlot.Core">
-      <Version>2.2.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="OxyPlot.Core"/>
   </ItemGroup>
 </Project>

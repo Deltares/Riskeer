@@ -59,9 +59,6 @@ All rights reserved.
     <ProjectReference Include="..\Riskeer.DuneErosion.Data.TestUtil\Riskeer.DuneErosion.Data.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.4.11</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="MahApps.Metro"/>
   </ItemGroup>
 </Project>

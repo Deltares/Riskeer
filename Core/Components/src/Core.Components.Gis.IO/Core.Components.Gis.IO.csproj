@@ -48,95 +48,20 @@ All rights reserved.
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Data.OleDb">
-      <Version>10.0.10</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgSystem_Data_OleDb)\runtimes\win\lib\net10.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Controls">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_Controls)\lib\net6.0-windows7.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Data">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_Data)\lib\net6.0-windows7.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Data.Forms">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_Data_Forms)\lib\net6.0-windows7.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Extensions">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_Extensions)\lib\net6.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Modeling.Forms">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_Modeling_Forms)\lib\net6.0-windows7.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.NTSExtension">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_NTSExtension)\lib\net6.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Projections">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_Projections)\lib\net6.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Projections.Forms">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_Projections_Forms)\lib\net6.0-windows7.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Serialization">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_Serialization)\lib\net6.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Symbology">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_Symbology)\lib\net6.0-windows7.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="DotSpatial.Symbology.Forms">
-      <Version>4.0.656</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgDotSpatial_Symbology_Forms)\lib\net6.0-windows7.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>3.3.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(Pkglog4net)\lib\netstandard2.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="NetTopologySuite">
-      <Version>2.4.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgNetTopologySuite)\lib\netstandard2.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="System.ComponentModel.Composition">
-      <Version>10.0.10</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgSystem_ComponentModel_Composition)\lib\net10.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="System.Data.OleDb"/>
+    <PackageReference Include="DotSpatial.Controls"/>
+    <PackageReference Include="DotSpatial.Data"/>
+    <PackageReference Include="DotSpatial.Data.Forms"/>
+    <PackageReference Include="DotSpatial.Extensions"/>
+    <PackageReference Include="DotSpatial.Modeling.Forms"/>
+    <PackageReference Include="DotSpatial.NTSExtension"/>
+    <PackageReference Include="DotSpatial.Projections"/>
+    <PackageReference Include="DotSpatial.Projections.Forms"/>
+    <PackageReference Include="DotSpatial.Serialization"/>
+    <PackageReference Include="DotSpatial.Symbology"/>
+    <PackageReference Include="DotSpatial.Symbology.Forms"/>
+    <PackageReference Include="log4net"/>
+    <PackageReference Include="NetTopologySuite"/>
+    <PackageReference Include="System.ComponentModel.Composition"/>
   </ItemGroup>
 </Project>

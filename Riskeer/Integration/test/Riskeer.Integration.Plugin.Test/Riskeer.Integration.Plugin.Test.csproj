@@ -102,17 +102,8 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BruTile">
-      <Version>6.0.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>3.3.2</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.4.11</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="BruTile"/>
+    <PackageReference Include="log4net"/>
+    <PackageReference Include="MahApps.Metro"/>
   </ItemGroup>
 </Project>

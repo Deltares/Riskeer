@@ -31,23 +31,8 @@ All rights reserved.
     <ProjectReference Include="..\Core.Components.PointedTree\Core.Components.PointedTree.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="QuikGraph">
-      <Version>2.3.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgQuikGraph)\lib\netstandard2.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="GraphShape">
-      <Version>1.2.1</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgGraphShape)\lib\net5.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="GraphShape.Controls">
-      <Version>1.2.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgGraphShape_Controls)\lib\net5.0-windows7.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="QuikGraph"/>
+    <PackageReference Include="GraphShape"/>
+    <PackageReference Include="GraphShape.Controls"/>
   </ItemGroup>
 </Project>

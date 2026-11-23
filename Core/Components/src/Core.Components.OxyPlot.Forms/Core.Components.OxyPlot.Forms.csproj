@@ -55,11 +55,6 @@ All rights reserved.
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="OxyPlot.WindowsForms">
-      <Version>2.2.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgOxyPlot_WindowsForms)\lib\net8.0-windows7.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="OxyPlot.WindowsForms"/>
   </ItemGroup>
 </Project>

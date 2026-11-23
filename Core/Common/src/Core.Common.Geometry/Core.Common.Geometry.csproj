@@ -31,23 +31,8 @@ All rights reserved.
     <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NetTopologySuite">
-      <Version>2.4.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgNetTopologySuite)\lib\netstandard2.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="MathNet.Numerics">
-      <Version>5.0.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMathNet_Numerics)\lib\net6.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="MathNet.Spatial">
-      <Version>0.6.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMathNet_Spatial)\lib\netstandard2.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="NetTopologySuite"/>
+    <PackageReference Include="MathNet.Numerics"/>
+    <PackageReference Include="MathNet.Spatial"/>
   </ItemGroup>
 </Project>

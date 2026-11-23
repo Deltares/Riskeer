@@ -73,12 +73,7 @@ All rights reserved.
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net">
-      <Version>3.3.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(Pkglog4net)\lib\netstandard2.0</ThirdPartySource>
-    </PackageReference>
+    <PackageReference Include="log4net"/>
   </ItemGroup>
   <ItemGroup>
     <ThirdPartyFile Include="$(SolutionDir)lib\Plugins\Wti\Components.Persistence.Stability.Version1.dll">

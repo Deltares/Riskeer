@@ -78,65 +78,14 @@ All rights reserved.
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.ServiceModel.Primitives">
-      <Version>8.1.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgSystem_ServiceModel_Primitives)\lib\net8.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="EntityFramework">
-      <Version>6.5.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgEntityFramework)\lib\netstandard2.1</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.ObjectPool">
-      <Version>10.0.10</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_Extensions_ObjectPool)\lib\net10.0</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="runtime.native.System.Data.SqlClient.sni">
-      <Version>4.7.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="runtime.win-x64.runtime.native.System.Data.SqlClient.sni">
-      <Version>4.4.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
-      <Version>1.0.119</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1</ThirdPartySource>
-      <ThirdPartyFolder>System.Data.SQLite-1.0.119</ThirdPartyFolder>
-    </PackageReference>
-    <PackageReference Include="System.ComponentModel.Annotations">
-      <Version>5.0.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgSystem_ComponentModel_Annotations)\lib\netstandard2.1</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="System.Data.SqlClient">
-      <Version>4.8.6</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgSystem_Data_SqlClient)\runtimes\win\lib\netcoreapp2.1</ThirdPartySource>
-    </PackageReference>
-    <PackageReference Include="System.Data.SQLite.EF6">
-      <Version>1.0.119</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgSystem_Data_SQLite_EF6)\lib\netstandard2.1</ThirdPartySource>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ThirdPartyDirectory Include="$(Pkgruntime_win-x64_runtime_native_System_Data_SqlClient_sni)\runtimes\win-x64\native">
-      <ThirdPartyFolder>System.Data.SqlClient-4.8.6\x64</ThirdPartyFolder>
-    </ThirdPartyDirectory>
-    <ThirdPartyDirectory Include="$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native">
-      <ThirdPartyFolder>System.Data.SQLite-1.0.119\x64</ThirdPartyFolder>
-    </ThirdPartyDirectory>
+    <PackageReference Include="System.ServiceModel.Primitives"/>
+    <PackageReference Include="EntityFramework"/>
+    <PackageReference Include="Microsoft.Extensions.ObjectPool"/>
+    <PackageReference Include="runtime.native.System.Data.SqlClient.sni"/>
+    <PackageReference Include="runtime.win-x64.runtime.native.System.Data.SqlClient.sni"/>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard"/>
+    <PackageReference Include="System.ComponentModel.Annotations"/>
+    <PackageReference Include="System.Data.SqlClient"/>
+    <PackageReference Include="System.Data.SQLite.EF6"/>
   </ItemGroup>
 </Project>

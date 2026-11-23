@@ -248,10 +248,10 @@ All rights reserved.
         <Content Include="Variables.wxi"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="WixToolset.Util.wixext" Version="5.0.2"/>
-        <PackageReference Include="WixToolset.UI.wixext" Version="5.0.2"/>
-        <PackageReference Include="WixToolset.NetFx.wixext" Version="5.0.2"/>
-        <PackageReference Include="WixToolset.Heat" Version="5.0.2"/>
+        <PackageReference Include="WixToolset.Util.wixext"/>
+        <PackageReference Include="WixToolset.UI.wixext"/>
+        <PackageReference Include="WixToolset.NetFx.wixext"/>
+        <PackageReference Include="WixToolset.Heat"/>
     </ItemGroup>
     <ItemGroup>
         <Folder Include="CalculationConfigurations\"/>

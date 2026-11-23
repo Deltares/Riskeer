@@ -34,9 +34,6 @@ All rights reserved.
     <ProjectReference Include="..\Core.Components.GraphShape.TestUtil\Core.Components.GraphShape.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="QuikGraph">
-      <Version>2.3.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="QuikGraph"/>
   </ItemGroup>
 </Project>

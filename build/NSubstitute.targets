@@ -1,18 +1,6 @@
 <Project>
   <ItemGroup>
-    <PackageReference Include="Castle.Core">
-      <Version>5.1.1</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgCastle_Core)\lib\netstandard2.1</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
-    <PackageReference Include="NSubstitute">
-      <Version>6.0.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgNSubstitute)\lib\net8.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
+    <PackageReference Include="Castle.Core"/>
+    <PackageReference Include="NSubstitute"/>
   </ItemGroup>
 </Project>

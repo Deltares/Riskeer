@@ -12,85 +12,18 @@
   <Import Project="$(SolutionDir)build\Base.targets" />
   <Import Project="$(SolutionDir)build\NUnit.targets" />
   <ItemGroup>
-    <PackageReference Include="Microsoft.ApplicationInsights">
-      <Version>2.23.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_ApplicationInsights)\lib\netstandard2.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeCoverage">
-      <Version>18.8.1</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_CodeCoverage)\lib\net8.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.DependencyModel">
-      <Version>8.0.2</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_Extensions_DependencyModel)\lib\net8.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk">
-      <Version>18.8.1</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Testing.Extensions.Telemetry">
-      <Version>2.1.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_Testing_Extensions_Telemetry)\lib\net9.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions">
-      <Version>2.1.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_Testing_Extensions_TrxReport_Abstractions)\lib\net9.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Testing.Extensions.VSTestBridge">
-      <Version>2.1.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_Testing_Extensions_VSTestBridge)\lib\net9.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Testing.Platform">
-      <Version>2.1.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_Testing_Platform)\lib\net9.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Testing.Platform.MSBuild">
-      <Version>2.1.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_Testing_Platform_MSBuild)\lib\net9.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
-    <PackageReference Include="Microsoft.TestPlatform.ObjectModel">
-      <Version>18.8.1</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgMicrosoft_TestPlatform_ObjectModel)\lib\net8.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
-    <PackageReference Include="Microsoft.TestPlatform.TestHost">
-      <Version>18.8.1</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="NUnit3TestAdapter">
-      <Version>6.2.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgNUnit3TestAdapter)\build\net8.0</ThirdPartySource>
-      <ThirdPartyDestination>$(OutDir)</ThirdPartyDestination>
-    </PackageReference>
+    <PackageReference Include="Microsoft.ApplicationInsights"/>
+    <PackageReference Include="Microsoft.CodeCoverage"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyModel"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    <PackageReference Include="Microsoft.Testing.Extensions.Telemetry"/>
+    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions"/>
+    <PackageReference Include="Microsoft.Testing.Extensions.VSTestBridge"/>
+    <PackageReference Include="Microsoft.Testing.Platform"/>
+    <PackageReference Include="Microsoft.Testing.Platform.MSBuild"/>
+    <PackageReference Include="Microsoft.TestPlatform.ObjectModel"/>
+    <PackageReference Include="Microsoft.TestPlatform.TestHost"/>
+    <PackageReference Include="NUnit3TestAdapter"/>
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Coverage|x64'">
     <DebugType>none</DebugType>

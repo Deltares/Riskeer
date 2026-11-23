@@ -73,17 +73,6 @@ All rights reserved.
     <EmbeddedResource Include="EmbeddedResources\Migration_25.1_26.1.sql"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard">
-      <Version>1.0.119</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-      <ThirdPartySource>$(PkgStub_System_Data_SQLite_Core_NetStandard)\lib\netstandard2.1</ThirdPartySource>
-      <ThirdPartyFolder>System.Data.SQLite-1.0.119</ThirdPartyFolder>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ThirdPartyDirectory Include="$(PkgStub_System_Data_SQLite_Core_NetStandard)\runtimes\win-x64\native">
-      <ThirdPartyFolder>System.Data.SQLite-1.0.119\x64</ThirdPartyFolder>
-    </ThirdPartyDirectory>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard"/>
   </ItemGroup>
 </Project>
