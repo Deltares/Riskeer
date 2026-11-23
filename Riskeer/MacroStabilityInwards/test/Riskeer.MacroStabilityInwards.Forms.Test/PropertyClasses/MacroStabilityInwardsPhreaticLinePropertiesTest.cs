@@ -97,7 +97,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var name = properties.ToString();
 
             // Assert
-            Assert.AreEqual(name, expectedName);
+            Assert.AreEqual(expectedName, name);
         }
 
         [Test]

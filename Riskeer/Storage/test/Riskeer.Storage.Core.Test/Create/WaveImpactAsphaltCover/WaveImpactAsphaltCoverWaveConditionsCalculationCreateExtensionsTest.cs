@@ -61,7 +61,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual(paramName, "registry");
+            Assert.AreEqual("registry", paramName);
         }
 
         [Test]

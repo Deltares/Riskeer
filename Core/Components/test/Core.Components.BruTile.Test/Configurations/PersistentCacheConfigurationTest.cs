@@ -106,7 +106,7 @@ namespace Core.Components.BruTile.Test.Configurations
                         // Assert
                         const string expectedMessage = "Een kritieke fout is opgetreden bij het aanmaken van de cache.";
                         string message = Assert.Throws<CannotCreateTileCacheException>(Call).Message;
-                        Assert.AreEqual(message, expectedMessage);
+                        Assert.AreEqual(expectedMessage, message);
                     }
                 },
                 rootPath);
@@ -172,7 +172,7 @@ namespace Core.Components.BruTile.Test.Configurations
                         // Assert
                         const string expectedMessage = "Een kritieke fout is opgetreden bij het aanmaken van de cache.";
                         string message = Assert.Throws<CannotCreateTileCacheException>(Call).Message;
-                        Assert.AreEqual(message, expectedMessage);
+                        Assert.AreEqual(expectedMessage, message);
                     }
                 },
                 rootPath);

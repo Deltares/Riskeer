@@ -63,7 +63,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual(paramName, "registry");
+            Assert.AreEqual("registry", paramName);
         }
 
         [Test]

@@ -216,10 +216,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             importer.PublicReadWaveReductionParameters(waveReductionConfiguration, testInput);
 
             // Assert
-            Assert.AreEqual(testInput.UseForeshore, useForeshoreProfile);
-            Assert.AreEqual(testInput.UseBreakWater, useBreakWater);
-            Assert.AreEqual(testInput.BreakWater.Height, height, testInput.BreakWater.Height.GetAccuracy());
-            Assert.AreEqual(testInput.BreakWater.Type, expectedType);
+            Assert.AreEqual(useForeshoreProfile, testInput.UseForeshore);
+            Assert.AreEqual(useBreakWater, testInput.UseBreakWater);
+            Assert.AreEqual(height, testInput.BreakWater.Height, testInput.BreakWater.Height.GetAccuracy());
+            Assert.AreEqual(expectedType, testInput.BreakWater.Type);
         }
 
         [Test]
@@ -248,10 +248,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             importer.PublicReadWaveReductionParameters(null, testInput);
 
             // Assert
-            Assert.AreEqual(testInput.UseForeshore, useForeshoreProfile);
-            Assert.AreEqual(testInput.UseBreakWater, useBreakWater);
-            Assert.AreEqual(testInput.BreakWater.Height, height, testInput.BreakWater.Height.GetAccuracy());
-            Assert.AreEqual(testInput.BreakWater.Type, breakWaterType);
+            Assert.AreEqual(useForeshoreProfile, testInput.UseForeshore);
+            Assert.AreEqual(useBreakWater, testInput.UseBreakWater);
+            Assert.AreEqual(height, testInput.BreakWater.Height, testInput.BreakWater.Height.GetAccuracy());
+            Assert.AreEqual(breakWaterType, testInput.BreakWater.Type);
         }
 
         [Test]
@@ -307,10 +307,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             importer.PublicReadWaveReductionParameters(waveReductionConfiguration, testInput);
 
             // Assert
-            Assert.AreEqual(testInput.UseForeshore, parameterNotSet == 0 ? useForeshoreProfile : newUseForeshoreProfile);
-            Assert.AreEqual(testInput.UseBreakWater, parameterNotSet == 1 ? useBreakWater : newUseBreakWater);
-            Assert.AreEqual(testInput.BreakWater.Height, parameterNotSet == 2 ? height : newHeight, testInput.BreakWater.Height.GetAccuracy());
-            Assert.AreEqual(testInput.BreakWater.Type, parameterNotSet == 3 ? breakWaterType : expectedNewBreakWaterType);
+            Assert.AreEqual(parameterNotSet == 0 ? useForeshoreProfile : newUseForeshoreProfile, testInput.UseForeshore);
+            Assert.AreEqual(parameterNotSet == 1 ? useBreakWater : newUseBreakWater, testInput.UseBreakWater);
+            Assert.AreEqual(parameterNotSet == 2 ? height : newHeight, testInput.BreakWater.Height, testInput.BreakWater.Height.GetAccuracy());
+            Assert.AreEqual(parameterNotSet == 3 ? breakWaterType : expectedNewBreakWaterType, testInput.BreakWater.Type);
         }
 
         [Test]

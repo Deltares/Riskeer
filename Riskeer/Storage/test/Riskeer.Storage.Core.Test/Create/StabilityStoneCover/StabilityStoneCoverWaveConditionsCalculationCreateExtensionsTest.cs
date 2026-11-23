@@ -62,7 +62,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual(paramName, "registry");
+            Assert.AreEqual("registry", paramName);
         }
 
         [Test]

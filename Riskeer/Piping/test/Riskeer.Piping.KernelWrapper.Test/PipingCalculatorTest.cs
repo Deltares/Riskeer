@@ -510,7 +510,7 @@ namespace Riskeer.Piping.KernelWrapper.Test
             double result = calculation.CalculateEffectiveThicknessCoverageLayer();
 
             // Assert
-            Assert.AreEqual(result, -3.0);
+            Assert.AreEqual(-3.0, result);
         }
 
         [Test]
