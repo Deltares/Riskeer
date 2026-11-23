@@ -28,7 +28,7 @@ using System.Runtime.Versioning;
 [assembly: AssemblyCompany("Stichting Deltares and State of the Netherlands")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright © Stichting Deltares and State of the Netherlands 2026")]
+[assembly: AssemblyCopyright("Copyright © Stichting Deltares and State of the Netherlands 2027")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("nl-NL")]
@@ -36,7 +36,7 @@ using System.Runtime.Versioning;
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 
-[assembly: AssemblyVersion("26.1.1.1")]
-[assembly: AssemblyFileVersion("26.1.1.1")]
+[assembly: AssemblyVersion("27.1.1.1")]
+[assembly: AssemblyFileVersion("27.1.1.1")]
 
 [assembly: SupportedOSPlatform("windows")]

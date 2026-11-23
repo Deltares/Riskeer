@@ -11,8 +11,8 @@
     <LangVersion>14.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Company>Deltares</Company>
-    <Copyright>Copyright © Stichting Deltares and State of the Netherlands 2026</Copyright>
-    <Version>26.1.1</Version>
+    <Copyright>Copyright © Stichting Deltares and State of the Netherlands 2027</Copyright>
+    <Version>27.1.1</Version>
     <Configurations>Debug;Release;Coverage</Configurations>
     <UseWpf>true</UseWpf>
     <UseWindowsForms>true</UseWindowsForms>
