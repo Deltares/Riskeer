@@ -854,15 +854,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 }
             };
 
-            HydraRingCalculationSettings actualSettings = null;
-            HydraulicBoundaryCalculationSettings expectedSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                hydraulicBoundaryData, hydraulicBoundaryLocation);
-
             var assessmentSection = Substitute.For<IAssessmentSection>();
             assessmentSection.Id.Returns("1");
             assessmentSection.FailureMechanismContribution.Returns(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.HydraulicBoundaryData.Returns(hydraulicBoundaryData);
 
+            HydraRingCalculationSettings actualSettings = null;
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
             calculatorFactory.When(c => c.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
@@ -900,7 +897,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
                     Assert.AreEqual(0, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), dunesBoundaryConditionsCalculationInput.Beta);
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedSettings, actualSettings);
+                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                   hydraulicBoundaryLocation), actualSettings);
                 }
             }
         }

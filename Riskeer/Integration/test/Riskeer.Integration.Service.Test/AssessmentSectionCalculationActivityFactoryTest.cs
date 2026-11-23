@@ -100,10 +100,6 @@ namespace Riskeer.Integration.Service.Test
             AddStabilityPointStructuresCalculation(assessmentSection, hydraulicBoundaryLocation);
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
-            HydraulicBoundaryCalculationSettings expectedCalculationSettings =
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
-                                                                           hydraulicBoundaryLocation);
-
             var actualSettingsList = new List<HydraRingCalculationSettings>();
             calculatorFactory.When(c=> c
                 .CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()))
@@ -158,6 +154,10 @@ namespace Riskeer.Integration.Service.Test
                 calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
             });
 
+            HydraulicBoundaryCalculationSettings expectedCalculationSettings =
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation);
+
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedCalculationSettings, actualSettings);
@@ -208,10 +208,6 @@ namespace Riskeer.Integration.Service.Test
             AddDuneLocationCalculation(assessmentSection, hydraulicBoundaryLocation);
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
-            HydraulicBoundaryCalculationSettings expectedCalculationSettings =
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
-                                                                           hydraulicBoundaryLocation);
-
             var actualSettingsList = new List<HydraRingCalculationSettings>();
             calculatorFactory.When(c=> c
                 .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
@@ -251,6 +247,10 @@ namespace Riskeer.Integration.Service.Test
                 Enumerable.Range(1, 15).ToList().ForEach(_ => calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()));
                 calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>());
             });
+
+            HydraulicBoundaryCalculationSettings expectedCalculationSettings =
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                           hydraulicBoundaryLocation);
 
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
