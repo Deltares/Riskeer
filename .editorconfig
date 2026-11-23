@@ -31,26 +31,36 @@ dotnet_diagnostic.NS1003.severity = error
 # Example good: sub.Received().SomeCall();
 dotnet_diagnostic.NS5000.severity = error
 
-
-
 [*.cs]
-resharper_keep_existing_arrangement = false
-resharper_keep_existing_embedded_arrangement = false
-resharper_keep_existing_invocation_parens_arrangement = false
-resharper_keep_existing_primary_constructor_declaration_parens_arrangement = false
+indent_style = space
+indent_size = 4
+tab_width = 4
+end_of_line = crlf
+charset = utf-8-bom
+insert_final_newline = false
+trim_trailing_whitespace = true
 
-resharper_wrap_lines = true
+[*.{csproj,targets}]
+indent_style = space
+indent_size = 2
+charset = utf-8
 
-resharper_max_array_initializer_elements_on_line = 1
-resharper_max_enum_members_on_line = 1
-resharper_max_initializer_elements_on_line = 1
+[*.csproj]
+insert_final_newline = true
 
-resharper_place_simple_anonymousmethod_on_single_line = false
-resharper_place_single_method_argument_lambda_on_same_line = false
+[*.targets]
+insert_final_newline = false
 
-resharper_space_after_typecast_parentheses = true
+[*.{xml,xsd,config,ruleset}]
+indent_style = space
+indent_size = 2
 
-resharper_wrap_object_and_collection_initializer_style = chop_always
-resharper_wrap_property_pattern = chop_always
+[*.resx]
+indent_style = space
+indent_size = 2
+charset = utf-8-bom
+insert_final_newline = false
 
-resharper_access_to_disposed_closure_highlighting = none
+[*.{xaml,wxs}]
+indent_style = space
+indent_size = 4
