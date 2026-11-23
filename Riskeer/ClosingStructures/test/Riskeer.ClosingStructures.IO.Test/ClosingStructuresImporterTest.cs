@@ -164,7 +164,6 @@ namespace Riskeer.ClosingStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-
             updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
@@ -236,8 +235,8 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 5);
-            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
             Assert.IsTrue(importResult);
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -294,7 +293,6 @@ namespace Riskeer.ClosingStructures.IO.Test
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
-
             updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
@@ -352,7 +350,6 @@ namespace Riskeer.ClosingStructures.IO.Test
                 // Don't care about the other messages.
             });
             Assert.IsTrue(importResult);
-
             updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
@@ -368,7 +365,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             var strategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
             strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(invocation =>
             {
-                Assert.AreSame(invocation[1], filePath);
+                Assert.AreEqual(filePath, invocation[1]);
 
                 var readStructures = (IEnumerable<ClosingStructure>) invocation[0];
                 Assert.AreEqual(1, readStructures.Count());
@@ -392,7 +389,6 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             // Assert
             Assert.IsTrue(importResult);
-
             strategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
@@ -435,6 +431,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
             Assert.IsFalse(importResult);
             Assert.AreEqual(0, importTarget.Count);
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]

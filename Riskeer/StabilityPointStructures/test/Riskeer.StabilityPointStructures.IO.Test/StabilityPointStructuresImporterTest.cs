@@ -389,7 +389,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
                     .Do(invocation =>
                     {
-                        Assert.AreSame(invocation[1], filePath);
+                        Assert.AreEqual(filePath, invocation[1]);
                         var readStructures = (IEnumerable<StabilityPointStructure>) invocation[0];
                         Assert.AreEqual(1, readStructures.Count());
                     });
@@ -455,6 +455,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
             Assert.IsFalse(importResult);
             Assert.AreEqual(0, importTarget.Count);
+            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -462,9 +463,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test
         {
             // Setup
             var messageProvider = Substitute.For<IImporterMessageProvider>();
-
             var observableA = Substitute.For<IObservable>();
             var observableB = Substitute.For<IObservable>();
+
             IObservable[] observables =
             {
                 observableA,
