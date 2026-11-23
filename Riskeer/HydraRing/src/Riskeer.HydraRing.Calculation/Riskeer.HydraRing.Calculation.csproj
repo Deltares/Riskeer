@@ -49,7 +49,7 @@ All rights reserved.
   </ItemGroup>
   <ItemGroup>
     <ThirdPartyDirectory Include="$(SolutionDir)lib\HydraRing">
-      <ThirdPartyDestination>$(SolutionDir)bin\$(Configuration)\Application\Standalone\Deltares\HydraRing-25.2.2</ThirdPartyDestination>
+      <ThirdPartyDestination>$(SolutionDir)bin\$(Configuration)\Application\Standalone\Deltares\Hydra-Ring-25.2.2</ThirdPartyDestination>
     </ThirdPartyDirectory>
   </ItemGroup>
 </Project>

@@ -77,16 +77,16 @@ All rights reserved.
   </ItemGroup>
   <ItemGroup>
     <ThirdPartyFile Include="$(SolutionDir)lib\Plugins\Wti\Components.Persistence.Stability.Version1.dll">
-      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\D-Stability-26.1.0</ThirdPartyDestination>
+      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\D-Stability-2026.1.1</ThirdPartyDestination>
     </ThirdPartyFile>
     <ThirdPartyFile Include="$(SolutionDir)lib\Plugins\Wti\Components.Persistence.Stability.Version2.dll">
-      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\D-Stability-26.1.0</ThirdPartyDestination>
+      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\D-Stability-2026.1.1</ThirdPartyDestination>
     </ThirdPartyFile>
     <ThirdPartyFile Include="$(SolutionDir)lib\Plugins\Wti\DGeoSuite.Common.dll">
-      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\D-Stability-26.1.0</ThirdPartyDestination>
+      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\D-Stability-2026.1.1</ThirdPartyDestination>
     </ThirdPartyFile>
     <ThirdPartyFile Include="$(SolutionDir)lib\Plugins\Wti\DGeoSuite.Components.Persistence.dll">
-      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\D-Stability-26.1.0</ThirdPartyDestination>
+      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\D-Stability-2026.1.1</ThirdPartyDestination>
     </ThirdPartyFile>
   </ItemGroup>
 </Project>

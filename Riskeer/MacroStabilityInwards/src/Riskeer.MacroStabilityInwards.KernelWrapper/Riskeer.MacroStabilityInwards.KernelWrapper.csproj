@@ -52,7 +52,7 @@ All rights reserved.
   </ItemGroup>
   <ItemGroup>
     <ThirdPartyFile Include="$(SolutionDir)lib\Plugins\Wti\Deltares.MacroStability.CSharpWrapper.dll">
-      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\Macrostability-23.2.1</ThirdPartyDestination>
+      <ThirdPartyDestination>$(BuiltInManagedOutputDir)Deltares\MacroStability-23.2.1.6</ThirdPartyDestination>
     </ThirdPartyFile>
   </ItemGroup>
 </Project>
