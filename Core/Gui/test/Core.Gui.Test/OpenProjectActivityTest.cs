@@ -961,7 +961,7 @@ namespace Core.Gui.Test
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
             var storeProject = Substitute.For<IStoreProject>();
-            storeProject.When(s=> s.LoadProject(Arg.Any<string>())).Throw(new StorageException());
+            storeProject.When(sp => sp.LoadProject(Arg.Any<string>())).Throw(new StorageException());
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
             {
                 FilePath = "",

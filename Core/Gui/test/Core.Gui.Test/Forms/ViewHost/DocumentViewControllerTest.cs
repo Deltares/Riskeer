@@ -175,7 +175,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             const string viewName = "<cool view name>";
 
             viewHost.When(vh => vh.AddDocumentView(Arg.Any<TestView>(),
-                                                 viewName, Arg.Any<string>(), Arg.Any<FontFamily>()))
+                                                   viewName, Arg.Any<string>(), Arg.Any<FontFamily>()))
                     .Do(invocation =>
                     {
                         view = invocation.Arg<TestView>();

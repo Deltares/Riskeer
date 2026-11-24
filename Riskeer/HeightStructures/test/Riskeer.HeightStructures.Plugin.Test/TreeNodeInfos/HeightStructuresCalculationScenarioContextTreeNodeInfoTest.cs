@@ -887,17 +887,17 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             gui.MainWindow.Returns(mainWindow);
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
-                Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
-            calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
-                                       Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
-            {
-                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                        assessmentSection.HydraulicBoundaryData,
-                        hydraulicBoundaryLocation),
-                    (HydraRingCalculationSettings) invocation[0]);
-            });
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         assessmentSection.HydraulicBoundaryData,
+                                         hydraulicBoundaryLocation),
+                                     (HydraRingCalculationSettings) invocation[0]);
+                             });
+            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
 
             plugin.Gui = gui;
 

@@ -297,10 +297,10 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 }
             };
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                       Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
 
             var failureMechanism = new ClosingStructuresFailureMechanism();

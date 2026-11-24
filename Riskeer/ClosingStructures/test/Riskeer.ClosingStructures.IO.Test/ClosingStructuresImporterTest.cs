@@ -121,7 +121,7 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.When(u => u.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
             {
                 Assert.AreEqual(filePath, i[1]);
 
@@ -211,7 +211,7 @@ namespace Riskeer.ClosingStructures.IO.Test
                                            "Kunstwerken.shp");
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.When(u => u.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
             {
                 Assert.AreEqual(filePath, i[1]);
                 Assert.AreEqual(4, ((IEnumerable<ClosingStructure>) i[0]).Count());
@@ -249,7 +249,7 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.When(u => u.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
             {
                 Assert.AreEqual(filePath, i[1]);
 
@@ -306,7 +306,7 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.When(u => u.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
             {
                 Assert.AreEqual(filePath, i[1]);
 

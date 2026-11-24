@@ -270,13 +270,13 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                               HydraulicBoundaryData hydraulicBoundaryData)
         {
             var testCalculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                Arg.Any<HydraRingCalculationSettings>()).Returns(testCalculator);
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                                       Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(testCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -289,7 +289,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                           calculation.InputParameters.HydraulicBoundaryLocation), 
+                                                                           calculation.InputParameters.HydraulicBoundaryLocation),
                 actualSettings);
         }
     }

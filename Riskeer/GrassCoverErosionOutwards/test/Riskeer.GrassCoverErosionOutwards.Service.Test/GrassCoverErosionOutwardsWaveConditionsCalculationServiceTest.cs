@@ -364,8 +364,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var waveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(waveConditionsCosineCalculator);
             calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo =>
                              {
@@ -375,6 +373,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                          hydraulicBoundaryLocation),
                                      callInfo.ArgAt<HydraRingCalculationSettings>(0));
                              });
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(waveConditionsCosineCalculator);
 
             // Precondition
             Assert.AreEqual(GrassCoverErosionOutwardsWaveConditionsCalculationType.All,
@@ -777,8 +777,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             int nrOfCalculators = waterLevels.Length * 3;
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(new TestWaveConditionsCosineCalculator());
             calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo =>
                              {
@@ -788,6 +786,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                          hydraulicBoundaryLocation),
                                      callInfo.ArgAt<HydraRingCalculationSettings>(0));
                              });
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestWaveConditionsCosineCalculator());
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 

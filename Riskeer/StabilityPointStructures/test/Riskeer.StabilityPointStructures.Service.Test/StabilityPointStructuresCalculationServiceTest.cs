@@ -1477,16 +1477,16 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
+
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                Arg.Is<HydraRingCalculationSettings>(settings => settings != null)).Returns(calculator);
-            calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                                       Arg.Is<HydraRingCalculationSettings>(settings => settings != null)))
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Is<HydraRingCalculationSettings>(settings => settings != null)))
                              .Do(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      calculationSettings, (HydraRingCalculationSettings) invocation[0]);
                              });
+            calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Is<HydraRingCalculationSettings>(settings => settings != null))
+                             .Returns(calculator);
 
             var calculation = new TestStabilityPointStructuresCalculationScenario
             {

@@ -880,17 +880,18 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             gui.MainWindow.Returns(mainWindow);
 
             int nrOfCalculators = failureMechanism.Calculations.Count();
+
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-            calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                       Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
-            {
-                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                               hydraulicBoundaryLocation),
-                    (HydraRingCalculationSettings) invocation[0]);
-            });
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                hydraulicBoundaryLocation),
+                                     (HydraRingCalculationSettings) invocation[0]);
+                             });
+            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestStructuresCalculator<StructuresClosureCalculationInput>());
 
             DialogBoxHandler = (name, wnd) =>
             {

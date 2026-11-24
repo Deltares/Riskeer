@@ -761,15 +761,16 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
+
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                Arg.Any<HydraRingCalculationSettings>()).Returns(calculator);
-            calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                       Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
-            {
-                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                    calculationSettings, (HydraRingCalculationSettings) invocation[0]);
-            });
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation[0]);
+                             });
+            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             var calculation = new TestClosingStructuresCalculationScenario
             {

@@ -83,8 +83,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             var originalReferenceLine = new ReferenceLine();
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
-            handler.When(h=>h.Update(Arg.Is<ReferenceLine>(r => r != null),
-                           Arg.Is<ReferenceLine>(r => r != null)))
+            handler.When(h => h.Update(Arg.Is<ReferenceLine>(rl => rl != null),
+                                       Arg.Is<ReferenceLine>(rl => rl != null)))
                    .Do(callInfo =>
                    {
                        Assert.AreSame(originalReferenceLine, callInfo.Args()[0]);
@@ -105,8 +105,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{path}'.", 1);
             Assert.IsTrue(importSuccessful);
-            handler.Received(1).Update(Arg.Is<ReferenceLine>(r => r != null),
-                                     Arg.Is<ReferenceLine>(r => r != null));
+            handler.Received(1).Update(Arg.Is<ReferenceLine>(rl => rl != null),
+                                       Arg.Is<ReferenceLine>(rl => rl != null));
         }
 
         [Test]
@@ -250,8 +250,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         {
             // Setup
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
-            handler.When(h=> h.Update(Arg.Is<ReferenceLine>(r => r != null),
-                                    Arg.Is<ReferenceLine>(r => r != null)))
+            handler.When(h => h.Update(Arg.Is<ReferenceLine>(rl => rl != null),
+                                       Arg.Is<ReferenceLine>(rl => rl != null)))
                    .Do(callInfo =>
                    {
                        Point2D[] point2Ds = ((ReferenceLine) callInfo.Args()[1])!.Points.ToArray();
@@ -275,8 +275,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
 
             // Assert
             Assert.IsTrue(importSuccessful);
-            handler.Received(1).Update(Arg.Is<ReferenceLine>(r => r != null), 
-                                       Arg.Is<ReferenceLine>(r => r != null));
+            handler.Received(1).Update(Arg.Is<ReferenceLine>(rl => rl != null),
+                                       Arg.Is<ReferenceLine>(rl => rl != null));
         }
 
         [Test]
@@ -292,8 +292,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
 
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             handler.ConfirmUpdate().Returns(true);
-            handler.Update(referenceLine,
-                           Arg.Is<ReferenceLine>(r => r != null))
+            handler.Update(referenceLine, Arg.Is<ReferenceLine>(rl => rl != null))
                    .Returns([
                        observable1,
                        observable2
@@ -352,7 +351,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
 
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             handler.ConfirmUpdate().Returns(true);
-            handler.Update(referenceLine, Arg.Is<ReferenceLine>(r => r != null))
+            handler.Update(referenceLine, Arg.Is<ReferenceLine>(rl => rl != null))
                    .Returns([
                        observable1,
                        observable2

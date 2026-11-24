@@ -238,10 +238,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                                              HydraulicBoundaryData hydraulicBoundaryData)
         {
             var testCalculator = new TestWaveConditionsCosineCalculator();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count() * 2;
-            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                             .Returns(testCalculator);
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo =>
                              {
@@ -251,6 +250,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                          calculation.InputParameters.HydraulicBoundaryLocation),
                                      callInfo.ArgAt<HydraRingCalculationSettings>(0));
                              });
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(testCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

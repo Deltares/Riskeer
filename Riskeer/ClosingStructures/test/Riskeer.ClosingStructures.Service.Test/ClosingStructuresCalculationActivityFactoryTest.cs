@@ -268,18 +268,19 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                        HydraulicBoundaryData hydraulicBoundaryData)
         {
             var testCalculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
+
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                Arg.Any<HydraRingCalculationSettings>()).Returns(testCalculator);
-            calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                       Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
-            {
-                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                        hydraulicBoundaryData,
-                        calculation.InputParameters.HydraulicBoundaryLocation),
-                    (HydraRingCalculationSettings) invocation[0]);
-            });
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                         hydraulicBoundaryData,
+                                         calculation.InputParameters.HydraulicBoundaryLocation),
+                                     (HydraRingCalculationSettings) invocation[0]);
+                             });
+            calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(testCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

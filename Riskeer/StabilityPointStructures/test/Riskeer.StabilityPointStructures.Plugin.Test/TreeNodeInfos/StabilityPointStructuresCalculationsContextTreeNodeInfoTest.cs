@@ -393,17 +393,18 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.MainWindow.Returns(mainWindow);
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
+
                 var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-                calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                    Arg.Any<HydraRingCalculationSettings>()).Returns(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
-                calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                                           Arg.Any<HydraRingCalculationSettings>())).Do(invocation =>
-                {
-                    HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                   hydraulicBoundaryLocation),
-                        (HydraRingCalculationSettings) invocation[0]);
-                });
+                calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                                 .Do(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                    hydraulicBoundaryLocation),
+                                         (HydraRingCalculationSettings) invocation[0]);
+                                 });
+                calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                                 .Returns(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
 
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;

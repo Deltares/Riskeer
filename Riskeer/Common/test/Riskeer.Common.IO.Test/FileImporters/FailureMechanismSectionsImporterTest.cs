@@ -122,7 +122,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var updateStrategy = Substitute.For<IFailureMechanismSectionUpdateStrategy>();
-            updateStrategy.When(u => u.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
+            updateStrategy.When(us => us.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
                           .Do(callInfo =>
                           {
                               var sections = (IEnumerable<FailureMechanismSection>) callInfo.Args()[0];
@@ -660,15 +660,15 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var handler = Substitute.For<IReferenceLineUpdateHandler>();
             handler.ConfirmUpdate().Returns(true);
 
-            handler.When(h=>h.Update(Arg.Is<ReferenceLine>(r => r != null),
-                           Arg.Is<ReferenceLine>(r => r != null)))
-                   .Do(callInfo => referenceLine = (ReferenceLine) callInfo.Args()[1] );
+            handler.When(h => h.Update(Arg.Is<ReferenceLine>(rl => rl != null),
+                                       Arg.Is<ReferenceLine>(rl => rl != null)))
+                   .Do(callInfo => referenceLine = (ReferenceLine) callInfo.Args()[1]);
 
             var referenceLineImporter = new ReferenceLineImporter(referenceLine, handler, referenceLineFilePath);
             referenceLineImporter.Import();
 
-            handler.Received(1).Update(Arg.Is<ReferenceLine>(r => r != null),
-                                       Arg.Is<ReferenceLine>(r => r != null));
+            handler.Received(1).Update(Arg.Is<ReferenceLine>(rl => rl != null),
+                                       Arg.Is<ReferenceLine>(rl => rl != null));
             return referenceLine;
         }
 

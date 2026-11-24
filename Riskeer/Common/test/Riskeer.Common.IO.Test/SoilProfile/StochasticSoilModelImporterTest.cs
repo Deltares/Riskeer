@@ -252,7 +252,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             messageProvider.GetAddDataToModelProgressText().Returns(expectedAddDataText);
 
             var updateStrategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            updateStrategy.When(u => u.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>()))
+            updateStrategy.When(us => us.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), Arg.Any<string>()))
                           .Do(callInfo =>
                           {
                               var soilModels = callInfo.Arg<IEnumerable<IMechanismStochasticSoilModel>>();
@@ -574,7 +574,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                        .Returns(transformedModel);
 
             var updateStrategy = Substitute.For<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            updateStrategy.When(u => u.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), validFilePath))
+            updateStrategy.When(us => us.UpdateModelWithImportedData(Arg.Any<IEnumerable<IMechanismStochasticSoilModel>>(), validFilePath))
                           .Do(callInfo =>
                           {
                               var soilModels = callInfo.Arg<IEnumerable<IMechanismStochasticSoilModel>>();

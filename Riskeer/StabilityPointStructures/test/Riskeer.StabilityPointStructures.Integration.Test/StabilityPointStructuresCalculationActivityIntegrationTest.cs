@@ -306,10 +306,10 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                 }
             };
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c => c.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                                       Arg.Is<HydraRingCalculationSettings>(settings => settings != null)))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Is<HydraRingCalculationSettings>(settings => settings != null)))
                              .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();

@@ -1435,8 +1435,8 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             messageProvider.GetUpdateDataFailedLogMessageText("Profielschematisaties").Returns("error {0}");
 
             var strategy = Substitute.For<ISurfaceLineUpdateDataStrategy<IMechanismSurfaceLine>>();
-            strategy.UpdateSurfaceLinesWithImportedData(Arg.Is<IMechanismSurfaceLine[]>(i => i != null),
-                                                        Arg.Is<string>(s => s == filePath))
+            strategy.UpdateSurfaceLinesWithImportedData(Arg.Is<IMechanismSurfaceLine[]>(msl => msl != null),
+                                                        Arg.Is<string>(sfp => sfp == filePath))
                     .Throws(new UpdateDataException("Exception message"));
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, strategy);
             var importer = new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(surfaceLines, filePath, messageProvider, configuration);

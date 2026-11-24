@@ -129,7 +129,7 @@ namespace Core.Gui.Test.Commands
             projectOwner.ProjectFilePath.Returns((string) null);
 
             var projectFactory = Substitute.For<IProjectFactory>();
-            projectFactory.When(p => p.CreateNewProject()).Throw(new ProjectFactoryException(expectedExceptionMessage));
+            projectFactory.When(pf => pf.CreateNewProject()).Throw(new ProjectFactoryException(expectedExceptionMessage));
 
             var inquiryHelper = Substitute.For<IInquiryHelper>();
             var mainWindowController = Substitute.For<IMainWindowController>();
@@ -170,7 +170,7 @@ namespace Core.Gui.Test.Commands
 
                 var projectStorage = Substitute.For<IStoreProject>();
                 projectStorage.HasStagedProject.Returns(false);
-                projectStorage.When(p => p.SaveProjectAs(someValidFilePath))
+                projectStorage.When(ps => ps.SaveProjectAs(someValidFilePath))
                               .Throws(new StorageException(exceptionMessage, new Exception("l33t h4xor!")));
 
                 var projectMigrator = Substitute.For<IMigrateProject>();
