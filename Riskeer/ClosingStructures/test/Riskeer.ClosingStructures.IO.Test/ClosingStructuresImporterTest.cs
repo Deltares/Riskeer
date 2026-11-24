@@ -393,7 +393,7 @@ namespace Riskeer.ClosingStructures.IO.Test
         }
 
         [Test]
-        public void Import_NoParameterIdsDefinedAndOnlyDuplicateUnknownParameterId_TrueAndImportTargetUpdated()
+        public void Import_NoParameterIdsDefinedAndOnlyDuplicateUnknownParameterId_LogAndFalse()
         {
             // Setup
             var importTarget = new StructureCollection<ClosingStructure>();
@@ -431,7 +431,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
             Assert.IsFalse(importResult);
             Assert.AreEqual(0, importTarget.Count);
-            updateStrategy.Received(1).UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
+            updateStrategy.DidNotReceive().UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>());
         }
 
         [Test]
