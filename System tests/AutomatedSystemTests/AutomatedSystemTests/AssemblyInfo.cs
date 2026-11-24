@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Stichting Deltares and State of the Netherlands")]
 [assembly: AssemblyProduct("AutomatedSystemTests Riskeer")]
-[assembly: AssemblyCopyright("Copyright © Stichting Deltares and State of the Netherlands 2026")]
+[assembly: AssemblyCopyright("Copyright © Stichting Deltares and State of the Netherlands 2027")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
