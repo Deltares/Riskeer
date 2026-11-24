@@ -479,13 +479,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 Converged = false
             };
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            calculatorFactory
-                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(designWaterLevelCalculator);
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(designWaterLevelCalculator);
+
             DialogBoxHandler = (name, wnd) =>
             {
                 // Expect an activity dialog which is automatically closed
@@ -522,7 +524,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations[0].Output);
                 }
 
-                calculatorFactory.Received(2).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());			 
+                calculatorFactory.Received(2).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
                 foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
                 {
                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

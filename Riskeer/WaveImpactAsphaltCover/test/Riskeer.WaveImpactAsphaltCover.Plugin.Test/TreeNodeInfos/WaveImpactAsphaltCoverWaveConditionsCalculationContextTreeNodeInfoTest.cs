@@ -964,9 +964,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             RoundedDouble assessmentLevel = WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection);
             IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(assessmentLevel);
             int nrOfCalculators = waterLevels.Count();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
 
             plugin.Gui = gui;

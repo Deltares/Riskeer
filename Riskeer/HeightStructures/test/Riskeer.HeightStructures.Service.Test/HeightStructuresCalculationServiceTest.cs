@@ -768,14 +768,13 @@ namespace Riskeer.HeightStructures.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            validHrdFilePath);
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c
-                                       .CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            calculatorFactory
-                .CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(calculator);
+            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             var calculation = new TestHeightStructuresCalculationScenario
             {

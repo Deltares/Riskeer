@@ -292,18 +292,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
             gui.MainWindow.Returns(mainWindow);
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var waveConditionsCalculator = new TestWaveConditionsCosineCalculator
             {
                 Converged = false
             };
 
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
             calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(waveConditionsCalculator);
-
-            var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=>c.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             plugin.Gui = gui;
             plugin.Activate();

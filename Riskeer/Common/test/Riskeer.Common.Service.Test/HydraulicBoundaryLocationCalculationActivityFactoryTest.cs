@@ -197,13 +197,13 @@ namespace Riskeer.Common.Service.Test
                                                                 HydraulicBoundaryData hydraulicBoundaryData)
         {
             var calculator = new TestWaveHeightCalculator();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            calculatorFactory
-                .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(calculator);
+            calculatorFactory.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -229,13 +229,13 @@ namespace Riskeer.Common.Service.Test
                                                                       HydraulicBoundaryData hydraulicBoundaryData)
         {
             var calculator = new TestDesignWaterLevelCalculator();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            calculatorFactory
-                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(calculator);
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

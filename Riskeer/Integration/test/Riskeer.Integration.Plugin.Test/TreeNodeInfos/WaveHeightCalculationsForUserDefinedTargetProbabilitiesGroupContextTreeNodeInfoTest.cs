@@ -479,14 +479,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 Converged = false
             };
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                                       .CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            calculatorFactory
-                .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(waveHeightCalculator);
+            calculatorFactory.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(waveHeightCalculator);
 
             DialogBoxHandler = (name, wnd) =>
             {

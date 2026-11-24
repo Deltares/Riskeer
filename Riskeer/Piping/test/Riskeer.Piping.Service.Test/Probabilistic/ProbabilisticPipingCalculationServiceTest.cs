@@ -1871,10 +1871,10 @@ namespace Riskeer.Piping.Service.Test.Probabilistic
             HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
                 assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation);
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                                       .CreatePipingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreatePipingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;

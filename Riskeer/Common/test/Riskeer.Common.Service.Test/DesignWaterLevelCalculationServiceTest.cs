@@ -122,13 +122,14 @@ namespace Riskeer.Common.Service.Test
 
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath,
                                                                                validHrdFileVersion, usePreprocessorClosure);
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            calculatorFactory
-                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(calculator);
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();

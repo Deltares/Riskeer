@@ -298,9 +298,10 @@ namespace Riskeer.HeightStructures.Integration.Test
                 }
             };
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
 
             var failureMechanism = new HeightStructuresFailureMechanism();

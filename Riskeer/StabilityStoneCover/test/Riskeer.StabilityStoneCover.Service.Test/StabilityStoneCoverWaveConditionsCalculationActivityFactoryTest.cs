@@ -336,16 +336,14 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                        HydraulicBoundaryData hydraulicBoundaryData)
         {
             var testCalculator = new TestWaveConditionsCosineCalculator();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count() * 2;
-
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                                    .CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            calculatorFactory
-                .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(testCalculator);
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(testCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

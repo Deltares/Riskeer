@@ -356,11 +356,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Calculation
             gui.MainWindow.Returns(mainWindow);
 
             int nrOfCalculators = failureMechanism.Calculations.Count();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             plugin.Gui = gui;

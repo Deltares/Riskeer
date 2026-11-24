@@ -122,13 +122,14 @@ namespace Riskeer.DuneErosion.Service.Test
             {
                 Converged = true
             };
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(calculator);
+            calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             var calculationMessageProvider = Substitute.For<ICalculationMessageProvider>();
             var duneLocation = new DuneLocation("test", new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0),

@@ -98,27 +98,19 @@ namespace Riskeer.Integration.Service.Test
             AddHeightStructuresCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddClosingStructuresCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddStabilityPointStructuresCalculation(assessmentSection, hydraulicBoundaryLocation);
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                .CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
-            calculatorFactory.When(c=> c
-                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()))
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreatePipingCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-
-            calculatorFactory.When(c=> c
-                .CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+            calculatorFactory.When(cf => cf.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-
-            calculatorFactory.When(c=> c
-                .CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-
-            calculatorFactory.When(c=> c
-                .CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             // Call
@@ -206,26 +198,18 @@ namespace Riskeer.Integration.Service.Test
             AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddGrassCoverErosionOutwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddDuneLocationCalculation(assessmentSection, hydraulicBoundaryLocation);
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            calculatorFactory
-                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(new TestDesignWaterLevelCalculator { DesignWaterLevel = 2.0 });
 
-            calculatorFactory.When(c=> c
-                .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-
-            calculatorFactory.When(c=> c
-                .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(new TestDesignWaterLevelCalculator { DesignWaterLevel = 2.0 });
+            calculatorFactory.When(cf => cf.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-
-            calculatorFactory.When(c=> c
-                .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+            calculatorFactory.When(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             // Call

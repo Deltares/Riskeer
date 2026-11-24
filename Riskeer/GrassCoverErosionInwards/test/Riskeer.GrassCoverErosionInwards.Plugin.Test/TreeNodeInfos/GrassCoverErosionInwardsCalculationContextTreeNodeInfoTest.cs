@@ -619,11 +619,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             gui.Get(calculationContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             gui.MainWindow.Returns(mainWindow);
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c
-                               .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
-                               .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
 
             plugin.Gui = gui;
 

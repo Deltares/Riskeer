@@ -305,13 +305,14 @@ namespace Riskeer.Common.Service.Test.Structures
             {
                 OutputDirectory = validHrdFilePath
             };
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-			calculatorFactory
-                .CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(calculator);
+			calculatorFactory.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = Substitute.For<IStructuresCalculationMessageProvider>();

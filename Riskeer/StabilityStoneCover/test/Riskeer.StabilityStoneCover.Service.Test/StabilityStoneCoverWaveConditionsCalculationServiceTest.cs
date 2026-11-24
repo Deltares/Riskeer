@@ -796,10 +796,10 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                                       .CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

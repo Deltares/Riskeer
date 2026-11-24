@@ -244,14 +244,14 @@ namespace Riskeer.DuneErosion.Service.Test
                                                                   HydraulicBoundaryData hydraulicBoundaryData)
         {
             var calculator = new TestDunesBoundaryConditionsCalculator();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(calculator);
+            calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             void Call()
             {

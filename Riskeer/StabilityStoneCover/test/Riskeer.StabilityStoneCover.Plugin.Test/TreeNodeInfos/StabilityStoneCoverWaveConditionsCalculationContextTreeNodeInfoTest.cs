@@ -966,10 +966,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
             gui.MainWindow.Returns(mainWindow);
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
+
             plugin.Gui = gui;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

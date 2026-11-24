@@ -828,10 +828,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             int nrOfCalculators = failureMechanism.Calculations
                                                   .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                   .Sum(c => c.InputParameters.GetWaterLevels(WaveConditionsInputHelper.GetAssessmentLevel(c.InputParameters, assessmentSection)).Count());
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

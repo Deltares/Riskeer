@@ -273,14 +273,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                               HydraulicBoundaryData hydraulicBoundaryData)
         {
             var testCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
 
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            calculatorFactory
-                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(testCalculator);
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(testCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -291,7 +291,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                           calculation.InputParameters.HydraulicBoundaryLocation), 
+                                                                           calculation.InputParameters.HydraulicBoundaryLocation),
                                                                            actualSettings);
         }
     }

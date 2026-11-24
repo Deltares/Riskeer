@@ -2230,29 +2230,21 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var actualSettingsList = new List<HydraRingCalculationSettings>();
 
-            calculatorFactory.When(c=> c
-                             .CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateOvertoppingCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            calculatorFactory
-                .CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(overtoppingCalculator);
-
-            calculatorFactory.When(c=> c
-                             .CreateDikeHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+            calculatorFactory.CreateOvertoppingCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingCalculator);
+            calculatorFactory.When(cf => cf.CreateDikeHeightCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            calculatorFactory
-                .CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(dikeHeightCalculator);
-
-            calculatorFactory.When(c=> c
-                             .CreateOvertoppingRateCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+            calculatorFactory.CreateDikeHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dikeHeightCalculator);
+            calculatorFactory.When(cf => cf.CreateOvertoppingRateCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            calculatorFactory
-                .CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(overtoppingRateCalculator);
+            calculatorFactory.CreateOvertoppingRateCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(overtoppingRateCalculator);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {

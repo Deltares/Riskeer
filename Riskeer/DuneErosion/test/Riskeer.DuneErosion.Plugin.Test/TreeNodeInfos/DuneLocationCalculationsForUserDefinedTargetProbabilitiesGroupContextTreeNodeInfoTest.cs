@@ -497,19 +497,18 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             gui.MainWindow.Returns(mainWindow);
             gui.Get(groupContext, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
             {
                 Converged = false
             };
 
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                                       .CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            calculatorFactory
-                .CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(dunesBoundaryConditionsCalculator);
+            calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(dunesBoundaryConditionsCalculator);
 
             using (var plugin = new DuneErosionPlugin())
             {

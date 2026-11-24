@@ -179,15 +179,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
             var calculator = new TestWaveConditionsCosineCalculator();
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             int nrOfCalculators = waterLevels.Length;
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                                       .CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            calculatorFactory
-                .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(calculator);
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -442,10 +441,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                 new WaveImpactAsphaltCoverFailureMechanism(),
                 assessmentSection);
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                                       .CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

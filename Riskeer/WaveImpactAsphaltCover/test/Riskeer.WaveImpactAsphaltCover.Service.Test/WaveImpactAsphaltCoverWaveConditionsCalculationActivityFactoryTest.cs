@@ -337,16 +337,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                                                                                           HydraulicBoundaryData hydraulicBoundaryData)
         {
             var testCalculator = new TestWaveConditionsCosineCalculator();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
-
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
-            calculatorFactory
-                .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(testCalculator);
+            calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(testCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

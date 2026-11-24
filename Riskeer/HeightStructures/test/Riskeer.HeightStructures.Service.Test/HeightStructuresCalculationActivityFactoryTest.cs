@@ -271,15 +271,13 @@ namespace Riskeer.HeightStructures.Service.Test
                                                                       HydraulicBoundaryData hydraulicBoundaryData)
         {
             var testCalculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> 
-                                       c.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
-                                           Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
-            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
-                                           Arg.Any<HydraRingCalculationSettings>())
-                             .Returns( testCalculator);
+            calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(testCalculator);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

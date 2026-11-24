@@ -147,13 +147,14 @@ namespace Riskeer.Common.Service.Test
 
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHlcdFilePath, validHrdFilePath,
                                                                                validHrdFileVersion, usePreprocessorClosure);
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            calculatorFactory
-                .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(calculator);
+            calculatorFactory.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(calculator);
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 

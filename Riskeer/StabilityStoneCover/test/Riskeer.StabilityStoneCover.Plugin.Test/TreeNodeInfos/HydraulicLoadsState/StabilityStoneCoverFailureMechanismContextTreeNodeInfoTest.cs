@@ -271,9 +271,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsSt
             gui.Get(nodeData, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
             gui.MainWindow.Returns(mainWindow);
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory.When(c=> c.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
 
             plugin.Gui = gui;
@@ -290,7 +291,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsSt
                 Assert.AreEqual(3, calculationB.Output.BlocksOutput.Count());
                 Assert.AreEqual(3, calculationB.Output.ColumnsOutput.Count());
                 calculatorFactory.Received(12).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
-            }					 
+            }
 
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {

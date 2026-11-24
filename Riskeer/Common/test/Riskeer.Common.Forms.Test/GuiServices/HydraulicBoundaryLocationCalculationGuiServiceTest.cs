@@ -135,10 +135,10 @@ namespace Riskeer.Common.Forms.Test.GuiServices
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(hydraulicLocationName);
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
-
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
 
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;
@@ -188,8 +188,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 });
             }
 
-            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(
-                Arg.Is<HydraRingCalculationSettings>(settings => settings != null));
+            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
                                                                            hydraulicBoundaryLocation), actualSettings);
@@ -258,9 +257,10 @@ namespace Riskeer.Common.Forms.Test.GuiServices
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(hydraulicLocationName);
 
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
 
             assessmentSection.HydraulicBoundaryData.HydraulicLocationConfigurationDatabase.FilePath = validHlcdFilePath;

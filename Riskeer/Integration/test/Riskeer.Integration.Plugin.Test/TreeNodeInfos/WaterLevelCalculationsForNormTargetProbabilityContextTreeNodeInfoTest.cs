@@ -454,13 +454,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            calculatorFactory
-                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(designWaterLevelCalculator);
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(designWaterLevelCalculator);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -546,13 +546,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             gui.Get(context, treeViewCommands).Returns(new CustomItemsOnlyContextMenuBuilder());
 
             var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
-            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             HydraRingCalculationSettings actualSettings = null;
-            calculatorFactory.When(c=> c.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
+
+            var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
+            calculatorFactory.When(cf => cf.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
-            calculatorFactory
-                .CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
-                .Returns(designWaterLevelCalculator);
+            calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
+                             .Returns(designWaterLevelCalculator);
 
             DialogBoxHandler = (name, wnd) =>
             {
