@@ -373,26 +373,27 @@ namespace Riskeer.Integration.IO.Test.Importers
                     FilePath = hlcdFilePath
                 }
             };
+
             var handler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
-
-            handler.When(h=>h.AddHydraulicBoundaryDatabase(Arg.Is<ReadHydraulicBoundaryDatabase>(db => db != null),
-                                                 Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
-                                                 Arg.Is<IEnumerable<long>>(e => e != null),
-                                                 Arg.Is<string>(f => f == filePath)))
+            handler.When(h => h.AddHydraulicBoundaryDatabase(Arg.Is<ReadHydraulicBoundaryDatabase>(db => db != null),
+                                                             Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
+                                                             Arg.Is<IEnumerable<long>>(eli => eli != null),
+                                                             Arg.Is<string>(fp => fp == filePath)))
                    .Do(callInfo =>
-                    {
-                        var readHydraulicBoundaryDatabase = callInfo.Arg<ReadHydraulicBoundaryDatabase>();
-                        var readHydraulicLocationConfigurationDatabase = callInfo.Arg<ReadHydraulicLocationConfigurationDatabase>();
-                        var excludedLocationIds = callInfo.Arg<IEnumerable<long>>();
+                   {
+                       var readHydraulicBoundaryDatabase = callInfo.Arg<ReadHydraulicBoundaryDatabase>();
+                       var readHydraulicLocationConfigurationDatabase = callInfo.Arg<ReadHydraulicLocationConfigurationDatabase>();
+                       var excludedLocationIds = callInfo.Arg<IEnumerable<long>>();
 
-                        AssertReadHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase);
+                       AssertReadHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase);
 
-                        Assert.AreEqual(43376, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Count());
-                        Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings);
-                        Assert.AreEqual(usePreprocessorClosure, readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId).UsePreprocessorClosure);
+                       Assert.AreEqual(43376, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocations.Count());
+                       Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationSettings);
+                       Assert.AreEqual(usePreprocessorClosure, readHydraulicLocationConfigurationDatabase.ReadTracks.First(rt => rt.TrackId == readHydraulicBoundaryDatabase.TrackId).UsePreprocessorClosure);
 
-                        Assert.AreEqual(1, excludedLocationIds.Count());
-                    });
+                       Assert.AreEqual(1, excludedLocationIds.Count());
+                   });
+
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, filePath);
 
             // Call
@@ -403,9 +404,9 @@ namespace Riskeer.Integration.IO.Test.Importers
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
             handler.Received(1).AddHydraulicBoundaryDatabase(Arg.Is<ReadHydraulicBoundaryDatabase>(db => db != null),
-                                                            Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
-                                                            Arg.Is<IEnumerable<long>>(e => e != null),
-                                                            Arg.Is<string>(f => f == filePath));
+                                                             Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
+                                                             Arg.Is<IEnumerable<long>>(eli => eli != null),
+                                                             Arg.Is<string>(fp => fp == filePath));
         }
 
         [Test]
@@ -500,12 +501,13 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
             handler.AddHydraulicBoundaryDatabase(Arg.Is<ReadHydraulicBoundaryDatabase>(db => db != null),
                                                  Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
-                                                 Arg.Is<IEnumerable<long>>(e => e != null),
-                                                 Arg.Is<string>(f => f != null))
+                                                 Arg.Is<IEnumerable<long>>(eli => eli != null),
+                                                 Arg.Is<string>(fp => fp != null))
                    .Returns([
                        observable1,
                        observable2
                    ]);
+
             hydraulicBoundaryData.Attach(hydraulicBoundaryDatabaseObserver);
 
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryData, handler, validHrdFilePath);

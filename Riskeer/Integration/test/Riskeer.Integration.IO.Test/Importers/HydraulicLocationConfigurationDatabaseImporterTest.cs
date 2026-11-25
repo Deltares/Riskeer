@@ -244,14 +244,13 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{hlcdFilePath}'.", 1);
             Assert.IsTrue(importResult);
-            var expectedDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
-            handler.Received(1).Update(
-                Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
-                Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
-                                                                         x.Count == 1 &&
-                                                                         x.ContainsKey(expectedDatabase) &&
-                                                                         x[expectedDatabase] == 13),
-                hlcdFilePath);
+
+            HydraulicBoundaryDatabase expectedDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
+            handler.Received(1).Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
+                                       Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(lookup => lookup.Count == 1 &&
+                                                                                                      lookup.ContainsKey(expectedDatabase) &&
+                                                                                                      lookup[expectedDatabase] == 13),
+                                       hlcdFilePath);
         }
 
         [Test]
@@ -264,7 +263,6 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             string filePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation.sqlite");
             var handler = Substitute.For<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
-            var expectedDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
             handler.InquireConfirmation().Returns(true);
             var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, handler,
                                                                               hydraulicBoundaryData, filePath);
@@ -276,13 +274,13 @@ namespace Riskeer.Integration.IO.Test.Importers
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
-            handler.Received(1).Update(
-                Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
-                Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(x =>
-                                                                         x.Count == 1 &&
-                                                                         x.ContainsKey(expectedDatabase) &&
-                                                                         x[expectedDatabase] == 13),
-                filePath);
+
+            HydraulicBoundaryDatabase expectedDatabase = hydraulicBoundaryData.HydraulicBoundaryDatabases.First();
+            handler.Received(1).Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
+                                       Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(lookup => lookup.Count == 1 &&
+                                                                                                      lookup.ContainsKey(expectedDatabase) &&
+                                                                                                      lookup[expectedDatabase] == 13),
+                                       filePath);
         }
 
         [Test]
@@ -326,11 +324,13 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.InquireConfirmation().Returns(true);
             handler.Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
                            Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(db => db != null),
-                           Arg.Is<string>(f => f != null)).Returns(new[]
-            {
-                observable1,
-                observable2
-            });
+                           Arg.Is<string>(fp => fp != null))
+                   .Returns(new[]
+                   {
+                       observable1,
+                       observable2
+                   });
+
             var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryData.HydraulicLocationConfigurationDatabase, handler,
                                                                               hydraulicBoundaryData, validHlcdFilePath);
 

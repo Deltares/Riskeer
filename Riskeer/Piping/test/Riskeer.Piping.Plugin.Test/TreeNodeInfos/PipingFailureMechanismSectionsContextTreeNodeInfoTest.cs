@@ -154,7 +154,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             gui.Get(context, treeViewCommands).Returns(menuBuilder);
             menuBuilder.AddOpenItem().Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
-            menuBuilder.When(m=>m.AddImportItem(Arg.Any<ImportInfo[]>()))
+            menuBuilder.When(mb => mb.AddImportItem(Arg.Any<ImportInfo[]>()))
                        .Do(callInfo => { importInfos = callInfo.Arg<ImportInfo[]>(); });
             menuBuilder.AddImportItem(Arg.Any<ImportInfo[]>()).Returns(menuBuilder);
             menuBuilder.AddUpdateItem().Returns(menuBuilder);
