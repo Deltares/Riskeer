@@ -1459,7 +1459,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var hydraulicBoundaryDataUpdateHandler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
 
             hydraulicBoundaryDataUpdateHandler.When(h => h.AddHydraulicBoundaryDatabase(hydraulicBoundaryDatabase3))
-                                              .Do(_ => {
+                                              .Do(_ =>
+                                              {
                                                   targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(hydraulicBoundaryDatabase3);
                                                   targetAssessmentSection.DuneErosion.SetDuneLocations(hydraulicBoundaryDatabase3.Locations
                                                       .Select(l => new DuneLocation(string.Empty, l, new DuneLocation.ConstructionProperties())).ToArray());

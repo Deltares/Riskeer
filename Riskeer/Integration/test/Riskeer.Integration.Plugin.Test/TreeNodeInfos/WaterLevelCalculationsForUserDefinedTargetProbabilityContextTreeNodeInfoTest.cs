@@ -546,8 +546,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(f => f.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
                              .Do(callInfo => HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation),
-                                     callInfo.Arg<HydraRingCalculationSettings>()));
+                                                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData, hydraulicBoundaryLocation),
+                                                 callInfo.Arg<HydraRingCalculationSettings>()));
             calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(designWaterLevelCalculator);
             DialogBoxHandler = (name, wnd) =>

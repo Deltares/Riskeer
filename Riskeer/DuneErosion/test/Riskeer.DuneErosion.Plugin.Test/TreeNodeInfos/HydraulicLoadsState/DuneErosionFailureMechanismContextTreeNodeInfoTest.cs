@@ -249,9 +249,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
             };
 
             var actualSettingsList = new List<HydraRingCalculationSettings>();
-            calculatorFactory
-                .When(c => c.CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
-                .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
+            calculatorFactory.When(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
             calculatorFactory.CreateDunesBoundaryConditionsCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(dunesBoundaryConditionsCalculator);
 

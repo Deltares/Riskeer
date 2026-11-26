@@ -578,14 +578,14 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var updateStrategy = Substitute.For<IFailureMechanismSectionUpdateStrategy>();
-            updateStrategy
-                .When(u => u.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
-                .Do(callInfo => {
-                    var sections = (IEnumerable<FailureMechanismSection>) callInfo.Args()[0];
-                    Assert.AreEqual(62, sections.Count());
-                    AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
-                    Assert.AreEqual(sectionsFilePath, callInfo.Args()[1]);
-                });
+            updateStrategy.When(u => u.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
+                          .Do(callInfo =>
+                          {
+                              var sections = (IEnumerable<FailureMechanismSection>) callInfo.Args()[0];
+                              Assert.AreEqual(62, sections.Count());
+                              AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
+                              Assert.AreEqual(sectionsFilePath, callInfo.Args()[1]);
+                          });
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
