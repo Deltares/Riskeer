@@ -521,8 +521,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
                         Assert.AreSame(filePath, callInfo.Arg<string>());
                         Assert.AreEqual(5, callInfo.Arg<IEnumerable<ForeshoreProfile>>().Count());
                     });
-            strategy.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>())
-                    .Returns([]);
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath,
