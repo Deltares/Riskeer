@@ -109,11 +109,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
             updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
-                          .Do(i =>
+                          .Do(callInfo =>
                           {
-                              Assert.AreEqual(filePath, i[1]);
+                              Assert.AreEqual(filePath, callInfo[1]);
 
-                              var structures = (IEnumerable<StabilityPointStructure>) i[0];
+                              var structures = (IEnumerable<StabilityPointStructure>) callInfo[0];
 
                               Assert.AreEqual(1, structures.Count());
                               StabilityPointStructure structure = structures.First();
@@ -222,10 +222,10 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
             updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
-                          .Do(i =>
+                          .Do(callInfo =>
                           {
-                              Assert.AreEqual(filePath, i[1]);
-                              Assert.AreEqual(4, ((IEnumerable<StabilityPointStructure>) i[0]).Count());
+                              Assert.AreEqual(filePath, callInfo[1]);
+                              Assert.AreEqual(4, ((IEnumerable<StabilityPointStructure>) callInfo[0]).Count());
                           });
 
             var referencePoints = new List<Point2D>
@@ -266,11 +266,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
             updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
-                          .Do(i =>
+                          .Do(callInfo =>
                           {
-                              Assert.AreEqual(filePath, i[1]);
+                              Assert.AreEqual(filePath, callInfo[1]);
 
-                              var readStructures = (IEnumerable<StabilityPointStructure>) i[0];
+                              var readStructures = (IEnumerable<StabilityPointStructure>) callInfo[0];
 
                               Assert.AreEqual(1, readStructures.Count());
                               StabilityPointStructure importedStructure = readStructures.First();
@@ -329,11 +329,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
             updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
-                          .Do(i =>
+                          .Do(callInfo =>
                           {
-                              Assert.AreEqual(filePath, i[1]);
+                              Assert.AreEqual(filePath, callInfo[1]);
 
-                              var readStructures = (IEnumerable<StabilityPointStructure>) i[0];
+                              var readStructures = (IEnumerable<StabilityPointStructure>) callInfo[0];
 
                               Assert.AreEqual(1, readStructures.Count());
                               StabilityPointStructure importedStructure = readStructures.First();
@@ -391,10 +391,10 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
             strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
-                    .Do(invocation =>
+                    .Do(callInfo =>
                     {
-                        Assert.AreEqual(filePath, invocation[1]);
-                        var readStructures = (IEnumerable<StabilityPointStructure>) invocation[0];
+                        Assert.AreEqual(filePath, callInfo[1]);
+                        var readStructures = (IEnumerable<StabilityPointStructure>) callInfo[0];
                         Assert.AreEqual(1, readStructures.Count());
                     });
 

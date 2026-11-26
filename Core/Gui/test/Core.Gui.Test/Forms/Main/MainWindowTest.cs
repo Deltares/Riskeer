@@ -253,21 +253,21 @@ namespace Core.Gui.Test.Forms.Main
             EventHandler<EventArgs> changed = null;
 
             viewHost.When(vh => vh.ViewOpened += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => opened = ci.Arg<EventHandler<ViewChangeEventArgs>>());
+                    .Do(callInfo => opened = callInfo.Arg<EventHandler<ViewChangeEventArgs>>());
             viewHost.When(vh => vh.ViewBroughtToFront += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => front = ci.Arg<EventHandler<ViewChangeEventArgs>>());
+                    .Do(callInfo => front = callInfo.Arg<EventHandler<ViewChangeEventArgs>>());
             viewHost.When(vh => vh.ViewClosed += Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => closed = ci.Arg<EventHandler<ViewChangeEventArgs>>());
+                    .Do(callInfo => closed = callInfo.Arg<EventHandler<ViewChangeEventArgs>>());
             viewHost.When(vh => vh.ActiveDocumentViewChanged += Arg.Any<EventHandler<EventArgs>>())
-                    .Do(ci => changed = ci.Arg<EventHandler<EventArgs>>());
+                    .Do(callInfo => changed = callInfo.Arg<EventHandler<EventArgs>>());
             viewHost.When(vh => vh.ViewOpened -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => opened = null);
+                    .Do(callInfo => opened = null);
             viewHost.When(vh => vh.ViewBroughtToFront -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => front = null);
+                    .Do(callInfo => front = null);
             viewHost.When(vh => vh.ViewClosed -= Arg.Any<EventHandler<ViewChangeEventArgs>>())
-                    .Do(ci => closed = null);
+                    .Do(callInfo => closed = null);
             viewHost.When(vh => vh.ActiveDocumentViewChanged -= Arg.Any<EventHandler<EventArgs>>())
-                    .Do(ci => changed = null);
+                    .Do(callInfo => changed = null);
 
             var gui = Substitute.For<IGui>();
             gui.ViewHost.Returns(viewHost);

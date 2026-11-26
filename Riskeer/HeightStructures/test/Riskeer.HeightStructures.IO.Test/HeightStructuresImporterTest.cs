@@ -121,11 +121,11 @@ namespace Riskeer.HeightStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
             strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()))
-                    .Do(invocation =>
+                    .Do(callInfo =>
                     {
-                        Assert.AreEqual(filePath, invocation[1]);
+                        Assert.AreEqual(filePath, callInfo[1]);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                        var readStructures = (IEnumerable<HeightStructure>) callInfo[0];
                         Assert.AreEqual(1, readStructures.Count());
                         HeightStructure structure = readStructures.First();
                         Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
@@ -205,11 +205,11 @@ namespace Riskeer.HeightStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
             strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()))
-                    .Do(invocation =>
+                    .Do(callInfo =>
                     {
-                        Assert.AreEqual(filePath, invocation[1]);
+                        Assert.AreEqual(filePath, callInfo[1]);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                        var readStructures = (IEnumerable<HeightStructure>) callInfo[0];
                         Assert.AreEqual(1, readStructures.Count());
                         HeightStructure structure = readStructures.First();
                         var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
@@ -261,11 +261,11 @@ namespace Riskeer.HeightStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
             strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()))
-                    .Do(invocation =>
+                    .Do(callInfo =>
                     {
-                        Assert.AreEqual(filePath, invocation[1]);
+                        Assert.AreEqual(filePath, callInfo[1]);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                        var readStructures = (IEnumerable<HeightStructure>) callInfo[0];
                         Assert.AreEqual(1, readStructures.Count());
                         HeightStructure structure = readStructures.First();
                         var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
@@ -317,11 +317,11 @@ namespace Riskeer.HeightStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
             strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()))
-                    .Do(invocation =>
+                    .Do(callInfo =>
                     {
-                        Assert.AreEqual(filePath, invocation[1]);
+                        Assert.AreEqual(filePath, callInfo[1]);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                        var readStructures = (IEnumerable<HeightStructure>) callInfo[0];
                         Assert.AreEqual(4, readStructures.Count());
                     });
 
@@ -359,11 +359,11 @@ namespace Riskeer.HeightStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
             strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()))
-                    .Do(invocation =>
+                    .Do(callInfo =>
                     {
-                        Assert.AreEqual(filePath, invocation[1]);
+                        Assert.AreEqual(filePath, callInfo[1]);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                        var readStructures = (IEnumerable<HeightStructure>) callInfo[0];
                         Assert.AreEqual(1, readStructures.Count());
                     });
 

@@ -242,10 +242,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             double actualNormValue = double.NaN;
             IEnumerable<HydraulicBoundaryLocationCalculation> performedCalculations = null;
             guiService.When(service => service.CalculateWaveHeights(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>()))
-                      .Do(invocation =>
+                      .Do(callInfo =>
                       {
-                          performedCalculations = invocation.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>();
-                          actualNormValue = invocation.Arg<double>();
+                          performedCalculations = callInfo.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>();
+                          actualNormValue = callInfo.Arg<double>();
                       });
 
             using (var plugin = new RiskeerPlugin())

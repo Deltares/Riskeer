@@ -1480,8 +1480,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
-                             .Do(invocation => HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                                   calculationSettings, (HydraRingCalculationSettings) invocation[0]));
+                             .Do(callInfo => HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                                 calculationSettings, (HydraRingCalculationSettings) callInfo[0]));
             calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(calculator);
 

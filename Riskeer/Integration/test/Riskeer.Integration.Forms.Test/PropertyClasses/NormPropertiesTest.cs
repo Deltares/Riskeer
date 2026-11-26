@@ -147,9 +147,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
             failureMechanismContributionNormChangeHandler.When(h => h.ChangeNormativeProbability(Arg.Any<Action>()))
-                                                         .Do(invocation =>
+                                                         .Do(callInfo =>
                                                          {
-                                                             var actionToPerform = invocation.Arg<Action>();
+                                                             var actionToPerform = callInfo.Arg<Action>();
                                                              actionToPerform();
                                                          });
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
@@ -171,9 +171,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             failureMechanismContribution.NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability;
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
             failureMechanismContributionNormChangeHandler.When(h => h.ChangeProbability(Arg.Any<Action>()))
-                                                         .Do(invocation =>
+                                                         .Do(callInfo =>
                                                          {
-                                                             var actionToPerform = invocation.Arg<Action>();
+                                                             var actionToPerform = callInfo.Arg<Action>();
                                                              actionToPerform();
                                                          });
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
@@ -194,9 +194,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             failureMechanismContribution.NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability;
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
             failureMechanismContributionNormChangeHandler.When(h => h.ChangeNormativeProbability(Arg.Any<Action>()))
-                                                         .Do(invocation =>
+                                                         .Do(callInfo =>
                                                          {
-                                                             var actionToPerform = invocation.Arg<Action>();
+                                                             var actionToPerform = callInfo.Arg<Action>();
                                                              actionToPerform();
                                                          });
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
@@ -217,9 +217,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
             failureMechanismContributionNormChangeHandler.When(h => h.ChangeProbability(Arg.Any<Action>()))
-                                                         .Do(invocation =>
+                                                         .Do(callInfo =>
                                                          {
-                                                             var actionToPerform = invocation.Arg<Action>();
+                                                             var actionToPerform = callInfo.Arg<Action>();
                                                              actionToPerform();
                                                          });
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
@@ -240,9 +240,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             var failureMechanismContributionNormChangeHandler = Substitute.For<IFailureMechanismContributionNormChangeHandler>();
             failureMechanismContributionNormChangeHandler.When(h => h.ChangeNormativeProbabilityType(Arg.Any<Action>()))
-                                                         .Do(invocation =>
+                                                         .Do(callInfo =>
                                                          {
-                                                             var actionToPerform = invocation.Arg<Action>();
+                                                             var actionToPerform = callInfo.Arg<Action>();
                                                              actionToPerform();
                                                          });
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);

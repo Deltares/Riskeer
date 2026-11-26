@@ -295,7 +295,11 @@ namespace Core.Components.BruTile.IO.Test
                 var callCount = 0;
                 var tileSource = Substitute.For<IHttpTileSource>();
                 tileSource.When(t => t.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>()))
-                          .Do(_ => { callCount++; allRequestsDoneEvent.WaitOne(); });
+                          .Do(_ =>
+                          {
+                              callCount++;
+                              allRequestsDoneEvent.WaitOne();
+                          });
                 tileSource.GetTileAsync(Arg.Any<HttpClient>(), info, Arg.Any<CancellationToken>()).Returns(Task.FromResult(data));
 
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))

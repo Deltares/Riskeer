@@ -765,9 +765,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             contextMenuBuilder.When(cmb => cmb.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
-                              .Do(callinfo =>
+                              .Do(callInfo =>
                               {
-                                  var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
+                                  var contextMenuItem = callInfo.Arg<StrictContextMenuItem>();
                                   Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
@@ -797,9 +797,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             contextMenuBuilder.When(cmb => cmb.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
-                              .Do(callinfo =>
+                              .Do(callInfo =>
                               {
-                                  var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
+                                  var contextMenuItem = callInfo.Arg<StrictContextMenuItem>();
                                   Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
@@ -829,9 +829,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             contextMenuBuilder.When(cmb => cmb.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
-                              .Do(callinfo =>
+                              .Do(callInfo =>
                               {
-                                  var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
+                                  var contextMenuItem = callInfo.Arg<StrictContextMenuItem>();
                                   Assert.AreEqual("Wis alle &illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
@@ -861,9 +861,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var changeHandler = Substitute.For<IClearIllustrationPointsOfCalculationChangeHandler>();
             var contextMenuBuilder = Substitute.For<IContextMenuBuilder>();
             contextMenuBuilder.When(cmb => cmb.AddCustomItem(Arg.Is<StrictContextMenuItem>(item => item != null)))
-                              .Do(callinfo =>
+                              .Do(callInfo =>
                               {
-                                  var contextMenuItem = callinfo.Arg<StrictContextMenuItem>();
+                                  var contextMenuItem = callInfo.Arg<StrictContextMenuItem>();
                                   Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);

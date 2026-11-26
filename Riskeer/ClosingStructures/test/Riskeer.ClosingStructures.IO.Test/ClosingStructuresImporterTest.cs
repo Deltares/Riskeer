@@ -122,11 +122,11 @@ namespace Riskeer.ClosingStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
             updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()))
-                          .Do(i =>
+                          .Do(callInfo =>
                           {
-                              Assert.AreEqual(filePath, i[1]);
+                              Assert.AreEqual(filePath, callInfo[1]);
 
-                              var closingStructures = (IEnumerable<ClosingStructure>) i[0];
+                              var closingStructures = (IEnumerable<ClosingStructure>) callInfo[0];
                               Assert.AreEqual(1, closingStructures.Count());
 
                               ClosingStructure structure = closingStructures.First();
@@ -213,10 +213,10 @@ namespace Riskeer.ClosingStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
             updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()))
-                          .Do(i =>
+                          .Do(callInfo =>
                           {
-                              Assert.AreEqual(filePath, i[1]);
-                              Assert.AreEqual(4, ((IEnumerable<ClosingStructure>) i[0]).Count());
+                              Assert.AreEqual(filePath, callInfo[1]);
+                              Assert.AreEqual(4, ((IEnumerable<ClosingStructure>) callInfo[0]).Count());
                           });
 
             var referencePoints = new List<Point2D>
@@ -252,9 +252,9 @@ namespace Riskeer.ClosingStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
             updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()))
-                          .Do(i =>
+                          .Do(callInfo =>
                           {
-                              Assert.AreEqual(filePath, i[1]);
+                              Assert.AreEqual(filePath, callInfo[1]);
 
                               var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
                               {
@@ -263,7 +263,7 @@ namespace Riskeer.ClosingStructures.IO.Test
                                   Id = "id"
                               });
 
-                              var readStructures = (IEnumerable<ClosingStructure>) i[0];
+                              var readStructures = (IEnumerable<ClosingStructure>) callInfo[0];
                               Assert.AreEqual(1, readStructures.Count());
                               ClosingStructure importedStructure = readStructures.First();
                               DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
@@ -310,9 +310,9 @@ namespace Riskeer.ClosingStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
             updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()))
-                          .Do(i =>
+                          .Do(callInfo =>
                           {
-                              Assert.AreEqual(filePath, i[1]);
+                              Assert.AreEqual(filePath, callInfo[1]);
 
                               var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
                               {
@@ -321,7 +321,7 @@ namespace Riskeer.ClosingStructures.IO.Test
                                   Id = "id"
                               });
 
-                              var readStructures = (IEnumerable<ClosingStructure>) i[0];
+                              var readStructures = (IEnumerable<ClosingStructure>) callInfo[0];
                               Assert.AreEqual(1, readStructures.Count());
                               ClosingStructure importedStructure = readStructures.First();
                               DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
@@ -368,11 +368,11 @@ namespace Riskeer.ClosingStructures.IO.Test
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
             strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()))
-                    .Do(invocation =>
+                    .Do(callInfo =>
                     {
-                        Assert.AreEqual(filePath, invocation[1]);
+                        Assert.AreEqual(filePath, callInfo[1]);
 
-                        var readStructures = (IEnumerable<ClosingStructure>) invocation[0];
+                        var readStructures = (IEnumerable<ClosingStructure>) callInfo[0];
                         Assert.AreEqual(1, readStructures.Count());
                     });
 
