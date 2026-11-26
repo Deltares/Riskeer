@@ -493,7 +493,6 @@ namespace Core.Gui.Test.Forms.Map
             builder.AddImportItem(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Image>()).Returns(builder);
             builder.AddSeparator().Returns(builder);
             builder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(builder);
-            builder.AddSeparator().Returns(builder);
             builder.AddPropertiesItem().Returns(builder);
 
             contextMenuBuilderProvider.Get(context, null).Returns(builder);

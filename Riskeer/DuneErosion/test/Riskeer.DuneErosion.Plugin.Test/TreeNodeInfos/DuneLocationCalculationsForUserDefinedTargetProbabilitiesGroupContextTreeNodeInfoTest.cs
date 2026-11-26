@@ -181,7 +181,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
             menuBuilder.AddSeparator().Returns(menuBuilder);
             menuBuilder.AddExportItem().Returns(menuBuilder);
-            menuBuilder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(menuBuilder);
             menuBuilder.AddDeleteChildrenItem().Returns(menuBuilder);
             menuBuilder.AddCollapseAllItem().Returns(menuBuilder);
             menuBuilder.AddExpandAllItem().Returns(menuBuilder);

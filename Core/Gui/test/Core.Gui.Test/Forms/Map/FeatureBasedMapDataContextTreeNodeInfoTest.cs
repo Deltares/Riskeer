@@ -319,7 +319,6 @@ namespace Core.Gui.Test.Forms.Map
             builder.AddCustomItem(Arg.Any<StrictContextMenuItem>()).Returns(builder);
             builder.AddSeparator().Returns(builder);
             builder.AddDeleteItem().Returns(builder);
-            builder.AddSeparator().Returns(builder);
             builder.AddPropertiesItem().Returns(builder);
 
             contextMenuBuilderProvider.Get(context, null).Returns(builder);
