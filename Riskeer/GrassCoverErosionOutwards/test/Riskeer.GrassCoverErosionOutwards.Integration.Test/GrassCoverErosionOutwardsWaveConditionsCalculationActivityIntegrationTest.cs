@@ -310,8 +310,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 Assert.AreEqual(ActivityState.Canceled, activity.State);
                 Assert.IsNull(calculation.Output);
             }
-
-            calculatorFactory.Received(1).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]

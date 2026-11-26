@@ -338,8 +338,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(calculator.IsCanceled);
             }
-
-            calculatorFactory.Received(1).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]

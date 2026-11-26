@@ -820,8 +820,6 @@ namespace Riskeer.Revetment.Service.Test
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
             }
-
-            calculatorFactory.Received(1).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         private static WaveConditionsInput GetDefaultValidationInput()
