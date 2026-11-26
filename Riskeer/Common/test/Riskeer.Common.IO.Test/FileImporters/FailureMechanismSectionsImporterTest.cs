@@ -560,8 +560,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 2);
-            updateStrategy.Received(1).UpdateSectionsWithImportedData(Arg.Is<IEnumerable<FailureMechanismSection>>(f => f.Any()),
-                                                          Arg.Any<string>());
+            updateStrategy.Received(1).UpdateSectionsWithImportedData(Arg.Is<IEnumerable<FailureMechanismSection>>(fms => fms.Any()),
+                                                                      Arg.Any<string>());
             Assert.IsTrue(importSuccessful);
         }
 

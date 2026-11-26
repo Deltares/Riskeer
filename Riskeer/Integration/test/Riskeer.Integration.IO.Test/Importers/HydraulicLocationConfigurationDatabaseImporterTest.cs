@@ -323,7 +323,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = Substitute.For<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.InquireConfirmation().Returns(true);
             handler.Update(Arg.Is<ReadHydraulicLocationConfigurationDatabase>(db => db != null),
-                           Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(db => db != null),
+                           Arg.Is<IDictionary<HydraulicBoundaryDatabase, long>>(lookup => lookup != null),
                            Arg.Is<string>(fp => fp != null))
                    .Returns(new[]
                    {
