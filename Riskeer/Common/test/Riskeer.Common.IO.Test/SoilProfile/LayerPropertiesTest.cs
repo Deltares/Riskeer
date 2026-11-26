@@ -219,8 +219,8 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
             var invalidCastException = new InvalidCastException();
             var reader = Substitute.For<IRowBasedDatabaseReader>();
-            reader.ReadOrDefault<double>(columnName).Throws(invalidCastException);
-            reader.ReadOrDefault<long>(columnName).Throws(invalidCastException);
+            reader.ReadOrDefault<double?>(columnName).Throws(invalidCastException);
+            reader.ReadOrDefault<long?>(columnName).Throws(invalidCastException);
             reader.ReadOrDefault<string>(columnName).Throws(invalidCastException);
 
             reader.Path.Returns(path);
