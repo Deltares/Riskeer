@@ -400,11 +400,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Converged = false
             };
 
-            HydraRingCalculationSettings actualSettings = null;
+            var actualSettingsList = new List<HydraRingCalculationSettings>();
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(callInfo => actualSettings = callInfo.Arg<HydraRingCalculationSettings>());
+                             .Do(callInfo => actualSettingsList.Add(callInfo.Arg<HydraRingCalculationSettings>()));
             calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(designWaterLevelCalculator);
 
@@ -446,9 +446,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             calculatorFactory.Received(2).CreateDesignWaterLevelCalculator(Arg.Any<HydraRingCalculationSettings>());
-            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
-                                                                           hydraulicBoundaryLocation), actualSettings);
+
+            foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
+            {
+                HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                    HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
+                                                                               hydraulicBoundaryLocation), actualSettings);
+            }
         }
 
         [Test]
