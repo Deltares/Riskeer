@@ -159,7 +159,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var updateStrategy = Substitute.For<IFailureMechanismSectionUpdateStrategy>();
-            updateStrategy.When(u => u.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
+            updateStrategy.When(us => us.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
                           .Do(callInfo =>
                           {
                               var sections = (IEnumerable<FailureMechanismSection>) callInfo.Args()[0];
@@ -578,7 +578,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
             var failureMechanism = Substitute.For<IFailureMechanism>();
             var updateStrategy = Substitute.For<IFailureMechanismSectionUpdateStrategy>();
-            updateStrategy.When(u => u.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
+            updateStrategy.When(us => us.UpdateSectionsWithImportedData(Arg.Any<IEnumerable<FailureMechanismSection>>(), Arg.Any<string>()))
                           .Do(callInfo =>
                           {
                               var sections = (IEnumerable<FailureMechanismSection>) callInfo.Args()[0];
