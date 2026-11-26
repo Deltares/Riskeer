@@ -481,7 +481,7 @@ namespace Core.Components.BruTile.IO.Test
                 var tileInfo = new TileInfo();
                 var tileSource = Substitute.For<IHttpTileSource>();
                 tileSource.When(t => t.GetTileAsync(Arg.Any<HttpClient>(), tileInfo, Arg.Any<CancellationToken>()))
-                          .Do(_ => { isReadyCalledEvent.WaitOne(100); });
+                          .Do(_ => isReadyCalledEvent.WaitOne(100));
                 tileSource.GetTileAsync(Arg.Any<HttpClient>(), tileInfo, Arg.Any<CancellationToken>()).Returns(Task.FromResult<byte[]>(null));
 
                 using (var fetcher = new AsyncTileFetcher(tileSource, 100, 200))

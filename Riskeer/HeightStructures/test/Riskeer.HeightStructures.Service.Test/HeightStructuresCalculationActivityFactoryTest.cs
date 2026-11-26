@@ -275,7 +275,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
+                             .Do(callInfo => actualSettings = (HydraRingCalculationSettings) callInfo[0]);
             calculatorFactory.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(testCalculator);
 

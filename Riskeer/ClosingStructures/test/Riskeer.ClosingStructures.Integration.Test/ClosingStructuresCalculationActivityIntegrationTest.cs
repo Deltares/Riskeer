@@ -301,7 +301,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
+                             .Do(callInfo => actualSettings = (HydraRingCalculationSettings) callInfo[0]);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculationScenario

@@ -116,10 +116,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               title,
                               symbol,
                               fontFamily))
-                    .Do(callInfo =>
-                    {
-                        view = callInfo.Arg<TestView>();
-                    });
+                    .Do(callInfo => view = callInfo.Arg<TestView>());
             var data = new object();
             const string viewData = "<I'm a piece of view data>";
             var afterCreateCalled = false;
@@ -176,10 +173,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             viewHost.When(vh => vh.AddDocumentView(Arg.Any<TestView>(),
                                                    viewName, Arg.Any<string>(), Arg.Any<FontFamily>()))
-                    .Do(invocation =>
-                    {
-                        view = invocation.Arg<TestView>();
-                    });
+                    .Do(invocation => view = invocation.Arg<TestView>());
             var data = new InheritedFromA();
             var afterCreateCalled = false;
 
@@ -229,10 +223,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(invocation =>
-                    {
-                        view = invocation.Arg<TestViewDerivative>();
-                    });
+                    .Do(invocation => view = invocation.Arg<TestViewDerivative>());
             var data = new InheritedFromA();
 
             var viewInfos = new ViewInfo[]
@@ -266,10 +257,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(invocation =>
-                    {
-                        view = invocation.Arg<TestView>();
-                    });
+                    .Do(invocation => view = invocation.Arg<TestView>());
             var data = new A();
 
             var viewInfos = new ViewInfo[]
@@ -303,10 +291,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(invocation =>
-                    {
-                        view = invocation.Arg<TestViewDerivative>();
-                    });
+                    .Do(invocation => view = invocation.Arg<TestViewDerivative>());
             var data = new object();
 
             var viewInfos = new ViewInfo[]
@@ -377,10 +362,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(invocation =>
-                    {
-                        view = invocation.Arg<TestView>();
-                    });
+                    .Do(invocation => view = invocation.Arg<TestView>());
             var data = new object();
 
             var viewInfos = new ViewInfo[]
@@ -421,10 +403,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(invocation =>
-                    {
-                        view = invocation.Arg<TestView>();
-                    });
+                    .Do(invocation => view = invocation.Arg<TestView>());
             var data = new object();
 
             var viewInfos = new ViewInfo[]
@@ -472,10 +451,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(invocation =>
-                    {
-                        view = invocation.Arg<TestView>();
-                    });
+                    .Do(invocation => view = invocation.Arg<TestView>());
             var data = new object();
 
             var viewInfos = new ViewInfo[]
@@ -524,10 +500,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(invocation =>
-                    {
-                        view = invocation.Arg<TestViewDerivative>();
-                    });
+                    .Do(invocation => view = invocation.Arg<TestViewDerivative>());
             var data = new object();
 
             var viewInfos = new ViewInfo[]
@@ -599,10 +572,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(callInfo =>
-                    {
-                        viewList.Add(callInfo.Arg<TestView>());
-                    });
+                    .Do(callInfo => viewList.Add(callInfo.Arg<TestView>()));
 
             var viewInfos = new ViewInfo[]
             {
@@ -754,16 +724,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(callInfo =>
-                    {
-                        documentViews.Add(callInfo.Arg<TestView>());
-                    });
+                    .Do(callInfo => documentViews.Add(callInfo.Arg<TestView>()));
 
             viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
-                    .Do(invocation =>
-                    {
-                        documentViews.Remove(invocation.Arg<TestView>());
-                    });
+                    .Do(invocation => documentViews.Remove(invocation.Arg<TestView>()));
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<A, TestView>(),
@@ -840,15 +804,9 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(callInfo =>
-                    {
-                        documentViews.Add(callInfo.Arg<TestView>());
-                    });
+                    .Do(callInfo => documentViews.Add(callInfo.Arg<TestView>()));
             viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
-                    .Do(invocation =>
-                    {
-                        documentViews.Remove(invocation.Arg<TestView>());
-                    });
+                    .Do(invocation => documentViews.Remove(invocation.Arg<TestView>()));
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<A, TestView>(),
@@ -885,16 +843,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(callInfo =>
-                    {
-                        documentViews.Add(callInfo.Arg<TestView>());
-                    });
+                    .Do(callInfo => documentViews.Add(callInfo.Arg<TestView>()));
 
             viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
-                    .Do(invocation =>
-                    {
-                        documentViews.Remove(invocation.Arg<TestView>());
-                    });
+                    .Do(invocation => documentViews.Remove(invocation.Arg<TestView>()));
 
             var viewInfos = new ViewInfo[]
             {
@@ -933,16 +885,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(callInfo =>
-                    {
-                        documentViews.Add(callInfo.Arg<TestView>());
-                    });
+                    .Do(callInfo => documentViews.Add(callInfo.Arg<TestView>()));
 
             viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
-                    .Do(invocation =>
-                    {
-                        documentViews.Remove(invocation.Arg<TestView>());
-                    });
+                    .Do(invocation => documentViews.Remove(invocation.Arg<TestView>()));
             var viewInfos = new ViewInfo[]
             {
                 new ViewInfo<A, TestView>
@@ -1000,16 +946,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                               Arg.Any<string>(),
                               Arg.Any<string>(),
                               Arg.Any<FontFamily>()))
-                    .Do(callInfo =>
-                    {
-                        documentViews.Add(callInfo.Arg<TestView>());
-                    });
+                    .Do(callInfo => documentViews.Add(callInfo.Arg<TestView>()));
 
             viewHost.When(vh => vh.Remove(Arg.Any<TestView>()))
-                    .Do(invocation =>
-                    {
-                        documentViews.Remove(invocation.Arg<TestView>());
-                    });
+                    .Do(invocation => documentViews.Remove(invocation.Arg<TestView>()));
 
             var viewClosed = false;
             var viewInfos = new ViewInfo[]

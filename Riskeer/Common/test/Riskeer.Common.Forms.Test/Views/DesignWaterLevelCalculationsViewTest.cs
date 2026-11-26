@@ -267,10 +267,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             guiService.When(service => service.CalculateDesignWaterLevels(Arg.Any<IEnumerable<HydraulicBoundaryLocationCalculation>>(), Arg.Any<IAssessmentSection>(), Arg.Any<double>(), Arg.Any<string>()))
-                      .Do(callInfo =>
-                      {
-                          performedCalculations = callInfo.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>().ToArray();
-                      });
+                      .Do(callInfo => performedCalculations = callInfo.Arg<IEnumerable<HydraulicBoundaryLocationCalculation>>().ToArray());
 
             view.CalculationGuiService = guiService;
             ButtonTester buttonTester = GetCalculateForSelectedButton();

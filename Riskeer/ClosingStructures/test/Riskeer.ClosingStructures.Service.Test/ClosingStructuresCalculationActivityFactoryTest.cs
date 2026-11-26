@@ -271,14 +271,11 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         hydraulicBoundaryData,
-                                         calculation.InputParameters.HydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation[0]);
-                             });
+                             .Do(invocation => HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                                   HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                                       hydraulicBoundaryData,
+                                                       calculation.InputParameters.HydraulicBoundaryLocation),
+                                                   (HydraRingCalculationSettings) invocation[0]));
             calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(testCalculator);
 

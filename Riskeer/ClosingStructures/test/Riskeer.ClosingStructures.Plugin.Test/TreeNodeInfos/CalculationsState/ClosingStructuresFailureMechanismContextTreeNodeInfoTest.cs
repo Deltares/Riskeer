@@ -351,13 +351,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
             int nrOfCalculators = failureMechanism.Calculations.Count();
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                                hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation[0]);
-                             });
+                             .Do(invocation => HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                                   HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                              hydraulicBoundaryLocation),
+                                                   (HydraRingCalculationSettings) invocation[0]));
             calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(new TestStructuresCalculator<StructuresClosureCalculationInput>());
 

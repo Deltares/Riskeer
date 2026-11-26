@@ -365,14 +365,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     callInfo.ArgAt<HydraRingCalculationSettings>(0));
-                             });
+                             .Do(callInfo => HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                                     assessmentSection.HydraulicBoundaryData,
+                                                     hydraulicBoundaryLocation),
+                                                 callInfo.ArgAt<HydraRingCalculationSettings>(0)));
             calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(waveConditionsCosineCalculator);
 
@@ -778,14 +775,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(callInfo =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                         assessmentSection.HydraulicBoundaryData,
-                                         hydraulicBoundaryLocation),
-                                     callInfo.ArgAt<HydraRingCalculationSettings>(0));
-                             });
+                             .Do(callInfo => HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
+                                                     assessmentSection.HydraulicBoundaryData,
+                                                     hydraulicBoundaryLocation),
+                                                 callInfo.ArgAt<HydraRingCalculationSettings>(0)));
             calculatorFactory.CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(new TestWaveConditionsCosineCalculator());
 

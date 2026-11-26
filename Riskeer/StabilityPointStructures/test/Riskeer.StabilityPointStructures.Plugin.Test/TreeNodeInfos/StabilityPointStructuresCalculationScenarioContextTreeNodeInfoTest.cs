@@ -832,13 +832,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
-                                                                                                hydraulicBoundaryLocation),
-                                     (HydraRingCalculationSettings) invocation[0]);
-                             });
+                             .Do(invocation => HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                                   HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                                                              hydraulicBoundaryLocation),
+                                                   (HydraRingCalculationSettings) invocation[0]));
             calculatorFactory.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
 

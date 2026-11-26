@@ -152,7 +152,7 @@ namespace Riskeer.Common.Service.Test
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null)))
-                             .Do(callInfo => { actualSettings = (HydraRingCalculationSettings) callInfo[0]; });
+                             .Do(callInfo => actualSettings = (HydraRingCalculationSettings) callInfo[0]);
             calculatorFactory.CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null))
                              .Returns(calculator);
 

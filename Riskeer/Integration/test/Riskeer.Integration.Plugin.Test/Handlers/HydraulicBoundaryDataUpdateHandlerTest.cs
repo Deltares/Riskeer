@@ -173,10 +173,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             var duneLocationsUpdateHandler = Substitute.For<IDuneLocationsUpdateHandler>();
             duneLocationsUpdateHandler.When(h => h.AddLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations => locations != null)))
-                                      .Do(invocation =>
-                                      {
-                                          Assert.AreSame(hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations, invocation.Arg<IEnumerable<HydraulicBoundaryLocation>>());
-                                      });
+                                      .Do(invocation => Assert.AreSame(hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations, invocation.Arg<IEnumerable<HydraulicBoundaryLocation>>()));
             const string hrdFilePath = "some/file/path";
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsUpdateHandler);
 
@@ -333,10 +330,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             HydraulicBoundaryData hydraulicBoundaryData = assessmentSection.HydraulicBoundaryData;
             var duneLocationsUpdateHandler = Substitute.For<IDuneLocationsUpdateHandler>();
             duneLocationsUpdateHandler.When(h => h.AddLocations(Arg.Is<IEnumerable<HydraulicBoundaryLocation>>(locations => locations != null)))
-                                      .Do(invocation =>
-                                      {
-                                          Assert.AreSame(hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations, invocation.Arg<IEnumerable<HydraulicBoundaryLocation>>());
-                                      });
+                                      .Do(invocation => Assert.AreSame(hydraulicBoundaryData.HydraulicBoundaryDatabases.First().Locations, invocation.Arg<IEnumerable<HydraulicBoundaryLocation>>()));
             var handler = new HydraulicBoundaryDataUpdateHandler(assessmentSection, duneLocationsUpdateHandler);
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
