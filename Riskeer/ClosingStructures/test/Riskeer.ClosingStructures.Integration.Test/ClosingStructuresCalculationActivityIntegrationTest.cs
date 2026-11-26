@@ -114,7 +114,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
                 {
-                    string[] msgs = [.. messages];
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
                     Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);

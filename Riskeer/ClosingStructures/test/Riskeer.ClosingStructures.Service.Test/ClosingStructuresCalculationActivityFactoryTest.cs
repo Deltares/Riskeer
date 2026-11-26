@@ -268,14 +268,11 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                        HydraulicBoundaryData hydraulicBoundaryData)
         {
             var testCalculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
+            HydraRingCalculationSettings actualSettings = null;
 
             var calculatorFactory = Substitute.For<IHydraRingCalculatorFactory>();
             calculatorFactory.When(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>()))
-                             .Do(callInfo => HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(
-                                                     hydraulicBoundaryData,
-                                                     calculation.InputParameters.HydraulicBoundaryLocation),
-                                                 (HydraRingCalculationSettings) callInfo[0]));
+                             .Do(callInfo => actualSettings = (HydraRingCalculationSettings) callInfo[0]);
             calculatorFactory.CreateStructuresCalculator<StructuresClosureCalculationInput>(Arg.Any<HydraRingCalculationSettings>())
                              .Returns(testCalculator);
 
@@ -288,8 +285,10 @@ namespace Riskeer.ClosingStructures.Service.Test
                                 actualInput.Variables.Single(v => v.VariableId == 105).Value);
             }
 
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                Arg.Any<HydraRingCalculationSettings>());
+            HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,
+                                                                           calculation.InputParameters.HydraulicBoundaryLocation),
+                actualSettings);
         }
     }
 }
