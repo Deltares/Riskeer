@@ -410,6 +410,7 @@ namespace Core.Gui.Test.Commands
 
             var projectMigrator = Substitute.For<IMigrateProject>();
             projectMigrator.ShouldMigrate(pathToSomeValidFile).Returns(MigrationRequired.Yes);
+            projectMigrator.DetermineMigrationLocation(pathToSomeValidFile).Returns("");
 
             var projectFactory = Substitute.For<IProjectFactory>();
             var projectOwner = Substitute.For<IProjectOwner>();
