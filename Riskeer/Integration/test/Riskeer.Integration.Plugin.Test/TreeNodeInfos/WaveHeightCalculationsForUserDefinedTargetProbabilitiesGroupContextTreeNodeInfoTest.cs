@@ -525,8 +525,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             }
 
-            calculatorFactory.Received(2)
-                             .CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(2).CreateWaveHeightCalculator(Arg.Any<HydraRingCalculationSettings>());
 
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {

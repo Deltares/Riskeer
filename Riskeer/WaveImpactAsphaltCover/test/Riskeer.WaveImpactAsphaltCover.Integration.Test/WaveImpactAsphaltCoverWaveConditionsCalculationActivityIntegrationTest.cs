@@ -155,8 +155,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                 }
             }
 
-            calculatorFactory.Received(waterLevels.Length)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(waterLevels.Length).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -218,8 +217,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                 }
             }
 
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
@@ -276,8 +274,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                 Assert.AreEqual(ActivityState.Canceled, activity.State);
             }
 
-            calculatorFactory.Received(1)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -316,8 +313,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                 Assert.IsNull(calculation.Output);
             }
 
-            calculatorFactory.Received(1)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]

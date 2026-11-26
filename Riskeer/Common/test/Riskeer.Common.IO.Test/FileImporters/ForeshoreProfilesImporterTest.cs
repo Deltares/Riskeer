@@ -203,8 +203,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 4);
             Assert.IsTrue(importResult);
-            strategy.Received(1)
-                    .UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -295,8 +294,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             };
             ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressMessages,
                                                                                progressChangeNotifications);
-            strategy.Received(1)
-                    .UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -362,8 +360,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             observer.DidNotReceive().UpdateObserver();
-            strategy.Received(1)
-                    .UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -422,8 +419,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressMessages,
                                                                                progressChangeNotifications);
             observer.DidNotReceive().UpdateObserver();
-            strategy.Received(1)
-                    .UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -539,8 +535,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
-            strategy.Received(1)
-                    .UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
         }
 
         [Test]
@@ -570,8 +565,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             string expectedMessage = $"error {exceptionMessage}";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
-            strategy.Received(1)
-                    .UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
+            strategy.Received(1).UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
         }
 
         [Test]

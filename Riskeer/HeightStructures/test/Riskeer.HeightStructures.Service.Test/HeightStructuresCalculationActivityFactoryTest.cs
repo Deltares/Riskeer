@@ -288,8 +288,7 @@ namespace Riskeer.HeightStructures.Service.Test
                                 actualInput.Variables.Single(v => v.VariableId == 105).Value);
             }
 
-            calculatorFactory.Received(1)
-                             .CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
 
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryData,

@@ -989,8 +989,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     CalculationServiceTestHelper.AssertCalculationEndMessage(messages[13]);
                     Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[14]);
                 });
-                calculatorFactory.Received(nrOfCalculators)
-                                 .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+                calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
                 Assert.AreEqual(3, calculation.Output.Items.Count());
                 observer.Received(1).UpdateObserver();
             }

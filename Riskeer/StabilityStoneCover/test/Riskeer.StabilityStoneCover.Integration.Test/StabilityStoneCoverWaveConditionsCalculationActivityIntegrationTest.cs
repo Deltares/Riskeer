@@ -157,8 +157,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 }
             }
 
-            calculatorFactory.Received(waterLevels.Length * 2)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(waterLevels.Length * 2).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -235,8 +234,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 }
             }
 
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -289,8 +287,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 Assert.AreEqual(ActivityState.Canceled, activity.State);
             }
 
-            calculatorFactory.Received(1)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -353,8 +350,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 Assert.AreEqual(ActivityState.Canceled, activity.State);
             }
 
-            calculatorFactory.Received(4)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(4).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -393,8 +389,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 Assert.IsNull(calculation.Output);
             }
 
-            calculatorFactory.Received(1)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(1).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]

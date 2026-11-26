@@ -261,8 +261,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 }
             }
 
-            calculatorFactory.Received(nrOfCalculations)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculations).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
     }
 }

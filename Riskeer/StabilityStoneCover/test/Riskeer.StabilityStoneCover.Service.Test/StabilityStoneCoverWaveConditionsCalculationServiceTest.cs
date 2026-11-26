@@ -170,8 +170,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             }
 
             int nrOfCalculators = waterLevels.Length * 2;
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -227,8 +226,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             }
 
             int nrOfCalculators = waterLevels.Length * 2;
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -287,8 +285,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             int nrOfCalculators = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
                                       ? waterLevels.Length * 2
                                       : waterLevels.Length;
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -513,8 +510,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             int nrOfCalculators = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
                                       ? GetWaterLevels(calculation, assessmentSection).Count() * 2
                                       : GetWaterLevels(calculation, assessmentSection).Count();
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -812,8 +808,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
             // Assert
             int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
             foreach (HydraRingCalculationSettings actualSettings in actualSettingsList)
             {
                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(

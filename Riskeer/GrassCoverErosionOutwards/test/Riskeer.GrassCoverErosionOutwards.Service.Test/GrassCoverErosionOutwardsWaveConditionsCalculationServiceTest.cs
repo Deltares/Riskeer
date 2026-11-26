@@ -188,8 +188,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 });
             }
 
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -251,8 +250,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 });
             }
 
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -339,8 +337,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 });
             }
 
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -449,8 +446,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 }
             }
 
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -480,8 +476,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 Assert.IsFalse(calculation.HasOutput);
             }
 
-            calculatorFactory.DidNotReceive()
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.DidNotReceive().CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -573,8 +568,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 }
             }
 
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -661,8 +655,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 Assert.IsNull(calculation.Output);
             }
 
-            calculatorFactory.Received(failingCalculationCount)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(failingCalculationCount).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -754,8 +747,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                   waveImpactOutputs[0]);
             }
 
-            calculatorFactory.Received(9)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(9).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
@@ -794,8 +786,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             }
 
             // Assert
-            calculatorFactory.Received(nrOfCalculators)
-                             .CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
+            calculatorFactory.Received(nrOfCalculators).CreateWaveConditionsCosineCalculator(Arg.Any<HydraRingCalculationSettings>());
         }
 
         [Test]
