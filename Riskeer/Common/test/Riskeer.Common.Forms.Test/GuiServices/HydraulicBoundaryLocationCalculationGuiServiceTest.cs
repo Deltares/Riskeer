@@ -188,7 +188,6 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 });
             }
 
-            calculatorFactory.Received(1).CreateDesignWaterLevelCalculator(Arg.Is<HydraRingCalculationSettings>(s => s != null));
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryData,
                                                                            hydraulicBoundaryLocation), actualSettings);

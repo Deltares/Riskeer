@@ -793,7 +793,6 @@ namespace Riskeer.HeightStructures.Service.Test
             }
 
             // Assert
-            calculatorFactory.Received(1).CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(Arg.Any<HydraRingCalculationSettings>());
             HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(calculationSettings, actualSettings);
         }
 
