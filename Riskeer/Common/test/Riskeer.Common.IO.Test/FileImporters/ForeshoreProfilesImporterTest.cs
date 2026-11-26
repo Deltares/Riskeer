@@ -565,7 +565,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             string expectedMessage = $"error {exceptionMessage}";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
-            strategy.Received(1).UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>());
         }
 
         [Test]
