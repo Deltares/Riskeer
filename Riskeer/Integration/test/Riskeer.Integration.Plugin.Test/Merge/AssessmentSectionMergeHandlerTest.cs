@@ -598,7 +598,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             sourceHydraulicBoundaryDatabase.FilePath = "hbd2.sql";
             var documentViewController = Substitute.For<IDocumentViewController>();
             var hydraulicBoundaryDataUpdateHandler = Substitute.For<IHydraulicBoundaryDataUpdateHandler>();
-            hydraulicBoundaryDataUpdateHandler.When(h=>h.AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase))
+            hydraulicBoundaryDataUpdateHandler.When(h => h.AddHydraulicBoundaryDatabase(sourceHydraulicBoundaryDatabase))
                                               .Do(_ => targetAssessmentSection.HydraulicBoundaryData.HydraulicBoundaryDatabases.Add(sourceHydraulicBoundaryDatabase));
             var handler = new AssessmentSectionMergeHandler(documentViewController);
 

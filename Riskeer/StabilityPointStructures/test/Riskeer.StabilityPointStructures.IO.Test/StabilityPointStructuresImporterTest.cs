@@ -108,33 +108,34 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())).Do(i =>
-            {
-                Assert.AreEqual(filePath, i[1]);
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
+                          .Do(i =>
+                          {
+                              Assert.AreEqual(filePath, i[1]);
 
-                var structures = (IEnumerable<StabilityPointStructure>) i[0];
+                              var structures = (IEnumerable<StabilityPointStructure>) i[0];
 
-                Assert.AreEqual(1, structures.Count());
-                StabilityPointStructure structure = structures.First();
-                Assert.AreEqual(0.5, structure.StorageStructureArea.CoefficientOfVariation.Value);
-                Assert.AreEqual(2, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-                Assert.AreEqual(4, structure.WidthFlowApertures.StandardDeviation.Value);
-                Assert.AreEqual(4, structure.InsideWaterLevel.StandardDeviation.Value);
-                Assert.AreEqual(6, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
-                Assert.AreEqual(1.5, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
-                Assert.AreEqual(8, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-                Assert.AreEqual(2, structure.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation.Value);
-                Assert.AreEqual(2.5, structure.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation.Value);
-                Assert.AreEqual(10, structure.BankWidth.StandardDeviation.Value);
-                Assert.AreEqual(12, structure.InsideWaterLevelFailureConstruction.StandardDeviation.Value);
-                Assert.AreEqual(14, structure.LevelCrestStructure.StandardDeviation.Value);
-                Assert.AreEqual(3.5, structure.FailureCollisionEnergy.CoefficientOfVariation.Value);
-                Assert.AreEqual(4, structure.ShipMass.CoefficientOfVariation.Value);
-                Assert.AreEqual(4.5, structure.ShipVelocity.CoefficientOfVariation.Value);
-                Assert.AreEqual(5, structure.StabilityLinearLoadModel.CoefficientOfVariation.Value);
-                Assert.AreEqual(5.5, structure.StabilityQuadraticLoadModel.CoefficientOfVariation.Value);
-                Assert.AreEqual(22, structure.AreaFlowApertures.StandardDeviation.Value);
-            });
+                              Assert.AreEqual(1, structures.Count());
+                              StabilityPointStructure structure = structures.First();
+                              Assert.AreEqual(0.5, structure.StorageStructureArea.CoefficientOfVariation.Value);
+                              Assert.AreEqual(2, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+                              Assert.AreEqual(4, structure.WidthFlowApertures.StandardDeviation.Value);
+                              Assert.AreEqual(4, structure.InsideWaterLevel.StandardDeviation.Value);
+                              Assert.AreEqual(6, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
+                              Assert.AreEqual(1.5, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+                              Assert.AreEqual(8, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+                              Assert.AreEqual(2, structure.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation.Value);
+                              Assert.AreEqual(2.5, structure.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation.Value);
+                              Assert.AreEqual(10, structure.BankWidth.StandardDeviation.Value);
+                              Assert.AreEqual(12, structure.InsideWaterLevelFailureConstruction.StandardDeviation.Value);
+                              Assert.AreEqual(14, structure.LevelCrestStructure.StandardDeviation.Value);
+                              Assert.AreEqual(3.5, structure.FailureCollisionEnergy.CoefficientOfVariation.Value);
+                              Assert.AreEqual(4, structure.ShipMass.CoefficientOfVariation.Value);
+                              Assert.AreEqual(4.5, structure.ShipVelocity.CoefficientOfVariation.Value);
+                              Assert.AreEqual(5, structure.StabilityLinearLoadModel.CoefficientOfVariation.Value);
+                              Assert.AreEqual(5.5, structure.StabilityQuadraticLoadModel.CoefficientOfVariation.Value);
+                              Assert.AreEqual(22, structure.AreaFlowApertures.StandardDeviation.Value);
+                          });
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget,
@@ -220,11 +221,12 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())).Do(i =>
-            {
-                Assert.AreEqual(filePath, i[1]);
-                Assert.AreEqual(4, ((IEnumerable<StabilityPointStructure>) i[0]).Count());
-            });
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
+                          .Do(i =>
+                          {
+                              Assert.AreEqual(filePath, i[1]);
+                              Assert.AreEqual(4, ((IEnumerable<StabilityPointStructure>) i[0]).Count());
+                          });
 
             var referencePoints = new List<Point2D>
             {
@@ -263,26 +265,27 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())).Do(i =>
-            {
-                Assert.AreEqual(filePath, i[1]);
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
+                          .Do(i =>
+                          {
+                              Assert.AreEqual(filePath, i[1]);
 
-                var readStructures = (IEnumerable<StabilityPointStructure>) i[0];
+                              var readStructures = (IEnumerable<StabilityPointStructure>) i[0];
 
-                Assert.AreEqual(1, readStructures.Count());
-                StabilityPointStructure importedStructure = readStructures.First();
-                var defaultStructure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
-                {
-                    Name = "test",
-                    Location = new Point2D(0, 0),
-                    Id = "id"
-                });
-                DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
-                DistributionAssert.AreEqual(defaultStructure.ThresholdHeightOpenWeir, importedStructure.ThresholdHeightOpenWeir);
-                DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);
-                Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
-                DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
-            });
+                              Assert.AreEqual(1, readStructures.Count());
+                              StabilityPointStructure importedStructure = readStructures.First();
+                              var defaultStructure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
+                              {
+                                  Name = "test",
+                                  Location = new Point2D(0, 0),
+                                  Id = "id"
+                              });
+                              DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
+                              DistributionAssert.AreEqual(defaultStructure.ThresholdHeightOpenWeir, importedStructure.ThresholdHeightOpenWeir);
+                              DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);
+                              Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
+                              DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+                          });
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget,
@@ -325,26 +328,27 @@ namespace Riskeer.StabilityPointStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>())).Do(i =>
-            {
-                Assert.AreEqual(filePath, i[1]);
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<StabilityPointStructure>>(), Arg.Any<string>()))
+                          .Do(i =>
+                          {
+                              Assert.AreEqual(filePath, i[1]);
 
-                var readStructures = (IEnumerable<StabilityPointStructure>) i[0];
+                              var readStructures = (IEnumerable<StabilityPointStructure>) i[0];
 
-                Assert.AreEqual(1, readStructures.Count());
-                StabilityPointStructure importedStructure = readStructures.First();
-                var defaultStructure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
-                {
-                    Name = "test",
-                    Location = new Point2D(0, 0),
-                    Id = "id"
-                });
-                DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
-                DistributionAssert.AreEqual(defaultStructure.ThresholdHeightOpenWeir, importedStructure.ThresholdHeightOpenWeir);
-                DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);
-                Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
-                DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
-            });
+                              Assert.AreEqual(1, readStructures.Count());
+                              StabilityPointStructure importedStructure = readStructures.First();
+                              var defaultStructure = new StabilityPointStructure(new StabilityPointStructure.ConstructionProperties
+                              {
+                                  Name = "test",
+                                  Location = new Point2D(0, 0),
+                                  Id = "id"
+                              });
+                              DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
+                              DistributionAssert.AreEqual(defaultStructure.ThresholdHeightOpenWeir, importedStructure.ThresholdHeightOpenWeir);
+                              DistributionAssert.AreEqual(defaultStructure.InsideWaterLevelFailureConstruction, importedStructure.InsideWaterLevelFailureConstruction);
+                              Assert.AreEqual(defaultStructure.LevellingCount, importedStructure.LevellingCount);
+                              DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+                          });
 
             ReferenceLine referenceLine = CreateReferenceLine();
             var structuresImporter = new StabilityPointStructuresImporter(importTarget,

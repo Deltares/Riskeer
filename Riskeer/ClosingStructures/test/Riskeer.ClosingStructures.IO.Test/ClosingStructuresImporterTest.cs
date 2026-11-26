@@ -121,24 +121,25 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
-            {
-                Assert.AreEqual(filePath, i[1]);
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()))
+                          .Do(i =>
+                          {
+                              Assert.AreEqual(filePath, i[1]);
 
-                var closingStructures = (IEnumerable<ClosingStructure>) i[0];
-                Assert.AreEqual(1, closingStructures.Count());
+                              var closingStructures = (IEnumerable<ClosingStructure>) i[0];
+                              Assert.AreEqual(1, closingStructures.Count());
 
-                ClosingStructure structure = closingStructures.First();
-                Assert.AreEqual(0.2, structure.StorageStructureArea.CoefficientOfVariation.Value);
-                Assert.AreEqual(20, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-                Assert.AreEqual(50, structure.WidthFlowApertures.StandardDeviation.Value);
-                Assert.AreEqual(2.2, structure.LevelCrestStructureNotClosing.StandardDeviation.Value);
-                Assert.AreEqual(3.3, structure.InsideWaterLevel.StandardDeviation.Value);
-                Assert.AreEqual(4.4, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
-                Assert.AreEqual(5.5, structure.AreaFlowApertures.StandardDeviation.Value);
-                Assert.AreEqual(0.1, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
-                Assert.AreEqual(6.6, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-            });
+                              ClosingStructure structure = closingStructures.First();
+                              Assert.AreEqual(0.2, structure.StorageStructureArea.CoefficientOfVariation.Value);
+                              Assert.AreEqual(20, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+                              Assert.AreEqual(50, structure.WidthFlowApertures.StandardDeviation.Value);
+                              Assert.AreEqual(2.2, structure.LevelCrestStructureNotClosing.StandardDeviation.Value);
+                              Assert.AreEqual(3.3, structure.InsideWaterLevel.StandardDeviation.Value);
+                              Assert.AreEqual(4.4, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
+                              Assert.AreEqual(5.5, structure.AreaFlowApertures.StandardDeviation.Value);
+                              Assert.AreEqual(0.1, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+                              Assert.AreEqual(6.6, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+                          });
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -211,11 +212,12 @@ namespace Riskeer.ClosingStructures.IO.Test
                                            "Kunstwerken.shp");
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
-            {
-                Assert.AreEqual(filePath, i[1]);
-                Assert.AreEqual(4, ((IEnumerable<ClosingStructure>) i[0]).Count());
-            });
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()))
+                          .Do(i =>
+                          {
+                              Assert.AreEqual(filePath, i[1]);
+                              Assert.AreEqual(4, ((IEnumerable<ClosingStructure>) i[0]).Count());
+                          });
 
             var referencePoints = new List<Point2D>
             {
@@ -249,25 +251,26 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
-            {
-                Assert.AreEqual(filePath, i[1]);
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()))
+                          .Do(i =>
+                          {
+                              Assert.AreEqual(filePath, i[1]);
 
-                var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
-                {
-                    Name = "test",
-                    Location = new Point2D(0, 0),
-                    Id = "id"
-                });
+                              var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
+                              {
+                                  Name = "test",
+                                  Location = new Point2D(0, 0),
+                                  Id = "id"
+                              });
 
-                var readStructures = (IEnumerable<ClosingStructure>) i[0];
-                Assert.AreEqual(1, readStructures.Count());
-                ClosingStructure importedStructure = readStructures.First();
-                DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
-                DistributionAssert.AreEqual(defaultStructure.LevelCrestStructureNotClosing, importedStructure.LevelCrestStructureNotClosing);
-                DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
-                Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
-            });
+                              var readStructures = (IEnumerable<ClosingStructure>) i[0];
+                              Assert.AreEqual(1, readStructures.Count());
+                              ClosingStructure importedStructure = readStructures.First();
+                              DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
+                              DistributionAssert.AreEqual(defaultStructure.LevelCrestStructureNotClosing, importedStructure.LevelCrestStructureNotClosing);
+                              DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+                              Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
+                          });
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -306,25 +309,26 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var updateStrategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(i =>
-            {
-                Assert.AreEqual(filePath, i[1]);
+            updateStrategy.When(us => us.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()))
+                          .Do(i =>
+                          {
+                              Assert.AreEqual(filePath, i[1]);
 
-                var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
-                {
-                    Name = "test",
-                    Location = new Point2D(0, 0),
-                    Id = "id"
-                });
+                              var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
+                              {
+                                  Name = "test",
+                                  Location = new Point2D(0, 0),
+                                  Id = "id"
+                              });
 
-                var readStructures = (IEnumerable<ClosingStructure>) i[0];
-                Assert.AreEqual(1, readStructures.Count());
-                ClosingStructure importedStructure = readStructures.First();
-                DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
-                DistributionAssert.AreEqual(defaultStructure.LevelCrestStructureNotClosing, importedStructure.LevelCrestStructureNotClosing);
-                DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
-                Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
-            });
+                              var readStructures = (IEnumerable<ClosingStructure>) i[0];
+                              Assert.AreEqual(1, readStructures.Count());
+                              ClosingStructure importedStructure = readStructures.First();
+                              DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
+                              DistributionAssert.AreEqual(defaultStructure.LevelCrestStructureNotClosing, importedStructure.LevelCrestStructureNotClosing);
+                              DistributionAssert.AreEqual(defaultStructure.AreaFlowApertures, importedStructure.AreaFlowApertures);
+                              Assert.AreEqual(defaultStructure.FailureProbabilityReparation, importedStructure.FailureProbabilityReparation);
+                          });
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -363,13 +367,14 @@ namespace Riskeer.ClosingStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<ClosingStructure>>();
-            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>())).Do(invocation =>
-            {
-                Assert.AreEqual(filePath, invocation[1]);
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<ClosingStructure>>(), Arg.Any<string>()))
+                    .Do(invocation =>
+                    {
+                        Assert.AreEqual(filePath, invocation[1]);
 
-                var readStructures = (IEnumerable<ClosingStructure>) invocation[0];
-                Assert.AreEqual(1, readStructures.Count());
-            });
+                        var readStructures = (IEnumerable<ClosingStructure>) invocation[0];
+                        Assert.AreEqual(1, readStructures.Count());
+                    });
 
             var referencePoints = new List<Point2D>
             {

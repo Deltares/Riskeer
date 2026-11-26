@@ -120,20 +120,21 @@ namespace Riskeer.HeightStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
-            {
-                Assert.AreEqual(filePath, invocation[1]);
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()))
+                    .Do(invocation =>
+                    {
+                        Assert.AreEqual(filePath, invocation[1]);
 
-                var readStructures = (IEnumerable<HeightStructure>) invocation[0];
-                Assert.AreEqual(1, readStructures.Count());
-                HeightStructure structure = readStructures.First();
-                Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
-                Assert.AreEqual(0.24, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-                Assert.AreEqual(1.0, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
-                Assert.AreEqual(0.97, structure.WidthFlowApertures.StandardDeviation.Value);
-                Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
-                Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-            });
+                        var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                        Assert.AreEqual(1, readStructures.Count());
+                        HeightStructure structure = readStructures.First();
+                        Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
+                        Assert.AreEqual(0.24, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+                        Assert.AreEqual(1.0, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+                        Assert.AreEqual(0.97, structure.WidthFlowApertures.StandardDeviation.Value);
+                        Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
+                        Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+                    });
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -203,23 +204,24 @@ namespace Riskeer.HeightStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
-            {
-                Assert.AreEqual(filePath, invocation[1]);
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()))
+                    .Do(invocation =>
+                    {
+                        Assert.AreEqual(filePath, invocation[1]);
 
-                var readStructures = (IEnumerable<HeightStructure>) invocation[0];
-                Assert.AreEqual(1, readStructures.Count());
-                HeightStructure structure = readStructures.First();
-                var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
-                {
-                    Name = "test",
-                    Location = new Point2D(0, 0),
-                    Id = "id"
-                });
-                Assert.AreEqual(defaultStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
-                DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
-                Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
-            });
+                        var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                        Assert.AreEqual(1, readStructures.Count());
+                        HeightStructure structure = readStructures.First();
+                        var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
+                        {
+                            Name = "test",
+                            Location = new Point2D(0, 0),
+                            Id = "id"
+                        });
+                        Assert.AreEqual(defaultStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
+                        DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
+                        Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
+                    });
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -258,23 +260,24 @@ namespace Riskeer.HeightStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
-            {
-                Assert.AreEqual(filePath, invocation[1]);
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()))
+                    .Do(invocation =>
+                    {
+                        Assert.AreEqual(filePath, invocation[1]);
 
-                var readStructures = (IEnumerable<HeightStructure>) invocation[0];
-                Assert.AreEqual(1, readStructures.Count());
-                HeightStructure structure = readStructures.First();
-                var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
-                {
-                    Name = "test",
-                    Location = new Point2D(0, 0),
-                    Id = "id"
-                });
-                Assert.AreEqual(defaultStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
-                DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
-                Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
-            });
+                        var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                        Assert.AreEqual(1, readStructures.Count());
+                        HeightStructure structure = readStructures.First();
+                        var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
+                        {
+                            Name = "test",
+                            Location = new Point2D(0, 0),
+                            Id = "id"
+                        });
+                        Assert.AreEqual(defaultStructure.StructureNormalOrientation, structure.StructureNormalOrientation);
+                        DistributionAssert.AreEqual(defaultStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
+                        Assert.AreEqual(defaultStructure.FailureProbabilityStructureWithErosion, structure.FailureProbabilityStructureWithErosion);
+                    });
 
             ReferenceLine referenceLine = CreateReferenceLine();
 
@@ -313,13 +316,14 @@ namespace Riskeer.HeightStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
-            {
-                Assert.AreEqual(filePath, invocation[1]);
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()))
+                    .Do(invocation =>
+                    {
+                        Assert.AreEqual(filePath, invocation[1]);
 
-                var readStructures = (IEnumerable<HeightStructure>) invocation[0];
-                Assert.AreEqual(4, readStructures.Count());
-            });
+                        var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                        Assert.AreEqual(4, readStructures.Count());
+                    });
 
             var referencePoints = new List<Point2D>
             {
@@ -354,13 +358,14 @@ namespace Riskeer.HeightStructures.IO.Test
 
             var messageProvider = Substitute.For<IImporterMessageProvider>();
             var strategy = Substitute.For<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>())).Do(invocation =>
-            {
-                Assert.AreEqual(filePath, invocation[1]);
+            strategy.When(s => s.UpdateStructuresWithImportedData(Arg.Any<IEnumerable<HeightStructure>>(), Arg.Any<string>()))
+                    .Do(invocation =>
+                    {
+                        Assert.AreEqual(filePath, invocation[1]);
 
-                var readStructures = (IEnumerable<HeightStructure>) invocation[0];
-                Assert.AreEqual(1, readStructures.Count());
-            });
+                        var readStructures = (IEnumerable<HeightStructure>) invocation[0];
+                        Assert.AreEqual(1, readStructures.Count());
+                    });
 
             var referencePoints = new List<Point2D>
             {

@@ -172,7 +172,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
-            strategy.When(s=>s.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>()))
+            strategy.When(s => s.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>()))
                     .Do(callInfo =>
                     {
                         Assert.AreSame(filePath, callInfo.Args()[1]);
@@ -256,7 +256,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
-            strategy.When(s=> s.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>()))
+            strategy.When(s => s.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>()))
                     .Do(callInfo =>
                     {
                         Assert.AreSame(filePath, callInfo.Args()[1]);
@@ -314,7 +314,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            strategy.When(s=>s.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>()))
+            strategy.When(s => s.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>()))
                     .Do(callInfo =>
                     {
                         Assert.AreSame(filePath, callInfo.Args()[1]);
@@ -381,7 +381,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = Substitute.For<IForeshoreProfileUpdateDataStrategy>();
-            strategy.When(s=>s.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>()))
+            strategy.When(s => s.UpdateForeshoreProfilesWithImportedData(Arg.Any<IEnumerable<ForeshoreProfile>>(), Arg.Any<string>()))
                     .Do(callInfo =>
                     {
                         Assert.AreSame(filePath, callInfo.Args()[1]);
